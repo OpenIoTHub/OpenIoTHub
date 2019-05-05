@@ -81,16 +81,32 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildSessionList() {
-    return new ListView.builder(
-      padding: const EdgeInsets.all(16.0),
-      itemBuilder: (context, i) {
-        if (i.isOdd) return new Divider();
-        if (i > 4) {
-          return null;
-        }
-        return _buildRow();
+    final _result = new Set<String>();
+    _result.add("家");
+    _result.add("公司");
+    final tiles = _result.map(
+          (pair) {
+        return new ListTile(
+          title: new Text(
+            pair,
+            style: _biggerFont,
+          ),
+          trailing: new IconButton(
+            icon: new Icon(Icons.arrow_forward_ios),
+            color: Colors.green,
+            onPressed: () {
+              _pushDetail();
+            },
+          ),
+        );
       },
     );
+    final divided = ListTile.divideTiles(
+      context: context,
+      tiles: tiles,
+    ).toList();
+
+    return new ListView(children: divided);
   }
 
   Widget _buildTCPList() {
@@ -163,14 +179,32 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _pushDetail() {
+    final _result = new Set<String>();
+    _result.add("第一行");
+    _result.add("第二行");
     Navigator.of(context).push(
       new MaterialPageRoute(
         builder: (context) {
+          final tiles = _result.map(
+                (pair) {
+              return new ListTile(
+                title: new Text(
+                  pair,
+                  style: _biggerFont,
+                ),
+              );
+            },
+          );
+          final divided = ListTile.divideTiles(
+            context: context,
+            tiles: tiles,
+          ).toList();
+
           return new Scaffold(
             appBar: new AppBar(
               title: new Text('详情'),
             ),
-            body: new Text("详情"),
+            body: new ListView(children: divided),
           );
         },
       ),
