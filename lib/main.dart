@@ -39,21 +39,21 @@ class _MyHomePageState extends State<MyHomePage> {
                 Icons.pages,
                 color: Colors.white,
               ),
-              onPressed: null),
+              onPressed: (){}),
           actions: <Widget>[
             new IconButton(
                 icon: new Icon(
                   Icons.add_circle,
                   color: Colors.white,
                 ),
-                onPressed: null),
+                onPressed: (){}),
           ],
         ),
-        body: _buildSessions(_currentIndex),
+        body: _buildBody(_currentIndex),
         bottomNavigationBar: _buildBottomNavigationBar(_currentIndex));
   }
 
-  Widget _buildSessions(int index) {
+  Widget _buildBody(int index) {
     return new ListView.builder(
       padding: const EdgeInsets.all(16.0),
       itemBuilder: (context, i) {
@@ -67,7 +67,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildRow(int index) {
-    final alreadySaved = true;
     return new ListTile(
       title: new Text(
         index.toString(),
@@ -80,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
           _pushDetail();
         },
       ),
-      onTap: (){},
+      onTap: () {},
     );
   }
 
@@ -144,7 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
               color: _bottomNavigationColor,
             ),
             title: Text(
-              'User',
+              '我',
               style: TextStyle(color: _bottomNavigationColor),
             )),
       ],
