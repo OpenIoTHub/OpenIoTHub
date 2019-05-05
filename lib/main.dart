@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 
 void main() => runApp(MyApp());
 
@@ -179,6 +180,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _pushDetail() {
+    getHttp();
     final _result = new Set<String>();
     _result.add("第一行");
     _result.add("第二行");
@@ -267,5 +269,15 @@ class _MyHomePageState extends State<MyHomePage> {
         });
       },
     );
+  }
+}
+
+//API操作的工具函数
+void getHttp() async {
+  try {
+    Response response = await Dio().get("http://127.0.0.1:1080/proxy/session/");
+    print(response);
+  } catch (e) {
+    print(e);
   }
 }
