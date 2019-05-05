@@ -39,21 +39,48 @@ class _MyHomePageState extends State<MyHomePage> {
                 Icons.pages,
                 color: Colors.white,
               ),
-              onPressed: (){}),
+              onPressed: () {}),
           actions: <Widget>[
             new IconButton(
                 icon: new Icon(
                   Icons.add_circle,
                   color: Colors.white,
                 ),
-                onPressed: (){}),
+                onPressed: () {}),
           ],
         ),
         body: _buildBody(_currentIndex),
         bottomNavigationBar: _buildBottomNavigationBar(_currentIndex));
   }
 
+//通过index判断展现的类型
   Widget _buildBody(int index) {
+//    0 内网Session
+//    1 TCP
+//    2 UDP
+//    3 FTP
+//    4 账号
+    switch (index) {
+      case 0 :
+        return _buildSessionList();
+        break;
+      case 1 :
+        return _buildTCPList();
+        break;
+      case 2 :
+        return _buildUDPList();
+        break;
+      case 3 :
+        return _buildFTPList();
+        break;
+      case 4 :
+        return _buildAccount();
+        break;
+    }
+    return new Text("没有匹配的内容");
+  }
+
+  Widget _buildSessionList() {
     return new ListView.builder(
       padding: const EdgeInsets.all(16.0),
       itemBuilder: (context, i) {
@@ -61,15 +88,67 @@ class _MyHomePageState extends State<MyHomePage> {
         if (i > 4) {
           return null;
         }
-        return _buildRow(index);
+        return _buildRow();
       },
     );
   }
 
-  Widget _buildRow(int index) {
+  Widget _buildTCPList() {
+    return new ListView.builder(
+      padding: const EdgeInsets.all(16.0),
+      itemBuilder: (context, i) {
+        if (i.isOdd) return new Divider();
+        if (i > 4) {
+          return null;
+        }
+        return _buildRow();
+      },
+    );
+  }
+
+  Widget _buildUDPList() {
+    return new ListView.builder(
+      padding: const EdgeInsets.all(16.0),
+      itemBuilder: (context, i) {
+        if (i.isOdd) return new Divider();
+        if (i > 4) {
+          return null;
+        }
+        return _buildRow();
+      },
+    );
+  }
+
+  Widget _buildFTPList() {
+    return new ListView.builder(
+      padding: const EdgeInsets.all(16.0),
+      itemBuilder: (context, i) {
+        if (i.isOdd) return new Divider();
+        if (i > 4) {
+          return null;
+        }
+        return _buildRow();
+      },
+    );
+  }
+
+  Widget _buildAccount() {
+    return new ListView.builder(
+      padding: const EdgeInsets.all(16.0),
+      itemBuilder: (context, i) {
+        if (i.isOdd) return new Divider();
+        if (i > 4) {
+          return null;
+        }
+        return _buildRow();
+      },
+    );
+  }
+
+  Widget _buildRow() {
     return new ListTile(
       title: new Text(
-        index.toString(),
+        "Row",
         style: _biggerFont,
       ),
       trailing: new IconButton(
