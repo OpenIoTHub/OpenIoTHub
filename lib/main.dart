@@ -180,7 +180,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _pushDetail() {
-    runGrpc();
+    getAllSession();
     final _result = new Set<String>();
     _result.add("第一行");
     _result.add("第二行");
