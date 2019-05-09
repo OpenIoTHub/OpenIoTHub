@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
+import 'dart:async';
+import 'package:grpc/grpc.dart';
+import 'package:nat_explorer/pb/service.pb.dart';
+import 'package:nat_explorer/pb/service.pbgrpc.dart';
 
 void main() => runApp(MyApp());
 
@@ -180,7 +183,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _pushDetail() {
-    getHttp();
+    runGrpc();
     final _result = new Set<String>();
     _result.add("第一行");
     _result.add("第二行");
@@ -273,11 +276,18 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 //API操作的工具函数
-void getHttp() async {
+void runGrpc() async {
+  final channel = new ClientChannel('localhost',
+      port: 2080,
+      options: const ChannelOptions(
+          credentials: const ChannelCredentials.insecure()));
+  final stub = new TCPClient(channel);
   try {
-    Response response = await Dio().get("http://127.0.0.1:1080/proxy/session/");
-    print(response);
+    final response = await stub.getAllTCP(new Empty());
+    print('Greeter client received: ${response.toString()}');
   } catch (e) {
-    print(e);
+    print('Caught error: $e');
   }
+  await channel.shutdown();
 }
+
