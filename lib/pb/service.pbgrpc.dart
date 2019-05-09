@@ -13,6 +13,125 @@ import 'dart:core' as $core show int, String, List;
 import 'service.pb.dart';
 export 'service.pb.dart';
 
+class SessionClient extends $grpc.Client {
+  static final _$createOneSession =
+      $grpc.ClientMethod<SessionConfig, SessionConfig>(
+          '/pb.Session/CreateOneSession',
+          (SessionConfig value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => SessionConfig.fromBuffer(value));
+  static final _$deleteOneSession = $grpc.ClientMethod<OneSession, Empty>(
+      '/pb.Session/DeleteOneSession',
+      (OneSession value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => Empty.fromBuffer(value));
+  static final _$getOneSession = $grpc.ClientMethod<OneSession, SessionConfig>(
+      '/pb.Session/GetOneSession',
+      (OneSession value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => SessionConfig.fromBuffer(value));
+  static final _$getAllSession = $grpc.ClientMethod<Empty, SessionList>(
+      '/pb.Session/GetAllSession',
+      (Empty value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => SessionList.fromBuffer(value));
+
+  SessionClient($grpc.ClientChannel channel, {$grpc.CallOptions options})
+      : super(channel, options: options);
+
+  $grpc.ResponseFuture<SessionConfig> createOneSession(SessionConfig request,
+      {$grpc.CallOptions options}) {
+    final call = $createCall(
+        _$createOneSession, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+
+  $grpc.ResponseFuture<Empty> deleteOneSession(OneSession request,
+      {$grpc.CallOptions options}) {
+    final call = $createCall(
+        _$deleteOneSession, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+
+  $grpc.ResponseFuture<SessionConfig> getOneSession(OneSession request,
+      {$grpc.CallOptions options}) {
+    final call = $createCall(
+        _$getOneSession, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+
+  $grpc.ResponseFuture<SessionList> getAllSession(Empty request,
+      {$grpc.CallOptions options}) {
+    final call = $createCall(
+        _$getAllSession, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+}
+
+abstract class SessionServiceBase extends $grpc.Service {
+  $core.String get $name => 'pb.Session';
+
+  SessionServiceBase() {
+    $addMethod($grpc.ServiceMethod<SessionConfig, SessionConfig>(
+        'CreateOneSession',
+        createOneSession_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => SessionConfig.fromBuffer(value),
+        (SessionConfig value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<OneSession, Empty>(
+        'DeleteOneSession',
+        deleteOneSession_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => OneSession.fromBuffer(value),
+        (Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<OneSession, SessionConfig>(
+        'GetOneSession',
+        getOneSession_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => OneSession.fromBuffer(value),
+        (SessionConfig value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<Empty, SessionList>(
+        'GetAllSession',
+        getAllSession_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => Empty.fromBuffer(value),
+        (SessionList value) => value.writeToBuffer()));
+  }
+
+  $async.Future<SessionConfig> createOneSession_Pre(
+      $grpc.ServiceCall call, $async.Future request) async {
+    return createOneSession(call, await request);
+  }
+
+  $async.Future<Empty> deleteOneSession_Pre(
+      $grpc.ServiceCall call, $async.Future request) async {
+    return deleteOneSession(call, await request);
+  }
+
+  $async.Future<SessionConfig> getOneSession_Pre(
+      $grpc.ServiceCall call, $async.Future request) async {
+    return getOneSession(call, await request);
+  }
+
+  $async.Future<SessionList> getAllSession_Pre(
+      $grpc.ServiceCall call, $async.Future request) async {
+    return getAllSession(call, await request);
+  }
+
+  $async.Future<SessionConfig> createOneSession(
+      $grpc.ServiceCall call, SessionConfig request);
+  $async.Future<Empty> deleteOneSession(
+      $grpc.ServiceCall call, OneSession request);
+  $async.Future<SessionConfig> getOneSession(
+      $grpc.ServiceCall call, OneSession request);
+  $async.Future<SessionList> getAllSession(
+      $grpc.ServiceCall call, Empty request);
+}
+
 class TCPClient extends $grpc.Client {
   static final _$createOneTCP = $grpc.ClientMethod<TCPConfig, TCPConfig>(
       '/pb.TCP/CreateOneTCP',

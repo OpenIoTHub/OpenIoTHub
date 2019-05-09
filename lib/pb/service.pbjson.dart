@@ -4,6 +4,21 @@
 ///
 // ignore_for_file: camel_case_types,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name
 
+const SessionConfig$json = const {
+  '1': 'SessionConfig',
+  '2': const [
+    const {'1': 'Token', '3': 1, '4': 1, '5': 9, '10': 'Token'},
+    const {'1': 'Description', '3': 2, '4': 1, '5': 9, '10': 'Description'},
+  ],
+};
+
+const OneSession$json = const {
+  '1': 'OneSession',
+  '2': const [
+    const {'1': 'RunId', '3': 1, '4': 1, '5': 9, '10': 'RunId'},
+  ],
+};
+
 const TCPConfig$json = const {
   '1': 'TCPConfig',
   '2': const [
@@ -74,6 +89,13 @@ const OpResult$json = const {
   '2': const [
     const {'1': 'Code', '3': 1, '4': 1, '5': 9, '10': 'Code'},
     const {'1': 'Message', '3': 2, '4': 1, '5': 9, '10': 'Message'},
+  ],
+};
+
+const SessionList$json = const {
+  '1': 'SessionList',
+  '2': const [
+    const {'1': 'SessionConfigs', '3': 1, '4': 3, '5': 11, '6': '.pb.SessionConfig', '10': 'SessionConfigs'},
   ],
 };
 

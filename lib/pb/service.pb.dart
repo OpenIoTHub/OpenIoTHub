@@ -8,6 +8,60 @@ import 'dart:core' as $core show bool, Deprecated, double, int, List, Map, overr
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
+class SessionConfig extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('SessionConfig', package: const $pb.PackageName('pb'))
+    ..aOS(1, 'token')
+    ..aOS(2, 'description')
+    ..hasRequiredFields = false
+  ;
+
+  SessionConfig() : super();
+  SessionConfig.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  SessionConfig.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  SessionConfig clone() => SessionConfig()..mergeFromMessage(this);
+  SessionConfig copyWith(void Function(SessionConfig) updates) => super.copyWith((message) => updates(message as SessionConfig));
+  $pb.BuilderInfo get info_ => _i;
+  static SessionConfig create() => SessionConfig();
+  SessionConfig createEmptyInstance() => create();
+  static $pb.PbList<SessionConfig> createRepeated() => $pb.PbList<SessionConfig>();
+  static SessionConfig getDefault() => _defaultInstance ??= create()..freeze();
+  static SessionConfig _defaultInstance;
+
+  $core.String get token => $_getS(0, '');
+  set token($core.String v) { $_setString(0, v); }
+  $core.bool hasToken() => $_has(0);
+  void clearToken() => clearField(1);
+
+  $core.String get description => $_getS(1, '');
+  set description($core.String v) { $_setString(1, v); }
+  $core.bool hasDescription() => $_has(1);
+  void clearDescription() => clearField(2);
+}
+
+class OneSession extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('OneSession', package: const $pb.PackageName('pb'))
+    ..aOS(1, 'runId')
+    ..hasRequiredFields = false
+  ;
+
+  OneSession() : super();
+  OneSession.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  OneSession.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  OneSession clone() => OneSession()..mergeFromMessage(this);
+  OneSession copyWith(void Function(OneSession) updates) => super.copyWith((message) => updates(message as OneSession));
+  $pb.BuilderInfo get info_ => _i;
+  static OneSession create() => OneSession();
+  OneSession createEmptyInstance() => create();
+  static $pb.PbList<OneSession> createRepeated() => $pb.PbList<OneSession>();
+  static OneSession getDefault() => _defaultInstance ??= create()..freeze();
+  static OneSession _defaultInstance;
+
+  $core.String get runId => $_getS(0, '');
+  set runId($core.String v) { $_setString(0, v); }
+  $core.bool hasRunId() => $_has(0);
+  void clearRunId() => clearField(1);
+}
+
 class TCPConfig extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('TCPConfig', package: const $pb.PackageName('pb'))
     ..aOS(1, 'runId')
@@ -336,6 +390,27 @@ class OpResult extends $pb.GeneratedMessage {
   set message($core.String v) { $_setString(1, v); }
   $core.bool hasMessage() => $_has(1);
   void clearMessage() => clearField(2);
+}
+
+class SessionList extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('SessionList', package: const $pb.PackageName('pb'))
+    ..pc<SessionConfig>(1, 'sessionConfigs', $pb.PbFieldType.PM,SessionConfig.create)
+    ..hasRequiredFields = false
+  ;
+
+  SessionList() : super();
+  SessionList.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  SessionList.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  SessionList clone() => SessionList()..mergeFromMessage(this);
+  SessionList copyWith(void Function(SessionList) updates) => super.copyWith((message) => updates(message as SessionList));
+  $pb.BuilderInfo get info_ => _i;
+  static SessionList create() => SessionList();
+  SessionList createEmptyInstance() => create();
+  static $pb.PbList<SessionList> createRepeated() => $pb.PbList<SessionList>();
+  static SessionList getDefault() => _defaultInstance ??= create()..freeze();
+  static SessionList _defaultInstance;
+
+  $core.List<SessionConfig> get sessionConfigs => $_getList(0);
 }
 
 class TCPList extends $pb.GeneratedMessage {
