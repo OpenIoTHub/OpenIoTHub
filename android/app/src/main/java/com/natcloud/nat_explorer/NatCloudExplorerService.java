@@ -54,7 +54,7 @@ public class NatCloudExplorerService extends Service {
         NotificationChannel notificationChannel = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationChannel = new NotificationChannel(CHANNEL_ONE_ID,
-                    CHANNEL_ONE_NAME, NotificationManager.IMPORTANCE_HIGH);
+                    CHANNEL_ONE_NAME, NotificationManager.IMPORTANCE_LOW);
             notificationChannel.enableLights(true);
             notificationChannel.setLightColor(Color.RED);
             notificationChannel.setShowBadge(true);

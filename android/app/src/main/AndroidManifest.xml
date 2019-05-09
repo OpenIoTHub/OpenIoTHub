@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"></uses-permission>
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="nat_explorer"
+        android:label="内网穿透"
         android:icon="@mipmap/ic_launcher">
         <service
             android:name=".NatCloudExplorerService"

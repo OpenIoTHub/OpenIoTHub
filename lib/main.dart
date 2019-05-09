@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nat_explorer/rpc.dart';
+import 'package:nat_explorer/pb/service.pb.dart';
 
 void main() => runApp(MyApp());
 
@@ -82,6 +83,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildSessionList() {
+    var sessions = getAllSession();
+    print("====");
+    print(sessions);
     final _result = new Set<String>();
     _result.add("家");
     _result.add("公司");
@@ -180,7 +184,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _pushDetail() {
-    getAllSession();
     final _result = new Set<String>();
     _result.add("第一行");
     _result.add("第二行");
