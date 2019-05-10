@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nat_explorer/rpc.dart';
-import 'package:nat_explorer/pb/service.pb.dart';
+import 'package:nat_explorer/sessionWidget.dart';
 
 void main() => runApp(MyApp());
 
@@ -34,29 +34,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-          leading: new IconButton(
-              icon: new Icon(
-                Icons.pages,
-                color: Colors.white,
-              ),
-              onPressed: () {}),
-          actions: <Widget>[
-            new IconButton(
-                icon: new Icon(
-                  Icons.refresh,
-                  color: Colors.white,
-                ),
-                onPressed: () {}),
-            new IconButton(
-                icon: new Icon(
-                  Icons.add_circle,
-                  color: Colors.white,
-                ),
-                onPressed: () {}),
-          ],
-        ),
         body: _buildBody(_currentIndex),
         bottomNavigationBar: _buildBottomNavigationBar(_currentIndex));
   }
@@ -70,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //    4 账号
     switch (index) {
       case 0:
-        return _buildSessionList();
+        return new SessionListPage(title:widget.title);
         break;
       case 1:
         return _buildTCPList();
@@ -88,88 +65,92 @@ class _MyHomePageState extends State<MyHomePage> {
     return new Text("没有匹配的内容");
   }
 
-  Widget _buildSessionList() {
-    var sessions = getAllSession();
-    print("====");
-    print(sessions);
-    final _result = new Set<String>();
-    _result.add("家");
-    _result.add("公司");
-    final tiles = _result.map(
-      (pair) {
-        return new ListTile(
-          title: new Text(
-            pair,
-            style: _biggerFont,
-          ),
-          trailing: new IconButton(
-            icon: new Icon(Icons.arrow_forward_ios),
-            color: Colors.green,
-            onPressed: () {
-              _pushDetail();
-            },
-          ),
-        );
-      },
-    );
-    final divided = ListTile.divideTiles(
-      context: context,
-      tiles: tiles,
-    ).toList();
-
-    return new ListView(children: divided);
-  }
-
   Widget _buildTCPList() {
-    return new ListView.builder(
-      padding: const EdgeInsets.all(16.0),
-      itemBuilder: (context, i) {
-        if (i.isOdd) return new Divider();
-        if (i > 4) {
-          return null;
-        }
-        return _buildRow();
-      },
-    );
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+          actions: <Widget>[
+            new IconButton(
+                icon: new Icon(
+                  Icons.refresh,
+                  color: Colors.white,
+                ),
+                onPressed: () {}),
+            new IconButton(
+                icon: new Icon(
+                  Icons.add_circle,
+                  color: Colors.white,
+                ),
+                onPressed: () {}),
+          ],
+        ),
+        body: _buildRow());
   }
 
   Widget _buildUDPList() {
-    return new ListView.builder(
-      padding: const EdgeInsets.all(16.0),
-      itemBuilder: (context, i) {
-        if (i.isOdd) return new Divider();
-        if (i > 4) {
-          return null;
-        }
-        return _buildRow();
-      },
-    );
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+          actions: <Widget>[
+            new IconButton(
+                icon: new Icon(
+                  Icons.refresh,
+                  color: Colors.white,
+                ),
+                onPressed: () {}),
+            new IconButton(
+                icon: new Icon(
+                  Icons.add_circle,
+                  color: Colors.white,
+                ),
+                onPressed: () {}),
+          ],
+        ),
+        body: _buildRow());
   }
 
   Widget _buildFTPList() {
-    return new ListView.builder(
-      padding: const EdgeInsets.all(16.0),
-      itemBuilder: (context, i) {
-        if (i.isOdd) return new Divider();
-        if (i > 4) {
-          return null;
-        }
-        return _buildRow();
-      },
-    );
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+          actions: <Widget>[
+            new IconButton(
+                icon: new Icon(
+                  Icons.refresh,
+                  color: Colors.white,
+                ),
+                onPressed: () {}),
+            new IconButton(
+                icon: new Icon(
+                  Icons.add_circle,
+                  color: Colors.white,
+                ),
+                onPressed: () {}),
+          ],
+        ),
+        body: _buildRow());
   }
 
   Widget _buildAccount() {
-    return new ListView.builder(
-      padding: const EdgeInsets.all(16.0),
-      itemBuilder: (context, i) {
-        if (i.isOdd) return new Divider();
-        if (i > 4) {
-          return null;
-        }
-        return _buildRow();
-      },
-    );
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+          actions: <Widget>[
+            new IconButton(
+                icon: new Icon(
+                  Icons.refresh,
+                  color: Colors.white,
+                ),
+                onPressed: () {}),
+            new IconButton(
+                icon: new Icon(
+                  Icons.add_circle,
+                  color: Colors.white,
+                ),
+                onPressed: () {}),
+          ],
+        ),
+        body: _buildRow());
   }
 
   Widget _buildRow() {

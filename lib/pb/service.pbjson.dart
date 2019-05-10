@@ -7,8 +7,12 @@
 const SessionConfig$json = const {
   '1': 'SessionConfig',
   '2': const [
-    const {'1': 'Token', '3': 1, '4': 1, '5': 9, '10': 'Token'},
-    const {'1': 'Description', '3': 2, '4': 1, '5': 9, '10': 'Description'},
+    const {'1': 'RunId', '3': 1, '4': 1, '5': 9, '10': 'RunId'},
+    const {'1': 'Token', '3': 2, '4': 1, '5': 9, '10': 'Token'},
+    const {'1': 'Description', '3': 3, '4': 1, '5': 9, '10': 'Description'},
+    const {'1': 'StatusToClient', '3': 4, '4': 1, '5': 8, '10': 'StatusToClient'},
+    const {'1': 'StatusP2PAsClient', '3': 5, '4': 1, '5': 8, '10': 'StatusP2PAsClient'},
+    const {'1': 'StatusP2PAsServer', '3': 6, '4': 1, '5': 8, '10': 'StatusP2PAsServer'},
   ],
 };
 

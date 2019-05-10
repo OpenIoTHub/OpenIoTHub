@@ -10,8 +10,12 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 class SessionConfig extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('SessionConfig', package: const $pb.PackageName('pb'))
-    ..aOS(1, 'token')
-    ..aOS(2, 'description')
+    ..aOS(1, 'runId')
+    ..aOS(2, 'token')
+    ..aOS(3, 'description')
+    ..aOB(4, 'statusToClient')
+    ..aOB(5, 'statusP2PAsClient')
+    ..aOB(6, 'statusP2PAsServer')
     ..hasRequiredFields = false
   ;
 
@@ -27,15 +31,35 @@ class SessionConfig extends $pb.GeneratedMessage {
   static SessionConfig getDefault() => _defaultInstance ??= create()..freeze();
   static SessionConfig _defaultInstance;
 
-  $core.String get token => $_getS(0, '');
-  set token($core.String v) { $_setString(0, v); }
-  $core.bool hasToken() => $_has(0);
-  void clearToken() => clearField(1);
+  $core.String get runId => $_getS(0, '');
+  set runId($core.String v) { $_setString(0, v); }
+  $core.bool hasRunId() => $_has(0);
+  void clearRunId() => clearField(1);
 
-  $core.String get description => $_getS(1, '');
-  set description($core.String v) { $_setString(1, v); }
-  $core.bool hasDescription() => $_has(1);
-  void clearDescription() => clearField(2);
+  $core.String get token => $_getS(1, '');
+  set token($core.String v) { $_setString(1, v); }
+  $core.bool hasToken() => $_has(1);
+  void clearToken() => clearField(2);
+
+  $core.String get description => $_getS(2, '');
+  set description($core.String v) { $_setString(2, v); }
+  $core.bool hasDescription() => $_has(2);
+  void clearDescription() => clearField(3);
+
+  $core.bool get statusToClient => $_get(3, false);
+  set statusToClient($core.bool v) { $_setBool(3, v); }
+  $core.bool hasStatusToClient() => $_has(3);
+  void clearStatusToClient() => clearField(4);
+
+  $core.bool get statusP2PAsClient => $_get(4, false);
+  set statusP2PAsClient($core.bool v) { $_setBool(4, v); }
+  $core.bool hasStatusP2PAsClient() => $_has(4);
+  void clearStatusP2PAsClient() => clearField(5);
+
+  $core.bool get statusP2PAsServer => $_get(5, false);
+  set statusP2PAsServer($core.bool v) { $_setBool(5, v); }
+  $core.bool hasStatusP2PAsServer() => $_has(5);
+  void clearStatusP2PAsServer() => clearField(6);
 }
 
 class OneSession extends $pb.GeneratedMessage {
