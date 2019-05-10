@@ -25,7 +25,7 @@ class _SessionListPageState extends State<SessionListPage> {
   @override
   Widget build(BuildContext context) {
     final tiles = _SessionList.map(
-          (pair) {
+      (pair) {
         return new ListTile(
           title: new Text(
             pair.description,
@@ -79,13 +79,14 @@ class _SessionListPageState extends State<SessionListPage> {
     _result.add("ID:${config.runId}");
     _result.add("描述:${config.description}");
     _result.add("连接码:${config.token}");
-    _result.add("转发连接状态:${config.statusToClient?"在线":"离线"}");
-    _result.add("P2P连接状态:${config.statusP2PAsClient||config.statusP2PAsServer?"在线":"离线"}");
+    _result.add("转发连接状态:${config.statusToClient ? "在线" : "离线"}");
+    _result.add(
+        "P2P连接状态:${config.statusP2PAsClient || config.statusP2PAsServer ? "在线" : "离线"}");
     Navigator.of(context).push(
       new MaterialPageRoute(
         builder: (context) {
           final tiles = _result.map(
-                (pair) {
+            (pair) {
               return new ListTile(
                 title: new Text(
                   pair,
@@ -102,6 +103,18 @@ class _SessionListPageState extends State<SessionListPage> {
           return new Scaffold(
             appBar: new AppBar(
               title: new Text('详情'),
+              actions: <Widget>[
+                new IconButton(
+                    icon: new Icon(
+                      Icons.delete,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      var ses = new OneSession();
+                      ses.runId = config.runId;
+                      deleteOneSession(ses);
+                    }),
+              ],
             ),
             body: new ListView(children: divided),
           );
@@ -110,7 +123,7 @@ class _SessionListPageState extends State<SessionListPage> {
     );
   }
 
-Future createOneSession(SessionConfig config) async {
+  Future createOneSession(SessionConfig config) async {
     final channel = new ClientChannel('localhost',
         port: 2080,
         options: const ChannelOptions(
@@ -126,7 +139,7 @@ Future createOneSession(SessionConfig config) async {
     }
   }
 
-Future deleteOneSession(OneSession config) async {
+  Future deleteOneSession(OneSession config) async {
     final channel = new ClientChannel('localhost',
         port: 2080,
         options: const ChannelOptions(
@@ -136,13 +149,51 @@ Future deleteOneSession(OneSession config) async {
       final response = await stub.deleteOneSession(config);
       print('Greeter client received: ${response}');
       await channel.shutdown();
+      showDialog(
+          context: context,
+          builder: (_) => new AlertDialog(
+                  title: new Text("删除结果："),
+                  content: new Text("删除成功！"),
+                  actions: <Widget>[
+                    new FlatButton(
+                      child: new Text("取消"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    new FlatButton(
+                      child: new Text("确认"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  ]));
     } catch (e) {
       print('Caught error: $e');
       await channel.shutdown();
+      showDialog(
+          context: context,
+          builder: (_) => new AlertDialog(
+                  title: new Text("删除结果："),
+                  content: new Text("删除失败！$e"),
+                  actions: <Widget>[
+                    new FlatButton(
+                      child: new Text("取消"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    new FlatButton(
+                      child: new Text("确认"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  ]));
     }
   }
 
-Future getAllSession() async {
+  Future getAllSession() async {
     final channel = new ClientChannel('localhost',
         port: 2080,
         options: const ChannelOptions(
