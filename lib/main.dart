@@ -45,6 +45,12 @@ class _MyHomePageState extends State<MyHomePage> {
           actions: <Widget>[
             new IconButton(
                 icon: new Icon(
+                  Icons.refresh,
+                  color: Colors.white,
+                ),
+                onPressed: () {}),
+            new IconButton(
+                icon: new Icon(
                   Icons.add_circle,
                   color: Colors.white,
                 ),
@@ -63,19 +69,19 @@ class _MyHomePageState extends State<MyHomePage> {
 //    3 FTP
 //    4 账号
     switch (index) {
-      case 0 :
+      case 0:
         return _buildSessionList();
         break;
-      case 1 :
+      case 1:
         return _buildTCPList();
         break;
-      case 2 :
+      case 2:
         return _buildUDPList();
         break;
-      case 3 :
+      case 3:
         return _buildFTPList();
         break;
-      case 4 :
+      case 4:
         return _buildAccount();
         break;
     }
@@ -90,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _result.add("家");
     _result.add("公司");
     final tiles = _result.map(
-          (pair) {
+      (pair) {
         return new ListTile(
           title: new Text(
             pair,
@@ -191,7 +197,7 @@ class _MyHomePageState extends State<MyHomePage> {
       new MaterialPageRoute(
         builder: (context) {
           final tiles = _result.map(
-                (pair) {
+            (pair) {
               return new ListTile(
                 title: new Text(
                   pair,
