@@ -14,7 +14,7 @@ class SessionListPage extends StatefulWidget {
 
 class _SessionListPageState extends State<SessionListPage> {
   final _biggerFont = const TextStyle(fontSize: 18.0);
-  List<SessionConfig> _SessionList;
+  List<SessionConfig> _SessionList = [];
 
   @override
   void initState() {
@@ -78,9 +78,9 @@ class _SessionListPageState extends State<SessionListPage> {
     final _result = new Set<String>();
     _result.add("ID:${config.runId}");
     _result.add("描述:${config.description}");
-    _result.add("Token:${config.token}");
-    _result.add("转发在线:${config.statusToClient}");
-    _result.add("P2P在线:${config.statusP2PAsClient&&config.statusP2PAsServer}");
+    _result.add("连接码:${config.token}");
+    _result.add("转发连接状态:${config.statusToClient?"在线":"离线"}");
+    _result.add("P2P连接状态:${config.statusP2PAsClient||config.statusP2PAsServer?"在线":"离线"}");
     Navigator.of(context).push(
       new MaterialPageRoute(
         builder: (context) {
