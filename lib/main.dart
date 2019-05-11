@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nat_explorer/rpc.dart';
 import 'package:nat_explorer/sessionWidget.dart';
+import 'package:nat_explorer/tcpWidget.dart';
 
 void main() => runApp(MyApp());
 
@@ -50,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
         return new SessionListPage(title:widget.title);
         break;
       case 1:
-        return _buildTCPList();
+        return new TCPListPage(title:widget.title);
         break;
       case 2:
         return _buildUDPList();
