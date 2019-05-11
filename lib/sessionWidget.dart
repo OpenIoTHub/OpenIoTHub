@@ -68,7 +68,54 @@ class _SessionListPageState extends State<SessionListPage> {
                   Icons.add_circle,
                   color: Colors.white,
                 ),
-                onPressed: () {}),
+                onPressed: () {
+                  TextEditingController _token_controller = TextEditingController.fromValue(
+                      TextEditingValue(text: ""));
+                  TextEditingController _description_controller =
+                  TextEditingController.fromValue(TextEditingValue(text: ""));
+                  showDialog(
+                      context: context,
+                      builder: (_) => new AlertDialog(
+                          title: new Text("添加内网："),
+                          content: new ListView(
+                                children: <Widget>[
+                                  new TextFormField(
+                                    controller: _token_controller,
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.all(10.0),
+                                      labelText: '请输入内网端Token',
+                                      helperText: 'token',
+                                    ),
+                                  ),
+                                  new TextFormField(
+                                    controller: _description_controller,
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.all(10.0),
+                                      labelText: '请输入备注',
+                                      helperText: '备注',
+                                    ),
+                                  )
+                                ],
+                              ),
+                          actions: <Widget>[
+                            new FlatButton(
+                              child: new Text("取消"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            new FlatButton(
+                              child: new Text("添加"),
+                              onPressed: () {
+                                SessionConfig config = new SessionConfig();
+                                config.token = _token_controller.text;
+                                config.description = _description_controller.text;
+                                createOneSession(config);
+                                Navigator.of(context).pop();
+                              },
+                            )
+                          ]));
+                }),
           ],
         ),
         body: ListView(children: divided));
@@ -107,7 +154,7 @@ class _SessionListPageState extends State<SessionListPage> {
                 new IconButton(
                     icon: new Icon(
                       Icons.delete,
-                      color: Colors.white,
+                      color: Colors.red,
                     ),
                     onPressed: () {
                       var ses = new OneSession();
@@ -209,6 +256,25 @@ class _SessionListPageState extends State<SessionListPage> {
     } catch (e) {
       print('Caught error: $e');
       await channel.shutdown();
+      showDialog(
+          context: context,
+          builder: (_) => new AlertDialog(
+              title: new Text("获取内网列表失败："),
+              content: new Text("失败原因：$e"),
+              actions: <Widget>[
+                new FlatButton(
+                  child: new Text("取消"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                new FlatButton(
+                  child: new Text("确认"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ]));
     }
   }
 }
