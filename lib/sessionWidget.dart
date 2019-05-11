@@ -110,18 +110,27 @@ class _SessionListPageState extends State<SessionListPage> {
                                 SessionConfig config = new SessionConfig();
                                 config.token = _token_controller.text;
                                 config.description = _description_controller.text;
-                                createOneSession(config);
-                                Navigator.of(context).pop();
+                                createOneSession(config).then((restlt){
+//                                :TODO 添加内网之后刷新列表
+                                  Navigator.of(context).pop();
+                                });
                               },
                             )
-                          ]));
+                          ])).then(
+                          (restlt){
+//                                :TODO 添加内网之后刷新列表
+                        setState(() {
+                          getAllSession();
+                        });
+                      }
+                  );
                 }),
           ],
         ),
         body: ListView(children: divided));
   }
 
-  void _pushDetail(SessionConfig config) {
+  void _pushDetail(SessionConfig config) async {
     final _result = new Set<String>();
     _result.add("ID:${config.runId}");
     _result.add("描述:${config.description}");
@@ -129,7 +138,7 @@ class _SessionListPageState extends State<SessionListPage> {
     _result.add("转发连接状态:${config.statusToClient ? "在线" : "离线"}");
     _result.add(
         "P2P连接状态:${config.statusP2PAsClient || config.statusP2PAsServer ? "在线" : "离线"}");
-    Navigator.of(context).push(
+    await Navigator.of(context).push(
       new MaterialPageRoute(
         builder: (context) {
           final tiles = _result.map(
@@ -174,6 +183,7 @@ class _SessionListPageState extends State<SessionListPage> {
                                   var ses = new OneSession();
                                   ses.runId = config.runId;
                                   deleteOneSession(ses);
+//                                  ：TODO 删除之后刷新列表
                                   Navigator.of(context).pop();
                                 },
                               )
@@ -186,6 +196,9 @@ class _SessionListPageState extends State<SessionListPage> {
         },
       ),
     );
+  setState(() {
+    getAllSession();
+  });
   }
 
   Future createOneSession(SessionConfig config) async {
@@ -220,12 +233,6 @@ class _SessionListPageState extends State<SessionListPage> {
                   title: new Text("删除结果："),
                   content: new Text("删除成功！"),
                   actions: <Widget>[
-                    new FlatButton(
-                      child: new Text("取消"),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
                     new FlatButton(
                       child: new Text("确认"),
                       onPressed: () {
