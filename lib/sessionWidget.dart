@@ -69,15 +69,17 @@ class _SessionListPageState extends State<SessionListPage> {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  TextEditingController _token_controller = TextEditingController.fromValue(
-                      TextEditingValue(text: ""));
+                  TextEditingController _token_controller =
+                      TextEditingController.fromValue(
+                          TextEditingValue(text: ""));
                   TextEditingController _description_controller =
-                  TextEditingController.fromValue(TextEditingValue(text: ""));
+                      TextEditingController.fromValue(
+                          TextEditingValue(text: ""));
                   showDialog(
                       context: context,
                       builder: (_) => new AlertDialog(
-                          title: new Text("添加内网："),
-                          content: new ListView(
+                              title: new Text("添加内网："),
+                              content: new ListView(
                                 children: <Widget>[
                                   new TextFormField(
                                     controller: _token_controller,
@@ -97,33 +99,32 @@ class _SessionListPageState extends State<SessionListPage> {
                                   )
                                 ],
                               ),
-                          actions: <Widget>[
-                            new FlatButton(
-                              child: new Text("取消"),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                            new FlatButton(
-                              child: new Text("添加"),
-                              onPressed: () {
-                                SessionConfig config = new SessionConfig();
-                                config.token = _token_controller.text;
-                                config.description = _description_controller.text;
-                                createOneSession(config).then((restlt){
+                              actions: <Widget>[
+                                new FlatButton(
+                                  child: new Text("取消"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                new FlatButton(
+                                  child: new Text("添加"),
+                                  onPressed: () {
+                                    SessionConfig config = new SessionConfig();
+                                    config.token = _token_controller.text;
+                                    config.description =
+                                        _description_controller.text;
+                                    createOneSession(config).then((restlt) {
 //                                :TODO 添加内网之后刷新列表
-                                  Navigator.of(context).pop();
-                                });
-                              },
-                            )
-                          ])).then(
-                          (restlt){
+                                      Navigator.of(context).pop();
+                                    });
+                                  },
+                                )
+                              ])).then((restlt) {
 //                                :TODO 添加内网之后刷新列表
-                        setState(() {
-                          getAllSession();
-                        });
-                      }
-                  );
+                    setState(() {
+                      getAllSession();
+                    });
+                  });
                 }),
           ],
         ),
@@ -165,29 +166,34 @@ class _SessionListPageState extends State<SessionListPage> {
                       Icons.delete,
                       color: Colors.red,
                     ),
-                    onPressed: () {      showDialog(
-                        context: context,
-                        builder: (_) => new AlertDialog(
-                            title: new Text("删除内网"),
-                            content: new Text("确认删除此内网？"),
-                            actions: <Widget>[
-                              new FlatButton(
-                                child: new Text("取消"),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                              new FlatButton(
-                                child: new Text("删除"),
-                                onPressed: () {
-                                  var ses = new OneSession();
-                                  ses.runId = config.runId;
-                                  deleteOneSession(ses);
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (_) => new AlertDialog(
+                                  title: new Text("删除内网"),
+                                  content: new Text("确认删除此内网？"),
+                                  actions: <Widget>[
+                                    new FlatButton(
+                                      child: new Text("取消"),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                    new FlatButton(
+                                      child: new Text("删除"),
+                                      onPressed: () {
+                                        var ses = new OneSession();
+                                        ses.runId = config.runId;
+                                        deleteOneSession(ses).then((result) {
+                                          setState(() {
+                                            getAllSession();
+                                          });
+                                        });
 //                                  ：TODO 删除之后刷新列表
-                                  Navigator.of(context).pop();
-                                },
-                              )
-                            ]));
+                                        Navigator.of(context).pop();
+                                      },
+                                    )
+                                  ]));
                     }),
               ],
             ),
@@ -195,10 +201,11 @@ class _SessionListPageState extends State<SessionListPage> {
           );
         },
       ),
-    );
-  setState(() {
-    getAllSession();
-  });
+    ).then((result) {
+      setState(() {
+        getAllSession();
+      });
+    });
   }
 
   Future createOneSession(SessionConfig config) async {
@@ -239,7 +246,9 @@ class _SessionListPageState extends State<SessionListPage> {
                         Navigator.of(context).pop();
                       },
                     )
-                  ]));
+                  ])).then((result) {
+        Navigator.of(context).pop();
+      });
     } catch (e) {
       print('Caught error: $e');
       await channel.shutdown();
@@ -284,22 +293,22 @@ class _SessionListPageState extends State<SessionListPage> {
       showDialog(
           context: context,
           builder: (_) => new AlertDialog(
-              title: new Text("获取内网列表失败："),
-              content: new Text("失败原因：$e"),
-              actions: <Widget>[
-                new FlatButton(
-                  child: new Text("取消"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-                new FlatButton(
-                  child: new Text("确认"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                )
-              ]));
+                  title: new Text("获取内网列表失败："),
+                  content: new Text("失败原因：$e"),
+                  actions: <Widget>[
+                    new FlatButton(
+                      child: new Text("取消"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    new FlatButton(
+                      child: new Text("确认"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  ]));
     }
   }
 }
