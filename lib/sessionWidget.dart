@@ -156,10 +156,28 @@ class _SessionListPageState extends State<SessionListPage> {
                       Icons.delete,
                       color: Colors.red,
                     ),
-                    onPressed: () {
-                      var ses = new OneSession();
-                      ses.runId = config.runId;
-                      deleteOneSession(ses);
+                    onPressed: () {      showDialog(
+                        context: context,
+                        builder: (_) => new AlertDialog(
+                            title: new Text("删除内网"),
+                            content: new Text("确认删除此内网？"),
+                            actions: <Widget>[
+                              new FlatButton(
+                                child: new Text("取消"),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              new FlatButton(
+                                child: new Text("删除"),
+                                onPressed: () {
+                                  var ses = new OneSession();
+                                  ses.runId = config.runId;
+                                  deleteOneSession(ses);
+                                  Navigator.of(context).pop();
+                                },
+                              )
+                            ]));
                     }),
               ],
             ),
