@@ -19,7 +19,9 @@ class _SessionListPageState extends State<SessionListPage> {
   @override
   void initState() {
     super.initState();
-    getAllSession();
+    getAllSession().then((v) {
+      setState(() {});
+    });
   }
 
   @override
