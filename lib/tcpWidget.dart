@@ -258,13 +258,14 @@ class _TCPListPageState extends State<TCPListPage> {
                                       child: new Text("删除"),
                                       onPressed: () {
                                         deleteOneTCP(config).then((result) {
-                                          setState(() {});
+                                          Navigator.of(context).pop();
                                         });
 //                                  ：TODO 删除之后刷新列表
-                                        Navigator.of(context).pop();
                                       },
                                     )
-                                  ]));
+                                  ])).then((v) {
+                        Navigator.of(context).pop();
+                      });
                     }),
               ],
             ),
@@ -273,8 +274,8 @@ class _TCPListPageState extends State<TCPListPage> {
         },
       ),
     ).then((result) {
-      setState(() {
-        getAllTCP();
+      getAllTCP().then((v) {
+        setState(() {});
       });
     });
   }
