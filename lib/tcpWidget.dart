@@ -14,6 +14,7 @@ class TCPListPage extends StatefulWidget {
 
 class _TCPListPageState extends State<TCPListPage> {
   final _biggerFont = const TextStyle(fontSize: 18.0);
+  List<SessionConfig> _SessionList = [];
   List<TCPConfig> _TCPList = [];
 
   @override
@@ -59,12 +60,154 @@ class _TCPListPageState extends State<TCPListPage> {
                     getAllTCP();
                   });
                 }),
+            new IconButton(
+                icon: new Icon(
+                  Icons.add_circle,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                    getAllSession().then((v){
+                      final titles = _SessionList.map(
+                            (pair) {
+                          return new ListTile(
+                            title: new Text(
+                              pair.description,
+                              style: _biggerFont,
+                            ),
+                            trailing: new IconButton(
+                              icon: new Icon(Icons.arrow_forward_ios),
+                              color: Colors.green,
+                              onPressed: () {
+                                _addTCP(pair);
+                              },
+                            ),
+                          );
+                        },
+                      );
+                      final divided = ListTile.divideTiles(
+                        context: context,
+                        tiles: titles,
+                      ).toList();
+                      showDialog(
+                          context: context,
+                          builder: (_) => new AlertDialog(
+                              title: new Text("选择一个内网："),
+                              content: new ListView(
+                                children: divided,
+                              ),
+                              actions: <Widget>[
+                                new FlatButton(
+                                  child: new Text("取消"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                )
+                              ]));
+                    }
+                    );
+                }),
           ],
         ),
         body: ListView(children: divided));
   }
 
-  void _pushDetail(TCPConfig config) async {
+  void _addTCP(SessionConfig config) async {
+    TextEditingController _description_controller =
+    TextEditingController.fromValue(
+        TextEditingValue(text: ""));
+    TextEditingController _local_ip_controller =
+    TextEditingController.fromValue(
+        TextEditingValue(text: ""));
+    TextEditingController _local_port_controller =
+    TextEditingController.fromValue(
+        TextEditingValue(text: ""));
+    TextEditingController _remote_ip_controller =
+    TextEditingController.fromValue(
+        TextEditingValue(text: ""));
+    TextEditingController _remote_port_controller =
+    TextEditingController.fromValue(
+        TextEditingValue(text: ""));
+    showDialog(
+        context: context,
+        builder: (_) => new AlertDialog(
+            title: new Text("添加内网："),
+            content: new ListView(
+              children: <Widget>[
+                new TextFormField(
+                  controller: _description_controller,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(10.0),
+                    labelText: '备注',
+                    helperText: '自定义备注',
+                  ),
+                ),
+                new TextFormField(
+                  controller: _local_ip_controller,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(10.0),
+                    labelText: '绑定的本地IP',
+                    helperText: '默认0.0.0.0就行了',
+                  ),
+                ),
+                new TextFormField(
+                  controller: _local_port_controller,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(10.0),
+                    labelText: '本地绑定的端口',
+                    helperText: '可以填写0随机一个',
+                  ),
+                ),
+                new TextFormField(
+                  controller: _remote_ip_controller,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(10.0),
+                    labelText: '远程内网的IP',
+                    helperText: '内网设备的IP',
+                  ),
+                ),
+                new TextFormField(
+                  controller: _remote_port_controller,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(10.0),
+                    labelText: '内网待穿透的端口号',
+                    helperText: '根据内网实际端口号填写',
+                  ),
+                )
+              ],
+            ),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("取消"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              new FlatButton(
+                child: new Text("添加"),
+                onPressed: () {
+                  var tcpConfig = new TCPConfig();
+                  tcpConfig.runId = config.runId;
+                  tcpConfig.description = _description_controller.text;
+                  tcpConfig.localIP = _local_ip_controller.text;
+                  tcpConfig.localProt = int.parse(_local_port_controller.text);
+                  tcpConfig.remoteIP = _remote_ip_controller.text;
+                  tcpConfig.remotePort = int.parse(_remote_port_controller.text);
+                  createOneTCP(tcpConfig).then((restlt) {
+//                                :TODO 添加内网之后刷新列表
+                    Navigator.of(context).pop();
+                  });
+                },
+              )
+            ])).then((restlt) {
+//                                :TODO 添加内网之后刷新列表
+      Navigator.of(context).pop();
+      setState(() {
+        getAllTCP();
+      });
+    });
+  }
+
+    void _pushDetail(TCPConfig config) async {
     final _result = new Set<String>();
     _result.add("ID:${config.runId}");
     _result.add("描述:${config.description}");
@@ -138,6 +281,24 @@ class _TCPListPageState extends State<TCPListPage> {
     });
   }
 
+  createOneTCP(TCPConfig config) async {
+    final channel = new ClientChannel('localhost',
+        port: 2080,
+        options: const ChannelOptions(
+            credentials: const ChannelCredentials.insecure()));
+    final stub = new TCPClient(channel);
+    try {
+      final response = await stub.createOneTCP(config);
+      print('Greeter client received: ${response}');
+      await channel.shutdown();
+      return response;
+    } catch (e) {
+      print('Caught error: $e');
+      await channel.shutdown();
+      return false;
+    }
+  }
+
   deleteOneTCP(TCPConfig config) async {
     final channel = new ClientChannel('localhost',
         port: 2080,
@@ -175,4 +336,41 @@ class _TCPListPageState extends State<TCPListPage> {
     }
   }
 
+  Future getAllSession() async {
+    final channel = new ClientChannel('localhost',
+        port: 2080,
+        options: const ChannelOptions(
+            credentials: const ChannelCredentials.insecure()));
+    final stub = new SessionClient(channel);
+    try {
+      final response = await stub.getAllSession(new Empty());
+      print('Greeter client received: ${response.sessionConfigs}');
+      await channel.shutdown();
+      setState(() {
+        _SessionList = response.sessionConfigs;
+      });
+    } catch (e) {
+      print('Caught error: $e');
+      await channel.shutdown();
+      showDialog(
+          context: context,
+          builder: (_) => new AlertDialog(
+              title: new Text("获取内网列表失败："),
+              content: new Text("失败原因：$e"),
+              actions: <Widget>[
+                new FlatButton(
+                  child: new Text("取消"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                new FlatButton(
+                  child: new Text("确认"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ]));
+    }
+  }
 }
