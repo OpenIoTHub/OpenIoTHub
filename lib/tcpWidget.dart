@@ -78,7 +78,9 @@ class _TCPListPageState extends State<TCPListPage> {
                               icon: new Icon(Icons.arrow_forward_ios),
                               color: Colors.green,
                               onPressed: () {
-                                _addTCP(pair);
+                                _addTCP(pair).then((v){
+                                  Navigator.of(context).pop();
+                                });
                               },
                             ),
                           );
@@ -111,7 +113,7 @@ class _TCPListPageState extends State<TCPListPage> {
         body: ListView(children: divided));
   }
 
-  void _addTCP(SessionConfig config) async {
+  Future _addTCP(SessionConfig config) async {
     TextEditingController _description_controller =
     TextEditingController.fromValue(
         TextEditingValue(text: ""));
@@ -127,7 +129,7 @@ class _TCPListPageState extends State<TCPListPage> {
     TextEditingController _remote_port_controller =
     TextEditingController.fromValue(
         TextEditingValue(text: ""));
-    showDialog(
+    return showDialog(
         context: context,
         builder: (_) => new AlertDialog(
             title: new Text("添加内网："),
@@ -198,18 +200,12 @@ class _TCPListPageState extends State<TCPListPage> {
                   });
                 },
               )
-            ])).then((restlt) {
-//                                :TODO 添加内网之后刷新列表
-      Navigator.of(context).pop();
-      setState(() {
-        getAllTCP();
-      });
-    });
+            ]));
   }
 
     void _pushDetail(TCPConfig config) async {
     final _result = new Set<String>();
-    _result.add("ID:${config.runId}");
+    _result.add("所属内网ID:${config.runId}");
     _result.add("描述:${config.description}");
     _result.add("内网IP:${config.remoteIP}");
     _result.add("内网端口:${config.remotePort}");
