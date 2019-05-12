@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:android_intent/android_intent.dart';
 
 class TCPListPage extends StatefulWidget {
   TCPListPage({Key key, this.title}) : super(key: key);
@@ -231,7 +233,36 @@ class _TCPListPageState extends State<TCPListPage> {
             context: context,
             tiles: tiles,
           ).toList();
-
+          divided.add(new Row(
+            children: <Widget>[
+              new Container(
+                child: new RaisedButton(
+                  child: new Text("http方式打开"),
+                  color: Colors.blue,
+                  onPressed: () {
+                    Navigator.of(context)
+                        .push(new MaterialPageRoute(builder: (context) {
+                      return new WebviewScaffold(
+                        url: "http://127.0.0.1:${config.localProt}",
+                        appBar: new AppBar(
+                          title: new Text("http浏览器"),
+                        ),
+                      );
+                    }));
+                  },
+                ),
+                margin: EdgeInsets.all(10.0),
+              ),
+              new RaisedButton(
+                  child: new Text("rdp方式打开"),
+                  color: Colors.green,
+                  onPressed: () {
+                    var url =
+                        'rdp://full%20address=s:127.0.0.1:${config.localProt}&audiomode=i:2&disable%20themes=i:1';
+                    _launchURL(url);
+                  })
+            ],
+          ));
           return new Scaffold(
             appBar: new AppBar(
               title: new Text('详情'),
@@ -370,5 +401,18 @@ class _TCPListPageState extends State<TCPListPage> {
                     )
                   ]));
     }
+  }
+
+  _launchURL(String url) async {
+//    if (await canLaunch(url)) {
+//      await launch(url);
+//    } else {
+//      throw 'Could not launch $url';
+//    }
+    AndroidIntent intent = AndroidIntent(
+      action: 'action_view',
+      data: url,
+    );
+    await intent.launch();
   }
 }
