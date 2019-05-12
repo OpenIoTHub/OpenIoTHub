@@ -117,13 +117,13 @@ class _TCPListPageState extends State<TCPListPage> {
         TextEditingValue(text: ""));
     TextEditingController _local_ip_controller =
     TextEditingController.fromValue(
-        TextEditingValue(text: ""));
+        TextEditingValue(text: "0.0.0.0"));
     TextEditingController _local_port_controller =
     TextEditingController.fromValue(
-        TextEditingValue(text: ""));
+        TextEditingValue(text: "0"));
     TextEditingController _remote_ip_controller =
     TextEditingController.fromValue(
-        TextEditingValue(text: ""));
+        TextEditingValue(text: "127.0.0.1"));
     TextEditingController _remote_port_controller =
     TextEditingController.fromValue(
         TextEditingValue(text: ""));
@@ -211,10 +211,10 @@ class _TCPListPageState extends State<TCPListPage> {
     final _result = new Set<String>();
     _result.add("ID:${config.runId}");
     _result.add("描述:${config.description}");
-    _result.add("描述:${config.remoteIP}");
-    _result.add("描述:${config.remotePort}");
-    _result.add("描述:${config.localIP}");
-    _result.add("描述:${config.localProt}");
+    _result.add("内网IP:${config.remoteIP}");
+    _result.add("内网端口:${config.remotePort}");
+    _result.add("本机IP:${config.localIP}");
+    _result.add("本机端口:${config.localProt}");
     await Navigator.of(context).push(
       new MaterialPageRoute(
         builder: (context) {
