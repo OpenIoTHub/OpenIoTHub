@@ -204,6 +204,7 @@ class _SOCKS5ListPageState extends State<SOCKS5ListPage> {
     _result.add("加密方式:${config.encType}");
     _result.add("协议:origin");
     _result.add("混淆:plain");
+    _result.add("记住客户端选全局，不要绕过局域网");
     await Navigator.of(context).push(
       new MaterialPageRoute(
         builder: (context) {
