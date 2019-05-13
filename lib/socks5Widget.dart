@@ -205,6 +205,8 @@ class _SOCKS5ListPageState extends State<SOCKS5ListPage> {
     _result.add("协议:origin");
     _result.add("混淆:plain");
     _result.add("记住客户端选全局，不要绕过局域网");
+    _result.add("同机客户端要配置分应用代理");
+    _result.add("不要将本软件也走代理流量");
     await Navigator.of(context).push(
       new MaterialPageRoute(
         builder: (context) {
