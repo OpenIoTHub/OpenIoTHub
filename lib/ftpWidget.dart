@@ -235,26 +235,8 @@ class _FTPListPageState extends State<FTPListPage> {
           ).toList();
           divided.add(new Row(
             children: <Widget>[
-              new Container(
-                child: new RaisedButton(
-                  child: new Text("http方式打开"),
-                  color: Colors.blue,
-                  onPressed: () {
-                    Navigator.of(context)
-                        .push(new MaterialPageRoute(builder: (context) {
-                      return new WebviewScaffold(
-                        url: "ftp://127.0.0.1:${config.localProt}",
-                        appBar: new AppBar(
-                          title: new Text("内置浏览器打开"),
-                        ),
-                      );
-                    }));
-                  },
-                ),
-                margin: EdgeInsets.all(10.0),
-              ),
               new RaisedButton(
-                  child: new Text("ftp方式打开"),
+                  child: new Text("调用其他软件打开"),
                   color: Colors.green,
                   onPressed: () {
                     var url =

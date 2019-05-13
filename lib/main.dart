@@ -252,7 +252,7 @@ class _MyHomePageState extends State<MyHomePage> {
               color: _bottomNavigationColor,
             ),
             title: Text(
-              '我',
+              'ssServ',
               style: TextStyle(color: _bottomNavigationColor),
             )),
       ],

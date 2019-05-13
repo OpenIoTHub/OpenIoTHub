@@ -123,13 +123,13 @@ class _SOCKS5ListPageState extends State<SOCKS5ListPage> {
 
   Future _addSOCKS5(SessionConfig config) async {
     TextEditingController _description_controller =
-    TextEditingController.fromValue(TextEditingValue(text: ""));
+    TextEditingController.fromValue(TextEditingValue(text: "default ss Server"));
     TextEditingController _local_port_controller =
     TextEditingController.fromValue(TextEditingValue(text: "0"));
     TextEditingController _password_controller =
-    TextEditingController.fromValue(TextEditingValue(text: "0"));
+    TextEditingController.fromValue(TextEditingValue(text: "myPass"));
     TextEditingController _encType_controller =
-    TextEditingController.fromValue(TextEditingValue(text: "127.0.0.1"));
+    TextEditingController.fromValue(TextEditingValue(text: "aes-256-cfb"));
     return showDialog(
         context: context,
         builder: (_) => new AlertDialog(
@@ -149,7 +149,7 @@ class _SOCKS5ListPageState extends State<SOCKS5ListPage> {
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(10.0),
                     labelText: '绑定的本地端口',
-                    helperText: '默认0就行了',
+                    helperText: '可以默认0',
                   ),
                 ),
                 new TextFormField(
@@ -157,7 +157,7 @@ class _SOCKS5ListPageState extends State<SOCKS5ListPage> {
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(10.0),
                     labelText: '密码',
-                    helperText: '密码',
+                    helperText: '修改密码',
                   ),
                 ),
                 new TextFormField(
@@ -165,7 +165,7 @@ class _SOCKS5ListPageState extends State<SOCKS5ListPage> {
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(10.0),
                     labelText: '加密方式',
-                    helperText: '加密方式',
+                    helperText: '加密方式(ss支持的加密方式，默认就行)',
                   ),
                 ),
               ],
