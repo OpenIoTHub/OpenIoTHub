@@ -350,6 +350,7 @@ class SOCKS5Config extends $pb.GeneratedMessage {
     ..a<$core.int>(2, 'port', $pb.PbFieldType.O3)
     ..aOS(3, 'password')
     ..aOS(4, 'encType')
+    ..aOS(5, 'description')
     ..hasRequiredFields = false
   ;
 
@@ -384,6 +385,11 @@ class SOCKS5Config extends $pb.GeneratedMessage {
   set encType($core.String v) { $_setString(3, v); }
   $core.bool hasEncType() => $_has(3);
   void clearEncType() => clearField(4);
+
+  $core.String get description => $_getS(4, '');
+  set description($core.String v) { $_setString(4, v); }
+  $core.bool hasDescription() => $_has(4);
+  void clearDescription() => clearField(5);
 }
 
 class OpResult extends $pb.GeneratedMessage {

@@ -4,6 +4,7 @@ import 'package:nat_explorer/sessionWidget.dart';
 import 'package:nat_explorer/tcpWidget.dart';
 import 'package:nat_explorer/udpWidget.dart';
 import 'package:nat_explorer/ftpWidget.dart';
+import 'package:nat_explorer/socks5Widget.dart';
 
 void main() => runApp(MyApp());
 
@@ -62,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
         return new FTPListPage(title:widget.title);
         break;
       case 4:
-        return _buildAccount();
+        return new SOCKS5ListPage(title:widget.title);
         break;
     }
     return new Text("没有匹配的内容");

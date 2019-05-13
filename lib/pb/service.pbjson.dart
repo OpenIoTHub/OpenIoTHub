@@ -85,6 +85,7 @@ const SOCKS5Config$json = const {
     const {'1': 'Port', '3': 2, '4': 1, '5': 5, '10': 'Port'},
     const {'1': 'Password', '3': 3, '4': 1, '5': 9, '10': 'Password'},
     const {'1': 'EncType', '3': 4, '4': 1, '5': 9, '10': 'EncType'},
+    const {'1': 'Description', '3': 5, '4': 1, '5': 9, '10': 'Description'},
   ],
 };
 
