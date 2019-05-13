@@ -202,6 +202,8 @@ class _SOCKS5ListPageState extends State<SOCKS5ListPage> {
     _result.add("端口:${config.port}");
     _result.add("密码:${config.password}");
     _result.add("加密方式:${config.encType}");
+    _result.add("协议:origin");
+    _result.add("混淆:plain");
     await Navigator.of(context).push(
       new MaterialPageRoute(
         builder: (context) {
