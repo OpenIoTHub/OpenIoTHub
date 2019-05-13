@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:nat_explorer/rpc.dart';
 import 'package:nat_explorer/sessionWidget.dart';
 import 'package:nat_explorer/tcpWidget.dart';
+import 'package:nat_explorer/udpWidget.dart';
+import 'package:nat_explorer/ftpWidget.dart';
 
 void main() => runApp(MyApp());
 
@@ -54,10 +56,10 @@ class _MyHomePageState extends State<MyHomePage> {
         return new TCPListPage(title:widget.title);
         break;
       case 2:
-        return _buildUDPList();
+        return new UDPListPage(title:widget.title);
         break;
       case 3:
-        return _buildFTPList();
+        return new FTPListPage(title:widget.title);
         break;
       case 4:
         return _buildAccount();
