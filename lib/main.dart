@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:nat_explorer/rpc.dart';
 import 'package:nat_explorer/sessionWidget.dart';
 import 'package:nat_explorer/tcpWidget.dart';
 import 'package:nat_explorer/udpWidget.dart';
 import 'package:nat_explorer/ftpWidget.dart';
 import 'package:nat_explorer/socks5Widget.dart';
+import 'package:nat_explorer/account.dart';
 
 void main() => runApp(MyApp());
 
@@ -65,146 +65,11 @@ class _MyHomePageState extends State<MyHomePage> {
       case 4:
         return new SOCKS5ListPage(title:widget.title);
         break;
+      case 5:
+        return new MyInfoPage();
+        break;
     }
     return new Text("没有匹配的内容");
-  }
-
-  Widget _buildTCPList() {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-          actions: <Widget>[
-            new IconButton(
-                icon: new Icon(
-                  Icons.refresh,
-                  color: Colors.white,
-                ),
-                onPressed: () {}),
-            new IconButton(
-                icon: new Icon(
-                  Icons.add_circle,
-                  color: Colors.white,
-                ),
-                onPressed: () {}),
-          ],
-        ),
-        body: _buildRow());
-  }
-
-  Widget _buildUDPList() {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-          actions: <Widget>[
-            new IconButton(
-                icon: new Icon(
-                  Icons.refresh,
-                  color: Colors.white,
-                ),
-                onPressed: () {}),
-            new IconButton(
-                icon: new Icon(
-                  Icons.add_circle,
-                  color: Colors.white,
-                ),
-                onPressed: () {}),
-          ],
-        ),
-        body: _buildRow());
-  }
-
-  Widget _buildFTPList() {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-          actions: <Widget>[
-            new IconButton(
-                icon: new Icon(
-                  Icons.refresh,
-                  color: Colors.white,
-                ),
-                onPressed: () {}),
-            new IconButton(
-                icon: new Icon(
-                  Icons.add_circle,
-                  color: Colors.white,
-                ),
-                onPressed: () {}),
-          ],
-        ),
-        body: _buildRow());
-  }
-
-  Widget _buildAccount() {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-          actions: <Widget>[
-            new IconButton(
-                icon: new Icon(
-                  Icons.refresh,
-                  color: Colors.white,
-                ),
-                onPressed: () {}),
-            new IconButton(
-                icon: new Icon(
-                  Icons.add_circle,
-                  color: Colors.white,
-                ),
-                onPressed: () {}),
-          ],
-        ),
-        body: _buildRow());
-  }
-
-  Widget _buildRow() {
-    return new ListTile(
-      title: new Text(
-        "Row",
-        style: _biggerFont,
-      ),
-      trailing: new IconButton(
-        icon: new Icon(Icons.arrow_forward_ios),
-        color: Colors.green,
-        onPressed: () {
-          _pushDetail();
-        },
-      ),
-      onTap: () {},
-    );
-  }
-
-  void _pushDetail() {
-    final _result = new Set<String>();
-    _result.add("第一行");
-    _result.add("第二行");
-    Navigator.of(context).push(
-      new MaterialPageRoute(
-        builder: (context) {
-          final tiles = _result.map(
-            (pair) {
-              return new ListTile(
-                title: new Text(
-                  pair,
-                  style: _biggerFont,
-                ),
-              );
-            },
-          );
-          final divided = ListTile.divideTiles(
-            context: context,
-            tiles: tiles,
-          ).toList();
-
-          return new Scaffold(
-            appBar: new AppBar(
-              title: new Text('详情'),
-            ),
-            body: new ListView(children: divided),
-          );
-        },
-      ),
-    );
   }
 
   Widget _buildBottomNavigationBar(int index) {
@@ -248,11 +113,20 @@ class _MyHomePageState extends State<MyHomePage> {
             )),
         BottomNavigationBarItem(
             icon: Icon(
-              Icons.supervised_user_circle,
+              Icons.cloud_done,
               color: _bottomNavigationColor,
             ),
             title: Text(
               'ssServ',
+              style: TextStyle(color: _bottomNavigationColor),
+            )),
+        BottomNavigationBarItem(
+            icon: Icon(
+              Icons.account_circle,
+              color: _bottomNavigationColor,
+            ),
+            title: Text(
+              '我',
               style: TextStyle(color: _bottomNavigationColor),
             )),
       ],

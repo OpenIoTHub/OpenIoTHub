@@ -292,25 +292,25 @@ class _SessionListPageState extends State<SessionListPage> {
     } catch (e) {
       print('Caught error: $e');
       await channel.shutdown();
-      showDialog(
-          context: context,
-          builder: (_) => new AlertDialog(
-                  title: new Text("获取内网列表失败："),
-                  content: new Text("失败原因：$e"),
-                  actions: <Widget>[
-                    new FlatButton(
-                      child: new Text("取消"),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                    new FlatButton(
-                      child: new Text("确认"),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    )
-                  ]));
+//      showDialog(
+//          context: context,
+//          builder: (_) => new AlertDialog(
+//                  title: new Text("获取内网列表失败："),
+//                  content: new Text("失败原因：$e"),
+//                  actions: <Widget>[
+//                    new FlatButton(
+//                      child: new Text("取消"),
+//                      onPressed: () {
+//                        Navigator.of(context).pop();
+//                      },
+//                    ),
+//                    new FlatButton(
+//                      child: new Text("确认"),
+//                      onPressed: () {
+//                        Navigator.of(context).pop();
+//                      },
+//                    )
+//                  ]));
     }
   }
 }
