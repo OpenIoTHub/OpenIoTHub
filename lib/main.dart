@@ -120,15 +120,15 @@ class _MyHomePageState extends State<MyHomePage> {
               'ssServ',
               style: TextStyle(color: _bottomNavigationColor),
             )),
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.account_circle,
-              color: _bottomNavigationColor,
-            ),
-            title: Text(
-              '我',
-              style: TextStyle(color: _bottomNavigationColor),
-            )),
+//        BottomNavigationBarItem(
+//            icon: Icon(
+//              Icons.account_circle,
+//              color: _bottomNavigationColor,
+//            ),
+//            title: Text(
+//              '我',
+//              style: TextStyle(color: _bottomNavigationColor),
+//            )),
       ],
       currentIndex: index,
       onTap: (int index) {
