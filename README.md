@@ -1,4 +1,6 @@
-# nat_explorer
+# 安卓访问端
+###### 与其它版本兼容
+下载地址：https://github.com/nat-cloud/android-explorer/releases
 
 A new Flutter application of natcloud explorer.
 
