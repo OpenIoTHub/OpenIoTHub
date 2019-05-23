@@ -4,7 +4,6 @@ import 'package:nat_explorer/tcpWidget.dart';
 import 'package:nat_explorer/udpWidget.dart';
 import 'package:nat_explorer/ftpWidget.dart';
 import 'package:nat_explorer/socks5Widget.dart';
-import 'package:nat_explorer/account.dart';
 
 void main() => runApp(MyApp());
 
@@ -65,9 +64,6 @@ class _MyHomePageState extends State<MyHomePage> {
       case 4:
         return new SOCKS5ListPage(title:widget.title);
         break;
-      case 5:
-        return new MyInfoPage();
-        break;
     }
     return new Text("没有匹配的内容");
   }
@@ -120,15 +116,6 @@ class _MyHomePageState extends State<MyHomePage> {
               'ssServ',
               style: TextStyle(color: _bottomNavigationColor),
             )),
-//        BottomNavigationBarItem(
-//            icon: Icon(
-//              Icons.account_circle,
-//              color: _bottomNavigationColor,
-//            ),
-//            title: Text(
-//              '我',
-//              style: TextStyle(color: _bottomNavigationColor),
-//            )),
       ],
       currentIndex: index,
       onTap: (int index) {
