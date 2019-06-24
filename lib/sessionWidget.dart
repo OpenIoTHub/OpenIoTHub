@@ -28,13 +28,13 @@ class _SessionListPageState extends State<SessionListPage> {
   Widget build(BuildContext context) {
     final tiles = _SessionList.map(
       (pair) {
-        return new ListTile(
-          title: new Text(
+        return ListTile(
+          title: Text(
             pair.description,
             style: _biggerFont,
           ),
-          trailing: new IconButton(
-            icon: new Icon(Icons.arrow_forward_ios),
+          trailing: IconButton(
+            icon: Icon(Icons.arrow_forward_ios),
             color: Colors.green,
             onPressed: () {
               _pushDetail(pair);
@@ -49,24 +49,24 @@ class _SessionListPageState extends State<SessionListPage> {
     ).toList();
     return Scaffold(
         appBar: AppBar(
-          leading: new IconButton(
-              icon: new Icon(
+          leading: IconButton(
+              icon: Icon(
                 Icons.pages,
                 color: Colors.white,
               ),
               onPressed: () {}),
           title: Text(widget.title),
           actions: <Widget>[
-            new IconButton(
-                icon: new Icon(
+            IconButton(
+                icon: Icon(
                   Icons.refresh,
                   color: Colors.white,
                 ),
                 onPressed: () {
                   getAllSession();
                 }),
-            new IconButton(
-                icon: new Icon(
+            IconButton(
+                icon: Icon(
                   Icons.add_circle,
                   color: Colors.white,
                 ),
@@ -79,11 +79,11 @@ class _SessionListPageState extends State<SessionListPage> {
                           TextEditingValue(text: ""));
                   showDialog(
                       context: context,
-                      builder: (_) => new AlertDialog(
-                              title: new Text("添加内网："),
-                              content: new ListView(
+                      builder: (_) => AlertDialog(
+                              title: Text("添加内网："),
+                              content: ListView(
                                 children: <Widget>[
-                                  new TextFormField(
+                                  TextFormField(
                                     controller: _token_controller,
                                     decoration: InputDecoration(
                                       contentPadding: EdgeInsets.all(10.0),
@@ -91,7 +91,7 @@ class _SessionListPageState extends State<SessionListPage> {
                                       helperText: 'token',
                                     ),
                                   ),
-                                  new TextFormField(
+                                  TextFormField(
                                     controller: _description_controller,
                                     decoration: InputDecoration(
                                       contentPadding: EdgeInsets.all(10.0),
@@ -102,16 +102,16 @@ class _SessionListPageState extends State<SessionListPage> {
                                 ],
                               ),
                               actions: <Widget>[
-                                new FlatButton(
-                                  child: new Text("取消"),
+                                FlatButton(
+                                  child: Text("取消"),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
                                 ),
-                                new FlatButton(
-                                  child: new Text("添加"),
+                                FlatButton(
+                                  child: Text("添加"),
                                   onPressed: () {
-                                    SessionConfig config = new SessionConfig();
+                                    SessionConfig config = SessionConfig();
                                     config.token = _token_controller.text;
                                     config.description =
                                         _description_controller.text;
@@ -134,7 +134,7 @@ class _SessionListPageState extends State<SessionListPage> {
   }
 
   void _pushDetail(SessionConfig config) async {
-    final _result = new Set<String>();
+    final _result = Set<String>();
     _result.add("ID:${config.runId}");
     _result.add("描述:${config.description}");
     _result.add("连接码:${config.token}");
@@ -142,12 +142,12 @@ class _SessionListPageState extends State<SessionListPage> {
     _result.add(
         "P2P连接状态:${config.statusP2PAsClient || config.statusP2PAsServer ? "在线" : "离线"}");
     await Navigator.of(context).push(
-      new MaterialPageRoute(
+      MaterialPageRoute(
         builder: (context) {
           final tiles = _result.map(
             (pair) {
-              return new ListTile(
-                title: new Text(
+              return ListTile(
+                title: Text(
                   pair,
                   style: _biggerFont,
                 ),
@@ -159,32 +159,32 @@ class _SessionListPageState extends State<SessionListPage> {
             tiles: tiles,
           ).toList();
 
-          return new Scaffold(
-            appBar: new AppBar(
-              title: new Text('详情'),
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('详情'),
               actions: <Widget>[
-                new IconButton(
-                    icon: new Icon(
+                IconButton(
+                    icon: Icon(
                       Icons.delete,
                       color: Colors.red,
                     ),
                     onPressed: () {
                       showDialog(
                           context: context,
-                          builder: (_) => new AlertDialog(
-                                  title: new Text("删除内网"),
-                                  content: new Text("确认删除此内网？"),
+                          builder: (_) => AlertDialog(
+                                  title: Text("删除内网"),
+                                  content: Text("确认删除此内网？"),
                                   actions: <Widget>[
-                                    new FlatButton(
-                                      child: new Text("取消"),
+                                    FlatButton(
+                                      child: Text("取消"),
                                       onPressed: () {
                                         Navigator.of(context).pop();
                                       },
                                     ),
-                                    new FlatButton(
-                                      child: new Text("删除"),
+                                    FlatButton(
+                                      child: Text("删除"),
                                       onPressed: () {
-                                        var ses = new OneSession();
+                                        var ses = SessionConfig();
                                         ses.runId = config.runId;
                                         deleteOneSession(ses).then((result) {
                                           setState(() {
@@ -199,7 +199,7 @@ class _SessionListPageState extends State<SessionListPage> {
                     }),
               ],
             ),
-            body: new ListView(children: divided),
+            body: ListView(children: divided),
           );
         },
       ),
@@ -211,11 +211,11 @@ class _SessionListPageState extends State<SessionListPage> {
   }
 
   Future createOneSession(SessionConfig config) async {
-    final channel = new ClientChannel('localhost',
+    final channel = ClientChannel('localhost',
         port: 2080,
         options: const ChannelOptions(
             credentials: const ChannelCredentials.insecure()));
-    final stub = new SessionClient(channel);
+    final stub = SessionManagerClient(channel);
     try {
       final response = await stub.createOneSession(config);
       print('Greeter client received: ${response}');
@@ -226,24 +226,24 @@ class _SessionListPageState extends State<SessionListPage> {
     }
   }
 
-  Future deleteOneSession(OneSession config) async {
-    final channel = new ClientChannel('localhost',
+  Future deleteOneSession(SessionConfig config) async {
+    final channel = ClientChannel('localhost',
         port: 2080,
         options: const ChannelOptions(
             credentials: const ChannelCredentials.insecure()));
-    final stub = new SessionClient(channel);
+    final stub = SessionManagerClient(channel);
     try {
       final response = await stub.deleteOneSession(config);
       print('Greeter client received: ${response}');
       await channel.shutdown();
       showDialog(
           context: context,
-          builder: (_) => new AlertDialog(
-                  title: new Text("删除结果："),
-                  content: new Text("删除成功！"),
+          builder: (_) => AlertDialog(
+                  title: Text("删除结果："),
+                  content: Text("删除成功！"),
                   actions: <Widget>[
-                    new FlatButton(
-                      child: new Text("确认"),
+                    FlatButton(
+                      child: Text("确认"),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
@@ -256,18 +256,18 @@ class _SessionListPageState extends State<SessionListPage> {
       await channel.shutdown();
       showDialog(
           context: context,
-          builder: (_) => new AlertDialog(
-                  title: new Text("删除结果："),
-                  content: new Text("删除失败！$e"),
+          builder: (_) => AlertDialog(
+                  title: Text("删除结果："),
+                  content: Text("删除失败！$e"),
                   actions: <Widget>[
-                    new FlatButton(
-                      child: new Text("取消"),
+                    FlatButton(
+                      child: Text("取消"),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
                     ),
-                    new FlatButton(
-                      child: new Text("确认"),
+                    FlatButton(
+                      child: Text("确认"),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
@@ -277,11 +277,11 @@ class _SessionListPageState extends State<SessionListPage> {
   }
 
   Future getAllSession() async {
-    final channel = new ClientChannel('localhost',
+    final channel = ClientChannel('localhost',
         port: 2080,
         options: const ChannelOptions(
             credentials: const ChannelCredentials.insecure()));
-    final stub = new SessionClient(channel);
+    final stub = SessionManagerClient(channel);
     try {
       final response = await stub.getAllSession(new Empty());
       print('Greeter client received: ${response.sessionConfigs}');
@@ -294,18 +294,18 @@ class _SessionListPageState extends State<SessionListPage> {
       await channel.shutdown();
 //      showDialog(
 //          context: context,
-//          builder: (_) => new AlertDialog(
-//                  title: new Text("获取内网列表失败："),
-//                  content: new Text("失败原因：$e"),
+//          builder: (_) => AlertDialog(
+//                  title: Text("获取内网列表失败："),
+//                  content: Text("失败原因：$e"),
 //                  actions: <Widget>[
-//                    new FlatButton(
-//                      child: new Text("取消"),
+//                    FlatButton(
+//                      child: Text("取消"),
 //                      onPressed: () {
 //                        Navigator.of(context).pop();
 //                      },
 //                    ),
-//                    new FlatButton(
-//                      child: new Text("确认"),
+//                    FlatButton(
+//                      child: Text("确认"),
 //                      onPressed: () {
 //                        Navigator.of(context).pop();
 //                      },

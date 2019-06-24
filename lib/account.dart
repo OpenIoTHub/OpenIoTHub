@@ -24,7 +24,7 @@ class MyInfoPageState extends State<MyInfoPage> {
   static const double IMAGE_ICON_WIDTH = 30.0;
   static const double ARROW_ICON_WIDTH = 16.0;
 
-  var titles = ["我的消息", "阅读记录", "我的博客", "我的问答", "我的活动", "我的团队", "邀请好友"];
+  var titles = ["我的消息"];
   var imagePaths = [
     "images/ic_my_message.png",
     "images/ic_my_blog.png",

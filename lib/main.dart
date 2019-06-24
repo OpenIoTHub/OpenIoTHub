@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nat_explorer/sessionWidget.dart';
-import 'package:nat_explorer/tcpWidget.dart';
-import 'package:nat_explorer/udpWidget.dart';
-import 'package:nat_explorer/ftpWidget.dart';
-import 'package:nat_explorer/socks5Widget.dart';
+import 'package:nat_explorer/DeviceTypePage.dart';
 import 'package:nat_explorer/account.dart';
 
 void main() => runApp(MyApp());
@@ -44,32 +41,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
 //通过index判断展现的类型
   Widget _buildBody(int index) {
-//    0 内网Session
-//    1 TCP
-//    2 UDP
-//    3 FTP
-//    4 账号
     switch (index) {
       case 0:
-        return new SessionListPage(title:widget.title);
+        return SessionListPage(title:widget.title);
         break;
       case 1:
-        return new TCPListPage(title:widget.title);
+        return DiscoveryPage();
         break;
       case 2:
-        return new UDPListPage(title:widget.title);
-        break;
-      case 3:
-        return new FTPListPage(title:widget.title);
-        break;
-      case 4:
-        return new SOCKS5ListPage(title:widget.title);
-        break;
-      case 5:
-        return new MyInfoPage();
+        return MyInfoPage();
         break;
     }
-    return new Text("没有匹配的内容");
+    return Text("没有匹配的内容");
   }
 
   Widget _buildBottomNavigationBar(int index) {
@@ -86,49 +69,22 @@ class _MyHomePageState extends State<MyHomePage> {
             )),
         BottomNavigationBarItem(
             icon: Icon(
-              Icons.adjust,
-              color: _bottomNavigationColor,
-            ),
-            title: Text(
-              'TCP',
-              style: TextStyle(color: _bottomNavigationColor),
-            )),
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.ac_unit,
-              color: _bottomNavigationColor,
-            ),
-            title: Text(
-              'UDP',
-              style: TextStyle(color: _bottomNavigationColor),
-            )),
-        BottomNavigationBarItem(
-            icon: Icon(
               Icons.airplay,
               color: _bottomNavigationColor,
             ),
             title: Text(
-              'FTP',
+              '设备',
               style: TextStyle(color: _bottomNavigationColor),
             )),
         BottomNavigationBarItem(
             icon: Icon(
-              Icons.cloud_done,
+              Icons.account_circle,
               color: _bottomNavigationColor,
             ),
             title: Text(
-              'ssServ',
+              '我',
               style: TextStyle(color: _bottomNavigationColor),
             )),
-//        BottomNavigationBarItem(
-//            icon: Icon(
-//              Icons.account_circle,
-//              color: _bottomNavigationColor,
-//            ),
-//            title: Text(
-//              '我',
-//              style: TextStyle(color: _bottomNavigationColor),
-//            )),
       ],
       currentIndex: index,
       onTap: (int index) {
