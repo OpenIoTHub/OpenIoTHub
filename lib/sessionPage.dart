@@ -235,7 +235,7 @@ class _SessionListPageState extends State<SessionListPage> {
     try {
       final response = await stub.deleteOneSession(config);
       print('Greeter client received: ${response}');
-      await channel.shutdown();
+      channel.shutdown();
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
@@ -249,11 +249,12 @@ class _SessionListPageState extends State<SessionListPage> {
                       },
                     )
                   ])).then((result) {
-        Navigator.of(context).pop();
-      });
+                      Navigator.of(context).pop();
+                    }
+      );
     } catch (e) {
       print('Caught error: $e');
-      await channel.shutdown();
+      channel.shutdown();
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
@@ -285,32 +286,13 @@ class _SessionListPageState extends State<SessionListPage> {
     try {
       final response = await stub.getAllSession(new Empty());
       print('Greeter client received: ${response.sessionConfigs}');
-      await channel.shutdown();
+      channel.shutdown();
       setState(() {
         _SessionList = response.sessionConfigs;
       });
     } catch (e) {
       print('Caught error: $e');
-      await channel.shutdown();
-//      showDialog(
-//          context: context,
-//          builder: (_) => AlertDialog(
-//                  title: Text("获取内网列表失败："),
-//                  content: Text("失败原因：$e"),
-//                  actions: <Widget>[
-//                    FlatButton(
-//                      child: Text("取消"),
-//                      onPressed: () {
-//                        Navigator.of(context).pop();
-//                      },
-//                    ),
-//                    FlatButton(
-//                      child: Text("确认"),
-//                      onPressed: () {
-//                        Navigator.of(context).pop();
-//                      },
-//                    )
-//                  ]));
+      channel.shutdown();
     }
   }
 }

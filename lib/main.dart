@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nat_explorer/sessionWidget.dart';
+import 'package:nat_explorer/sessionPage.dart';
 import 'package:nat_explorer/DeviceTypePage.dart';
-import 'package:nat_explorer/account.dart';
+import 'package:nat_explorer/accountPage.dart';
 
 void main() => runApp(MyApp());
 
@@ -30,7 +30,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final _bottomNavigationColor = Colors.blue;
   int _currentIndex = 0;
-  final _biggerFont = const TextStyle(fontSize: 18.0);
 
   @override
   Widget build(BuildContext context) {

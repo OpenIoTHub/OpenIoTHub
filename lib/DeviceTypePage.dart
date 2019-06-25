@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:nat_explorer/CommonDeviceListWidget.dart';
-import 'package:nat_explorer/MiioGatewayDeviceListWidget.dart';
+import 'package:nat_explorer/CommonDeviceListPage.dart';
+import 'package:nat_explorer/MiioGatewayDeviceListPage.dart';
 
 class DiscoveryPage extends StatelessWidget {
   static const String TAG_START = "startDivider";
@@ -21,7 +21,7 @@ class DiscoveryPage extends StatelessWidget {
     "images/ic_discover_nearby.png",
     "images/ic_discover_pos.png",
   ];
-  final titles = ["普通设备", "小米网关", "代码片段", "扫一扫", "摇一摇", "码云封面人物", "线下活动"];
+  final titles = ["普通设备", "小米网关"];
   final rightArrowIcon = Image.asset(
     'images/ic_arrow_right.png',
     width: ARROW_ICON_WIDTH,
