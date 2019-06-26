@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
+import './api/SessionApi.dart';
 
 class SessionListPage extends StatefulWidget {
   SessionListPage({Key key, this.title}) : super(key: key);
@@ -72,11 +73,9 @@ class _SessionListPageState extends State<SessionListPage> {
                 ),
                 onPressed: () {
                   TextEditingController _token_controller =
-                      TextEditingController.fromValue(
-                          TextEditingValue(text: ""));
+                  TextEditingController.fromValue(TextEditingValue(text: ""));
                   TextEditingController _description_controller =
-                      TextEditingController.fromValue(
-                          TextEditingValue(text: ""));
+                  TextEditingController.fromValue(TextEditingValue(text: "我的内网"));
                   showDialog(
                       context: context,
                       builder: (_) => AlertDialog(
@@ -116,13 +115,11 @@ class _SessionListPageState extends State<SessionListPage> {
                                     config.description =
                                         _description_controller.text;
                                     createOneSession(config).then((restlt) {
-//                                :TODO 添加内网之后刷新列表
                                       Navigator.of(context).pop();
                                     });
                                   },
                                 )
                               ])).then((restlt) {
-//                                :TODO 添加内网之后刷新列表
                     setState(() {
                       getAllSession();
                     });
@@ -211,31 +208,18 @@ class _SessionListPageState extends State<SessionListPage> {
   }
 
   Future createOneSession(SessionConfig config) async {
-    final channel = ClientChannel('localhost',
-        port: 2080,
-        options: const ChannelOptions(
-            credentials: const ChannelCredentials.insecure()));
-    final stub = SessionManagerClient(channel);
     try {
-      final response = await stub.createOneSession(config);
+      final response = await SessionApi.createOneSession(config);
       print('Greeter client received: ${response}');
-      await channel.shutdown();
     } catch (e) {
       print('Caught error: $e');
-      await channel.shutdown();
     }
   }
 
   Future deleteOneSession(SessionConfig config) async {
-    final channel = ClientChannel('localhost',
-        port: 2080,
-        options: const ChannelOptions(
-            credentials: const ChannelCredentials.insecure()));
-    final stub = SessionManagerClient(channel);
     try {
-      final response = await stub.deleteOneSession(config);
+      final response = await SessionApi.deleteOneSession(config);
       print('Greeter client received: ${response}');
-      channel.shutdown();
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
@@ -254,7 +238,6 @@ class _SessionListPageState extends State<SessionListPage> {
       );
     } catch (e) {
       print('Caught error: $e');
-      channel.shutdown();
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
@@ -278,21 +261,14 @@ class _SessionListPageState extends State<SessionListPage> {
   }
 
   Future getAllSession() async {
-    final channel = ClientChannel('localhost',
-        port: 2080,
-        options: const ChannelOptions(
-            credentials: const ChannelCredentials.insecure()));
-    final stub = SessionManagerClient(channel);
     try {
-      final response = await stub.getAllSession(new Empty());
+      final response = await SessionApi.getAllSession();
       print('Greeter client received: ${response.sessionConfigs}');
-      channel.shutdown();
       setState(() {
         _SessionList = response.sessionConfigs;
       });
     } catch (e) {
       print('Caught error: $e');
-      channel.shutdown();
     }
   }
 }

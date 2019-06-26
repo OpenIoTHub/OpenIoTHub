@@ -6,7 +6,7 @@ import 'package:nat_explorer/events/LogoutEvent.dart';
 import 'package:nat_explorer/util/ThemeUtils.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import './api/Api.dart';
+import './api/SessionApi.dart';
 import './util/NetUtils.dart';
 import './util/DataUtils.dart';
 import './model/UserInfo.dart';
@@ -110,7 +110,7 @@ class MyInfoPageState extends State<MyInfoPage> {
     String accessToken = sp.get(DataUtils.SP_AC_TOKEN);
     Map<String, String> params = Map();
     params['access_token'] = accessToken;
-    NetUtils.get(Api.userInfo, params: params).then((data) {
+    NetUtils.get("", params: params).then((data) {
       if (data != null) {
         var map = json.decode(data);
         setState(() {
