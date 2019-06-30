@@ -38,7 +38,7 @@ class _SessionListPageState extends State<SessionListPage> {
             icon: Icon(Icons.arrow_forward_ios),
             color: Colors.green,
             onPressed: () {
-              _pushDetail(pair);
+              _pushmDNSServices(pair);
             },
           ),
         );
@@ -75,11 +75,11 @@ class _SessionListPageState extends State<SessionListPage> {
                   TextEditingController _token_controller =
                   TextEditingController.fromValue(TextEditingValue(text: ""));
                   TextEditingController _description_controller =
-                  TextEditingController.fromValue(TextEditingValue(text: "我的内网"));
+                  TextEditingController.fromValue(TextEditingValue(text: "我的网络"));
                   showDialog(
                       context: context,
                       builder: (_) => AlertDialog(
-                              title: Text("添加内网："),
+                              title: Text("添加网络："),
                               content: ListView(
                                 children: <Widget>[
                                   TextFormField(
@@ -130,8 +130,90 @@ class _SessionListPageState extends State<SessionListPage> {
         body: ListView(children: divided));
   }
 
+  void _pushmDNSServices(SessionConfig config) async {
+//:TODO    这里显示内网的服务，socks5等，右上角详情才展示详细信息
+    PortList portList = await SessionApi.getAllTCP(config);
+    final List<PortConfig> _result = portList.portConfigs;
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) {
+          final tiles = _result.map(
+                (pair) {
+              return ListTile(
+                title: Text(
+                  '${pair.device.addr}:${pair.remotePort}',
+                  style: _biggerFont,
+                ),
+              );
+            },
+          );
+          final divided = ListTile.divideTiles(
+            context: context,
+            tiles: tiles,
+          ).toList();
+
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(widget.title),
+              actions: <Widget>[
+                IconButton(
+                    icon: Icon(
+                      Icons.delete,
+                      color: Colors.red,
+                    ),
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                              title: Text("删除内网"),
+                              content: Text("确认删除此内网？"),
+                              actions: <Widget>[
+                                FlatButton(
+                                  child: Text("取消"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                FlatButton(
+                                  child: Text("删除"),
+                                  onPressed: () {
+                                    var ses = SessionConfig();
+                                    ses.runId = config.runId;
+                                    deleteOneSession(ses).then((result) {
+                                      setState(() {
+                                        getAllSession();
+                                      });
+                                    });
+//                                  ：TODO 删除之后刷新列表
+                                    Navigator.of(context).pop();
+                                  },
+                                )
+                              ]));
+                    }),
+                IconButton(
+                    icon: Icon(
+                      Icons.info,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      _pushDetail(config);
+                    }),
+              ],
+            ),
+            body: ListView(children: divided),
+          );
+        },
+      ),
+    ).then((result) {
+      setState(() {
+        getAllSession();
+      });
+    });
+  }
+
   void _pushDetail(SessionConfig config) async {
-    final _result = Set<String>();
+//:TODO    这里显示内网的服务，socks5等，右上角详情才展示详细信息
+    final List _result = [];
     _result.add("ID:${config.runId}");
     _result.add("描述:${config.description}");
     _result.add("连接码:${config.token}");

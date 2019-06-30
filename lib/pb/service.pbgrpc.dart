@@ -66,6 +66,10 @@ class SessionManagerClient extends $grpc.Client {
           '/pb.SessionManager/RefreshmDNSProxyList',
           (SessionConfig value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => Empty.fromBuffer(value));
+  static final _$getAllTCP = $grpc.ClientMethod<SessionConfig, PortList>(
+      '/pb.SessionManager/GetAllTCP',
+      (SessionConfig value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => PortList.fromBuffer(value));
 
   SessionManagerClient($grpc.ClientChannel channel, {$grpc.CallOptions options})
       : super(channel, options: options);
@@ -165,6 +169,13 @@ class SessionManagerClient extends $grpc.Client {
         options: options);
     return $grpc.ResponseFuture(call);
   }
+
+  $grpc.ResponseFuture<PortList> getAllTCP(SessionConfig request,
+      {$grpc.CallOptions options}) {
+    final call = $createCall(_$getAllTCP, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
 }
 
 abstract class SessionManagerServiceBase extends $grpc.Service {
@@ -255,6 +266,13 @@ abstract class SessionManagerServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => SessionConfig.fromBuffer(value),
         (Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<SessionConfig, PortList>(
+        'GetAllTCP',
+        getAllTCP_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => SessionConfig.fromBuffer(value),
+        (PortList value) => value.writeToBuffer()));
   }
 
   $async.Future<SessionConfig> createOneSession_Pre(
@@ -317,6 +335,11 @@ abstract class SessionManagerServiceBase extends $grpc.Service {
     return refreshmDNSProxyList(call, await request);
   }
 
+  $async.Future<PortList> getAllTCP_Pre(
+      $grpc.ServiceCall call, $async.Future request) async {
+    return getAllTCP(call, await request);
+  }
+
   $async.Future<SessionConfig> createOneSession(
       $grpc.ServiceCall call, SessionConfig request);
   $async.Future<Empty> deleteOneSession(
@@ -339,6 +362,8 @@ abstract class SessionManagerServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, HTTPConfig request);
   $async.Future<HTTPList> getAllHTTP($grpc.ServiceCall call, Empty request);
   $async.Future<Empty> refreshmDNSProxyList(
+      $grpc.ServiceCall call, SessionConfig request);
+  $async.Future<PortList> getAllTCP(
       $grpc.ServiceCall call, SessionConfig request);
 }
 

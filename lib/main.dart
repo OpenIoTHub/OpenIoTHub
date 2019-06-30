@@ -42,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _buildBody(int index) {
     switch (index) {
       case 0:
-        return SessionListPage(title:widget.title);
+        return SessionListPage(title:"内网服务列表");
         break;
       case 1:
         return DiscoveryPage();

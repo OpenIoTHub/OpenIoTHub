@@ -34,4 +34,13 @@ class SessionApi {
     channel.shutdown();
     return response;
   }
+
+  static Future<PortList> getAllTCP(SessionConfig sessionConfig) async {
+    final channel = getClientChannel();
+    final stub = SessionManagerClient(channel);
+    final response = await stub.getAllTCP(sessionConfig);
+    print('Greeter client received: ${response.portConfigs}');
+    channel.shutdown();
+    return response;
+  }
 }
