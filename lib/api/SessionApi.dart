@@ -43,4 +43,13 @@ class SessionApi {
     channel.shutdown();
     return response;
   }
+
+  static Future<Empty> refreshmDNSServices(SessionConfig sessionConfig) async {
+    final channel = getClientChannel();
+    final stub = SessionManagerClient(channel);
+    final response = await stub.refreshmDNSProxyList(sessionConfig);
+    print('Greeter client received: ${response}');
+    channel.shutdown();
+    return response;
+  }
 }

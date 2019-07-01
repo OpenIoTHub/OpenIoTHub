@@ -141,8 +141,15 @@ class _SessionListPageState extends State<SessionListPage> {
                 (pair) {
               return ListTile(
                 title: Text(
-                  '${pair.device.addr}:${pair.remotePort}',
+                  '${pair.device.addr}:${pair.remotePort} -> ${pair.localProt}',
                   style: _biggerFont,
+                ),
+                trailing: IconButton(
+                  icon: Icon(Icons.arrow_forward_ios),
+                  color: Colors.green,
+                  onPressed: () {
+                    //:TODO 直接打开内置web浏览器浏览页面
+                  },
                 ),
               );
             },
@@ -156,6 +163,18 @@ class _SessionListPageState extends State<SessionListPage> {
             appBar: AppBar(
               title: Text(widget.title),
               actions: <Widget>[
+                IconButton(
+                    icon: Icon(
+                      Icons.refresh,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      refreshmDNSServices(config).then((result) {
+                          getAllSession();
+                      }).then((result){
+                        setState(() {});
+                      });
+                    }),
                 IconButton(
                     icon: Icon(
                       Icons.delete,
@@ -349,6 +368,14 @@ class _SessionListPageState extends State<SessionListPage> {
       setState(() {
         _SessionList = response.sessionConfigs;
       });
+    } catch (e) {
+      print('Caught error: $e');
+    }
+  }
+
+  Future refreshmDNSServices(SessionConfig sessionConfig) async {
+    try {
+      await SessionApi.refreshmDNSServices(sessionConfig);
     } catch (e) {
       print('Caught error: $e');
     }
