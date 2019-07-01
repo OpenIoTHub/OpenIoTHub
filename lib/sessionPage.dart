@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
@@ -148,7 +149,16 @@ class _SessionListPageState extends State<SessionListPage> {
                   icon: Icon(Icons.arrow_forward_ios),
                   color: Colors.green,
                   onPressed: () {
-                    //:TODO 直接打开内置web浏览器浏览页面
+                    //直接打开内置web浏览器浏览页面
+                    Navigator.of(context)
+                        .push(new MaterialPageRoute(builder: (context) {
+                      return WebviewScaffold(
+                        url: "http://127.0.0.1:${pair.localProt}",
+                        appBar: new AppBar(
+                          title: new Text("网页浏览器"),
+                        ),
+                      );
+                    }));
                   },
                 ),
               );
@@ -158,7 +168,7 @@ class _SessionListPageState extends State<SessionListPage> {
             context: context,
             tiles: tiles,
           ).toList();
-
+          //:TODO 写成独立的组件，支持刷新
           return Scaffold(
             appBar: AppBar(
               title: Text(widget.title),
