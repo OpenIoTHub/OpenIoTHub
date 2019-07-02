@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nat_explorer/sessionPage.dart';
+import 'package:nat_explorer/sessionListPage.dart';
 import 'package:nat_explorer/DeviceTypePage.dart';
 import 'package:nat_explorer/accountPage.dart';
 
@@ -42,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _buildBody(int index) {
     switch (index) {
       case 0:
-        return SessionListPage(title:"内网服务列表");
+        return SessionListPage(title:"网络列表");
         break;
       case 1:
         return DiscoveryPage();

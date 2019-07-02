@@ -3,6 +3,7 @@ import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
+import 'package:nat_explorer/sessionmDNSServiceListPage.dart';
 import './api/SessionApi.dart';
 
 class SessionListPage extends StatefulWidget {
@@ -169,68 +170,7 @@ class _SessionListPageState extends State<SessionListPage> {
             tiles: tiles,
           ).toList();
           //:TODO 写成独立的组件，支持刷新
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(widget.title),
-              actions: <Widget>[
-                IconButton(
-                    icon: Icon(
-                      Icons.refresh,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      refreshmDNSServices(config).then((result) {
-                          getAllSession();
-                      }).then((result){
-                        setState(() {});
-                      });
-                    }),
-                IconButton(
-                    icon: Icon(
-                      Icons.delete,
-                      color: Colors.red,
-                    ),
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (_) => AlertDialog(
-                              title: Text("删除内网"),
-                              content: Text("确认删除此内网？"),
-                              actions: <Widget>[
-                                FlatButton(
-                                  child: Text("取消"),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                                FlatButton(
-                                  child: Text("删除"),
-                                  onPressed: () {
-                                    var ses = SessionConfig();
-                                    ses.runId = config.runId;
-                                    deleteOneSession(ses).then((result) {
-                                      setState(() {
-                                        getAllSession();
-                                      });
-                                    });
-//                                  ：TODO 删除之后刷新列表
-                                    Navigator.of(context).pop();
-                                  },
-                                )
-                              ]));
-                    }),
-                IconButton(
-                    icon: Icon(
-                      Icons.info,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      _pushDetail(config);
-                    }),
-              ],
-            ),
-            body: ListView(children: divided),
-          );
+          return MDNSServiceListPage(sessionConfig: config);
         },
       ),
     ).then((result) {

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:nat_explorer/CommonDeviceListPage.dart';
-import 'package:nat_explorer/MiioGatewayDeviceListPage.dart';
+import 'package:nat_explorer/commonDeviceListPage.dart';
+import 'package:nat_explorer/miioGatewayDeviceListPage.dart';
 
 class DiscoveryPage extends StatelessWidget {
   static const String TAG_START = "startDivider";
