@@ -1,3 +1,4 @@
+import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
@@ -33,7 +34,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
           (pair) {
         return ListTile(
           title: Text(
-            '${pair.device.addr}:${pair.remotePort} -> ${pair.localProt}',
+            '${pair.description}',
             style: _biggerFont,
           ),
           trailing: IconButton(
@@ -47,6 +48,16 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                   url: "http://127.0.0.1:${pair.localProt}",
                   appBar: new AppBar(
                     title: new Text("网页浏览器"),
+                    actions: <Widget>[
+                      IconButton(
+                        icon: Icon(
+                          Icons.open_in_browser,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          _launchURL("http://127.0.0.1:${pair.localProt}");
+                        })
+                    ]
                   ),
                 );
               }));
@@ -70,7 +81,11 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
               ),
               onPressed: () {
                 refreshmDNSServices(widget.sessionConfig).then((result){
-                  setState(() {});
+                  SessionApi.getAllTCP(widget.sessionConfig).then((v) {
+                    setState(() {
+                      _ServiceList = v.portConfigs;
+                    });
+                  });
                 });
               }),
           IconButton(
@@ -143,6 +158,9 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
           ).toList();
 
           return Scaffold(
+              appBar: AppBar(
+              title: Text('网络详情'),
+              ),
             body: ListView(children: divided),
           );
         },
@@ -196,9 +214,17 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
 
   Future refreshmDNSServices(SessionConfig sessionConfig) async {
     try {
-      await SessionApi.refreshmDNSServices(sessionConfig);
+      SessionApi.refreshmDNSServices(sessionConfig);
     } catch (e) {
       print('Caught error: $e');
     }
+  }
+
+  _launchURL(String url) async {
+    AndroidIntent intent = AndroidIntent(
+      action: 'action_view',
+      data: url,
+    );
+    await intent.launch();
   }
 }
