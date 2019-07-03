@@ -37,7 +37,10 @@ class DiscoveryPage extends StatelessWidget {
   initData() {
     listData.add(TAG_START);
     listData.add(ListItem(title: titles[0], icon: imagePaths[0]));
-    listData.add(TAG_CENTER);
+//    listData.add(TAG_CENTER);
+    listData.add(TAG_END);
+    listData.add(TAG_BLANK);
+    listData.add(TAG_START);
     listData.add(ListItem(title: titles[1], icon: imagePaths[1]));
     listData.add(TAG_END);
   }
