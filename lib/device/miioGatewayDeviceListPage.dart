@@ -32,13 +32,13 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
   Widget build(BuildContext context) {
     final tiles = _MiioGatewayDeviceList.map(
       (pair) {
-        return new ListTile(
-          title: new Text(
+        return ListTile(
+          title: Text(
             pair.description,
             style: _biggerFont,
           ),
-          trailing: new IconButton(
-            icon: new Icon(Icons.arrow_forward_ios),
+          trailing: IconButton(
+            icon: Icon(Icons.arrow_forward_ios),
             color: Colors.green,
             onPressed: () {
               _pushDetail();
@@ -55,8 +55,8 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
         appBar: AppBar(
           title: Text(widget.title),
           actions: <Widget>[
-            new IconButton(
-                icon: new Icon(
+            IconButton(
+                icon: Icon(
                   Icons.refresh,
                   color: Colors.white,
                 ),
@@ -65,8 +65,8 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
                     getAllTCP();
                   });
                 }),
-            new IconButton(
-                icon: new Icon(
+            IconButton(
+                icon: Icon(
                   Icons.add_circle,
                   color: Colors.white,
                 ),
@@ -74,13 +74,13 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
                   getAllSession().then((v) {
                     final titles = _SessionList.map(
                       (pair) {
-                        return new ListTile(
-                          title: new Text(
+                        return ListTile(
+                          title: Text(
                             pair.description,
                             style: _biggerFont,
                           ),
-                          trailing: new IconButton(
-                            icon: new Icon(Icons.arrow_forward_ios),
+                          trailing: IconButton(
+                            icon: Icon(Icons.arrow_forward_ios),
                             color: Colors.green,
                             onPressed: () {
                               _addTCP(pair).then((v) {
@@ -97,14 +97,14 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
                     ).toList();
                     showDialog(
                         context: context,
-                        builder: (_) => new AlertDialog(
-                                title: new Text("选择一个内网："),
-                                content: new ListView(
+                        builder: (_) => AlertDialog(
+                                title: Text("选择一个内网："),
+                                content: ListView(
                                   children: divided,
                                 ),
                                 actions: <Widget>[
-                                  new FlatButton(
-                                    child: new Text("取消"),
+                                  FlatButton(
+                                    child: Text("取消"),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
@@ -134,11 +134,11 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
         TextEditingController.fromValue(TextEditingValue(text: ""));
     return showDialog(
         context: context,
-        builder: (_) => new AlertDialog(
-                title: new Text("添加内网："),
-                content: new ListView(
+        builder: (_) => AlertDialog(
+                title: Text("添加内网："),
+                content: ListView(
                   children: <Widget>[
-                    new TextFormField(
+                    TextFormField(
                       controller: _description_controller,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
@@ -146,7 +146,7 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
                         helperText: '自定义备注',
                       ),
                     ),
-                    new TextFormField(
+                    TextFormField(
                       controller: _local_ip_controller,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
@@ -154,7 +154,7 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
                         helperText: '默认0.0.0.0就行了',
                       ),
                     ),
-                    new TextFormField(
+                    TextFormField(
                       controller: _local_port_controller,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
@@ -162,7 +162,7 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
                         helperText: '可以填写0随机一个',
                       ),
                     ),
-                    new TextFormField(
+                    TextFormField(
                       controller: _remote_ip_controller,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
@@ -170,7 +170,7 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
                         helperText: '内网设备的IP',
                       ),
                     ),
-                    new TextFormField(
+                    TextFormField(
                       controller: _remote_port_controller,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
@@ -181,16 +181,16 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
                   ],
                 ),
                 actions: <Widget>[
-                  new FlatButton(
-                    child: new Text("取消"),
+                  FlatButton(
+                    child: Text("取消"),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
-                  new FlatButton(
-                    child: new Text("添加"),
+                  FlatButton(
+                    child: Text("添加"),
                     onPressed: () {
-                      var tcpConfig = new PortConfig();
+                      var tcpConfig = PortConfig();
                       tcpConfig.description = _description_controller.text;
                       tcpConfig.localProt =
                           int.parse(_local_port_controller.text);
@@ -218,11 +218,11 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
   }
 
   Future getAllSession() async {
-    final channel = new ClientChannel('localhost',
+    final channel = ClientChannel('localhost',
         port: 2080,
         options: const ChannelOptions(
             credentials: const ChannelCredentials.insecure()));
-    final stub = new SessionManagerClient(channel);
+    final stub = SessionManagerClient(channel);
     try {
       final response = await stub.getAllSession(new Empty());
       print('Greeter client received: ${response.sessionConfigs}');
@@ -235,18 +235,18 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
       await channel.shutdown();
       showDialog(
           context: context,
-          builder: (_) => new AlertDialog(
-                  title: new Text("获取内网列表失败："),
-                  content: new Text("失败原因：$e"),
+          builder: (_) => AlertDialog(
+                  title: Text("获取内网列表失败："),
+                  content: Text("失败原因：$e"),
                   actions: <Widget>[
-                    new FlatButton(
-                      child: new Text("取消"),
+                    FlatButton(
+                      child: Text("取消"),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
                     ),
-                    new FlatButton(
-                      child: new Text("确认"),
+                    FlatButton(
+                      child: Text("确认"),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
