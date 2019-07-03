@@ -29,6 +29,15 @@ class MiioGatewayDeviceApi {
     print('Greeter client received: ${response}');
     channel.shutdown();
   }
+//  rpc GetAllDevice (Empty) returns (MiioGatewayDeviceList) {}
+  static Future<MiioGatewayDeviceList> getAllDevice() async {
+    final channel = getClientChannel();
+    final stub = MiioGatewayManagerClient(channel);
+    final response = await stub.getAllDevice(Empty());
+    print('Greeter client received: ${response}');
+    channel.shutdown();
+    return response;
+  }
   //网关本身的操作
 //  rpc SetColor (MiioGatewayDevice) returns (Empty) {}
   static Future SetColor(MiioGatewayDevice device) async {

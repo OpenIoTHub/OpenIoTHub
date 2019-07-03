@@ -44,6 +44,13 @@ const Device$json = const {
   ],
 };
 
+const DeviceList$json = const {
+  '1': 'DeviceList',
+  '2': const [
+    const {'1': 'Devices', '3': 1, '4': 3, '5': 11, '6': '.pb.Device', '10': 'Devices'},
+  ],
+};
+
 const MiioGatewayDevice$json = const {
   '1': 'MiioGatewayDevice',
   '2': const [
@@ -52,6 +59,13 @@ const MiioGatewayDevice$json = const {
     const {'1': 'Key', '3': 3, '4': 1, '5': 9, '10': 'Key'},
     const {'1': 'Color', '3': 4, '4': 1, '5': 11, '6': '.pb.Color', '10': 'Color'},
     const {'1': 'Brightness', '3': 5, '4': 1, '5': 13, '10': 'Brightness'},
+  ],
+};
+
+const MiioGatewayDeviceList$json = const {
+  '1': 'MiioGatewayDeviceList',
+  '2': const [
+    const {'1': 'MiioGatewayDevices', '3': 1, '4': 3, '5': 11, '6': '.pb.MiioGatewayDevice', '10': 'MiioGatewayDevices'},
   ],
 };
 

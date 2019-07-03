@@ -29,6 +29,15 @@ class CommonDeviceApi {
     print('Greeter client received: ${response}');
     channel.shutdown();
   }
+//  rpc GetAllDevice (Empty) returns (DeviceList) {}
+  static Future<DeviceList> getAllDevice() async {
+    final channel = getClientChannel();
+    final stub = CommonDeviceManagerClient(channel);
+    final response = await stub.getAllDevice(Empty());
+    print('Greeter client received: ${response}');
+    channel.shutdown();
+    return response;
+  }
   // TCP
 //  rpc CreateOneTCP (PortConfig) returns (PortConfig) {}
   static Future createOneTCP(PortConfig config) async {

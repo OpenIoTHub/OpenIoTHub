@@ -376,6 +376,10 @@ class CommonDeviceManagerClient extends $grpc.Client {
       '/pb.CommonDeviceManager/DelDevice',
       (Device value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => Empty.fromBuffer(value));
+  static final _$getAllDevice = $grpc.ClientMethod<Empty, DeviceList>(
+      '/pb.CommonDeviceManager/GetAllDevice',
+      (Empty value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => DeviceList.fromBuffer(value));
   static final _$createOneTCP = $grpc.ClientMethod<PortConfig, PortConfig>(
       '/pb.CommonDeviceManager/CreateOneTCP',
       (PortConfig value) => value.writeToBuffer(),
@@ -439,6 +443,14 @@ class CommonDeviceManagerClient extends $grpc.Client {
   $grpc.ResponseFuture<Empty> delDevice(Device request,
       {$grpc.CallOptions options}) {
     final call = $createCall(_$delDevice, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+
+  $grpc.ResponseFuture<DeviceList> getAllDevice(Empty request,
+      {$grpc.CallOptions options}) {
+    final call = $createCall(
+        _$getAllDevice, $async.Stream.fromIterable([request]),
         options: options);
     return $grpc.ResponseFuture(call);
   }
@@ -552,6 +564,13 @@ abstract class CommonDeviceManagerServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => Device.fromBuffer(value),
         (Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<Empty, DeviceList>(
+        'GetAllDevice',
+        getAllDevice_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => Empty.fromBuffer(value),
+        (DeviceList value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<PortConfig, PortConfig>(
         'CreateOneTCP',
         createOneTCP_Pre,
@@ -648,6 +667,11 @@ abstract class CommonDeviceManagerServiceBase extends $grpc.Service {
     return delDevice(call, await request);
   }
 
+  $async.Future<DeviceList> getAllDevice_Pre(
+      $grpc.ServiceCall call, $async.Future request) async {
+    return getAllDevice(call, await request);
+  }
+
   $async.Future<PortConfig> createOneTCP_Pre(
       $grpc.ServiceCall call, $async.Future request) async {
     return createOneTCP(call, await request);
@@ -710,6 +734,7 @@ abstract class CommonDeviceManagerServiceBase extends $grpc.Service {
 
   $async.Future<Empty> addDevice($grpc.ServiceCall call, Device request);
   $async.Future<Empty> delDevice($grpc.ServiceCall call, Device request);
+  $async.Future<DeviceList> getAllDevice($grpc.ServiceCall call, Empty request);
   $async.Future<PortConfig> createOneTCP(
       $grpc.ServiceCall call, PortConfig request);
   $async.Future<Empty> deleteOneTCP($grpc.ServiceCall call, PortConfig request);
@@ -739,6 +764,12 @@ class MiioGatewayManagerClient extends $grpc.Client {
       '/pb.MiioGatewayManager/DelDevice',
       (MiioGatewayDevice value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => Empty.fromBuffer(value));
+  static final _$getAllDevice =
+      $grpc.ClientMethod<Empty, MiioGatewayDeviceList>(
+          '/pb.MiioGatewayManager/GetAllDevice',
+          (Empty value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              MiioGatewayDeviceList.fromBuffer(value));
   static final _$setColor = $grpc.ClientMethod<MiioGatewayDevice, Empty>(
       '/pb.MiioGatewayManager/SetColor',
       (MiioGatewayDevice value) => value.writeToBuffer(),
@@ -785,6 +816,14 @@ class MiioGatewayManagerClient extends $grpc.Client {
   $grpc.ResponseFuture<Empty> delDevice(MiioGatewayDevice request,
       {$grpc.CallOptions options}) {
     final call = $createCall(_$delDevice, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+
+  $grpc.ResponseFuture<MiioGatewayDeviceList> getAllDevice(Empty request,
+      {$grpc.CallOptions options}) {
+    final call = $createCall(
+        _$getAllDevice, $async.Stream.fromIterable([request]),
         options: options);
     return $grpc.ResponseFuture(call);
   }
@@ -861,6 +900,13 @@ abstract class MiioGatewayManagerServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => MiioGatewayDevice.fromBuffer(value),
         (Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<Empty, MiioGatewayDeviceList>(
+        'GetAllDevice',
+        getAllDevice_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => Empty.fromBuffer(value),
+        (MiioGatewayDeviceList value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<MiioGatewayDevice, Empty>(
         'SetColor',
         setColor_Pre,
@@ -922,6 +968,11 @@ abstract class MiioGatewayManagerServiceBase extends $grpc.Service {
     return delDevice(call, await request);
   }
 
+  $async.Future<MiioGatewayDeviceList> getAllDevice_Pre(
+      $grpc.ServiceCall call, $async.Future request) async {
+    return getAllDevice(call, await request);
+  }
+
   $async.Future<Empty> setColor_Pre(
       $grpc.ServiceCall call, $async.Future request) async {
     return setColor(call, await request);
@@ -961,6 +1012,8 @@ abstract class MiioGatewayManagerServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, MiioGatewayDevice request);
   $async.Future<Empty> delDevice(
       $grpc.ServiceCall call, MiioGatewayDevice request);
+  $async.Future<MiioGatewayDeviceList> getAllDevice(
+      $grpc.ServiceCall call, Empty request);
   $async.Future<Empty> setColor(
       $grpc.ServiceCall call, MiioGatewayDevice request);
   $async.Future<Empty> setBrightness(

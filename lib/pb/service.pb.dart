@@ -170,6 +170,27 @@ class Device extends $pb.GeneratedMessage {
   void clearDescription() => clearField(3);
 }
 
+class DeviceList extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('DeviceList', package: const $pb.PackageName('pb'))
+    ..pc<Device>(1, 'devices', $pb.PbFieldType.PM,Device.create)
+    ..hasRequiredFields = false
+  ;
+
+  DeviceList() : super();
+  DeviceList.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  DeviceList.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  DeviceList clone() => DeviceList()..mergeFromMessage(this);
+  DeviceList copyWith(void Function(DeviceList) updates) => super.copyWith((message) => updates(message as DeviceList));
+  $pb.BuilderInfo get info_ => _i;
+  static DeviceList create() => DeviceList();
+  DeviceList createEmptyInstance() => create();
+  static $pb.PbList<DeviceList> createRepeated() => $pb.PbList<DeviceList>();
+  static DeviceList getDefault() => _defaultInstance ??= create()..freeze();
+  static DeviceList _defaultInstance;
+
+  $core.List<Device> get devices => $_getList(0);
+}
+
 class MiioGatewayDevice extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('MiioGatewayDevice', package: const $pb.PackageName('pb'))
     ..aOS(1, 'runId')
@@ -216,6 +237,27 @@ class MiioGatewayDevice extends $pb.GeneratedMessage {
   set brightness($core.int v) { $_setUnsignedInt32(4, v); }
   $core.bool hasBrightness() => $_has(4);
   void clearBrightness() => clearField(5);
+}
+
+class MiioGatewayDeviceList extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('MiioGatewayDeviceList', package: const $pb.PackageName('pb'))
+    ..pc<MiioGatewayDevice>(1, 'miioGatewayDevices', $pb.PbFieldType.PM,MiioGatewayDevice.create)
+    ..hasRequiredFields = false
+  ;
+
+  MiioGatewayDeviceList() : super();
+  MiioGatewayDeviceList.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  MiioGatewayDeviceList.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  MiioGatewayDeviceList clone() => MiioGatewayDeviceList()..mergeFromMessage(this);
+  MiioGatewayDeviceList copyWith(void Function(MiioGatewayDeviceList) updates) => super.copyWith((message) => updates(message as MiioGatewayDeviceList));
+  $pb.BuilderInfo get info_ => _i;
+  static MiioGatewayDeviceList create() => MiioGatewayDeviceList();
+  MiioGatewayDeviceList createEmptyInstance() => create();
+  static $pb.PbList<MiioGatewayDeviceList> createRepeated() => $pb.PbList<MiioGatewayDeviceList>();
+  static MiioGatewayDeviceList getDefault() => _defaultInstance ??= create()..freeze();
+  static MiioGatewayDeviceList _defaultInstance;
+
+  $core.List<MiioGatewayDevice> get miioGatewayDevices => $_getList(0);
 }
 
 class MiioGatewaySubDevice extends $pb.GeneratedMessage {
