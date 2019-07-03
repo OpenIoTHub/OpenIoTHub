@@ -256,11 +256,6 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
   }
 
   _launchURL(String url) async {
-//    if (await canLaunch(url)) {
-//      await launch(url);
-//    } else {
-//      throw 'Could not launch $url';
-//    }
     AndroidIntent intent = AndroidIntent(
       action: 'action_view',
       data: url,
