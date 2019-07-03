@@ -17,6 +17,13 @@ class MDNSServiceListPage extends StatefulWidget {
 
 class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
   final _biggerFont = const TextStyle(fontSize: 18.0);
+  static const double IMAGE_ICON_WIDTH = 30.0;
+  static const double ARROW_ICON_WIDTH = 16.0;
+  final rightArrowIcon = Image.asset(
+    'images/ic_arrow_right.png',
+    width: ARROW_ICON_WIDTH,
+    height: ARROW_ICON_WIDTH,
+  );
   List<PortConfig> _ServiceList = [];
   @override
   void initState() {
@@ -31,38 +38,45 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
   @override
   Widget build(BuildContext context) {
     final tiles = _ServiceList.map(
-          (pair) {
-        return ListTile(
-          title: Text(
-            '${pair.description}',
-            style: _biggerFont,
+      (pair) {
+        var listItemContent = Padding(
+          padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
+          child: Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+                child: Icon(Icons.devices),
+              ),
+              Expanded(
+                  child: Text(
+                pair.description,
+                style: _biggerFont,
+              )),
+              rightArrowIcon
+            ],
           ),
-          trailing: IconButton(
-            icon: Icon(Icons.arrow_forward_ios),
-            color: Colors.green,
-            onPressed: () {
-              //直接打开内置web浏览器浏览页面
-              Navigator.of(context)
-                  .push(new MaterialPageRoute(builder: (context) {
-                return WebviewScaffold(
-                  url: "http://127.0.0.1:${pair.localProt}",
-                  appBar: new AppBar(
-                    title: new Text("网页浏览器"),
-                    actions: <Widget>[
-                      IconButton(
-                        icon: Icon(
-                          Icons.open_in_browser,
-                          color: Colors.white,
-                        ),
-                        onPressed: () {
-                          _launchURL("http://127.0.0.1:${pair.localProt}");
-                        })
-                    ]
-                  ),
-                );
-              }));
-            },
-          ),
+        );
+        return InkWell(
+          onTap: () {
+            //直接打开内置web浏览器浏览页面
+            Navigator.of(context)
+                .push(new MaterialPageRoute(builder: (context) {
+              return WebviewScaffold(
+                url: "http://127.0.0.1:${pair.localProt}",
+                appBar: new AppBar(title: new Text("网页浏览器"), actions: <Widget>[
+                  IconButton(
+                      icon: Icon(
+                        Icons.open_in_browser,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        _launchURL("http://127.0.0.1:${pair.localProt}");
+                      })
+                ]),
+              );
+            }));
+          },
+          child: listItemContent,
         );
       },
     );
@@ -80,7 +94,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                 color: Colors.white,
               ),
               onPressed: () {
-                refreshmDNSServices(widget.sessionConfig).then((result){
+                refreshmDNSServices(widget.sessionConfig).then((result) {
                   SessionApi.getAllTCP(widget.sessionConfig).then((v) {
                     setState(() {
                       _ServiceList = v.portConfigs;
@@ -97,24 +111,24 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                 showDialog(
                     context: context,
                     builder: (_) => AlertDialog(
-                        title: Text("删除内网"),
-                        content: Text("确认删除此内网？"),
-                        actions: <Widget>[
-                          FlatButton(
-                            child: Text("取消"),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                          FlatButton(
-                            child: Text("删除"),
-                            onPressed: () {
-                              deleteOneSession(widget.sessionConfig);
+                            title: Text("删除内网"),
+                            content: Text("确认删除此内网？"),
+                            actions: <Widget>[
+                              FlatButton(
+                                child: Text("取消"),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              FlatButton(
+                                child: Text("删除"),
+                                onPressed: () {
+                                  deleteOneSession(widget.sessionConfig);
 //                                  ：TODO 删除之后刷新列表
-                              Navigator.of(context).pop();
-                            },
-                          )
-                        ]));
+                                  Navigator.of(context).pop();
+                                },
+                              )
+                            ]));
               }),
           IconButton(
               icon: Icon(
@@ -158,9 +172,9 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
           ).toList();
 
           return Scaffold(
-              appBar: AppBar(
+            appBar: AppBar(
               title: Text('网络详情'),
-              ),
+            ),
             body: ListView(children: divided),
           );
         },
@@ -185,9 +199,8 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                       },
                     )
                   ])).then((result) {
-                      Navigator.of(context).pop();
-                    }
-      );
+        Navigator.of(context).pop();
+      });
     } catch (e) {
       print('Caught error: $e');
       showDialog(

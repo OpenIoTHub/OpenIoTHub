@@ -16,9 +16,9 @@ class SessionListPage extends StatefulWidget {
 }
 
 class _SessionListPageState extends State<SessionListPage> {
+  final _biggerFont = const TextStyle(fontSize: 18.0);
   static const double IMAGE_ICON_WIDTH = 30.0;
   static const double ARROW_ICON_WIDTH = 16.0;
-  final _biggerFont = const TextStyle(fontSize: 18.0);
   final rightArrowIcon = Image.asset(
     'images/ic_arrow_right.png',
     width: ARROW_ICON_WIDTH,
@@ -43,12 +43,15 @@ class _SessionListPageState extends State<SessionListPage> {
           padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
           child: Row(
             children: <Widget>[
-              Icon(Icons.cloud_done),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+                child: Icon(Icons.cloud_done),
+              ),
               Expanded(
                   child: Text(
-                    pair.description,
-                    style: _biggerFont,
-                  )),
+                pair.description,
+                style: _biggerFont,
+              )),
               rightArrowIcon
             ],
           ),
@@ -90,9 +93,11 @@ class _SessionListPageState extends State<SessionListPage> {
                 ),
                 onPressed: () {
                   TextEditingController _token_controller =
-                  TextEditingController.fromValue(TextEditingValue(text: ""));
+                      TextEditingController.fromValue(
+                          TextEditingValue(text: ""));
                   TextEditingController _description_controller =
-                  TextEditingController.fromValue(TextEditingValue(text: "我的网络"));
+                      TextEditingController.fromValue(
+                          TextEditingValue(text: "我的网络"));
                   showDialog(
                       context: context,
                       builder: (_) => AlertDialog(
@@ -189,9 +194,8 @@ class _SessionListPageState extends State<SessionListPage> {
                       },
                     )
                   ])).then((result) {
-                      Navigator.of(context).pop();
-                    }
-      );
+        Navigator.of(context).pop();
+      });
     } catch (e) {
       print('Caught error: $e');
       showDialog(
@@ -240,7 +244,7 @@ class _SessionListPageState extends State<SessionListPage> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
       child:
-      Image.asset(path, width: IMAGE_ICON_WIDTH, height: IMAGE_ICON_WIDTH),
+          Image.asset(path, width: IMAGE_ICON_WIDTH, height: IMAGE_ICON_WIDTH),
     );
   }
 }
