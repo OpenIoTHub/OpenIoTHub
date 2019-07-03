@@ -16,7 +16,15 @@ class SessionListPage extends StatefulWidget {
 }
 
 class _SessionListPageState extends State<SessionListPage> {
+  static const double IMAGE_ICON_WIDTH = 30.0;
+  static const double ARROW_ICON_WIDTH = 16.0;
   final _biggerFont = const TextStyle(fontSize: 18.0);
+  final rightArrowIcon = Image.asset(
+    'images/ic_arrow_right.png',
+    width: ARROW_ICON_WIDTH,
+    height: ARROW_ICON_WIDTH,
+  );
+
   List<SessionConfig> _SessionList = [];
 
   @override
@@ -31,18 +39,25 @@ class _SessionListPageState extends State<SessionListPage> {
   Widget build(BuildContext context) {
     final tiles = _SessionList.map(
       (pair) {
-        return ListTile(
-          title: Text(
-            pair.description,
-            style: _biggerFont,
+        var listItemContent = Padding(
+          padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
+          child: Row(
+            children: <Widget>[
+              Icon(Icons.cloud_done),
+              Expanded(
+                  child: Text(
+                    pair.description,
+                    style: _biggerFont,
+                  )),
+              rightArrowIcon
+            ],
           ),
-          trailing: IconButton(
-            icon: Icon(Icons.arrow_forward_ios),
-            color: Colors.green,
-            onPressed: () {
-              _pushmDNSServices(pair);
-            },
-          ),
+        );
+        return InkWell(
+          onTap: () {
+            _pushmDNSServices(pair);
+          },
+          child: listItemContent,
         );
       },
     );
@@ -219,5 +234,13 @@ class _SessionListPageState extends State<SessionListPage> {
     } catch (e) {
       print('Caught error: $e');
     }
+  }
+
+  Widget getIconImage(path) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+      child:
+      Image.asset(path, width: IMAGE_ICON_WIDTH, height: IMAGE_ICON_WIDTH),
+    );
   }
 }
