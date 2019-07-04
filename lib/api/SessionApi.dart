@@ -4,6 +4,7 @@ import 'package:nat_explorer/pb/service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 
 class SessionApi {
+//  TODO 可以选择grpc所执行的主机，可以是安卓本机也可以是pc，也可以是服务器
   static ClientChannel getClientChannel() {
     final channel = ClientChannel('localhost',
         port: 2080,

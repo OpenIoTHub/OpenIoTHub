@@ -7,6 +7,8 @@ import 'package:grpc/grpc.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:android_intent/android_intent.dart';
 
+import 'commonDeviceServiceTypesList.dart';
+
 class CommonDeviceListPage extends StatefulWidget {
   CommonDeviceListPage({Key key, this.title}) : super(key: key);
 
@@ -43,7 +45,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
             icon: Icon(Icons.arrow_forward_ios),
             color: Colors.green,
             onPressed: () {
-              _pushDetail();
+              _pushDeviceServiceTypes(pair);
             },
           ),
         );
@@ -176,8 +178,20 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
                 ]));
   }
 
-  void _pushDetail() async {
-  // 添加设备
+  void _pushDeviceServiceTypes(Device device) async {
+  // 查看设备下的服务 CommonDeviceServiceTypesList
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) {
+          // 写成独立的组件，支持刷新
+          return CommonDeviceServiceTypesList(device);
+        },
+      ),
+    ).then((result) {
+      setState(() {
+        getAllSession();
+      });
+    });
   }
 
   Future getAllSession() async {
