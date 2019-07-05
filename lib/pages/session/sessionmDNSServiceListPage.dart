@@ -4,7 +4,7 @@ import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
-import './api/SessionApi.dart';
+import '../../api/SessionApi.dart';
 
 class MDNSServiceListPage extends StatefulWidget {
   MDNSServiceListPage({Key key, this.sessionConfig}) : super(key: key);

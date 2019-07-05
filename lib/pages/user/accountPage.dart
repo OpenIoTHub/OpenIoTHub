@@ -6,10 +6,10 @@ import 'package:nat_explorer/events/LogoutEvent.dart';
 import 'package:nat_explorer/util/ThemeUtils.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import './api/SessionApi.dart';
-import './util/NetUtils.dart';
-import './util/DataUtils.dart';
-import './model/UserInfo.dart';
+import '../../api/SessionApi.dart';
+import '../../util/NetUtils.dart';
+import '../../util/DataUtils.dart';
+import '../../model/UserInfo.dart';
 
 class MyInfoPage extends StatefulWidget {
   @override

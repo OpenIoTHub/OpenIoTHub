@@ -1,11 +1,9 @@
-import 'dart:async' as DeviceServiceTypesList;
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:nat_explorer/device/commonDevice/commonDeviceListPage.dart';
-import 'package:nat_explorer/device/miioGatewayDevice/miioGatewayDeviceListPage.dart';
-import 'package:nat_explorer/pb/service.pb.dart';
+import 'package:nat_explorer/pages/device/commonDevice/commonDeviceListPage.dart';
+import 'package:nat_explorer/pages/device/miioGatewayDevice/miioGatewayDeviceListPage.dart';
 
-class CommonDeviceServiceTypesList extends StatelessWidget {
-  Device device;
+class DiscoveryPage extends StatelessWidget {
   static const String TAG_START = "startDivider";
   static const String TAG_END = "endDivider";
   static const String TAG_CENTER = "centerDivider";
@@ -23,7 +21,7 @@ class CommonDeviceServiceTypesList extends StatelessWidget {
     "images/ic_discover_nearby.png",
     "images/ic_discover_pos.png",
   ];
-  final titles = ["TCP端口", "UDP端口", "FTP端口"];
+  final titles = ["普通设备", "小米网关"];
   final rightArrowIcon = Image.asset(
     'images/ic_arrow_right.png',
     width: ARROW_ICON_WIDTH,
@@ -32,7 +30,7 @@ class CommonDeviceServiceTypesList extends StatelessWidget {
   final titleTextStyle = TextStyle(fontSize: 16.0);
   final List listData = [];
 
-  CommonDeviceServiceTypesList(this.device) {
+  DiscoveryPage() {
     initData();
   }
 
@@ -44,10 +42,6 @@ class CommonDeviceServiceTypesList extends StatelessWidget {
     listData.add(TAG_BLANK);
     listData.add(TAG_START);
     listData.add(ListItem(title: titles[1], icon: imagePaths[1]));
-    listData.add(TAG_END);
-    listData.add(TAG_BLANK);
-    listData.add(TAG_START);
-    listData.add(ListItem(title: titles[2], icon: imagePaths[2]));
     listData.add(TAG_END);
   }
 
@@ -113,22 +107,18 @@ class CommonDeviceServiceTypesList extends StatelessWidget {
 
   void handleListItemClick(BuildContext ctx, ListItem item) {
     String title = item.title;
-    if (title == "TCP端口") {
+    if (title == "普通设备") {
       Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
-        return Text("TCP");
+        return CommonDeviceListPage(title: "设备列表");
       }));
-    } else if (title == "UDP端口") {
+    } else if (title == "小米网关") {
       Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
-        return Text("UDP");
-      }));
-    } else if (title == "FTP端口") {
-      Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
-        return Text("FTP");
+        return MiioGatewayDeviceListPage(title: "设备列表");
       }));
     }
   }
 
-  DeviceServiceTypesList.Future scan() async {
+  Future scan() async {
     try {} on Exception catch (e) {
       print(e);
     }
@@ -137,7 +127,7 @@ class CommonDeviceServiceTypesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("服务")),
+      appBar: AppBar(title: Text("设备管理器")),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
         child: ListView.builder(

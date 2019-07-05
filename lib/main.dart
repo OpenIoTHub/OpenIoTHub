@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nat_explorer/sessionListPage.dart';
-import 'package:nat_explorer/deviceTypePage.dart';
-import 'package:nat_explorer/accountPage.dart';
+import 'package:nat_explorer/pages/session/sessionListPage.dart';
+import 'package:nat_explorer/pages/device/deviceTypePage.dart';
+import 'package:nat_explorer/pages/user/accountPage.dart';
 
 void main() => runApp(MyApp());
 
