@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:smartconfig/smartconfig.dart';
 
 class EspSmartConfigTool extends StatefulWidget {
   EspSmartConfigTool({Key key, this.title}) : super(key: key);
@@ -19,9 +20,50 @@ class EspSmartConfigTool extends StatefulWidget {
 }
 
 class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
-  String _connectionStatus = 'Unknown';
   final Connectivity _connectivity = Connectivity();
   StreamSubscription<ConnectivityResult> _connectivitySubscription;
+
+//  New
+  final TextEditingController _bssidFilter = TextEditingController();
+  final TextEditingController _ssidFilter = TextEditingController();
+  final TextEditingController _passwordFilter = TextEditingController();
+
+  bool _isLoading = false;
+
+  String _ssid = "";
+  String _bssid = "";
+  String _password = "";
+  String _msg = "";
+
+  _EspSmartConfigToolState() {
+    _ssidFilter.addListener(_ssidListen);
+    _passwordFilter.addListener(_passwordListen);
+    _bssidFilter.addListener(_bssidListen);
+  }
+
+  void _ssidListen() {
+    if (_ssidFilter.text.isEmpty) {
+      _ssid = "";
+    } else {
+      _ssid = _ssidFilter.text;
+    }
+  }
+
+  void _bssidListen() {
+    if (_bssidFilter.text.isEmpty) {
+      _bssid = "";
+    } else {
+      _bssid = _bssidFilter.text;
+    }
+  }
+
+  void _passwordListen() {
+    if (_passwordFilter.text.isEmpty) {
+      _password = "";
+    } else {
+      _password = _passwordFilter.text;
+    }
+  }
 
   @override
   void initState() {
@@ -62,9 +104,76 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ESP SmartConfig(esp8266/esp32)'),
+        title: const Text('ESP SmartConfig'),
       ),
-      body: Center(child: Text('Connection Status: $_connectionStatus')),
+      body: Center(
+          child: _isLoading ? Container(
+            child: Center(
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.lightBlue),
+              ),
+                    Text(_ssid),
+                    Text(_bssid),
+                    Text(_password),
+                  ]),
+            ),
+            color: Colors.white.withOpacity(0.8),
+          ) :
+
+          Container(
+              padding: EdgeInsets.all(10.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+
+                  Container(height: 10),
+
+                  Container(
+                      child:  Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Text("ESP Touch v0.3.7.0"),
+                            TextField(
+                              controller: _ssidFilter,
+                              decoration: InputDecoration(
+                                  labelText: 'ssid'
+                              ),
+                            ),
+                            TextField(
+                              controller: _bssidFilter,
+                              decoration: InputDecoration(
+                                  labelText: 'bssid'
+                              ),
+                            ),
+                          ])),
+
+                  Container(
+                    child: TextField(
+                      controller: _passwordFilter,
+                      decoration: InputDecoration(
+                          labelText: 'Password'
+                      ),
+                    ),
+                  ),
+
+                  RaisedButton(
+                    child: Text('Configure ESP'),
+                    onPressed: _configureEsp,
+                  ),
+
+                  Container(height: 10),
+
+                  Text(_msg),
+
+                ],
+              )
+
+          )
+
+
+      )
     );
   }
 
@@ -95,18 +204,16 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
         }
 
         setState(() {
-          _connectionStatus = '$result\n'
-              'Wifi Name: $wifiName\n'
-              'Wifi BSSID: $wifiBSSID\n'
-              'Wifi IP: $wifiIP\n';
+          _ssidFilter.text =  wifiName;
+          _bssidFilter.text =  wifiBSSID;
+
+          _msg = "OK";
         });
         break;
       case ConnectivityResult.mobile:
       case ConnectivityResult.none:
-        setState(() => _connectionStatus = result.toString());
         break;
       default:
-        setState(() => _connectionStatus = 'Failed to get connectivity.');
         break;
     }
   }
@@ -122,6 +229,29 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
       return true;
     } else {
       return false;
+    }
+  }
+
+  Future<void> _configureEsp() async {
+    String output = "Unknown";
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      Smartconfig.start(_ssid, _bssid, _password).then( (v)=>
+          setState(() {
+            _isLoading = false;
+            _msg = v;
+          })
+      );
+
+    } on PlatformException catch (e) {
+      output = "Failed to configure: '${e.message}'.";
+      setState(() {
+        _isLoading = false;
+        _msg = output;
+      });
     }
   }
 }
