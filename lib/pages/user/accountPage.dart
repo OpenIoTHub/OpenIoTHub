@@ -3,6 +3,7 @@ import 'package:nat_explorer/constants/Constants.dart';
 import 'package:nat_explorer/events/ChangeThemeEvent.dart';
 import 'package:nat_explorer/events/LoginEvent.dart';
 import 'package:nat_explorer/events/LogoutEvent.dart';
+import 'package:nat_explorer/pages/user/tools/toolsTypePage.dart';
 import 'package:nat_explorer/util/ThemeUtils.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,7 +25,7 @@ class MyInfoPageState extends State<MyInfoPage> {
   static const double IMAGE_ICON_WIDTH = 30.0;
   static const double ARROW_ICON_WIDTH = 16.0;
 
-  var titles = ["我的消息"];
+  var titles = ["我的消息", "工具"];
   var imagePaths = [
     "images/ic_my_message.png",
     "images/ic_my_blog.png",
@@ -257,19 +258,27 @@ class MyInfoPageState extends State<MyInfoPage> {
         });
   }
 
+//  根据不同的标题切换到不同的界面
   _handleListItemClick(String title) {
-    DataUtils.isLogin().then((isLogin) {
-      if (!isLogin) {
-        // 未登录
-        _showLoginDialog();
-      } else {
-        DataUtils.getUserInfo().then((info) {
-          Navigator.of(context).push(
-              MaterialPageRoute(
-                  builder: (context) => Text("我的")
-              ));
-        });
-      }
-    });
+    if (title == "工具"){
+      Navigator.of(context).push(
+          MaterialPageRoute(
+              builder: (context) => ToolsTypePage()
+          ));
+    }else {
+      DataUtils.isLogin().then((isLogin) {
+        if (!isLogin) {
+          // 未登录
+          _showLoginDialog();
+        } else {
+          DataUtils.getUserInfo().then((info) {
+            Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (context) => Text("我的")
+                ));
+          });
+        }
+      });
+    }
   }
 }

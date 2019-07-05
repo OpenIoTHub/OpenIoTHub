@@ -36,6 +36,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.14.11"
+  connectivity:
+    dependency: "direct main"
+    description:
+      name: connectivity
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.4.3+2"
   convert:
     dependency: transitive
     description:
@@ -151,6 +158,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.5.0"
+  permission_handler:
+    dependency: "direct main"
+    description:
+      name: permission_handler
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.1.0"
   platform:
     dependency: transitive
     description:
@@ -184,6 +198,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  smartconfig:
+    dependency: "direct main"
+    description:
+      name: smartconfig
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.1"
   source_span:
     dependency: transitive
     description:
