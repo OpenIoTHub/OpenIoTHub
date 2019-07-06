@@ -29,7 +29,7 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
   String _ssid = "";
   String _bssid = "";
   String _password = "";
-  String _msg = "";
+  String _msg = "上面输入wifi密码开始设置设备联网";
 
   _EspSmartConfigToolState() {
     _ssidFilter.addListener(_ssidListen);
@@ -110,9 +110,7 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
                   children: <Widget>[CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.lightBlue),
               ),
-                    Text(_ssid),
-                    Text(_bssid),
-                    Text(_password),
+                    Text("正在设置设备连接到路由器：${_ssid}(BSSID:${_bssid})"),
                   ]),
             ),
             color: Colors.white.withOpacity(0.8),
@@ -149,13 +147,14 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
                     child: TextField(
                       controller: _passwordFilter,
                       decoration: InputDecoration(
-                          labelText: 'Password'
+                          labelText: 'Wifi密码'
                       ),
+                      obscureText: true,
                     ),
                   ),
 
                   RaisedButton(
-                    child: Text('Configure ESP'),
+                    child: Text('开始给设备配网'),
                     onPressed: _configureEsp,
                   ),
 
@@ -203,7 +202,7 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
           _ssidFilter.text =  wifiName;
           _bssidFilter.text =  wifiBSSID;
 
-          _msg = "OK";
+          _msg = "输入路由器WIFI(2.4G频率)密码后开始配网";
         });
         break;
       case ConnectivityResult.mobile:
@@ -239,7 +238,7 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
       Smartconfig.start(_ssid, _bssid, _password).then( (v)=>
           setState(() {
             _isLoading = false;
-            _msg = "配好了！";
+            _msg = "配好了设备：${v.toString()}";
           })
       );
 
