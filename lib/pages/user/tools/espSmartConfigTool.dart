@@ -224,6 +224,7 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
     if (permission == PermissionStatus.granted) {
       return true;
     } else {
+//      提示失败！
       return false;
     }
   }
@@ -238,7 +239,7 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
       Smartconfig.start(_ssid, _bssid, _password).then( (v)=>
           setState(() {
             _isLoading = false;
-            _msg = v;
+            _msg = "配好了！";
           })
       );
 
