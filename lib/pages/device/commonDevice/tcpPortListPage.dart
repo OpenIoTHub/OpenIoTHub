@@ -234,14 +234,15 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                   CommonDeviceApi.deleteOneTCP(config).then((result) {
                     Navigator.of(context).pop();
                   });
-//                                  ：TODO 删除之后刷新列表
                 },
               )
             ]))
         .then((v) {
               Navigator.of(context).pop();
             }
-    );
+    ).then((v){
+      refreshmTcpList();
+    });
   }
 
   _launchURL(String url) async {
