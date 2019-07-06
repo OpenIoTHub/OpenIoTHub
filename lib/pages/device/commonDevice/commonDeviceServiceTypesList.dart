@@ -1,6 +1,7 @@
 import 'dart:async' as DeviceServiceTypesList;
 import 'package:flutter/material.dart';
 import 'package:nat_explorer/pages/device/commonDevice/commonDeviceListPage.dart';
+import 'package:nat_explorer/pages/device/commonDevice/tcpPortListPage.dart';
 import 'package:nat_explorer/pages/device/miioGatewayDevice/miioGatewayDeviceListPage.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 
@@ -115,7 +116,7 @@ class CommonDeviceServiceTypesList extends StatelessWidget {
     String title = item.title;
     if (title == "TCP端口") {
       Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
-        return Text("TCP");
+        return TcpPortListPage(device:device);
       }));
     } else if (title == "UDP端口") {
       Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {

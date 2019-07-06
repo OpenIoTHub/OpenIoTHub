@@ -4,7 +4,7 @@ import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 import 'package:nat_explorer/pages/session/sessionmDNSServiceListPage.dart';
-import '../../api/SessionApi.dart';
+import 'package:nat_explorer/api/SessionApi.dart';
 
 class SessionListPage extends StatefulWidget {
   SessionListPage({Key key, this.title}) : super(key: key);

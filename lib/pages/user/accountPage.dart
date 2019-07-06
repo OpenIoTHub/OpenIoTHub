@@ -7,10 +7,10 @@ import 'package:nat_explorer/pages/user/tools/toolsTypePage.dart';
 import 'package:nat_explorer/util/ThemeUtils.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../api/SessionApi.dart';
-import '../../util/NetUtils.dart';
-import '../../util/DataUtils.dart';
-import '../../model/UserInfo.dart';
+import 'package:nat_explorer/api/SessionApi.dart';
+import 'package:nat_explorer/util/NetUtils.dart';
+import 'package:nat_explorer/util/DataUtils.dart';
+import 'package:nat_explorer/model/UserInfo.dart';
 
 class MyInfoPage extends StatefulWidget {
   @override
