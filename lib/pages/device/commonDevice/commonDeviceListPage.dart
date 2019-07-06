@@ -133,7 +133,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: Text("添加内网："),
+                title: Text("添加设备："),
                 content: ListView(
                   children: <Widget>[
                     TextFormField(

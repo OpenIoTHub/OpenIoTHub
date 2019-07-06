@@ -45,7 +45,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
               ),
               Expanded(
                   child: Text(
-                pair.description,
+                "${pair.description}(${pair.remotePort})",
                 style: _biggerFont,
               )),
               rightArrowIcon
@@ -67,7 +67,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
     ).toList();
     return Scaffold(
       appBar: AppBar(
-        title: Text("服务列表"),
+        title: Text("TCP端口列表"),
         actions: <Widget>[
           IconButton(
               icon: Icon(
@@ -130,7 +130,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                     ),
                     onPressed: () {
                       //TODO 删除
-
+                      _deleteCurrentTCP(config);
                     }),
                 IconButton(
                   icon: Icon(
@@ -213,6 +213,35 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                 },
               )
             ]));
+  }
+
+  Future _deleteCurrentTCP(PortConfig config) async {
+    showDialog(
+        context: context,
+        builder: (_) => new AlertDialog(
+            title: new Text("删除TCP"),
+            content: new Text("确认删除此TCP？"),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("取消"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              new FlatButton(
+                child: new Text("删除"),
+                onPressed: () {
+                  CommonDeviceApi.deleteOneTCP(config).then((result) {
+                    Navigator.of(context).pop();
+                  });
+//                                  ：TODO 删除之后刷新列表
+                },
+              )
+            ]))
+        .then((v) {
+              Navigator.of(context).pop();
+            }
+    );
   }
 
   _launchURL(String url) async {
