@@ -28,11 +28,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
   @override
   void initState() {
     super.initState();
-    CommonDeviceApi.getAllTCP(widget.device).then((v) {
-      setState(() {
-        _ServiceList = v.portConfigs;
-      });
-    });
+    refreshmTcpList();
   }
 
   @override
@@ -59,22 +55,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
         return InkWell(
           onTap: () {
             //TODO 打开此端口的详情
-            Navigator.of(context)
-                .push(new MaterialPageRoute(builder: (context) {
-              return WebviewScaffold(
-                url: "http://127.0.0.1:${pair.localProt}",
-                appBar: new AppBar(title: new Text("网页浏览器"), actions: <Widget>[
-                  IconButton(
-                      icon: Icon(
-                        Icons.open_in_browser,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {
-                        _launchURL("http://127.0.0.1:${pair.localProt}");
-                      })
-                ]),
-              );
-            }));
+            _pushDetail(pair);
           },
           child: listItemContent,
         );
@@ -94,7 +75,19 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                 color: Colors.white,
               ),
               onPressed: () {
-//                TODO 刷新端口列表
+                //刷新端口列表
+                refreshmTcpList();
+              }),
+          IconButton(
+              icon: Icon(
+                Icons.add_circle,
+                color: Colors.white,
+              ),
+              onPressed: () {
+//                TODO 添加TCP端口
+                _addTCP(widget.device).then((v){
+                  refreshmTcpList();
+                });
               }),
         ],
       ),
@@ -102,15 +95,12 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
     );
   }
 
-  void _pushDetail(SessionConfig config) async {
-//:TODO    这里显示内网的服务，socks5等，右上角详情才展示详细信息
+  void _pushDetail(PortConfig config) async {
     final List _result = [];
-    _result.add("ID:${config.runId}");
+    _result.add("端口:${config.remotePort}");
+    _result.add("映射到端口:${config.localProt}");
     _result.add("描述:${config.description}");
-    _result.add("连接码:${config.token}");
-    _result.add("转发连接状态:${config.statusToClient ? "在线" : "离线"}");
-    _result.add(
-        "P2P连接状态:${config.statusP2PAsClient || config.statusP2PAsServer ? "在线" : "离线"}");
+    _result.add("转发连接状态:${config.remotePortStatus ? "在线" : "离线"}");
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
@@ -131,13 +121,98 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
 
           return Scaffold(
             appBar: AppBar(
-              title: Text('网络详情'),
+              title: Text('端口详情'),
+              actions: <Widget>[
+                IconButton(
+                    icon: Icon(
+                      Icons.delete,
+                      color: Colors.red,
+                    ),
+                    onPressed: () {
+                      //TODO 删除
+
+                    }),
+                IconButton(
+                  icon: Icon(
+                    Icons.open_in_browser,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+    //                TODO 使用某种方式打开此端口
+                    _launchURL("http://127.0.0.1:${config.localProt}");
+                  }),
+              ]
             ),
             body: ListView(children: divided),
           );
         },
       ),
     );
+  }
+
+  Future refreshmTcpList() async {
+    try {
+      CommonDeviceApi.getAllTCP(widget.device).then((v) {
+        setState(() {
+          _ServiceList = v.portConfigs;
+        });
+      });
+    } catch (e) {
+      print('Caught error: $e');
+    }
+  }
+
+  Future _addTCP(Device device) async {
+    TextEditingController _description_controller =
+    TextEditingController.fromValue(TextEditingValue(text: ""));
+    TextEditingController _remote_port_controller =
+    TextEditingController.fromValue(TextEditingValue(text: ""));
+    return showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+            title: Text("添加内网："),
+            content: ListView(
+              children: <Widget>[
+                TextFormField(
+                  controller: _description_controller,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(10.0),
+                    labelText: '备注',
+                    helperText: '自定义备注',
+                  ),
+                ),
+                TextFormField(
+                  controller: _remote_port_controller,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(10.0),
+                    labelText: '内网待穿透的端口号',
+                    helperText: '根据内网实际端口号填写',
+                  ),
+                )
+              ],
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text("取消"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              FlatButton(
+                child: Text("添加"),
+                onPressed: () {
+                  var tcpConfig = PortConfig();
+                  tcpConfig.device = device;
+                  tcpConfig.description = _description_controller.text;
+                  tcpConfig.remotePort =
+                      int.parse(_remote_port_controller.text);
+                  CommonDeviceApi.createOneTCP(tcpConfig).then((restlt) {
+//                  :TODO 添加内网之后刷新列表
+                    Navigator.of(context).pop();
+                  });
+                },
+              )
+            ]));
   }
 
   _launchURL(String url) async {
