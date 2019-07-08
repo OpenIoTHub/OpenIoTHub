@@ -64,6 +64,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.1.2"
+  device_apps:
+    dependency: "direct main"
+    description:
+      name: device_apps
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.8"
   event_bus:
     dependency: "direct main"
     description:
