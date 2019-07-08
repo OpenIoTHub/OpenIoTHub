@@ -138,7 +138,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                     color: Colors.white,
                   ),
                   onPressed: () {
-    //                TODO 使用某种方式打开此端口
+    //                TODO 使用某种方式打开此端口，检查这个软件是否已经安装
                     _launchURL("http://127.0.0.1:${config.localProt}");
                   }),
               ]
