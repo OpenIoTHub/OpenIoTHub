@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:nat_explorer/api/CommonDeviceApi.dart';
+import 'package:nat_explorer/api/SessionApi.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:android_intent/android_intent.dart';
+
+import 'package:nat_explorer/pages/device/commonDevice/commonDeviceServiceTypesList.dart';
 
 class MiioGatewayDeviceListPage extends StatefulWidget {
   MiioGatewayDeviceListPage({Key key, this.title}) : super(key: key);
@@ -17,15 +21,15 @@ class MiioGatewayDeviceListPage extends StatefulWidget {
 class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
   final _biggerFont = const TextStyle(fontSize: 18.0);
   List<SessionConfig> _SessionList = [];
-  List<PortConfig> _MiioGatewayDeviceList = [];
+  List<Device> _MiioGatewayDeviceList = [];
 
   @override
   void initState() {
     super.initState();
-    getAllTCP().then((v) {
+    getAllCommonDevice().then((v) {
       setState(() {});
     });
-    print("init tcp");
+    print("init common devie List");
   }
 
   @override
@@ -41,7 +45,7 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
             icon: Icon(Icons.arrow_forward_ios),
             color: Colors.green,
             onPressed: () {
-              _pushDetail();
+              _pushDeviceServiceTypes(pair);
             },
           ),
         );
@@ -61,8 +65,8 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  setState(() {
-                    getAllTCP();
+                  getAllCommonDevice().then((v) {
+                    setState(() {});
                   });
                 }),
             IconButton(
@@ -83,7 +87,7 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
                             icon: Icon(Icons.arrow_forward_ios),
                             color: Colors.green,
                             onPressed: () {
-                              _addTCP(pair).then((v) {
+                              _addDevice(pair).then((v) {
                                 Navigator.of(context).pop();
                               });
                             },
@@ -110,7 +114,7 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
                                     },
                                   )
                                 ])).then((v) {
-                      getAllTCP().then((v) {
+                      getAllCommonDevice().then((v) {
                         setState(() {});
                       });
                     });
@@ -121,21 +125,15 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
         body: ListView(children: divided));
   }
 
-  Future _addTCP(SessionConfig config) async {
+  Future _addDevice(SessionConfig config) async {
     TextEditingController _description_controller =
         TextEditingController.fromValue(TextEditingValue(text: ""));
-    TextEditingController _local_ip_controller =
-        TextEditingController.fromValue(TextEditingValue(text: "0.0.0.0"));
-    TextEditingController _local_port_controller =
-        TextEditingController.fromValue(TextEditingValue(text: "0"));
     TextEditingController _remote_ip_controller =
         TextEditingController.fromValue(TextEditingValue(text: "127.0.0.1"));
-    TextEditingController _remote_port_controller =
-        TextEditingController.fromValue(TextEditingValue(text: ""));
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: Text("添加内网："),
+                title: Text("添加设备："),
                 content: ListView(
                   children: <Widget>[
                     TextFormField(
@@ -147,22 +145,6 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
                       ),
                     ),
                     TextFormField(
-                      controller: _local_ip_controller,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
-                        labelText: '绑定的本地IP',
-                        helperText: '默认0.0.0.0就行了',
-                      ),
-                    ),
-                    TextFormField(
-                      controller: _local_port_controller,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
-                        labelText: '本地绑定的端口',
-                        helperText: '可以填写0随机一个',
-                      ),
-                    ),
-                    TextFormField(
                       controller: _remote_ip_controller,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
@@ -170,14 +152,6 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
                         helperText: '内网设备的IP',
                       ),
                     ),
-                    TextFormField(
-                      controller: _remote_port_controller,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
-                        labelText: '内网待穿透的端口号',
-                        helperText: '根据内网实际端口号填写',
-                      ),
-                    )
                   ],
                 ),
                 actions: <Widget>[
@@ -190,49 +164,81 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
                   FlatButton(
                     child: Text("添加"),
                     onPressed: () {
-                      var tcpConfig = PortConfig();
-                      tcpConfig.description = _description_controller.text;
-                      tcpConfig.localProt =
-                          int.parse(_local_port_controller.text);
-                      tcpConfig.remotePort =
-                          int.parse(_remote_port_controller.text);
+                      var device = Device();
+                      device.runId = config.runId;
+                      device.description = _description_controller.text;
+                      device.addr =_remote_ip_controller.text;
+                      createOneCommonDevice(device).then((v){
+                        getAllCommonDevice().then((v){
+                          Navigator.of(context).pop();
+                        });
+                      });
                     },
                   )
                 ]));
   }
 
-  void _pushDetail() async {
-
-  }
-
-  createOneTCP() async {
-
-  }
-
-  deleteOneTCP() async {
-
-  }
-
-  Future getAllTCP() async {
-
+  void _pushDeviceServiceTypes(Device device) async {
+  // 查看设备下的服务 CommonDeviceServiceTypesList
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) {
+          // 写成独立的组件，支持刷新
+          return CommonDeviceServiceTypesList(device);
+        },
+      ),
+    ).then((result) {
+      setState(() {
+        getAllSession();
+      });
+    });
   }
 
   Future getAllSession() async {
-    final channel = ClientChannel('localhost',
-        port: 2080,
-        options: const ChannelOptions(
-            credentials: const ChannelCredentials.insecure()));
-    final stub = SessionManagerClient(channel);
     try {
-      final response = await stub.getAllSession(new Empty());
+      final response = await SessionApi.getAllSession();
       print('Greeter client received: ${response.sessionConfigs}');
-      await channel.shutdown();
       setState(() {
         _SessionList = response.sessionConfigs;
       });
     } catch (e) {
       print('Caught error: $e');
-      await channel.shutdown();
+    }
+  }
+
+  Future createOneCommonDevice(Device device) async {
+    try {
+      await CommonDeviceApi.createOneDevice(device);
+    }catch (e) {
+      showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+              title: Text("创建设备失败："),
+              content: Text("失败原因：$e"),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text("取消"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                FlatButton(
+                  child: Text("确认"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ]));
+    }
+  }
+
+  Future getAllCommonDevice() async {
+    try {
+      final response = await CommonDeviceApi.getAllDevice();
+      setState(() {
+        _MiioGatewayDeviceList = response.devices;
+      });
+    } catch (e) {
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
