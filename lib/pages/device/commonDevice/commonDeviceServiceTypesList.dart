@@ -1,8 +1,8 @@
 import 'dart:async' as DeviceServiceTypesList;
 import 'package:flutter/material.dart';
-import 'package:nat_explorer/pages/device/commonDevice/commonDeviceListPage.dart';
-import 'package:nat_explorer/pages/device/commonDevice/tcpPortListPage.dart';
-import 'package:nat_explorer/pages/device/miioGatewayDevice/miioGatewayDeviceListPage.dart';
+import 'tcpPortListPage.dart';
+import 'udpPortListPage.dart';
+import 'ftpPortListPage.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 
 class CommonDeviceServiceTypesList extends StatelessWidget {
@@ -120,11 +120,11 @@ class CommonDeviceServiceTypesList extends StatelessWidget {
       }));
     } else if (title == "UDP端口") {
       Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
-        return Text("UDP");
+        return UdpPortListPage(device:device);
       }));
     } else if (title == "FTP端口") {
       Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
-        return Text("FTP");
+        return FtpPortListPage(device:device);
       }));
     }
   }
