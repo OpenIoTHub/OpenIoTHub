@@ -164,7 +164,7 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
 
   Future _addUDP(Device device) async {
     TextEditingController _description_controller =
-    TextEditingController.fromValue(TextEditingValue(text: ""));
+    TextEditingController.fromValue(TextEditingValue(text: "我的UDP"));
     TextEditingController _remote_port_controller =
     TextEditingController.fromValue(TextEditingValue(text: ""));
     return showDialog(

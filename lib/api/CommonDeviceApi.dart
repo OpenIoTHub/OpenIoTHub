@@ -78,7 +78,7 @@ class CommonDeviceApi {
   static Future createOneUDP(PortConfig config) async {
     final channel = getClientChannel();
     final stub = CommonDeviceManagerClient(channel);
-    final response = await stub.createOneTCP(config);
+    final response = await stub.createOneUDP(config);
     print('Greeter client received: ${response}');
     channel.shutdown();
   }
@@ -129,7 +129,7 @@ class CommonDeviceApi {
   static Future<PortConfig> getOneFTP(PortConfig config) async {
     final channel = getClientChannel();
     final stub = CommonDeviceManagerClient(channel);
-    final response = await stub.getOneTCP(config);
+    final response = await stub.getOneFTP(config);
     print('Greeter client received: ${response}');
     channel.shutdown();
     return response;

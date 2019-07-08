@@ -164,9 +164,9 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
 
   Future _addFTP(Device device) async {
     TextEditingController _description_controller =
-    TextEditingController.fromValue(TextEditingValue(text: ""));
+    TextEditingController.fromValue(TextEditingValue(text: "FTP"));
     TextEditingController _remote_port_controller =
-    TextEditingController.fromValue(TextEditingValue(text: ""));
+    TextEditingController.fromValue(TextEditingValue(text: "21"));
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
