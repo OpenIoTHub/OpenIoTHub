@@ -132,15 +132,15 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
                       //TODO 删除
                       _deleteCurrentUDP(config);
                     }),
-                IconButton(
-                  icon: Icon(
-                    Icons.open_in_browser,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-    //                TODO 使用某种方式打开此端口
-                    _launchURL("http://127.0.0.1:${config.localProt}");
-                  }),
+//                IconButton(
+//                  icon: Icon(
+//                    Icons.open_in_browser,
+//                    color: Colors.white,
+//                  ),
+//                  onPressed: () {
+//    //                TODO 使用某种方式打开此端口
+//                    _launchURL("http://127.0.0.1:${config.localProt}");
+//                  }),
               ]
             ),
             body: ListView(children: divided),

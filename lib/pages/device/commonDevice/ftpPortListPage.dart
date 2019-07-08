@@ -139,7 +139,7 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
                   ),
                   onPressed: () {
     //                TODO 使用某种方式打开此端口
-                    _launchURL("http://127.0.0.1:${config.localProt}");
+                    _launchURL("ftp://127.0.0.1:${config.localProt}");
                   }),
               ]
             ),
