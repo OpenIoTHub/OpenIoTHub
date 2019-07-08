@@ -54,7 +54,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
         );
         return InkWell(
           onTap: () {
-            //TODO 打开此端口的详情
+            //打开此端口的详情
             _pushDetail(pair);
           },
           child: listItemContent,
@@ -170,7 +170,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
-            title: Text("添加内网："),
+            title: Text("添加端口："),
             content: ListView(
               children: <Widget>[
                 TextFormField(
@@ -185,8 +185,8 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                   controller: _remote_port_controller,
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(10.0),
-                    labelText: '内网待穿透的端口号',
-                    helperText: '根据内网实际端口号填写',
+                    labelText: '端口号',
+                    helperText: '该机器的端口号',
                   ),
                 )
               ],
@@ -207,7 +207,6 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                   tcpConfig.remotePort =
                       int.parse(_remote_port_controller.text);
                   CommonDeviceApi.createOneTCP(tcpConfig).then((restlt) {
-//                  :TODO 添加内网之后刷新列表
                     Navigator.of(context).pop();
                   });
                 },
