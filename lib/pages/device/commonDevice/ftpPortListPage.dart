@@ -28,7 +28,7 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
   @override
   void initState() {
     super.initState();
-    refreshmTcpList();
+    refreshmFTPList();
   }
 
   @override
@@ -67,7 +67,7 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
     ).toList();
     return Scaffold(
       appBar: AppBar(
-        title: Text("TCP端口列表"),
+        title: Text("FTP端口列表"),
         actions: <Widget>[
           IconButton(
               icon: Icon(
@@ -76,7 +76,7 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
               ),
               onPressed: () {
                 //刷新端口列表
-                refreshmTcpList();
+                refreshmFTPList();
               }),
           IconButton(
               icon: Icon(
@@ -84,9 +84,9 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
                 color: Colors.white,
               ),
               onPressed: () {
-//                TODO 添加TCP端口
-                _addTCP(widget.device).then((v){
-                  refreshmTcpList();
+//                TODO 添加FTP端口
+                _addFTP(widget.device).then((v){
+                  refreshmFTPList();
                 });
               }),
         ],
@@ -130,7 +130,7 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
                     ),
                     onPressed: () {
                       //TODO 删除
-                      _deleteCurrentTCP(config);
+                      _deleteCurrentFTP(config);
                     }),
                 IconButton(
                   icon: Icon(
@@ -150,9 +150,9 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
     );
   }
 
-  Future refreshmTcpList() async {
+  Future refreshmFTPList() async {
     try {
-      CommonDeviceApi.getAllTCP(widget.device).then((v) {
+      CommonDeviceApi.getAllFTP(widget.device).then((v) {
         setState(() {
           _ServiceList = v.portConfigs;
         });
@@ -162,7 +162,7 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
     }
   }
 
-  Future _addTCP(Device device) async {
+  Future _addFTP(Device device) async {
     TextEditingController _description_controller =
     TextEditingController.fromValue(TextEditingValue(text: ""));
     TextEditingController _remote_port_controller =
@@ -201,12 +201,12 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
               FlatButton(
                 child: Text("添加"),
                 onPressed: () {
-                  var tcpConfig = PortConfig();
-                  tcpConfig.device = device;
-                  tcpConfig.description = _description_controller.text;
-                  tcpConfig.remotePort =
+                  var FTPConfig = PortConfig();
+                  FTPConfig.device = device;
+                  FTPConfig.description = _description_controller.text;
+                  FTPConfig.remotePort =
                       int.parse(_remote_port_controller.text);
-                  CommonDeviceApi.createOneTCP(tcpConfig).then((restlt) {
+                  CommonDeviceApi.createOneFTP(FTPConfig).then((restlt) {
                     Navigator.of(context).pop();
                   });
                 },
@@ -214,12 +214,12 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
             ]));
   }
 
-  Future _deleteCurrentTCP(PortConfig config) async {
+  Future _deleteCurrentFTP(PortConfig config) async {
     showDialog(
         context: context,
         builder: (_) => new AlertDialog(
-            title: new Text("删除TCP"),
-            content: new Text("确认删除此TCP？"),
+            title: new Text("删除FTP"),
+            content: new Text("确认删除此FTP？"),
             actions: <Widget>[
               new FlatButton(
                 child: new Text("取消"),
@@ -230,7 +230,7 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
               new FlatButton(
                 child: new Text("删除"),
                 onPressed: () {
-                  CommonDeviceApi.deleteOneTCP(config).then((result) {
+                  CommonDeviceApi.deleteOneFTP(config).then((result) {
                     Navigator.of(context).pop();
                   });
                 },
@@ -240,7 +240,7 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
               Navigator.of(context).pop();
             }
     ).then((v){
-      refreshmTcpList();
+      refreshmFTPList();
     });
   }
 

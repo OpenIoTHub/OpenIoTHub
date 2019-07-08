@@ -91,7 +91,7 @@ class CommonDeviceApi {
     channel.shutdown();
   }
 //  rpc GetOneUDP (PortConfig) returns (PortConfig) {}
-  static Future<PortConfig> GetOneUDP(PortConfig config) async {
+  static Future<PortConfig> getOneUDP(PortConfig config) async {
     final channel = getClientChannel();
     final stub = CommonDeviceManagerClient(channel);
     final response = await stub.getOneUDP(config);
@@ -110,7 +110,7 @@ class CommonDeviceApi {
   }
   // FTP
 //  rpc CreateOneFTP (PortConfig) returns (PortConfig) {}
-  static Future CreateOneFTP(PortConfig config) async {
+  static Future createOneFTP(PortConfig config) async {
     final channel = getClientChannel();
     final stub = CommonDeviceManagerClient(channel);
     final response = await stub.createOneFTP(config);

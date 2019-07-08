@@ -28,7 +28,7 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
   @override
   void initState() {
     super.initState();
-    refreshmTcpList();
+    refreshmUDPList();
   }
 
   @override
@@ -67,7 +67,7 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
     ).toList();
     return Scaffold(
       appBar: AppBar(
-        title: Text("TCP端口列表"),
+        title: Text("UDP端口列表"),
         actions: <Widget>[
           IconButton(
               icon: Icon(
@@ -76,7 +76,7 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
               ),
               onPressed: () {
                 //刷新端口列表
-                refreshmTcpList();
+                refreshmUDPList();
               }),
           IconButton(
               icon: Icon(
@@ -84,9 +84,9 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
                 color: Colors.white,
               ),
               onPressed: () {
-//                TODO 添加TCP端口
-                _addTCP(widget.device).then((v){
-                  refreshmTcpList();
+//                TODO 添加UDP端口
+                _addUDP(widget.device).then((v){
+                  refreshmUDPList();
                 });
               }),
         ],
@@ -130,7 +130,7 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
                     ),
                     onPressed: () {
                       //TODO 删除
-                      _deleteCurrentTCP(config);
+                      _deleteCurrentUDP(config);
                     }),
                 IconButton(
                   icon: Icon(
@@ -150,9 +150,9 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
     );
   }
 
-  Future refreshmTcpList() async {
+  Future refreshmUDPList() async {
     try {
-      CommonDeviceApi.getAllTCP(widget.device).then((v) {
+      CommonDeviceApi.getAllUDP(widget.device).then((v) {
         setState(() {
           _ServiceList = v.portConfigs;
         });
@@ -162,7 +162,7 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
     }
   }
 
-  Future _addTCP(Device device) async {
+  Future _addUDP(Device device) async {
     TextEditingController _description_controller =
     TextEditingController.fromValue(TextEditingValue(text: ""));
     TextEditingController _remote_port_controller =
@@ -201,12 +201,12 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
               FlatButton(
                 child: Text("添加"),
                 onPressed: () {
-                  var tcpConfig = PortConfig();
-                  tcpConfig.device = device;
-                  tcpConfig.description = _description_controller.text;
-                  tcpConfig.remotePort =
+                  var UDPConfig = PortConfig();
+                  UDPConfig.device = device;
+                  UDPConfig.description = _description_controller.text;
+                  UDPConfig.remotePort =
                       int.parse(_remote_port_controller.text);
-                  CommonDeviceApi.createOneTCP(tcpConfig).then((restlt) {
+                  CommonDeviceApi.createOneUDP(UDPConfig).then((restlt) {
                     Navigator.of(context).pop();
                   });
                 },
@@ -214,12 +214,12 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
             ]));
   }
 
-  Future _deleteCurrentTCP(PortConfig config) async {
+  Future _deleteCurrentUDP(PortConfig config) async {
     showDialog(
         context: context,
         builder: (_) => new AlertDialog(
-            title: new Text("删除TCP"),
-            content: new Text("确认删除此TCP？"),
+            title: new Text("删除UDP"),
+            content: new Text("确认删除此UDP？"),
             actions: <Widget>[
               new FlatButton(
                 child: new Text("取消"),
@@ -230,7 +230,7 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
               new FlatButton(
                 child: new Text("删除"),
                 onPressed: () {
-                  CommonDeviceApi.deleteOneTCP(config).then((result) {
+                  CommonDeviceApi.deleteOneUDP(config).then((result) {
                     Navigator.of(context).pop();
                   });
                 },
@@ -240,7 +240,7 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
               Navigator.of(context).pop();
             }
     ).then((v){
-      refreshmTcpList();
+      refreshmUDPList();
     });
   }
 
