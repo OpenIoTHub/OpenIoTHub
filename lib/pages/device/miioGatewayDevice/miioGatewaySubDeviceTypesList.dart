@@ -1,9 +1,9 @@
 import 'dart:async' as DeviceServiceTypesList;
 import 'package:flutter/material.dart';
-import 'sensorsDeviceListPage.dart';
-import 'magnetsDeviceListPage.dart';
-import 'motionsDeviceListPage.dart';
-import 'switchDeviceListPage.dart';
+import 'package:nat_explorer/pages/device/miioGatewayDevice/subDevices/sensorsDeviceListPage.dart';
+import 'package:nat_explorer/pages/device/miioGatewayDevice/subDevices/magnetsDeviceListPage.dart';
+import 'package:nat_explorer/pages/device/miioGatewayDevice/subDevices/motionsDeviceListPage.dart';
+import 'package:nat_explorer/pages/device/miioGatewayDevice/subDevices/switchDeviceListPage.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 
 class CommonDeviceServiceTypesList extends StatelessWidget {
