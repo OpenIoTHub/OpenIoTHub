@@ -3,7 +3,18 @@ import 'package:nat_explorer/pages/session/sessionListPage.dart';
 import 'package:nat_explorer/pages/device/deviceTypePage.dart';
 import 'package:nat_explorer/pages/user/accountPage.dart';
 
-void main() => runApp(MyApp());
+import 'package:jaguar/jaguar.dart';
+import 'package:jaguar_flutter_asset/jaguar_flutter_asset.dart';
+
+void main() {
+  final server = Jaguar(address: "127.0.0.1",port: 9000);
+  server.addRoute(serveFlutterAssets());
+  server.serve(logRequests: true).then((v){
+    server.log.onRecord.listen((r) => debugPrint("==serve-log：$r"));
+  });
+
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.

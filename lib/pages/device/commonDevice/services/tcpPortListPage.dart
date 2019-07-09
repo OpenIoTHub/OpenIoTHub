@@ -20,7 +20,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
   static const double IMAGE_ICON_WIDTH = 30.0;
   static const double ARROW_ICON_WIDTH = 16.0;
   final rightArrowIcon = Image.asset(
-    'images/ic_arrow_right.png',
+    'assets/images/ic_arrow_right.png',
     width: ARROW_ICON_WIDTH,
     height: ARROW_ICON_WIDTH,
   );

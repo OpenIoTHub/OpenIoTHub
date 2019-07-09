@@ -13,17 +13,17 @@ class DiscoveryPage extends StatelessWidget {
   static const double ARROW_ICON_WIDTH = 16.0;
 
   final imagePaths = [
-    "images/ic_discover_softwares.png",
-    "images/ic_discover_git.png",
-    "images/ic_discover_gist.png",
-    "images/ic_discover_scan.png",
-    "images/ic_discover_shake.png",
-    "images/ic_discover_nearby.png",
-    "images/ic_discover_pos.png",
+    "assets/images/ic_discover_softwares.png",
+    "assets/images/ic_discover_git.png",
+    "assets/images/ic_discover_gist.png",
+    "assets/images/ic_discover_scan.png",
+    "assets/images/ic_discover_shake.png",
+    "assets/images/ic_discover_nearby.png",
+    "assets/images/ic_discover_pos.png",
   ];
   final titles = ["普通设备", "小米网关"];
   final rightArrowIcon = Image.asset(
-    'images/ic_arrow_right.png',
+    'assets/images/ic_arrow_right.png',
     width: ARROW_ICON_WIDTH,
     height: ARROW_ICON_WIDTH,
   );

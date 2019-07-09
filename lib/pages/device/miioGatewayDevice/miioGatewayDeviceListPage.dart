@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:nat_explorer/api/CommonDeviceApi.dart';
+import 'package:nat_explorer/api/MiioGatewayDeviceApi.dart';
 import 'package:nat_explorer/api/SessionApi.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:android_intent/android_intent.dart';
-
-import 'package:nat_explorer/pages/device/commonDevice/commonDeviceServiceTypesList.dart';
+import 'miioGatewaySubDeviceTypesList.dart';
 
 class MiioGatewayDeviceListPage extends StatefulWidget {
   MiioGatewayDeviceListPage({Key key, this.title}) : super(key: key);
@@ -21,15 +20,15 @@ class MiioGatewayDeviceListPage extends StatefulWidget {
 class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
   final _biggerFont = const TextStyle(fontSize: 18.0);
   List<SessionConfig> _SessionList = [];
-  List<Device> _MiioGatewayDeviceList = [];
+  List<MiioGatewayDevice> _MiioGatewayDeviceList = [];
 
   @override
   void initState() {
     super.initState();
-    getAllCommonDevice().then((v) {
+    getAllMiioGatewayDevice().then((v) {
       setState(() {});
     });
-    print("init common devie List");
+    print("init MiioGateway devie List");
   }
 
   @override
@@ -38,7 +37,7 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
       (pair) {
         return ListTile(
           title: Text(
-            pair.description,
+            pair.addr,
             style: _biggerFont,
           ),
           trailing: IconButton(
@@ -65,7 +64,7 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  getAllCommonDevice().then((v) {
+                  getAllMiioGatewayDevice().then((v) {
                     setState(() {});
                   });
                 }),
@@ -114,7 +113,7 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
                                     },
                                   )
                                 ])).then((v) {
-                      getAllCommonDevice().then((v) {
+                      getAllMiioGatewayDevice().then((v) {
                         setState(() {});
                       });
                     });
@@ -126,8 +125,8 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
   }
 
   Future _addDevice(SessionConfig config) async {
-    TextEditingController _description_controller =
-        TextEditingController.fromValue(TextEditingValue(text: ""));
+//    TextEditingController _description_controller =
+//        TextEditingController.fromValue(TextEditingValue(text: ""));
     TextEditingController _remote_ip_controller =
         TextEditingController.fromValue(TextEditingValue(text: "127.0.0.1"));
     return showDialog(
@@ -136,14 +135,14 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
                 title: Text("添加设备："),
                 content: ListView(
                   children: <Widget>[
-                    TextFormField(
-                      controller: _description_controller,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
-                        labelText: '备注',
-                        helperText: '自定义备注',
-                      ),
-                    ),
+//                    TextFormField(
+//                      controller: _description_controller,
+//                      decoration: InputDecoration(
+//                        contentPadding: EdgeInsets.all(10.0),
+//                        labelText: '备注',
+//                        helperText: '自定义备注',
+//                      ),
+//                    ),
                     TextFormField(
                       controller: _remote_ip_controller,
                       decoration: InputDecoration(
@@ -164,12 +163,12 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
                   FlatButton(
                     child: Text("添加"),
                     onPressed: () {
-                      var device = Device();
+                      var device = MiioGatewayDevice();
                       device.runId = config.runId;
-                      device.description = _description_controller.text;
+//                      device.description = _description_controller.text;
                       device.addr =_remote_ip_controller.text;
-                      createOneCommonDevice(device).then((v){
-                        getAllCommonDevice().then((v){
+                      createOneMiioGatewayDevice(device).then((v){
+                        getAllMiioGatewayDevice().then((v){
                           Navigator.of(context).pop();
                         });
                       });
@@ -178,13 +177,13 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
                 ]));
   }
 
-  void _pushDeviceServiceTypes(Device device) async {
-  // 查看设备下的服务 CommonDeviceServiceTypesList
+  void _pushDeviceServiceTypes(MiioGatewayDevice device) async {
+  // 查看设备下的服务 MiioGatewayDeviceServiceTypesList
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
           // 写成独立的组件，支持刷新
-          return CommonDeviceServiceTypesList(device);
+          return MiioGatewaySubDeviceTypesList(device);
         },
       ),
     ).then((result) {
@@ -206,9 +205,9 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
     }
   }
 
-  Future createOneCommonDevice(Device device) async {
+  Future createOneMiioGatewayDevice(MiioGatewayDevice device) async {
     try {
-      await CommonDeviceApi.createOneDevice(device);
+      await MiioGatewayDeviceApi.createOneDevice(device);
     }catch (e) {
       showDialog(
           context: context,
@@ -232,11 +231,11 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
     }
   }
 
-  Future getAllCommonDevice() async {
+  Future getAllMiioGatewayDevice() async {
     try {
-      final response = await CommonDeviceApi.getAllDevice();
+      final response = await MiioGatewayDeviceApi.getAllDevice();
       setState(() {
-        _MiioGatewayDeviceList = response.devices;
+        _MiioGatewayDeviceList = response.miioGatewayDevices;
       });
     } catch (e) {
       showDialog(

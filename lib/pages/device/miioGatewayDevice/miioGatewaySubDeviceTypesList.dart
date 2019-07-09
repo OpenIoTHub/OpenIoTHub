@@ -1,13 +1,13 @@
 import 'dart:async' as DeviceServiceTypesList;
 import 'package:flutter/material.dart';
-import 'package:nat_explorer/pages/device/miioGatewayDevice/subDevices/sensorsDeviceListPage.dart';
-import 'package:nat_explorer/pages/device/miioGatewayDevice/subDevices/magnetsDeviceListPage.dart';
-import 'package:nat_explorer/pages/device/miioGatewayDevice/subDevices/motionsDeviceListPage.dart';
-import 'package:nat_explorer/pages/device/miioGatewayDevice/subDevices/switchDeviceListPage.dart';
+//import 'package:nat_explorer/pages/device/miioGatewayDevice/subDevices/sensorsDeviceListPage.dart';
+//import 'package:nat_explorer/pages/device/miioGatewayDevice/subDevices/magnetsDeviceListPage.dart';
+//import 'package:nat_explorer/pages/device/miioGatewayDevice/subDevices/motionsDeviceListPage.dart';
+//import 'package:nat_explorer/pages/device/miioGatewayDevice/subDevices/switchDeviceListPage.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 
-class CommonDeviceServiceTypesList extends StatelessWidget {
-  Device device;
+class MiioGatewaySubDeviceTypesList extends StatelessWidget {
+  MiioGatewayDevice device;
   static const String TAG_START = "startDivider";
   static const String TAG_END = "endDivider";
   static const String TAG_CENTER = "centerDivider";
@@ -17,24 +17,24 @@ class CommonDeviceServiceTypesList extends StatelessWidget {
   static const double ARROW_ICON_WIDTH = 16.0;
 
   final imagePaths = [
-    "images/ic_discover_softwares.png",
-    "images/ic_discover_git.png",
-    "images/ic_discover_gist.png",
-    "images/ic_discover_scan.png",
-    "images/ic_discover_shake.png",
-    "images/ic_discover_nearby.png",
-    "images/ic_discover_pos.png",
+    "assets/images/ic_discover_softwares.png",
+    "assets/images/ic_discover_git.png",
+    "assets/images/ic_discover_gist.png",
+    "assets/images/ic_discover_scan.png",
+    "assets/images/ic_discover_shake.png",
+    "assets/images/ic_discover_nearby.png",
+    "assets/images/ic_discover_pos.png",
   ];
   final titles = ["传感器", "门磁报警", "人体传感器", "开关"];
   final rightArrowIcon = Image.asset(
-    'images/ic_arrow_right.png',
+    'assets/images/ic_arrow_right.png',
     width: ARROW_ICON_WIDTH,
     height: ARROW_ICON_WIDTH,
   );
   final titleTextStyle = TextStyle(fontSize: 16.0);
   final List listData = [];
 
-  CommonDeviceServiceTypesList(this.device) {
+  MiioGatewaySubDeviceTypesList(this.device) {
     initData();
   }
 
@@ -117,19 +117,19 @@ class CommonDeviceServiceTypesList extends StatelessWidget {
     String title = item.title;
     if (title == "传感器") {
       Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
-        return SensorsDeviceListPage(device:device);
+        return Text("SensorsDeviceListPage");
       }));
     } else if (title == "门磁报警") {
       Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
-        return MagnetsDeviceListPage(device:device);
+        return Text("MagnetsDeviceListPage");
       }));
     } else if (title == "人体传感器") {
       Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
-        return MotionsDeviceListPage(device:device);
+        return Text("MotionsDeviceListPage");
       }));
     } else if (title == "开关") {
       Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
-        return SwitchListPage(device:device);
+        return Text("SwitchListPage");
       }));
     }
   }

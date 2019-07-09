@@ -27,20 +27,20 @@ class MyInfoPageState extends State<MyInfoPage> {
 
   var titles = ["我的消息", "工具"];
   var imagePaths = [
-    "images/ic_my_message.png",
-    "images/ic_my_blog.png",
-    "images/ic_my_blog.png",
-    "images/ic_my_question.png",
-    "images/ic_discover_pos.png",
-    "images/ic_my_team.png",
-    "images/ic_my_recommend.png"
+    "assets/images/ic_my_message.png",
+    "assets/images/ic_my_blog.png",
+    "assets/images/ic_my_blog.png",
+    "assets/images/ic_my_question.png",
+    "assets/images/ic_discover_pos.png",
+    "assets/images/ic_my_team.png",
+    "assets/images/ic_my_recommend.png"
   ];
   var icons = [];
   var userAvatar;
   var userName;
   var titleTextStyle = TextStyle(fontSize: 16.0);
   var rightArrowIcon = Image.asset(
-    'images/ic_arrow_right.png',
+    'assets/images/ic_arrow_right.png',
     width: ARROW_ICON_WIDTH,
     height: ARROW_ICON_WIDTH,
   );
@@ -152,7 +152,7 @@ class MyInfoPageState extends State<MyInfoPage> {
             children: <Widget>[
               userAvatar == null
                   ? Image.asset(
-                "images/ic_avatar_default.png",
+                "assets/images/ic_avatar_default.png",
                 width: 60.0,
               )
                   : Container(
