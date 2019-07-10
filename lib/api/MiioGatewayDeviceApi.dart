@@ -3,19 +3,13 @@ import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 
-class MiioGatewayDeviceApi {
-  static ClientChannel getClientChannel() {
-    final channel = ClientChannel('localhost',
-        port: 2080,
-        options: const ChannelOptions(
-            credentials: const ChannelCredentials.insecure()));
-    return channel;
-  }
+import 'Channel.dart';
 
+class MiioGatewayDeviceApi {
   //设备的操作:增删
 //  rpc AddDevice (MiioGatewayDevice) returns (Empty) {}
   static Future createOneDevice(MiioGatewayDevice device) async {
-    final channel = getClientChannel();
+    final channel = Channel.getClientChannel();
     final stub = MiioGatewayManagerClient(channel);
     final response = await stub.addDevice(device);
     print('Greeter client received: ${response}');
@@ -23,7 +17,7 @@ class MiioGatewayDeviceApi {
   }
 //  rpc DelDevice (MiioGatewayDevice) returns (Empty) {}
   static Future deleteOneDevice(MiioGatewayDevice device) async {
-    final channel = getClientChannel();
+    final channel = Channel.getClientChannel();
     final stub = MiioGatewayManagerClient(channel);
     final response = await stub.delDevice(device);
     print('Greeter client received: ${response}');
@@ -31,7 +25,7 @@ class MiioGatewayDeviceApi {
   }
 //  rpc GetAllDevice (Empty) returns (MiioGatewayDeviceList) {}
   static Future<MiioGatewayDeviceList> getAllDevice() async {
-    final channel = getClientChannel();
+    final channel = Channel.getClientChannel();
     final stub = MiioGatewayManagerClient(channel);
     final response = await stub.getAllDevice(Empty());
     print('Greeter client received: ${response}');
@@ -41,7 +35,7 @@ class MiioGatewayDeviceApi {
   //网关本身的操作
 //  rpc SetColor (MiioGatewayDevice) returns (Empty) {}
   static Future SetColor(MiioGatewayDevice device) async {
-    final channel = getClientChannel();
+    final channel = Channel.getClientChannel();
     final stub = MiioGatewayManagerClient(channel);
     final response = await stub.setColor(device);
     print('Greeter client received: ${response}');
@@ -49,7 +43,7 @@ class MiioGatewayDeviceApi {
   }
 //  rpc SetBrightness (MiioGatewayDevice) returns (Empty) {}
   static Future SetBrightness(MiioGatewayDevice device) async {
-    final channel = getClientChannel();
+    final channel = Channel.getClientChannel();
     final stub = MiioGatewayManagerClient(channel);
     final response = await stub.setBrightness(device);
     print('Greeter client received: ${response}');
@@ -57,7 +51,7 @@ class MiioGatewayDeviceApi {
   }
 //  rpc On (MiioGatewayDevice) returns (Empty) {}
   static Future OnLed(MiioGatewayDevice device) async {
-    final channel = getClientChannel();
+    final channel = Channel.getClientChannel();
     final stub = MiioGatewayManagerClient(channel);
     final response = await stub.on(device);
     print('Greeter client received: ${response}');
@@ -65,7 +59,7 @@ class MiioGatewayDeviceApi {
   }
 //  rpc Off (MiioGatewayDevice) returns (Empty) {}
   static Future OffLed(MiioGatewayDevice device) async {
-    final channel = getClientChannel();
+    final channel = Channel.getClientChannel();
     final stub = MiioGatewayManagerClient(channel);
     final response = await stub.off(device);
     print('Greeter client received: ${response}');
@@ -73,7 +67,7 @@ class MiioGatewayDeviceApi {
   }
 //  rpc Stop (MiioGatewayDevice) returns (Empty) {}
   static Future Stop(MiioGatewayDevice device) async {
-    final channel = getClientChannel();
+    final channel = Channel.getClientChannel();
     final stub = MiioGatewayManagerClient(channel);
     final response = await stub.stop(device);
     print('Greeter client received: ${response}');
@@ -81,7 +75,7 @@ class MiioGatewayDeviceApi {
   }
 //  rpc UpdateGetawayState (MiioGatewayDevice) returns (Empty) {}
   static Future UpdateGetawayState(MiioGatewayDevice device) async {
-    final channel = getClientChannel();
+    final channel = Channel.getClientChannel();
     final stub = MiioGatewayManagerClient(channel);
     final response = await stub.updateGetawayState(device);
     print('Greeter client received: ${response}');
@@ -89,7 +83,7 @@ class MiioGatewayDeviceApi {
   }
 //  rpc GetGetawayUpdateMessage (MiioGatewayDevice) returns (GatewayUpdateMessage) {}
   static Future<GatewayUpdateMessage> GetGetawayUpdateMessage(MiioGatewayDevice device) async {
-    final channel = getClientChannel();
+    final channel = Channel.getClientChannel();
     final stub = MiioGatewayManagerClient(channel);
     final response = await stub.getGetawayUpdateMessage(device);
     print('Greeter client received: ${response}');
