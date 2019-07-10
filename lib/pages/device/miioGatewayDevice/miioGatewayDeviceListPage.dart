@@ -125,30 +125,30 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
   }
 
   Future _addDevice(SessionConfig config) async {
-//    TextEditingController _description_controller =
-//        TextEditingController.fromValue(TextEditingValue(text: ""));
     TextEditingController _remote_ip_controller =
         TextEditingController.fromValue(TextEditingValue(text: "127.0.0.1"));
+    TextEditingController _token_controller =
+        TextEditingController.fromValue(TextEditingValue(text: ""));
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
                 title: Text("添加设备："),
                 content: ListView(
                   children: <Widget>[
-//                    TextFormField(
-//                      controller: _description_controller,
-//                      decoration: InputDecoration(
-//                        contentPadding: EdgeInsets.all(10.0),
-//                        labelText: '备注',
-//                        helperText: '自定义备注',
-//                      ),
-//                    ),
                     TextFormField(
                       controller: _remote_ip_controller,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: '远程内网的IP',
                         helperText: '内网设备的IP',
+                      ),
+                    ),
+                    TextFormField(
+                      controller: _token_controller,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(10.0),
+                        labelText: 'token',
+                        helperText: '秘钥',
                       ),
                     ),
                   ],
@@ -165,7 +165,7 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
                     onPressed: () {
                       var device = MiioGatewayDevice();
                       device.runId = config.runId;
-//                      device.description = _description_controller.text;
+                      device.key = _token_controller.text;
                       device.addr =_remote_ip_controller.text;
                       createOneMiioGatewayDevice(device).then((v){
                         getAllMiioGatewayDevice().then((v){
@@ -183,7 +183,7 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
       MaterialPageRoute(
         builder: (context) {
           // 写成独立的组件，支持刷新
-          return MiioGatewaySubDeviceTypesList(device);
+          return MiioGatewaySubDeviceTypesList(device: device,);
         },
       ),
     ).then((result) {

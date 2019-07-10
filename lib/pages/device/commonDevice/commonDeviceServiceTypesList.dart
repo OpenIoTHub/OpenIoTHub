@@ -1,12 +1,21 @@
 import 'dart:async' as DeviceServiceTypesList;
 import 'package:flutter/material.dart';
+import 'package:nat_explorer/api/CommonDeviceApi.dart';
 import 'package:nat_explorer/pages/device/commonDevice/services/tcpPortListPage.dart';
 import 'package:nat_explorer/pages/device/commonDevice/services/udpPortListPage.dart';
 import 'package:nat_explorer/pages/device/commonDevice/services/ftpPortListPage.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 
-class CommonDeviceServiceTypesList extends StatelessWidget {
+class CommonDeviceServiceTypesList extends StatefulWidget {
+  CommonDeviceServiceTypesList({Key key, this.device}) : super(key: key);
+
   Device device;
+
+  @override
+  _CommonDeviceServiceTypesListState createState() => _CommonDeviceServiceTypesListState();
+}
+
+class _CommonDeviceServiceTypesListState extends State<CommonDeviceServiceTypesList> {
   static const String TAG_START = "startDivider";
   static const String TAG_END = "endDivider";
   static const String TAG_CENTER = "centerDivider";
@@ -33,7 +42,9 @@ class CommonDeviceServiceTypesList extends StatelessWidget {
   final titleTextStyle = TextStyle(fontSize: 16.0);
   final List listData = [];
 
-  CommonDeviceServiceTypesList(this.device) {
+  @override
+  void initState() {
+    super.initState();
     initData();
   }
 
@@ -116,15 +127,15 @@ class CommonDeviceServiceTypesList extends StatelessWidget {
     String title = item.title;
     if (title == "TCP端口") {
       Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
-        return TcpPortListPage(device:device);
+        return TcpPortListPage(device:widget.device);
       }));
     } else if (title == "UDP端口") {
       Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
-        return UdpPortListPage(device:device);
+        return UdpPortListPage(device:widget.device);
       }));
     } else if (title == "FTP端口") {
       Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
-        return FtpPortListPage(device:device);
+        return FtpPortListPage(device:widget.device);
       }));
     }
   }
@@ -138,7 +149,20 @@ class CommonDeviceServiceTypesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("服务")),
+      appBar: AppBar(
+          title: Text("服务"),
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(
+                  Icons.delete,
+                  color: Colors.red,
+                ),
+                onPressed: () {
+                  //TODO 删除小米网关设备
+                  _deleteCurrentDevice();
+                }),
+          ]
+      ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
         child: ListView.builder(
@@ -146,6 +170,36 @@ class CommonDeviceServiceTypesList extends StatelessWidget {
           itemBuilder: (context, i) => renderRow(context, i),
         ),
     ));
+  }
+
+  Future _deleteCurrentDevice() async {
+    showDialog(
+        context: context,
+        builder: (_) => new AlertDialog(
+            title: new Text("删除设备"),
+            content: new Text("确认删除此设备？"),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("取消"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              new FlatButton(
+                child: new Text("删除"),
+                onPressed: () {
+                  CommonDeviceApi.deleteOneDevice(widget.device).then((result) {
+                    Navigator.of(context).pop();
+                  });
+                },
+              )
+            ]))
+        .then((v) {
+      Navigator.of(context).pop();
+    }
+    ).then((v){
+      Navigator.of(context).pop();
+    });
   }
 }
 

@@ -1,13 +1,22 @@
 import 'dart:async' as DeviceServiceTypesList;
 import 'package:flutter/material.dart';
+import 'package:nat_explorer/api/MiioGatewayDeviceApi.dart';
 //import 'package:nat_explorer/pages/device/miioGatewayDevice/subDevices/sensorsDeviceListPage.dart';
 //import 'package:nat_explorer/pages/device/miioGatewayDevice/subDevices/magnetsDeviceListPage.dart';
 //import 'package:nat_explorer/pages/device/miioGatewayDevice/subDevices/motionsDeviceListPage.dart';
 //import 'package:nat_explorer/pages/device/miioGatewayDevice/subDevices/switchDeviceListPage.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 
-class MiioGatewaySubDeviceTypesList extends StatelessWidget {
+class MiioGatewaySubDeviceTypesList extends StatefulWidget {
+  MiioGatewaySubDeviceTypesList({Key key, this.device}) : super(key: key);
+
   MiioGatewayDevice device;
+
+  @override
+  _MiioGatewaySubDeviceTypesListState createState() => _MiioGatewaySubDeviceTypesListState();
+}
+
+class _MiioGatewaySubDeviceTypesListState extends State<MiioGatewaySubDeviceTypesList> {
   static const String TAG_START = "startDivider";
   static const String TAG_END = "endDivider";
   static const String TAG_CENTER = "centerDivider";
@@ -34,7 +43,9 @@ class MiioGatewaySubDeviceTypesList extends StatelessWidget {
   final titleTextStyle = TextStyle(fontSize: 16.0);
   final List listData = [];
 
-  MiioGatewaySubDeviceTypesList(this.device) {
+  @override
+  void initState() {
+    super.initState();
     initData();
   }
 
@@ -134,12 +145,6 @@ class MiioGatewaySubDeviceTypesList extends StatelessWidget {
     }
   }
 
-  DeviceServiceTypesList.Future scan() async {
-    try {} on Exception catch (e) {
-      print(e);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -152,8 +157,8 @@ class MiioGatewaySubDeviceTypesList extends StatelessWidget {
                   color: Colors.red,
                 ),
                 onPressed: () {
-                  //TODO 删除
-//                  _deleteCurrentMiioGatewayDevice(config);
+                  //TODO 删除小米网关设备
+                  _deleteCurrentDevice();
                 }),
             IconButton(
                 icon: Icon(
@@ -161,7 +166,7 @@ class MiioGatewaySubDeviceTypesList extends StatelessWidget {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  //TODO小米网关操作界面
+                  //TODO 小米网关操作界面
 //                _miioGatewayOprationPage();
                 }),
           ]
@@ -173,6 +178,36 @@ class MiioGatewaySubDeviceTypesList extends StatelessWidget {
           itemBuilder: (context, i) => renderRow(context, i),
         ),
     ));
+  }
+
+  Future _deleteCurrentDevice() async {
+    showDialog(
+        context: context,
+        builder: (_) => new AlertDialog(
+            title: new Text("删除设备"),
+            content: new Text("确认删除此设备？"),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("取消"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              new FlatButton(
+                child: new Text("删除"),
+                onPressed: () {
+                  MiioGatewayDeviceApi.deleteOneDevice(widget.device).then((result) {
+                    Navigator.of(context).pop();
+                  });
+                },
+              )
+            ]))
+        .then((v) {
+      Navigator.of(context).pop();
+    }
+    ).then((v){
+      Navigator.of(context).pop();
+    });
   }
 }
 

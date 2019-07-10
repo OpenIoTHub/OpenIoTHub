@@ -184,7 +184,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
       MaterialPageRoute(
         builder: (context) {
           // 写成独立的组件，支持刷新
-          return CommonDeviceServiceTypesList(device);
+          return CommonDeviceServiceTypesList(device:device,);
         },
       ),
     ).then((result) {
