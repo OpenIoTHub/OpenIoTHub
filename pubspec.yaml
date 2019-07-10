@@ -72,6 +72,9 @@ flutter:
     - assets/
     - assets/images/
     - assets/images/leftmenu/
+    - assets/web/open/aria2/
+    - assets/web/open/ssh/
+    - assets/web/open/vnc/
 #    - assets/images/ic_avatar_default.png
 #    - assets/images/ic_nav_news_normal.png
 #    - assets/images/ic_nav_news_actived.png
