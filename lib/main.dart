@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nat_explorer/constants/Config.dart';
 import 'package:nat_explorer/pages/session/sessionListPage.dart';
 import 'package:nat_explorer/pages/device/deviceTypePage.dart';
 import 'package:nat_explorer/pages/user/accountPage.dart';
@@ -7,7 +8,7 @@ import 'package:jaguar/jaguar.dart';
 import 'package:jaguar_flutter_asset/jaguar_flutter_asset.dart';
 
 void main() {
-  final server = Jaguar(address: "127.0.0.1",port: 9000);
+  final server = Jaguar(address: Config.webStaticIp,port: Config.webStaticPort);
   server.addRoute(serveFlutterAssets());
   server.serve(logRequests: true).then((v){
     server.log.onRecord.listen((r) => debugPrint("==serve-log：$r"));
