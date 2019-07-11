@@ -84,7 +84,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                 color: Colors.white,
               ),
               onPressed: () {
-//                TODO 添加TCP端口
+//                添加TCP端口
                 _addTCP(widget.device).then((v){
                   refreshmTcpList();
                 });
@@ -129,7 +129,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                       color: Colors.red,
                     ),
                     onPressed: () {
-                      //TODO 删除
+                      //删除
                       _deleteCurrentTCP(config);
                     }),
                 IconButton(
