@@ -6,9 +6,10 @@ import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 // 登录页面，使用网页加载的开源中国三方登录页面
 class VNCWebPage extends StatefulWidget {
-  VNCWebPage({Key key, this.addr, this.port}) : super(key: key);
-  String addr;
-  int port;
+  VNCWebPage({Key key, this.runId, this.remoteIp, this.remotePort}) : super(key: key);
+  String runId;
+  String remoteIp;
+  int remotePort;
 
   @override
   State<StatefulWidget> createState() => VNCWebPageState();
@@ -104,7 +105,7 @@ class VNCWebPageState extends State<VNCWebPage> {
     // WebviewScaffold是插件提供的组件，用于在页面上显示一个WebView并加载URL
     return WebviewScaffold(
       key: _scaffoldKey,
-      url: "http://127.0.0.1:9000/web/open/vnc/index.html?host=${widget.addr}&port=${widget.port}&path=proxy/ws/connect/websockify&encrypt=0", // 登录的URL
+      url: "http://127.0.0.1:9000/web/open/vnc/index.html?host=127.0.0.1&port=1081&path=proxy%2fws%2fconnect%2fwebsockify%3frunId%3d${widget.runId}%26remoteIp%3d${widget.remoteIp}%26remotePort%3d${widget.remotePort}&encrypt=0", // 登录的URL
       appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,

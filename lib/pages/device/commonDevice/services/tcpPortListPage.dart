@@ -145,7 +145,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                         context: context,
                         builder: (_) => AlertDialog(
                             title: Text("打开方式："),
-                            content: OpenWithChoice(),
+                            content: OpenWithChoice(config),
                             actions: <Widget>[
                               FlatButton(
                                 child: Text("取消"),

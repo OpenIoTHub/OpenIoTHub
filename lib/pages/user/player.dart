@@ -1,4 +1,6 @@
 import 'package:nat_explorer/pages/openWithChoice/OpenWithChoice.dart';
+import 'package:nat_explorer/pb/service.pb.dart';
+import 'package:nat_explorer/pb/service.pbgrpc.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
 
@@ -39,11 +41,15 @@ class _VideoAppState extends State<VideoApp> {
                   onPressed: () {
                     //                TODO 使用某种方式打开此端口，检查这个软件是否已经安装
 //                    _launchURL("http://127.0.0.1:${config.localProt}");
+                    PortConfig config = PortConfig();
+                    config.device.runId = "runId";
+                    config.device.addr = "192.168.0.1";
+                    config.remotePort = 5900;
                     showDialog(
                         context: context,
                         builder: (_) => AlertDialog(
                           title: Text("添加端口："),
-                          content: OpenWithChoice(),
+                          content: OpenWithChoice(config),
                           actions: <Widget>[
                             FlatButton(
                               child: Text("取消"),

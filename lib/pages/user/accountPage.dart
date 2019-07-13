@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:nat_explorer/constants/Constants.dart';
-import 'package:nat_explorer/events/ChangeThemeEvent.dart';
 import 'package:nat_explorer/events/LoginEvent.dart';
 import 'package:nat_explorer/events/LogoutEvent.dart';
 import 'package:nat_explorer/pages/openWithChoice/OpenWithChoice.dart';
 import 'package:nat_explorer/pages/user/player.dart';
 import 'package:nat_explorer/pages/user/tools/toolsTypePage.dart';
-import 'package:nat_explorer/util/ThemeUtils.dart';
+import 'package:nat_explorer/pb/service.pb.dart';
+import 'package:nat_explorer/pb/service.pbgrpc.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:nat_explorer/api/SessionApi.dart';
@@ -22,8 +22,6 @@ class MyInfoPage extends StatefulWidget {
 }
 
 class MyInfoPageState extends State<MyInfoPage> {
-  Color themeColor = ThemeUtils.currentColorTheme;
-
   static const double IMAGE_ICON_WIDTH = 30.0;
   static const double ARROW_ICON_WIDTH = 16.0;
 
@@ -64,11 +62,6 @@ class MyInfoPageState extends State<MyInfoPage> {
     Constants.eventBus.on<LoginEvent>().listen((event) {
       // 收到登录的消息，重新获取个人信息
       getUserInfo();
-    });
-    Constants.eventBus.on<ChangeThemeEvent>().listen((event) {
-      setState(() {
-        themeColor = event.color;
-      });
     });
   }
 
@@ -146,7 +139,6 @@ class MyInfoPageState extends State<MyInfoPage> {
   renderRow(i) {
     if (i == 0) {
       var avatarContainer = Container(
-        color: themeColor,
         height: 200.0,
         child: Center(
           child: Column(
@@ -270,9 +262,13 @@ class MyInfoPageState extends State<MyInfoPage> {
     }
     else if (title == "使用手册"){}
     else if (title == "关于"){
+      PortConfig config = PortConfig();
+      config.device.runId = "runId";
+      config.device.addr = "192.168.0.1";
+      config.remotePort = 5900;
       Navigator.of(context).push(
           MaterialPageRoute(
-              builder: (context) => OpenWithChoice()
+              builder: (context) => OpenWithChoice(config)
           ));
     }
     else if (title == "测试"){

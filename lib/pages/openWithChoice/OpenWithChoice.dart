@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:nat_explorer/pages/openWithChoice/sshWeb/SSHWebPage.dart';
 import 'package:nat_explorer/pages/openWithChoice/vncWeb/VNCWebPage.dart';
 import 'package:nat_explorer/pages/openWithChoice/aria2/Aria2Page.dart';
+import 'package:nat_explorer/pb/service.pb.dart';
+import 'package:nat_explorer/pb/service.pbgrpc.dart';
 
 class OpenWithChoice extends StatelessWidget {
+  PortConfig portConfig;
+
   static const String TAG_START = "startDivider";
   static const String TAG_END = "endDivider";
   static const String TAG_CENTER = "centerDivider";
@@ -21,7 +25,7 @@ class OpenWithChoice extends StatelessWidget {
 
   final List listData = [];
 
-  OpenWithChoice() {
+  OpenWithChoice(this.portConfig) {
     listData.add(TAG_BLANK);
     listData.add(TAG_START);
     listData.add(ListItem(title: 'Aria2', icon: 'assets/images/ic_discover_nearby.png'));
@@ -100,7 +104,7 @@ class OpenWithChoice extends StatelessWidget {
             }));
           } else if (title == 'VNC') {
             Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
-              return VNCWebPage(addr:"127.0.0.1",port:7890);
+              return VNCWebPage(runId:portConfig.device.runId,remoteIp:portConfig.device.addr,remotePort:portConfig.remotePort);
             }));
           }
         },
