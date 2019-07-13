@@ -3,6 +3,7 @@ import 'package:nat_explorer/constants/Constants.dart';
 import 'package:nat_explorer/events/ChangeThemeEvent.dart';
 import 'package:nat_explorer/events/LoginEvent.dart';
 import 'package:nat_explorer/events/LogoutEvent.dart';
+import 'package:nat_explorer/pages/openWithChoice/OpenWithChoice.dart';
 import 'package:nat_explorer/pages/user/player.dart';
 import 'package:nat_explorer/pages/user/tools/toolsTypePage.dart';
 import 'package:nat_explorer/util/ThemeUtils.dart';
@@ -268,7 +269,12 @@ class MyInfoPageState extends State<MyInfoPage> {
           ));
     }
     else if (title == "使用手册"){}
-    else if (title == "关于"){}
+    else if (title == "关于"){
+      Navigator.of(context).push(
+          MaterialPageRoute(
+              builder: (context) => OpenWithChoice()
+          ));
+    }
     else if (title == "测试"){
       Navigator.of(context).push(
           MaterialPageRoute(

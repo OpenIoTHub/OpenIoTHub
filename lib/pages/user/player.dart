@@ -1,3 +1,4 @@
+import 'package:nat_explorer/pages/openWithChoice/OpenWithChoice.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
 
@@ -27,6 +28,26 @@ class _VideoAppState extends State<VideoApp> {
     return MaterialApp(
       title: 'Video Demo',
       home: Scaffold(
+        appBar: AppBar(
+            title: Text('播放器'),
+            actions: <Widget>[
+              IconButton(
+                  icon: Icon(
+                    Icons.open_in_browser,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    //                TODO 使用某种方式打开此端口，检查这个软件是否已经安装
+//                    _launchURL("http://127.0.0.1:${config.localProt}");
+                    showDialog(
+                        context: context,
+                        builder: (_) => AlertDialog(
+                          title: Text("添加端口："),
+                          content: OpenWithChoice(),
+                        ));
+                  }),
+            ]
+        ),
         body: Center(
           child: _controller.value.initialized
               ? AspectRatio(
