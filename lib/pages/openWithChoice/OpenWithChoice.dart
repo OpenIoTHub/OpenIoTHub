@@ -100,7 +100,7 @@ class OpenWithChoice extends StatelessWidget {
             }));
           } else if (title == 'VNC') {
             Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
-              return VNCWebPage();
+              return VNCWebPage(addr:"127.0.0.1",port:7890);
             }));
           }
         },
