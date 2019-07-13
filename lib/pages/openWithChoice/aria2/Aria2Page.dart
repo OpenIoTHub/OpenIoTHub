@@ -92,27 +92,9 @@ class Aria2PageState extends State<Aria2Page> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> titleContent = [];
-    titleContent.add(Text(
-      "Aria2",
-      style: TextStyle(color: Colors.white),
-    ));
-    if (loading) {
-      // 如果还在加载中，就在标题栏上显示一个圆形进度条
-      titleContent.add(CupertinoActivityIndicator());
-    }
-    titleContent.add(Container(width: 50.0));
-    // WebviewScaffold是插件提供的组件，用于在页面上显示一个WebView并加载URL
     return WebviewScaffold(
       key: _scaffoldKey,
       url: "http://127.0.0.1:9000/web/open/aria2/index.html", // 登录的URL
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: titleContent,
-        ),
-        iconTheme: IconThemeData(color: Colors.white),
-      ),
       withZoom: true,  // 允许网页缩放
       withLocalStorage: true, // 允许LocalStorage
       withJavascript: true, // 允许执行js代码
