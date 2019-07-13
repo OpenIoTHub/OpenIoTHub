@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:nat_explorer/pages/openWithChoice/sshWeb/SSHWebPage.dart';
+import 'package:nat_explorer/pages/openWithChoice/vncWeb/VNCWebPage.dart';
+import 'package:nat_explorer/pages/openWithChoice/aria2/Aria2Page.dart';
 
 class OpenWithChoice extends StatelessWidget {
   static const String TAG_START = "startDivider";
@@ -21,9 +24,11 @@ class OpenWithChoice extends StatelessWidget {
   OpenWithChoice() {
     listData.add(TAG_BLANK);
     listData.add(TAG_START);
-    listData.add(ListItem(title: '切换主题', icon: 'assets/images/ic_discover_nearby.png'));
+    listData.add(ListItem(title: 'Aria2', icon: 'assets/images/ic_discover_nearby.png'));
     listData.add(TAG_CENTER);
-    listData.add(ListItem(title: '退出登录', icon: 'assets/images/ic_discover_nearby.png'));
+    listData.add(ListItem(title: 'SSH', icon: 'assets/images/ic_discover_nearby.png'));
+    listData.add(TAG_CENTER);
+    listData.add(ListItem(title: 'VNC', icon: 'assets/images/ic_discover_nearby.png'));
     listData.add(TAG_END);
   }
 
@@ -85,15 +90,17 @@ class OpenWithChoice extends StatelessWidget {
       return InkWell(
         onTap: () {
           String title = item.title;
-          if (title == '退出登录') {
-//            DataUtils.clearLoginInfo().then((arg) {
-//              Navigator.of(ctx).pop();
-//              Constants.eventBus.fire(LogoutEvent());
-//              print("event fired!");
-//            });
-          } else if (title == '切换主题') {
+          if (title == 'Aria2') {
             Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
-//              return ChangeThemePage();
+              return Aria2Page();
+            }));
+          } else if (title == 'SSH') {
+            Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
+              return SSHWebPage();
+            }));
+          } else if (title == 'VNC') {
+            Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
+              return VNCWebPage();
             }));
           }
         },

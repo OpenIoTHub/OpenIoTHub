@@ -44,6 +44,20 @@ class _VideoAppState extends State<VideoApp> {
                         builder: (_) => AlertDialog(
                           title: Text("添加端口："),
                           content: OpenWithChoice(),
+                          actions: <Widget>[
+                            FlatButton(
+                              child: Text("取消"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            FlatButton(
+                              child: Text("添加"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            )
+                          ]
                         ));
                   }),
             ]
