@@ -47,6 +47,8 @@ dependencies:
   device_apps: ^1.0.8
 #  静态网页sever
   jaguar_flutter_asset: ^2.2.0
+#  player
+  video_player: ^0.10.1+3
 
 dev_dependencies:
   flutter_test:
@@ -72,9 +74,30 @@ flutter:
     - assets/
     - assets/images/
     - assets/images/leftmenu/
+#    -
     - assets/web/open/aria2/
+#    -
     - assets/web/open/ssh/
+#    -
     - assets/web/open/vnc/
+    - assets/web/open/vnc/app/
+    - assets/web/open/vnc/app/images/
+    - assets/web/open/vnc/app/images/icons/
+    - assets/web/open/vnc/app/locale/
+    - assets/web/open/vnc/app/sounds/
+    - assets/web/open/vnc/app/styles/
+    - assets/web/open/vnc/core/
+    - assets/web/open/vnc/core/decoders/
+    - assets/web/open/vnc/core/input/
+    - assets/web/open/vnc/core/util/
+    - assets/web/open/vnc/vendor/
+    - assets/web/open/vnc/vendor/browser-es-module-loader/
+    - assets/web/open/vnc/vendor/browser-es-module-loader/dist/
+    - assets/web/open/vnc/vendor/browser-es-module-loader/src/
+    - assets/web/open/vnc/vendor/pako/
+    - assets/web/open/vnc/vendor/pako/lib/
+    - assets/web/open/vnc/vendor/pako/lib/utils/
+    - assets/web/open/vnc/vendor/pako/lib/zlib/
 #    - assets/images/ic_avatar_default.png
 #    - assets/images/ic_nav_news_normal.png
 #    - assets/images/ic_nav_news_actived.png

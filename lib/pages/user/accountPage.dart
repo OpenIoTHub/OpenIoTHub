@@ -3,6 +3,7 @@ import 'package:nat_explorer/constants/Constants.dart';
 import 'package:nat_explorer/events/ChangeThemeEvent.dart';
 import 'package:nat_explorer/events/LoginEvent.dart';
 import 'package:nat_explorer/events/LogoutEvent.dart';
+import 'package:nat_explorer/pages/user/player.dart';
 import 'package:nat_explorer/pages/user/tools/toolsTypePage.dart';
 import 'package:nat_explorer/util/ThemeUtils.dart';
 import 'dart:convert';
@@ -25,7 +26,7 @@ class MyInfoPageState extends State<MyInfoPage> {
   static const double IMAGE_ICON_WIDTH = 30.0;
   static const double ARROW_ICON_WIDTH = 16.0;
 
-  var titles = ["我的消息", "工具"];
+  var titles = ["我的消息", "工具", "使用手册", "关于", "测试"];
   var imagePaths = [
     "assets/images/ic_my_message.png",
     "assets/images/ic_my_blog.png",
@@ -265,7 +266,16 @@ class MyInfoPageState extends State<MyInfoPage> {
           MaterialPageRoute(
               builder: (context) => ToolsTypePage()
           ));
-    }else {
+    }
+    else if (title == "使用手册"){}
+    else if (title == "关于"){}
+    else if (title == "测试"){
+      Navigator.of(context).push(
+          MaterialPageRoute(
+              builder: (context) => VideoApp()
+          ));
+    }
+    else {
       DataUtils.isLogin().then((isLogin) {
         if (!isLogin) {
           // 未登录
