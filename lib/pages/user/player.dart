@@ -42,13 +42,15 @@ class _VideoAppState extends State<VideoApp> {
                     //                TODO 使用某种方式打开此端口，检查这个软件是否已经安装
 //                    _launchURL("http://127.0.0.1:${config.localProt}");
                     PortConfig config = PortConfig();
-                    config.device.runId = "runId";
-                    config.device.addr = "192.168.0.1";
+                    Device device = Device();
+                    device.runId = "runId";
+                    device.addr = "192.168.0.1";
+                    config.device = device;
                     config.remotePort = 5900;
                     showDialog(
                         context: context,
                         builder: (_) => AlertDialog(
-                          title: Text("添加端口："),
+                          title: Text("打开方式："),
                           content: OpenWithChoice(config),
                           actions: <Widget>[
                             FlatButton(

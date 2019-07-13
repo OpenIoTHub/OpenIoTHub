@@ -139,6 +139,7 @@ class MyInfoPageState extends State<MyInfoPage> {
   renderRow(i) {
     if (i == 0) {
       var avatarContainer = Container(
+        color: Colors.blue,
         height: 200.0,
         child: Center(
           child: Column(
@@ -263,8 +264,10 @@ class MyInfoPageState extends State<MyInfoPage> {
     else if (title == "使用手册"){}
     else if (title == "关于"){
       PortConfig config = PortConfig();
-      config.device.runId = "runId";
-      config.device.addr = "192.168.0.1";
+      Device device = Device();
+      device.runId = "runId";
+      device.addr = "192.168.0.1";
+      config.device = device;
       config.remotePort = 5900;
       Navigator.of(context).push(
           MaterialPageRoute(
