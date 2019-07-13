@@ -6,10 +6,8 @@ import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 // 登录页面，使用网页加载的开源中国三方登录页面
 class Aria2Page extends StatefulWidget {
-  Aria2Page({Key key, this.runId, this.remoteIp, this.remotePort}) : super(key: key);
-  String runId;
-  String remoteIp;
-  int remotePort;
+  Aria2Page({Key key, this.localPort}) : super(key: key);
+  int localPort;
 
   @override
   State<StatefulWidget> createState() => Aria2PageState();
@@ -17,6 +15,7 @@ class Aria2Page extends StatefulWidget {
 
 class Aria2PageState extends State<Aria2Page> {
   // 标记是否是加载中
+  bool loaded = false;
   bool loading = true;
   // 标记当前页面是否是我们自定义的回调页面
   bool isLoadingCallbackPage = false;
@@ -37,56 +36,33 @@ class Aria2PageState extends State<Aria2Page> {
       switch (state.type) {
         case WebViewState.shouldStart:
         // 准备加载
-          setState(() {
-            loading = true;
-          });
           break;
         case WebViewState.startLoad:
         // 开始加载
+          injectConfig();
           break;
         case WebViewState.finishLoad:
         // 加载完成
-          setState(() {
-            loading = false;
-          });
-          if (isLoadingCallbackPage) {
-            // 当前是回调页面，则调用js方法获取数据
-            parseResult();
-          }
           break;
         case WebViewState.abortLoad:
           break;
       }
     });
-    _onUrlChanged = flutterWebViewPlugin.onUrlChanged.listen((url) {
-      // 登录成功会跳转到自定义的回调页面，该页面地址为http://yubo725.top/osc/osc.php?code=xxx
-      // 该页面会接收code，然后根据code换取AccessToken，并将获取到的token及其他信息，通过js的get()方法返回
-      if (url != null && url.length > 0 && url.contains("osc/osc.php?code=")) {
-        isLoadingCallbackPage = true;
-      }
-    });
   }
 
   // 解析WebView中的数据
-  void parseResult() {
-    flutterWebViewPlugin.evalJavascript("get();").then((result) {
+  void injectConfig() {
+    if (loaded) {
+      return;
+    }
+    loaded = true;
+    print("===");
+    String jsCode = "window.localStorage.setItem(\'AriaNg.Options\', \'{\"language\":\"zh_Hans\",\"title\":\"\${downspeed}, \${upspeed} - \${title}\",\"titleRefreshInterval\":5000,\"browserNotification\":false,\"rpcAlias\":\"\",\"rpcHost\":\"localhost\",\"rpcPort\":\"${widget.localPort}\",\"rpcInterface\":\"jsonrpc\",\"protocol\":\"http\",\"httpMethod\":\"POST\",\"secret\":\"\",\"extendRpcServers\":[],\"globalStatRefreshInterval\":1000,\"downloadTaskRefreshInterval\":1000,\"rpcListDisplayOrder\":\"recentlyUsed\",\"afterCreatingNewTask\":\"task-list\",\"removeOldTaskAfterRetrying\":false,\"afterRetryingTask\":\"task-list-downloading\",\"displayOrder\":\"default:asc\",\"fileListDisplayOrder\":\"default:asc\",\"peerListDisplayOrder\":\"default:asc\"}\');location.reload();";
+    flutterWebViewPlugin.evalJavascript(jsCode).then((result) {
       // result json字符串，包含token信息
-      if (result != null && result.length > 0) {
-        // 拿到了js中的数据
-        try {
-          // what the fuck?? need twice decode??
-          var map = json.decode(result); // s is String
-          if (map is String) {
-            map = json.decode(map); // map is Map
-          }
-          if (map != null) {
-            // 登录成功，取到了token，关闭当前页面
-            Navigator.pop(context, "refresh");
-          }
-        } catch (e) {
-          print("parse login result error: $e");
-        }
-      }
+      print("===");
+      print(result);
+      print("===");
     });
   }
 

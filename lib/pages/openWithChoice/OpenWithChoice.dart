@@ -96,7 +96,7 @@ class OpenWithChoice extends StatelessWidget {
           String title = item.title;
           if (title == 'Aria2') {
             Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
-              return Aria2Page(runId:portConfig.device.runId,remoteIp:portConfig.device.addr,remotePort:portConfig.remotePort);
+              return Aria2Page(localPort: portConfig.localProt,);
             }));
           } else if (title == 'SSH') {
             Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
