@@ -96,11 +96,11 @@ class OpenWithChoice extends StatelessWidget {
           String title = item.title;
           if (title == 'Aria2') {
             Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
-              return Aria2Page();
+              return Aria2Page(runId:portConfig.device.runId,remoteIp:portConfig.device.addr,remotePort:portConfig.remotePort);
             }));
           } else if (title == 'SSH') {
             Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
-              return SSHWebPage();
+              return SSHWebPage(runId:portConfig.device.runId,remoteIp:portConfig.device.addr,remotePort:portConfig.remotePort);
             }));
           } else if (title == 'VNC') {
             Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {

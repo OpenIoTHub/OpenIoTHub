@@ -6,6 +6,11 @@ import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 // 登录页面，使用网页加载的开源中国三方登录页面
 class Aria2Page extends StatefulWidget {
+  Aria2Page({Key key, this.runId, this.remoteIp, this.remotePort}) : super(key: key);
+  String runId;
+  String remoteIp;
+  int remotePort;
+
   @override
   State<StatefulWidget> createState() => Aria2PageState();
 }
@@ -100,7 +105,7 @@ class Aria2PageState extends State<Aria2Page> {
     // WebviewScaffold是插件提供的组件，用于在页面上显示一个WebView并加载URL
     return WebviewScaffold(
       key: _scaffoldKey,
-      url: "https://www.baidu.com/", // 登录的URL
+      url: "http://127.0.0.1:9000/web/open/aria2/index.html", // 登录的URL
       appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
