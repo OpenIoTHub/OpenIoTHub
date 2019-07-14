@@ -1,4 +1,6 @@
+import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:nat_explorer/pages/openWithChoice/sshWeb/SSHWebPage.dart';
 import 'package:nat_explorer/pages/openWithChoice/vncWeb/VNCWebPage.dart';
 import 'package:nat_explorer/pages/openWithChoice/aria2/Aria2Page.dart';
@@ -28,6 +30,8 @@ class OpenWithChoice extends StatelessWidget {
   OpenWithChoice(this.portConfig) {
     listData.add(TAG_BLANK);
     listData.add(TAG_START);
+    listData.add(ListItem(title: 'Web', icon: 'assets/images/ic_discover_nearby.png'));
+    listData.add(TAG_CENTER);
     listData.add(ListItem(title: 'Aria2', icon: 'assets/images/ic_discover_nearby.png'));
     listData.add(TAG_CENTER);
     listData.add(ListItem(title: 'SSH', icon: 'assets/images/ic_discover_nearby.png'));
@@ -106,6 +110,22 @@ class OpenWithChoice extends StatelessWidget {
             Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
               return VNCWebPage(runId:portConfig.device.runId,remoteIp:portConfig.device.addr,remotePort:portConfig.remotePort);
             }));
+          } else if (title == 'Web') {
+            Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
+              return WebviewScaffold(
+                url: "http://127.0.0.1:${portConfig.localProt}",
+                appBar: new AppBar(title: new Text("网页浏览器"), actions: <Widget>[
+                  IconButton(
+                      icon: Icon(
+                        Icons.open_in_browser,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        _launchURL("http://127.0.0.1:${portConfig.localProt}");
+                      })
+                ]),
+              );
+            }));
           }
         },
         child: listItemContent,
@@ -121,6 +141,14 @@ class OpenWithChoice extends StatelessWidget {
         itemCount: listData.length,
       ),
     );
+  }
+
+  _launchURL(String url) async {
+    AndroidIntent intent = AndroidIntent(
+      action: 'action_view',
+      data: url,
+    );
+    await intent.launch();
   }
 }
 
