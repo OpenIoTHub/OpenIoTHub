@@ -33,7 +33,13 @@ function createTerminal(host) {
   term.open(terminalContainer);
   //term.fit();
   // socketURL = 'ws://100.73.35.8:2375/v1.24/containers/' + containerId + '/attach/ws?logs=0&stream=1&stdin=1&stdout=1&stderr=1';
-  socketURL = 'ws://'+host+'/container/ws/';
+    runId = window.localStorage.getItem('runId');
+    remoteIp = window.localStorage.getItem('remoteIp');
+    remotePort = window.localStorage.getItem('remotePort');
+    userName = window.localStorage.getItem('userName');
+    passWord = window.localStorage.getItem('passWord');
+  socketURL = "http://127.0.0.1:1081/proxy/ws/connect/ssh?runId="+runId
+  +"&remoteIp="+remoteIp+"&remotePort="+remotePort+"&userName="+userName+"&passWord="+passWord;
   console.log(socketURL)
   socket = new WebSocket(socketURL);
   socket.onopen = runRealTerminal;
