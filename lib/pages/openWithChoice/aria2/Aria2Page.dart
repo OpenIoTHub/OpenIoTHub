@@ -5,7 +5,6 @@ import 'dart:convert';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:nat_explorer/constants/Config.dart';
 
-// 登录页面，使用网页加载的开源中国三方登录页面
 class Aria2Page extends StatefulWidget {
   Aria2Page({Key key, this.localPort}) : super(key: key);
   int localPort;

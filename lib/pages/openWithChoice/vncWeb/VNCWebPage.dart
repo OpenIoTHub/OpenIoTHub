@@ -5,7 +5,6 @@ import 'dart:convert';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:nat_explorer/constants/Config.dart';
 
-// 登录页面，使用网页加载的开源中国三方登录页面
 class VNCWebPage extends StatefulWidget {
   VNCWebPage({Key key, this.runId, this.remoteIp, this.remotePort}) : super(key: key);
   String runId;
