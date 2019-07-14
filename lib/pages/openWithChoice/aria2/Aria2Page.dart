@@ -17,12 +17,7 @@ class Aria2Page extends StatefulWidget {
 class Aria2PageState extends State<Aria2Page> {
   // 标记是否是加载中
   bool loaded = false;
-  bool loading = true;
-  // 标记当前页面是否是我们自定义的回调页面
-  bool isLoadingCallbackPage = false;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  // URL变化监听器
-  StreamSubscription<String> _onUrlChanged;
   // WebView加载状态变化监听器
   StreamSubscription<WebViewStateChanged> _onStateChanged;
   // 插件提供的对象，该对象用于WebView的各种操作
@@ -81,8 +76,6 @@ class Aria2PageState extends State<Aria2Page> {
   @override
   void dispose() {
     // 回收相关资源
-    // Every listener should be canceled, the same should be done with this stream.
-    _onUrlChanged.cancel();
     _onStateChanged.cancel();
     flutterWebViewPlugin.dispose();
 
