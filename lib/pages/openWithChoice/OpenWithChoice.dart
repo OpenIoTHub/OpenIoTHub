@@ -110,7 +110,7 @@ class OpenWithChoice extends StatelessWidget {
             showDialog(
                 context: ctx,
                 builder: (_) => AlertDialog(
-                    title: Text("添加端口："),
+                    title: Text("输入linux登录信息："),
                     content: ListView(
                       children: <Widget>[
                         TextFormField(

@@ -38,10 +38,10 @@ class SSHWebPageState extends State<SSHWebPage> {
           break;
         case WebViewState.startLoad:
         // 开始加载
+          injectConfig();
           break;
         case WebViewState.finishLoad:
         // 加载完成
-          injectConfig();
           break;
         case WebViewState.abortLoad:
           break;
