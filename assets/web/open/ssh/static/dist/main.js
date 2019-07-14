@@ -38,7 +38,7 @@ function createTerminal(host) {
     remotePort = window.localStorage.getItem('remotePort');
     userName = window.localStorage.getItem('userName');
     passWord = window.localStorage.getItem('passWord');
-  socketURL = "http://127.0.0.1:1081/proxy/ws/connect/ssh?runId="+runId
+  socketURL = "ws://127.0.0.1:1081/proxy/ws/connect/ssh?runId="+runId
   +"&remoteIp="+remoteIp+"&remotePort="+remotePort+"&userName="+userName+"&passWord="+passWord;
   console.log(socketURL)
   socket = new WebSocket(socketURL);

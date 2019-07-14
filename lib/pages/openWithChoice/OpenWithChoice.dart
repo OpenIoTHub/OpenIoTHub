@@ -103,9 +103,51 @@ class OpenWithChoice extends StatelessWidget {
               return Aria2Page(localPort: portConfig.localProt,);
             }));
           } else if (title == 'SSH') {
-            Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
-              return SSHWebPage(runId:portConfig.device.runId,remoteIp:portConfig.device.addr,remotePort:portConfig.remotePort);
-            }));
+            TextEditingController _username_controller =
+            TextEditingController.fromValue(TextEditingValue(text: "root"));
+            TextEditingController _password_controller =
+            TextEditingController.fromValue(TextEditingValue(text: ""));
+            showDialog(
+                context: ctx,
+                builder: (_) => AlertDialog(
+                    title: Text("添加端口："),
+                    content: ListView(
+                      children: <Widget>[
+                        TextFormField(
+                          controller: _username_controller,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(10.0),
+                            labelText: '用户名',
+                            helperText: 'linux用户名',
+                          ),
+                        ),
+                        TextFormField(
+                          controller: _password_controller,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(10.0),
+                            labelText: 'ssh密码',
+                            helperText: '上述linux用户密码',
+                          ),
+                          obscureText: true,
+                        )
+                      ],
+                    ),
+                    actions: <Widget>[
+                      FlatButton(
+                        child: Text("取消"),
+                        onPressed: () {
+                          Navigator.of(ctx).pop();
+                        },
+                      ),
+                      FlatButton(
+                        child: Text("连接"),
+                        onPressed: () {
+                          Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
+                            return SSHWebPage(runId:portConfig.device.runId,remoteIp:portConfig.device.addr,remotePort:portConfig.remotePort,userName: _username_controller.text,passWord: _password_controller.text,);
+                          }));
+                        },
+                      )
+                    ]));
           } else if (title == 'VNC') {
             Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
               return VNCWebPage(runId:portConfig.device.runId,remoteIp:portConfig.device.addr,remotePort:portConfig.remotePort);

@@ -5,12 +5,13 @@ import 'dart:convert';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:nat_explorer/constants/Config.dart';
 
-// 登录页面，使用网页加载的开源中国三方登录页面
 class SSHWebPage extends StatefulWidget {
-  SSHWebPage({Key key, this.runId, this.remoteIp, this.remotePort}) : super(key: key);
+  SSHWebPage({Key key, this.runId, this.remoteIp, this.remotePort, this.userName, this.passWord}) : super(key: key);
   String runId;
   String remoteIp;
   int remotePort;
+  String userName;
+  String passWord;
 
   @override
   State<StatefulWidget> createState() => SSHWebPageState();
@@ -18,12 +19,8 @@ class SSHWebPage extends StatefulWidget {
 
 class SSHWebPageState extends State<SSHWebPage> {
   // 标记是否是加载中
-  bool loading = true;
-  // 标记当前页面是否是我们自定义的回调页面
-  bool isLoadingCallbackPage = false;
+  bool loaded = false;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  // URL变化监听器
-  StreamSubscription<String> _onUrlChanged;
   // WebView加载状态变化监听器
   StreamSubscription<WebViewStateChanged> _onStateChanged;
   // 插件提供的对象，该对象用于WebView的各种操作
@@ -38,93 +35,55 @@ class SSHWebPageState extends State<SSHWebPage> {
       switch (state.type) {
         case WebViewState.shouldStart:
         // 准备加载
-          setState(() {
-            loading = true;
-          });
           break;
         case WebViewState.startLoad:
         // 开始加载
           break;
         case WebViewState.finishLoad:
         // 加载完成
-          setState(() {
-            loading = false;
-          });
-          if (isLoadingCallbackPage) {
-            // 当前是回调页面，则调用js方法获取数据
-            parseResult();
-          }
+          injectConfig();
           break;
         case WebViewState.abortLoad:
           break;
       }
     });
-    _onUrlChanged = flutterWebViewPlugin.onUrlChanged.listen((url) {
-      // 登录成功会跳转到自定义的回调页面，该页面地址为http://yubo725.top/osc/osc.php?code=xxx
-      // 该页面会接收code，然后根据code换取AccessToken，并将获取到的token及其他信息，通过js的get()方法返回
-      if (url != null && url.length > 0 && url.contains("osc/osc.php?code=")) {
-        isLoadingCallbackPage = true;
-      }
-    });
   }
 
   // 解析WebView中的数据
-  void parseResult() {
-    flutterWebViewPlugin.evalJavascript("get();").then((result) {
+  Future injectConfig() async {
+    if (loaded) {
+      return;
+    }
+    loaded =true;
+    print("loaded = true");
+    print("===");
+    String jsCode = "window.localStorage.setItem(\'runId\', \'${widget.runId}\');window.localStorage.setItem(\'remoteIp\', \'${widget.remoteIp}\');window.localStorage.setItem(\'remotePort\', \'${widget.remotePort}\');window.localStorage.setItem(\'userName\', \'${widget.userName}\');window.localStorage.setItem(\'passWord\', \'${widget.passWord}\');location.reload();";
+    flutterWebViewPlugin.evalJavascript(jsCode).then((result) {
       // result json字符串，包含token信息
-      if (result != null && result.length > 0) {
-        // 拿到了js中的数据
-        try {
-          // what the fuck?? need twice decode??
-          var map = json.decode(result); // s is String
-          if (map is String) {
-            map = json.decode(map); // map is Map
-          }
-          if (map != null) {
-            // 登录成功，取到了token，关闭当前页面
-            Navigator.pop(context, "refresh");
-          }
-        } catch (e) {
-          print("parse login result error: $e");
-        }
-      }
+      print("===");
+      print(result);
+      print("===");
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> titleContent = [];
-    titleContent.add(Text(
-      "SSH",
-      style: TextStyle(color: Colors.white),
-    ));
-    if (loading) {
-      // 如果还在加载中，就在标题栏上显示一个圆形进度条
-      titleContent.add(CupertinoActivityIndicator());
-    }
-    titleContent.add(Container(width: 50.0));
-    // WebviewScaffold是插件提供的组件，用于在页面上显示一个WebView并加载URL
     return WebviewScaffold(
-      key: _scaffoldKey,
-      url: "http://127.0.0.1:${Config.webStaticPort}/web/open/ssh/index.html", // 登录的URL
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: titleContent,
+        appBar: AppBar(
+          title: Text("ssh"),
+          iconTheme: IconThemeData(color: Colors.white),
         ),
-        iconTheme: IconThemeData(color: Colors.white),
-      ),
-      withZoom: true,  // 允许网页缩放
-      withLocalStorage: true, // 允许LocalStorage
-      withJavascript: true, // 允许执行js代码
-    );
+        key: _scaffoldKey,
+        url: "http://127.0.0.1:${Config.webStaticPort}/web/open/ssh/index.html", // 登录的URL
+        withZoom: true,  // 允许网页缩放
+        withLocalStorage: true, // 允许LocalStorage
+        withJavascript: true, // 允许执行js代码
+      );
   }
 
   @override
   void dispose() {
     // 回收相关资源
-    // Every listener should be canceled, the same should be done with this stream.
-    _onUrlChanged.cancel();
     _onStateChanged.cancel();
     flutterWebViewPlugin.dispose();
 
