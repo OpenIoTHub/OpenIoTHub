@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:convert';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:nat_explorer/constants/Config.dart';
 
 // 登录页面，使用网页加载的开源中国三方登录页面
 class Aria2Page extends StatefulWidget {
@@ -70,7 +71,7 @@ class Aria2PageState extends State<Aria2Page> {
   Widget build(BuildContext context) {
     return WebviewScaffold(
       key: _scaffoldKey,
-      url: "http://127.0.0.1:9000/web/open/aria2/index.html", // 登录的URL
+      url: "http://127.0.0.1:${Config.webStaticPort}/web/open/aria2/index.html", // 登录的URL
       withZoom: true,  // 允许网页缩放
       withLocalStorage: true, // 允许LocalStorage
       withJavascript: true, // 允许执行js代码

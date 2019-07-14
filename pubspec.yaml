@@ -78,6 +78,14 @@ flutter:
     - assets/web/open/aria2/
 #    -
     - assets/web/open/ssh/
+    - assets/web/open/ssh/static/
+    - assets/web/open/ssh/static/dist/
+    - assets/web/open/ssh/static/dist/addons/
+    - assets/web/open/ssh/static/dist/addons/attach/
+    - assets/web/open/ssh/static/dist/addons/fit/
+    - assets/web/open/ssh/static/dist/addons/fullscreen/
+    - assets/web/open/ssh/static/dist/addons/linkify/
+    - assets/web/open/ssh/static/dist/addons/terminado/
 #    -
     - assets/web/open/vnc/
     - assets/web/open/vnc/app/
