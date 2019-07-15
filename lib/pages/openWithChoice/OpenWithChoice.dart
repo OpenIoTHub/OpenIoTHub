@@ -183,7 +183,9 @@ class OpenWithChoice extends StatelessWidget {
           } else if (title == 'RDP远程桌面') {
             var url =
                 'rdp://full%20address=s:127.0.0.1:${portConfig.localProt}&audiomode=i:2&disable%20themes=i:1';
-            _launchURL(url);
+            _launchURL(url).then((_){
+              Navigator.of(ctx).pop();
+            });
           }
         },
         child: listItemContent,
