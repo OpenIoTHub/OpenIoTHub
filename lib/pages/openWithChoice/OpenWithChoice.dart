@@ -101,7 +101,9 @@ class OpenWithChoice extends StatelessWidget {
           if (title == 'Aria2') {
             Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
               return Aria2Page(localPort: portConfig.localProt,);
-            }));
+            })).then((_){
+              Navigator.of(ctx).pop();
+            });
           } else if (title == 'SSH') {
             TextEditingController _username_controller =
             TextEditingController.fromValue(TextEditingValue(text: "root"));
@@ -144,14 +146,20 @@ class OpenWithChoice extends StatelessWidget {
                         onPressed: () {
                           Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
                             return SSHWebPage(runId:portConfig.device.runId,remoteIp:portConfig.device.addr,remotePort:portConfig.remotePort,userName: _username_controller.text,passWord: _password_controller.text,);
-                          }));
+                          })).then((_){
+                            Navigator.of(ctx).pop();
+                          });
                         },
                       )
-                    ]));
+                    ])).then((_){
+              Navigator.of(ctx).pop();
+            });
           } else if (title == 'VNC') {
             Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
               return VNCWebPage(runId:portConfig.device.runId,remoteIp:portConfig.device.addr,remotePort:portConfig.remotePort);
-            }));
+            })).then((_){
+              Navigator.of(ctx).pop();
+            });
           } else if (title == 'Web') {
             Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
               return WebviewScaffold(
@@ -167,7 +175,9 @@ class OpenWithChoice extends StatelessWidget {
                       })
                 ]),
               );
-            }));
+            })).then((_){
+              Navigator.of(ctx).pop();
+            });
           }
         },
         child: listItemContent,
