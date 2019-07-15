@@ -37,6 +37,8 @@ class OpenWithChoice extends StatelessWidget {
     listData.add(ListItem(title: 'SSH', icon: 'assets/images/ic_discover_nearby.png'));
     listData.add(TAG_CENTER);
     listData.add(ListItem(title: 'VNC', icon: 'assets/images/ic_discover_nearby.png'));
+    listData.add(TAG_CENTER);
+    listData.add(ListItem(title: 'RDP远程桌面', icon: 'assets/images/ic_discover_nearby.png'));
     listData.add(TAG_END);
   }
 
@@ -178,6 +180,10 @@ class OpenWithChoice extends StatelessWidget {
             })).then((_){
               Navigator.of(ctx).pop();
             });
+          } else if (title == 'RDP远程桌面') {
+            var url =
+                'rdp://full%20address=s:127.0.0.1:${portConfig.localProt}&audiomode=i:2&disable%20themes=i:1';
+            _launchURL(url);
           }
         },
         child: listItemContent,
