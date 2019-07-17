@@ -8,6 +8,15 @@ const Empty$json = const {
   '1': 'Empty',
 };
 
+const MDNSService$json = const {
+  '1': 'MDNSService',
+  '2': const [
+    const {'1': 'Name', '3': 1, '4': 1, '5': 9, '10': 'Name'},
+    const {'1': 'IP', '3': 2, '4': 1, '5': 9, '10': 'IP'},
+    const {'1': 'Port', '3': 3, '4': 1, '5': 5, '10': 'Port'},
+  ],
+};
+
 const Color$json = const {
   '1': 'Color',
   '2': const [
@@ -151,6 +160,13 @@ const HTTPList$json = const {
   '1': 'HTTPList',
   '2': const [
     const {'1': 'HTTPConfigs', '3': 1, '4': 3, '5': 11, '6': '.pb.HTTPConfig', '10': 'HTTPConfigs'},
+  ],
+};
+
+const MDNSServiceList$json = const {
+  '1': 'MDNSServiceList',
+  '2': const [
+    const {'1': 'MDNSServices', '3': 1, '4': 3, '5': 11, '6': '.pb.MDNSService', '10': 'MDNSServices'},
   ],
 };
 

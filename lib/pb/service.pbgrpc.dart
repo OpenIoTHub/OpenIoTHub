@@ -1026,3 +1026,45 @@ abstract class MiioGatewayManagerServiceBase extends $grpc.Service {
   $async.Future<GatewayUpdateMessage> getGetawayUpdateMessage(
       $grpc.ServiceCall call, MiioGatewayDevice request);
 }
+
+class UtilsClient extends $grpc.Client {
+  static final _$getAllmDNSServiceList =
+      $grpc.ClientMethod<MDNSService, MDNSServiceList>(
+          '/pb.Utils/GetAllmDNSServiceList',
+          (MDNSService value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => MDNSServiceList.fromBuffer(value));
+
+  UtilsClient($grpc.ClientChannel channel, {$grpc.CallOptions options})
+      : super(channel, options: options);
+
+  $grpc.ResponseFuture<MDNSServiceList> getAllmDNSServiceList(
+      MDNSService request,
+      {$grpc.CallOptions options}) {
+    final call = $createCall(
+        _$getAllmDNSServiceList, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+}
+
+abstract class UtilsServiceBase extends $grpc.Service {
+  $core.String get $name => 'pb.Utils';
+
+  UtilsServiceBase() {
+    $addMethod($grpc.ServiceMethod<MDNSService, MDNSServiceList>(
+        'GetAllmDNSServiceList',
+        getAllmDNSServiceList_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => MDNSService.fromBuffer(value),
+        (MDNSServiceList value) => value.writeToBuffer()));
+  }
+
+  $async.Future<MDNSServiceList> getAllmDNSServiceList_Pre(
+      $grpc.ServiceCall call, $async.Future request) async {
+    return getAllmDNSServiceList(call, await request);
+  }
+
+  $async.Future<MDNSServiceList> getAllmDNSServiceList(
+      $grpc.ServiceCall call, MDNSService request);
+}

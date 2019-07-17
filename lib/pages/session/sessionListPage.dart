@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:nat_explorer/pages/client/findmDNSClientList.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
@@ -72,10 +73,12 @@ class _SessionListPageState extends State<SessionListPage> {
         appBar: AppBar(
           leading: IconButton(
               icon: Icon(
-                Icons.pages,
+                Icons.desktop_windows,
                 color: Colors.white,
               ),
-              onPressed: () {}),
+              onPressed: () {
+                _pushFindmDNSClientListPage();
+              }),
           title: Text(widget.title),
           actions: <Widget>[
             IconButton(
@@ -159,6 +162,22 @@ class _SessionListPageState extends State<SessionListPage> {
         builder: (context) {
           // 写成独立的组件，支持刷新
           return MDNSServiceListPage(sessionConfig: config);
+        },
+      ),
+    ).then((result) {
+      setState(() {
+        getAllSession();
+      });
+    });
+  }
+
+  void _pushFindmDNSClientListPage() async {
+//:TODO    这里显示内网的服务，socks5等，右上角详情才展示详细信息
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) {
+          // 写成独立的组件，支持刷新
+          return FindmDNSClientListPage();
         },
       ),
     ).then((result) {

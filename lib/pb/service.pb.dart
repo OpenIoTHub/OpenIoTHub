@@ -26,6 +26,42 @@ class Empty extends $pb.GeneratedMessage {
   static Empty _defaultInstance;
 }
 
+class MDNSService extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('MDNSService', package: const $pb.PackageName('pb'))
+    ..aOS(1, 'name')
+    ..aOS(2, 'iP')
+    ..a<$core.int>(3, 'port', $pb.PbFieldType.O3)
+    ..hasRequiredFields = false
+  ;
+
+  MDNSService() : super();
+  MDNSService.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  MDNSService.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  MDNSService clone() => MDNSService()..mergeFromMessage(this);
+  MDNSService copyWith(void Function(MDNSService) updates) => super.copyWith((message) => updates(message as MDNSService));
+  $pb.BuilderInfo get info_ => _i;
+  static MDNSService create() => MDNSService();
+  MDNSService createEmptyInstance() => create();
+  static $pb.PbList<MDNSService> createRepeated() => $pb.PbList<MDNSService>();
+  static MDNSService getDefault() => _defaultInstance ??= create()..freeze();
+  static MDNSService _defaultInstance;
+
+  $core.String get name => $_getS(0, '');
+  set name($core.String v) { $_setString(0, v); }
+  $core.bool hasName() => $_has(0);
+  void clearName() => clearField(1);
+
+  $core.String get iP => $_getS(1, '');
+  set iP($core.String v) { $_setString(1, v); }
+  $core.bool hasIP() => $_has(1);
+  void clearIP() => clearField(2);
+
+  $core.int get port => $_get(2, 0);
+  set port($core.int v) { $_setSignedInt32(2, v); }
+  $core.bool hasPort() => $_has(2);
+  void clearPort() => clearField(3);
+}
+
 class Color extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('Color', package: const $pb.PackageName('pb'))
     ..a<$core.int>(1, 'r', $pb.PbFieldType.O3)
@@ -594,5 +630,26 @@ class HTTPList extends $pb.GeneratedMessage {
   static HTTPList _defaultInstance;
 
   $core.List<HTTPConfig> get hTTPConfigs => $_getList(0);
+}
+
+class MDNSServiceList extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('MDNSServiceList', package: const $pb.PackageName('pb'))
+    ..pc<MDNSService>(1, 'mDNSServices', $pb.PbFieldType.PM,MDNSService.create)
+    ..hasRequiredFields = false
+  ;
+
+  MDNSServiceList() : super();
+  MDNSServiceList.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  MDNSServiceList.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  MDNSServiceList clone() => MDNSServiceList()..mergeFromMessage(this);
+  MDNSServiceList copyWith(void Function(MDNSServiceList) updates) => super.copyWith((message) => updates(message as MDNSServiceList));
+  $pb.BuilderInfo get info_ => _i;
+  static MDNSServiceList create() => MDNSServiceList();
+  MDNSServiceList createEmptyInstance() => create();
+  static $pb.PbList<MDNSServiceList> createRepeated() => $pb.PbList<MDNSServiceList>();
+  static MDNSServiceList getDefault() => _defaultInstance ??= create()..freeze();
+  static MDNSServiceList _defaultInstance;
+
+  $core.List<MDNSService> get mDNSServices => $_getList(0);
 }
 

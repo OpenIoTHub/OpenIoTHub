@@ -49,6 +49,8 @@ dependencies:
   jaguar_flutter_asset: ^2.2.0
 #  player
   video_player: ^0.10.1+3
+#  mDNS
+#  multicast_dns: ^0.1.1
 
 dev_dependencies:
   flutter_test:
