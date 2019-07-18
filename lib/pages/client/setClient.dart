@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:nat_explorer/api/SessionApi.dart';
+import 'package:nat_explorer/pb/service.pb.dart';
 
 class SetClient extends StatefulWidget {
   SetClient({Key key, this.ip, this.port}) : super(key: key);
@@ -37,6 +39,7 @@ class SetClientState extends State<SetClient> {
         'login_key': _key_controller.text
       };
       response = await http.post(url, body: config);
+//    自动添加到我的列表
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         if (data['Code'] == 0) {
@@ -53,9 +56,11 @@ class SetClientState extends State<SetClient> {
                           },
                         ),
                         FlatButton(
-                          child: Text("确认"),
+                          child: Text("添加内网"),
                           onPressed: () {
-                            Navigator.of(context).pop();
+                            addToMySessionList().then((_){
+                              Navigator.of(context).pop();
+                            });
                           },
                         )
                       ]));
@@ -229,5 +234,28 @@ class SetClientState extends State<SetClient> {
             )
           ],
         ));
+  }
+
+  Future addToMySessionList() async {
+    var url = 'http://${widget.ip}:${widget.port}/getExplorerToken';
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      if (data['Code'] == 0) {
+        SessionConfig config = SessionConfig();
+        config.token = data['Token'];
+        config.description = '我的网络';
+        createOneSession(config);
+      }
+    }
+  }
+
+  Future createOneSession(SessionConfig config) async {
+    try {
+      final response = await SessionApi.createOneSession(config);
+      print('Greeter client received: ${response}');
+    } catch (e) {
+      print('Caught error: $e');
+    }
   }
 }
