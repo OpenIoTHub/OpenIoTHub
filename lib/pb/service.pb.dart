@@ -206,6 +206,36 @@ class Device extends $pb.GeneratedMessage {
   void clearDescription() => clearField(3);
 }
 
+class DeviceMac extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('DeviceMac', package: const $pb.PackageName('pb'))
+    ..a<Device>(1, 'device', $pb.PbFieldType.OM, Device.getDefault, Device.create)
+    ..aOS(2, 'mac')
+    ..hasRequiredFields = false
+  ;
+
+  DeviceMac() : super();
+  DeviceMac.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  DeviceMac.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  DeviceMac clone() => DeviceMac()..mergeFromMessage(this);
+  DeviceMac copyWith(void Function(DeviceMac) updates) => super.copyWith((message) => updates(message as DeviceMac));
+  $pb.BuilderInfo get info_ => _i;
+  static DeviceMac create() => DeviceMac();
+  DeviceMac createEmptyInstance() => create();
+  static $pb.PbList<DeviceMac> createRepeated() => $pb.PbList<DeviceMac>();
+  static DeviceMac getDefault() => _defaultInstance ??= create()..freeze();
+  static DeviceMac _defaultInstance;
+
+  Device get device => $_getN(0);
+  set device(Device v) { setField(1, v); }
+  $core.bool hasDevice() => $_has(0);
+  void clearDevice() => clearField(1);
+
+  $core.String get mac => $_getS(1, '');
+  set mac($core.String v) { $_setString(1, v); }
+  $core.bool hasMac() => $_has(1);
+  void clearMac() => clearField(2);
+}
+
 class DeviceList extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('DeviceList', package: const $pb.PackageName('pb'))
     ..pc<Device>(1, 'devices', $pb.PbFieldType.PM,Device.create)

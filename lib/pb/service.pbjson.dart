@@ -53,6 +53,14 @@ const Device$json = const {
   ],
 };
 
+const DeviceMac$json = const {
+  '1': 'DeviceMac',
+  '2': const [
+    const {'1': 'Device', '3': 1, '4': 1, '5': 11, '6': '.pb.Device', '10': 'Device'},
+    const {'1': 'Mac', '3': 2, '4': 1, '5': 9, '10': 'Mac'},
+  ],
+};
+
 const DeviceList$json = const {
   '1': 'DeviceList',
   '2': const [

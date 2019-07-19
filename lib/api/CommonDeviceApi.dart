@@ -6,6 +6,22 @@ import 'package:grpc/grpc.dart';
 import 'Channel.dart';
 
 class CommonDeviceApi {
+  //设置设备的物理地址
+  static Future setDeviceMac(DeviceMac deviceMac) async {
+    final channel = Channel.getClientChannel();
+    final stub = CommonDeviceManagerClient(channel);
+    final response = await stub.setDeviceMac(deviceMac);
+    print('Greeter client received: ${response}');
+    channel.shutdown();
+  }
+//  设备网络唤醒
+  static Future wakeOnLAN(Device device) async {
+    final channel = Channel.getClientChannel();
+    final stub = CommonDeviceManagerClient(channel);
+    final response = await stub.wakeOnLAN(device);
+    print('Greeter client received: ${response}');
+    channel.shutdown();
+  }
   //设备的操作:增删
 //  rpc AddDevice (Device) returns (Empty) {}
   static Future createOneDevice(Device device) async {

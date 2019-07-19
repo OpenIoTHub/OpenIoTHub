@@ -161,6 +161,16 @@ class _CommonDeviceServiceTypesListState extends State<CommonDeviceServiceTypesL
                   //TODO 删除小米网关设备
                   _deleteCurrentDevice();
                 }),
+            IconButton(
+                icon: Icon(
+                  Icons.check_circle,
+                  color: Colors.green,
+                ),
+                onPressed: () {
+                  //网络唤醒
+                  _wakeOnLAN();
+                }),
+//            TODO 设备的详情
           ]
       ),
       body: Padding(
@@ -201,6 +211,79 @@ class _CommonDeviceServiceTypesListState extends State<CommonDeviceServiceTypesL
       Navigator.of(context).pop();
     });
   }
+
+  Future _wakeOnLAN() async {
+    return showDialog(
+        context: context,
+        builder: (_) => new AlertDialog(
+            title: new Text("唤醒设备"),
+            content: new Text("第一次使用请选择\'设置物理地址\'，设置过物理地址可以直接点击\'唤醒设备\'。"),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("取消"),
+                onPressed: () {
+                    Navigator.of(context).pop();
+                },
+              ),
+              new FlatButton(
+                child: new Text("设置物理地址"),
+                onPressed: () {
+                  _setMacAddr().then((_){
+                    Navigator.of(context).pop();
+                  });
+                },
+              ),
+              new FlatButton(
+                child: new Text("唤醒设备"),
+                onPressed: () {
+                  CommonDeviceApi.wakeOnLAN(widget.device).then((_) {
+                    Navigator.of(context).pop();
+                  });
+                },
+              )
+            ]));
+  }
+
+  Future _setMacAddr() async {
+    TextEditingController _mac_controller =
+    TextEditingController.fromValue(TextEditingValue(text: "54-07-2F-BB-BB-2F"));
+    return showDialog(
+        context: context,
+        builder: (_) => new AlertDialog(
+            title: new Text("设置物理地址"),
+            content: ListView(
+              children: <Widget>[
+                TextFormField(
+                  controller: _mac_controller,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(10.0),
+                    labelText: '物理地址',
+                    helperText: '机器有线网卡的物理地址',
+                  ),
+                ),
+              ],
+            ),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("取消"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              new FlatButton(
+                child: new Text("设置"),
+                onPressed: () {
+                  var deviceMac = DeviceMac();
+                  deviceMac.device = widget.device;
+                  deviceMac.mac =_mac_controller.text;
+                  CommonDeviceApi.setDeviceMac(deviceMac).then((_) {
+                    Navigator.of(context).pop();
+                  });
+                },
+              )
+            ]));
+  }
+
 }
 
 class ListItem {

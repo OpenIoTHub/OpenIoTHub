@@ -380,6 +380,14 @@ class CommonDeviceManagerClient extends $grpc.Client {
       '/pb.CommonDeviceManager/GetAllDevice',
       (Empty value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => DeviceList.fromBuffer(value));
+  static final _$setDeviceMac = $grpc.ClientMethod<DeviceMac, Empty>(
+      '/pb.CommonDeviceManager/SetDeviceMac',
+      (DeviceMac value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => Empty.fromBuffer(value));
+  static final _$wakeOnLAN = $grpc.ClientMethod<Device, Empty>(
+      '/pb.CommonDeviceManager/WakeOnLAN',
+      (Device value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => Empty.fromBuffer(value));
   static final _$createOneTCP = $grpc.ClientMethod<PortConfig, PortConfig>(
       '/pb.CommonDeviceManager/CreateOneTCP',
       (PortConfig value) => value.writeToBuffer(),
@@ -451,6 +459,21 @@ class CommonDeviceManagerClient extends $grpc.Client {
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$getAllDevice, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+
+  $grpc.ResponseFuture<Empty> setDeviceMac(DeviceMac request,
+      {$grpc.CallOptions options}) {
+    final call = $createCall(
+        _$setDeviceMac, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+
+  $grpc.ResponseFuture<Empty> wakeOnLAN(Device request,
+      {$grpc.CallOptions options}) {
+    final call = $createCall(_$wakeOnLAN, $async.Stream.fromIterable([request]),
         options: options);
     return $grpc.ResponseFuture(call);
   }
@@ -571,6 +594,20 @@ abstract class CommonDeviceManagerServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => Empty.fromBuffer(value),
         (DeviceList value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<DeviceMac, Empty>(
+        'SetDeviceMac',
+        setDeviceMac_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => DeviceMac.fromBuffer(value),
+        (Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<Device, Empty>(
+        'WakeOnLAN',
+        wakeOnLAN_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => Device.fromBuffer(value),
+        (Empty value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<PortConfig, PortConfig>(
         'CreateOneTCP',
         createOneTCP_Pre,
@@ -672,6 +709,16 @@ abstract class CommonDeviceManagerServiceBase extends $grpc.Service {
     return getAllDevice(call, await request);
   }
 
+  $async.Future<Empty> setDeviceMac_Pre(
+      $grpc.ServiceCall call, $async.Future request) async {
+    return setDeviceMac(call, await request);
+  }
+
+  $async.Future<Empty> wakeOnLAN_Pre(
+      $grpc.ServiceCall call, $async.Future request) async {
+    return wakeOnLAN(call, await request);
+  }
+
   $async.Future<PortConfig> createOneTCP_Pre(
       $grpc.ServiceCall call, $async.Future request) async {
     return createOneTCP(call, await request);
@@ -735,6 +782,8 @@ abstract class CommonDeviceManagerServiceBase extends $grpc.Service {
   $async.Future<Empty> addDevice($grpc.ServiceCall call, Device request);
   $async.Future<Empty> delDevice($grpc.ServiceCall call, Device request);
   $async.Future<DeviceList> getAllDevice($grpc.ServiceCall call, Empty request);
+  $async.Future<Empty> setDeviceMac($grpc.ServiceCall call, DeviceMac request);
+  $async.Future<Empty> wakeOnLAN($grpc.ServiceCall call, Device request);
   $async.Future<PortConfig> createOneTCP(
       $grpc.ServiceCall call, PortConfig request);
   $async.Future<Empty> deleteOneTCP($grpc.ServiceCall call, PortConfig request);
