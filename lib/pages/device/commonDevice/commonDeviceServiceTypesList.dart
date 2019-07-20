@@ -171,6 +171,15 @@ class _CommonDeviceServiceTypesListState extends State<CommonDeviceServiceTypesL
                   _wakeOnLAN();
                 }),
 //            TODO 设备的详情
+            IconButton(
+                icon: Icon(
+                  Icons.info,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  //网络唤醒
+                  _pushDetail();
+                }),
           ]
       ),
       body: Padding(
@@ -213,6 +222,9 @@ class _CommonDeviceServiceTypesListState extends State<CommonDeviceServiceTypesL
   }
 
   Future _wakeOnLAN() async {
+    if (widget.device.mac == ''){
+      return _setMacAddr();
+    }
     return showDialog(
         context: context,
         builder: (_) => new AlertDialog(
@@ -226,7 +238,7 @@ class _CommonDeviceServiceTypesListState extends State<CommonDeviceServiceTypesL
                 },
               ),
               new FlatButton(
-                child: new Text("设置物理地址"),
+                child: new Text("重设物理地址"),
                 onPressed: () {
                   _setMacAddr().then((_){
                     Navigator.of(context).pop();
@@ -273,15 +285,49 @@ class _CommonDeviceServiceTypesListState extends State<CommonDeviceServiceTypesL
               new FlatButton(
                 child: new Text("设置"),
                 onPressed: () {
-                  var deviceMac = DeviceMac();
-                  deviceMac.device = widget.device;
-                  deviceMac.mac =_mac_controller.text;
-                  CommonDeviceApi.setDeviceMac(deviceMac).then((_) {
+                  var device = widget.device;
+                  device.mac =_mac_controller.text;
+                  CommonDeviceApi.setDeviceMac(device).then((_) {
                     Navigator.of(context).pop();
                   });
                 },
               )
             ]));
+  }
+
+  void _pushDetail() async {
+//:TODO    这里显示内网的服务，socks5等，右上角详情才展示详细信息
+    final List _result = [];
+    _result.add("内网id:${widget.device.runId}");
+    _result.add("描述:${widget.device.description}");
+    _result.add("地址:${widget.device.addr}");
+    _result.add("物理地址:${widget.device.mac}");
+    await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) {
+          final tiles = _result.map(
+                (pair) {
+              return ListTile(
+                title: Text(
+                  pair,
+                ),
+              );
+            },
+          );
+          final divided = ListTile.divideTiles(
+            context: context,
+            tiles: tiles,
+          ).toList();
+
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('设备详情'),
+            ),
+            body: ListView(children: divided),
+          );
+        },
+      ),
+    );
   }
 
 }

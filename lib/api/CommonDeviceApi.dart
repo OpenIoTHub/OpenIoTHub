@@ -7,10 +7,10 @@ import 'Channel.dart';
 
 class CommonDeviceApi {
   //设置设备的物理地址
-  static Future setDeviceMac(DeviceMac deviceMac) async {
+  static Future setDeviceMac(Device device) async {
     final channel = Channel.getClientChannel();
     final stub = CommonDeviceManagerClient(channel);
-    final response = await stub.setDeviceMac(deviceMac);
+    final response = await stub.setDeviceMac(device);
     print('Greeter client received: ${response}');
     channel.shutdown();
   }

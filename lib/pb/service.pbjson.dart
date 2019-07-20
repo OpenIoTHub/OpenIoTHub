@@ -49,15 +49,8 @@ const Device$json = const {
   '2': const [
     const {'1': 'RunId', '3': 1, '4': 1, '5': 9, '10': 'RunId'},
     const {'1': 'Addr', '3': 2, '4': 1, '5': 9, '10': 'Addr'},
-    const {'1': 'Description', '3': 3, '4': 1, '5': 9, '10': 'Description'},
-  ],
-};
-
-const DeviceMac$json = const {
-  '1': 'DeviceMac',
-  '2': const [
-    const {'1': 'Device', '3': 1, '4': 1, '5': 11, '6': '.pb.Device', '10': 'Device'},
-    const {'1': 'Mac', '3': 2, '4': 1, '5': 9, '10': 'Mac'},
+    const {'1': 'Mac', '3': 3, '4': 1, '5': 9, '10': 'Mac'},
+    const {'1': 'Description', '3': 4, '4': 1, '5': 9, '10': 'Description'},
   ],
 };
 
