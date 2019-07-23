@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:nat_explorer/constants/Config.dart';
+import 'package:nat_explorer/pages/openWithChoice/sshWeb/fileExplorer/services/connection_model.dart';
+import 'package:nat_explorer/pages/openWithChoice/sshWeb/fileExplorer/shared/custom_theme.dart';
 import 'package:nat_explorer/pages/session/sessionListPage.dart';
 import 'package:nat_explorer/pages/device/deviceTypePage.dart';
 import 'package:nat_explorer/pages/user/accountPage.dart';
 
 import 'package:jaguar/jaguar.dart';
 import 'package:jaguar_flutter_asset/jaguar_flutter_asset.dart';
+
+import 'package:provider/provider.dart';
 
 void main() {
   final server = Jaguar(address: Config.webStaticIp,port: Config.webStaticPort);
@@ -14,7 +18,15 @@ void main() {
     server.log.onRecord.listen((r) => debugPrint("==serve-log：$r"));
   });
 
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(builder: (context) => ConnectionModel()),
+        ChangeNotifierProvider(builder: (context) => CustomTheme()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

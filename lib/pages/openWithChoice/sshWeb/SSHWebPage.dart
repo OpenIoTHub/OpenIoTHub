@@ -4,6 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:nat_explorer/constants/Config.dart';
 
+import 'fileExplorer/services/connection.dart';
+import 'fileExplorer/services/connection_methods.dart';
+
 class SSHWebPage extends StatefulWidget {
   SSHWebPage({Key key, this.runId, this.remoteIp, this.remotePort, this.userName, this.passWord}) : super(key: key);
   String runId;
@@ -101,14 +104,34 @@ class SSHWebPageState extends State<SSHWebPage> {
 
   void _pushSSHFileExplorer() async {
     // 查看设备下的服务 CommonDeviceServiceTypesList
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) {
-          // 写成独立的组件，支持刷新
-          return Text('文件浏览器');
-        },
-      ),
-    );
+//    Navigator.of(context).push(
+//      MaterialPageRoute(
+//        builder: (context) {
+//          // 写成独立的组件，支持刷新
+//          return Text('文件浏览器');
+//        },
+//      ),
+//    );
+
+    Connection _connection = Connection();
+    _connection.address = "192.168.0.15";
+    _connection.port = "22";
+    _connection.username = "root";
+    _connection.passwordOrKey = "root";
+    ConnectionMethods.connectClient(
+      context,
+      address: _connection.address,
+      port: int.parse(_connection.port),
+      username: _connection.username,
+      passwordOrKey: _connection.passwordOrKey,
+    ).then((bool connected) {
+      Navigator.pop(context);
+      if (connected) {
+        ConnectionMethods.connect(context, _connection);
+      } else {
+        print('fail');
+      }
+    });
   }
 
 }
