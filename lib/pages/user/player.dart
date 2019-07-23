@@ -1,6 +1,3 @@
-import 'package:nat_explorer/pages/openWithChoice/OpenWithChoice.dart';
-import 'package:nat_explorer/pb/service.pb.dart';
-import 'package:nat_explorer/pb/service.pbgrpc.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
 
@@ -40,33 +37,34 @@ class _VideoAppState extends State<VideoApp> {
                   ),
                   onPressed: () {
                     //                TODO 使用某种方式打开此端口，检查这个软件是否已经安装
+                    _pushSSHFileExplorer();
 //                    _launchURL("http://127.0.0.1:${config.localProt}");
-                    PortConfig config = PortConfig();
-                    Device device = Device();
-                    device.runId = "runId";
-                    device.addr = "192.168.0.1";
-                    config.device = device;
-                    config.remotePort = 5900;
-                    showDialog(
-                        context: context,
-                        builder: (_) => AlertDialog(
-                          title: Text("打开方式："),
-                          content: OpenWithChoice(config),
-                          actions: <Widget>[
-                            FlatButton(
-                              child: Text("取消"),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                            FlatButton(
-                              child: Text("添加"),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            )
-                          ]
-                        ));
+//                    PortConfig config = PortConfig();
+//                    Device device = Device();
+//                    device.runId = "runId";
+//                    device.addr = "192.168.0.1";
+//                    config.device = device;
+//                    config.remotePort = 5900;
+//                    showDialog(
+//                        context: context,
+//                        builder: (_) => AlertDialog(
+//                          title: Text("打开方式："),
+//                          content: OpenWithChoice(config),
+//                          actions: <Widget>[
+//                            FlatButton(
+//                              child: Text("取消"),
+//                              onPressed: () {
+//                                Navigator.of(context).pop();
+//                              },
+//                            ),
+//                            FlatButton(
+//                              child: Text("添加"),
+//                              onPressed: () {
+//                                Navigator.of(context).pop();
+//                              },
+//                            )
+//                          ]
+//                        ));
                   }),
             ]
         ),
@@ -99,4 +97,54 @@ class _VideoAppState extends State<VideoApp> {
     super.dispose();
     _controller.dispose();
   }
+
+  void _pushSSHFileExplorer() async {
+    // 查看设备下的服务 CommonDeviceServiceTypesList
+//    Navigator.of(context).push(
+//      MaterialPageRoute(
+//        builder: (context) {
+//          // 写成独立的组件，支持刷新
+//          return ConnectionPage(
+//            Connection(
+//              address: '192.168.0.15',
+//              port: '22',
+//              username: 'root',
+//              passwordOrKey: 'root',
+//              path: '~',
+//            ),);
+//        },//      ),
+//    );
+
+//    ConnectionMethods.connectClient(
+//      context,
+//      address: '192.168.0.15',
+//      port: 22,
+//      username: 'root',
+//      passwordOrKey: 'root',
+//    );
+
+//        .then((bool connected) {
+//      Navigator.popUntil(context, ModalRoute.withName("/"));
+//      if (connected) {
+//        ConnectionMethods.connect(
+//          context,
+//          Connection(
+//            address: '192.168.0.15',
+//            port: '22',
+//            username: 'root',
+//            passwordOrKey: 'root',
+//            path: '~',
+//          ),
+//        );
+//      } else {
+//        Scaffold.of(context).showSnackBar(SnackBar(
+//          duration: Duration(seconds: 5),
+//          content: Text(
+//            "Unable to connect to " + '192.168.0.15',
+//          ),
+//        ));
+//      }
+//    });
+  }
+
 }

@@ -163,7 +163,7 @@ class _CommonDeviceServiceTypesListState extends State<CommonDeviceServiceTypesL
                 }),
             IconButton(
                 icon: Icon(
-                  Icons.check_circle,
+                  Icons.power_settings_new,
                   color: Colors.green,
                 ),
                 onPressed: () {

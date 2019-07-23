@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'dart:convert';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:nat_explorer/constants/Config.dart';
 
@@ -72,6 +71,16 @@ class SSHWebPageState extends State<SSHWebPage> {
         appBar: AppBar(
           title: Text("ssh"),
           iconTheme: IconThemeData(color: Colors.white),
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(
+                  Icons.insert_drive_file,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  _pushSSHFileExplorer();
+                }),
+          ],
         ),
         key: _scaffoldKey,
         url: "http://127.0.0.1:${Config.webStaticPort}/web/open/ssh/index.html", // 登录的URL
@@ -89,4 +98,17 @@ class SSHWebPageState extends State<SSHWebPage> {
 
     super.dispose();
   }
+
+  void _pushSSHFileExplorer() async {
+    // 查看设备下的服务 CommonDeviceServiceTypesList
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) {
+          // 写成独立的组件，支持刷新
+          return Text('文件浏览器');
+        },
+      ),
+    );
+  }
+
 }
