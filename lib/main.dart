@@ -35,9 +35,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'NAT Cloud',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: Provider.of<CustomTheme>(context).themeValue == "dark"
+          ? CustomThemes.dark
+          : CustomThemes.light,
       home: MyHomePage(title: '内网访问工具'),
     );
   }
@@ -52,7 +52,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _bottomNavigationColor = Colors.blue;
+//  final _bottomNavigationColor = Colors.blue;
   int _currentIndex = 0;
 
   @override
@@ -84,29 +84,29 @@ class _MyHomePageState extends State<MyHomePage> {
         BottomNavigationBarItem(
             icon: Icon(
               Icons.home,
-              color: _bottomNavigationColor,
+//              color: _bottomNavigationColor,
             ),
             title: Text(
               '内网',
-              style: TextStyle(color: _bottomNavigationColor),
+//              style: TextStyle(color: _bottomNavigationColor),
             )),
         BottomNavigationBarItem(
             icon: Icon(
               Icons.airplay,
-              color: _bottomNavigationColor,
+//              color: _bottomNavigationColor,
             ),
             title: Text(
               '设备',
-              style: TextStyle(color: _bottomNavigationColor),
+//              style: TextStyle(color: _bottomNavigationColor),
             )),
         BottomNavigationBarItem(
             icon: Icon(
               Icons.account_circle,
-              color: _bottomNavigationColor,
+//              color: _bottomNavigationColor,
             ),
             title: Text(
               '我',
-              style: TextStyle(color: _bottomNavigationColor),
+//              style: TextStyle(color: _bottomNavigationColor),
             )),
       ],
       currentIndex: index,

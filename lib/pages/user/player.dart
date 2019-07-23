@@ -1,5 +1,7 @@
 import 'package:nat_explorer/pages/openWithChoice/sshWeb/fileExplorer/services/connection.dart';
 import 'package:nat_explorer/pages/openWithChoice/sshWeb/fileExplorer/services/connection_methods.dart';
+import 'package:nat_explorer/pages/openWithChoice/sshWeb/fileExplorer/shared/custom_theme.dart';
+import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +29,10 @@ class _VideoAppState extends State<VideoApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Video Demo',
+      title: '测试',
+      theme: Provider.of<CustomTheme>(context).themeValue == "dark"
+          ? CustomThemes.dark
+          : CustomThemes.light,
       home: Scaffold(
         appBar: AppBar(
             title: Text('播放器'),
@@ -160,7 +165,7 @@ class _VideoAppState extends State<VideoApp> {
       username: _connection.username,
       passwordOrKey: _connection.passwordOrKey,
     ).then((bool connected) {
-      Navigator.pop(context);
+      Navigator.popUntil(context, ModalRoute.withName("/"));
       if (connected) {
         ConnectionMethods.connect(context, _connection);
       } else {

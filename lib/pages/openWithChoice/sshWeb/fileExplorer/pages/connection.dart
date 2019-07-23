@@ -51,6 +51,7 @@ class _ConnectionPageState extends State<ConnectionPage>
           child: Text(
             "/",
             style: TextStyle(
+              color: Colors.black,
               fontWeight: FontWeight.w500,
               fontSize: 16.0,
             ),
@@ -61,6 +62,7 @@ class _ConnectionPageState extends State<ConnectionPage>
         },
       ),
       Container(
+        color: Colors.black,
         width: .0,
         constraints: BoxConstraints.loose(Size.fromHeight(18.0)),
         child: Stack(
@@ -71,6 +73,7 @@ class _ConnectionPageState extends State<ConnectionPage>
               child: Icon(
                 Icons.chevron_right,
                 size: 18.0,
+                color: Colors.black,
               ),
             ),
           ],
@@ -96,6 +99,7 @@ class _ConnectionPageState extends State<ConnectionPage>
             child: Text(
               temp,
               style: TextStyle(
+                color: Colors.black,
                 fontWeight: FontWeight.w500,
                 fontSize: 16.0,
               ),
@@ -121,6 +125,7 @@ class _ConnectionPageState extends State<ConnectionPage>
                   child: Icon(
                     Icons.chevron_right,
                     size: 18.0,
+                    color: Colors.black,
                   ),
                 ),
               ],
@@ -237,7 +242,7 @@ class _ConnectionPageState extends State<ConnectionPage>
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(48),
         child: AppBar(
-          backgroundColor: Theme.of(context).bottomAppBarColor,
+          backgroundColor: Colors.teal,
           elevation: 1.6,
           automaticallyImplyLeading: false,
           title: SingleChildScrollView(

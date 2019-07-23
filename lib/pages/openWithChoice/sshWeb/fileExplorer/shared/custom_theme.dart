@@ -37,11 +37,11 @@ class CustomTheme with ChangeNotifier {
 }
 
 class CustomThemes {
-  static final Color _lightAccentColor = Colors.blueAccent[700];
+  static final Color _lightAccentColor = Colors.teal;
   static final ThemeData light = ThemeData(
     accentColor: _lightAccentColor,
     accentColorBrightness: Brightness.dark,
-    bottomAppBarTheme: BottomAppBarTheme(elevation: 8.0),
+    bottomAppBarTheme: BottomAppBarTheme(color:Colors.teal,elevation: 8.0),
     buttonColor: _lightAccentColor,
     buttonTheme: ButtonThemeData(
       textTheme: ButtonTextTheme.primary,
@@ -61,7 +61,7 @@ class CustomThemes {
       ),
       labelStyle: TextStyle(fontSize: 16.0, color: Colors.grey[600]),
     ),
-    primaryColor: Colors.white,
+    primaryColor: Colors.teal,
     scaffoldBackgroundColor: Colors.white,
     textSelectionHandleColor: _lightAccentColor,
   );

@@ -139,7 +139,7 @@ class MyInfoPageState extends State<MyInfoPage> {
   renderRow(i) {
     if (i == 0) {
       var avatarContainer = Container(
-        color: Colors.blue,
+        color: Colors.teal,
         height: 200.0,
         child: Center(
           child: Column(
