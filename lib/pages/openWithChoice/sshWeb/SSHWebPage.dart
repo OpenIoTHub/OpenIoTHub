@@ -8,12 +8,13 @@ import 'fileExplorer/services/connection.dart';
 import 'fileExplorer/services/connection_methods.dart';
 
 class SSHWebPage extends StatefulWidget {
-  SSHWebPage({Key key, this.runId, this.remoteIp, this.remotePort, this.userName, this.passWord}) : super(key: key);
+  SSHWebPage({Key key, this.runId, this.remoteIp, this.remotePort, this.userName, this.passWord, this.localPort}) : super(key: key);
   String runId;
   String remoteIp;
   int remotePort;
   String userName;
   String passWord;
+  int localPort;
 
   @override
   State<StatefulWidget> createState() => SSHWebPageState();
@@ -114,10 +115,10 @@ class SSHWebPageState extends State<SSHWebPage> {
 //    );
 
     Connection _connection = Connection();
-    _connection.address = "192.168.0.15";
-    _connection.port = "22";
-    _connection.username = "root";
-    _connection.passwordOrKey = "root";
+    _connection.address = "127.0.0.1";
+    _connection.port = '${widget.localPort}';
+    _connection.username = widget.userName;
+    _connection.passwordOrKey = widget.passWord;
     ConnectionMethods.connectClient(
       context,
       address: _connection.address,
@@ -125,7 +126,8 @@ class SSHWebPageState extends State<SSHWebPage> {
       username: _connection.username,
       passwordOrKey: _connection.passwordOrKey,
     ).then((bool connected) {
-      Navigator.pop(context);
+//      Navigator.popUntil(context, ModalRoute.withName("/"));
+      Navigator.of(context).pop();
       if (connected) {
         ConnectionMethods.connect(context, _connection);
       } else {

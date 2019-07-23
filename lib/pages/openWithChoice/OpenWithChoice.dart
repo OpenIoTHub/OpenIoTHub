@@ -147,7 +147,7 @@ class OpenWithChoice extends StatelessWidget {
                         child: Text("连接"),
                         onPressed: () {
                           Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
-                            return SSHWebPage(runId:portConfig.device.runId,remoteIp:portConfig.device.addr,remotePort:portConfig.remotePort,userName: _username_controller.text,passWord: _password_controller.text,);
+                            return SSHWebPage(runId:portConfig.device.runId,remoteIp:portConfig.device.addr,remotePort:portConfig.remotePort,userName: _username_controller.text,passWord: _password_controller.text,localPort: portConfig.localProt,);
                           })).then((_){
                             Navigator.of(ctx).pop();
                           });
