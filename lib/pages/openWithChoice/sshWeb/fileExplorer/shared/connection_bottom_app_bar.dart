@@ -336,24 +336,24 @@ class ConnectionBottomAppBar extends StatelessWidget {
         onTap: searchOnTap,
       ),
     );
-    items.add(
-      buildIconButton(
-        iconData: OMIcons.settings,
-        label: "Settings",
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) {
-                return SettingsPage(
-                  currentConnectionPage: currentConnectionPage,
-                );
-              },
-            ),
-          );
-        },
-      ),
-    );
+//    items.add(
+//      buildIconButton(
+//        iconData: OMIcons.settings,
+//        label: "Settings",
+//        onTap: () {
+//          Navigator.push(
+//            context,
+//            MaterialPageRoute(
+//              builder: (context) {
+//                return SettingsPage(
+//                  currentConnectionPage: currentConnectionPage,
+//                );
+//              },
+//            ),
+//          );
+//        },
+//      ),
+//    );
     items.add(buildIconButton(
       iconData: Icons.info_outline,
       label: "Connection",
