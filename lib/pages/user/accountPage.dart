@@ -25,7 +25,7 @@ class MyInfoPageState extends State<MyInfoPage> {
   static const double IMAGE_ICON_WIDTH = 30.0;
   static const double ARROW_ICON_WIDTH = 16.0;
 
-  var titles = ["我的消息", "工具", "使用手册", "关于", "测试"];
+  var titles = ["我的消息", "设置", "工具", "使用手册", "关于", "测试"];
   var imagePaths = [
     "assets/images/ic_my_message.png",
     "assets/images/ic_my_blog.png",
@@ -46,9 +46,36 @@ class MyInfoPageState extends State<MyInfoPage> {
   );
 
   MyInfoPageState() {
-    for (int i = 0; i < imagePaths.length; i++) {
-      icons.add(getIconImage(imagePaths[i]));
-    }
+    icons.add(
+      Padding(
+          padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+          child: Icon(Icons.message)),
+    );
+    icons.add(
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+          child: Icon(Icons.settings)),
+        );
+    icons.add(
+      Padding(
+          padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+          child: Icon(Icons.pan_tool)),
+    );
+    icons.add(
+      Padding(
+          padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+          child: Icon(Icons.find_in_page)),
+    );
+    icons.add(
+      Padding(
+          padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+          child: Icon(Icons.info)),
+    );
+    icons.add(
+      Padding(
+          padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+          child: Icon(Icons.ac_unit)),
+    );
   }
 
   @override
@@ -259,6 +286,12 @@ class MyInfoPageState extends State<MyInfoPage> {
       Navigator.of(context).push(
           MaterialPageRoute(
               builder: (context) => ToolsTypePage()
+          ));
+    }
+    else if (title == "设置"){
+      Navigator.of(context).push(
+          MaterialPageRoute(
+              builder: (context) => Text('设置页')
           ));
     }
     else if (title == "使用手册"){}
