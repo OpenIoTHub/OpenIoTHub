@@ -164,7 +164,7 @@ class _CommonDeviceServiceTypesListState extends State<CommonDeviceServiceTypesL
             IconButton(
                 icon: Icon(
                   Icons.power_settings_new,
-                  color: Colors.green,
+                  color: Colors.white,
                 ),
                 onPressed: () {
                   //网络唤醒
