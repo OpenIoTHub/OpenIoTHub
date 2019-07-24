@@ -1,4 +1,6 @@
+import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:nat_explorer/constants/Constants.dart';
 import 'package:nat_explorer/events/LoginEvent.dart';
 import 'package:nat_explorer/events/LogoutEvent.dart';
@@ -294,18 +296,12 @@ class MyInfoPageState extends State<MyInfoPage> {
               builder: (context) => Text('设置页')
           ));
     }
-    else if (title == "使用手册"){}
+    else if (title == "使用手册"){
+      _goToURL("https://www.jianshu.com/u/b312a876d66e", "使用手册");
+    }
     else if (title == "关于"){
-      PortConfig config = PortConfig();
-      Device device = Device();
-      device.runId = "runId";
-      device.addr = "192.168.0.1";
-      config.device = device;
-      config.remotePort = 5900;
-      Navigator.of(context).push(
-          MaterialPageRoute(
-              builder: (context) => OpenWithChoice(config)
-          ));
+      _goToURL("https://github.com/nat-cloud/README", "关于");
+
     }
     else if (title == "测试"){
       Navigator.of(context).push(
@@ -329,4 +325,31 @@ class MyInfoPageState extends State<MyInfoPage> {
       });
     }
   }
+
+  _launchURL(String url) async {
+    AndroidIntent intent = AndroidIntent(
+      action: 'action_view',
+      data: url,
+    );
+    await intent.launch();
+  }
+
+  _goToURL(String url, title) async {
+    Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+      return WebviewScaffold(
+        url: url,
+        appBar: AppBar(title: Text(title), actions: <Widget>[
+          IconButton(
+              icon: Icon(
+                Icons.open_in_browser,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                _launchURL(url);
+              })
+        ]),
+      );
+    }));
+  }
+
 }

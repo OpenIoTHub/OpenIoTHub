@@ -87,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //              color: _bottomNavigationColor,
             ),
             title: Text(
-              '内网',
+              '网络',
 //              style: TextStyle(color: _bottomNavigationColor),
             )),
         BottomNavigationBarItem(
