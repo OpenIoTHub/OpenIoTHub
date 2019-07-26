@@ -4,14 +4,11 @@ import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:nat_explorer/constants/Constants.dart';
 import 'package:nat_explorer/events/LoginEvent.dart';
 import 'package:nat_explorer/events/LogoutEvent.dart';
-import 'package:nat_explorer/pages/openWithChoice/OpenWithChoice.dart';
+import 'package:nat_explorer/pages/openWithChoice/sshWeb/fileExplorer/pages/settings.dart';
 import 'package:nat_explorer/pages/user/player.dart';
 import 'package:nat_explorer/pages/user/tools/toolsTypePage.dart';
-import 'package:nat_explorer/pb/service.pb.dart';
-import 'package:nat_explorer/pb/service.pbgrpc.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:nat_explorer/api/SessionApi.dart';
 import 'package:nat_explorer/util/NetUtils.dart';
 import 'package:nat_explorer/util/DataUtils.dart';
 import 'package:nat_explorer/model/UserInfo.dart';
@@ -291,17 +288,25 @@ class MyInfoPageState extends State<MyInfoPage> {
           ));
     }
     else if (title == "设置"){
-      Navigator.of(context).push(
+//      Navigator.of(context).push(
+//          MaterialPageRoute(
+//              builder: (context) => Text('设置页')
+//          ));
+        Navigator.push(
+          context,
           MaterialPageRoute(
-              builder: (context) => Text('设置页')
-          ));
+            builder: (context) => SettingsPage(),
+            settings: RouteSettings(name: "settings"),
+          ),
+        );
     }
     else if (title == "使用手册"){
       _goToURL("https://www.jianshu.com/u/b312a876d66e", "使用手册");
     }
     else if (title == "关于"){
       _goToURL("https://github.com/nat-cloud/README", "关于");
-
+//      _goToURL("http://192.168.0.15/fc.mp4", "关于");
+//      _goToURL("http://192.168.0.15/1.mp3", "关于");
     }
     else if (title == "测试"){
       Navigator.of(context).push(

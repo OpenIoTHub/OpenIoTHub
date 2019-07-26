@@ -118,12 +118,6 @@ class DiscoveryPage extends StatelessWidget {
     }
   }
 
-  Future scan() async {
-    try {} on Exception catch (e) {
-      print(e);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -215,7 +215,8 @@ class _SettingsPageState extends State<SettingsPage>
   }
 
   var _downloadPathTextController =
-      TextEditingController(text: SettingsVariables.downloadDirectory.path);
+      TextEditingController(text: '');
+//      TextEditingController(text: SettingsVariables.downloadDirectory.path);
 
   var _moveCommandTextController =
       TextEditingController(text: SettingsVariables.moveCommand);

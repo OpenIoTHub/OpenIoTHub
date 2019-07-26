@@ -18,7 +18,13 @@ class MiioGatewayDeviceListPage extends StatefulWidget {
 }
 
 class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
-  final _biggerFont = const TextStyle(fontSize: 18.0);
+  static const double ARROW_ICON_WIDTH = 16.0;
+  final titleTextStyle = TextStyle(fontSize: 16.0);
+  final rightArrowIcon = Image.asset(
+    'assets/images/ic_arrow_right.png',
+    width: ARROW_ICON_WIDTH,
+    height: ARROW_ICON_WIDTH,
+  );
   List<SessionConfig> _SessionList = [];
   List<MiioGatewayDevice> _MiioGatewayDeviceList = [];
 
@@ -35,19 +41,27 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
   Widget build(BuildContext context) {
     final tiles = _MiioGatewayDeviceList.map(
       (pair) {
-        return ListTile(
-          title: Text(
-            pair.addr,
-            style: _biggerFont,
-          ),
-          trailing: IconButton(
-            icon: Icon(Icons.arrow_forward_ios),
-            color: Colors.green,
-            onPressed: () {
-              _pushDeviceServiceTypes(pair);
-            },
+        var listItemContent = Padding(
+          padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
+          child: Row(
+            children: <Widget>[
+              Icon(Icons.devices),
+              Expanded(
+                  child: Text(
+                    pair.addr,
+                    style: titleTextStyle,
+                  )),
+              rightArrowIcon
+            ],
           ),
         );
+        return InkWell(
+          onTap: () {
+            _pushDeviceServiceTypes(pair);
+          },
+          child: listItemContent,
+        );
+
       },
     );
     final divided = ListTile.divideTiles(
@@ -77,21 +91,29 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
                   getAllSession().then((v) {
                     final titles = _SessionList.map(
                       (pair) {
-                        return ListTile(
-                          title: Text(
-                            pair.description,
-                            style: _biggerFont,
+                        var listItemContent = Padding(
+                          padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
+                          child: Row(
+                            children: <Widget>[
+                              Icon(Icons.cloud_done),
+                              Expanded(
+                                  child: Text(
+                                    pair.description,
+                                    style: titleTextStyle,
+                                  )),
+                              rightArrowIcon
+                            ],
                           ),
-                          trailing: IconButton(
-                            icon: Icon(Icons.arrow_forward_ios),
-                            color: Colors.green,
-                            onPressed: () {
+                        );
+                        return InkWell(
+                          onTap: () {
                               _addDevice(pair).then((v) {
                                 Navigator.of(context).pop();
                               });
-                            },
-                          ),
+                          },
+                          child: listItemContent,
                         );
+
                       },
                     );
                     final divided = ListTile.divideTiles(

@@ -19,7 +19,13 @@ class CommonDeviceListPage extends StatefulWidget {
 }
 
 class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
-  final _biggerFont = const TextStyle(fontSize: 18.0);
+  static const double ARROW_ICON_WIDTH = 16.0;
+  final titleTextStyle = TextStyle(fontSize: 16.0);
+  final rightArrowIcon = Image.asset(
+    'assets/images/ic_arrow_right.png',
+    width: ARROW_ICON_WIDTH,
+    height: ARROW_ICON_WIDTH,
+  );
   List<SessionConfig> _SessionList = [];
   List<Device> _CommonDeviceList = [];
 
@@ -36,18 +42,25 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
   Widget build(BuildContext context) {
     final tiles = _CommonDeviceList.map(
       (pair) {
-        return ListTile(
-          title: Text(
-            pair.description,
-            style: _biggerFont,
+        var listItemContent = Padding(
+          padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
+          child: Row(
+            children: <Widget>[
+              Icon(Icons.devices),
+              Expanded(
+                  child: Text(
+                    pair.description,
+                    style: titleTextStyle,
+                  )),
+              rightArrowIcon
+            ],
           ),
-          trailing: IconButton(
-            icon: Icon(Icons.arrow_forward_ios),
-            color: Colors.green,
-            onPressed: () {
-              _pushDeviceServiceTypes(pair);
-            },
-          ),
+        );
+        return InkWell(
+          onTap: () {
+            _pushDeviceServiceTypes(pair);
+          },
+          child: listItemContent,
         );
       },
     );
@@ -78,20 +91,27 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
                   getAllSession().then((v) {
                     final titles = _SessionList.map(
                       (pair) {
-                        return ListTile(
-                          title: Text(
-                            pair.description,
-                            style: _biggerFont,
+                        var listItemContent = Padding(
+                          padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
+                          child: Row(
+                            children: <Widget>[
+                              Icon(Icons.cloud_done),
+                              Expanded(
+                                  child: Text(
+                                    pair.description,
+                                    style: titleTextStyle,
+                                  )),
+                              rightArrowIcon
+                            ],
                           ),
-                          trailing: IconButton(
-                            icon: Icon(Icons.arrow_forward_ios),
-                            color: Colors.green,
-                            onPressed: () {
+                        );
+                        return InkWell(
+                          onTap: () {
                               _addDevice(pair).then((v) {
                                 Navigator.of(context).pop();
                               });
-                            },
-                          ),
+                          },
+                          child: listItemContent,
                         );
                       },
                     );

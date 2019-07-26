@@ -16,7 +16,7 @@ class FtpPortListPage extends StatefulWidget {
 }
 
 class _FtpPortListPageState extends State<FtpPortListPage> {
-  final _biggerFont = const TextStyle(fontSize: 18.0);
+  final _biggerFont = const TextStyle(fontSize: 16.0);
   static const double IMAGE_ICON_WIDTH = 30.0;
   static const double ARROW_ICON_WIDTH = 16.0;
   final rightArrowIcon = Image.asset(
