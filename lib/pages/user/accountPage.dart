@@ -12,7 +12,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:nat_explorer/util/NetUtils.dart';
 import 'package:nat_explorer/util/DataUtils.dart';
 import 'package:nat_explorer/model/UserInfo.dart';
-import 'package:sqflite/sqflite.dart';
 
 class MyInfoPage extends StatefulWidget {
   @override
@@ -310,11 +309,11 @@ class MyInfoPageState extends State<MyInfoPage> {
 //      _goToURL("http://192.168.0.15/1.mp3", "关于");
     }
     else if (title == "测试"){
-      String databasesPath = await getDatabasesPath();
+//      String databasesPath = await getDatabasesPath();
       Navigator.of(context).push(
           MaterialPageRoute(
-//              builder: (context) => VideoApp()
-              builder: (context) => Text(databasesPath)
+              builder: (context) => VideoApp()
+//              builder: (context) => Text('databasesPath')
           ));
     }
     else {

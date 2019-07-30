@@ -66,7 +66,7 @@ dependencies:
   provider: ^2.0.0
   ssh: ^0.0.3
 #ssh file over
-  sqflite: ^1.1.6+2
+#  sqflite: ^1.1.6+2
 
 dev_dependencies:
   flutter_test:
