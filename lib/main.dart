@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'NAT Cloud',
+      title: '内网穿透',
       theme: Provider.of<CustomTheme>(context).themeValue == "dark"
           ? CustomThemes.dark
           : CustomThemes.light,

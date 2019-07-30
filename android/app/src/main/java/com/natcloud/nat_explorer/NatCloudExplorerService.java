@@ -27,10 +27,15 @@ public class NatCloudExplorerService extends Service {
     @Override
     public void onCreate() {
         Log.d("Service","onCreate invoke");
-
+        String path;
+        if (android.os.Build.VERSION.SDK_INT >=android.os.Build.VERSION_CODES.LOLLIPOP){
+            path = getNoBackupFilesDir().getAbsolutePath();
+        } else{
+            path = getFilesDir().getAbsolutePath();
+        }
         Thread t1= new Thread(){
             public void run(){
-                Explorer.run();
+                Explorer.run(path);
             }
         };
         t1.start();
