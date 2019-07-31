@@ -165,7 +165,7 @@ class ConnectionBottomAppBar extends StatelessWidget {
     selectionModeItems.add(
       buildIconButton(
         iconData: OMIcons.getApp,
-        label: "Download",
+        label: "下载",
         enabled: downloadIsEnabled,
         onTap: download,
       ),
@@ -173,28 +173,28 @@ class ConnectionBottomAppBar extends StatelessWidget {
     selectionModeItems.add(
       buildIconButton(
         iconData: OMIcons.delete,
-        label: "Delete",
+        label: "删除",
         onTap: deleteSelectedFiles,
       ),
     );
     selectionModeItems.add(
       buildIconButton(
         iconData: OMIcons.fileCopy,
-        label: "Copy to",
+        label: "复制到",
         onTap: copy,
       ),
     );
     selectionModeItems.add(
       buildIconButton(
         iconData: OMIcons.keyboardTab,
-        label: "Move to",
+        label: "移动到",
         onTap: move,
       ),
     );
     selectionModeItems.add(
       buildIconButton(
         iconData: Icons.clear,
-        label: "Cancel",
+        label: "取消",
         onTap: cancelSelection,
       ),
     );
@@ -203,7 +203,7 @@ class ConnectionBottomAppBar extends StatelessWidget {
     pasteModeItems.add(
       buildIconButton(
         iconData: Icons.chevron_left,
-        label: "Back",
+        label: "返回",
         onTap: () {
           Navigator.pop(context);
         },
@@ -212,21 +212,21 @@ class ConnectionBottomAppBar extends StatelessWidget {
     pasteModeItems.add(
       buildIconButton(
         iconData: OMIcons.forward,
-        label: "Go to folder",
+        label: "跳转到文件夹",
         onTap: () {
           customShowDialog(
             context: context,
             builder: (context) {
               return CustomAlertDialog(
                 title: Text(
-                  "Go to folder",
+                  "跳转到文件夹",
                   style: TextStyle(fontSize: 18.0),
                 ),
                 content: Container(
                   width: 260.0,
                   child: TextField(
                     decoration: InputDecoration(
-                      labelText: "Path",
+                      labelText: "路径",
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Theme.of(context).accentColor,
@@ -256,21 +256,21 @@ class ConnectionBottomAppBar extends StatelessWidget {
     pasteModeItems.add(
       buildIconButton(
         iconData: Icons.search,
-        label: "Search",
+        label: "搜索",
         onTap: searchOnTap,
       ),
     );
     pasteModeItems.add(
       buildIconButton(
         iconData: OMIcons.saveAlt,
-        label: "Paste",
+        label: "粘贴",
         onTap: paste,
       ),
     );
     pasteModeItems.add(
       buildIconButton(
         iconData: Icons.clear,
-        label: "Cancel",
+        label: "取消",
         onTap: cancelPasteMode,
       ),
     );
@@ -279,7 +279,7 @@ class ConnectionBottomAppBar extends StatelessWidget {
     items.add(
       buildIconButton(
         iconData: Icons.chevron_left,
-        label: "Back",
+        label: "返回",
         onTap: () {
           Navigator.pop(context);
         },
@@ -288,21 +288,21 @@ class ConnectionBottomAppBar extends StatelessWidget {
     items.add(
       buildIconButton(
         iconData: OMIcons.forward,
-        label: "Go to folder",
+        label: "跳转到文件夹",
         onTap: () {
           customShowDialog(
             context: context,
             builder: (context) {
               return CustomAlertDialog(
                 title: Text(
-                  "Go to folder",
+                  "跳转到文件夹",
                   style: TextStyle(fontSize: 18.0),
                 ),
                 content: Container(
                   width: 260.0,
                   child: TextField(
                     decoration: InputDecoration(
-                      labelText: "Path",
+                      labelText: "路径",
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Theme.of(context).accentColor,
@@ -332,7 +332,7 @@ class ConnectionBottomAppBar extends StatelessWidget {
     items.add(
       buildIconButton(
         iconData: Icons.search,
-        label: "Search",
+        label: "搜索",
         onTap: searchOnTap,
       ),
     );
@@ -356,14 +356,14 @@ class ConnectionBottomAppBar extends StatelessWidget {
 //    );
     items.add(buildIconButton(
       iconData: Icons.info_outline,
-      label: "Connection",
+      label: "连接信息",
       onTap: () {
         ConnectionDialog(
           context: context,
           connection: currentConnectionPage.connection,
           isConnectionPage: true,
           primaryButtonIconData: Icons.remove_circle_outline,
-          primaryButtonLabel: "Disconnect",
+          primaryButtonLabel: "断开连接",
           primaryButtonOnPressed: () {
             //model.client.disconnectSFTP();
             //model.client.disconnect();

@@ -320,7 +320,7 @@ class LoadFile {
               (Platform.isIOS ? "" : "\nSaved file to $saveLocation"),
         ),
         action: SnackBarAction(
-          label: "Show file",
+          label: "显示文件",
           textColor: Colors.white,
           onPressed: () async {
             if (Platform.isIOS) {

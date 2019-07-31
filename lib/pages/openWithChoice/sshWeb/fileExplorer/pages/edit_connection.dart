@@ -65,8 +65,8 @@ class _EditConnectionPageState extends State<EditConnectionPage> {
           ),
           labelText: label,
           hintText: hint,
-          errorText: !_addressIsEntered && label == "Address*"
-              ? "Please enter an address"
+          errorText: !_addressIsEntered && label == "地址*"
+              ? "请输入一个地址"
               : null,
           suffixIcon: key == "passwordOrKey" &&
                   !_passwordWasChanged &&
@@ -189,34 +189,34 @@ class _EditConnectionPageState extends State<EditConnectionPage> {
                 ),
                 child: Column(children: <Widget>[
                   _buildTextField(
-                    label: "Name",
+                    label: "名称",
                     key: "name",
                     index: 0,
                   ),
                   _buildTextField(
-                    label: "Address*",
+                    label: "地址*",
                     key: "address",
                     index: 1,
                   ),
                   _buildTextField(
-                    label: "Port",
+                    label: "端口",
                     hint: "22",
                     key: "port",
                     index: 2,
                   ),
                   _buildTextField(
-                    label: "Username",
+                    label: "用户名",
                     key: "username",
                     index: 3,
                   ),
                   _buildTextField(
-                    label: "Password or Key",
+                    label: "密码或者秘钥",
                     key: "passwordOrKey",
                     isPassword: true,
                     index: 4,
                   ),
                   _buildTextField(
-                    label: "Path",
+                    label: "路径",
                     key: "path",
                     index: 5,
                   ),

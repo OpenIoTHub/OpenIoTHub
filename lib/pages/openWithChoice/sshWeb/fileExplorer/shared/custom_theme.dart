@@ -41,7 +41,7 @@ class CustomThemes {
   static final ThemeData light = ThemeData(
     accentColor: _lightAccentColor,
     accentColorBrightness: Brightness.dark,
-    bottomAppBarTheme: BottomAppBarTheme(color:Colors.teal,elevation: 8.0),
+    bottomAppBarTheme: BottomAppBarTheme(color:_lightAccentColor,elevation: 8.0),
     buttonColor: _lightAccentColor,
     buttonTheme: ButtonThemeData(
       textTheme: ButtonTextTheme.primary,
@@ -61,7 +61,7 @@ class CustomThemes {
       ),
       labelStyle: TextStyle(fontSize: 16.0, color: Colors.grey[600]),
     ),
-    primaryColor: Colors.teal,
+    primaryColor: _lightAccentColor,
     scaffoldBackgroundColor: Colors.white,
     textSelectionHandleColor: _lightAccentColor,
   );

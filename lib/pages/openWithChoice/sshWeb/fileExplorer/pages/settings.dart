@@ -162,7 +162,7 @@ class _SettingsPageState extends State<SettingsPage>
               child: TextField(
                 controller: _downloadPathTextController,
                 decoration: InputDecoration(
-                  labelText: "Path",
+                  labelText: "路径",
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                       color: Theme.of(context).accentColor,
@@ -256,17 +256,17 @@ class _SettingsPageState extends State<SettingsPage>
                 SizedBox(height: 14.0),
                 _buildHeadline("View"),
                 _buildRadioListTile(
-                  titleLabel: "List",
+                  titleLabel: "列表",
                   value: "list",
                   isView: true,
                 ),
                 _buildRadioListTile(
-                  titleLabel: "Detailed",
+                  titleLabel: "详情",
                   value: "detailed",
                   isView: true,
                 ),
                 _buildRadioListTile(
-                  titleLabel: "Grid",
+                  titleLabel: "网格",
                   value: "grid",
                   isView: true,
                 ),
@@ -283,17 +283,17 @@ class _SettingsPageState extends State<SettingsPage>
                   },
                 ),
                 _buildRadioListTile(
-                  titleLabel: "Name",
+                  titleLabel: "名称",
                   value: "name",
                   isView: false,
                 ),
                 _buildRadioListTile(
-                  titleLabel: "Modification Date",
+                  titleLabel: "修改日期",
                   value: "modificationDate",
                   isView: false,
                 ),
                 _buildRadioListTile(
-                  titleLabel: "Last Access",
+                  titleLabel: "最后访问",
                   value: "lastAccess",
                   isView: false,
                 ),
@@ -351,7 +351,7 @@ class _SettingsPageState extends State<SettingsPage>
                   },
                 ),
                 _buildCheckboxListTile(
-                  titleLabel: "Show hidden files",
+                  titleLabel: "显示隐藏文件",
                   value: SettingsVariables.showHiddenFiles,
                   onChanged: (bool value) async {
                     await SettingsVariables.setShowHiddenFiles(value);

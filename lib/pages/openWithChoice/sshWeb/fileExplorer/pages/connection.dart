@@ -242,7 +242,9 @@ class _ConnectionPageState extends State<ConnectionPage>
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(48),
         child: AppBar(
-          backgroundColor: Colors.teal,
+          backgroundColor: Provider.of<CustomTheme>(context).themeValue == "dark"
+              ? CustomThemes.dark.primaryColor
+              : CustomThemes.light.primaryColor,
           elevation: 1.6,
           automaticallyImplyLeading: false,
           title: SingleChildScrollView(
@@ -629,7 +631,7 @@ class _ConnectionPageState extends State<ConnectionPage>
                   },
                   children: [
                     SpeedDialChild(
-                      label: "Upload File",
+                      label: "上传文件",
                       labelStyle: TextStyle(
                         fontWeight: FontWeight.w500,
                         color: Theme.of(context).textTheme.body1.color,
@@ -650,7 +652,7 @@ class _ConnectionPageState extends State<ConnectionPage>
                       },
                     ),
                     SpeedDialChild(
-                      label: "Create Folder",
+                      label: "创建文件夹",
                       labelStyle: TextStyle(
                         fontWeight: FontWeight.w500,
                         color: Theme.of(context).textTheme.body1.color,
@@ -674,7 +676,7 @@ class _ConnectionPageState extends State<ConnectionPage>
                               title: Text("Create Folder"),
                               content: TextField(
                                 decoration: InputDecoration(
-                                  labelText: "Name",
+                                  labelText: "名称",
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Theme.of(context).accentColor,

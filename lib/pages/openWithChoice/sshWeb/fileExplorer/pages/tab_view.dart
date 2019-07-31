@@ -189,7 +189,7 @@ class _TabViewPageState extends State<TabViewPage> {
                         },
                         hasSecondaryButton: true,
                         secondaryButtonIconData: OMIcons.delete,
-                        secondaryButtonLabel: "Delete",
+                        secondaryButtonLabel: "删除",
                         secondaryButtonOnPressed: () {
                           widget.removeFromJsonAt(index);
                           setState(() {

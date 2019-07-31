@@ -130,7 +130,7 @@ class QuickConnectionSheet extends StatelessWidget {
                       autocorrect: false,
                       focusNode: _focusNodes[1],
                       textInputAction: TextInputAction.next,
-                      decoration: InputDecoration(labelText: "Username"),
+                      decoration: InputDecoration(labelText: "用户名"),
                       onChanged: (String value) => _connection.username = value,
                       onSubmitted: (String value) =>
                           FocusScope.of(context).requestFocus(_focusNodes[2]),
@@ -141,7 +141,7 @@ class QuickConnectionSheet extends StatelessWidget {
                   obscureText: true,
                   focusNode: _focusNodes[2],
                   textInputAction: TextInputAction.done,
-                  decoration: InputDecoration(labelText: "Password"),
+                  decoration: InputDecoration(labelText: "密码"),
                   onChanged: (String value) =>
                       _connection.passwordOrKey = value,
                 ),

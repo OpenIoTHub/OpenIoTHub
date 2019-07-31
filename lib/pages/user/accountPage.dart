@@ -5,8 +5,10 @@ import 'package:nat_explorer/constants/Constants.dart';
 import 'package:nat_explorer/events/LoginEvent.dart';
 import 'package:nat_explorer/events/LogoutEvent.dart';
 import 'package:nat_explorer/pages/openWithChoice/sshWeb/fileExplorer/pages/settings.dart';
+import 'package:nat_explorer/pages/openWithChoice/sshWeb/fileExplorer/shared/custom_theme.dart';
 import 'package:nat_explorer/pages/user/player.dart';
 import 'package:nat_explorer/pages/user/tools/toolsTypePage.dart';
+import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:nat_explorer/util/NetUtils.dart';
@@ -165,7 +167,9 @@ class MyInfoPageState extends State<MyInfoPage> {
   renderRow(i) {
     if (i == 0) {
       var avatarContainer = Container(
-        color: Colors.teal,
+        color: Provider.of<CustomTheme>(context).themeValue == "dark"
+            ? CustomThemes.dark.primaryColor
+            : CustomThemes.light.primaryColor,
         height: 200.0,
         child: Center(
           child: Column(
