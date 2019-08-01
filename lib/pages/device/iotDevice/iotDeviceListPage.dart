@@ -1,0 +1,289 @@
+import 'package:flutter/material.dart';
+import 'package:nat_explorer/api/CommonDeviceApi.dart';
+import 'package:nat_explorer/api/SessionApi.dart';
+import 'package:nat_explorer/pb/service.pb.dart';
+import 'package:nat_explorer/pb/service.pbgrpc.dart';
+import 'package:android_intent/android_intent.dart';
+//统一导入全部设备类型
+import 'package:nat_explorer/pages/device/iotDevice/subDeviceType/devices.dart';
+
+class IoTDeviceListPage extends StatefulWidget {
+  IoTDeviceListPage({Key key, this.title}) : super(key: key);
+
+  final String title;
+
+  @override
+  _IoTDeviceListPageState createState() => _IoTDeviceListPageState();
+}
+
+class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
+  static const double ARROW_ICON_WIDTH = 16.0;
+  final titleTextStyle = TextStyle(fontSize: 16.0);
+  final rightArrowIcon = Image.asset(
+    'assets/images/ic_arrow_right.png',
+    width: ARROW_ICON_WIDTH,
+    height: ARROW_ICON_WIDTH,
+  );
+  List<SessionConfig> _SessionList = [];
+  List<Device> _IoTDeviceList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getAllCommonDevice().then((v) {
+      setState(() {});
+    });
+    print("init common devie List");
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final tiles = _IoTDeviceList.map(
+      (pair) {
+        var listItemContent = Padding(
+          padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
+          child: Row(
+            children: <Widget>[
+              Icon(Icons.devices),
+              Expanded(
+                  child: Text(
+                    pair.description,
+                    style: titleTextStyle,
+                  )),
+              rightArrowIcon
+            ],
+          ),
+        );
+        return InkWell(
+          onTap: () {
+            _pushDeviceServiceTypes(pair);
+          },
+          child: listItemContent,
+        );
+      },
+    );
+    final divided = ListTile.divideTiles(
+      context: context,
+      tiles: tiles,
+    ).toList();
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(
+                  Icons.refresh,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  getAllCommonDevice().then((v) {
+                    setState(() {});
+                  });
+                }),
+            IconButton(
+                icon: Icon(
+                  Icons.add_circle,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  getAllSession().then((v) {
+                    final titles = _SessionList.map(
+                      (pair) {
+                        var listItemContent = Padding(
+                          padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
+                          child: Row(
+                            children: <Widget>[
+                              Icon(Icons.cloud_done),
+                              Expanded(
+                                  child: Text(
+                                    pair.description,
+                                    style: titleTextStyle,
+                                  )),
+                              rightArrowIcon
+                            ],
+                          ),
+                        );
+                        return InkWell(
+                          onTap: () {
+                              _addDevice(pair).then((v) {
+                                Navigator.of(context).pop();
+                              });
+                          },
+                          child: listItemContent,
+                        );
+                      },
+                    );
+                    final divided = ListTile.divideTiles(
+                      context: context,
+                      tiles: titles,
+                    ).toList();
+                    showDialog(
+                        context: context,
+                        builder: (_) => AlertDialog(
+                                title: Text("选择一个内网："),
+                                content: ListView(
+                                  children: divided,
+                                ),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    child: Text("取消"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  )
+                                ])).then((v) {
+                      getAllCommonDevice().then((v) {
+                        setState(() {});
+                      });
+                    });
+                  });
+                }),
+          ],
+        ),
+        body: ListView(children: divided));
+  }
+
+  Future _addDevice(SessionConfig config) async {
+    TextEditingController _description_controller =
+        TextEditingController.fromValue(TextEditingValue(text: "内网端机器"));
+    TextEditingController _remote_ip_controller =
+        TextEditingController.fromValue(TextEditingValue(text: "127.0.0.1"));
+    return showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+                title: Text("添加设备："),
+                content: ListView(
+                  children: <Widget>[
+                    TextFormField(
+                      controller: _description_controller,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(10.0),
+                        labelText: '备注',
+                        helperText: '自定义备注',
+                      ),
+                    ),
+                    TextFormField(
+                      controller: _remote_ip_controller,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(10.0),
+                        labelText: '远程内网的IP',
+                        helperText: '内网设备的IP',
+                      ),
+                    ),
+                  ],
+                ),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text("取消"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  FlatButton(
+                    child: Text("添加"),
+                    onPressed: () {
+                      var device = Device();
+                      device.runId = config.runId;
+                      device.description = _description_controller.text;
+                      device.addr =_remote_ip_controller.text;
+                      createOneCommonDevice(device).then((v){
+                        getAllCommonDevice().then((v){
+                          Navigator.of(context).pop();
+                        });
+                      });
+                    },
+                  )
+                ]));
+  }
+
+  void _pushDeviceServiceTypes(Device device) async {
+  // 查看设备下的服务 CommonDeviceServiceTypesList
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) {
+          // 写成独立的组件，支持刷新
+          return Text('具体设备的操作界面');
+        },
+      ),
+    ).then((result) {
+      setState(() {
+        getAllSession();
+      });
+    });
+  }
+
+  Future getAllSession() async {
+    try {
+      final response = await SessionApi.getAllSession();
+      print('Greeter client received: ${response.sessionConfigs}');
+      setState(() {
+        _SessionList = response.sessionConfigs;
+      });
+    } catch (e) {
+      print('Caught error: $e');
+    }
+  }
+
+  Future createOneCommonDevice(Device device) async {
+    try {
+      await CommonDeviceApi.createOneDevice(device);
+    }catch (e) {
+      showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+              title: Text("创建设备失败："),
+              content: Text("失败原因：$e"),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text("取消"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                FlatButton(
+                  child: Text("确认"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ]));
+    }
+  }
+
+  Future getAllCommonDevice() async {
+    try {
+      final response = await CommonDeviceApi.getAllDevice();
+      setState(() {
+        _IoTDeviceList = response.devices;
+      });
+    } catch (e) {
+      showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+                  title: Text("获取内网列表失败："),
+                  content: Text("失败原因：$e"),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text("取消"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    FlatButton(
+                      child: Text("确认"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  ]));
+    }
+  }
+
+  _launchURL(String url) async {
+    AndroidIntent intent = AndroidIntent(
+      action: 'action_view',
+      data: url,
+    );
+    await intent.launch();
+  }
+}

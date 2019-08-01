@@ -23,13 +23,50 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
+  http: ^0.12.0+2
+#  grpc
   grpc: ^1.0.2
+#  grpc协议
   protobuf: ^0.13.11
+#  app内嵌网页浏览器
   flutter_webview_plugin: ^0.3.5
+#  打开url
   url_launcher: ^5.0.2
+#  安卓intent调用其他程序
   android_intent: ^0.3.0+2
+#  数据存储
   shared_preferences: ^0.5.2
+#  时间总线
   event_bus: ^1.1.0
+#  esp配网
+  smartconfig: ^0.0.1
+#  获取wifi名和bssid
+  connectivity: ^0.4.3+2
+#  动态请求权限，定位，存储等
+  permission_handler: ^3.1.0
+#  查看手机安装的app
+  device_apps: ^1.0.8
+#  静态网页sever
+  jaguar_flutter_asset: ^2.2.0
+#  player
+  video_player: ^0.10.1+3
+#  mDNS
+#  multicast_dns: ^0.1.1
+#ssh file
+  file_picker: ^1.3.4+1
+#  firebase_analytics:  ^3.0.3
+#  firebase_core: ^0.4.0+6
+  flutter_speed_dial: ^1.1.1
+  floating_action_row: ^0.1.0
+  md2_tab_indicator: ^1.0.2
+  open_file: ^2.0.1+2
+  outline_material_icons: ^0.1.0
+  package_info: ^0.4.0+3
+  path_provider: ^1.1.0
+  provider: ^2.0.0
+  ssh: ^0.0.3
+#ssh file over
+#  sqflite: ^1.1.6+2
 
 dev_dependencies:
   flutter_test:
@@ -52,40 +89,82 @@ flutter:
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
   assets:
-    - images/ic_avatar_default.png
-    - images/ic_nav_news_normal.png
-    - images/ic_nav_news_actived.png
-    - images/ic_nav_tweet_normal.png
-    - images/ic_nav_tweet_actived.png
-    - images/ic_nav_discover_normal.png
-    - images/ic_nav_discover_actived.png
-    - images/ic_nav_my_normal.png
-    - images/ic_nav_my_pressed.png
-    - images/ic_discover_gist.png
-    - images/ic_discover_git.png
-    - images/ic_discover_nearby.png
-    - images/ic_discover_pos.png
-    - images/ic_discover_scan.png
-    - images/ic_discover_shake.png
-    - images/ic_discover_softwares.png
-    - images/ic_arrow_right.png
-    - images/ic_my_blog.png
-    - images/ic_my_message.png
-    - images/ic_my_question.png
-    - images/ic_my_recommend.png
-    - images/ic_my_team.png
-    - images/ic_test.png
-    - images/ic_hongshu.jpg
-    - images/ic_img_default.jpg
-    - images/ic_comment.png
-    - images/cover_img.jpg
-    - images/leftmenu/ic_xiaoheiwu.png
-    - images/leftmenu/ic_fabu.png
-    - images/leftmenu/ic_about.png
-    - images/leftmenu/ic_settings.png
-    - images/ic_osc_logo.png
-    - images/ic_add_pics.png
-    - images/ic_eye.png
+    - assets/
+    - assets/images/
+    - assets/images/leftmenu/
+#    -
+    - assets/web/open/aria2/
+#    -
+    - assets/web/open/ssh/
+    - assets/web/open/ssh/static/
+    - assets/web/open/ssh/static/dist/
+    - assets/web/open/ssh/static/dist/addons/
+    - assets/web/open/ssh/static/dist/addons/attach/
+    - assets/web/open/ssh/static/dist/addons/fit/
+    - assets/web/open/ssh/static/dist/addons/fullscreen/
+    - assets/web/open/ssh/static/dist/addons/linkify/
+    - assets/web/open/ssh/static/dist/addons/terminado/
+#    -
+    - assets/web/open/vnc/
+    - assets/web/open/vnc/app/
+    - assets/web/open/vnc/app/images/
+    - assets/web/open/vnc/app/images/icons/
+    - assets/web/open/vnc/app/locale/
+    - assets/web/open/vnc/app/sounds/
+    - assets/web/open/vnc/app/styles/
+    - assets/web/open/vnc/core/
+    - assets/web/open/vnc/core/decoders/
+    - assets/web/open/vnc/core/input/
+    - assets/web/open/vnc/core/util/
+    - assets/web/open/vnc/vendor/
+    - assets/web/open/vnc/vendor/browser-es-module-loader/
+    - assets/web/open/vnc/vendor/browser-es-module-loader/dist/
+    - assets/web/open/vnc/vendor/browser-es-module-loader/src/
+    - assets/web/open/vnc/vendor/pako/
+    - assets/web/open/vnc/vendor/pako/lib/
+    - assets/web/open/vnc/vendor/pako/lib/utils/
+    - assets/web/open/vnc/vendor/pako/lib/zlib/
+#      sshFileExplorer
+    - assets/sshFileExplorer/app_icon.png
+    - assets/sshFileExplorer/app_icon_black.png
+    - assets/sshFileExplorer/app_icon_white.png
+    - assets/sshFileExplorer/arrow_drop_down.png
+    - assets/sshFileExplorer/arrow_drop_up.png
+#    - sshFileExplorer over
+#    - assets/images/ic_avatar_default.png
+#    - assets/images/ic_nav_news_normal.png
+#    - assets/images/ic_nav_news_actived.png
+#    - assets/images/ic_nav_tweet_normal.png
+#    - assets/images/ic_nav_tweet_actived.png
+#    - assets/images/ic_nav_discover_normal.png
+#    - assets/images/ic_nav_discover_actived.png
+#    - assets/images/ic_nav_my_normal.png
+#    - assets/images/ic_nav_my_pressed.png
+#    - assets/images/ic_discover_gist.png
+#    - assets/images/ic_discover_git.png
+#    - assets/images/ic_discover_nearby.png
+#    - assets/images/ic_discover_pos.png
+#    - assets/images/ic_discover_scan.png
+#    - assets/images/ic_discover_shake.png
+#    - assets/images/ic_discover_softwares.png
+#    - assets/images/ic_arrow_right.png
+#    - assets/images/ic_my_blog.png
+#    - assets/images/ic_my_message.png
+#    - assets/images/ic_my_question.png
+#    - assets/images/ic_my_recommend.png
+#    - assets/images/ic_my_team.png
+#    - assets/images/ic_test.png
+#    - assets/images/ic_hongshu.jpg
+#    - assets/images/ic_img_default.jpg
+#    - assets/images/ic_comment.png
+#    - assets/images/cover_img.jpg
+#    - assets/images/leftmenu/ic_xiaoheiwu.png
+#    - assets/images/leftmenu/ic_fabu.png
+#    - assets/images/leftmenu/ic_about.png
+#    - assets/images/leftmenu/ic_settings.png
+#    - assets/images/ic_osc_logo.png
+#    - assets/images/ic_add_pics.png
+#    - assets/images/ic_eye.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
 

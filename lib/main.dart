@@ -1,21 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:nat_explorer/sessionWidget.dart';
-import 'package:nat_explorer/tcpWidget.dart';
-import 'package:nat_explorer/udpWidget.dart';
-import 'package:nat_explorer/ftpWidget.dart';
-import 'package:nat_explorer/socks5Widget.dart';
+import 'package:nat_explorer/constants/Config.dart';
+import 'package:nat_explorer/pages/openWithChoice/sshWeb/fileExplorer/services/connection_model.dart';
+import 'package:nat_explorer/pages/openWithChoice/sshWeb/fileExplorer/shared/custom_theme.dart';
+import 'package:nat_explorer/pages/session/sessionListPage.dart';
+import 'package:nat_explorer/pages/device/deviceTypePage.dart';
+import 'package:nat_explorer/pages/user/accountPage.dart';
 
-void main() => runApp(MyApp());
+import 'package:jaguar/jaguar.dart';
+import 'package:jaguar_flutter_asset/jaguar_flutter_asset.dart';
+
+import 'package:provider/provider.dart';
+
+void main() {
+  final server = Jaguar(address: Config.webStaticIp,port: Config.webStaticPort);
+  server.addRoute(serveFlutterAssets());
+  server.serve(logRequests: true).then((v){
+    server.log.onRecord.listen((r) => debugPrint("==serve-log：$r"));
+  });
+
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(builder: (context) => ConnectionModel()),
+        ChangeNotifierProvider(builder: (context) => CustomTheme()),
+      ],
+      child: MyApp(),
+    ),
+  );
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'NAT Cloud',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      title: '内网穿透',
+      theme: Provider.of<CustomTheme>(context).themeValue == "dark"
+          ? CustomThemes.dark
+          : CustomThemes.light,
       home: MyHomePage(title: '内网访问工具'),
     );
   }
@@ -30,9 +52,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _bottomNavigationColor = Colors.blue;
+//  final _bottomNavigationColor = Colors.blue;
   int _currentIndex = 0;
-  final _biggerFont = const TextStyle(fontSize: 18.0);
 
   @override
   Widget build(BuildContext context) {
@@ -43,29 +64,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
 //通过index判断展现的类型
   Widget _buildBody(int index) {
-//    0 内网Session
-//    1 TCP
-//    2 UDP
-//    3 FTP
-//    4 账号
     switch (index) {
       case 0:
-        return new SessionListPage(title:widget.title);
+        return SessionListPage(title:"网络列表");
         break;
       case 1:
-        return new TCPListPage(title:widget.title);
+        return DiscoveryPage();
         break;
       case 2:
-        return new UDPListPage(title:widget.title);
-        break;
-      case 3:
-        return new FTPListPage(title:widget.title);
-        break;
-      case 4:
-        return new SOCKS5ListPage(title:widget.title);
+        return MyInfoPage();
         break;
     }
-    return new Text("没有匹配的内容");
+    return Text("没有匹配的内容");
   }
 
   Widget _buildBottomNavigationBar(int index) {
@@ -74,47 +84,29 @@ class _MyHomePageState extends State<MyHomePage> {
         BottomNavigationBarItem(
             icon: Icon(
               Icons.home,
-              color: _bottomNavigationColor,
+//              color: _bottomNavigationColor,
             ),
             title: Text(
-              '内网',
-              style: TextStyle(color: _bottomNavigationColor),
-            )),
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.adjust,
-              color: _bottomNavigationColor,
-            ),
-            title: Text(
-              'TCP',
-              style: TextStyle(color: _bottomNavigationColor),
-            )),
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.ac_unit,
-              color: _bottomNavigationColor,
-            ),
-            title: Text(
-              'UDP',
-              style: TextStyle(color: _bottomNavigationColor),
+              '网络',
+//              style: TextStyle(color: _bottomNavigationColor),
             )),
         BottomNavigationBarItem(
             icon: Icon(
               Icons.airplay,
-              color: _bottomNavigationColor,
+//              color: _bottomNavigationColor,
             ),
             title: Text(
-              'FTP',
-              style: TextStyle(color: _bottomNavigationColor),
+              '设备',
+//              style: TextStyle(color: _bottomNavigationColor),
             )),
         BottomNavigationBarItem(
             icon: Icon(
-              Icons.cloud_done,
-              color: _bottomNavigationColor,
+              Icons.account_circle,
+//              color: _bottomNavigationColor,
             ),
             title: Text(
-              'ssServ',
-              style: TextStyle(color: _bottomNavigationColor),
+              '我',
+//              style: TextStyle(color: _bottomNavigationColor),
             )),
       ],
       currentIndex: index,

@@ -8,6 +8,330 @@ import 'dart:core' as $core show bool, Deprecated, double, int, List, Map, overr
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
+class Empty extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('Empty', package: const $pb.PackageName('pb'))
+    ..hasRequiredFields = false
+  ;
+
+  Empty() : super();
+  Empty.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  Empty.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  Empty clone() => Empty()..mergeFromMessage(this);
+  Empty copyWith(void Function(Empty) updates) => super.copyWith((message) => updates(message as Empty));
+  $pb.BuilderInfo get info_ => _i;
+  static Empty create() => Empty();
+  Empty createEmptyInstance() => create();
+  static $pb.PbList<Empty> createRepeated() => $pb.PbList<Empty>();
+  static Empty getDefault() => _defaultInstance ??= create()..freeze();
+  static Empty _defaultInstance;
+}
+
+class MDNSService extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('MDNSService', package: const $pb.PackageName('pb'))
+    ..aOS(1, 'name')
+    ..aOS(2, 'iP')
+    ..a<$core.int>(3, 'port', $pb.PbFieldType.O3)
+    ..hasRequiredFields = false
+  ;
+
+  MDNSService() : super();
+  MDNSService.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  MDNSService.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  MDNSService clone() => MDNSService()..mergeFromMessage(this);
+  MDNSService copyWith(void Function(MDNSService) updates) => super.copyWith((message) => updates(message as MDNSService));
+  $pb.BuilderInfo get info_ => _i;
+  static MDNSService create() => MDNSService();
+  MDNSService createEmptyInstance() => create();
+  static $pb.PbList<MDNSService> createRepeated() => $pb.PbList<MDNSService>();
+  static MDNSService getDefault() => _defaultInstance ??= create()..freeze();
+  static MDNSService _defaultInstance;
+
+  $core.String get name => $_getS(0, '');
+  set name($core.String v) { $_setString(0, v); }
+  $core.bool hasName() => $_has(0);
+  void clearName() => clearField(1);
+
+  $core.String get iP => $_getS(1, '');
+  set iP($core.String v) { $_setString(1, v); }
+  $core.bool hasIP() => $_has(1);
+  void clearIP() => clearField(2);
+
+  $core.int get port => $_get(2, 0);
+  set port($core.int v) { $_setSignedInt32(2, v); }
+  $core.bool hasPort() => $_has(2);
+  void clearPort() => clearField(3);
+}
+
+class Color extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('Color', package: const $pb.PackageName('pb'))
+    ..a<$core.int>(1, 'r', $pb.PbFieldType.O3)
+    ..a<$core.int>(2, 'g', $pb.PbFieldType.O3)
+    ..a<$core.int>(3, 'b', $pb.PbFieldType.O3)
+    ..a<$core.int>(4, 'a', $pb.PbFieldType.O3)
+    ..hasRequiredFields = false
+  ;
+
+  Color() : super();
+  Color.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  Color.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  Color clone() => Color()..mergeFromMessage(this);
+  Color copyWith(void Function(Color) updates) => super.copyWith((message) => updates(message as Color));
+  $pb.BuilderInfo get info_ => _i;
+  static Color create() => Color();
+  Color createEmptyInstance() => create();
+  static $pb.PbList<Color> createRepeated() => $pb.PbList<Color>();
+  static Color getDefault() => _defaultInstance ??= create()..freeze();
+  static Color _defaultInstance;
+
+  $core.int get r => $_get(0, 0);
+  set r($core.int v) { $_setSignedInt32(0, v); }
+  $core.bool hasR() => $_has(0);
+  void clearR() => clearField(1);
+
+  $core.int get g => $_get(1, 0);
+  set g($core.int v) { $_setSignedInt32(1, v); }
+  $core.bool hasG() => $_has(1);
+  void clearG() => clearField(2);
+
+  $core.int get b => $_get(2, 0);
+  set b($core.int v) { $_setSignedInt32(2, v); }
+  $core.bool hasB() => $_has(2);
+  void clearB() => clearField(3);
+
+  $core.int get a => $_get(3, 0);
+  set a($core.int v) { $_setSignedInt32(3, v); }
+  $core.bool hasA() => $_has(3);
+  void clearA() => clearField(4);
+}
+
+class GatewayState extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('GatewayState', package: const $pb.PackageName('pb'))
+    ..aOB(1, 'on')
+    ..a<Color>(2, 'color', $pb.PbFieldType.OM, Color.getDefault, Color.create)
+    ..a<$core.int>(3, 'brightness', $pb.PbFieldType.OU3)
+    ..hasRequiredFields = false
+  ;
+
+  GatewayState() : super();
+  GatewayState.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  GatewayState.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  GatewayState clone() => GatewayState()..mergeFromMessage(this);
+  GatewayState copyWith(void Function(GatewayState) updates) => super.copyWith((message) => updates(message as GatewayState));
+  $pb.BuilderInfo get info_ => _i;
+  static GatewayState create() => GatewayState();
+  GatewayState createEmptyInstance() => create();
+  static $pb.PbList<GatewayState> createRepeated() => $pb.PbList<GatewayState>();
+  static GatewayState getDefault() => _defaultInstance ??= create()..freeze();
+  static GatewayState _defaultInstance;
+
+  $core.bool get on => $_get(0, false);
+  set on($core.bool v) { $_setBool(0, v); }
+  $core.bool hasOn() => $_has(0);
+  void clearOn() => clearField(1);
+
+  Color get color => $_getN(1);
+  set color(Color v) { setField(2, v); }
+  $core.bool hasColor() => $_has(1);
+  void clearColor() => clearField(2);
+
+  $core.int get brightness => $_get(2, 0);
+  set brightness($core.int v) { $_setUnsignedInt32(2, v); }
+  $core.bool hasBrightness() => $_has(2);
+  void clearBrightness() => clearField(3);
+}
+
+class GatewayUpdateMessage extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('GatewayUpdateMessage', package: const $pb.PackageName('pb'))
+    ..aOS(1, 'iD')
+    ..a<GatewayState>(2, 'state', $pb.PbFieldType.OM, GatewayState.getDefault, GatewayState.create)
+    ..hasRequiredFields = false
+  ;
+
+  GatewayUpdateMessage() : super();
+  GatewayUpdateMessage.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  GatewayUpdateMessage.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  GatewayUpdateMessage clone() => GatewayUpdateMessage()..mergeFromMessage(this);
+  GatewayUpdateMessage copyWith(void Function(GatewayUpdateMessage) updates) => super.copyWith((message) => updates(message as GatewayUpdateMessage));
+  $pb.BuilderInfo get info_ => _i;
+  static GatewayUpdateMessage create() => GatewayUpdateMessage();
+  GatewayUpdateMessage createEmptyInstance() => create();
+  static $pb.PbList<GatewayUpdateMessage> createRepeated() => $pb.PbList<GatewayUpdateMessage>();
+  static GatewayUpdateMessage getDefault() => _defaultInstance ??= create()..freeze();
+  static GatewayUpdateMessage _defaultInstance;
+
+  $core.String get iD => $_getS(0, '');
+  set iD($core.String v) { $_setString(0, v); }
+  $core.bool hasID() => $_has(0);
+  void clearID() => clearField(1);
+
+  GatewayState get state => $_getN(1);
+  set state(GatewayState v) { setField(2, v); }
+  $core.bool hasState() => $_has(1);
+  void clearState() => clearField(2);
+}
+
+class Device extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('Device', package: const $pb.PackageName('pb'))
+    ..aOS(1, 'runId')
+    ..aOS(2, 'addr')
+    ..aOS(3, 'mac')
+    ..aOS(4, 'description')
+    ..hasRequiredFields = false
+  ;
+
+  Device() : super();
+  Device.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  Device.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  Device clone() => Device()..mergeFromMessage(this);
+  Device copyWith(void Function(Device) updates) => super.copyWith((message) => updates(message as Device));
+  $pb.BuilderInfo get info_ => _i;
+  static Device create() => Device();
+  Device createEmptyInstance() => create();
+  static $pb.PbList<Device> createRepeated() => $pb.PbList<Device>();
+  static Device getDefault() => _defaultInstance ??= create()..freeze();
+  static Device _defaultInstance;
+
+  $core.String get runId => $_getS(0, '');
+  set runId($core.String v) { $_setString(0, v); }
+  $core.bool hasRunId() => $_has(0);
+  void clearRunId() => clearField(1);
+
+  $core.String get addr => $_getS(1, '');
+  set addr($core.String v) { $_setString(1, v); }
+  $core.bool hasAddr() => $_has(1);
+  void clearAddr() => clearField(2);
+
+  $core.String get mac => $_getS(2, '');
+  set mac($core.String v) { $_setString(2, v); }
+  $core.bool hasMac() => $_has(2);
+  void clearMac() => clearField(3);
+
+  $core.String get description => $_getS(3, '');
+  set description($core.String v) { $_setString(3, v); }
+  $core.bool hasDescription() => $_has(3);
+  void clearDescription() => clearField(4);
+}
+
+class DeviceList extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('DeviceList', package: const $pb.PackageName('pb'))
+    ..pc<Device>(1, 'devices', $pb.PbFieldType.PM,Device.create)
+    ..hasRequiredFields = false
+  ;
+
+  DeviceList() : super();
+  DeviceList.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  DeviceList.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  DeviceList clone() => DeviceList()..mergeFromMessage(this);
+  DeviceList copyWith(void Function(DeviceList) updates) => super.copyWith((message) => updates(message as DeviceList));
+  $pb.BuilderInfo get info_ => _i;
+  static DeviceList create() => DeviceList();
+  DeviceList createEmptyInstance() => create();
+  static $pb.PbList<DeviceList> createRepeated() => $pb.PbList<DeviceList>();
+  static DeviceList getDefault() => _defaultInstance ??= create()..freeze();
+  static DeviceList _defaultInstance;
+
+  $core.List<Device> get devices => $_getList(0);
+}
+
+class MiioGatewayDevice extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('MiioGatewayDevice', package: const $pb.PackageName('pb'))
+    ..aOS(1, 'runId')
+    ..aOS(2, 'addr')
+    ..aOS(3, 'key')
+    ..a<Color>(4, 'color', $pb.PbFieldType.OM, Color.getDefault, Color.create)
+    ..a<$core.int>(5, 'brightness', $pb.PbFieldType.OU3)
+    ..hasRequiredFields = false
+  ;
+
+  MiioGatewayDevice() : super();
+  MiioGatewayDevice.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  MiioGatewayDevice.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  MiioGatewayDevice clone() => MiioGatewayDevice()..mergeFromMessage(this);
+  MiioGatewayDevice copyWith(void Function(MiioGatewayDevice) updates) => super.copyWith((message) => updates(message as MiioGatewayDevice));
+  $pb.BuilderInfo get info_ => _i;
+  static MiioGatewayDevice create() => MiioGatewayDevice();
+  MiioGatewayDevice createEmptyInstance() => create();
+  static $pb.PbList<MiioGatewayDevice> createRepeated() => $pb.PbList<MiioGatewayDevice>();
+  static MiioGatewayDevice getDefault() => _defaultInstance ??= create()..freeze();
+  static MiioGatewayDevice _defaultInstance;
+
+  $core.String get runId => $_getS(0, '');
+  set runId($core.String v) { $_setString(0, v); }
+  $core.bool hasRunId() => $_has(0);
+  void clearRunId() => clearField(1);
+
+  $core.String get addr => $_getS(1, '');
+  set addr($core.String v) { $_setString(1, v); }
+  $core.bool hasAddr() => $_has(1);
+  void clearAddr() => clearField(2);
+
+  $core.String get key => $_getS(2, '');
+  set key($core.String v) { $_setString(2, v); }
+  $core.bool hasKey() => $_has(2);
+  void clearKey() => clearField(3);
+
+  Color get color => $_getN(3);
+  set color(Color v) { setField(4, v); }
+  $core.bool hasColor() => $_has(3);
+  void clearColor() => clearField(4);
+
+  $core.int get brightness => $_get(4, 0);
+  set brightness($core.int v) { $_setUnsignedInt32(4, v); }
+  $core.bool hasBrightness() => $_has(4);
+  void clearBrightness() => clearField(5);
+}
+
+class MiioGatewayDeviceList extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('MiioGatewayDeviceList', package: const $pb.PackageName('pb'))
+    ..pc<MiioGatewayDevice>(1, 'miioGatewayDevices', $pb.PbFieldType.PM,MiioGatewayDevice.create)
+    ..hasRequiredFields = false
+  ;
+
+  MiioGatewayDeviceList() : super();
+  MiioGatewayDeviceList.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  MiioGatewayDeviceList.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  MiioGatewayDeviceList clone() => MiioGatewayDeviceList()..mergeFromMessage(this);
+  MiioGatewayDeviceList copyWith(void Function(MiioGatewayDeviceList) updates) => super.copyWith((message) => updates(message as MiioGatewayDeviceList));
+  $pb.BuilderInfo get info_ => _i;
+  static MiioGatewayDeviceList create() => MiioGatewayDeviceList();
+  MiioGatewayDeviceList createEmptyInstance() => create();
+  static $pb.PbList<MiioGatewayDeviceList> createRepeated() => $pb.PbList<MiioGatewayDeviceList>();
+  static MiioGatewayDeviceList getDefault() => _defaultInstance ??= create()..freeze();
+  static MiioGatewayDeviceList _defaultInstance;
+
+  $core.List<MiioGatewayDevice> get miioGatewayDevices => $_getList(0);
+}
+
+class MiioGatewaySubDevice extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('MiioGatewaySubDevice', package: const $pb.PackageName('pb'))
+    ..a<MiioGatewayDevice>(1, 'miioGatewayDevice', $pb.PbFieldType.OM, MiioGatewayDevice.getDefault, MiioGatewayDevice.create)
+    ..aOS(2, 'iD')
+    ..hasRequiredFields = false
+  ;
+
+  MiioGatewaySubDevice() : super();
+  MiioGatewaySubDevice.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  MiioGatewaySubDevice.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  MiioGatewaySubDevice clone() => MiioGatewaySubDevice()..mergeFromMessage(this);
+  MiioGatewaySubDevice copyWith(void Function(MiioGatewaySubDevice) updates) => super.copyWith((message) => updates(message as MiioGatewaySubDevice));
+  $pb.BuilderInfo get info_ => _i;
+  static MiioGatewaySubDevice create() => MiioGatewaySubDevice();
+  MiioGatewaySubDevice createEmptyInstance() => create();
+  static $pb.PbList<MiioGatewaySubDevice> createRepeated() => $pb.PbList<MiioGatewaySubDevice>();
+  static MiioGatewaySubDevice getDefault() => _defaultInstance ??= create()..freeze();
+  static MiioGatewaySubDevice _defaultInstance;
+
+  MiioGatewayDevice get miioGatewayDevice => $_getN(0);
+  set miioGatewayDevice(MiioGatewayDevice v) { setField(1, v); }
+  $core.bool hasMiioGatewayDevice() => $_has(0);
+  void clearMiioGatewayDevice() => clearField(1);
+
+  $core.String get iD => $_getS(1, '');
+  set iD($core.String v) { $_setString(1, v); }
+  $core.bool hasID() => $_has(1);
+  void clearID() => clearField(2);
+}
+
 class SessionConfig extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('SessionConfig', package: const $pb.PackageName('pb'))
     ..aOS(1, 'runId')
@@ -62,148 +386,163 @@ class SessionConfig extends $pb.GeneratedMessage {
   void clearStatusP2PAsServer() => clearField(6);
 }
 
-class OneSession extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('OneSession', package: const $pb.PackageName('pb'))
-    ..aOS(1, 'runId')
+class SessionList extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('SessionList', package: const $pb.PackageName('pb'))
+    ..pc<SessionConfig>(1, 'sessionConfigs', $pb.PbFieldType.PM,SessionConfig.create)
     ..hasRequiredFields = false
   ;
 
-  OneSession() : super();
-  OneSession.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
-  OneSession.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
-  OneSession clone() => OneSession()..mergeFromMessage(this);
-  OneSession copyWith(void Function(OneSession) updates) => super.copyWith((message) => updates(message as OneSession));
+  SessionList() : super();
+  SessionList.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  SessionList.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  SessionList clone() => SessionList()..mergeFromMessage(this);
+  SessionList copyWith(void Function(SessionList) updates) => super.copyWith((message) => updates(message as SessionList));
   $pb.BuilderInfo get info_ => _i;
-  static OneSession create() => OneSession();
-  OneSession createEmptyInstance() => create();
-  static $pb.PbList<OneSession> createRepeated() => $pb.PbList<OneSession>();
-  static OneSession getDefault() => _defaultInstance ??= create()..freeze();
-  static OneSession _defaultInstance;
+  static SessionList create() => SessionList();
+  SessionList createEmptyInstance() => create();
+  static $pb.PbList<SessionList> createRepeated() => $pb.PbList<SessionList>();
+  static SessionList getDefault() => _defaultInstance ??= create()..freeze();
+  static SessionList _defaultInstance;
 
-  $core.String get runId => $_getS(0, '');
-  set runId($core.String v) { $_setString(0, v); }
-  $core.bool hasRunId() => $_has(0);
-  void clearRunId() => clearField(1);
+  $core.List<SessionConfig> get sessionConfigs => $_getList(0);
 }
 
-class TCPConfig extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('TCPConfig', package: const $pb.PackageName('pb'))
-    ..aOS(1, 'runId')
-    ..aOS(2, 'localIP')
-    ..a<$core.int>(3, 'localProt', $pb.PbFieldType.O3)
-    ..aOS(4, 'remoteIP')
-    ..a<$core.int>(5, 'remotePort', $pb.PbFieldType.O3)
-    ..aOS(6, 'description')
-    ..aOB(7, 'remotePortStatus')
+class PortConfig extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('PortConfig', package: const $pb.PackageName('pb'))
+    ..a<Device>(1, 'device', $pb.PbFieldType.OM, Device.getDefault, Device.create)
+    ..a<$core.int>(2, 'localProt', $pb.PbFieldType.O3)
+    ..a<$core.int>(3, 'remotePort', $pb.PbFieldType.O3)
+    ..aOS(4, 'description')
+    ..aOB(5, 'remotePortStatus')
     ..hasRequiredFields = false
   ;
 
-  TCPConfig() : super();
-  TCPConfig.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
-  TCPConfig.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
-  TCPConfig clone() => TCPConfig()..mergeFromMessage(this);
-  TCPConfig copyWith(void Function(TCPConfig) updates) => super.copyWith((message) => updates(message as TCPConfig));
+  PortConfig() : super();
+  PortConfig.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  PortConfig.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  PortConfig clone() => PortConfig()..mergeFromMessage(this);
+  PortConfig copyWith(void Function(PortConfig) updates) => super.copyWith((message) => updates(message as PortConfig));
   $pb.BuilderInfo get info_ => _i;
-  static TCPConfig create() => TCPConfig();
-  TCPConfig createEmptyInstance() => create();
-  static $pb.PbList<TCPConfig> createRepeated() => $pb.PbList<TCPConfig>();
-  static TCPConfig getDefault() => _defaultInstance ??= create()..freeze();
-  static TCPConfig _defaultInstance;
+  static PortConfig create() => PortConfig();
+  PortConfig createEmptyInstance() => create();
+  static $pb.PbList<PortConfig> createRepeated() => $pb.PbList<PortConfig>();
+  static PortConfig getDefault() => _defaultInstance ??= create()..freeze();
+  static PortConfig _defaultInstance;
 
-  $core.String get runId => $_getS(0, '');
-  set runId($core.String v) { $_setString(0, v); }
-  $core.bool hasRunId() => $_has(0);
-  void clearRunId() => clearField(1);
+  Device get device => $_getN(0);
+  set device(Device v) { setField(1, v); }
+  $core.bool hasDevice() => $_has(0);
+  void clearDevice() => clearField(1);
 
-  $core.String get localIP => $_getS(1, '');
-  set localIP($core.String v) { $_setString(1, v); }
-  $core.bool hasLocalIP() => $_has(1);
-  void clearLocalIP() => clearField(2);
+  $core.int get localProt => $_get(1, 0);
+  set localProt($core.int v) { $_setSignedInt32(1, v); }
+  $core.bool hasLocalProt() => $_has(1);
+  void clearLocalProt() => clearField(2);
 
-  $core.int get localProt => $_get(2, 0);
-  set localProt($core.int v) { $_setSignedInt32(2, v); }
-  $core.bool hasLocalProt() => $_has(2);
-  void clearLocalProt() => clearField(3);
+  $core.int get remotePort => $_get(2, 0);
+  set remotePort($core.int v) { $_setSignedInt32(2, v); }
+  $core.bool hasRemotePort() => $_has(2);
+  void clearRemotePort() => clearField(3);
 
-  $core.String get remoteIP => $_getS(3, '');
-  set remoteIP($core.String v) { $_setString(3, v); }
-  $core.bool hasRemoteIP() => $_has(3);
-  void clearRemoteIP() => clearField(4);
+  $core.String get description => $_getS(3, '');
+  set description($core.String v) { $_setString(3, v); }
+  $core.bool hasDescription() => $_has(3);
+  void clearDescription() => clearField(4);
 
-  $core.int get remotePort => $_get(4, 0);
-  set remotePort($core.int v) { $_setSignedInt32(4, v); }
-  $core.bool hasRemotePort() => $_has(4);
-  void clearRemotePort() => clearField(5);
-
-  $core.String get description => $_getS(5, '');
-  set description($core.String v) { $_setString(5, v); }
-  $core.bool hasDescription() => $_has(5);
-  void clearDescription() => clearField(6);
-
-  $core.bool get remotePortStatus => $_get(6, false);
-  set remotePortStatus($core.bool v) { $_setBool(6, v); }
-  $core.bool hasRemotePortStatus() => $_has(6);
-  void clearRemotePortStatus() => clearField(7);
+  $core.bool get remotePortStatus => $_get(4, false);
+  set remotePortStatus($core.bool v) { $_setBool(4, v); }
+  $core.bool hasRemotePortStatus() => $_has(4);
+  void clearRemotePortStatus() => clearField(5);
 }
 
-class UDPConfig extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UDPConfig', package: const $pb.PackageName('pb'))
-    ..aOS(1, 'runId')
-    ..aOS(2, 'localIP')
-    ..a<$core.int>(3, 'localProt', $pb.PbFieldType.O3)
-    ..aOS(4, 'remoteIP')
-    ..a<$core.int>(5, 'remotePort', $pb.PbFieldType.O3)
-    ..aOS(6, 'description')
-    ..aOB(7, 'remotePortStatus')
+class PortList extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('PortList', package: const $pb.PackageName('pb'))
+    ..pc<PortConfig>(1, 'portConfigs', $pb.PbFieldType.PM,PortConfig.create)
     ..hasRequiredFields = false
   ;
 
-  UDPConfig() : super();
-  UDPConfig.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
-  UDPConfig.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
-  UDPConfig clone() => UDPConfig()..mergeFromMessage(this);
-  UDPConfig copyWith(void Function(UDPConfig) updates) => super.copyWith((message) => updates(message as UDPConfig));
+  PortList() : super();
+  PortList.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  PortList.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  PortList clone() => PortList()..mergeFromMessage(this);
+  PortList copyWith(void Function(PortList) updates) => super.copyWith((message) => updates(message as PortList));
   $pb.BuilderInfo get info_ => _i;
-  static UDPConfig create() => UDPConfig();
-  UDPConfig createEmptyInstance() => create();
-  static $pb.PbList<UDPConfig> createRepeated() => $pb.PbList<UDPConfig>();
-  static UDPConfig getDefault() => _defaultInstance ??= create()..freeze();
-  static UDPConfig _defaultInstance;
+  static PortList create() => PortList();
+  PortList createEmptyInstance() => create();
+  static $pb.PbList<PortList> createRepeated() => $pb.PbList<PortList>();
+  static PortList getDefault() => _defaultInstance ??= create()..freeze();
+  static PortList _defaultInstance;
+
+  $core.List<PortConfig> get portConfigs => $_getList(0);
+}
+
+class SOCKS5Config extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('SOCKS5Config', package: const $pb.PackageName('pb'))
+    ..aOS(1, 'runId')
+    ..a<$core.int>(2, 'port', $pb.PbFieldType.O3)
+    ..aOS(3, 'password')
+    ..aOS(4, 'encType')
+    ..aOS(5, 'description')
+    ..hasRequiredFields = false
+  ;
+
+  SOCKS5Config() : super();
+  SOCKS5Config.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  SOCKS5Config.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  SOCKS5Config clone() => SOCKS5Config()..mergeFromMessage(this);
+  SOCKS5Config copyWith(void Function(SOCKS5Config) updates) => super.copyWith((message) => updates(message as SOCKS5Config));
+  $pb.BuilderInfo get info_ => _i;
+  static SOCKS5Config create() => SOCKS5Config();
+  SOCKS5Config createEmptyInstance() => create();
+  static $pb.PbList<SOCKS5Config> createRepeated() => $pb.PbList<SOCKS5Config>();
+  static SOCKS5Config getDefault() => _defaultInstance ??= create()..freeze();
+  static SOCKS5Config _defaultInstance;
 
   $core.String get runId => $_getS(0, '');
   set runId($core.String v) { $_setString(0, v); }
   $core.bool hasRunId() => $_has(0);
   void clearRunId() => clearField(1);
 
-  $core.String get localIP => $_getS(1, '');
-  set localIP($core.String v) { $_setString(1, v); }
-  $core.bool hasLocalIP() => $_has(1);
-  void clearLocalIP() => clearField(2);
+  $core.int get port => $_get(1, 0);
+  set port($core.int v) { $_setSignedInt32(1, v); }
+  $core.bool hasPort() => $_has(1);
+  void clearPort() => clearField(2);
 
-  $core.int get localProt => $_get(2, 0);
-  set localProt($core.int v) { $_setSignedInt32(2, v); }
-  $core.bool hasLocalProt() => $_has(2);
-  void clearLocalProt() => clearField(3);
+  $core.String get password => $_getS(2, '');
+  set password($core.String v) { $_setString(2, v); }
+  $core.bool hasPassword() => $_has(2);
+  void clearPassword() => clearField(3);
 
-  $core.String get remoteIP => $_getS(3, '');
-  set remoteIP($core.String v) { $_setString(3, v); }
-  $core.bool hasRemoteIP() => $_has(3);
-  void clearRemoteIP() => clearField(4);
+  $core.String get encType => $_getS(3, '');
+  set encType($core.String v) { $_setString(3, v); }
+  $core.bool hasEncType() => $_has(3);
+  void clearEncType() => clearField(4);
 
-  $core.int get remotePort => $_get(4, 0);
-  set remotePort($core.int v) { $_setSignedInt32(4, v); }
-  $core.bool hasRemotePort() => $_has(4);
-  void clearRemotePort() => clearField(5);
+  $core.String get description => $_getS(4, '');
+  set description($core.String v) { $_setString(4, v); }
+  $core.bool hasDescription() => $_has(4);
+  void clearDescription() => clearField(5);
+}
 
-  $core.String get description => $_getS(5, '');
-  set description($core.String v) { $_setString(5, v); }
-  $core.bool hasDescription() => $_has(5);
-  void clearDescription() => clearField(6);
+class SOCKS5List extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('SOCKS5List', package: const $pb.PackageName('pb'))
+    ..pc<SOCKS5Config>(1, 'sOCKS5Configs', $pb.PbFieldType.PM,SOCKS5Config.create)
+    ..hasRequiredFields = false
+  ;
 
-  $core.bool get remotePortStatus => $_get(6, false);
-  set remotePortStatus($core.bool v) { $_setBool(6, v); }
-  $core.bool hasRemotePortStatus() => $_has(6);
-  void clearRemotePortStatus() => clearField(7);
+  SOCKS5List() : super();
+  SOCKS5List.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  SOCKS5List.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  SOCKS5List clone() => SOCKS5List()..mergeFromMessage(this);
+  SOCKS5List copyWith(void Function(SOCKS5List) updates) => super.copyWith((message) => updates(message as SOCKS5List));
+  $pb.BuilderInfo get info_ => _i;
+  static SOCKS5List create() => SOCKS5List();
+  SOCKS5List createEmptyInstance() => create();
+  static $pb.PbList<SOCKS5List> createRepeated() => $pb.PbList<SOCKS5List>();
+  static SOCKS5List getDefault() => _defaultInstance ??= create()..freeze();
+  static SOCKS5List _defaultInstance;
+
+  $core.List<SOCKS5Config> get sOCKS5Configs => $_getList(0);
 }
 
 class HTTPConfig extends $pb.GeneratedMessage {
@@ -278,213 +617,6 @@ class HTTPConfig extends $pb.GeneratedMessage {
   void clearRemotePortStatus() => clearField(9);
 }
 
-class FTPConfig extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FTPConfig', package: const $pb.PackageName('pb'))
-    ..aOS(1, 'runId')
-    ..aOS(2, 'localIP')
-    ..aOS(3, 'iPRewriteSet')
-    ..a<$core.int>(4, 'localProt', $pb.PbFieldType.O3)
-    ..aOS(5, 'remoteIP')
-    ..a<$core.int>(6, 'remotePort', $pb.PbFieldType.O3)
-    ..aOS(7, 'description')
-    ..aOB(8, 'remotePortStatus')
-    ..hasRequiredFields = false
-  ;
-
-  FTPConfig() : super();
-  FTPConfig.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
-  FTPConfig.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
-  FTPConfig clone() => FTPConfig()..mergeFromMessage(this);
-  FTPConfig copyWith(void Function(FTPConfig) updates) => super.copyWith((message) => updates(message as FTPConfig));
-  $pb.BuilderInfo get info_ => _i;
-  static FTPConfig create() => FTPConfig();
-  FTPConfig createEmptyInstance() => create();
-  static $pb.PbList<FTPConfig> createRepeated() => $pb.PbList<FTPConfig>();
-  static FTPConfig getDefault() => _defaultInstance ??= create()..freeze();
-  static FTPConfig _defaultInstance;
-
-  $core.String get runId => $_getS(0, '');
-  set runId($core.String v) { $_setString(0, v); }
-  $core.bool hasRunId() => $_has(0);
-  void clearRunId() => clearField(1);
-
-  $core.String get localIP => $_getS(1, '');
-  set localIP($core.String v) { $_setString(1, v); }
-  $core.bool hasLocalIP() => $_has(1);
-  void clearLocalIP() => clearField(2);
-
-  $core.String get iPRewriteSet => $_getS(2, '');
-  set iPRewriteSet($core.String v) { $_setString(2, v); }
-  $core.bool hasIPRewriteSet() => $_has(2);
-  void clearIPRewriteSet() => clearField(3);
-
-  $core.int get localProt => $_get(3, 0);
-  set localProt($core.int v) { $_setSignedInt32(3, v); }
-  $core.bool hasLocalProt() => $_has(3);
-  void clearLocalProt() => clearField(4);
-
-  $core.String get remoteIP => $_getS(4, '');
-  set remoteIP($core.String v) { $_setString(4, v); }
-  $core.bool hasRemoteIP() => $_has(4);
-  void clearRemoteIP() => clearField(5);
-
-  $core.int get remotePort => $_get(5, 0);
-  set remotePort($core.int v) { $_setSignedInt32(5, v); }
-  $core.bool hasRemotePort() => $_has(5);
-  void clearRemotePort() => clearField(6);
-
-  $core.String get description => $_getS(6, '');
-  set description($core.String v) { $_setString(6, v); }
-  $core.bool hasDescription() => $_has(6);
-  void clearDescription() => clearField(7);
-
-  $core.bool get remotePortStatus => $_get(7, false);
-  set remotePortStatus($core.bool v) { $_setBool(7, v); }
-  $core.bool hasRemotePortStatus() => $_has(7);
-  void clearRemotePortStatus() => clearField(8);
-}
-
-class SOCKS5Config extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('SOCKS5Config', package: const $pb.PackageName('pb'))
-    ..aOS(1, 'runId')
-    ..a<$core.int>(2, 'port', $pb.PbFieldType.O3)
-    ..aOS(3, 'password')
-    ..aOS(4, 'encType')
-    ..aOS(5, 'description')
-    ..hasRequiredFields = false
-  ;
-
-  SOCKS5Config() : super();
-  SOCKS5Config.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
-  SOCKS5Config.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
-  SOCKS5Config clone() => SOCKS5Config()..mergeFromMessage(this);
-  SOCKS5Config copyWith(void Function(SOCKS5Config) updates) => super.copyWith((message) => updates(message as SOCKS5Config));
-  $pb.BuilderInfo get info_ => _i;
-  static SOCKS5Config create() => SOCKS5Config();
-  SOCKS5Config createEmptyInstance() => create();
-  static $pb.PbList<SOCKS5Config> createRepeated() => $pb.PbList<SOCKS5Config>();
-  static SOCKS5Config getDefault() => _defaultInstance ??= create()..freeze();
-  static SOCKS5Config _defaultInstance;
-
-  $core.String get runId => $_getS(0, '');
-  set runId($core.String v) { $_setString(0, v); }
-  $core.bool hasRunId() => $_has(0);
-  void clearRunId() => clearField(1);
-
-  $core.int get port => $_get(1, 0);
-  set port($core.int v) { $_setSignedInt32(1, v); }
-  $core.bool hasPort() => $_has(1);
-  void clearPort() => clearField(2);
-
-  $core.String get password => $_getS(2, '');
-  set password($core.String v) { $_setString(2, v); }
-  $core.bool hasPassword() => $_has(2);
-  void clearPassword() => clearField(3);
-
-  $core.String get encType => $_getS(3, '');
-  set encType($core.String v) { $_setString(3, v); }
-  $core.bool hasEncType() => $_has(3);
-  void clearEncType() => clearField(4);
-
-  $core.String get description => $_getS(4, '');
-  set description($core.String v) { $_setString(4, v); }
-  $core.bool hasDescription() => $_has(4);
-  void clearDescription() => clearField(5);
-}
-
-class OpResult extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('OpResult', package: const $pb.PackageName('pb'))
-    ..aOS(1, 'code')
-    ..aOS(2, 'message')
-    ..hasRequiredFields = false
-  ;
-
-  OpResult() : super();
-  OpResult.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
-  OpResult.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
-  OpResult clone() => OpResult()..mergeFromMessage(this);
-  OpResult copyWith(void Function(OpResult) updates) => super.copyWith((message) => updates(message as OpResult));
-  $pb.BuilderInfo get info_ => _i;
-  static OpResult create() => OpResult();
-  OpResult createEmptyInstance() => create();
-  static $pb.PbList<OpResult> createRepeated() => $pb.PbList<OpResult>();
-  static OpResult getDefault() => _defaultInstance ??= create()..freeze();
-  static OpResult _defaultInstance;
-
-  $core.String get code => $_getS(0, '');
-  set code($core.String v) { $_setString(0, v); }
-  $core.bool hasCode() => $_has(0);
-  void clearCode() => clearField(1);
-
-  $core.String get message => $_getS(1, '');
-  set message($core.String v) { $_setString(1, v); }
-  $core.bool hasMessage() => $_has(1);
-  void clearMessage() => clearField(2);
-}
-
-class SessionList extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('SessionList', package: const $pb.PackageName('pb'))
-    ..pc<SessionConfig>(1, 'sessionConfigs', $pb.PbFieldType.PM,SessionConfig.create)
-    ..hasRequiredFields = false
-  ;
-
-  SessionList() : super();
-  SessionList.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
-  SessionList.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
-  SessionList clone() => SessionList()..mergeFromMessage(this);
-  SessionList copyWith(void Function(SessionList) updates) => super.copyWith((message) => updates(message as SessionList));
-  $pb.BuilderInfo get info_ => _i;
-  static SessionList create() => SessionList();
-  SessionList createEmptyInstance() => create();
-  static $pb.PbList<SessionList> createRepeated() => $pb.PbList<SessionList>();
-  static SessionList getDefault() => _defaultInstance ??= create()..freeze();
-  static SessionList _defaultInstance;
-
-  $core.List<SessionConfig> get sessionConfigs => $_getList(0);
-}
-
-class TCPList extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('TCPList', package: const $pb.PackageName('pb'))
-    ..pc<TCPConfig>(1, 'tCPConfigs', $pb.PbFieldType.PM,TCPConfig.create)
-    ..hasRequiredFields = false
-  ;
-
-  TCPList() : super();
-  TCPList.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
-  TCPList.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
-  TCPList clone() => TCPList()..mergeFromMessage(this);
-  TCPList copyWith(void Function(TCPList) updates) => super.copyWith((message) => updates(message as TCPList));
-  $pb.BuilderInfo get info_ => _i;
-  static TCPList create() => TCPList();
-  TCPList createEmptyInstance() => create();
-  static $pb.PbList<TCPList> createRepeated() => $pb.PbList<TCPList>();
-  static TCPList getDefault() => _defaultInstance ??= create()..freeze();
-  static TCPList _defaultInstance;
-
-  $core.List<TCPConfig> get tCPConfigs => $_getList(0);
-}
-
-class UDPList extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UDPList', package: const $pb.PackageName('pb'))
-    ..pc<UDPConfig>(1, 'uDPConfigs', $pb.PbFieldType.PM,UDPConfig.create)
-    ..hasRequiredFields = false
-  ;
-
-  UDPList() : super();
-  UDPList.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
-  UDPList.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
-  UDPList clone() => UDPList()..mergeFromMessage(this);
-  UDPList copyWith(void Function(UDPList) updates) => super.copyWith((message) => updates(message as UDPList));
-  $pb.BuilderInfo get info_ => _i;
-  static UDPList create() => UDPList();
-  UDPList createEmptyInstance() => create();
-  static $pb.PbList<UDPList> createRepeated() => $pb.PbList<UDPList>();
-  static UDPList getDefault() => _defaultInstance ??= create()..freeze();
-  static UDPList _defaultInstance;
-
-  $core.List<UDPConfig> get uDPConfigs => $_getList(0);
-}
-
 class HTTPList extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('HTTPList', package: const $pb.PackageName('pb'))
     ..pc<HTTPConfig>(1, 'hTTPConfigs', $pb.PbFieldType.PM,HTTPConfig.create)
@@ -506,63 +638,24 @@ class HTTPList extends $pb.GeneratedMessage {
   $core.List<HTTPConfig> get hTTPConfigs => $_getList(0);
 }
 
-class FTPList extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FTPList', package: const $pb.PackageName('pb'))
-    ..pc<FTPConfig>(1, 'fTPConfigs', $pb.PbFieldType.PM,FTPConfig.create)
+class MDNSServiceList extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('MDNSServiceList', package: const $pb.PackageName('pb'))
+    ..pc<MDNSService>(1, 'mDNSServices', $pb.PbFieldType.PM,MDNSService.create)
     ..hasRequiredFields = false
   ;
 
-  FTPList() : super();
-  FTPList.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
-  FTPList.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
-  FTPList clone() => FTPList()..mergeFromMessage(this);
-  FTPList copyWith(void Function(FTPList) updates) => super.copyWith((message) => updates(message as FTPList));
+  MDNSServiceList() : super();
+  MDNSServiceList.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  MDNSServiceList.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  MDNSServiceList clone() => MDNSServiceList()..mergeFromMessage(this);
+  MDNSServiceList copyWith(void Function(MDNSServiceList) updates) => super.copyWith((message) => updates(message as MDNSServiceList));
   $pb.BuilderInfo get info_ => _i;
-  static FTPList create() => FTPList();
-  FTPList createEmptyInstance() => create();
-  static $pb.PbList<FTPList> createRepeated() => $pb.PbList<FTPList>();
-  static FTPList getDefault() => _defaultInstance ??= create()..freeze();
-  static FTPList _defaultInstance;
+  static MDNSServiceList create() => MDNSServiceList();
+  MDNSServiceList createEmptyInstance() => create();
+  static $pb.PbList<MDNSServiceList> createRepeated() => $pb.PbList<MDNSServiceList>();
+  static MDNSServiceList getDefault() => _defaultInstance ??= create()..freeze();
+  static MDNSServiceList _defaultInstance;
 
-  $core.List<FTPConfig> get fTPConfigs => $_getList(0);
-}
-
-class SOCKS5List extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('SOCKS5List', package: const $pb.PackageName('pb'))
-    ..pc<SOCKS5Config>(1, 'sOCKS5Configs', $pb.PbFieldType.PM,SOCKS5Config.create)
-    ..hasRequiredFields = false
-  ;
-
-  SOCKS5List() : super();
-  SOCKS5List.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
-  SOCKS5List.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
-  SOCKS5List clone() => SOCKS5List()..mergeFromMessage(this);
-  SOCKS5List copyWith(void Function(SOCKS5List) updates) => super.copyWith((message) => updates(message as SOCKS5List));
-  $pb.BuilderInfo get info_ => _i;
-  static SOCKS5List create() => SOCKS5List();
-  SOCKS5List createEmptyInstance() => create();
-  static $pb.PbList<SOCKS5List> createRepeated() => $pb.PbList<SOCKS5List>();
-  static SOCKS5List getDefault() => _defaultInstance ??= create()..freeze();
-  static SOCKS5List _defaultInstance;
-
-  $core.List<SOCKS5Config> get sOCKS5Configs => $_getList(0);
-}
-
-class Empty extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('Empty', package: const $pb.PackageName('pb'))
-    ..hasRequiredFields = false
-  ;
-
-  Empty() : super();
-  Empty.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
-  Empty.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
-  Empty clone() => Empty()..mergeFromMessage(this);
-  Empty copyWith(void Function(Empty) updates) => super.copyWith((message) => updates(message as Empty));
-  $pb.BuilderInfo get info_ => _i;
-  static Empty create() => Empty();
-  Empty createEmptyInstance() => create();
-  static $pb.PbList<Empty> createRepeated() => $pb.PbList<Empty>();
-  static Empty getDefault() => _defaultInstance ??= create()..freeze();
-  static Empty _defaultInstance;
+  $core.List<MDNSService> get mDNSServices => $_getList(0);
 }
 
