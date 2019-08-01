@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:nat_explorer/pages/device/commonDevice/commonDeviceListPage.dart';
+import 'package:nat_explorer/pages/device/iotDevice/iotDeviceListPage.dart';
 import 'package:nat_explorer/pages/device/miioGatewayDevice/miioGatewayDeviceListPage.dart';
 
 class DiscoveryPage extends StatelessWidget {
@@ -21,7 +22,7 @@ class DiscoveryPage extends StatelessWidget {
     "assets/images/ic_discover_nearby.png",
     "assets/images/ic_discover_pos.png",
   ];
-  final titles = ["普通设备", "小米网关"];
+  final titles = ["普通设备", "物联网设备", "小米网关"];
   final rightArrowIcon = Image.asset(
     'assets/images/ic_arrow_right.png',
     width: ARROW_ICON_WIDTH,
@@ -37,11 +38,15 @@ class DiscoveryPage extends StatelessWidget {
   initData() {
     listData.add(TAG_START);
     listData.add(ListItem(title: titles[0], icon: imagePaths[0]));
-//    listData.add(TAG_CENTER);
+    listData.add(TAG_CENTER);
+//    listData.add(TAG_END);
+//    listData.add(TAG_BLANK);
+//    listData.add(TAG_START);
+    listData.add(ListItem(title: titles[1], icon: imagePaths[0]));
     listData.add(TAG_END);
     listData.add(TAG_BLANK);
     listData.add(TAG_START);
-    listData.add(ListItem(title: titles[1], icon: imagePaths[1]));
+    listData.add(ListItem(title: titles[2], icon: imagePaths[0]));
     listData.add(TAG_END);
   }
 
@@ -111,9 +116,15 @@ class DiscoveryPage extends StatelessWidget {
       Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
         return CommonDeviceListPage(title: "设备列表");
       }));
-    } else if (title == "小米网关") {
+    }
+    else if (title == "小米网关") {
       Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
         return MiioGatewayDeviceListPage(title: "设备列表");
+      }));
+    }
+    else if (title == "物联网设备") {
+      Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
+        return IoTDeviceListPage(title:"物联网设备列表");
       }));
     }
   }
