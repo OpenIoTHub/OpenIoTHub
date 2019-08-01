@@ -1,17 +1,26 @@
 # 安卓访问端
 ###### 与其它版本兼容
 下载地址：https://github.com/nat-cloud/android-explorer/releases
-内网生成访问码工具的下载地址：
-  安卓版：https://github.com/nat-cloud/android-client/releases
-  其他版本：https://github.com/nat-cloud/client/releases
-A new Flutter application of natcloud explorer.
-![image](https://github.com/nat-cloud/android-explorer/blob/master/screen/%E5%86%85%E7%BD%91.png?raw=true)
-![image](https://github.com/nat-cloud/android-explorer/blob/master/screen/%E5%86%85%E7%BD%91%E8%AF%A6%E6%83%85.png?raw=true)
-![image](https://github.com/nat-cloud/android-explorer/blob/master/screen/tcp%E5%88%97%E8%A1%A8.png?raw=true)
-![image](https://github.com/nat-cloud/android-explorer/blob/master/screen/tcp%E8%AF%A6%E6%83%85.png?raw=true)
-![image](https://github.com/nat-cloud/android-explorer/blob/master/screen/httpView.png?raw=true)
-![image](https://github.com/nat-cloud/android-explorer/blob/master/screen/ftp%E8%AF%A6%E6%83%85.png?raw=true)
-![image](https://github.com/nat-cloud/android-explorer/blob/master/screen/%E6%B7%BB%E5%8A%A0%20socks5%E6%9C%8D%E5%8A%A1%E5%99%A8.png?raw=true)
+内网生成访问码工具的下载地址:  
+  * 安卓版：https://github.com/nat-cloud/android-client/releases  
+  * 其他版本：https://github.com/nat-cloud/client/releases  
+#### A new Flutter application of natcloud explorer.  
+  * 远程网络列表
+![image](https://github.com/nat-cloud/android-explorer/blob/IoT/screen/远程网络列表.png?raw=true)
+  * 内网由mDNS声明的服务
+![image](https://github.com/nat-cloud/android-explorer/blob/IoT/screen/内网由mDNS声明的服务.png?raw=true)
+  * 设备管理器
+![image](https://github.com/nat-cloud/android-explorer/blob/IoT/screen/设备管理器.png?raw=true)
+  * 设备列表
+![image](https://github.com/nat-cloud/android-explorer/blob/IoT/screen/设备列表.png?raw=true)
+  * 普通设备的服务
+![image](https://github.com/nat-cloud/android-explorer/blob/IoT/screen/普通设备的服务.png?raw=true)
+  * 普通设备的TCP服务
+![image](https://github.com/nat-cloud/android-explorer/blob/IoT/screen/普通设备的TCP服务.png?raw=true)
+  * TCP端口打开方式
+![image](https://github.com/nat-cloud/android-explorer/blob/IoT/screen/TCP端口打开方式.png?raw=true)
+  * 我
+![image](https://github.com/nat-cloud/android-explorer/blob/IoT/screen/我.png?raw=true)
 
 ## Getting Started
 
