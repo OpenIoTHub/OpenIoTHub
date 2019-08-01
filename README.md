@@ -1,10 +1,10 @@
 # 安卓访问端
 ###### 与其它版本兼容
 下载地址：https://github.com/nat-cloud/android-explorer/releases
-内网生成访问码工具的下载地址：
-  安卓版：https://github.com/nat-cloud/android-client/releases
-  其他版本：https://github.com/nat-cloud/client/releases
-A new Flutter application of natcloud explorer.
+内网生成访问码工具的下载地址:  
+  * 安卓版：https://github.com/nat-cloud/android-client/releases  
+  * 其他版本：https://github.com/nat-cloud/client/releases  
+A new Flutter application of natcloud explorer.  
 ![image](https://github.com/nat-cloud/android-explorer/blob/master/screen/%E5%86%85%E7%BD%91.png?raw=true)
 ![image](https://github.com/nat-cloud/android-explorer/blob/master/screen/%E5%86%85%E7%BD%91%E8%AF%A6%E6%83%85.png?raw=true)
 ![image](https://github.com/nat-cloud/android-explorer/blob/master/screen/tcp%E5%88%97%E8%A1%A8.png?raw=true)
