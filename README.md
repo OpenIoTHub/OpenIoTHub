@@ -1,7 +1,7 @@
 # 安卓访问端
 ###### 与其它版本兼容
 #### 下载地址：
-  *https://github.com/nat-cloud/android-explorer/releases
+  * https://github.com/nat-cloud/android-explorer/releases
 #### 内网生成访问码工具的下载地址:  
   * 安卓版：https://github.com/nat-cloud/android-client/releases  
   * 其他版本：https://github.com/nat-cloud/client/releases  
