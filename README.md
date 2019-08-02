@@ -6,7 +6,7 @@
   * 其他版本：https://github.com/nat-cloud/client/releases  
 #### A new Flutter application of natcloud explorer.  
   * 远程网络列表
-![image](./screen/远程网络列表.png?raw=true)
+![image](./screen/远程网络列表.png)
   * 内网由mDNS声明的服务
 ![image](https://github.com/nat-cloud/android-explorer/blob/IoT/screen/内网由mDNS声明的服务.png?raw=true)
   * 设备管理器
