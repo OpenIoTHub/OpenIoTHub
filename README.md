@@ -1,9 +1,22 @@
 # 安卓访问端
 ###### 与其它版本兼容
-下载地址：https://github.com/nat-cloud/android-explorer/releases
-内网生成访问码工具的下载地址:  
+#### 下载地址：
+  *https://github.com/nat-cloud/android-explorer/releases
+#### 内网生成访问码工具的下载地址:  
   * 安卓版：https://github.com/nat-cloud/android-client/releases  
   * 其他版本：https://github.com/nat-cloud/client/releases  
+#### 支持的功能：
+- [x] 1.支持搜索内网端
+- [x] 2.支持配置保存，下一次启动直接加载之前的旧配置
+- [x] 3.支持直接打开内网的网站端口
+- [x] 4.支持直接使用内网的aria2离线下载
+- [x] 5.支持直接访问内网的ssh的终端
+- [x] 6.支持通过内网ssh访问机器的文件（上传下载）
+- [x] 7.支持直接打开内网机器的vnc桌面
+- [x] 8.支持调用手机RD Client打开内网windows的桌面
+- [x] 9.支持映射ftp协议
+- [x] 10.网络开机（WOL）
+- [ ] 11.直接备份通讯录到私有云
 #### A new Flutter application of natcloud explorer.  
   * 远程网络列表
 ![image](./screen/远程网络列表.png)
