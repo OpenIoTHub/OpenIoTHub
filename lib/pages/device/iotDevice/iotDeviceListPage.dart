@@ -116,7 +116,7 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
             for(int j=0; j<t.portConfigs.length; j++) {
               //  是否是iotdevice
               if (t.portConfigs[j].description.contains("_iotdevice.")){
-                // TODO 是否含有/info
+                // TODO 是否含有/info，将portConfig里面的description换成、info中的name（这个name由设备管理）
                 setState(() {
                   _IoTDeviceList.add(t.portConfigs[j]);
                 });
