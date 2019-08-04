@@ -25,15 +25,13 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
     height: ARROW_ICON_WIDTH,
   );
   List<SessionConfig> _SessionList = [];
-  List<Device> _IoTDeviceList = [];
+  List<PortConfig> _IoTDeviceList = [];
 
   @override
   void initState() {
     super.initState();
-    getAllCommonDevice().then((v) {
-      setState(() {});
-    });
-    print("init common devie List");
+    getAllIoTDevice();
+    print("init iot devie List");
   }
 
   @override
@@ -76,138 +74,25 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  getAllCommonDevice().then((v) {
-                    setState(() {});
-                  });
-                }),
-            IconButton(
-                icon: Icon(
-                  Icons.add_circle,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  getAllSession().then((v) {
-                    final titles = _SessionList.map(
-                      (pair) {
-                        var listItemContent = Padding(
-                          padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
-                          child: Row(
-                            children: <Widget>[
-                              Icon(Icons.cloud_done),
-                              Expanded(
-                                  child: Text(
-                                    pair.description,
-                                    style: titleTextStyle,
-                                  )),
-                              rightArrowIcon
-                            ],
-                          ),
-                        );
-                        return InkWell(
-                          onTap: () {
-                              _addDevice(pair).then((v) {
-                                Navigator.of(context).pop();
-                              });
-                          },
-                          child: listItemContent,
-                        );
-                      },
-                    );
-                    final divided = ListTile.divideTiles(
-                      context: context,
-                      tiles: titles,
-                    ).toList();
-                    showDialog(
-                        context: context,
-                        builder: (_) => AlertDialog(
-                                title: Text("选择一个内网："),
-                                content: ListView(
-                                  children: divided,
-                                ),
-                                actions: <Widget>[
-                                  FlatButton(
-                                    child: Text("取消"),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                  )
-                                ])).then((v) {
-                      getAllCommonDevice().then((v) {
-                        setState(() {});
-                      });
-                    });
-                  });
+                  refreshmDNSServices();
                 }),
           ],
         ),
         body: ListView(children: divided));
   }
 
-  Future _addDevice(SessionConfig config) async {
-    TextEditingController _description_controller =
-        TextEditingController.fromValue(TextEditingValue(text: "内网端机器"));
-    TextEditingController _remote_ip_controller =
-        TextEditingController.fromValue(TextEditingValue(text: "127.0.0.1"));
-    return showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-                title: Text("添加设备："),
-                content: ListView(
-                  children: <Widget>[
-                    TextFormField(
-                      controller: _description_controller,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
-                        labelText: '备注',
-                        helperText: '自定义备注',
-                      ),
-                    ),
-                    TextFormField(
-                      controller: _remote_ip_controller,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
-                        labelText: '远程内网的IP',
-                        helperText: '内网设备的IP',
-                      ),
-                    ),
-                  ],
-                ),
-                actions: <Widget>[
-                  FlatButton(
-                    child: Text("取消"),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                  FlatButton(
-                    child: Text("添加"),
-                    onPressed: () {
-                      var device = Device();
-                      device.runId = config.runId;
-                      device.description = _description_controller.text;
-                      device.addr =_remote_ip_controller.text;
-                      createOneCommonDevice(device).then((v){
-                        getAllCommonDevice().then((v){
-                          Navigator.of(context).pop();
-                        });
-                      });
-                    },
-                  )
-                ]));
-  }
-
-  void _pushDeviceServiceTypes(Device device) async {
-  // 查看设备下的服务 CommonDeviceServiceTypesList
+  void _pushDeviceServiceTypes(PortConfig device) async {
+  // 查看设备的UI，1.native，2.web
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
           // 写成独立的组件，支持刷新
-          return Text('具体设备的操作界面');
+          return Text(device.toString());
         },
       ),
     ).then((result) {
       setState(() {
-        getAllSession();
+        getAllIoTDevice();
       });
     });
   }
@@ -216,51 +101,35 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
     try {
       final response = await SessionApi.getAllSession();
       print('Greeter client received: ${response.sessionConfigs}');
-      setState(() {
-        _SessionList = response.sessionConfigs;
-      });
+      return response.sessionConfigs;
     } catch (e) {
       print('Caught error: $e');
     }
   }
 
-  Future createOneCommonDevice(Device device) async {
+  Future getAllIoTDevice() async {
+    // TODO 从各内网筛选出当前已经映射的mDNS服务中是物联网设备的，注意通过api刷新mDNS服务
     try {
-      await CommonDeviceApi.createOneDevice(device);
-    }catch (e) {
-      showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-              title: Text("创建设备失败："),
-              content: Text("失败原因：$e"),
-              actions: <Widget>[
-                FlatButton(
-                  child: Text("取消"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-                FlatButton(
-                  child: Text("确认"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                )
-              ]));
-    }
-  }
-
-  Future getAllCommonDevice() async {
-    try {
-      final response = await CommonDeviceApi.getAllDevice();
-      setState(() {
-        _IoTDeviceList = response.devices;
+      getAllSession().then((s){
+        for(int i=0; i<s.length; i++) {
+          SessionApi.getAllTCP(s[i]).then((t) {
+            for(int j=0; j<t.portConfigs.length; j++) {
+              //  是否是iotdevice
+              if (t.portConfigs[j].description.contains("_iotdevice.")){
+                // TODO 是否含有/info
+                setState(() {
+                  _IoTDeviceList.add(t.portConfigs[j]);
+                });
+              }
+            }
+          });
+        }
       });
     } catch (e) {
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
-                  title: Text("获取内网列表失败："),
+                  title: Text("获取物联网列表失败："),
                   content: Text("失败原因：$e"),
                   actions: <Widget>[
                     FlatButton(
@@ -276,6 +145,20 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
                       },
                     )
                   ]));
+    }
+  }
+
+  Future refreshmDNSServices() async {
+    try {
+      getAllSession().then((s){
+        for(int i=0; i<s.length; i++) {
+          SessionApi.refreshmDNSServices(s[i]);
+        }
+      }).then((_){
+        getAllIoTDevice();
+      });
+    } catch (e) {
+      print('Caught error: $e');
     }
   }
 
