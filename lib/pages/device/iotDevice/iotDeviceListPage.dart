@@ -21,6 +21,7 @@ class IoTDeviceListPage extends StatefulWidget {
 }
 
 class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
+  Utf8Decoder u8decodeer = Utf8Decoder();
   static const double ARROW_ICON_WIDTH = 16.0;
   final titleTextStyle = TextStyle(fontSize: 16.0);
   final rightArrowIcon = Image.asset(
@@ -196,7 +197,7 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
       return;
     }
     if (response.statusCode == 200) {
-      portConfig.description = jsonDecode(response.body)["name"];
+      portConfig.description = jsonDecode(u8decodeer.convert(response.bodyBytes))["name"];
       setState(() {
         _IoTDeviceList.add(
             IoTDevice(portConfig: portConfig, response: response));

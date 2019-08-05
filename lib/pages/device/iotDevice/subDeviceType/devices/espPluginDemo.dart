@@ -15,6 +15,7 @@ class EspPluginDemoPage extends StatefulWidget {
 }
 
 class _EspPluginDemoPageState extends State<EspPluginDemoPage> {
+  Utf8Decoder u8decodeer = Utf8Decoder();
   static const Color onColor = Colors.green;
   static const Color offColor = Colors.red;
   bool ledBottonStatus = false;
@@ -99,16 +100,53 @@ class _EspPluginDemoPageState extends State<EspPluginDemoPage> {
 
   _setting() async {
     // TODO 设备设置
+    TextEditingController _name_controller =
+    TextEditingController.fromValue(TextEditingValue(text: jsonDecode(widget.device.response.body)["name"]));
+    return showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+            title: Text("设置名称："),
+            content: ListView(
+              children: <Widget>[
+                TextFormField(
+                  controller: _name_controller,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(10.0),
+                    labelText: '名称',
+                  ),
+                )
+              ],
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text("取消"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              FlatButton(
+                child: Text("修改"),
+                onPressed: () async {
+                  try{
+                    String url = "http://${Config.webgRpcIp}:${widget.device.portConfig.localProt}/rename?name=${_name_controller.text}";
+                    await http.get(url).timeout(const Duration(seconds: 2));
+                  }catch(e){
+                    print(e.toString());
+                    return;
+                  }
+                },
+              )
+            ]));
   }
 
   _info() async {
     // TODO 设备信息
     final List _result = [];
-    _result.add("设备名称:${jsonDecode(widget.device.response.body)["name"]}");
+    _result.add("设备名称:${jsonDecode(u8decodeer.convert(widget.device.response.bodyBytes))["name"]}");
     _result.add("设备型号:${jsonDecode(widget.device.response.body)["model"]}");
     _result.add("支持的界面:${jsonDecode(widget.device.response.body)["ui-support"]}");
     _result.add("首选界面:${jsonDecode(widget.device.response.body)["ui-first"]}");
-    _result.add("固件作者:${jsonDecode(widget.device.response.body)["author"]}");
+    _result.add("固件作者:${jsonDecode(u8decodeer.convert(widget.device.response.bodyBytes))["author"]}");
     _result.add("邮件:${jsonDecode(widget.device.response.body)["email"]}");
     _result.add("主页:${jsonDecode(widget.device.response.body)["home-page"]}");
     _result.add("固件程序:${jsonDecode(widget.device.response.body)["firmware-respository"]}");
