@@ -1,6 +1,7 @@
 import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:nat_explorer/constants/Config.dart';
 import 'package:nat_explorer/pages/openWithChoice/sshWeb/SSHWebPage.dart';
 import 'package:nat_explorer/pages/openWithChoice/vncWeb/VNCWebPage.dart';
 import 'package:nat_explorer/pages/openWithChoice/aria2/Aria2Page.dart';
@@ -183,7 +184,7 @@ class OpenWithChoice extends StatelessWidget {
           } else if (title == 'Web') {
             Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
               return WebviewScaffold(
-                url: "http://127.0.0.1:${portConfig.localProt}",
+                url: "http://${Config.webgRpcIp}:${portConfig.localProt}",
                 appBar: new AppBar(title: new Text("网页浏览器"), actions: <Widget>[
                   IconButton(
                       icon: Icon(
@@ -191,7 +192,7 @@ class OpenWithChoice extends StatelessWidget {
                         color: Colors.white,
                       ),
                       onPressed: () {
-                        _launchURL("http://127.0.0.1:${portConfig.localProt}");
+                        _launchURL("http://${Config.webgRpcIp}:${portConfig.localProt}");
                       })
                 ]),
               );
@@ -200,7 +201,7 @@ class OpenWithChoice extends StatelessWidget {
             });
           } else if (title == 'RDP远程桌面') {
             var url =
-                'rdp://full%20address=s:127.0.0.1:${portConfig.localProt}&audiomode=i:2&disable%20themes=i:1';
+                'rdp://full%20address=s:${Config.webgRpcIp}:${portConfig.localProt}&audiomode=i:2&disable%20themes=i:1';
             _launchURL(url).then((_) {
               Navigator.of(ctx).pop();
             });

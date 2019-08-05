@@ -2,6 +2,7 @@ import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:nat_explorer/api/CommonDeviceApi.dart';
+import 'package:nat_explorer/constants/Config.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
@@ -137,7 +138,7 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
                   ),
                   onPressed: () {
                     //                TODO 使用某种方式打开此端口，检查这个软件是否已经安装
-                    _launchURL("ftp://127.0.0.1:${config.localProt}");
+                    _launchURL("ftp://${Config.webgRpcIp}:${config.localProt}");
                   }),
             ]),
             body: ListView(children: divided),

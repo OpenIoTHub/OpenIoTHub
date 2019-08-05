@@ -68,7 +68,7 @@ class Aria2PageState extends State<Aria2Page> {
     return WebviewScaffold(
       key: _scaffoldKey,
       url:
-          "http://127.0.0.1:${Config.webStaticPort}/web/open/aria2/index.html", // 登录的URL
+          "http://${Config.webStaticIp}:${Config.webStaticPort}/web/open/aria2/index.html", // 登录的URL
       withZoom: true, // 允许网页缩放
       withLocalStorage: true, // 允许LocalStorage
       withJavascript: true, // 允许执行js代码

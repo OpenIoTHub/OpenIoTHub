@@ -98,7 +98,7 @@ class SSHWebPageState extends State<SSHWebPage> {
       ),
       key: _scaffoldKey,
       url:
-          "http://127.0.0.1:${Config.webStaticPort}/web/open/ssh/index.html", // 登录的URL
+          "http://${Config.webgRpcIp}:${Config.webStaticPort}/web/open/ssh/index.html", // 登录的URL
       withZoom: true, // 允许网页缩放
       withLocalStorage: true, // 允许LocalStorage
       withJavascript: true, // 允许执行js代码
@@ -126,7 +126,7 @@ class SSHWebPageState extends State<SSHWebPage> {
 //    );
 
     Connection _connection = Connection();
-    _connection.address = "127.0.0.1";
+    _connection.address = "${Config.webgRpcIp}";
     _connection.port = '${widget.localPort}';
     _connection.username = widget.userName;
     _connection.passwordOrKey = widget.passWord;

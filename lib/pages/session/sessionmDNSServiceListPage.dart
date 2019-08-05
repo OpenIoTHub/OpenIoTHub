@@ -1,6 +1,7 @@
 import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:nat_explorer/constants/Config.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
@@ -62,7 +63,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
             Navigator.of(context)
                 .push(new MaterialPageRoute(builder: (context) {
               return WebviewScaffold(
-                url: "http://127.0.0.1:${pair.localProt}",
+                url: "http://${Config.webgRpcIp}:${pair.localProt}",
                 appBar: new AppBar(title: new Text("网页浏览器"), actions: <Widget>[
                   IconButton(
                       icon: Icon(
@@ -70,7 +71,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                         color: Colors.white,
                       ),
                       onPressed: () {
-                        _launchURL("http://127.0.0.1:${pair.localProt}");
+                        _launchURL("http://${Config.webgRpcIp}:${pair.localProt}");
                       })
                 ]),
               );

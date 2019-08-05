@@ -103,6 +103,42 @@ class _EspPluginDemoPageState extends State<EspPluginDemoPage> {
 
   _info() async {
     // TODO 设备信息
+    final List _result = [];
+    _result.add("设备名称:${jsonDecode(widget.device.response.body)["name"]}");
+    _result.add("设备型号:${jsonDecode(widget.device.response.body)["model"]}");
+    _result.add("支持的界面:${jsonDecode(widget.device.response.body)["ui-support"]}");
+    _result.add("首选界面:${jsonDecode(widget.device.response.body)["ui-first"]}");
+    _result.add("固件作者:${jsonDecode(widget.device.response.body)["author"]}");
+    _result.add("邮件:${jsonDecode(widget.device.response.body)["email"]}");
+    _result.add("主页:${jsonDecode(widget.device.response.body)["home-page"]}");
+    _result.add("固件程序:${jsonDecode(widget.device.response.body)["firmware-respository"]}");
+    _result.add("固件版本:${jsonDecode(widget.device.response.body)["firmware-version"]}");
+    await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) {
+          final tiles = _result.map(
+                (pair) {
+              return ListTile(
+                title: Text(
+                  pair,
+                ),
+              );
+            },
+          );
+          final divided = ListTile.divideTiles(
+            context: context,
+            tiles: tiles,
+          ).toList();
+
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('设备信息'),
+            ),
+            body: ListView(children: divided),
+          );
+        },
+      ),
+    );
   }
 
   _changeSwitchStatus() async {

@@ -120,9 +120,9 @@ class DiscoveryPage extends StatelessWidget {
       Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
         return MiioGatewayDeviceListPage(title: "设备列表");
       }));
-    } else if (title == "物联网设备") {
+    } else if (title == "智能设备") {
       Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
-        return IoTDeviceListPage(title: "物联网设备列表");
+        return IoTDeviceListPage(title: "智能设备列表");
       }));
     }
   }

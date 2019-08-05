@@ -215,7 +215,7 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
   _openWithWeb(IoTDevice device) async {
     Navigator.push(context, MaterialPageRoute(builder: (ctx) {
       return WebviewScaffold(
-        url: "http://127.0.0.1:${device.portConfig.localProt}",
+        url: "http://${Config.webgRpcIp}:${device.portConfig.localProt}",
         appBar: new AppBar(title: new Text("网页浏览器"), actions: <Widget>[
           IconButton(
               icon: Icon(
@@ -223,7 +223,7 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
                 color: Colors.white,
               ),
               onPressed: () {
-                _launchURL("http://127.0.0.1:${device.portConfig.localProt}");
+                _launchURL("http://${Config.webgRpcIp}:${device.portConfig.localProt}");
               })
         ]),
       );
