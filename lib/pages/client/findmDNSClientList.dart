@@ -45,7 +45,7 @@ class _FindmDNSClientListPageState extends State<FindmDNSClientListPage> {
               ),
               Expanded(
                   child: Text(
-                    '${pair.name}@${pair.iP}:${pair.port}',
+                '${pair.name}@${pair.iP}:${pair.port}',
                 style: _biggerFont,
               )),
               rightArrowIcon
@@ -55,12 +55,10 @@ class _FindmDNSClientListPageState extends State<FindmDNSClientListPage> {
         return InkWell(
           onTap: () {
             //直接打开内置web浏览器浏览页面
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
 //              return Text("${pair.iP}:${pair.port}");
-              return SetClient(ip:pair.iP,port:pair.port);
-            }
-            ));
+              return SetClient(ip: pair.iP, port: pair.port);
+            }));
           },
           child: listItemContent,
         );
@@ -92,8 +90,8 @@ class _FindmDNSClientListPageState extends State<FindmDNSClientListPage> {
     MDNSService config = MDNSService();
 //    config.name = '_nat-cloud-client._tcp';
     config.name = discovery_service;
-      UtilApi.getAllmDNSServiceList(config).then((v){
-        setState(() {
+    UtilApi.getAllmDNSServiceList(config).then((v) {
+      setState(() {
         _ServiceList = v.mDNSServices;
       });
     });

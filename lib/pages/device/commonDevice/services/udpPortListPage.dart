@@ -85,7 +85,7 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
               ),
               onPressed: () {
 //                TODO 添加UDP端口
-                _addUDP(widget.device).then((v){
+                _addUDP(widget.device).then((v) {
                   refreshmUDPList();
                 });
               }),
@@ -120,18 +120,16 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
           ).toList();
 
           return Scaffold(
-            appBar: AppBar(
-              title: Text('端口详情'),
-              actions: <Widget>[
-                IconButton(
-                    icon: Icon(
-                      Icons.delete,
-                      color: Colors.red,
-                    ),
-                    onPressed: () {
-                      //TODO 删除
-                      _deleteCurrentUDP(config);
-                    }),
+            appBar: AppBar(title: Text('端口详情'), actions: <Widget>[
+              IconButton(
+                  icon: Icon(
+                    Icons.delete,
+                    color: Colors.red,
+                  ),
+                  onPressed: () {
+                    //TODO 删除
+                    _deleteCurrentUDP(config);
+                  }),
 //                IconButton(
 //                  icon: Icon(
 //                    Icons.open_in_browser,
@@ -141,8 +139,7 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
 //    //                TODO 使用某种方式打开此端口
 //                    _launchURL("http://127.0.0.1:${config.localProt}");
 //                  }),
-              ]
-            ),
+            ]),
             body: ListView(children: divided),
           );
         },
@@ -164,82 +161,80 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
 
   Future _addUDP(Device device) async {
     TextEditingController _description_controller =
-    TextEditingController.fromValue(TextEditingValue(text: "我的UDP"));
+        TextEditingController.fromValue(TextEditingValue(text: "我的UDP"));
     TextEditingController _remote_port_controller =
-    TextEditingController.fromValue(TextEditingValue(text: ""));
+        TextEditingController.fromValue(TextEditingValue(text: ""));
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
-            title: Text("添加端口："),
-            content: ListView(
-              children: <Widget>[
-                TextFormField(
-                  controller: _description_controller,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10.0),
-                    labelText: '备注',
-                    helperText: '自定义备注',
-                  ),
+                title: Text("添加端口："),
+                content: ListView(
+                  children: <Widget>[
+                    TextFormField(
+                      controller: _description_controller,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(10.0),
+                        labelText: '备注',
+                        helperText: '自定义备注',
+                      ),
+                    ),
+                    TextFormField(
+                      controller: _remote_port_controller,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(10.0),
+                        labelText: '端口号',
+                        helperText: '该机器的端口号',
+                      ),
+                    )
+                  ],
                 ),
-                TextFormField(
-                  controller: _remote_port_controller,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10.0),
-                    labelText: '端口号',
-                    helperText: '该机器的端口号',
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text("取消"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
                   ),
-                )
-              ],
-            ),
-            actions: <Widget>[
-              FlatButton(
-                child: Text("取消"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              FlatButton(
-                child: Text("添加"),
-                onPressed: () {
-                  var UDPConfig = PortConfig();
-                  UDPConfig.device = device;
-                  UDPConfig.description = _description_controller.text;
-                  UDPConfig.remotePort =
-                      int.parse(_remote_port_controller.text);
-                  CommonDeviceApi.createOneUDP(UDPConfig).then((restlt) {
-                    Navigator.of(context).pop();
-                  });
-                },
-              )
-            ]));
+                  FlatButton(
+                    child: Text("添加"),
+                    onPressed: () {
+                      var UDPConfig = PortConfig();
+                      UDPConfig.device = device;
+                      UDPConfig.description = _description_controller.text;
+                      UDPConfig.remotePort =
+                          int.parse(_remote_port_controller.text);
+                      CommonDeviceApi.createOneUDP(UDPConfig).then((restlt) {
+                        Navigator.of(context).pop();
+                      });
+                    },
+                  )
+                ]));
   }
 
   Future _deleteCurrentUDP(PortConfig config) async {
     showDialog(
         context: context,
         builder: (_) => new AlertDialog(
-            title: new Text("删除UDP"),
-            content: new Text("确认删除此UDP？"),
-            actions: <Widget>[
-              new FlatButton(
-                child: new Text("取消"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              new FlatButton(
-                child: new Text("删除"),
-                onPressed: () {
-                  CommonDeviceApi.deleteOneUDP(config).then((result) {
-                    Navigator.of(context).pop();
-                  });
-                },
-              )
-            ]))
-        .then((v) {
-              Navigator.of(context).pop();
-            }
-    ).then((v){
+                title: new Text("删除UDP"),
+                content: new Text("确认删除此UDP？"),
+                actions: <Widget>[
+                  new FlatButton(
+                    child: new Text("取消"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  new FlatButton(
+                    child: new Text("删除"),
+                    onPressed: () {
+                      CommonDeviceApi.deleteOneUDP(config).then((result) {
+                        Navigator.of(context).pop();
+                      });
+                    },
+                  )
+                ])).then((v) {
+      Navigator.of(context).pop();
+    }).then((v) {
       refreshmUDPList();
     });
   }

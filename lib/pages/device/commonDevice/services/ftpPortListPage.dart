@@ -85,7 +85,7 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
               ),
               onPressed: () {
 //                TODO 添加FTP端口
-                _addFTP(widget.device).then((v){
+                _addFTP(widget.device).then((v) {
                   refreshmFTPList();
                 });
               }),
@@ -120,29 +120,26 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
           ).toList();
 
           return Scaffold(
-            appBar: AppBar(
-              title: Text('端口详情'),
-              actions: <Widget>[
-                IconButton(
-                    icon: Icon(
-                      Icons.delete,
-                      color: Colors.red,
-                    ),
-                    onPressed: () {
-                      //TODO 删除
-                      _deleteCurrentFTP(config);
-                    }),
-                IconButton(
+            appBar: AppBar(title: Text('端口详情'), actions: <Widget>[
+              IconButton(
+                  icon: Icon(
+                    Icons.delete,
+                    color: Colors.red,
+                  ),
+                  onPressed: () {
+                    //TODO 删除
+                    _deleteCurrentFTP(config);
+                  }),
+              IconButton(
                   icon: Icon(
                     Icons.open_in_browser,
                     color: Colors.white,
                   ),
                   onPressed: () {
-    //                TODO 使用某种方式打开此端口，检查这个软件是否已经安装
+                    //                TODO 使用某种方式打开此端口，检查这个软件是否已经安装
                     _launchURL("ftp://127.0.0.1:${config.localProt}");
                   }),
-              ]
-            ),
+            ]),
             body: ListView(children: divided),
           );
         },
@@ -164,82 +161,80 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
 
   Future _addFTP(Device device) async {
     TextEditingController _description_controller =
-    TextEditingController.fromValue(TextEditingValue(text: "FTP"));
+        TextEditingController.fromValue(TextEditingValue(text: "FTP"));
     TextEditingController _remote_port_controller =
-    TextEditingController.fromValue(TextEditingValue(text: "21"));
+        TextEditingController.fromValue(TextEditingValue(text: "21"));
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
-            title: Text("添加端口："),
-            content: ListView(
-              children: <Widget>[
-                TextFormField(
-                  controller: _description_controller,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10.0),
-                    labelText: '备注',
-                    helperText: '自定义备注',
-                  ),
+                title: Text("添加端口："),
+                content: ListView(
+                  children: <Widget>[
+                    TextFormField(
+                      controller: _description_controller,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(10.0),
+                        labelText: '备注',
+                        helperText: '自定义备注',
+                      ),
+                    ),
+                    TextFormField(
+                      controller: _remote_port_controller,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(10.0),
+                        labelText: '端口号',
+                        helperText: '该机器的端口号',
+                      ),
+                    )
+                  ],
                 ),
-                TextFormField(
-                  controller: _remote_port_controller,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10.0),
-                    labelText: '端口号',
-                    helperText: '该机器的端口号',
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text("取消"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
                   ),
-                )
-              ],
-            ),
-            actions: <Widget>[
-              FlatButton(
-                child: Text("取消"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              FlatButton(
-                child: Text("添加"),
-                onPressed: () {
-                  var FTPConfig = PortConfig();
-                  FTPConfig.device = device;
-                  FTPConfig.description = _description_controller.text;
-                  FTPConfig.remotePort =
-                      int.parse(_remote_port_controller.text);
-                  CommonDeviceApi.createOneFTP(FTPConfig).then((restlt) {
-                    Navigator.of(context).pop();
-                  });
-                },
-              )
-            ]));
+                  FlatButton(
+                    child: Text("添加"),
+                    onPressed: () {
+                      var FTPConfig = PortConfig();
+                      FTPConfig.device = device;
+                      FTPConfig.description = _description_controller.text;
+                      FTPConfig.remotePort =
+                          int.parse(_remote_port_controller.text);
+                      CommonDeviceApi.createOneFTP(FTPConfig).then((restlt) {
+                        Navigator.of(context).pop();
+                      });
+                    },
+                  )
+                ]));
   }
 
   Future _deleteCurrentFTP(PortConfig config) async {
     showDialog(
         context: context,
         builder: (_) => new AlertDialog(
-            title: new Text("删除FTP"),
-            content: new Text("确认删除此FTP？"),
-            actions: <Widget>[
-              new FlatButton(
-                child: new Text("取消"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              new FlatButton(
-                child: new Text("删除"),
-                onPressed: () {
-                  CommonDeviceApi.deleteOneFTP(config).then((result) {
-                    Navigator.of(context).pop();
-                  });
-                },
-              )
-            ]))
-        .then((v) {
-              Navigator.of(context).pop();
-            }
-    ).then((v){
+                title: new Text("删除FTP"),
+                content: new Text("确认删除此FTP？"),
+                actions: <Widget>[
+                  new FlatButton(
+                    child: new Text("取消"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  new FlatButton(
+                    child: new Text("删除"),
+                    onPressed: () {
+                      CommonDeviceApi.deleteOneFTP(config).then((result) {
+                        Navigator.of(context).pop();
+                      });
+                    },
+                  )
+                ])).then((v) {
+      Navigator.of(context).pop();
+    }).then((v) {
       refreshmFTPList();
     });
   }

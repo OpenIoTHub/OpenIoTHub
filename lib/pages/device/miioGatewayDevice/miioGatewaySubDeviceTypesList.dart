@@ -13,10 +13,12 @@ class MiioGatewaySubDeviceTypesList extends StatefulWidget {
   MiioGatewayDevice device;
 
   @override
-  _MiioGatewaySubDeviceTypesListState createState() => _MiioGatewaySubDeviceTypesListState();
+  _MiioGatewaySubDeviceTypesListState createState() =>
+      _MiioGatewaySubDeviceTypesListState();
 }
 
-class _MiioGatewaySubDeviceTypesListState extends State<MiioGatewaySubDeviceTypesList> {
+class _MiioGatewaySubDeviceTypesListState
+    extends State<MiioGatewaySubDeviceTypesList> {
   static const String TAG_START = "startDivider";
   static const String TAG_END = "endDivider";
   static const String TAG_CENTER = "centerDivider";
@@ -148,64 +150,60 @@ class _MiioGatewaySubDeviceTypesListState extends State<MiioGatewaySubDeviceType
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: Text("子设备"),
-          actions: <Widget>[
-            IconButton(
-                icon: Icon(
-                  Icons.delete,
-                  color: Colors.red,
-                ),
-                onPressed: () {
-                  //TODO 删除小米网关设备
-                  _deleteCurrentDevice();
-                }),
-            IconButton(
-                icon: Icon(
-                  Icons.open_in_browser,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  //TODO 小米网关操作界面
+        appBar: AppBar(title: Text("子设备"), actions: <Widget>[
+          IconButton(
+              icon: Icon(
+                Icons.delete,
+                color: Colors.red,
+              ),
+              onPressed: () {
+                //TODO 删除小米网关设备
+                _deleteCurrentDevice();
+              }),
+          IconButton(
+              icon: Icon(
+                Icons.open_in_browser,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                //TODO 小米网关操作界面
 //                _miioGatewayOprationPage();
-                }),
-          ]
-      ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
-        child: ListView.builder(
-          itemCount: listData.length,
-          itemBuilder: (context, i) => renderRow(context, i),
-        ),
-    ));
+              }),
+        ]),
+        body: Padding(
+          padding: const EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
+          child: ListView.builder(
+            itemCount: listData.length,
+            itemBuilder: (context, i) => renderRow(context, i),
+          ),
+        ));
   }
 
   Future _deleteCurrentDevice() async {
     showDialog(
         context: context,
         builder: (_) => new AlertDialog(
-            title: new Text("删除设备"),
-            content: new Text("确认删除此设备？"),
-            actions: <Widget>[
-              new FlatButton(
-                child: new Text("取消"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              new FlatButton(
-                child: new Text("删除"),
-                onPressed: () {
-                  MiioGatewayDeviceApi.deleteOneDevice(widget.device).then((result) {
-                    Navigator.of(context).pop();
-                  });
-                },
-              )
-            ]))
-        .then((v) {
+                title: new Text("删除设备"),
+                content: new Text("确认删除此设备？"),
+                actions: <Widget>[
+                  new FlatButton(
+                    child: new Text("取消"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  new FlatButton(
+                    child: new Text("删除"),
+                    onPressed: () {
+                      MiioGatewayDeviceApi.deleteOneDevice(widget.device)
+                          .then((result) {
+                        Navigator.of(context).pop();
+                      });
+                    },
+                  )
+                ])).then((v) {
       Navigator.of(context).pop();
-    }
-    ).then((v){
+    }).then((v) {
       Navigator.of(context).pop();
     });
   }

@@ -34,17 +34,15 @@ class _VideoAppState extends State<VideoApp> {
           ? CustomThemes.dark
           : CustomThemes.light,
       home: Scaffold(
-        appBar: AppBar(
-            title: Text('播放器'),
-            actions: <Widget>[
-              IconButton(
-                  icon: Icon(
-                    Icons.open_in_browser,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    //                TODO 使用某种方式打开此端口，检查这个软件是否已经安装
-                    _pushSSHFileExplorer();
+        appBar: AppBar(title: Text('播放器'), actions: <Widget>[
+          IconButton(
+              icon: Icon(
+                Icons.open_in_browser,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                //                TODO 使用某种方式打开此端口，检查这个软件是否已经安装
+                _pushSSHFileExplorer();
 //                    _launchURL("http://127.0.0.1:${config.localProt}");
 //                    PortConfig config = PortConfig();
 //                    Device device = Device();
@@ -72,15 +70,14 @@ class _VideoAppState extends State<VideoApp> {
 //                            )
 //                          ]
 //                        ));
-                  }),
-            ]
-        ),
+              }),
+        ]),
         body: Center(
           child: _controller.value.initialized
               ? AspectRatio(
-            aspectRatio: _controller.value.aspectRatio,
-            child: VideoPlayer(_controller),
-          )
+                  aspectRatio: _controller.value.aspectRatio,
+                  child: VideoPlayer(_controller),
+                )
               : Container(),
         ),
         floatingActionButton: FloatingActionButton(
@@ -173,5 +170,4 @@ class _VideoAppState extends State<VideoApp> {
       }
     });
   }
-
 }

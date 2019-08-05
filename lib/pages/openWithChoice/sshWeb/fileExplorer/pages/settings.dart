@@ -73,8 +73,8 @@ class _SettingsPageState extends State<SettingsPage>
                     ),
                     SizedBox(width: 6.0),
                     Switch(
-                      activeThumbImage:
-                          AssetImage("assets/sshFileExplorer/arrow_drop_down.png"),
+                      activeThumbImage: AssetImage(
+                          "assets/sshFileExplorer/arrow_drop_down.png"),
                       activeColor:
                           Provider.of<CustomTheme>(context).isLightTheme()
                               ? Colors.grey[50]
@@ -83,8 +83,8 @@ class _SettingsPageState extends State<SettingsPage>
                           Provider.of<CustomTheme>(context).isLightTheme()
                               ? Colors.grey[300]
                               : Colors.grey[700],
-                      inactiveThumbImage:
-                          AssetImage("assets/sshFileExplorer/arrow_drop_up.png"),
+                      inactiveThumbImage: AssetImage(
+                          "assets/sshFileExplorer/arrow_drop_up.png"),
                       inactiveTrackColor:
                           Provider.of<CustomTheme>(context).isLightTheme()
                               ? Colors.grey[300]
@@ -214,8 +214,7 @@ class _SettingsPageState extends State<SettingsPage>
     }
   }
 
-  var _downloadPathTextController =
-      TextEditingController(text: '');
+  var _downloadPathTextController = TextEditingController(text: '');
 //      TextEditingController(text: SettingsVariables.downloadDirectory.path);
 
   var _moveCommandTextController =
@@ -305,48 +304,53 @@ class _SettingsPageState extends State<SettingsPage>
                     customShowDialog(
                       context: context,
                       builder: (context) => CustomAlertDialog(
-                        contentPadding: EdgeInsets.symmetric(vertical: 12.0),
-                        content: StatefulBuilder(builder: (context, setState) {
-                          return Consumer<CustomTheme>(
-                              builder: (context, model, child) {
-                            return Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                RadioListTile(
-                                  activeColor: Theme.of(context).accentColor,
-                                  title: Text("Automatic"),
-                                  value: "automatic",
-                                  groupValue: model.themeValue,
-                                  onChanged: (String value) async {
-                                    await model.setThemeValue(value);
-                                    setState(() {});
-                                  },
-                                ),
-                                RadioListTile(
-                                  activeColor: Theme.of(context).accentColor,
-                                  title: Text("Light"),
-                                  value: "light",
-                                  groupValue: model.themeValue,
-                                  onChanged: (String value) async {
-                                    await model.setThemeValue(value);
-                                    setState(() {});
-                                  },
-                                ),
-                                RadioListTile(
-                                  activeColor: Theme.of(context).accentColor,
-                                  title: Text("Dark"),
-                                  value: "dark",
-                                  groupValue: model.themeValue,
-                                  onChanged: (String value) async {
-                                    await model.setThemeValue(value);
-                                    setState(() {});
-                                  },
-                                ),
-                              ],
-                            );
-                          });
-                        }),
-                      ),
+                            contentPadding:
+                                EdgeInsets.symmetric(vertical: 12.0),
+                            content:
+                                StatefulBuilder(builder: (context, setState) {
+                              return Consumer<CustomTheme>(
+                                  builder: (context, model, child) {
+                                return Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    RadioListTile(
+                                      activeColor:
+                                          Theme.of(context).accentColor,
+                                      title: Text("Automatic"),
+                                      value: "automatic",
+                                      groupValue: model.themeValue,
+                                      onChanged: (String value) async {
+                                        await model.setThemeValue(value);
+                                        setState(() {});
+                                      },
+                                    ),
+                                    RadioListTile(
+                                      activeColor:
+                                          Theme.of(context).accentColor,
+                                      title: Text("Light"),
+                                      value: "light",
+                                      groupValue: model.themeValue,
+                                      onChanged: (String value) async {
+                                        await model.setThemeValue(value);
+                                        setState(() {});
+                                      },
+                                    ),
+                                    RadioListTile(
+                                      activeColor:
+                                          Theme.of(context).accentColor,
+                                      title: Text("Dark"),
+                                      value: "dark",
+                                      groupValue: model.themeValue,
+                                      onChanged: (String value) async {
+                                        await model.setThemeValue(value);
+                                        setState(() {});
+                                      },
+                                    ),
+                                  ],
+                                );
+                              });
+                            }),
+                          ),
                     );
                   },
                 ),
@@ -364,75 +368,82 @@ class _SettingsPageState extends State<SettingsPage>
                     customShowDialog(
                       context: context,
                       builder: (context) => CustomAlertDialog(
-                        contentPadding: EdgeInsets.symmetric(vertical: 12.0),
-                        content: StatefulBuilder(builder: (context, setState) {
-                          return Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              RadioListTile(
-                                activeColor: Theme.of(context).accentColor,
-                                title: Text("Automatic"),
-                                value: "automatic",
-                                groupValue: SettingsVariables.filesizeUnit,
-                                onChanged: (String value) async {
-                                  if (widget.currentConnectionPage != null)
-                                    await SettingsVariables.setFilesizeUnit(
-                                        value, widget.currentConnectionPage);
-                                  setState(() {});
-                                },
-                              ),
-                              RadioListTile(
-                                activeColor: Theme.of(context).accentColor,
-                                title: Text("Byte"),
-                                value: "B",
-                                groupValue: SettingsVariables.filesizeUnit,
-                                onChanged: (String value) async {
-                                  if (widget.currentConnectionPage != null)
-                                    await SettingsVariables.setFilesizeUnit(
-                                        value, widget.currentConnectionPage);
-                                  setState(() {});
-                                },
-                              ),
-                              RadioListTile(
-                                activeColor: Theme.of(context).accentColor,
-                                title: Text("Kilobyte"),
-                                value: "KB",
-                                groupValue: SettingsVariables.filesizeUnit,
-                                onChanged: (String value) async {
-                                  if (widget.currentConnectionPage != null)
-                                    await SettingsVariables.setFilesizeUnit(
-                                        value, widget.currentConnectionPage);
-                                  setState(() {});
-                                },
-                              ),
-                              RadioListTile(
-                                activeColor: Theme.of(context).accentColor,
-                                title: Text("Megabyte"),
-                                value: "MB",
-                                groupValue: SettingsVariables.filesizeUnit,
-                                onChanged: (String value) async {
-                                  if (widget.currentConnectionPage != null)
-                                    await SettingsVariables.setFilesizeUnit(
-                                        value, widget.currentConnectionPage);
-                                  setState(() {});
-                                },
-                              ),
-                              RadioListTile(
-                                activeColor: Theme.of(context).accentColor,
-                                title: Text("Gigabyte"),
-                                value: "GB",
-                                groupValue: SettingsVariables.filesizeUnit,
-                                onChanged: (String value) async {
-                                  if (widget.currentConnectionPage != null)
-                                    await SettingsVariables.setFilesizeUnit(
-                                        value, widget.currentConnectionPage);
-                                  setState(() {});
-                                },
-                              ),
-                            ],
-                          );
-                        }),
-                      ),
+                            contentPadding:
+                                EdgeInsets.symmetric(vertical: 12.0),
+                            content:
+                                StatefulBuilder(builder: (context, setState) {
+                              return Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  RadioListTile(
+                                    activeColor: Theme.of(context).accentColor,
+                                    title: Text("Automatic"),
+                                    value: "automatic",
+                                    groupValue: SettingsVariables.filesizeUnit,
+                                    onChanged: (String value) async {
+                                      if (widget.currentConnectionPage != null)
+                                        await SettingsVariables.setFilesizeUnit(
+                                            value,
+                                            widget.currentConnectionPage);
+                                      setState(() {});
+                                    },
+                                  ),
+                                  RadioListTile(
+                                    activeColor: Theme.of(context).accentColor,
+                                    title: Text("Byte"),
+                                    value: "B",
+                                    groupValue: SettingsVariables.filesizeUnit,
+                                    onChanged: (String value) async {
+                                      if (widget.currentConnectionPage != null)
+                                        await SettingsVariables.setFilesizeUnit(
+                                            value,
+                                            widget.currentConnectionPage);
+                                      setState(() {});
+                                    },
+                                  ),
+                                  RadioListTile(
+                                    activeColor: Theme.of(context).accentColor,
+                                    title: Text("Kilobyte"),
+                                    value: "KB",
+                                    groupValue: SettingsVariables.filesizeUnit,
+                                    onChanged: (String value) async {
+                                      if (widget.currentConnectionPage != null)
+                                        await SettingsVariables.setFilesizeUnit(
+                                            value,
+                                            widget.currentConnectionPage);
+                                      setState(() {});
+                                    },
+                                  ),
+                                  RadioListTile(
+                                    activeColor: Theme.of(context).accentColor,
+                                    title: Text("Megabyte"),
+                                    value: "MB",
+                                    groupValue: SettingsVariables.filesizeUnit,
+                                    onChanged: (String value) async {
+                                      if (widget.currentConnectionPage != null)
+                                        await SettingsVariables.setFilesizeUnit(
+                                            value,
+                                            widget.currentConnectionPage);
+                                      setState(() {});
+                                    },
+                                  ),
+                                  RadioListTile(
+                                    activeColor: Theme.of(context).accentColor,
+                                    title: Text("Gigabyte"),
+                                    value: "GB",
+                                    groupValue: SettingsVariables.filesizeUnit,
+                                    onChanged: (String value) async {
+                                      if (widget.currentConnectionPage != null)
+                                        await SettingsVariables.setFilesizeUnit(
+                                            value,
+                                            widget.currentConnectionPage);
+                                      setState(() {});
+                                    },
+                                  ),
+                                ],
+                              );
+                            }),
+                          ),
                     );
                   },
                 ),
@@ -515,51 +526,59 @@ class _SettingsPageState extends State<SettingsPage>
                     customShowDialog(
                       context: context,
                       builder: (context) => CustomAlertDialog(
-                        title: Text(
-                          "Delete all connections?\nThis cannot be undone.",
-                        ),
-                        actions: <Widget>[
-                          FlatButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4.0),
+                            title: Text(
+                              "Delete all connections?\nThis cannot be undone.",
                             ),
-                            padding: EdgeInsets.only(
-                                top: 8.5, bottom: 8.0, left: 14.0, right: 14.0),
-                            child: Text("Cancel"),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                          RaisedButton(
-                            color: Theme.of(context).accentColor,
-                            splashColor: Colors.black12,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4.0),
-                            ),
-                            padding: EdgeInsets.only(
-                                top: 8.5, bottom: 8.0, left: 14.0, right: 14.0),
-                            child: Text(
-                              "OK",
-                              style: TextStyle(
-                                color: Provider.of<CustomTheme>(context)
-                                        .isLightTheme()
-                                    ? Colors.white
-                                    : Colors.black,
+                            actions: <Widget>[
+                              FlatButton(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(4.0),
+                                ),
+                                padding: EdgeInsets.only(
+                                    top: 8.5,
+                                    bottom: 8.0,
+                                    left: 14.0,
+                                    right: 14.0),
+                                child: Text("Cancel"),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
                               ),
-                            ),
-                            elevation: .0,
-                            onPressed: () {
-                              HomePage.favoritesPage.removeAllFromJson();
-                              HomePage.favoritesPage.setConnectionsFromJson();
-                              HomePage.recentlyAddedPage.removeAllFromJson();
-                              HomePage.recentlyAddedPage
-                                  .setConnectionsFromJson();
-                              Navigator.pop(context);
-                            },
+                              RaisedButton(
+                                color: Theme.of(context).accentColor,
+                                splashColor: Colors.black12,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(4.0),
+                                ),
+                                padding: EdgeInsets.only(
+                                    top: 8.5,
+                                    bottom: 8.0,
+                                    left: 14.0,
+                                    right: 14.0),
+                                child: Text(
+                                  "OK",
+                                  style: TextStyle(
+                                    color: Provider.of<CustomTheme>(context)
+                                            .isLightTheme()
+                                        ? Colors.white
+                                        : Colors.black,
+                                  ),
+                                ),
+                                elevation: .0,
+                                onPressed: () {
+                                  HomePage.favoritesPage.removeAllFromJson();
+                                  HomePage.favoritesPage
+                                      .setConnectionsFromJson();
+                                  HomePage.recentlyAddedPage
+                                      .removeAllFromJson();
+                                  HomePage.recentlyAddedPage
+                                      .setConnectionsFromJson();
+                                  Navigator.pop(context);
+                                },
+                              ),
+                              SizedBox(width: .0),
+                            ],
                           ),
-                          SizedBox(width: .0),
-                        ],
-                      ),
                     );
                   },
                 ),

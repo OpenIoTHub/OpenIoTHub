@@ -20,7 +20,8 @@ class NetUtils {
 
   // post请求
   static Future<String> post(String url, {Map<String, String> params}) async {
-    http.Response res = await http.post(url, body: params, headers: getCommonHeader());
+    http.Response res =
+        await http.post(url, body: params, headers: getCommonHeader());
     return res.body;
   }
 

@@ -3,14 +3,13 @@ import 'package:flutter/material.dart';
 class SlideViewIndicator extends StatefulWidget {
   final int count;
 
-  SlideViewIndicator(this.count, { Key key }) : super(key: key);
+  SlideViewIndicator(this.count, {Key key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => SlideViewIndicatorState();
 }
 
 class SlideViewIndicatorState extends State<SlideViewIndicator> {
-
   final double dotWidth = 8.0;
   int selectedIndex = 0;
 
@@ -30,9 +29,7 @@ class SlideViewIndicatorState extends State<SlideViewIndicator> {
           width: dotWidth,
           height: dotWidth,
           decoration: BoxDecoration(
-            color: const Color(0xffffffff),
-            shape: BoxShape.circle
-          ),
+              color: const Color(0xffffffff), shape: BoxShape.circle),
           margin: const EdgeInsets.all(3.0),
         ));
       } else {
@@ -41,9 +38,7 @@ class SlideViewIndicatorState extends State<SlideViewIndicator> {
           width: dotWidth,
           height: dotWidth,
           decoration: BoxDecoration(
-            color: const Color(0xff888888),
-            shape: BoxShape.circle
-          ),
+              color: const Color(0xff888888), shape: BoxShape.circle),
           margin: const EdgeInsets.all(3.0),
         ));
       }
@@ -53,11 +48,10 @@ class SlideViewIndicatorState extends State<SlideViewIndicator> {
       color: const Color(0x00000000),
       margin: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 5.0),
       child: Center(
-        child: Row(
-          children: dots,
-          mainAxisAlignment: MainAxisAlignment.center,
-        )
-      ),
+          child: Row(
+        children: dots,
+        mainAxisAlignment: MainAxisAlignment.center,
+      )),
     );
   }
 }

@@ -14,6 +14,7 @@ class CommonDeviceApi {
     print('Greeter client received: ${response}');
     channel.shutdown();
   }
+
 //  设备网络唤醒
   static Future wakeOnLAN(Device device) async {
     final channel = Channel.getClientChannel();
@@ -22,6 +23,7 @@ class CommonDeviceApi {
     print('Greeter client received: ${response}');
     channel.shutdown();
   }
+
   //设备的操作:增删
 //  rpc AddDevice (Device) returns (Empty) {}
   static Future createOneDevice(Device device) async {
@@ -31,6 +33,7 @@ class CommonDeviceApi {
     print('Greeter client received: ${response}');
     channel.shutdown();
   }
+
 //  rpc DelDevice (Device) returns (Empty) {}
   static Future deleteOneDevice(Device device) async {
     final channel = Channel.getClientChannel();
@@ -39,6 +42,7 @@ class CommonDeviceApi {
     print('Greeter client received: ${response}');
     channel.shutdown();
   }
+
 //  rpc GetAllDevice (Empty) returns (DeviceList) {}
   static Future<DeviceList> getAllDevice() async {
     final channel = Channel.getClientChannel();
@@ -48,6 +52,7 @@ class CommonDeviceApi {
     channel.shutdown();
     return response;
   }
+
   // TCP
 //  rpc CreateOneTCP (PortConfig) returns (PortConfig) {}
   static Future createOneTCP(PortConfig config) async {
@@ -57,6 +62,7 @@ class CommonDeviceApi {
     print('Greeter client received: ${response}');
     channel.shutdown();
   }
+
 //  rpc DeleteOneTCP (PortConfig) returns (Empty) {}
   static Future deleteOneTCP(PortConfig config) async {
     final channel = Channel.getClientChannel();
@@ -65,6 +71,7 @@ class CommonDeviceApi {
     print('Greeter client received: ${response}');
     channel.shutdown();
   }
+
 //  rpc GetOneTCP (PortConfig) returns (PortConfig) {}
   static Future<PortConfig> getOneTCP(PortConfig config) async {
     final channel = Channel.getClientChannel();
@@ -74,6 +81,7 @@ class CommonDeviceApi {
     channel.shutdown();
     return response;
   }
+
 //  rpc GetAllTCP (Device) returns (PortList) {}
   static Future<PortList> getAllTCP(Device device) async {
     final channel = Channel.getClientChannel();
@@ -83,6 +91,7 @@ class CommonDeviceApi {
     channel.shutdown();
     return response;
   }
+
   // UDP
 //  rpc CreateOneUDP (PortConfig) returns (PortConfig) {}
   static Future createOneUDP(PortConfig config) async {
@@ -92,6 +101,7 @@ class CommonDeviceApi {
     print('Greeter client received: ${response}');
     channel.shutdown();
   }
+
 //  rpc DeleteOneUDP (PortConfig) returns (Empty) {}
   static Future deleteOneUDP(PortConfig config) async {
     final channel = Channel.getClientChannel();
@@ -100,6 +110,7 @@ class CommonDeviceApi {
     print('Greeter client received: ${response}');
     channel.shutdown();
   }
+
 //  rpc GetOneUDP (PortConfig) returns (PortConfig) {}
   static Future<PortConfig> getOneUDP(PortConfig config) async {
     final channel = Channel.getClientChannel();
@@ -109,6 +120,7 @@ class CommonDeviceApi {
     channel.shutdown();
     return response;
   }
+
 //  rpc GetAllUDP (Device) returns (PortList) {}
   static Future<PortList> getAllUDP(Device device) async {
     final channel = Channel.getClientChannel();
@@ -118,6 +130,7 @@ class CommonDeviceApi {
     channel.shutdown();
     return response;
   }
+
   // FTP
 //  rpc CreateOneFTP (PortConfig) returns (PortConfig) {}
   static Future createOneFTP(PortConfig config) async {
@@ -127,6 +140,7 @@ class CommonDeviceApi {
     print('Greeter client received: ${response}');
     channel.shutdown();
   }
+
 //  rpc DeleteOneFTP (PortConfig) returns (Empty) {}
   static Future deleteOneFTP(PortConfig config) async {
     final channel = Channel.getClientChannel();
@@ -135,6 +149,7 @@ class CommonDeviceApi {
     print('Greeter client received: ${response}');
     channel.shutdown();
   }
+
 //  rpc GetOneFTP (PortConfig) returns (PortConfig) {}
   static Future<PortConfig> getOneFTP(PortConfig config) async {
     final channel = Channel.getClientChannel();
@@ -144,6 +159,7 @@ class CommonDeviceApi {
     channel.shutdown();
     return response;
   }
+
 //  rpc GetAllFTP (Device) returns (PortList) {}
   static Future<PortList> getAllFTP(Device device) async {
     final channel = Channel.getClientChannel();

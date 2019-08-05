@@ -53,10 +53,10 @@ class MyInfoPageState extends State<MyInfoPage> {
           child: Icon(Icons.message)),
     );
     icons.add(
-        Padding(
+      Padding(
           padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
           child: Icon(Icons.settings)),
-        );
+    );
     icons.add(
       Padding(
           padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
@@ -114,8 +114,8 @@ class MyInfoPageState extends State<MyInfoPage> {
   Widget getIconImage(path) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
-      child: Image.asset(path,
-          width: IMAGE_ICON_WIDTH, height: IMAGE_ICON_WIDTH),
+      child:
+          Image.asset(path, width: IMAGE_ICON_WIDTH, height: IMAGE_ICON_WIDTH),
     );
   }
 
@@ -148,9 +148,8 @@ class MyInfoPageState extends State<MyInfoPage> {
 
   _login() async {
     // 打开登录页并处理登录成功的回调
-    final result = await Navigator
-        .of(context)
-        .push(MaterialPageRoute(builder: (context) {
+    final result =
+        await Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       return Text("登录页");
     }));
     // result为"refresh"代表登录成功
@@ -177,24 +176,23 @@ class MyInfoPageState extends State<MyInfoPage> {
             children: <Widget>[
               userAvatar == null
                   ? Image.asset(
-                "assets/images/ic_avatar_default.png",
-                width: 60.0,
-              )
+                      "assets/images/ic_avatar_default.png",
+                      width: 60.0,
+                    )
                   : Container(
-                width: 60.0,
-                height: 60.0,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.transparent,
-                  image: DecorationImage(
-                      image: NetworkImage(userAvatar),
-                      fit: BoxFit.cover),
-                  border: Border.all(
-                    color: Colors.white,
-                    width: 2.0,
-                  ),
-                ),
-              ),
+                      width: 60.0,
+                      height: 60.0,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.transparent,
+                        image: DecorationImage(
+                            image: NetworkImage(userAvatar), fit: BoxFit.cover),
+                        border: Border.all(
+                          color: Colors.white,
+                          width: 2.0,
+                        ),
+                      ),
+                    ),
               Text(
                 userName == null ? "点击头像登录" : userName,
                 style: TextStyle(color: Colors.white, fontSize: 16.0),
@@ -233,9 +231,9 @@ class MyInfoPageState extends State<MyInfoPage> {
           icons[i],
           Expanded(
               child: Text(
-                title,
-                style: titleTextStyle,
-              )),
+            title,
+            style: titleTextStyle,
+          )),
           rightArrowIcon
         ],
       ),
@@ -285,52 +283,42 @@ class MyInfoPageState extends State<MyInfoPage> {
 
 //  根据不同的标题切换到不同的界面
   _handleListItemClick(String title) async {
-    if (title == "工具"){
-      Navigator.of(context).push(
-          MaterialPageRoute(
-              builder: (context) => ToolsTypePage()
-          ));
-    }
-    else if (title == "设置"){
+    if (title == "工具") {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => ToolsTypePage()));
+    } else if (title == "设置") {
 //      Navigator.of(context).push(
 //          MaterialPageRoute(
 //              builder: (context) => Text('设置页')
 //          ));
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => SettingsPage(),
-            settings: RouteSettings(name: "settings"),
-          ),
-        );
-    }
-    else if (title == "使用手册"){
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SettingsPage(),
+          settings: RouteSettings(name: "settings"),
+        ),
+      );
+    } else if (title == "使用手册") {
       _goToURL("https://www.jianshu.com/u/b312a876d66e", "使用手册");
-    }
-    else if (title == "关于"){
+    } else if (title == "关于") {
       _goToURL("https://github.com/nat-cloud/README", "关于");
 //      _goToURL("http://192.168.0.15/fc.mp4", "关于");
 //      _goToURL("http://192.168.0.15/1.mp3", "关于");
-    }
-    else if (title == "测试"){
+    } else if (title == "测试") {
 //      String databasesPath = await getDatabasesPath();
-      Navigator.of(context).push(
-          MaterialPageRoute(
-              builder: (context) => VideoApp()
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => VideoApp()
 //              builder: (context) => Text('databasesPath')
-          ));
-    }
-    else {
+              ));
+    } else {
       DataUtils.isLogin().then((isLogin) {
         if (!isLogin) {
           // 未登录
           _showLoginDialog();
         } else {
           DataUtils.getUserInfo().then((info) {
-            Navigator.of(context).push(
-                MaterialPageRoute(
-                    builder: (context) => Text("我的")
-                ));
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => Text("我的")));
           });
         }
       });
@@ -362,5 +350,4 @@ class MyInfoPageState extends State<MyInfoPage> {
       );
     }));
   }
-
 }

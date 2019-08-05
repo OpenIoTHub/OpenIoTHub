@@ -86,7 +86,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
               ),
               onPressed: () {
 //                添加TCP端口
-                _addTCP(widget.device).then((v){
+                _addTCP(widget.device).then((v) {
                   refreshmTcpList();
                 });
               }),
@@ -121,49 +121,45 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
           ).toList();
 
           return Scaffold(
-            appBar: AppBar(
-              title: Text('端口详情'),
-              actions: <Widget>[
-                IconButton(
-                    icon: Icon(
-                      Icons.delete,
-                      color: Colors.red,
-                    ),
-                    onPressed: () {
-                      //删除
-                      _deleteCurrentTCP(config);
-                    }),
-                IconButton(
+            appBar: AppBar(title: Text('端口详情'), actions: <Widget>[
+              IconButton(
+                  icon: Icon(
+                    Icons.delete,
+                    color: Colors.red,
+                  ),
+                  onPressed: () {
+                    //删除
+                    _deleteCurrentTCP(config);
+                  }),
+              IconButton(
                   icon: Icon(
                     Icons.open_in_browser,
                     color: Colors.white,
                   ),
                   onPressed: () {
-    //                TODO 使用某种方式打开此端口，检查这个软件是否已经安装
+                    //                TODO 使用某种方式打开此端口，检查这个软件是否已经安装
 //                    _launchURL("http://127.0.0.1:${config.localProt}");
                     showDialog(
                         context: context,
                         builder: (_) => AlertDialog(
-                            title: Text("打开方式："),
-                            content: OpenWithChoice(config),
-                            actions: <Widget>[
-                              FlatButton(
-                                child: Text("取消"),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                              FlatButton(
-                                child: Text("添加"),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              )
-                            ]
-                        ));
+                                title: Text("打开方式："),
+                                content: OpenWithChoice(config),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    child: Text("取消"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                  FlatButton(
+                                    child: Text("添加"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  )
+                                ]));
                   }),
-              ]
-            ),
+            ]),
             body: ListView(children: divided),
           );
         },
@@ -185,82 +181,80 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
 
   Future _addTCP(Device device) async {
     TextEditingController _description_controller =
-    TextEditingController.fromValue(TextEditingValue(text: "我的TCP"));
+        TextEditingController.fromValue(TextEditingValue(text: "我的TCP"));
     TextEditingController _remote_port_controller =
-    TextEditingController.fromValue(TextEditingValue(text: "80"));
+        TextEditingController.fromValue(TextEditingValue(text: "80"));
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
-            title: Text("添加端口："),
-            content: ListView(
-              children: <Widget>[
-                TextFormField(
-                  controller: _description_controller,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10.0),
-                    labelText: '备注',
-                    helperText: '自定义备注',
-                  ),
+                title: Text("添加端口："),
+                content: ListView(
+                  children: <Widget>[
+                    TextFormField(
+                      controller: _description_controller,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(10.0),
+                        labelText: '备注',
+                        helperText: '自定义备注',
+                      ),
+                    ),
+                    TextFormField(
+                      controller: _remote_port_controller,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(10.0),
+                        labelText: '端口号',
+                        helperText: '该机器的端口号',
+                      ),
+                    )
+                  ],
                 ),
-                TextFormField(
-                  controller: _remote_port_controller,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10.0),
-                    labelText: '端口号',
-                    helperText: '该机器的端口号',
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text("取消"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
                   ),
-                )
-              ],
-            ),
-            actions: <Widget>[
-              FlatButton(
-                child: Text("取消"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              FlatButton(
-                child: Text("添加"),
-                onPressed: () {
-                  var tcpConfig = PortConfig();
-                  tcpConfig.device = device;
-                  tcpConfig.description = _description_controller.text;
-                  tcpConfig.remotePort =
-                      int.parse(_remote_port_controller.text);
-                  CommonDeviceApi.createOneTCP(tcpConfig).then((restlt) {
-                    Navigator.of(context).pop();
-                  });
-                },
-              )
-            ]));
+                  FlatButton(
+                    child: Text("添加"),
+                    onPressed: () {
+                      var tcpConfig = PortConfig();
+                      tcpConfig.device = device;
+                      tcpConfig.description = _description_controller.text;
+                      tcpConfig.remotePort =
+                          int.parse(_remote_port_controller.text);
+                      CommonDeviceApi.createOneTCP(tcpConfig).then((restlt) {
+                        Navigator.of(context).pop();
+                      });
+                    },
+                  )
+                ]));
   }
 
   Future _deleteCurrentTCP(PortConfig config) async {
     showDialog(
         context: context,
         builder: (_) => new AlertDialog(
-            title: new Text("删除TCP"),
-            content: new Text("确认删除此TCP？"),
-            actions: <Widget>[
-              new FlatButton(
-                child: new Text("取消"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              new FlatButton(
-                child: new Text("删除"),
-                onPressed: () {
-                  CommonDeviceApi.deleteOneTCP(config).then((result) {
-                    Navigator.of(context).pop();
-                  });
-                },
-              )
-            ]))
-        .then((v) {
-              Navigator.of(context).pop();
-            }
-    ).then((v){
+                title: new Text("删除TCP"),
+                content: new Text("确认删除此TCP？"),
+                actions: <Widget>[
+                  new FlatButton(
+                    child: new Text("取消"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  new FlatButton(
+                    child: new Text("删除"),
+                    onPressed: () {
+                      CommonDeviceApi.deleteOneTCP(config).then((result) {
+                        Navigator.of(context).pop();
+                      });
+                    },
+                  )
+                ])).then((v) {
+      Navigator.of(context).pop();
+    }).then((v) {
       refreshmTcpList();
     });
   }

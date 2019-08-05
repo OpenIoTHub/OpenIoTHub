@@ -9,12 +9,16 @@ class CommonEndLine extends StatelessWidget {
       child: Row(
         children: <Widget>[
           Expanded(
-            child: Divider(height: 10.0,),
+            child: Divider(
+              height: 10.0,
+            ),
             flex: 1,
           ),
           Text("我也是有底线的"),
           Expanded(
-            child: Divider(height: 10.0,),
+            child: Divider(
+              height: 10.0,
+            ),
             flex: 1,
           ),
         ],

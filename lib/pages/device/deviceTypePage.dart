@@ -116,15 +116,13 @@ class DiscoveryPage extends StatelessWidget {
       Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
         return CommonDeviceListPage(title: "设备列表");
       }));
-    }
-    else if (title == "小米网关") {
+    } else if (title == "小米网关") {
       Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
         return MiioGatewayDeviceListPage(title: "设备列表");
       }));
-    }
-    else if (title == "物联网设备") {
+    } else if (title == "物联网设备") {
       Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
-        return IoTDeviceListPage(title:"物联网设备列表");
+        return IoTDeviceListPage(title: "物联网设备列表");
       }));
     }
   }
@@ -132,14 +130,14 @@ class DiscoveryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("设备管理器")),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
-        child: ListView.builder(
-          itemCount: listData.length,
-          itemBuilder: (context, i) => renderRow(context, i),
-        ),
-    ));
+        appBar: AppBar(title: Text("设备管理器")),
+        body: Padding(
+          padding: const EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
+          child: ListView.builder(
+            itemCount: listData.length,
+            itemBuilder: (context, i) => renderRow(context, i),
+          ),
+        ));
   }
 }
 

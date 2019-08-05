@@ -95,11 +95,13 @@ class CustomTooltip extends StatefulWidget {
     super.debugFillProperties(properties);
     properties.add(StringProperty('message', message, showName: false));
     properties.add(DoubleProperty('vertical offset', verticalOffset));
-    properties.add(FlagProperty('position', value: preferBelow, ifTrue: 'below', ifFalse: 'above', showName: true));
+    properties.add(FlagProperty('position',
+        value: preferBelow, ifTrue: 'below', ifFalse: 'above', showName: true));
   }
 }
 
-class _CustomTooltipState extends State<CustomTooltip> with SingleTickerProviderStateMixin {
+class _CustomTooltipState extends State<CustomTooltip>
+    with SingleTickerProviderStateMixin {
   AnimationController _controller;
   OverlayEntry _entry;
   Timer _timer;
@@ -107,7 +109,8 @@ class _CustomTooltipState extends State<CustomTooltip> with SingleTickerProvider
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(duration: _kFadeDuration, vsync: this)..addStatusListener(_handleStatusChanged);
+    _controller = AnimationController(duration: _kFadeDuration, vsync: this)
+      ..addStatusListener(_handleStatusChanged);
   }
 
   void _handleStatusChanged(AnimationStatus status) {
@@ -155,7 +158,8 @@ class _CustomTooltipState extends State<CustomTooltip> with SingleTickerProvider
     _timer = null;
     _entry.remove();
     _entry = null;
-    GestureBinding.instance.pointerRouter.removeGlobalRoute(_handlePointerEvent);
+    GestureBinding.instance.pointerRouter
+        .removeGlobalRoute(_handlePointerEvent);
   }
 
   void _handlePointerEvent(PointerEvent event) {
@@ -227,7 +231,8 @@ class _TooltipPositionDelegate extends SingleChildLayoutDelegate {
   final bool preferBelow;
 
   @override
-  BoxConstraints getConstraintsForChild(BoxConstraints constraints) => constraints.loosen();
+  BoxConstraints getConstraintsForChild(BoxConstraints constraints) =>
+      constraints.loosen();
 
   @override
   Offset getPositionForChild(Size size, Size childSize) {
@@ -242,7 +247,9 @@ class _TooltipPositionDelegate extends SingleChildLayoutDelegate {
 
   @override
   bool shouldRelayout(_TooltipPositionDelegate oldDelegate) {
-    return target != oldDelegate.target || verticalOffset != oldDelegate.verticalOffset || preferBelow != oldDelegate.preferBelow;
+    return target != oldDelegate.target ||
+        verticalOffset != oldDelegate.verticalOffset ||
+        preferBelow != oldDelegate.preferBelow;
   }
 }
 
@@ -271,7 +278,9 @@ class _TooltipOverlay extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     final ThemeData darkTheme = ThemeData(
       brightness: Brightness.dark,
-      textTheme: theme.brightness == Brightness.dark ? theme.textTheme : theme.primaryTextTheme,
+      textTheme: theme.brightness == Brightness.dark
+          ? theme.textTheme
+          : theme.primaryTextTheme,
       platform: theme.platform,
     );
     return Positioned.fill(
@@ -298,7 +307,9 @@ class _TooltipOverlay extends StatelessWidget {
                     widthFactor: 1.0,
                     heightFactor: 1.0,
                     //child: Text(message, style: darkTheme.textTheme.body1),
-                    child: Text(message, style: darkTheme.textTheme.body1.copyWith(color: Colors.white)),
+                    child: Text(message,
+                        style: darkTheme.textTheme.body1
+                            .copyWith(color: Colors.white)),
                   ),
                 ),
               ),

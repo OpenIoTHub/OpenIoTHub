@@ -26,18 +26,19 @@ class Aria2PageState extends State<Aria2Page> {
   void initState() {
     super.initState();
     // 监听WebView的加载事件，该监听器已不起作用，不回调
-    _onStateChanged = flutterWebViewPlugin.onStateChanged.listen((WebViewStateChanged state) {
+    _onStateChanged =
+        flutterWebViewPlugin.onStateChanged.listen((WebViewStateChanged state) {
       // state.type是一个枚举类型，取值有：WebViewState.shouldStart, WebViewState.startLoad, WebViewState.finishLoad
       switch (state.type) {
         case WebViewState.shouldStart:
-        // 准备加载
+          // 准备加载
           break;
         case WebViewState.startLoad:
-        // 开始加载
+          // 开始加载
           injectConfig();
           break;
         case WebViewState.finishLoad:
-        // 加载完成
+          // 加载完成
           break;
         case WebViewState.abortLoad:
           break;
@@ -52,7 +53,8 @@ class Aria2PageState extends State<Aria2Page> {
     }
     loaded = true;
     print("===");
-    String jsCode = "window.localStorage.setItem(\'AriaNg.Options\', \'{\"language\":\"zh_Hans\",\"title\":\"\${downspeed}, \${upspeed} - \${title}\",\"titleRefreshInterval\":5000,\"browserNotification\":false,\"rpcAlias\":\"\",\"rpcHost\":\"localhost\",\"rpcPort\":\"${widget.localPort}\",\"rpcInterface\":\"jsonrpc\",\"protocol\":\"http\",\"httpMethod\":\"POST\",\"secret\":\"\",\"extendRpcServers\":[],\"globalStatRefreshInterval\":1000,\"downloadTaskRefreshInterval\":1000,\"rpcListDisplayOrder\":\"recentlyUsed\",\"afterCreatingNewTask\":\"task-list\",\"removeOldTaskAfterRetrying\":false,\"afterRetryingTask\":\"task-list-downloading\",\"displayOrder\":\"default:asc\",\"fileListDisplayOrder\":\"default:asc\",\"peerListDisplayOrder\":\"default:asc\"}\');location.reload();";
+    String jsCode =
+        "window.localStorage.setItem(\'AriaNg.Options\', \'{\"language\":\"zh_Hans\",\"title\":\"\${downspeed}, \${upspeed} - \${title}\",\"titleRefreshInterval\":5000,\"browserNotification\":false,\"rpcAlias\":\"\",\"rpcHost\":\"localhost\",\"rpcPort\":\"${widget.localPort}\",\"rpcInterface\":\"jsonrpc\",\"protocol\":\"http\",\"httpMethod\":\"POST\",\"secret\":\"\",\"extendRpcServers\":[],\"globalStatRefreshInterval\":1000,\"downloadTaskRefreshInterval\":1000,\"rpcListDisplayOrder\":\"recentlyUsed\",\"afterCreatingNewTask\":\"task-list\",\"removeOldTaskAfterRetrying\":false,\"afterRetryingTask\":\"task-list-downloading\",\"displayOrder\":\"default:asc\",\"fileListDisplayOrder\":\"default:asc\",\"peerListDisplayOrder\":\"default:asc\"}\');location.reload();";
     flutterWebViewPlugin.evalJavascript(jsCode).then((result) {
       // result json字符串，包含token信息
       print("===");
@@ -65,8 +67,9 @@ class Aria2PageState extends State<Aria2Page> {
   Widget build(BuildContext context) {
     return WebviewScaffold(
       key: _scaffoldKey,
-      url: "http://127.0.0.1:${Config.webStaticPort}/web/open/aria2/index.html", // 登录的URL
-      withZoom: true,  // 允许网页缩放
+      url:
+          "http://127.0.0.1:${Config.webStaticPort}/web/open/aria2/index.html", // 登录的URL
+      withZoom: true, // 允许网页缩放
       withLocalStorage: true, // 允许LocalStorage
       withJavascript: true, // 允许执行js代码
     );

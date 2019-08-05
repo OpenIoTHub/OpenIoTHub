@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-enum CircleImageType {network, asset}
+enum CircleImageType { network, asset }
 
 class CircleImage extends StatefulWidget {
   double width;
@@ -9,7 +9,11 @@ class CircleImage extends StatefulWidget {
   String path;
   CircleImageType type; // network, asset
 
-  CircleImage({@required this.width, @required this.height, @required this.path, @required this.type});
+  CircleImage(
+      {@required this.width,
+      @required this.height,
+      @required this.path,
+      @required this.type});
 
   @override
   State<StatefulWidget> createState() {
@@ -22,9 +26,11 @@ class CircleImageState extends State<CircleImage> {
   Widget build(BuildContext context) {
     var img;
     if (widget.type == CircleImageType.network) {
-      img = Image.network(widget.path, width: widget.width, height: widget.height);
+      img = Image.network(widget.path,
+          width: widget.width, height: widget.height);
     } else {
-      img = Image.asset(widget.path, width: widget.width, height: widget.height);
+      img =
+          Image.asset(widget.path, width: widget.width, height: widget.height);
     }
     return Container(
       width: widget.width,
@@ -32,10 +38,7 @@ class CircleImageState extends State<CircleImage> {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: Colors.blue,
-        image: DecorationImage(
-            image: img,
-            fit: BoxFit.cover
-        ),
+        image: DecorationImage(image: img, fit: BoxFit.cover),
         border: Border.all(
           color: Colors.white,
           width: 2.0,

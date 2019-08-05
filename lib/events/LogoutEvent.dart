@@ -1,4 +1,1 @@
-
-class LogoutEvent {
-
-}
+class LogoutEvent {}

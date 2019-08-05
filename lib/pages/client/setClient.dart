@@ -58,7 +58,7 @@ class SetClientState extends State<SetClient> {
                         FlatButton(
                           child: Text("添加内网"),
                           onPressed: () {
-                            addToMySessionList().then((_){
+                            addToMySessionList().then((_) {
                               Navigator.of(context).pop();
                             });
                           },
@@ -80,7 +80,7 @@ class SetClientState extends State<SetClient> {
                         FlatButton(
                           child: Text("添加内网"),
                           onPressed: () {
-                            addToMySessionList().then((_){
+                            addToMySessionList().then((_) {
                               Navigator.of(context).pop();
                             });
                           },

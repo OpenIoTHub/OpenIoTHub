@@ -14,7 +14,8 @@ class MiioGatewayDeviceListPage extends StatefulWidget {
   final String title;
 
   @override
-  _MiioGatewayDeviceListPageState createState() => _MiioGatewayDeviceListPageState();
+  _MiioGatewayDeviceListPageState createState() =>
+      _MiioGatewayDeviceListPageState();
 }
 
 class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
@@ -48,9 +49,9 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
               Icon(Icons.devices),
               Expanded(
                   child: Text(
-                    pair.addr,
-                    style: titleTextStyle,
-                  )),
+                pair.addr,
+                style: titleTextStyle,
+              )),
               rightArrowIcon
             ],
           ),
@@ -61,7 +62,6 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
           },
           child: listItemContent,
         );
-
       },
     );
     final divided = ListTile.divideTiles(
@@ -92,28 +92,28 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
                     final titles = _SessionList.map(
                       (pair) {
                         var listItemContent = Padding(
-                          padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
+                          padding:
+                              const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
                           child: Row(
                             children: <Widget>[
                               Icon(Icons.cloud_done),
                               Expanded(
                                   child: Text(
-                                    pair.description,
-                                    style: titleTextStyle,
-                                  )),
+                                pair.description,
+                                style: titleTextStyle,
+                              )),
                               rightArrowIcon
                             ],
                           ),
                         );
                         return InkWell(
                           onTap: () {
-                              _addDevice(pair).then((v) {
-                                Navigator.of(context).pop();
-                              });
+                            _addDevice(pair).then((v) {
+                              Navigator.of(context).pop();
+                            });
                           },
                           child: listItemContent,
                         );
-
                       },
                     );
                     final divided = ListTile.divideTiles(
@@ -188,9 +188,9 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
                       var device = MiioGatewayDevice();
                       device.runId = config.runId;
                       device.key = _token_controller.text;
-                      device.addr =_remote_ip_controller.text;
-                      createOneMiioGatewayDevice(device).then((v){
-                        getAllMiioGatewayDevice().then((v){
+                      device.addr = _remote_ip_controller.text;
+                      createOneMiioGatewayDevice(device).then((v) {
+                        getAllMiioGatewayDevice().then((v) {
                           Navigator.of(context).pop();
                         });
                       });
@@ -200,12 +200,14 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
   }
 
   void _pushDeviceServiceTypes(MiioGatewayDevice device) async {
-  // 查看设备下的服务 MiioGatewayDeviceServiceTypesList
+    // 查看设备下的服务 MiioGatewayDeviceServiceTypesList
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
           // 写成独立的组件，支持刷新
-          return MiioGatewaySubDeviceTypesList(device: device,);
+          return MiioGatewaySubDeviceTypesList(
+            device: device,
+          );
         },
       ),
     ).then((result) {
@@ -230,26 +232,26 @@ class _MiioGatewayDeviceListPageState extends State<MiioGatewayDeviceListPage> {
   Future createOneMiioGatewayDevice(MiioGatewayDevice device) async {
     try {
       await MiioGatewayDeviceApi.createOneDevice(device);
-    }catch (e) {
+    } catch (e) {
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
-              title: Text("创建设备失败："),
-              content: Text("失败原因：$e"),
-              actions: <Widget>[
-                FlatButton(
-                  child: Text("取消"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-                FlatButton(
-                  child: Text("确认"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                )
-              ]));
+                  title: Text("创建设备失败："),
+                  content: Text("失败原因：$e"),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text("取消"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    FlatButton(
+                      child: Text("确认"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  ]));
     }
   }
 

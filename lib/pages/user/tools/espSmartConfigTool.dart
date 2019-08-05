@@ -99,77 +99,60 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('ESP SmartConfig'),
-      ),
-      body: Center(
-          child: _isLoading ? Container(
-            child: Center(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.lightBlue),
-              ),
-                    Text("正在设置设备连接到路由器：${_ssid}(BSSID:${_bssid})"),
-                  ]),
-            ),
-            color: Colors.white.withOpacity(0.8),
-          ) :
-
-          Container(
-              padding: EdgeInsets.all(10.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-
-                  Container(height: 10),
-
-                  Container(
-                      child:  Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
+        appBar: AppBar(
+          title: const Text('ESP SmartConfig'),
+        ),
+        body: Center(
+            child: _isLoading
+                ? Container(
+                    child: Center(
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Text("ESP Touch v0.3.7.0"),
-                            TextField(
-                              controller: _ssidFilter,
-                              decoration: InputDecoration(
-                                  labelText: 'ssid'
-                              ),
+                            CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                  Colors.lightBlue),
                             ),
-                            TextField(
-                              controller: _bssidFilter,
-                              decoration: InputDecoration(
-                                  labelText: 'bssid'
-                              ),
-                            ),
-                          ])),
-
-                  Container(
-                    child: TextField(
-                      controller: _passwordFilter,
-                      decoration: InputDecoration(
-                          labelText: 'Wifi密码'
-                      ),
-                      obscureText: true,
+                            Text("正在设置设备连接到路由器：${_ssid}(BSSID:${_bssid})"),
+                          ]),
                     ),
-                  ),
-
-                  RaisedButton(
-                    child: Text('开始给设备配网'),
-                    onPressed: _configureEsp,
-                  ),
-
-                  Container(height: 10),
-
-                  Text(_msg),
-
-                ],
-              )
-
-          )
-
-
-      )
-    );
+                    color: Colors.white.withOpacity(0.8),
+                  )
+                : Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(height: 10),
+                        Container(
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                              Text("ESP Touch v0.3.7.0"),
+                              TextField(
+                                controller: _ssidFilter,
+                                decoration: InputDecoration(labelText: 'ssid'),
+                              ),
+                              TextField(
+                                controller: _bssidFilter,
+                                decoration: InputDecoration(labelText: 'bssid'),
+                              ),
+                            ])),
+                        Container(
+                          child: TextField(
+                            controller: _passwordFilter,
+                            decoration: InputDecoration(labelText: 'Wifi密码'),
+                            obscureText: true,
+                          ),
+                        ),
+                        RaisedButton(
+                          child: Text('开始给设备配网'),
+                          onPressed: _configureEsp,
+                        ),
+                        Container(height: 10),
+                        Text(_msg),
+                      ],
+                    ))));
   }
 
   Future<void> _updateConnectionStatus(ConnectivityResult result) async {
@@ -199,8 +182,8 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
         }
 
         setState(() {
-          _ssidFilter.text =  wifiName;
-          _bssidFilter.text =  wifiBSSID;
+          _ssidFilter.text = wifiName;
+          _bssidFilter.text = wifiBSSID;
 
           _msg = "输入路由器WIFI(2.4G频率)密码后开始配网";
         });
@@ -216,10 +199,12 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
   Future<bool> requestPermission() async {
     // 申请权限
     Map<PermissionGroup, PermissionStatus> permissions =
-    await PermissionHandler().requestPermissions([PermissionGroup.location,]);
+        await PermissionHandler().requestPermissions([
+      PermissionGroup.location,
+    ]);
     // 申请结果
-    PermissionStatus permission =
-    await PermissionHandler().checkPermissionStatus(PermissionGroup.location);
+    PermissionStatus permission = await PermissionHandler()
+        .checkPermissionStatus(PermissionGroup.location);
     if (permission == PermissionStatus.granted) {
       return true;
     } else {
@@ -235,13 +220,10 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
     });
 
     try {
-      Smartconfig.start(_ssid, _bssid, _password).then( (v)=>
-          setState(() {
+      Smartconfig.start(_ssid, _bssid, _password).then((v) => setState(() {
             _isLoading = false;
             _msg = "配好了设备：${v.toString()}";
-          })
-      );
-
+          }));
     } on PlatformException catch (e) {
       output = "Failed to configure: '${e.message}'.";
       setState(() {

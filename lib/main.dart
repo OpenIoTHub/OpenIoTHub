@@ -12,9 +12,10 @@ import 'package:jaguar_flutter_asset/jaguar_flutter_asset.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  final server = Jaguar(address: Config.webStaticIp,port: Config.webStaticPort);
+  final server =
+      Jaguar(address: Config.webStaticIp, port: Config.webStaticPort);
   server.addRoute(serveFlutterAssets());
-  server.serve(logRequests: true).then((v){
+  server.serve(logRequests: true).then((v) {
     server.log.onRecord.listen((r) => debugPrint("==serve-log：$r"));
   });
 
@@ -66,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _buildBody(int index) {
     switch (index) {
       case 0:
-        return SessionListPage(title:"网络列表");
+        return SessionListPage(title: "网络列表");
         break;
       case 1:
         return DiscoveryPage();

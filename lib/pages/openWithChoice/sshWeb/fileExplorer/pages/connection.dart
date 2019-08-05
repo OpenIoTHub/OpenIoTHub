@@ -242,9 +242,10 @@ class _ConnectionPageState extends State<ConnectionPage>
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(48),
         child: AppBar(
-          backgroundColor: Provider.of<CustomTheme>(context).themeValue == "dark"
-              ? CustomThemes.dark.primaryColor
-              : CustomThemes.light.primaryColor,
+          backgroundColor:
+              Provider.of<CustomTheme>(context).themeValue == "dark"
+                  ? CustomThemes.dark.primaryColor
+                  : CustomThemes.light.primaryColor,
           elevation: 1.6,
           automaticallyImplyLeading: false,
           title: SingleChildScrollView(

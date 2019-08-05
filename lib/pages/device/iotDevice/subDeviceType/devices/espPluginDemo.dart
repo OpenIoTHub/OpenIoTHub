@@ -59,7 +59,9 @@ class _EspPluginDemoPageState extends State<EspPluginDemoPage> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[ledBottonStatus?Text("已经开启"):Text("已经关闭"),],
+              children: <Widget>[
+                ledBottonStatus ? Text("已经开启") : Text("已经关闭"),
+              ],
             )
           ]),
     );

@@ -30,23 +30,28 @@ class OpenWithChoice extends StatelessWidget {
   OpenWithChoice(this.portConfig) {
     listData.add(TAG_BLANK);
     listData.add(TAG_START);
-    listData.add(ListItem(title: 'Web', icon: 'assets/images/ic_discover_nearby.png'));
+    listData.add(
+        ListItem(title: 'Web', icon: 'assets/images/ic_discover_nearby.png'));
     listData.add(TAG_CENTER);
-    listData.add(ListItem(title: 'Aria2', icon: 'assets/images/ic_discover_nearby.png'));
+    listData.add(
+        ListItem(title: 'Aria2', icon: 'assets/images/ic_discover_nearby.png'));
     listData.add(TAG_CENTER);
-    listData.add(ListItem(title: 'SSH', icon: 'assets/images/ic_discover_nearby.png'));
+    listData.add(
+        ListItem(title: 'SSH', icon: 'assets/images/ic_discover_nearby.png'));
     listData.add(TAG_CENTER);
-    listData.add(ListItem(title: 'VNC', icon: 'assets/images/ic_discover_nearby.png'));
+    listData.add(
+        ListItem(title: 'VNC', icon: 'assets/images/ic_discover_nearby.png'));
     listData.add(TAG_CENTER);
-    listData.add(ListItem(title: 'RDP远程桌面', icon: 'assets/images/ic_discover_nearby.png'));
+    listData.add(ListItem(
+        title: 'RDP远程桌面', icon: 'assets/images/ic_discover_nearby.png'));
     listData.add(TAG_END);
   }
 
   Widget getIconImage(path) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
-      child: Image.asset(path,
-          width: IMAGE_ICON_WIDTH, height: IMAGE_ICON_WIDTH),
+      child:
+          Image.asset(path, width: IMAGE_ICON_WIDTH, height: IMAGE_ICON_WIDTH),
     );
   }
 
@@ -90,9 +95,9 @@ class OpenWithChoice extends StatelessWidget {
             getIconImage(item.icon),
             Expanded(
                 child: Text(
-                  item.title,
-                  style: titleTextStyle,
-                )),
+              item.title,
+              style: titleTextStyle,
+            )),
             rightArrowIcon
           ],
         ),
@@ -102,64 +107,77 @@ class OpenWithChoice extends StatelessWidget {
           String title = item.title;
           if (title == 'Aria2') {
             Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
-              return Aria2Page(localPort: portConfig.localProt,);
-            })).then((_){
+              return Aria2Page(
+                localPort: portConfig.localProt,
+              );
+            })).then((_) {
               Navigator.of(ctx).pop();
             });
           } else if (title == 'SSH') {
             TextEditingController _username_controller =
-            TextEditingController.fromValue(TextEditingValue(text: "root"));
+                TextEditingController.fromValue(TextEditingValue(text: "root"));
             TextEditingController _password_controller =
-            TextEditingController.fromValue(TextEditingValue(text: ""));
+                TextEditingController.fromValue(TextEditingValue(text: ""));
             showDialog(
                 context: ctx,
                 builder: (_) => AlertDialog(
-                    title: Text("输入linux登录信息："),
-                    content: ListView(
-                      children: <Widget>[
-                        TextFormField(
-                          controller: _username_controller,
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.all(10.0),
-                            labelText: '用户名',
-                            helperText: 'linux用户名',
-                          ),
+                        title: Text("输入linux登录信息："),
+                        content: ListView(
+                          children: <Widget>[
+                            TextFormField(
+                              controller: _username_controller,
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.all(10.0),
+                                labelText: '用户名',
+                                helperText: 'linux用户名',
+                              ),
+                            ),
+                            TextFormField(
+                              controller: _password_controller,
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.all(10.0),
+                                labelText: 'ssh密码',
+                                helperText: '上述linux用户密码',
+                              ),
+                              obscureText: true,
+                            )
+                          ],
                         ),
-                        TextFormField(
-                          controller: _password_controller,
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.all(10.0),
-                            labelText: 'ssh密码',
-                            helperText: '上述linux用户密码',
+                        actions: <Widget>[
+                          FlatButton(
+                            child: Text("取消"),
+                            onPressed: () {
+                              Navigator.of(ctx).pop();
+                            },
                           ),
-                          obscureText: true,
-                        )
-                      ],
-                    ),
-                    actions: <Widget>[
-                      FlatButton(
-                        child: Text("取消"),
-                        onPressed: () {
-                          Navigator.of(ctx).pop();
-                        },
-                      ),
-                      FlatButton(
-                        child: Text("连接"),
-                        onPressed: () {
-                          Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
-                            return SSHWebPage(runId:portConfig.device.runId,remoteIp:portConfig.device.addr,remotePort:portConfig.remotePort,userName: _username_controller.text,passWord: _password_controller.text,localPort: portConfig.localProt,);
-                          })).then((_){
-                            Navigator.of(ctx).pop();
-                          });
-                        },
-                      )
-                    ])).then((_){
+                          FlatButton(
+                            child: Text("连接"),
+                            onPressed: () {
+                              Navigator.push(ctx,
+                                  MaterialPageRoute(builder: (ctx) {
+                                return SSHWebPage(
+                                  runId: portConfig.device.runId,
+                                  remoteIp: portConfig.device.addr,
+                                  remotePort: portConfig.remotePort,
+                                  userName: _username_controller.text,
+                                  passWord: _password_controller.text,
+                                  localPort: portConfig.localProt,
+                                );
+                              })).then((_) {
+                                Navigator.of(ctx).pop();
+                              });
+                            },
+                          )
+                        ])).then((_) {
               Navigator.of(ctx).pop();
             });
           } else if (title == 'VNC') {
             Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
-              return VNCWebPage(runId:portConfig.device.runId,remoteIp:portConfig.device.addr,remotePort:portConfig.remotePort);
-            })).then((_){
+              return VNCWebPage(
+                  runId: portConfig.device.runId,
+                  remoteIp: portConfig.device.addr,
+                  remotePort: portConfig.remotePort);
+            })).then((_) {
               Navigator.of(ctx).pop();
             });
           } else if (title == 'Web') {
@@ -177,13 +195,13 @@ class OpenWithChoice extends StatelessWidget {
                       })
                 ]),
               );
-            })).then((_){
+            })).then((_) {
               Navigator.of(ctx).pop();
             });
           } else if (title == 'RDP远程桌面') {
             var url =
                 'rdp://full%20address=s:127.0.0.1:${portConfig.localProt}&audiomode=i:2&disable%20themes=i:1';
-            _launchURL(url).then((_){
+            _launchURL(url).then((_) {
               Navigator.of(ctx).pop();
             });
           }

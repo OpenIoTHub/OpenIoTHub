@@ -31,8 +31,8 @@ class _SessionListPageState extends State<SessionListPage> {
   @override
   void initState() {
     super.initState();
-    getAllSession().then((_){
-      Future.delayed(const Duration(milliseconds: 500)).then((_){
+    getAllSession().then((_) {
+      Future.delayed(const Duration(milliseconds: 500)).then((_) {
         getAllSession();
       });
     });

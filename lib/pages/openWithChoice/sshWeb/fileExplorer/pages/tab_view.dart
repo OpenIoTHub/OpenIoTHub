@@ -205,18 +205,18 @@ class _TabViewPageState extends State<TabViewPage> {
                       context: context,
                       barrierDismissible: false,
                       builder: (context) => Center(
-                        child: Container(
-                          height: 80,
-                          width: 80,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).dialogBackgroundColor,
-                            shape: BoxShape.circle,
+                            child: Container(
+                              height: 80,
+                              width: 80,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).dialogBackgroundColor,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            ),
                           ),
-                          child: Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                        ),
-                      ),
                     );
                     ConnectionMethods.connectClient(
                       context,

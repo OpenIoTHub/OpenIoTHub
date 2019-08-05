@@ -8,7 +8,15 @@ import 'fileExplorer/services/connection.dart';
 import 'fileExplorer/services/connection_methods.dart';
 
 class SSHWebPage extends StatefulWidget {
-  SSHWebPage({Key key, this.runId, this.remoteIp, this.remotePort, this.userName, this.passWord, this.localPort}) : super(key: key);
+  SSHWebPage(
+      {Key key,
+      this.runId,
+      this.remoteIp,
+      this.remotePort,
+      this.userName,
+      this.passWord,
+      this.localPort})
+      : super(key: key);
   String runId;
   String remoteIp;
   int remotePort;
@@ -33,18 +41,19 @@ class SSHWebPageState extends State<SSHWebPage> {
   void initState() {
     super.initState();
     // 监听WebView的加载事件，该监听器已不起作用，不回调
-    _onStateChanged = flutterWebViewPlugin.onStateChanged.listen((WebViewStateChanged state) {
+    _onStateChanged =
+        flutterWebViewPlugin.onStateChanged.listen((WebViewStateChanged state) {
       // state.type是一个枚举类型，取值有：WebViewState.shouldStart, WebViewState.startLoad, WebViewState.finishLoad
       switch (state.type) {
         case WebViewState.shouldStart:
-        // 准备加载
+          // 准备加载
           break;
         case WebViewState.startLoad:
-        // 开始加载
+          // 开始加载
           injectConfig();
           break;
         case WebViewState.finishLoad:
-        // 加载完成
+          // 加载完成
           break;
         case WebViewState.abortLoad:
           break;
@@ -57,10 +66,11 @@ class SSHWebPageState extends State<SSHWebPage> {
     if (loaded) {
       return;
     }
-    loaded =true;
+    loaded = true;
     print("loaded = true");
     print("===");
-    String jsCode = "window.localStorage.setItem(\'runId\', \'${widget.runId}\');window.localStorage.setItem(\'remoteIp\', \'${widget.remoteIp}\');window.localStorage.setItem(\'remotePort\', \'${widget.remotePort}\');window.localStorage.setItem(\'userName\', \'${widget.userName}\');window.localStorage.setItem(\'passWord\', \'${widget.passWord}\');location.reload();";
+    String jsCode =
+        "window.localStorage.setItem(\'runId\', \'${widget.runId}\');window.localStorage.setItem(\'remoteIp\', \'${widget.remoteIp}\');window.localStorage.setItem(\'remotePort\', \'${widget.remotePort}\');window.localStorage.setItem(\'userName\', \'${widget.userName}\');window.localStorage.setItem(\'passWord\', \'${widget.passWord}\');location.reload();";
     flutterWebViewPlugin.evalJavascript(jsCode).then((result) {
       // result json字符串，包含token信息
       print("===");
@@ -72,26 +82,27 @@ class SSHWebPageState extends State<SSHWebPage> {
   @override
   Widget build(BuildContext context) {
     return WebviewScaffold(
-        appBar: AppBar(
-          title: Text("ssh"),
-          iconTheme: IconThemeData(color: Colors.white),
-          actions: <Widget>[
-            IconButton(
-                icon: Icon(
-                  Icons.insert_drive_file,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  _pushSSHFileExplorer();
-                }),
-          ],
-        ),
-        key: _scaffoldKey,
-        url: "http://127.0.0.1:${Config.webStaticPort}/web/open/ssh/index.html", // 登录的URL
-        withZoom: true,  // 允许网页缩放
-        withLocalStorage: true, // 允许LocalStorage
-        withJavascript: true, // 允许执行js代码
-      );
+      appBar: AppBar(
+        title: Text("ssh"),
+        iconTheme: IconThemeData(color: Colors.white),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(
+                Icons.insert_drive_file,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                _pushSSHFileExplorer();
+              }),
+        ],
+      ),
+      key: _scaffoldKey,
+      url:
+          "http://127.0.0.1:${Config.webStaticPort}/web/open/ssh/index.html", // 登录的URL
+      withZoom: true, // 允许网页缩放
+      withLocalStorage: true, // 允许LocalStorage
+      withJavascript: true, // 允许执行js代码
+    );
   }
 
   @override
@@ -135,5 +146,4 @@ class SSHWebPageState extends State<SSHWebPage> {
       }
     });
   }
-
 }

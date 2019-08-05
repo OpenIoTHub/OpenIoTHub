@@ -65,9 +65,7 @@ class _EditConnectionPageState extends State<EditConnectionPage> {
           ),
           labelText: label,
           hintText: hint,
-          errorText: !_addressIsEntered && label == "地址*"
-              ? "请输入一个地址"
-              : null,
+          errorText: !_addressIsEntered && label == "地址*" ? "请输入一个地址" : null,
           suffixIcon: key == "passwordOrKey" &&
                   !_passwordWasChanged &&
                   _textEditingController[key].text != ""
