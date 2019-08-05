@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:android_intent/android_intent.dart';
+import 'package:nat_explorer/constants/Config.dart';
 import 'package:nat_explorer/pages/device/iotDevice/iotDevice.dart';
 
 class EspPluginDemoPage extends StatefulWidget {
@@ -39,6 +40,14 @@ class _EspPluginDemoPageState extends State<EspPluginDemoPage> {
               onPressed: () {
                 _setting();
               }),
+          IconButton(
+              icon: Icon(
+                Icons.info,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                _info();
+              }),
         ],
       ),
       body: Column(
@@ -67,14 +76,51 @@ class _EspPluginDemoPageState extends State<EspPluginDemoPage> {
     );
   }
 
-  _getCurrentStatus() async {}
+  _getCurrentStatus() async {
+    String url = "http://${Config.webgRpcIp}:${widget.device.portConfig.localProt}/status";
+    http.Response response;
+    try{
+      response = await http.get(url).timeout(const Duration(seconds: 2));
+      print(response.body);
+    }catch(e){
+      print(e.toString());
+      return;
+    }
+    if(response.statusCode == 200 && jsonDecode(response.body)["led1"]==1){
+      setState(() {
+        ledBottonStatus = true;
+      });
+    }else{
+      setState(() {
+        ledBottonStatus = false;
+      });
+    }
+  }
 
-  _setting() async {}
+  _setting() async {
+    // TODO 设备设置
+  }
+
+  _info() async {
+    // TODO 设备信息
+  }
 
   _changeSwitchStatus() async {
-    setState(() {
-      ledBottonStatus = !ledBottonStatus;
-    });
+    String url;
+    if (ledBottonStatus) {
+      url = "http://${Config.webgRpcIp}:${widget.device.portConfig.localProt}/led?pin=OFF1";
+    }else {
+      url = "http://${Config.webgRpcIp}:${widget.device.portConfig.localProt}/led?pin=ON1";
+    }
+    http.Response response;
+    try{
+      response = await http.get(url).timeout(const Duration(seconds: 2));
+      print(response.body);
+    }catch(e){
+      print(e.toString());
+      return;
+    }
+    _getCurrentStatus();
   }
 
   _launchURL(String url) async {

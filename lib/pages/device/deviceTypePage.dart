@@ -22,7 +22,7 @@ class DiscoveryPage extends StatelessWidget {
     "assets/images/ic_discover_nearby.png",
     "assets/images/ic_discover_pos.png",
   ];
-  final titles = ["普通设备", "物联网设备", "小米网关"];
+  final titles = ["普通设备", "智能设备", "小米网关"];
   final rightArrowIcon = Image.asset(
     'assets/images/ic_arrow_right.png',
     width: ARROW_ICON_WIDTH,
