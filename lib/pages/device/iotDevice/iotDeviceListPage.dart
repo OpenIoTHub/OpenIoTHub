@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:jaguar/http/response/response.dart';
 import 'package:nat_explorer/api/CommonDeviceApi.dart';
 import 'package:nat_explorer/api/SessionApi.dart';
+import 'package:nat_explorer/constants/Config.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
 import 'package:android_intent/android_intent.dart';
@@ -24,13 +28,14 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
     width: ARROW_ICON_WIDTH,
     height: ARROW_ICON_WIDTH,
   );
-  List<SessionConfig> _SessionList = [];
-  List<PortConfig> _IoTDeviceList = [];
+  List<IoTDevice> _IoTDeviceList = [];
 
   @override
   void initState() {
     super.initState();
-    getAllIoTDevice();
+    getAllIoTDevice().then((_){
+      Future.delayed(const Duration(seconds: 2),()=>getAllIoTDevice());
+    });
     print("init iot devie List");
   }
 
@@ -45,7 +50,7 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
               Icon(Icons.devices),
               Expanded(
                   child: Text(
-                    pair.description,
+                    pair.portConfig.description,
                     style: titleTextStyle,
                   )),
               rightArrowIcon
@@ -81,13 +86,13 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
         body: ListView(children: divided));
   }
 
-  void _pushDeviceServiceTypes(PortConfig device) async {
+  void _pushDeviceServiceTypes(IoTDevice device) async {
   // 查看设备的UI，1.native，2.web
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
           // 写成独立的组件，支持刷新
-          return Text(device.toString());
+          return Text(device.response.body);
         },
       ),
     ).then((result) {
@@ -114,12 +119,13 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
         for(int i=0; i<s.length; i++) {
           SessionApi.getAllTCP(s[i]).then((t) {
             for(int j=0; j<t.portConfigs.length; j++) {
+              if (j==0){
+                _IoTDeviceList.clear();
+              }
               //  是否是iotdevice
               if (t.portConfigs[j].description.contains("_iotdevice.")){
                 // TODO 是否含有/info，将portConfig里面的description换成、info中的name（这个name由设备管理）
-                setState(() {
-                  _IoTDeviceList.add(t.portConfigs[j]);
-                });
+                addToIoTDeviceList(t.portConfigs[j]);
               }
             }
           });
@@ -162,6 +168,23 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
     }
   }
 
+  addToIoTDeviceList(PortConfig portConfig) async {
+    String url = "http://${Config.webgRpcIp}:${portConfig.localProt}/info";
+    http.Response response;
+    try {
+      response = await http.get(url).timeout(const Duration(seconds: 2));
+    }catch(e){
+      print(e.toString());
+      return;
+    }
+    if(response.statusCode == 200){
+      portConfig.description = jsonDecode(response.body)["name"];
+      setState(() {
+        _IoTDeviceList.add(IoTDevice(portConfig:portConfig,response: response));
+      });
+    }
+  }
+
   _launchURL(String url) async {
     AndroidIntent intent = AndroidIntent(
       action: 'action_view',
@@ -169,4 +192,10 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
     );
     await intent.launch();
   }
+}
+
+class IoTDevice {
+  PortConfig portConfig;
+  http.Response response;
+  IoTDevice({this.portConfig, this.response});
 }
