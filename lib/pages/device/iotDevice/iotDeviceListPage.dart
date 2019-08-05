@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:jaguar/http/response/response.dart';
-import 'package:nat_explorer/api/CommonDeviceApi.dart';
 import 'package:nat_explorer/api/SessionApi.dart';
 import 'package:nat_explorer/constants/Config.dart';
+import 'package:nat_explorer/pages/device/iotDevice/iotDevice.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
 import 'package:android_intent/android_intent.dart';
@@ -33,8 +33,8 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
   @override
   void initState() {
     super.initState();
-    getAllIoTDevice().then((_){
-      Future.delayed(const Duration(seconds: 2),()=>getAllIoTDevice());
+    getAllIoTDevice().then((_) {
+      Future.delayed(const Duration(seconds: 2), () => getAllIoTDevice());
     });
     print("init iot devie List");
   }
@@ -50,9 +50,9 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
               Icon(Icons.devices),
               Expanded(
                   child: Text(
-                    pair.portConfig.description,
-                    style: titleTextStyle,
-                  )),
+                pair.portConfig.description,
+                style: titleTextStyle,
+              )),
               rightArrowIcon
             ],
           ),
@@ -86,13 +86,31 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
         body: ListView(children: divided));
   }
 
+//显示是设备的UI展示或者操作界面
   void _pushDeviceServiceTypes(IoTDevice device) async {
-  // 查看设备的UI，1.native，2.web
+    // 查看设备的UI，1.native，2.web
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
           // 写成独立的组件，支持刷新
-          return Text(device.response.body);
+          String model = jsonDecode(device.response.body)["model"];
+          String uiFirst = jsonDecode(device.response.body)["ui-first"];
+          switch (model) {
+            case "com.iotserv.devices.esp8266-switch":
+              {
+                if (uiFirst == "native") {
+                  return EspPluginDemoPage(device: device);
+                } else if (uiFirst == "web") {
+                  _openWithWeb(device);
+                }
+              }
+              break;
+            default:
+              {
+                _openWithWeb(device);
+              }
+              break;
+          }
         },
       ),
     ).then((result) {
@@ -115,15 +133,15 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
   Future getAllIoTDevice() async {
     // TODO 从各内网筛选出当前已经映射的mDNS服务中是物联网设备的，注意通过api刷新mDNS服务
     try {
-      getAllSession().then((s){
-        for(int i=0; i<s.length; i++) {
+      getAllSession().then((s) {
+        for (int i = 0; i < s.length; i++) {
           SessionApi.getAllTCP(s[i]).then((t) {
-            for(int j=0; j<t.portConfigs.length; j++) {
-              if (j==0){
+            for (int j = 0; j < t.portConfigs.length; j++) {
+              if (j == 0) {
                 _IoTDeviceList.clear();
               }
               //  是否是iotdevice
-              if (t.portConfigs[j].description.contains("_iotdevice.")){
+              if (t.portConfigs[j].description.contains("_iotdevice.")) {
                 // TODO 是否含有/info，将portConfig里面的description换成、info中的name（这个name由设备管理）
                 addToIoTDeviceList(t.portConfigs[j]);
               }
@@ -156,11 +174,11 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
 
   Future refreshmDNSServices() async {
     try {
-      getAllSession().then((s){
-        for(int i=0; i<s.length; i++) {
+      getAllSession().then((s) {
+        for (int i = 0; i < s.length; i++) {
           SessionApi.refreshmDNSServices(s[i]);
         }
-      }).then((_){
+      }).then((_) {
         getAllIoTDevice();
       });
     } catch (e) {
@@ -173,14 +191,15 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
     http.Response response;
     try {
       response = await http.get(url).timeout(const Duration(seconds: 2));
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return;
     }
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       portConfig.description = jsonDecode(response.body)["name"];
       setState(() {
-        _IoTDeviceList.add(IoTDevice(portConfig:portConfig,response: response));
+        _IoTDeviceList.add(
+            IoTDevice(portConfig: portConfig, response: response));
       });
     }
   }
@@ -192,10 +211,24 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
     );
     await intent.launch();
   }
-}
 
-class IoTDevice {
-  PortConfig portConfig;
-  http.Response response;
-  IoTDevice({this.portConfig, this.response});
+  _openWithWeb(IoTDevice device) async {
+    Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+      return WebviewScaffold(
+        url: "http://127.0.0.1:${device.portConfig.localProt}",
+        appBar: new AppBar(title: new Text("网页浏览器"), actions: <Widget>[
+          IconButton(
+              icon: Icon(
+                Icons.open_in_browser,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                _launchURL("http://127.0.0.1:${device.portConfig.localProt}");
+              })
+        ]),
+      );
+    })).then((_) {
+      Navigator.of(context).pop();
+    });
+  }
 }
