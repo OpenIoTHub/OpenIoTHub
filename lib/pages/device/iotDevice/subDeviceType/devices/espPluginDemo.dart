@@ -101,7 +101,7 @@ class _EspPluginDemoPageState extends State<EspPluginDemoPage> {
   _setting() async {
     // TODO 设备设置
     TextEditingController _name_controller =
-    TextEditingController.fromValue(TextEditingValue(text: jsonDecode(widget.device.response.body)["name"]));
+    TextEditingController.fromValue(TextEditingValue(text: jsonDecode(u8decodeer.convert(widget.device.response.bodyBytes))["name"]));
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
@@ -129,11 +129,12 @@ class _EspPluginDemoPageState extends State<EspPluginDemoPage> {
                 onPressed: () async {
                   try{
                     String url = "http://${Config.webgRpcIp}:${widget.device.portConfig.localProt}/rename?name=${_name_controller.text}";
-                    await http.get(url).timeout(const Duration(seconds: 2));
+                    http.get(url).timeout(const Duration(seconds: 2));
                   }catch(e){
                     print(e.toString());
                     return;
                   }
+                  Navigator.of(context).pop();
                 },
               )
             ]));
@@ -142,15 +143,16 @@ class _EspPluginDemoPageState extends State<EspPluginDemoPage> {
   _info() async {
     // TODO 设备信息
     final List _result = [];
-    _result.add("设备名称:${jsonDecode(u8decodeer.convert(widget.device.response.bodyBytes))["name"]}");
-    _result.add("设备型号:${jsonDecode(widget.device.response.body)["model"]}");
-    _result.add("支持的界面:${jsonDecode(widget.device.response.body)["ui-support"]}");
-    _result.add("首选界面:${jsonDecode(widget.device.response.body)["ui-first"]}");
-    _result.add("固件作者:${jsonDecode(u8decodeer.convert(widget.device.response.bodyBytes))["author"]}");
-    _result.add("邮件:${jsonDecode(widget.device.response.body)["email"]}");
-    _result.add("主页:${jsonDecode(widget.device.response.body)["home-page"]}");
-    _result.add("固件程序:${jsonDecode(widget.device.response.body)["firmware-respository"]}");
-    _result.add("固件版本:${jsonDecode(widget.device.response.body)["firmware-version"]}");
+    dynamic info = jsonDecode(u8decodeer.convert(widget.device.response.bodyBytes));
+    _result.add("设备名称:${info["name"]}");
+    _result.add("设备型号:${info["model"]}");
+    _result.add("支持的界面:${info["ui-support"]}");
+    _result.add("首选界面:${info["ui-first"]}");
+    _result.add("固件作者:${info["author"]}");
+    _result.add("邮件:${info["email"]}");
+    _result.add("主页:${info["home-page"]}");
+    _result.add("固件程序:${info["firmware-respository"]}");
+    _result.add("固件版本:${info["firmware-version"]}");
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
