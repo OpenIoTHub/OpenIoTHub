@@ -67,6 +67,9 @@ dependencies:
   ssh: ^0.0.3
 #ssh file over
 #  sqflite: ^1.1.6+2
+#  w60x的OneShot配网
+  flutter_oneshot:
+    git: https://github.com/iotdevice/flutter_oneshot
 
 dev_dependencies:
   flutter_test:

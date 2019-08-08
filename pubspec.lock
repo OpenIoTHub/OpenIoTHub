@@ -111,6 +111,15 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_oneshot:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: c3b8c6db6e1d51b54b17b8d0b545ef3185a9029f
+      url: "https://github.com/iotdevice/flutter_oneshot"
+    source: git
+    version: "0.0.1"
   flutter_speed_dial:
     dependency: "direct main"
     description:

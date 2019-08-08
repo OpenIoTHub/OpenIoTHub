@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nat_explorer/pages/device/commonDevice/commonDeviceListPage.dart';
 import 'package:nat_explorer/pages/device/miioGatewayDevice/miioGatewayDeviceListPage.dart';
 
-import 'espSmartConfigTool.dart';
+import 'smartConfigTool.dart';
 
 class ToolsTypePage extends StatelessWidget {
   static const String TAG_START = "startDivider";
@@ -23,7 +23,7 @@ class ToolsTypePage extends StatelessWidget {
     "assets/images/ic_discover_nearby.png",
     "assets/images/ic_discover_pos.png",
   ];
-  final titles = ["ESP Smartconfig"];
+  final titles = ["Smartconfig配网"];
   final rightArrowIcon = Image.asset(
     'assets/images/ic_arrow_right.png',
     width: ARROW_ICON_WIDTH,
@@ -105,10 +105,10 @@ class ToolsTypePage extends StatelessWidget {
 
   void handleListItemClick(BuildContext ctx, ListItem item) {
     String title = item.title;
-    if (title == "ESP Smartconfig") {
+    if (title == "Smartconfig配网") {
       Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
 //        smartconfig 工具页面
-        return EspSmartConfigTool(title: "ESP Smartconfig");
+        return EspSmartConfigTool(title: "Smartconfig配网");
       }));
     }
   }

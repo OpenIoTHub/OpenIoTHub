@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:smartconfig/smartconfig.dart';
+import 'package:flutter_oneshot/flutter_oneshot.dart';
 
 class EspSmartConfigTool extends StatefulWidget {
   EspSmartConfigTool({Key key, this.title}) : super(key: key);
@@ -100,7 +101,7 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('ESP SmartConfig'),
+          title: const Text('Smartconfig配网'),
         ),
         body: Center(
             child: _isLoading
@@ -128,7 +129,7 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
                             child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: <Widget>[
-                              Text("ESP Touch v0.3.7.0"),
+                              Text("设备配网"),
                               TextField(
                                 controller: _ssidFilter,
                                 decoration: InputDecoration(labelText: 'ssid'),
@@ -146,8 +147,12 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
                           ),
                         ),
                         RaisedButton(
-                          child: Text('开始给设备配网'),
+                          child: Text('开始esp8266,esp32配网(esptouch)'),
                           onPressed: _configureEsp,
+                        ),
+                        RaisedButton(
+                          child: Text('开始w60x配网(onshot)'),
+                          onPressed: _configureW60x,
                         ),
                         Container(height: 10),
                         Text(_msg),
@@ -224,6 +229,26 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
             _isLoading = false;
             _msg = "配好了设备：${v.toString()}";
           }));
+    } on PlatformException catch (e) {
+      output = "Failed to configure: '${e.message}'.";
+      setState(() {
+        _isLoading = false;
+        _msg = output;
+      });
+    }
+  }
+
+  Future<void> _configureW60x() async {
+    String output = "Unknown";
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      FlutterOneshot.start(_ssid, _password, 30).then((v) => setState(() {
+        _isLoading = false;
+        _msg = "配好了附近的w60x设备";
+      }));
     } on PlatformException catch (e) {
       output = "Failed to configure: '${e.message}'.";
       setState(() {
