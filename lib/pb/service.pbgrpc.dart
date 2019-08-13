@@ -1,80 +1,85 @@
 ///
 //  Generated code. Do not modify.
 //  source: service.proto
-///
-// ignore_for_file: camel_case_types,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name
+//
+// @dart = 2.3
+// ignore_for_file: camel_case_types,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type
 
 import 'dart:async' as $async;
 
-import 'package:grpc/service_api.dart' as $grpc;
-
 import 'dart:core' as $core show int, String, List;
 
-import 'service.pb.dart';
+import 'package:grpc/service_api.dart' as $grpc;
+import 'service.pb.dart' as $0;
 export 'service.pb.dart';
 
 class SessionManagerClient extends $grpc.Client {
   static final _$createOneSession =
-      $grpc.ClientMethod<SessionConfig, SessionConfig>(
+      $grpc.ClientMethod<$0.SessionConfig, $0.SessionConfig>(
           '/pb.SessionManager/CreateOneSession',
-          (SessionConfig value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => SessionConfig.fromBuffer(value));
-  static final _$deleteOneSession = $grpc.ClientMethod<SessionConfig, Empty>(
-      '/pb.SessionManager/DeleteOneSession',
-      (SessionConfig value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => Empty.fromBuffer(value));
+          ($0.SessionConfig value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $0.SessionConfig.fromBuffer(value));
+  static final _$deleteOneSession =
+      $grpc.ClientMethod<$0.SessionConfig, $0.Empty>(
+          '/pb.SessionManager/DeleteOneSession',
+          ($0.SessionConfig value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $0.Empty.fromBuffer(value));
   static final _$getOneSession =
-      $grpc.ClientMethod<SessionConfig, SessionConfig>(
+      $grpc.ClientMethod<$0.SessionConfig, $0.SessionConfig>(
           '/pb.SessionManager/GetOneSession',
-          (SessionConfig value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => SessionConfig.fromBuffer(value));
-  static final _$getAllSession = $grpc.ClientMethod<Empty, SessionList>(
+          ($0.SessionConfig value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $0.SessionConfig.fromBuffer(value));
+  static final _$getAllSession = $grpc.ClientMethod<$0.Empty, $0.SessionList>(
       '/pb.SessionManager/GetAllSession',
-      (Empty value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => SessionList.fromBuffer(value));
+      ($0.Empty value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.SessionList.fromBuffer(value));
   static final _$createOneSOCKS5 =
-      $grpc.ClientMethod<SOCKS5Config, SOCKS5Config>(
+      $grpc.ClientMethod<$0.SOCKS5Config, $0.SOCKS5Config>(
           '/pb.SessionManager/CreateOneSOCKS5',
-          (SOCKS5Config value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => SOCKS5Config.fromBuffer(value));
-  static final _$deleteOneSOCKS5 = $grpc.ClientMethod<SOCKS5Config, Empty>(
-      '/pb.SessionManager/DeleteOneSOCKS5',
-      (SOCKS5Config value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => Empty.fromBuffer(value));
-  static final _$getOneSOCKS5 = $grpc.ClientMethod<SOCKS5Config, SOCKS5Config>(
-      '/pb.SessionManager/GetOneSOCKS5',
-      (SOCKS5Config value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => SOCKS5Config.fromBuffer(value));
-  static final _$createOneHTTP = $grpc.ClientMethod<HTTPConfig, HTTPConfig>(
-      '/pb.SessionManager/CreateOneHTTP',
-      (HTTPConfig value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => HTTPConfig.fromBuffer(value));
-  static final _$deleteOneHTTP = $grpc.ClientMethod<HTTPConfig, Empty>(
+          ($0.SOCKS5Config value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $0.SOCKS5Config.fromBuffer(value));
+  static final _$deleteOneSOCKS5 =
+      $grpc.ClientMethod<$0.SOCKS5Config, $0.Empty>(
+          '/pb.SessionManager/DeleteOneSOCKS5',
+          ($0.SOCKS5Config value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $0.Empty.fromBuffer(value));
+  static final _$getOneSOCKS5 =
+      $grpc.ClientMethod<$0.SOCKS5Config, $0.SOCKS5Config>(
+          '/pb.SessionManager/GetOneSOCKS5',
+          ($0.SOCKS5Config value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $0.SOCKS5Config.fromBuffer(value));
+  static final _$createOneHTTP =
+      $grpc.ClientMethod<$0.HTTPConfig, $0.HTTPConfig>(
+          '/pb.SessionManager/CreateOneHTTP',
+          ($0.HTTPConfig value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $0.HTTPConfig.fromBuffer(value));
+  static final _$deleteOneHTTP = $grpc.ClientMethod<$0.HTTPConfig, $0.Empty>(
       '/pb.SessionManager/DeleteOneHTTP',
-      (HTTPConfig value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => Empty.fromBuffer(value));
-  static final _$getOneHTTP = $grpc.ClientMethod<HTTPConfig, HTTPConfig>(
+      ($0.HTTPConfig value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.Empty.fromBuffer(value));
+  static final _$getOneHTTP = $grpc.ClientMethod<$0.HTTPConfig, $0.HTTPConfig>(
       '/pb.SessionManager/GetOneHTTP',
-      (HTTPConfig value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => HTTPConfig.fromBuffer(value));
-  static final _$getAllHTTP = $grpc.ClientMethod<Empty, HTTPList>(
+      ($0.HTTPConfig value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.HTTPConfig.fromBuffer(value));
+  static final _$getAllHTTP = $grpc.ClientMethod<$0.Empty, $0.HTTPList>(
       '/pb.SessionManager/GetAllHTTP',
-      (Empty value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => HTTPList.fromBuffer(value));
+      ($0.Empty value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.HTTPList.fromBuffer(value));
   static final _$refreshmDNSProxyList =
-      $grpc.ClientMethod<SessionConfig, Empty>(
+      $grpc.ClientMethod<$0.SessionConfig, $0.Empty>(
           '/pb.SessionManager/RefreshmDNSProxyList',
-          (SessionConfig value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => Empty.fromBuffer(value));
-  static final _$getAllTCP = $grpc.ClientMethod<SessionConfig, PortList>(
+          ($0.SessionConfig value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $0.Empty.fromBuffer(value));
+  static final _$getAllTCP = $grpc.ClientMethod<$0.SessionConfig, $0.PortList>(
       '/pb.SessionManager/GetAllTCP',
-      (SessionConfig value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => PortList.fromBuffer(value));
+      ($0.SessionConfig value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.PortList.fromBuffer(value));
 
   SessionManagerClient($grpc.ClientChannel channel, {$grpc.CallOptions options})
       : super(channel, options: options);
 
-  $grpc.ResponseFuture<SessionConfig> createOneSession(SessionConfig request,
+  $grpc.ResponseFuture<$0.SessionConfig> createOneSession(
+      $0.SessionConfig request,
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$createOneSession, $async.Stream.fromIterable([request]),
@@ -82,7 +87,7 @@ class SessionManagerClient extends $grpc.Client {
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<Empty> deleteOneSession(SessionConfig request,
+  $grpc.ResponseFuture<$0.Empty> deleteOneSession($0.SessionConfig request,
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$deleteOneSession, $async.Stream.fromIterable([request]),
@@ -90,7 +95,7 @@ class SessionManagerClient extends $grpc.Client {
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<SessionConfig> getOneSession(SessionConfig request,
+  $grpc.ResponseFuture<$0.SessionConfig> getOneSession($0.SessionConfig request,
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$getOneSession, $async.Stream.fromIterable([request]),
@@ -98,7 +103,7 @@ class SessionManagerClient extends $grpc.Client {
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<SessionList> getAllSession(Empty request,
+  $grpc.ResponseFuture<$0.SessionList> getAllSession($0.Empty request,
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$getAllSession, $async.Stream.fromIterable([request]),
@@ -106,7 +111,7 @@ class SessionManagerClient extends $grpc.Client {
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<SOCKS5Config> createOneSOCKS5(SOCKS5Config request,
+  $grpc.ResponseFuture<$0.SOCKS5Config> createOneSOCKS5($0.SOCKS5Config request,
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$createOneSOCKS5, $async.Stream.fromIterable([request]),
@@ -114,7 +119,7 @@ class SessionManagerClient extends $grpc.Client {
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<Empty> deleteOneSOCKS5(SOCKS5Config request,
+  $grpc.ResponseFuture<$0.Empty> deleteOneSOCKS5($0.SOCKS5Config request,
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$deleteOneSOCKS5, $async.Stream.fromIterable([request]),
@@ -122,7 +127,7 @@ class SessionManagerClient extends $grpc.Client {
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<SOCKS5Config> getOneSOCKS5(SOCKS5Config request,
+  $grpc.ResponseFuture<$0.SOCKS5Config> getOneSOCKS5($0.SOCKS5Config request,
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$getOneSOCKS5, $async.Stream.fromIterable([request]),
@@ -130,7 +135,7 @@ class SessionManagerClient extends $grpc.Client {
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<HTTPConfig> createOneHTTP(HTTPConfig request,
+  $grpc.ResponseFuture<$0.HTTPConfig> createOneHTTP($0.HTTPConfig request,
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$createOneHTTP, $async.Stream.fromIterable([request]),
@@ -138,7 +143,7 @@ class SessionManagerClient extends $grpc.Client {
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<Empty> deleteOneHTTP(HTTPConfig request,
+  $grpc.ResponseFuture<$0.Empty> deleteOneHTTP($0.HTTPConfig request,
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$deleteOneHTTP, $async.Stream.fromIterable([request]),
@@ -146,7 +151,7 @@ class SessionManagerClient extends $grpc.Client {
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<HTTPConfig> getOneHTTP(HTTPConfig request,
+  $grpc.ResponseFuture<$0.HTTPConfig> getOneHTTP($0.HTTPConfig request,
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$getOneHTTP, $async.Stream.fromIterable([request]),
@@ -154,7 +159,7 @@ class SessionManagerClient extends $grpc.Client {
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<HTTPList> getAllHTTP(Empty request,
+  $grpc.ResponseFuture<$0.HTTPList> getAllHTTP($0.Empty request,
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$getAllHTTP, $async.Stream.fromIterable([request]),
@@ -162,7 +167,7 @@ class SessionManagerClient extends $grpc.Client {
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<Empty> refreshmDNSProxyList(SessionConfig request,
+  $grpc.ResponseFuture<$0.Empty> refreshmDNSProxyList($0.SessionConfig request,
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$refreshmDNSProxyList, $async.Stream.fromIterable([request]),
@@ -170,7 +175,7 @@ class SessionManagerClient extends $grpc.Client {
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<PortList> getAllTCP(SessionConfig request,
+  $grpc.ResponseFuture<$0.PortList> getAllTCP($0.SessionConfig request,
       {$grpc.CallOptions options}) {
     final call = $createCall(_$getAllTCP, $async.Stream.fromIterable([request]),
         options: options);
@@ -182,280 +187,284 @@ abstract class SessionManagerServiceBase extends $grpc.Service {
   $core.String get $name => 'pb.SessionManager';
 
   SessionManagerServiceBase() {
-    $addMethod($grpc.ServiceMethod<SessionConfig, SessionConfig>(
+    $addMethod($grpc.ServiceMethod<$0.SessionConfig, $0.SessionConfig>(
         'CreateOneSession',
         createOneSession_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => SessionConfig.fromBuffer(value),
-        (SessionConfig value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<SessionConfig, Empty>(
+        ($core.List<$core.int> value) => $0.SessionConfig.fromBuffer(value),
+        ($0.SessionConfig value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.SessionConfig, $0.Empty>(
         'DeleteOneSession',
         deleteOneSession_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => SessionConfig.fromBuffer(value),
-        (Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<SessionConfig, SessionConfig>(
+        ($core.List<$core.int> value) => $0.SessionConfig.fromBuffer(value),
+        ($0.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.SessionConfig, $0.SessionConfig>(
         'GetOneSession',
         getOneSession_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => SessionConfig.fromBuffer(value),
-        (SessionConfig value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<Empty, SessionList>(
+        ($core.List<$core.int> value) => $0.SessionConfig.fromBuffer(value),
+        ($0.SessionConfig value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.Empty, $0.SessionList>(
         'GetAllSession',
         getAllSession_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => Empty.fromBuffer(value),
-        (SessionList value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<SOCKS5Config, SOCKS5Config>(
+        ($core.List<$core.int> value) => $0.Empty.fromBuffer(value),
+        ($0.SessionList value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.SOCKS5Config, $0.SOCKS5Config>(
         'CreateOneSOCKS5',
         createOneSOCKS5_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => SOCKS5Config.fromBuffer(value),
-        (SOCKS5Config value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<SOCKS5Config, Empty>(
+        ($core.List<$core.int> value) => $0.SOCKS5Config.fromBuffer(value),
+        ($0.SOCKS5Config value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.SOCKS5Config, $0.Empty>(
         'DeleteOneSOCKS5',
         deleteOneSOCKS5_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => SOCKS5Config.fromBuffer(value),
-        (Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<SOCKS5Config, SOCKS5Config>(
+        ($core.List<$core.int> value) => $0.SOCKS5Config.fromBuffer(value),
+        ($0.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.SOCKS5Config, $0.SOCKS5Config>(
         'GetOneSOCKS5',
         getOneSOCKS5_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => SOCKS5Config.fromBuffer(value),
-        (SOCKS5Config value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<HTTPConfig, HTTPConfig>(
+        ($core.List<$core.int> value) => $0.SOCKS5Config.fromBuffer(value),
+        ($0.SOCKS5Config value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.HTTPConfig, $0.HTTPConfig>(
         'CreateOneHTTP',
         createOneHTTP_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => HTTPConfig.fromBuffer(value),
-        (HTTPConfig value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<HTTPConfig, Empty>(
+        ($core.List<$core.int> value) => $0.HTTPConfig.fromBuffer(value),
+        ($0.HTTPConfig value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.HTTPConfig, $0.Empty>(
         'DeleteOneHTTP',
         deleteOneHTTP_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => HTTPConfig.fromBuffer(value),
-        (Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<HTTPConfig, HTTPConfig>(
+        ($core.List<$core.int> value) => $0.HTTPConfig.fromBuffer(value),
+        ($0.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.HTTPConfig, $0.HTTPConfig>(
         'GetOneHTTP',
         getOneHTTP_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => HTTPConfig.fromBuffer(value),
-        (HTTPConfig value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<Empty, HTTPList>(
+        ($core.List<$core.int> value) => $0.HTTPConfig.fromBuffer(value),
+        ($0.HTTPConfig value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.Empty, $0.HTTPList>(
         'GetAllHTTP',
         getAllHTTP_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => Empty.fromBuffer(value),
-        (HTTPList value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<SessionConfig, Empty>(
+        ($core.List<$core.int> value) => $0.Empty.fromBuffer(value),
+        ($0.HTTPList value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.SessionConfig, $0.Empty>(
         'RefreshmDNSProxyList',
         refreshmDNSProxyList_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => SessionConfig.fromBuffer(value),
-        (Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<SessionConfig, PortList>(
+        ($core.List<$core.int> value) => $0.SessionConfig.fromBuffer(value),
+        ($0.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.SessionConfig, $0.PortList>(
         'GetAllTCP',
         getAllTCP_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => SessionConfig.fromBuffer(value),
-        (PortList value) => value.writeToBuffer()));
+        ($core.List<$core.int> value) => $0.SessionConfig.fromBuffer(value),
+        ($0.PortList value) => value.writeToBuffer()));
   }
 
-  $async.Future<SessionConfig> createOneSession_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.SessionConfig> createOneSession_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.SessionConfig> request) async {
     return createOneSession(call, await request);
   }
 
-  $async.Future<Empty> deleteOneSession_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.Empty> deleteOneSession_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.SessionConfig> request) async {
     return deleteOneSession(call, await request);
   }
 
-  $async.Future<SessionConfig> getOneSession_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.SessionConfig> getOneSession_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.SessionConfig> request) async {
     return getOneSession(call, await request);
   }
 
-  $async.Future<SessionList> getAllSession_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.SessionList> getAllSession_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.Empty> request) async {
     return getAllSession(call, await request);
   }
 
-  $async.Future<SOCKS5Config> createOneSOCKS5_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.SOCKS5Config> createOneSOCKS5_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.SOCKS5Config> request) async {
     return createOneSOCKS5(call, await request);
   }
 
-  $async.Future<Empty> deleteOneSOCKS5_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.Empty> deleteOneSOCKS5_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.SOCKS5Config> request) async {
     return deleteOneSOCKS5(call, await request);
   }
 
-  $async.Future<SOCKS5Config> getOneSOCKS5_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.SOCKS5Config> getOneSOCKS5_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.SOCKS5Config> request) async {
     return getOneSOCKS5(call, await request);
   }
 
-  $async.Future<HTTPConfig> createOneHTTP_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.HTTPConfig> createOneHTTP_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.HTTPConfig> request) async {
     return createOneHTTP(call, await request);
   }
 
-  $async.Future<Empty> deleteOneHTTP_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.Empty> deleteOneHTTP_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.HTTPConfig> request) async {
     return deleteOneHTTP(call, await request);
   }
 
-  $async.Future<HTTPConfig> getOneHTTP_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.HTTPConfig> getOneHTTP_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.HTTPConfig> request) async {
     return getOneHTTP(call, await request);
   }
 
-  $async.Future<HTTPList> getAllHTTP_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.HTTPList> getAllHTTP_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.Empty> request) async {
     return getAllHTTP(call, await request);
   }
 
-  $async.Future<Empty> refreshmDNSProxyList_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.Empty> refreshmDNSProxyList_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.SessionConfig> request) async {
     return refreshmDNSProxyList(call, await request);
   }
 
-  $async.Future<PortList> getAllTCP_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.PortList> getAllTCP_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.SessionConfig> request) async {
     return getAllTCP(call, await request);
   }
 
-  $async.Future<SessionConfig> createOneSession(
-      $grpc.ServiceCall call, SessionConfig request);
-  $async.Future<Empty> deleteOneSession(
-      $grpc.ServiceCall call, SessionConfig request);
-  $async.Future<SessionConfig> getOneSession(
-      $grpc.ServiceCall call, SessionConfig request);
-  $async.Future<SessionList> getAllSession(
-      $grpc.ServiceCall call, Empty request);
-  $async.Future<SOCKS5Config> createOneSOCKS5(
-      $grpc.ServiceCall call, SOCKS5Config request);
-  $async.Future<Empty> deleteOneSOCKS5(
-      $grpc.ServiceCall call, SOCKS5Config request);
-  $async.Future<SOCKS5Config> getOneSOCKS5(
-      $grpc.ServiceCall call, SOCKS5Config request);
-  $async.Future<HTTPConfig> createOneHTTP(
-      $grpc.ServiceCall call, HTTPConfig request);
-  $async.Future<Empty> deleteOneHTTP(
-      $grpc.ServiceCall call, HTTPConfig request);
-  $async.Future<HTTPConfig> getOneHTTP(
-      $grpc.ServiceCall call, HTTPConfig request);
-  $async.Future<HTTPList> getAllHTTP($grpc.ServiceCall call, Empty request);
-  $async.Future<Empty> refreshmDNSProxyList(
-      $grpc.ServiceCall call, SessionConfig request);
-  $async.Future<PortList> getAllTCP(
-      $grpc.ServiceCall call, SessionConfig request);
+  $async.Future<$0.SessionConfig> createOneSession(
+      $grpc.ServiceCall call, $0.SessionConfig request);
+  $async.Future<$0.Empty> deleteOneSession(
+      $grpc.ServiceCall call, $0.SessionConfig request);
+  $async.Future<$0.SessionConfig> getOneSession(
+      $grpc.ServiceCall call, $0.SessionConfig request);
+  $async.Future<$0.SessionList> getAllSession(
+      $grpc.ServiceCall call, $0.Empty request);
+  $async.Future<$0.SOCKS5Config> createOneSOCKS5(
+      $grpc.ServiceCall call, $0.SOCKS5Config request);
+  $async.Future<$0.Empty> deleteOneSOCKS5(
+      $grpc.ServiceCall call, $0.SOCKS5Config request);
+  $async.Future<$0.SOCKS5Config> getOneSOCKS5(
+      $grpc.ServiceCall call, $0.SOCKS5Config request);
+  $async.Future<$0.HTTPConfig> createOneHTTP(
+      $grpc.ServiceCall call, $0.HTTPConfig request);
+  $async.Future<$0.Empty> deleteOneHTTP(
+      $grpc.ServiceCall call, $0.HTTPConfig request);
+  $async.Future<$0.HTTPConfig> getOneHTTP(
+      $grpc.ServiceCall call, $0.HTTPConfig request);
+  $async.Future<$0.HTTPList> getAllHTTP(
+      $grpc.ServiceCall call, $0.Empty request);
+  $async.Future<$0.Empty> refreshmDNSProxyList(
+      $grpc.ServiceCall call, $0.SessionConfig request);
+  $async.Future<$0.PortList> getAllTCP(
+      $grpc.ServiceCall call, $0.SessionConfig request);
 }
 
 class CommonDeviceManagerClient extends $grpc.Client {
-  static final _$addDevice = $grpc.ClientMethod<Device, Empty>(
+  static final _$addDevice = $grpc.ClientMethod<$0.Device, $0.Empty>(
       '/pb.CommonDeviceManager/AddDevice',
-      (Device value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => Empty.fromBuffer(value));
-  static final _$delDevice = $grpc.ClientMethod<Device, Empty>(
+      ($0.Device value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.Empty.fromBuffer(value));
+  static final _$delDevice = $grpc.ClientMethod<$0.Device, $0.Empty>(
       '/pb.CommonDeviceManager/DelDevice',
-      (Device value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => Empty.fromBuffer(value));
-  static final _$getAllDevice = $grpc.ClientMethod<Empty, DeviceList>(
+      ($0.Device value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.Empty.fromBuffer(value));
+  static final _$getAllDevice = $grpc.ClientMethod<$0.Empty, $0.DeviceList>(
       '/pb.CommonDeviceManager/GetAllDevice',
-      (Empty value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => DeviceList.fromBuffer(value));
-  static final _$setDeviceMac = $grpc.ClientMethod<Device, Empty>(
+      ($0.Empty value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.DeviceList.fromBuffer(value));
+  static final _$setDeviceMac = $grpc.ClientMethod<$0.Device, $0.Empty>(
       '/pb.CommonDeviceManager/SetDeviceMac',
-      (Device value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => Empty.fromBuffer(value));
-  static final _$wakeOnLAN = $grpc.ClientMethod<Device, Empty>(
+      ($0.Device value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.Empty.fromBuffer(value));
+  static final _$wakeOnLAN = $grpc.ClientMethod<$0.Device, $0.Empty>(
       '/pb.CommonDeviceManager/WakeOnLAN',
-      (Device value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => Empty.fromBuffer(value));
-  static final _$createOneTCP = $grpc.ClientMethod<PortConfig, PortConfig>(
-      '/pb.CommonDeviceManager/CreateOneTCP',
-      (PortConfig value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => PortConfig.fromBuffer(value));
-  static final _$deleteOneTCP = $grpc.ClientMethod<PortConfig, Empty>(
+      ($0.Device value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.Empty.fromBuffer(value));
+  static final _$createOneTCP =
+      $grpc.ClientMethod<$0.PortConfig, $0.PortConfig>(
+          '/pb.CommonDeviceManager/CreateOneTCP',
+          ($0.PortConfig value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $0.PortConfig.fromBuffer(value));
+  static final _$deleteOneTCP = $grpc.ClientMethod<$0.PortConfig, $0.Empty>(
       '/pb.CommonDeviceManager/DeleteOneTCP',
-      (PortConfig value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => Empty.fromBuffer(value));
-  static final _$getOneTCP = $grpc.ClientMethod<PortConfig, PortConfig>(
+      ($0.PortConfig value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.Empty.fromBuffer(value));
+  static final _$getOneTCP = $grpc.ClientMethod<$0.PortConfig, $0.PortConfig>(
       '/pb.CommonDeviceManager/GetOneTCP',
-      (PortConfig value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => PortConfig.fromBuffer(value));
-  static final _$getAllTCP = $grpc.ClientMethod<Device, PortList>(
+      ($0.PortConfig value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.PortConfig.fromBuffer(value));
+  static final _$getAllTCP = $grpc.ClientMethod<$0.Device, $0.PortList>(
       '/pb.CommonDeviceManager/GetAllTCP',
-      (Device value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => PortList.fromBuffer(value));
-  static final _$createOneUDP = $grpc.ClientMethod<PortConfig, PortConfig>(
-      '/pb.CommonDeviceManager/CreateOneUDP',
-      (PortConfig value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => PortConfig.fromBuffer(value));
-  static final _$deleteOneUDP = $grpc.ClientMethod<PortConfig, Empty>(
+      ($0.Device value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.PortList.fromBuffer(value));
+  static final _$createOneUDP =
+      $grpc.ClientMethod<$0.PortConfig, $0.PortConfig>(
+          '/pb.CommonDeviceManager/CreateOneUDP',
+          ($0.PortConfig value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $0.PortConfig.fromBuffer(value));
+  static final _$deleteOneUDP = $grpc.ClientMethod<$0.PortConfig, $0.Empty>(
       '/pb.CommonDeviceManager/DeleteOneUDP',
-      (PortConfig value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => Empty.fromBuffer(value));
-  static final _$getOneUDP = $grpc.ClientMethod<PortConfig, PortConfig>(
+      ($0.PortConfig value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.Empty.fromBuffer(value));
+  static final _$getOneUDP = $grpc.ClientMethod<$0.PortConfig, $0.PortConfig>(
       '/pb.CommonDeviceManager/GetOneUDP',
-      (PortConfig value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => PortConfig.fromBuffer(value));
-  static final _$getAllUDP = $grpc.ClientMethod<Device, PortList>(
+      ($0.PortConfig value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.PortConfig.fromBuffer(value));
+  static final _$getAllUDP = $grpc.ClientMethod<$0.Device, $0.PortList>(
       '/pb.CommonDeviceManager/GetAllUDP',
-      (Device value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => PortList.fromBuffer(value));
-  static final _$createOneFTP = $grpc.ClientMethod<PortConfig, PortConfig>(
-      '/pb.CommonDeviceManager/CreateOneFTP',
-      (PortConfig value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => PortConfig.fromBuffer(value));
-  static final _$deleteOneFTP = $grpc.ClientMethod<PortConfig, Empty>(
+      ($0.Device value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.PortList.fromBuffer(value));
+  static final _$createOneFTP =
+      $grpc.ClientMethod<$0.PortConfig, $0.PortConfig>(
+          '/pb.CommonDeviceManager/CreateOneFTP',
+          ($0.PortConfig value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $0.PortConfig.fromBuffer(value));
+  static final _$deleteOneFTP = $grpc.ClientMethod<$0.PortConfig, $0.Empty>(
       '/pb.CommonDeviceManager/DeleteOneFTP',
-      (PortConfig value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => Empty.fromBuffer(value));
-  static final _$getOneFTP = $grpc.ClientMethod<PortConfig, PortConfig>(
+      ($0.PortConfig value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.Empty.fromBuffer(value));
+  static final _$getOneFTP = $grpc.ClientMethod<$0.PortConfig, $0.PortConfig>(
       '/pb.CommonDeviceManager/GetOneFTP',
-      (PortConfig value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => PortConfig.fromBuffer(value));
-  static final _$getAllFTP = $grpc.ClientMethod<Device, PortList>(
+      ($0.PortConfig value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.PortConfig.fromBuffer(value));
+  static final _$getAllFTP = $grpc.ClientMethod<$0.Device, $0.PortList>(
       '/pb.CommonDeviceManager/GetAllFTP',
-      (Device value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => PortList.fromBuffer(value));
+      ($0.Device value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.PortList.fromBuffer(value));
 
   CommonDeviceManagerClient($grpc.ClientChannel channel,
       {$grpc.CallOptions options})
       : super(channel, options: options);
 
-  $grpc.ResponseFuture<Empty> addDevice(Device request,
+  $grpc.ResponseFuture<$0.Empty> addDevice($0.Device request,
       {$grpc.CallOptions options}) {
     final call = $createCall(_$addDevice, $async.Stream.fromIterable([request]),
         options: options);
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<Empty> delDevice(Device request,
+  $grpc.ResponseFuture<$0.Empty> delDevice($0.Device request,
       {$grpc.CallOptions options}) {
     final call = $createCall(_$delDevice, $async.Stream.fromIterable([request]),
         options: options);
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<DeviceList> getAllDevice(Empty request,
+  $grpc.ResponseFuture<$0.DeviceList> getAllDevice($0.Empty request,
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$getAllDevice, $async.Stream.fromIterable([request]),
@@ -463,7 +472,7 @@ class CommonDeviceManagerClient extends $grpc.Client {
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<Empty> setDeviceMac(Device request,
+  $grpc.ResponseFuture<$0.Empty> setDeviceMac($0.Device request,
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$setDeviceMac, $async.Stream.fromIterable([request]),
@@ -471,14 +480,14 @@ class CommonDeviceManagerClient extends $grpc.Client {
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<Empty> wakeOnLAN(Device request,
+  $grpc.ResponseFuture<$0.Empty> wakeOnLAN($0.Device request,
       {$grpc.CallOptions options}) {
     final call = $createCall(_$wakeOnLAN, $async.Stream.fromIterable([request]),
         options: options);
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<PortConfig> createOneTCP(PortConfig request,
+  $grpc.ResponseFuture<$0.PortConfig> createOneTCP($0.PortConfig request,
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$createOneTCP, $async.Stream.fromIterable([request]),
@@ -486,7 +495,7 @@ class CommonDeviceManagerClient extends $grpc.Client {
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<Empty> deleteOneTCP(PortConfig request,
+  $grpc.ResponseFuture<$0.Empty> deleteOneTCP($0.PortConfig request,
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$deleteOneTCP, $async.Stream.fromIterable([request]),
@@ -494,21 +503,21 @@ class CommonDeviceManagerClient extends $grpc.Client {
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<PortConfig> getOneTCP(PortConfig request,
+  $grpc.ResponseFuture<$0.PortConfig> getOneTCP($0.PortConfig request,
       {$grpc.CallOptions options}) {
     final call = $createCall(_$getOneTCP, $async.Stream.fromIterable([request]),
         options: options);
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<PortList> getAllTCP(Device request,
+  $grpc.ResponseFuture<$0.PortList> getAllTCP($0.Device request,
       {$grpc.CallOptions options}) {
     final call = $createCall(_$getAllTCP, $async.Stream.fromIterable([request]),
         options: options);
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<PortConfig> createOneUDP(PortConfig request,
+  $grpc.ResponseFuture<$0.PortConfig> createOneUDP($0.PortConfig request,
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$createOneUDP, $async.Stream.fromIterable([request]),
@@ -516,7 +525,7 @@ class CommonDeviceManagerClient extends $grpc.Client {
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<Empty> deleteOneUDP(PortConfig request,
+  $grpc.ResponseFuture<$0.Empty> deleteOneUDP($0.PortConfig request,
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$deleteOneUDP, $async.Stream.fromIterable([request]),
@@ -524,21 +533,21 @@ class CommonDeviceManagerClient extends $grpc.Client {
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<PortConfig> getOneUDP(PortConfig request,
+  $grpc.ResponseFuture<$0.PortConfig> getOneUDP($0.PortConfig request,
       {$grpc.CallOptions options}) {
     final call = $createCall(_$getOneUDP, $async.Stream.fromIterable([request]),
         options: options);
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<PortList> getAllUDP(Device request,
+  $grpc.ResponseFuture<$0.PortList> getAllUDP($0.Device request,
       {$grpc.CallOptions options}) {
     final call = $createCall(_$getAllUDP, $async.Stream.fromIterable([request]),
         options: options);
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<PortConfig> createOneFTP(PortConfig request,
+  $grpc.ResponseFuture<$0.PortConfig> createOneFTP($0.PortConfig request,
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$createOneFTP, $async.Stream.fromIterable([request]),
@@ -546,7 +555,7 @@ class CommonDeviceManagerClient extends $grpc.Client {
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<Empty> deleteOneFTP(PortConfig request,
+  $grpc.ResponseFuture<$0.Empty> deleteOneFTP($0.PortConfig request,
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$deleteOneFTP, $async.Stream.fromIterable([request]),
@@ -554,14 +563,14 @@ class CommonDeviceManagerClient extends $grpc.Client {
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<PortConfig> getOneFTP(PortConfig request,
+  $grpc.ResponseFuture<$0.PortConfig> getOneFTP($0.PortConfig request,
       {$grpc.CallOptions options}) {
     final call = $createCall(_$getOneFTP, $async.Stream.fromIterable([request]),
         options: options);
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<PortList> getAllFTP(Device request,
+  $grpc.ResponseFuture<$0.PortList> getAllFTP($0.Device request,
       {$grpc.CallOptions options}) {
     final call = $createCall(_$getAllFTP, $async.Stream.fromIterable([request]),
         options: options);
@@ -573,303 +582,312 @@ abstract class CommonDeviceManagerServiceBase extends $grpc.Service {
   $core.String get $name => 'pb.CommonDeviceManager';
 
   CommonDeviceManagerServiceBase() {
-    $addMethod($grpc.ServiceMethod<Device, Empty>(
+    $addMethod($grpc.ServiceMethod<$0.Device, $0.Empty>(
         'AddDevice',
         addDevice_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => Device.fromBuffer(value),
-        (Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<Device, Empty>(
+        ($core.List<$core.int> value) => $0.Device.fromBuffer(value),
+        ($0.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.Device, $0.Empty>(
         'DelDevice',
         delDevice_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => Device.fromBuffer(value),
-        (Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<Empty, DeviceList>(
+        ($core.List<$core.int> value) => $0.Device.fromBuffer(value),
+        ($0.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.Empty, $0.DeviceList>(
         'GetAllDevice',
         getAllDevice_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => Empty.fromBuffer(value),
-        (DeviceList value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<Device, Empty>(
+        ($core.List<$core.int> value) => $0.Empty.fromBuffer(value),
+        ($0.DeviceList value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.Device, $0.Empty>(
         'SetDeviceMac',
         setDeviceMac_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => Device.fromBuffer(value),
-        (Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<Device, Empty>(
+        ($core.List<$core.int> value) => $0.Device.fromBuffer(value),
+        ($0.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.Device, $0.Empty>(
         'WakeOnLAN',
         wakeOnLAN_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => Device.fromBuffer(value),
-        (Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<PortConfig, PortConfig>(
+        ($core.List<$core.int> value) => $0.Device.fromBuffer(value),
+        ($0.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.PortConfig, $0.PortConfig>(
         'CreateOneTCP',
         createOneTCP_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => PortConfig.fromBuffer(value),
-        (PortConfig value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<PortConfig, Empty>(
+        ($core.List<$core.int> value) => $0.PortConfig.fromBuffer(value),
+        ($0.PortConfig value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.PortConfig, $0.Empty>(
         'DeleteOneTCP',
         deleteOneTCP_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => PortConfig.fromBuffer(value),
-        (Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<PortConfig, PortConfig>(
+        ($core.List<$core.int> value) => $0.PortConfig.fromBuffer(value),
+        ($0.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.PortConfig, $0.PortConfig>(
         'GetOneTCP',
         getOneTCP_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => PortConfig.fromBuffer(value),
-        (PortConfig value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<Device, PortList>(
+        ($core.List<$core.int> value) => $0.PortConfig.fromBuffer(value),
+        ($0.PortConfig value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.Device, $0.PortList>(
         'GetAllTCP',
         getAllTCP_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => Device.fromBuffer(value),
-        (PortList value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<PortConfig, PortConfig>(
+        ($core.List<$core.int> value) => $0.Device.fromBuffer(value),
+        ($0.PortList value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.PortConfig, $0.PortConfig>(
         'CreateOneUDP',
         createOneUDP_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => PortConfig.fromBuffer(value),
-        (PortConfig value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<PortConfig, Empty>(
+        ($core.List<$core.int> value) => $0.PortConfig.fromBuffer(value),
+        ($0.PortConfig value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.PortConfig, $0.Empty>(
         'DeleteOneUDP',
         deleteOneUDP_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => PortConfig.fromBuffer(value),
-        (Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<PortConfig, PortConfig>(
+        ($core.List<$core.int> value) => $0.PortConfig.fromBuffer(value),
+        ($0.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.PortConfig, $0.PortConfig>(
         'GetOneUDP',
         getOneUDP_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => PortConfig.fromBuffer(value),
-        (PortConfig value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<Device, PortList>(
+        ($core.List<$core.int> value) => $0.PortConfig.fromBuffer(value),
+        ($0.PortConfig value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.Device, $0.PortList>(
         'GetAllUDP',
         getAllUDP_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => Device.fromBuffer(value),
-        (PortList value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<PortConfig, PortConfig>(
+        ($core.List<$core.int> value) => $0.Device.fromBuffer(value),
+        ($0.PortList value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.PortConfig, $0.PortConfig>(
         'CreateOneFTP',
         createOneFTP_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => PortConfig.fromBuffer(value),
-        (PortConfig value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<PortConfig, Empty>(
+        ($core.List<$core.int> value) => $0.PortConfig.fromBuffer(value),
+        ($0.PortConfig value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.PortConfig, $0.Empty>(
         'DeleteOneFTP',
         deleteOneFTP_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => PortConfig.fromBuffer(value),
-        (Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<PortConfig, PortConfig>(
+        ($core.List<$core.int> value) => $0.PortConfig.fromBuffer(value),
+        ($0.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.PortConfig, $0.PortConfig>(
         'GetOneFTP',
         getOneFTP_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => PortConfig.fromBuffer(value),
-        (PortConfig value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<Device, PortList>(
+        ($core.List<$core.int> value) => $0.PortConfig.fromBuffer(value),
+        ($0.PortConfig value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.Device, $0.PortList>(
         'GetAllFTP',
         getAllFTP_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => Device.fromBuffer(value),
-        (PortList value) => value.writeToBuffer()));
+        ($core.List<$core.int> value) => $0.Device.fromBuffer(value),
+        ($0.PortList value) => value.writeToBuffer()));
   }
 
-  $async.Future<Empty> addDevice_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.Empty> addDevice_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.Device> request) async {
     return addDevice(call, await request);
   }
 
-  $async.Future<Empty> delDevice_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.Empty> delDevice_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.Device> request) async {
     return delDevice(call, await request);
   }
 
-  $async.Future<DeviceList> getAllDevice_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.DeviceList> getAllDevice_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.Empty> request) async {
     return getAllDevice(call, await request);
   }
 
-  $async.Future<Empty> setDeviceMac_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.Empty> setDeviceMac_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.Device> request) async {
     return setDeviceMac(call, await request);
   }
 
-  $async.Future<Empty> wakeOnLAN_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.Empty> wakeOnLAN_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.Device> request) async {
     return wakeOnLAN(call, await request);
   }
 
-  $async.Future<PortConfig> createOneTCP_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.PortConfig> createOneTCP_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.PortConfig> request) async {
     return createOneTCP(call, await request);
   }
 
-  $async.Future<Empty> deleteOneTCP_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.Empty> deleteOneTCP_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.PortConfig> request) async {
     return deleteOneTCP(call, await request);
   }
 
-  $async.Future<PortConfig> getOneTCP_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.PortConfig> getOneTCP_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.PortConfig> request) async {
     return getOneTCP(call, await request);
   }
 
-  $async.Future<PortList> getAllTCP_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.PortList> getAllTCP_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.Device> request) async {
     return getAllTCP(call, await request);
   }
 
-  $async.Future<PortConfig> createOneUDP_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.PortConfig> createOneUDP_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.PortConfig> request) async {
     return createOneUDP(call, await request);
   }
 
-  $async.Future<Empty> deleteOneUDP_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.Empty> deleteOneUDP_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.PortConfig> request) async {
     return deleteOneUDP(call, await request);
   }
 
-  $async.Future<PortConfig> getOneUDP_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.PortConfig> getOneUDP_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.PortConfig> request) async {
     return getOneUDP(call, await request);
   }
 
-  $async.Future<PortList> getAllUDP_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.PortList> getAllUDP_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.Device> request) async {
     return getAllUDP(call, await request);
   }
 
-  $async.Future<PortConfig> createOneFTP_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.PortConfig> createOneFTP_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.PortConfig> request) async {
     return createOneFTP(call, await request);
   }
 
-  $async.Future<Empty> deleteOneFTP_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.Empty> deleteOneFTP_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.PortConfig> request) async {
     return deleteOneFTP(call, await request);
   }
 
-  $async.Future<PortConfig> getOneFTP_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.PortConfig> getOneFTP_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.PortConfig> request) async {
     return getOneFTP(call, await request);
   }
 
-  $async.Future<PortList> getAllFTP_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.PortList> getAllFTP_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.Device> request) async {
     return getAllFTP(call, await request);
   }
 
-  $async.Future<Empty> addDevice($grpc.ServiceCall call, Device request);
-  $async.Future<Empty> delDevice($grpc.ServiceCall call, Device request);
-  $async.Future<DeviceList> getAllDevice($grpc.ServiceCall call, Empty request);
-  $async.Future<Empty> setDeviceMac($grpc.ServiceCall call, Device request);
-  $async.Future<Empty> wakeOnLAN($grpc.ServiceCall call, Device request);
-  $async.Future<PortConfig> createOneTCP(
-      $grpc.ServiceCall call, PortConfig request);
-  $async.Future<Empty> deleteOneTCP($grpc.ServiceCall call, PortConfig request);
-  $async.Future<PortConfig> getOneTCP(
-      $grpc.ServiceCall call, PortConfig request);
-  $async.Future<PortList> getAllTCP($grpc.ServiceCall call, Device request);
-  $async.Future<PortConfig> createOneUDP(
-      $grpc.ServiceCall call, PortConfig request);
-  $async.Future<Empty> deleteOneUDP($grpc.ServiceCall call, PortConfig request);
-  $async.Future<PortConfig> getOneUDP(
-      $grpc.ServiceCall call, PortConfig request);
-  $async.Future<PortList> getAllUDP($grpc.ServiceCall call, Device request);
-  $async.Future<PortConfig> createOneFTP(
-      $grpc.ServiceCall call, PortConfig request);
-  $async.Future<Empty> deleteOneFTP($grpc.ServiceCall call, PortConfig request);
-  $async.Future<PortConfig> getOneFTP(
-      $grpc.ServiceCall call, PortConfig request);
-  $async.Future<PortList> getAllFTP($grpc.ServiceCall call, Device request);
+  $async.Future<$0.Empty> addDevice($grpc.ServiceCall call, $0.Device request);
+  $async.Future<$0.Empty> delDevice($grpc.ServiceCall call, $0.Device request);
+  $async.Future<$0.DeviceList> getAllDevice(
+      $grpc.ServiceCall call, $0.Empty request);
+  $async.Future<$0.Empty> setDeviceMac(
+      $grpc.ServiceCall call, $0.Device request);
+  $async.Future<$0.Empty> wakeOnLAN($grpc.ServiceCall call, $0.Device request);
+  $async.Future<$0.PortConfig> createOneTCP(
+      $grpc.ServiceCall call, $0.PortConfig request);
+  $async.Future<$0.Empty> deleteOneTCP(
+      $grpc.ServiceCall call, $0.PortConfig request);
+  $async.Future<$0.PortConfig> getOneTCP(
+      $grpc.ServiceCall call, $0.PortConfig request);
+  $async.Future<$0.PortList> getAllTCP(
+      $grpc.ServiceCall call, $0.Device request);
+  $async.Future<$0.PortConfig> createOneUDP(
+      $grpc.ServiceCall call, $0.PortConfig request);
+  $async.Future<$0.Empty> deleteOneUDP(
+      $grpc.ServiceCall call, $0.PortConfig request);
+  $async.Future<$0.PortConfig> getOneUDP(
+      $grpc.ServiceCall call, $0.PortConfig request);
+  $async.Future<$0.PortList> getAllUDP(
+      $grpc.ServiceCall call, $0.Device request);
+  $async.Future<$0.PortConfig> createOneFTP(
+      $grpc.ServiceCall call, $0.PortConfig request);
+  $async.Future<$0.Empty> deleteOneFTP(
+      $grpc.ServiceCall call, $0.PortConfig request);
+  $async.Future<$0.PortConfig> getOneFTP(
+      $grpc.ServiceCall call, $0.PortConfig request);
+  $async.Future<$0.PortList> getAllFTP(
+      $grpc.ServiceCall call, $0.Device request);
 }
 
 class MiioGatewayManagerClient extends $grpc.Client {
-  static final _$addDevice = $grpc.ClientMethod<MiioGatewayDevice, Empty>(
+  static final _$addDevice = $grpc.ClientMethod<$0.MiioGatewayDevice, $0.Empty>(
       '/pb.MiioGatewayManager/AddDevice',
-      (MiioGatewayDevice value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => Empty.fromBuffer(value));
-  static final _$delDevice = $grpc.ClientMethod<MiioGatewayDevice, Empty>(
+      ($0.MiioGatewayDevice value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.Empty.fromBuffer(value));
+  static final _$delDevice = $grpc.ClientMethod<$0.MiioGatewayDevice, $0.Empty>(
       '/pb.MiioGatewayManager/DelDevice',
-      (MiioGatewayDevice value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => Empty.fromBuffer(value));
+      ($0.MiioGatewayDevice value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.Empty.fromBuffer(value));
   static final _$getAllDevice =
-      $grpc.ClientMethod<Empty, MiioGatewayDeviceList>(
+      $grpc.ClientMethod<$0.Empty, $0.MiioGatewayDeviceList>(
           '/pb.MiioGatewayManager/GetAllDevice',
-          (Empty value) => value.writeToBuffer(),
+          ($0.Empty value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
-              MiioGatewayDeviceList.fromBuffer(value));
-  static final _$setColor = $grpc.ClientMethod<MiioGatewayDevice, Empty>(
+              $0.MiioGatewayDeviceList.fromBuffer(value));
+  static final _$setColor = $grpc.ClientMethod<$0.MiioGatewayDevice, $0.Empty>(
       '/pb.MiioGatewayManager/SetColor',
-      (MiioGatewayDevice value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => Empty.fromBuffer(value));
-  static final _$setBrightness = $grpc.ClientMethod<MiioGatewayDevice, Empty>(
-      '/pb.MiioGatewayManager/SetBrightness',
-      (MiioGatewayDevice value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => Empty.fromBuffer(value));
-  static final _$on = $grpc.ClientMethod<MiioGatewayDevice, Empty>(
+      ($0.MiioGatewayDevice value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.Empty.fromBuffer(value));
+  static final _$setBrightness =
+      $grpc.ClientMethod<$0.MiioGatewayDevice, $0.Empty>(
+          '/pb.MiioGatewayManager/SetBrightness',
+          ($0.MiioGatewayDevice value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $0.Empty.fromBuffer(value));
+  static final _$on = $grpc.ClientMethod<$0.MiioGatewayDevice, $0.Empty>(
       '/pb.MiioGatewayManager/On',
-      (MiioGatewayDevice value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => Empty.fromBuffer(value));
-  static final _$off = $grpc.ClientMethod<MiioGatewayDevice, Empty>(
+      ($0.MiioGatewayDevice value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.Empty.fromBuffer(value));
+  static final _$off = $grpc.ClientMethod<$0.MiioGatewayDevice, $0.Empty>(
       '/pb.MiioGatewayManager/Off',
-      (MiioGatewayDevice value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => Empty.fromBuffer(value));
-  static final _$stop = $grpc.ClientMethod<MiioGatewayDevice, Empty>(
+      ($0.MiioGatewayDevice value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.Empty.fromBuffer(value));
+  static final _$stop = $grpc.ClientMethod<$0.MiioGatewayDevice, $0.Empty>(
       '/pb.MiioGatewayManager/Stop',
-      (MiioGatewayDevice value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => Empty.fromBuffer(value));
+      ($0.MiioGatewayDevice value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.Empty.fromBuffer(value));
   static final _$updateGetawayState =
-      $grpc.ClientMethod<MiioGatewayDevice, Empty>(
+      $grpc.ClientMethod<$0.MiioGatewayDevice, $0.Empty>(
           '/pb.MiioGatewayManager/UpdateGetawayState',
-          (MiioGatewayDevice value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => Empty.fromBuffer(value));
+          ($0.MiioGatewayDevice value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $0.Empty.fromBuffer(value));
   static final _$getGetawayUpdateMessage =
-      $grpc.ClientMethod<MiioGatewayDevice, GatewayUpdateMessage>(
+      $grpc.ClientMethod<$0.MiioGatewayDevice, $0.GatewayUpdateMessage>(
           '/pb.MiioGatewayManager/GetGetawayUpdateMessage',
-          (MiioGatewayDevice value) => value.writeToBuffer(),
+          ($0.MiioGatewayDevice value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
-              GatewayUpdateMessage.fromBuffer(value));
+              $0.GatewayUpdateMessage.fromBuffer(value));
 
   MiioGatewayManagerClient($grpc.ClientChannel channel,
       {$grpc.CallOptions options})
       : super(channel, options: options);
 
-  $grpc.ResponseFuture<Empty> addDevice(MiioGatewayDevice request,
+  $grpc.ResponseFuture<$0.Empty> addDevice($0.MiioGatewayDevice request,
       {$grpc.CallOptions options}) {
     final call = $createCall(_$addDevice, $async.Stream.fromIterable([request]),
         options: options);
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<Empty> delDevice(MiioGatewayDevice request,
+  $grpc.ResponseFuture<$0.Empty> delDevice($0.MiioGatewayDevice request,
       {$grpc.CallOptions options}) {
     final call = $createCall(_$delDevice, $async.Stream.fromIterable([request]),
         options: options);
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<MiioGatewayDeviceList> getAllDevice(Empty request,
+  $grpc.ResponseFuture<$0.MiioGatewayDeviceList> getAllDevice($0.Empty request,
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$getAllDevice, $async.Stream.fromIterable([request]),
@@ -877,14 +895,14 @@ class MiioGatewayManagerClient extends $grpc.Client {
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<Empty> setColor(MiioGatewayDevice request,
+  $grpc.ResponseFuture<$0.Empty> setColor($0.MiioGatewayDevice request,
       {$grpc.CallOptions options}) {
     final call = $createCall(_$setColor, $async.Stream.fromIterable([request]),
         options: options);
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<Empty> setBrightness(MiioGatewayDevice request,
+  $grpc.ResponseFuture<$0.Empty> setBrightness($0.MiioGatewayDevice request,
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$setBrightness, $async.Stream.fromIterable([request]),
@@ -892,28 +910,29 @@ class MiioGatewayManagerClient extends $grpc.Client {
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<Empty> on(MiioGatewayDevice request,
+  $grpc.ResponseFuture<$0.Empty> on($0.MiioGatewayDevice request,
       {$grpc.CallOptions options}) {
     final call = $createCall(_$on, $async.Stream.fromIterable([request]),
         options: options);
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<Empty> off(MiioGatewayDevice request,
+  $grpc.ResponseFuture<$0.Empty> off($0.MiioGatewayDevice request,
       {$grpc.CallOptions options}) {
     final call = $createCall(_$off, $async.Stream.fromIterable([request]),
         options: options);
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<Empty> stop(MiioGatewayDevice request,
+  $grpc.ResponseFuture<$0.Empty> stop($0.MiioGatewayDevice request,
       {$grpc.CallOptions options}) {
     final call = $createCall(_$stop, $async.Stream.fromIterable([request]),
         options: options);
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<Empty> updateGetawayState(MiioGatewayDevice request,
+  $grpc.ResponseFuture<$0.Empty> updateGetawayState(
+      $0.MiioGatewayDevice request,
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$updateGetawayState, $async.Stream.fromIterable([request]),
@@ -921,8 +940,8 @@ class MiioGatewayManagerClient extends $grpc.Client {
     return $grpc.ResponseFuture(call);
   }
 
-  $grpc.ResponseFuture<GatewayUpdateMessage> getGetawayUpdateMessage(
-      MiioGatewayDevice request,
+  $grpc.ResponseFuture<$0.GatewayUpdateMessage> getGetawayUpdateMessage(
+      $0.MiioGatewayDevice request,
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$getGetawayUpdateMessage, $async.Stream.fromIterable([request]),
@@ -935,159 +954,166 @@ abstract class MiioGatewayManagerServiceBase extends $grpc.Service {
   $core.String get $name => 'pb.MiioGatewayManager';
 
   MiioGatewayManagerServiceBase() {
-    $addMethod($grpc.ServiceMethod<MiioGatewayDevice, Empty>(
+    $addMethod($grpc.ServiceMethod<$0.MiioGatewayDevice, $0.Empty>(
         'AddDevice',
         addDevice_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => MiioGatewayDevice.fromBuffer(value),
-        (Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<MiioGatewayDevice, Empty>(
+        ($core.List<$core.int> value) => $0.MiioGatewayDevice.fromBuffer(value),
+        ($0.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.MiioGatewayDevice, $0.Empty>(
         'DelDevice',
         delDevice_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => MiioGatewayDevice.fromBuffer(value),
-        (Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<Empty, MiioGatewayDeviceList>(
+        ($core.List<$core.int> value) => $0.MiioGatewayDevice.fromBuffer(value),
+        ($0.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.Empty, $0.MiioGatewayDeviceList>(
         'GetAllDevice',
         getAllDevice_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => Empty.fromBuffer(value),
-        (MiioGatewayDeviceList value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<MiioGatewayDevice, Empty>(
+        ($core.List<$core.int> value) => $0.Empty.fromBuffer(value),
+        ($0.MiioGatewayDeviceList value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.MiioGatewayDevice, $0.Empty>(
         'SetColor',
         setColor_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => MiioGatewayDevice.fromBuffer(value),
-        (Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<MiioGatewayDevice, Empty>(
+        ($core.List<$core.int> value) => $0.MiioGatewayDevice.fromBuffer(value),
+        ($0.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.MiioGatewayDevice, $0.Empty>(
         'SetBrightness',
         setBrightness_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => MiioGatewayDevice.fromBuffer(value),
-        (Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<MiioGatewayDevice, Empty>(
+        ($core.List<$core.int> value) => $0.MiioGatewayDevice.fromBuffer(value),
+        ($0.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.MiioGatewayDevice, $0.Empty>(
         'On',
         on_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => MiioGatewayDevice.fromBuffer(value),
-        (Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<MiioGatewayDevice, Empty>(
+        ($core.List<$core.int> value) => $0.MiioGatewayDevice.fromBuffer(value),
+        ($0.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.MiioGatewayDevice, $0.Empty>(
         'Off',
         off_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => MiioGatewayDevice.fromBuffer(value),
-        (Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<MiioGatewayDevice, Empty>(
+        ($core.List<$core.int> value) => $0.MiioGatewayDevice.fromBuffer(value),
+        ($0.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.MiioGatewayDevice, $0.Empty>(
         'Stop',
         stop_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => MiioGatewayDevice.fromBuffer(value),
-        (Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<MiioGatewayDevice, Empty>(
+        ($core.List<$core.int> value) => $0.MiioGatewayDevice.fromBuffer(value),
+        ($0.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.MiioGatewayDevice, $0.Empty>(
         'UpdateGetawayState',
         updateGetawayState_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => MiioGatewayDevice.fromBuffer(value),
-        (Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<MiioGatewayDevice, GatewayUpdateMessage>(
-        'GetGetawayUpdateMessage',
-        getGetawayUpdateMessage_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => MiioGatewayDevice.fromBuffer(value),
-        (GatewayUpdateMessage value) => value.writeToBuffer()));
+        ($core.List<$core.int> value) => $0.MiioGatewayDevice.fromBuffer(value),
+        ($0.Empty value) => value.writeToBuffer()));
+    $addMethod(
+        $grpc.ServiceMethod<$0.MiioGatewayDevice, $0.GatewayUpdateMessage>(
+            'GetGetawayUpdateMessage',
+            getGetawayUpdateMessage_Pre,
+            false,
+            false,
+            ($core.List<$core.int> value) =>
+                $0.MiioGatewayDevice.fromBuffer(value),
+            ($0.GatewayUpdateMessage value) => value.writeToBuffer()));
   }
 
-  $async.Future<Empty> addDevice_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.Empty> addDevice_Pre($grpc.ServiceCall call,
+      $async.Future<$0.MiioGatewayDevice> request) async {
     return addDevice(call, await request);
   }
 
-  $async.Future<Empty> delDevice_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.Empty> delDevice_Pre($grpc.ServiceCall call,
+      $async.Future<$0.MiioGatewayDevice> request) async {
     return delDevice(call, await request);
   }
 
-  $async.Future<MiioGatewayDeviceList> getAllDevice_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.MiioGatewayDeviceList> getAllDevice_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.Empty> request) async {
     return getAllDevice(call, await request);
   }
 
-  $async.Future<Empty> setColor_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.Empty> setColor_Pre($grpc.ServiceCall call,
+      $async.Future<$0.MiioGatewayDevice> request) async {
     return setColor(call, await request);
   }
 
-  $async.Future<Empty> setBrightness_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.Empty> setBrightness_Pre($grpc.ServiceCall call,
+      $async.Future<$0.MiioGatewayDevice> request) async {
     return setBrightness(call, await request);
   }
 
-  $async.Future<Empty> on_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.Empty> on_Pre($grpc.ServiceCall call,
+      $async.Future<$0.MiioGatewayDevice> request) async {
     return on(call, await request);
   }
 
-  $async.Future<Empty> off_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.Empty> off_Pre($grpc.ServiceCall call,
+      $async.Future<$0.MiioGatewayDevice> request) async {
     return off(call, await request);
   }
 
-  $async.Future<Empty> stop_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.Empty> stop_Pre($grpc.ServiceCall call,
+      $async.Future<$0.MiioGatewayDevice> request) async {
     return stop(call, await request);
   }
 
-  $async.Future<Empty> updateGetawayState_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.Empty> updateGetawayState_Pre($grpc.ServiceCall call,
+      $async.Future<$0.MiioGatewayDevice> request) async {
     return updateGetawayState(call, await request);
   }
 
-  $async.Future<GatewayUpdateMessage> getGetawayUpdateMessage_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.GatewayUpdateMessage> getGetawayUpdateMessage_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.MiioGatewayDevice> request) async {
     return getGetawayUpdateMessage(call, await request);
   }
 
-  $async.Future<Empty> addDevice(
-      $grpc.ServiceCall call, MiioGatewayDevice request);
-  $async.Future<Empty> delDevice(
-      $grpc.ServiceCall call, MiioGatewayDevice request);
-  $async.Future<MiioGatewayDeviceList> getAllDevice(
-      $grpc.ServiceCall call, Empty request);
-  $async.Future<Empty> setColor(
-      $grpc.ServiceCall call, MiioGatewayDevice request);
-  $async.Future<Empty> setBrightness(
-      $grpc.ServiceCall call, MiioGatewayDevice request);
-  $async.Future<Empty> on($grpc.ServiceCall call, MiioGatewayDevice request);
-  $async.Future<Empty> off($grpc.ServiceCall call, MiioGatewayDevice request);
-  $async.Future<Empty> stop($grpc.ServiceCall call, MiioGatewayDevice request);
-  $async.Future<Empty> updateGetawayState(
-      $grpc.ServiceCall call, MiioGatewayDevice request);
-  $async.Future<GatewayUpdateMessage> getGetawayUpdateMessage(
-      $grpc.ServiceCall call, MiioGatewayDevice request);
+  $async.Future<$0.Empty> addDevice(
+      $grpc.ServiceCall call, $0.MiioGatewayDevice request);
+  $async.Future<$0.Empty> delDevice(
+      $grpc.ServiceCall call, $0.MiioGatewayDevice request);
+  $async.Future<$0.MiioGatewayDeviceList> getAllDevice(
+      $grpc.ServiceCall call, $0.Empty request);
+  $async.Future<$0.Empty> setColor(
+      $grpc.ServiceCall call, $0.MiioGatewayDevice request);
+  $async.Future<$0.Empty> setBrightness(
+      $grpc.ServiceCall call, $0.MiioGatewayDevice request);
+  $async.Future<$0.Empty> on(
+      $grpc.ServiceCall call, $0.MiioGatewayDevice request);
+  $async.Future<$0.Empty> off(
+      $grpc.ServiceCall call, $0.MiioGatewayDevice request);
+  $async.Future<$0.Empty> stop(
+      $grpc.ServiceCall call, $0.MiioGatewayDevice request);
+  $async.Future<$0.Empty> updateGetawayState(
+      $grpc.ServiceCall call, $0.MiioGatewayDevice request);
+  $async.Future<$0.GatewayUpdateMessage> getGetawayUpdateMessage(
+      $grpc.ServiceCall call, $0.MiioGatewayDevice request);
 }
 
 class UtilsClient extends $grpc.Client {
   static final _$getAllmDNSServiceList =
-      $grpc.ClientMethod<MDNSService, MDNSServiceList>(
+      $grpc.ClientMethod<$0.MDNSService, $0.MDNSServiceList>(
           '/pb.Utils/GetAllmDNSServiceList',
-          (MDNSService value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => MDNSServiceList.fromBuffer(value));
+          ($0.MDNSService value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.MDNSServiceList.fromBuffer(value));
 
   UtilsClient($grpc.ClientChannel channel, {$grpc.CallOptions options})
       : super(channel, options: options);
 
-  $grpc.ResponseFuture<MDNSServiceList> getAllmDNSServiceList(
-      MDNSService request,
+  $grpc.ResponseFuture<$0.MDNSServiceList> getAllmDNSServiceList(
+      $0.MDNSService request,
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$getAllmDNSServiceList, $async.Stream.fromIterable([request]),
@@ -1100,20 +1126,20 @@ abstract class UtilsServiceBase extends $grpc.Service {
   $core.String get $name => 'pb.Utils';
 
   UtilsServiceBase() {
-    $addMethod($grpc.ServiceMethod<MDNSService, MDNSServiceList>(
+    $addMethod($grpc.ServiceMethod<$0.MDNSService, $0.MDNSServiceList>(
         'GetAllmDNSServiceList',
         getAllmDNSServiceList_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => MDNSService.fromBuffer(value),
-        (MDNSServiceList value) => value.writeToBuffer()));
+        ($core.List<$core.int> value) => $0.MDNSService.fromBuffer(value),
+        ($0.MDNSServiceList value) => value.writeToBuffer()));
   }
 
-  $async.Future<MDNSServiceList> getAllmDNSServiceList_Pre(
-      $grpc.ServiceCall call, $async.Future request) async {
+  $async.Future<$0.MDNSServiceList> getAllmDNSServiceList_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.MDNSService> request) async {
     return getAllmDNSServiceList(call, await request);
   }
 
-  $async.Future<MDNSServiceList> getAllmDNSServiceList(
-      $grpc.ServiceCall call, MDNSService request);
+  $async.Future<$0.MDNSServiceList> getAllmDNSServiceList(
+      $grpc.ServiceCall call, $0.MDNSService request);
 }
