@@ -111,6 +111,15 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_easylink:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "6cd60ab0f83aee8065ba95138c0ad36eacbed5ff"
+      url: "https://github.com/iotdevice/flutter_easylink"
+    source: git
+    version: "0.0.1"
   flutter_oneshot:
     dependency: "direct main"
     description:
@@ -118,6 +127,15 @@ packages:
       ref: HEAD
       resolved-ref: c3b8c6db6e1d51b54b17b8d0b545ef3185a9029f
       url: "https://github.com/iotdevice/flutter_oneshot"
+    source: git
+    version: "0.0.1"
+  flutter_smartlink:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: f17ec21cb62f61a14fd9365de9f1ba6efaa1d08a
+      url: "https://github.com/iotdevice/flutter_smartlink"
     source: git
     version: "0.0.1"
   flutter_speed_dial:
@@ -138,7 +156,7 @@ packages:
       name: flutter_webview_plugin
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.3.5"
+    version: "0.3.6"
   googleapis_auth:
     dependency: transitive
     description:
@@ -299,7 +317,7 @@ packages:
       name: permission_handler
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.2.1+1"
+    version: "3.2.2"
   platform:
     dependency: transitive
     description:
@@ -360,7 +378,7 @@ packages:
       name: ssh
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.0.3"
+    version: "0.0.4"
   stack_trace:
     dependency: transitive
     description:

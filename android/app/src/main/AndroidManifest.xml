@@ -21,7 +21,8 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="内网穿透"
         android:usesCleartextTraffic="true"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        tools:replace="android:label">
         <service
             android:name=".NatCloudExplorerService"
             android:enabled="true"

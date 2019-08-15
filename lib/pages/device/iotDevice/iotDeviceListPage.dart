@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:nat_explorer/api/SessionApi.dart';
 import 'package:nat_explorer/constants/Config.dart';
 import 'package:nat_explorer/pages/device/iotDevice/iotDevice.dart';
+import 'package:nat_explorer/pages/user/tools/smartConfigTool.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
 import 'package:android_intent/android_intent.dart';
@@ -83,6 +84,21 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
                   refreshmDNSServices();
                 }),
           ],
+        ),
+        floatingActionButton: FloatingActionButton(
+            onPressed: (){
+              // 通过smartconfig添加设备
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return EspSmartConfigTool(title: "添加设备");
+                  },
+                ),
+              ).then((v){
+                refreshmDNSServices();
+              });
+            },
+            child: IconButton(icon: Icon(Icons.add),color: Colors.black, onPressed: null,iconSize: 40,),
         ),
         body: ListView(children: divided));
   }

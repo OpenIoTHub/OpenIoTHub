@@ -6,6 +6,8 @@ import 'package:connectivity/connectivity.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:smartconfig/smartconfig.dart';
 import 'package:flutter_oneshot/flutter_oneshot.dart';
+import 'package:flutter_easylink/flutter_easylink.dart';
+import 'package:flutter_smartlink/flutter_smartlink.dart';
 
 class EspSmartConfigTool extends StatefulWidget {
   EspSmartConfigTool({Key key, this.title}) : super(key: key);
@@ -101,7 +103,7 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Smartconfig配网'),
+          title: Text(widget.title),
         ),
         body: Center(
             child: _isLoading
@@ -147,12 +149,13 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
                           ),
                         ),
                         RaisedButton(
-                          child: Text('开始esp8266,esp32配网(esptouch)'),
-                          onPressed: _configureEsp,
-                        ),
-                        RaisedButton(
-                          child: Text('开始w60x配网(onshot)'),
-                          onPressed: _configureW60x,
+                          child: Text('开始添加周围智能设备'),
+                          onPressed: (){
+                            _configureEspTouch();
+                            _configureOneShot();
+                            _configureEasyLink();
+                            _configureSmartLink();
+                          },
                         ),
                         Container(height: 10),
                         Text(_msg),
@@ -218,7 +221,7 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
     }
   }
 
-  Future<void> _configureEsp() async {
+  Future<void> _configureEspTouch() async {
     String output = "Unknown";
     setState(() {
       _isLoading = true;
@@ -238,16 +241,56 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
     }
   }
 
-  Future<void> _configureW60x() async {
+  Future<void> _configureOneShot() async {
     String output = "Unknown";
     setState(() {
       _isLoading = true;
     });
 
     try {
-      FlutterOneshot.start(_ssid, _password, 30).then((v) => setState(() {
+      FlutterOneshot.start(_ssid, _password, 40).then((v) => setState(() {
         _isLoading = false;
         _msg = "配好了附近的w60x设备";
+      }));
+    } on PlatformException catch (e) {
+      output = "Failed to configure: '${e.message}'.";
+      setState(() {
+        _isLoading = false;
+        _msg = output;
+      });
+    }
+  }
+
+  Future<void> _configureEasyLink() async {
+    String output = "Unknown";
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      FlutterEasylink.start(_ssid, _password, _bssid, 45).then((v) => setState(() {
+        _isLoading = false;
+        _msg = "配好了附近的庆科设备";
+      }));
+    } on PlatformException catch (e) {
+      output = "Failed to configure: '${e.message}'.";
+      setState(() {
+        _isLoading = false;
+        _msg = output;
+      });
+    }
+  }
+
+  Future<void> _configureSmartLink() async {
+    String output = "Unknown";
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      FlutterSmartlink.start(_ssid, _password, _bssid, 50).then((v) => setState(() {
+        _isLoading = false;
+        _msg = "配好了附近的汉枫设备";
       }));
     } on PlatformException catch (e) {
       output = "Failed to configure: '${e.message}'.";

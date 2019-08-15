@@ -33,13 +33,11 @@ dependencies:
 #  打开url
   url_launcher: ^5.0.2
 #  安卓intent调用其他程序
-  android_intent: ^0.3.0+2
+  android_intent: ^0.3.2
 #  数据存储
   shared_preferences: ^0.5.2
 #  时间总线
   event_bus: ^1.1.0
-#  esp配网
-  smartconfig: ^0.0.1
 #  获取wifi名和bssid
   connectivity: ^0.4.3+2
 #  动态请求权限，定位，存储等
@@ -67,9 +65,17 @@ dependencies:
   ssh: ^0.0.3
 #ssh file over
 #  sqflite: ^1.1.6+2
+  #  esp配网
+  smartconfig: ^0.0.1
 #  w60x的OneShot配网
   flutter_oneshot:
     git: https://github.com/iotdevice/flutter_oneshot
+# 庆科easylink
+  flutter_easylink:
+    git: https://github.com/iotdevice/flutter_easylink
+## 汉枫smartlink
+  flutter_smartlink:
+    git: https://github.com/iotdevice/flutter_smartlink
 
 dev_dependencies:
   flutter_test:
