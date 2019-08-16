@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:permission_handler/permission_handler.dart';
+
 import 'package:smartconfig/smartconfig.dart';
 import 'package:flutter_oneshot/flutter_oneshot.dart';
 import 'package:flutter_easylink/flutter_easylink.dart';
 import 'package:flutter_smartlink/flutter_smartlink.dart';
+import 'package:airkiss/airkiss.dart';
 
 class EspSmartConfigTool extends StatefulWidget {
   EspSmartConfigTool({Key key, this.title}) : super(key: key);
@@ -155,6 +157,7 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
                             _configureOneShot();
                             _configureEasyLink();
                             _configureSmartLink();
+                            _configureAirKiss();
                           },
                         ),
                         Container(height: 10),
@@ -268,7 +271,9 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
     });
 
     try {
+      print("easyLink:ssid:$_ssid,password:$_password,bssid:$_bssid");
       FlutterEasylink.start(_ssid, _password, _bssid, 45).then((v) => setState(() {
+        print("easylink:${v.toString()}");
         _isLoading = false;
         _msg = "配好了附近的庆科设备";
       }));
@@ -292,6 +297,34 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
         _isLoading = false;
         _msg = "配好了附近的汉枫设备";
       }));
+    } on PlatformException catch (e) {
+      output = "Failed to configure: '${e.message}'.";
+      setState(() {
+        _isLoading = false;
+        _msg = output;
+      });
+    }
+  }
+
+  Future<void> _configureAirKiss() async {
+    String output = "Unknown";
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      AirkissOption option = AirkissOption();
+      AirkissConfig ac = AirkissConfig(option: option);
+      ac.config(_ssid, _password).then((v) {
+        if (v != null) {
+          print('result: $v');
+        }
+        setState(() {
+          _isLoading = false;
+          _msg = "配好了附近的AirKiss设备";
+        });
+      }
+        );
     } on PlatformException catch (e) {
       output = "Failed to configure: '${e.message}'.";
       setState(() {

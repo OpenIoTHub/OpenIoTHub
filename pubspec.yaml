@@ -76,7 +76,8 @@ dependencies:
 ## 汉枫smartlink
   flutter_smartlink:
     git: https://github.com/iotdevice/flutter_smartlink
-
+# AirKiss
+  airkiss: ^1.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
