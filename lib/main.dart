@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+
+import 'package:flutter_natcloud_service/flutter_natcloud_service.dart';
+
 import 'package:nat_explorer/constants/Config.dart';
 import 'package:nat_explorer/pages/openWithChoice/sshWeb/fileExplorer/services/connection_model.dart';
 import 'package:nat_explorer/pages/openWithChoice/sshWeb/fileExplorer/shared/custom_theme.dart';
@@ -12,6 +15,7 @@ import 'package:jaguar_flutter_asset/jaguar_flutter_asset.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  FlutterNatcloudService.start();
   final server =
       Jaguar(address: Config.webStaticIp, port: Config.webStaticPort);
   server.addRoute(serveFlutterAssets());

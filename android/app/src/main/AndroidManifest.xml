@@ -23,10 +23,6 @@
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher"
         tools:replace="android:label">
-        <service
-            android:name=".NatCloudExplorerService"
-            android:enabled="true"
-            android:exported="true"></service>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

@@ -127,6 +127,13 @@ packages:
       url: "https://github.com/iotdevice/flutter_easylink"
     source: git
     version: "0.0.1"
+  flutter_natcloud_service:
+    dependency: "direct main"
+    description:
+      path: "C:\\Users\\Farry\\StudioProjects\\flutter_natcloud_service"
+      relative: false
+    source: path
+    version: "0.0.1"
   flutter_oneshot:
     dependency: "direct main"
     description:
