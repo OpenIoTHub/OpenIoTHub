@@ -123,7 +123,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: f0392eda715f23528aae1de032ca70bdbd6c2e07
+      resolved-ref: a68b0ac23af8e31605a7c7cc2980881d10fecdcc
       url: "https://github.com/iotdevice/flutter_easylink"
     source: git
     version: "0.0.1"
@@ -132,7 +132,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: ba25d58db4abfdc125d1119b852c0c335f6eb7dc
+      resolved-ref: bb3cd0f44b4a0607d75001e39734d45d753333ad
       url: "https://github.com/iotdevice/flutter_oneshot"
     source: git
     version: "0.0.1"
@@ -141,7 +141,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "669c4828d9f37e7d6ab5ac250fa944d4552d800d"
+      resolved-ref: a30acd4758cd3e847aeb0c3a94d3ff68bada996c
       url: "https://github.com/iotdevice/flutter_smartlink"
     source: git
     version: "0.0.1"

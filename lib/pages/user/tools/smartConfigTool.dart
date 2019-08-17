@@ -156,8 +156,10 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
                             _configureEspTouch();
                             _configureOneShot();
                             _configureEasyLink();
-                            _configureSmartLink();
-                            _configureAirKiss();
+                            //由于微信AirKiss配网和汉枫SmartLink都是使用本地的UDP端口10000进行监听所以，先进行AirKiss然后进行SmartLink
+                            _configureAirKiss().then((v){
+                              _configureSmartLink();
+                            });
                           },
                         ),
                         Container(height: 10),
@@ -314,6 +316,8 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
 
     try {
       AirkissOption option = AirkissOption();
+      option.timegap = 500;
+      option.trycount = 50;
       AirkissConfig ac = AirkissConfig(option: option);
       ac.config(_ssid, _password).then((v) {
         if (v != null) {
