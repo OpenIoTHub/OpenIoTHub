@@ -21,6 +21,8 @@ class EspSmartConfigTool extends StatefulWidget {
 }
 
 class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
+  final int _smartConfigTypeNumber = 5;
+  int _smartConfigRemainNumber;
   final Connectivity _connectivity = Connectivity();
   StreamSubscription<ConnectivityResult> _connectivitySubscription;
 
@@ -118,7 +120,8 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
                               valueColor: AlwaysStoppedAnimation<Color>(
                                   Colors.lightBlue),
                             ),
-                            Text("正在设置设备连接到路由器：${_ssid}(BSSID:${_bssid})"),
+                            Text(
+                                "正在设置设备连接到路由器：\n\n${_ssid}(BSSID:${_bssid})\n\n$_msg"),
                           ]),
                     ),
                     color: Colors.white.withOpacity(0.8),
@@ -152,13 +155,27 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
                         ),
                         RaisedButton(
                           child: Text('开始添加周围智能设备'),
-                          onPressed: (){
-                            _configureEspTouch();
-                            _configureOneShot();
-                            _configureEasyLink();
+                          onPressed: () {
+                            setState(() {
+                              _smartConfigRemainNumber = _smartConfigTypeNumber;
+                              _isLoading = true;
+                              _msg = "正在发现设备，请耐心等待，大概需要一分钟";
+                            });
+                            _configureEspTouch().then((v) {
+                              _checkResult();
+                            });
+                            _configureOneShot().then((v) {
+                              _checkResult();
+                            });
+                            _configureEasyLink().then((v) {
+                              _checkResult();
+                            });
                             //由于微信AirKiss配网和汉枫SmartLink都是使用本地的UDP端口10000进行监听所以，先进行AirKiss然后进行SmartLink
-                            _configureAirKiss().then((v){
-                              _configureSmartLink();
+                            _configureAirKiss().then((v) {
+                              _checkResult();
+                              _configureSmartLink().then((v) {
+                                _checkResult();
+                              });
                             });
                           },
                         ),
@@ -228,19 +245,13 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
 
   Future<void> _configureEspTouch() async {
     String output = "Unknown";
-    setState(() {
-      _isLoading = true;
-    });
-
     try {
-      Smartconfig.start(_ssid, _bssid, _password).then((v) => setState(() {
-            _isLoading = false;
-            _msg = "配好了设备：${v.toString()}";
+      await Smartconfig.start(_ssid, _bssid, _password).then((v) => setState(() {
+            _msg = "ESP Touch设备发现完成！，当前剩下：${_smartConfigRemainNumber-1}";
           }));
     } on PlatformException catch (e) {
       output = "Failed to configure: '${e.message}'.";
       setState(() {
-        _isLoading = false;
         _msg = output;
       });
     }
@@ -248,19 +259,15 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
 
   Future<void> _configureOneShot() async {
     String output = "Unknown";
-    setState(() {
-      _isLoading = true;
-    });
-
     try {
-      FlutterOneshot.start(_ssid, _password, 40).then((v) => setState(() {
-        _isLoading = false;
-        _msg = "配好了附近的w60x设备";
-      }));
+      await FlutterOneshot.start(_ssid, _password, 40).then((v) {
+        setState(() {
+          _msg = "附近的OneShot设备配网任务完成，当前剩下：${_smartConfigRemainNumber-1}种设备的配网任务";
+        });
+      });
     } on PlatformException catch (e) {
       output = "Failed to configure: '${e.message}'.";
       setState(() {
-        _isLoading = false;
         _msg = output;
       });
     }
@@ -268,21 +275,16 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
 
   Future<void> _configureEasyLink() async {
     String output = "Unknown";
-    setState(() {
-      _isLoading = true;
-    });
-
     try {
       print("easyLink:ssid:$_ssid,password:$_password,bssid:$_bssid");
-      FlutterEasylink.start(_ssid, _password, _bssid, 45).then((v) => setState(() {
-        print("easylink:${v.toString()}");
-        _isLoading = false;
-        _msg = "配好了附近的庆科设备";
-      }));
+      await FlutterEasylink.start(_ssid, _password, _bssid, 45)
+          .then((v) => setState(() {
+                print("easylink:${v.toString()}");
+                _msg = "附近的EasyLink设备配网任务完成，当前剩下：${_smartConfigRemainNumber-1}种设备的配网任务";
+              }));
     } on PlatformException catch (e) {
       output = "Failed to configure: '${e.message}'.";
       setState(() {
-        _isLoading = false;
         _msg = output;
       });
     }
@@ -290,19 +292,14 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
 
   Future<void> _configureSmartLink() async {
     String output = "Unknown";
-    setState(() {
-      _isLoading = true;
-    });
-
     try {
-      FlutterSmartlink.start(_ssid, _password, _bssid, 50).then((v) => setState(() {
-        _isLoading = false;
-        _msg = "配好了附近的汉枫设备";
-      }));
+      await FlutterSmartlink.start(_ssid, _password, _bssid, 50)
+          .then((v) => setState(() {
+                _msg = "附近的SmartLink设备配网任务完成，当前剩下：${_smartConfigRemainNumber-1}种设备的配网任务";
+              }));
     } on PlatformException catch (e) {
       output = "Failed to configure: '${e.message}'.";
       setState(() {
-        _isLoading = false;
         _msg = output;
       });
     }
@@ -310,31 +307,39 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
 
   Future<void> _configureAirKiss() async {
     String output = "Unknown";
-    setState(() {
-      _isLoading = true;
-    });
-
     try {
       AirkissOption option = AirkissOption();
-      option.timegap = 500;
-      option.trycount = 50;
+      option.timegap = 1000;
+      option.trycount = 40;
       AirkissConfig ac = AirkissConfig(option: option);
-      ac.config(_ssid, _password).then((v) {
+      await ac.config(_ssid, _password).then((v) {
         if (v != null) {
           print('result: $v');
         }
         setState(() {
-          _isLoading = false;
-          _msg = "配好了附近的AirKiss设备";
+          _msg = "附近的AirKiss设备配网任务完成，当前剩下：${_smartConfigRemainNumber-1}种设备的配网任务";
         });
-      }
-        );
+      });
     } on PlatformException catch (e) {
       output = "Failed to configure: '${e.message}'.";
       setState(() {
-        _isLoading = false;
         _msg = output;
       });
     }
+  }
+
+  Future<void> _checkResult() async {
+    _smartConfigRemainNumber--;
+    if (_smartConfigRemainNumber == 0) {
+      setState(() {
+        _isLoading = false;
+        _msg = "全部设备发现完成";
+      });
+    }
+//    else{
+//      setState(() {
+//        _isLoading = true;
+//      });
+//    }
   }
 }
