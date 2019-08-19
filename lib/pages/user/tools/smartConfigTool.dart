@@ -247,7 +247,7 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
     String output = "Unknown";
     try {
       await Smartconfig.start(_ssid, _bssid, _password).then((v) => setState(() {
-            _msg = "ESP Touch设备发现完成！，当前剩下：${_smartConfigRemainNumber-1}";
+            _msg = "附近的ESPTouch设备配网任务完成，\n当前剩下：${_smartConfigRemainNumber-1}";
           }));
     } on PlatformException catch (e) {
       output = "Failed to configure: '${e.message}'.";
@@ -262,7 +262,7 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
     try {
       await FlutterOneshot.start(_ssid, _password, 40).then((v) {
         setState(() {
-          _msg = "附近的OneShot设备配网任务完成，当前剩下：${_smartConfigRemainNumber-1}种设备的配网任务";
+          _msg = "附近的OneShot设备配网任务完成，\n当前剩下：${_smartConfigRemainNumber-1}种设备的配网任务";
         });
       });
     } on PlatformException catch (e) {
@@ -280,7 +280,7 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
       await FlutterEasylink.start(_ssid, _password, _bssid, 45)
           .then((v) => setState(() {
                 print("easylink:${v.toString()}");
-                _msg = "附近的EasyLink设备配网任务完成，当前剩下：${_smartConfigRemainNumber-1}种设备的配网任务";
+                _msg = "附近的EasyLink设备配网任务完成，\n当前剩下：${_smartConfigRemainNumber-1}种设备的配网任务";
               }));
     } on PlatformException catch (e) {
       output = "Failed to configure: '${e.message}'.";
@@ -295,7 +295,7 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
     try {
       await FlutterSmartlink.start(_ssid, _password, _bssid, 50)
           .then((v) => setState(() {
-                _msg = "附近的SmartLink设备配网任务完成，当前剩下：${_smartConfigRemainNumber-1}种设备的配网任务";
+                _msg = "附近的SmartLink设备配网任务完成，\n当前剩下：${_smartConfigRemainNumber-1}种设备的配网任务";
               }));
     } on PlatformException catch (e) {
       output = "Failed to configure: '${e.message}'.";
@@ -317,7 +317,7 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
           print('result: $v');
         }
         setState(() {
-          _msg = "附近的AirKiss设备配网任务完成，当前剩下：${_smartConfigRemainNumber-1}种设备的配网任务";
+          _msg = "附近的AirKiss设备配网任务完成，\n当前剩下：${_smartConfigRemainNumber-1}种设备的配网任务";
         });
       });
     } on PlatformException catch (e) {
