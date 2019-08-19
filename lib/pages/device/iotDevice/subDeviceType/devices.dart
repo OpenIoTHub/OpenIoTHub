@@ -1,1 +1,1 @@
-export './devices/espPluginDemo.dart';
+export './devices/oneKeySwitch.dart';

@@ -3,19 +3,18 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:android_intent/android_intent.dart';
 import 'package:nat_explorer/constants/Config.dart';
-import 'package:nat_explorer/pages/device/iotDevice/iotDevice.dart';
+import 'package:nat_explorer/pages/device/iotDevice/iotDeviceModel.dart';
 
-class EspPluginDemoPage extends StatefulWidget {
-  EspPluginDemoPage({Key key, this.device}) : super(key: key);
+class OneKeySwitchPage extends StatefulWidget {
+  OneKeySwitchPage({Key key, this.device}) : super(key: key);
 
   final IoTDevice device;
 
   @override
-  _EspPluginDemoPageState createState() => _EspPluginDemoPageState();
+  _OneKeySwitchPageState createState() => _OneKeySwitchPageState();
 }
 
-class _EspPluginDemoPageState extends State<EspPluginDemoPage> {
-  Utf8Decoder u8decodeer = Utf8Decoder();
+class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
   static const Color onColor = Colors.green;
   static const Color offColor = Colors.red;
   bool ledBottonStatus = false;
@@ -101,7 +100,7 @@ class _EspPluginDemoPageState extends State<EspPluginDemoPage> {
   _setting() async {
     // TODO 设备设置
     TextEditingController _name_controller =
-    TextEditingController.fromValue(TextEditingValue(text: jsonDecode(u8decodeer.convert(widget.device.response.bodyBytes))["name"]));
+    TextEditingController.fromValue(TextEditingValue(text: widget.device.info["name"]));
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
@@ -143,16 +142,15 @@ class _EspPluginDemoPageState extends State<EspPluginDemoPage> {
   _info() async {
     // TODO 设备信息
     final List _result = [];
-    dynamic info = jsonDecode(u8decodeer.convert(widget.device.response.bodyBytes));
-    _result.add("设备名称:${info["name"]}");
-    _result.add("设备型号:${info["model"]}");
-    _result.add("支持的界面:${info["ui-support"]}");
-    _result.add("首选界面:${info["ui-first"]}");
-    _result.add("固件作者:${info["author"]}");
-    _result.add("邮件:${info["email"]}");
-    _result.add("主页:${info["home-page"]}");
-    _result.add("固件程序:${info["firmware-respository"]}");
-    _result.add("固件版本:${info["firmware-version"]}");
+    _result.add("设备名称:${widget.device.info["name"]}");
+    _result.add("设备型号:${widget.device.info["model"]}");
+    _result.add("支持的界面:${widget.device.info["ui-support"]}");
+    _result.add("首选界面:${widget.device.info["ui-first"]}");
+    _result.add("固件作者:${widget.device.info["author"]}");
+    _result.add("邮件:${widget.device.info["email"]}");
+    _result.add("主页:${widget.device.info["home-page"]}");
+    _result.add("固件程序:${widget.device.info["firmware-respository"]}");
+    _result.add("固件版本:${widget.device.info["firmware-version"]}");
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {

@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:nat_explorer/api/SessionApi.dart';
 import 'package:nat_explorer/constants/Config.dart';
-import 'package:nat_explorer/pages/plugin/subPluginType/plugin.dart';
+import 'package:nat_explorer/pages/plugin/subPluginType/pluginModel.dart';
 
 import 'package:nat_explorer/pages/user/tools/smartConfigTool.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
@@ -96,8 +96,8 @@ class _PluginListPageState extends State<PluginListPage> {
       MaterialPageRoute(
         builder: (context) {
           // 写成独立的组件，支持刷新
-          String model = jsonDecode(plugin.response.body)["model"];
-          String uiFirst = jsonDecode(plugin.response.body)["ui-first"];
+          String model = plugin.info["model"];
+          String uiFirst = plugin.info["ui-first"];
           switch (model) {
             case "com.iotserv.plugins.esp8266-switch":
               {
@@ -199,10 +199,11 @@ class _PluginListPageState extends State<PluginListPage> {
       return;
     }
     if (response.statusCode == 200) {
-      portConfig.description = jsonDecode(u8decodeer.convert(response.bodyBytes))["name"];
+      dynamic info = jsonDecode(u8decodeer.convert(response.bodyBytes));
+      portConfig.description = info["name"];
       setState(() {
         _PluginList.add(
-            Plugin(portConfig: portConfig, response: response));
+            Plugin(portConfig: portConfig, info: info));
       });
     }
   }

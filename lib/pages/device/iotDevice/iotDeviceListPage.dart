@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:nat_explorer/api/SessionApi.dart';
 import 'package:nat_explorer/constants/Config.dart';
-import 'package:nat_explorer/pages/device/iotDevice/iotDevice.dart';
+import 'package:nat_explorer/pages/device/iotDevice/iotDeviceModel.dart';
 import 'package:nat_explorer/pages/user/tools/smartConfigTool.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
@@ -110,13 +110,13 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
       MaterialPageRoute(
         builder: (context) {
           // 写成独立的组件，支持刷新
-          String model = jsonDecode(device.response.body)["model"];
-          String uiFirst = jsonDecode(device.response.body)["ui-first"];
+          String model = device.info["model"];
+          String uiFirst = device.info["ui-first"];
           switch (model) {
-            case "com.iotserv.devices.esp8266-switch":
+            case "com.iotserv.devices.one-key-switch":
               {
                 if (uiFirst == "native") {
-                  return EspPluginDemoPage(device: device);
+                  return OneKeySwitchPage(device: device);
                 } else if (uiFirst == "web") {
                   _openWithWeb(device);
                 }
@@ -213,10 +213,11 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
       return;
     }
     if (response.statusCode == 200) {
-      portConfig.description = jsonDecode(u8decodeer.convert(response.bodyBytes))["name"];
+      dynamic info = jsonDecode(u8decodeer.convert(response.bodyBytes));
+      portConfig.description = info["name"];
       setState(() {
         _IoTDeviceList.add(
-            IoTDevice(portConfig: portConfig, response: response));
+            IoTDevice(portConfig: portConfig, info: info));
       });
     }
   }

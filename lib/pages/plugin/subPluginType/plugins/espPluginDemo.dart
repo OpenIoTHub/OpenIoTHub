@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:android_intent/android_intent.dart';
 import 'package:nat_explorer/constants/Config.dart';
-import 'package:nat_explorer/pages/plugin/subPluginType/plugin.dart';
+import 'package:nat_explorer/pages/plugin/subPluginType/pluginModel.dart';
 
 class EspPluginDemoPage extends StatefulWidget {
   EspPluginDemoPage({Key key, this.plugin}) : super(key: key);
@@ -15,7 +15,6 @@ class EspPluginDemoPage extends StatefulWidget {
 }
 
 class _EspPluginDemoPageState extends State<EspPluginDemoPage> {
-  Utf8Decoder u8decodeer = Utf8Decoder();
   static const Color onColor = Colors.green;
   static const Color offColor = Colors.red;
   bool ledBottonStatus = false;
@@ -101,7 +100,7 @@ class _EspPluginDemoPageState extends State<EspPluginDemoPage> {
   _setting() async {
     // TODO 设备设置
     TextEditingController _name_controller =
-    TextEditingController.fromValue(TextEditingValue(text: jsonDecode(u8decodeer.convert(widget.plugin.response.bodyBytes))["name"]));
+    TextEditingController.fromValue(TextEditingValue(text: widget.plugin.info.bodyBytes["name"]));
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
@@ -143,16 +142,15 @@ class _EspPluginDemoPageState extends State<EspPluginDemoPage> {
   _info() async {
     // TODO 设备信息
     final List _result = [];
-    dynamic info = jsonDecode(u8decodeer.convert(widget.plugin.response.bodyBytes));
-    _result.add("设备名称:${info["name"]}");
-    _result.add("设备型号:${info["model"]}");
-    _result.add("支持的界面:${info["ui-support"]}");
-    _result.add("首选界面:${info["ui-first"]}");
-    _result.add("固件作者:${info["author"]}");
-    _result.add("邮件:${info["email"]}");
-    _result.add("主页:${info["home-page"]}");
-    _result.add("固件程序:${info["firmware-respository"]}");
-    _result.add("固件版本:${info["firmware-version"]}");
+    _result.add("设备名称:${widget.plugin.info["name"]}");
+    _result.add("设备型号:${widget.plugin.info["model"]}");
+    _result.add("支持的界面:${widget.plugin.info["ui-support"]}");
+    _result.add("首选界面:${widget.plugin.info["ui-first"]}");
+    _result.add("固件作者:${widget.plugin.info["author"]}");
+    _result.add("邮件:${widget.plugin.info["email"]}");
+    _result.add("主页:${widget.plugin.info["home-page"]}");
+    _result.add("固件程序:${widget.plugin.info["firmware-respository"]}");
+    _result.add("固件版本:${widget.plugin.info["firmware-version"]}");
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {

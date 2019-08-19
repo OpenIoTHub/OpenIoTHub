@@ -4,6 +4,6 @@ import 'package:nat_explorer/pb/service.pbgrpc.dart';
 
 class IoTDevice {
   PortConfig portConfig;
-  http.Response response;
-  IoTDevice({this.portConfig, this.response});
+  dynamic info;
+  IoTDevice({this.portConfig, this.info});
 }

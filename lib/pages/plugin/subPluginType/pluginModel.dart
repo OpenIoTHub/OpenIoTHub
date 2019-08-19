@@ -4,6 +4,6 @@ import 'package:nat_explorer/pb/service.pbgrpc.dart';
 
 class Plugin {
   PortConfig portConfig;
-  http.Response response;
-  Plugin({this.portConfig, this.response});
+  dynamic info;
+  Plugin({this.portConfig, this.info});
 }
