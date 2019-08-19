@@ -37,7 +37,7 @@ class CustomTheme with ChangeNotifier {
 }
 
 class CustomThemes {
-  static final Color _lightAccentColor = Colors.teal;
+  static final Color _lightAccentColor = Colors.orange;
   static final ThemeData light = ThemeData(
     accentColor: _lightAccentColor,
     accentColorBrightness: Brightness.dark,

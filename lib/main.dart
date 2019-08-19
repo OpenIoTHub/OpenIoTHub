@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_natcloud_service/flutter_natcloud_service.dart';
 
 import 'package:nat_explorer/constants/Config.dart';
+import 'package:nat_explorer/pages/device/commonDevice/commonDeviceListPage.dart';
+import 'package:nat_explorer/pages/device/iotDevice/iotDeviceListPage.dart';
 import 'package:nat_explorer/pages/openWithChoice/sshWeb/fileExplorer/services/connection_model.dart';
 import 'package:nat_explorer/pages/openWithChoice/sshWeb/fileExplorer/shared/custom_theme.dart';
+import 'package:nat_explorer/pages/plugin/pluginListPage.dart';
 import 'package:nat_explorer/pages/session/sessionListPage.dart';
 import 'package:nat_explorer/pages/device/deviceTypePage.dart';
 import 'package:nat_explorer/pages/user/accountPage.dart';
@@ -39,11 +42,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: '内网穿透',
+      title: '云易连',
       theme: Provider.of<CustomTheme>(context).themeValue == "dark"
           ? CustomThemes.dark
           : CustomThemes.light,
-      home: MyHomePage(title: '内网访问工具'),
+      home: MyHomePage(title: '云易连'),
     );
   }
 }
@@ -57,7 +60,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-//  final _bottomNavigationColor = Colors.blue;
+  final _inactiveColor = Colors.black;
+  final _activeColor = Colors.orange;
   int _currentIndex = 0;
 
   @override
@@ -74,9 +78,15 @@ class _MyHomePageState extends State<MyHomePage> {
         return SessionListPage(title: "网络列表");
         break;
       case 1:
-        return DiscoveryPage();
+        return CommonDeviceListPage(title: "主机");
         break;
       case 2:
+        return IoTDeviceListPage(title: "智能设备");
+        break;
+      case 3:
+        return PluginListPage(title: "插件");
+        break;
+      case 4:
         return MyInfoPage();
         break;
     }
@@ -89,29 +99,47 @@ class _MyHomePageState extends State<MyHomePage> {
         BottomNavigationBarItem(
             icon: Icon(
               Icons.home,
-//              color: _bottomNavigationColor,
+              color: _currentIndex==0?_activeColor:_inactiveColor,
             ),
             title: Text(
               '网络',
-//              style: TextStyle(color: _bottomNavigationColor),
+              style: TextStyle(color: _currentIndex==0?_activeColor:_inactiveColor),
             )),
         BottomNavigationBarItem(
             icon: Icon(
               Icons.airplay,
-//              color: _bottomNavigationColor,
+              color: _currentIndex==1?_activeColor:_inactiveColor,
             ),
             title: Text(
-              '设备',
-//              style: TextStyle(color: _bottomNavigationColor),
+              '主机',
+              style: TextStyle(color: _currentIndex==1?_activeColor:_inactiveColor),
+            )),
+        BottomNavigationBarItem(
+            icon: Icon(
+              Icons.print,
+              color: _currentIndex==2?_activeColor:_inactiveColor,
+            ),
+            title: Text(
+              '智能',
+              style: TextStyle(color: _currentIndex==2?_activeColor:_inactiveColor),
+            )),
+        BottomNavigationBarItem(
+            icon: Icon(
+              Icons.assistant_photo,
+              color: _currentIndex==3?_activeColor:_inactiveColor,
+            ),
+            title: Text(
+              '插件',
+              style: TextStyle(color: _currentIndex==3?_activeColor:_inactiveColor),
             )),
         BottomNavigationBarItem(
             icon: Icon(
               Icons.account_circle,
-//              color: _bottomNavigationColor,
+              color: _currentIndex==4?_activeColor:_inactiveColor,
             ),
             title: Text(
               '我',
-//              style: TextStyle(color: _bottomNavigationColor),
+              style: TextStyle(color: _currentIndex==4?_activeColor:_inactiveColor),
             )),
       ],
       currentIndex: index,
