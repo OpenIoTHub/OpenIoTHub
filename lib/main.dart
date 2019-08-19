@@ -9,7 +9,6 @@ import 'package:nat_explorer/pages/openWithChoice/sshWeb/fileExplorer/services/c
 import 'package:nat_explorer/pages/openWithChoice/sshWeb/fileExplorer/shared/custom_theme.dart';
 import 'package:nat_explorer/pages/plugin/pluginListPage.dart';
 import 'package:nat_explorer/pages/session/sessionListPage.dart';
-import 'package:nat_explorer/pages/device/deviceTypePage.dart';
 import 'package:nat_explorer/pages/user/accountPage.dart';
 
 import 'package:jaguar/jaguar.dart';

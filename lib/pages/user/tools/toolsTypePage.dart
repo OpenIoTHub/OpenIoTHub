@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:nat_explorer/pages/device/commonDevice/commonDeviceListPage.dart';
-import 'package:nat_explorer/pages/device/miioGatewayDevice/miioGatewayDeviceListPage.dart';
 
 import 'smartConfigTool.dart';
 
