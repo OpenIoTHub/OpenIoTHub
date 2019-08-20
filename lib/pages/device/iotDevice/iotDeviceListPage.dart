@@ -9,8 +9,9 @@ import 'package:nat_explorer/pages/user/tools/smartConfigTool.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
 import 'package:android_intent/android_intent.dart';
+
 //统一导入全部设备类型
-import 'package:nat_explorer/pages/device/iotDevice/subDeviceType/devices.dart';
+import './subDeviceType/modelsMap.dart';
 
 class IoTDeviceListPage extends StatefulWidget {
   IoTDeviceListPage({Key key, this.title}) : super(key: key);
@@ -86,19 +87,24 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-            onPressed: (){
-              // 通过smartconfig添加设备
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) {
-                    return EspSmartConfigTool(title: "添加设备");
-                  },
-                ),
-              ).then((v){
-                refreshmDNSServices();
-              });
-            },
-            child: IconButton(icon: Icon(Icons.add),color: Colors.black, onPressed: null,iconSize: 40,),
+          onPressed: () {
+            // 通过smartconfig添加设备
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return EspSmartConfigTool(title: "添加设备");
+                },
+              ),
+            ).then((v) {
+              refreshmDNSServices();
+            });
+          },
+          child: IconButton(
+            icon: Icon(Icons.add),
+            color: Colors.black,
+            onPressed: null,
+            iconSize: 40,
+          ),
         ),
         body: ListView(children: divided));
   }
@@ -112,22 +118,19 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
           // 写成独立的组件，支持刷新
           String model = device.info["model"];
           String uiFirst = device.info["ui-first"];
-          switch (model) {
-            case "com.iotserv.devices.one-key-switch":
-              {
-                if (uiFirst == "native") {
-                  return OneKeySwitchPage(device: device);
-                } else if (uiFirst == "web") {
-                  _openWithWeb(device);
-                }
-              }
-              break;
-            default:
-              {
-                _openWithWeb(device);
-              }
-              break;
+          if (ModelsMap.modelsMap.containsKey(model)) {
+            if (uiFirst == "native") {
+              return ModelsMap.modelsMap[model](device);
+            } else if (uiFirst == "web") {
+              _openWithWeb(device);
+            } else if (uiFirst == "miniProgram") {
+//                小程序方式打开
+            }
+          } else {
+//            TODO：模型没有注册
+            print("请尝试更新软件");
           }
+          return null;
         },
       ),
     ).then((result) {
@@ -216,8 +219,7 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
       dynamic info = jsonDecode(u8decodeer.convert(response.bodyBytes));
       portConfig.description = info["name"];
       setState(() {
-        _IoTDeviceList.add(
-            IoTDevice(portConfig: portConfig, info: info));
+        _IoTDeviceList.add(IoTDevice(portConfig: portConfig, info: info));
       });
     }
   }
@@ -241,7 +243,8 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
                 color: Colors.white,
               ),
               onPressed: () {
-                _launchURL("http://${Config.webgRpcIp}:${device.portConfig.localProt}");
+                _launchURL(
+                    "http://${Config.webgRpcIp}:${device.portConfig.localProt}");
               })
         ]),
       );

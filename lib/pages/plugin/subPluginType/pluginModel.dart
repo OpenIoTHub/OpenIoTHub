@@ -5,5 +5,6 @@ import 'package:nat_explorer/pb/service.pbgrpc.dart';
 class Plugin {
   PortConfig portConfig;
   dynamic info;
+
   Plugin({this.portConfig, this.info});
 }

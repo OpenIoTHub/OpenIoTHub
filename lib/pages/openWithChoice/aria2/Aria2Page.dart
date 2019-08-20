@@ -17,8 +17,10 @@ class Aria2PageState extends State<Aria2Page> {
   // 标记是否是加载中
   bool loaded = false;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
   // WebView加载状态变化监听器
   StreamSubscription<WebViewStateChanged> _onStateChanged;
+
   // 插件提供的对象，该对象用于WebView的各种操作
   FlutterWebviewPlugin flutterWebViewPlugin = FlutterWebviewPlugin();
 
@@ -68,9 +70,12 @@ class Aria2PageState extends State<Aria2Page> {
     return WebviewScaffold(
       key: _scaffoldKey,
       url:
-          "http://${Config.webStaticIp}:${Config.webStaticPort}/web/open/aria2/index.html", // 登录的URL
-      withZoom: true, // 允许网页缩放
-      withLocalStorage: true, // 允许LocalStorage
+          "http://${Config.webStaticIp}:${Config.webStaticPort}/web/open/aria2/index.html",
+      // 登录的URL
+      withZoom: true,
+      // 允许网页缩放
+      withLocalStorage: true,
+      // 允许LocalStorage
       withJavascript: true, // 允许执行js代码
     );
   }

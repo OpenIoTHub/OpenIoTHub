@@ -18,6 +18,7 @@ class VNCWebPage extends StatefulWidget {
 
 class VNCWebPageState extends State<VNCWebPage> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
   // 插件提供的对象，该对象用于WebView的各种操作
   FlutterWebviewPlugin flutterWebViewPlugin = FlutterWebviewPlugin();
 
@@ -26,9 +27,12 @@ class VNCWebPageState extends State<VNCWebPage> {
     return WebviewScaffold(
       key: _scaffoldKey,
       url:
-          "http://${Config.webStaticIp}:${Config.webStaticPort}/web/open/vnc/index.html?host=${Config.webgRpcIp}&port=${Config.webRestfulPort}&path=proxy%2fws%2fconnect%2fwebsockify%3frunId%3d${widget.runId}%26remoteIp%3d${widget.remoteIp}%26remotePort%3d${widget.remotePort}&encrypt=0", // 登录的URL
-      withZoom: true, // 允许网页缩放
-      withLocalStorage: true, // 允许LocalStorage
+          "http://${Config.webStaticIp}:${Config.webStaticPort}/web/open/vnc/index.html?host=${Config.webgRpcIp}&port=${Config.webRestfulPort}&path=proxy%2fws%2fconnect%2fwebsockify%3frunId%3d${widget.runId}%26remoteIp%3d${widget.remoteIp}%26remotePort%3d${widget.remotePort}&encrypt=0",
+      // 登录的URL
+      withZoom: true,
+      // 允许网页缩放
+      withLocalStorage: true,
+      // 允许LocalStorage
       withJavascript: true, // 允许执行js代码
     );
   }

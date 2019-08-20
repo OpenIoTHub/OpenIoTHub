@@ -25,6 +25,7 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
     height: ARROW_ICON_WIDTH,
   );
   List<PortConfig> _ServiceList = [];
+
   @override
   void initState() {
     super.initState();

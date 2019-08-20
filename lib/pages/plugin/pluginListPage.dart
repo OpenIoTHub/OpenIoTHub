@@ -10,6 +10,7 @@ import 'package:nat_explorer/pages/user/tools/smartConfigTool.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
 import 'package:android_intent/android_intent.dart';
+
 //统一导入全部插件类型
 import 'package:nat_explorer/pages/plugin/subPluginType/plugins.dart';
 
@@ -202,8 +203,7 @@ class _PluginListPageState extends State<PluginListPage> {
       dynamic info = jsonDecode(u8decodeer.convert(response.bodyBytes));
       portConfig.description = info["name"];
       setState(() {
-        _PluginList.add(
-            Plugin(portConfig: portConfig, info: info));
+        _PluginList.add(Plugin(portConfig: portConfig, info: info));
       });
     }
   }
@@ -227,7 +227,8 @@ class _PluginListPageState extends State<PluginListPage> {
                 color: Colors.white,
               ),
               onPressed: () {
-                _launchURL("http://${Config.webgRpcIp}:${plugin.portConfig.localProt}");
+                _launchURL(
+                    "http://${Config.webgRpcIp}:${plugin.portConfig.localProt}");
               })
         ]),
       );

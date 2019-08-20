@@ -26,6 +26,7 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
     height: ARROW_ICON_WIDTH,
   );
   List<PortConfig> _ServiceList = [];
+
   @override
   void initState() {
     super.initState();

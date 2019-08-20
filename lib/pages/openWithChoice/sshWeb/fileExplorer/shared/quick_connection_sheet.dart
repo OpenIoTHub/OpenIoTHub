@@ -8,6 +8,7 @@ import 'shared.dart';
 class QuickConnectionSheet extends StatelessWidget {
   final BuildContext context;
   final Function onFail;
+
   QuickConnectionSheet(this.context, {this.onFail});
 
   void show() {
@@ -199,19 +200,19 @@ class QuickConnectionSheet extends StatelessWidget {
                               context: context,
                               barrierDismissible: false,
                               builder: (context) => Center(
-                                    child: Container(
-                                      height: 80,
-                                      width: 80,
-                                      decoration: BoxDecoration(
-                                        color: Theme.of(context)
-                                            .dialogBackgroundColor,
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: Center(
-                                        child: CircularProgressIndicator(),
-                                      ),
-                                    ),
+                                child: Container(
+                                  height: 80,
+                                  width: 80,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        Theme.of(context).dialogBackgroundColor,
+                                    shape: BoxShape.circle,
                                   ),
+                                  child: Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                ),
+                              ),
                             );
                             HomePage.recentlyAddedPage.addToJson(_connection);
                             HomePage.recentlyAddedPage.setConnectionsFromJson();

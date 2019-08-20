@@ -32,8 +32,10 @@ class SSHWebPageState extends State<SSHWebPage> {
   // 标记是否是加载中
   bool loaded = false;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
   // WebView加载状态变化监听器
   StreamSubscription<WebViewStateChanged> _onStateChanged;
+
   // 插件提供的对象，该对象用于WebView的各种操作
   FlutterWebviewPlugin flutterWebViewPlugin = FlutterWebviewPlugin();
 
@@ -98,9 +100,12 @@ class SSHWebPageState extends State<SSHWebPage> {
       ),
       key: _scaffoldKey,
       url:
-          "http://${Config.webgRpcIp}:${Config.webStaticPort}/web/open/ssh/index.html", // 登录的URL
-      withZoom: true, // 允许网页缩放
-      withLocalStorage: true, // 允许LocalStorage
+          "http://${Config.webgRpcIp}:${Config.webStaticPort}/web/open/ssh/index.html",
+      // 登录的URL
+      withZoom: true,
+      // 允许网页缩放
+      withLocalStorage: true,
+      // 允许LocalStorage
       withJavascript: true, // 允许执行js代码
     );
   }

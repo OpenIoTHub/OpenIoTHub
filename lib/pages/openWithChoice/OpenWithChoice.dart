@@ -192,7 +192,8 @@ class OpenWithChoice extends StatelessWidget {
                         color: Colors.white,
                       ),
                       onPressed: () {
-                        _launchURL("http://${Config.webgRpcIp}:${portConfig.localProt}");
+                        _launchURL(
+                            "http://${Config.webgRpcIp}:${portConfig.localProt}");
                       })
                 ]),
               );
@@ -234,5 +235,6 @@ class OpenWithChoice extends StatelessWidget {
 class ListItem {
   String icon;
   String title;
+
   ListItem({this.icon, this.title});
 }

@@ -332,5 +332,6 @@ class _CommonDeviceServiceTypesListState
 class ListItem {
   String icon;
   String title;
+
   ListItem({this.icon, this.title});
 }

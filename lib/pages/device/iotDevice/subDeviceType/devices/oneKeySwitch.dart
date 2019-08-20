@@ -1,3 +1,4 @@
+//oneKeySwitch:https://github.com/iotdevice/esp8266-switch
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -77,20 +78,21 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
   }
 
   _getCurrentStatus() async {
-    String url = "http://${Config.webgRpcIp}:${widget.device.portConfig.localProt}/status";
+    String url =
+        "http://${Config.webgRpcIp}:${widget.device.portConfig.localProt}/status";
     http.Response response;
-    try{
+    try {
       response = await http.get(url).timeout(const Duration(seconds: 2));
       print(response.body);
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return;
     }
-    if(response.statusCode == 200 && jsonDecode(response.body)["led1"]==1){
+    if (response.statusCode == 200 && jsonDecode(response.body)["led1"] == 1) {
       setState(() {
         ledBottonStatus = true;
       });
-    }else{
+    } else {
       setState(() {
         ledBottonStatus = false;
       });
@@ -99,44 +101,45 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
 
   _setting() async {
     // TODO 设备设置
-    TextEditingController _name_controller =
-    TextEditingController.fromValue(TextEditingValue(text: widget.device.info["name"]));
+    TextEditingController _name_controller = TextEditingController.fromValue(
+        TextEditingValue(text: widget.device.info["name"]));
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
-            title: Text("设置名称："),
-            content: ListView(
-              children: <Widget>[
-                TextFormField(
-                  controller: _name_controller,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10.0),
-                    labelText: '名称',
+                title: Text("设置名称："),
+                content: ListView(
+                  children: <Widget>[
+                    TextFormField(
+                      controller: _name_controller,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(10.0),
+                        labelText: '名称',
+                      ),
+                    )
+                  ],
+                ),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text("取消"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
                   ),
-                )
-              ],
-            ),
-            actions: <Widget>[
-              FlatButton(
-                child: Text("取消"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              FlatButton(
-                child: Text("修改"),
-                onPressed: () async {
-                  try{
-                    String url = "http://${Config.webgRpcIp}:${widget.device.portConfig.localProt}/rename?name=${_name_controller.text}";
-                    http.get(url).timeout(const Duration(seconds: 2));
-                  }catch(e){
-                    print(e.toString());
-                    return;
-                  }
-                  Navigator.of(context).pop();
-                },
-              )
-            ]));
+                  FlatButton(
+                    child: Text("修改"),
+                    onPressed: () async {
+                      try {
+                        String url =
+                            "http://${Config.webgRpcIp}:${widget.device.portConfig.localProt}/rename?name=${_name_controller.text}";
+                        http.get(url).timeout(const Duration(seconds: 2));
+                      } catch (e) {
+                        print(e.toString());
+                        return;
+                      }
+                      Navigator.of(context).pop();
+                    },
+                  )
+                ]));
   }
 
   _info() async {
@@ -155,7 +158,7 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
       MaterialPageRoute(
         builder: (context) {
           final tiles = _result.map(
-                (pair) {
+            (pair) {
               return ListTile(
                 title: Text(
                   pair,
@@ -182,15 +185,17 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
   _changeSwitchStatus() async {
     String url;
     if (ledBottonStatus) {
-      url = "http://${Config.webgRpcIp}:${widget.device.portConfig.localProt}/led?pin=OFF1";
-    }else {
-      url = "http://${Config.webgRpcIp}:${widget.device.portConfig.localProt}/led?pin=ON1";
+      url =
+          "http://${Config.webgRpcIp}:${widget.device.portConfig.localProt}/led?pin=OFF1";
+    } else {
+      url =
+          "http://${Config.webgRpcIp}:${widget.device.portConfig.localProt}/led?pin=ON1";
     }
     http.Response response;
-    try{
+    try {
       response = await http.get(url).timeout(const Duration(seconds: 2));
       print(response.body);
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return;
     }

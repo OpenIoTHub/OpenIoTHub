@@ -1,23 +1,30 @@
+//PhicommDC1Plugin:https://github.com/iotdevice/phicomm_dc1
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:android_intent/android_intent.dart';
 import 'package:nat_explorer/constants/Config.dart';
-import 'package:nat_explorer/pages/plugin/subPluginType/pluginModel.dart';
+import 'package:nat_explorer/pages/device/iotDevice/iotDeviceModel.dart';
 
-class EspPluginDemoPage extends StatefulWidget {
-  EspPluginDemoPage({Key key, this.plugin}) : super(key: key);
+class PhicommDC1PluginPage extends StatefulWidget {
+  PhicommDC1PluginPage({Key key, this.device}) : super(key: key);
 
-  final Plugin plugin;
+  final IoTDevice device;
 
   @override
-  _EspPluginDemoPageState createState() => _EspPluginDemoPageState();
+  _PhicommDC1PluginPageState createState() => _PhicommDC1PluginPageState();
 }
 
-class _EspPluginDemoPageState extends State<EspPluginDemoPage> {
+class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
   static const Color onColor = Colors.green;
   static const Color offColor = Colors.red;
-  bool ledBottonStatus = false;
+
+  static const String logLed = "logLed";
+  static const String wifiLed = "wifiLed";
+  static const String primarySwitch = "primarySwitch";
+  bool _logLedStatus = true;
+  bool _wifiLedStatus = true;
+  bool _primarySwitchStatus = true;
 
   @override
   void initState() {
@@ -58,10 +65,26 @@ class _EspPluginDemoPageState extends State<EspPluginDemoPage> {
               children: <Widget>[
                 IconButton(
                   icon: Icon(Icons.power_settings_new),
-                  color: ledBottonStatus ? onColor : offColor,
+                  color: _logLedStatus ? onColor : offColor,
                   iconSize: 100.0,
                   onPressed: () {
-                    _changeSwitchStatus();
+                    _changeSwitchStatus(logLed);
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.power_settings_new),
+                  color: _wifiLedStatus ? onColor : offColor,
+                  iconSize: 100.0,
+                  onPressed: () {
+                    _changeSwitchStatus(wifiLed);
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.power_settings_new),
+                  color: _primarySwitchStatus ? onColor : offColor,
+                  iconSize: 100.0,
+                  onPressed: () {
+                    _changeSwitchStatus(primarySwitch);
                   },
                 ),
               ],
@@ -69,7 +92,7 @@ class _EspPluginDemoPageState extends State<EspPluginDemoPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                ledBottonStatus ? Text("已经开启") : Text("已经关闭"),
+                _logLedStatus ? Text("已经开启") : Text("已经关闭"),
               ],
             )
           ]),
@@ -78,7 +101,7 @@ class _EspPluginDemoPageState extends State<EspPluginDemoPage> {
 
   _getCurrentStatus() async {
     String url =
-        "http://${Config.webgRpcIp}:${widget.plugin.portConfig.localProt}/status";
+        "http://${Config.webgRpcIp}:${widget.device.portConfig.localProt}/status";
     http.Response response;
     try {
       response = await http.get(url).timeout(const Duration(seconds: 2));
@@ -87,21 +110,37 @@ class _EspPluginDemoPageState extends State<EspPluginDemoPage> {
       print(e.toString());
       return;
     }
-    if (response.statusCode == 200 && jsonDecode(response.body)["led1"] == 1) {
+//    同步状态到界面
+    if (response.statusCode == 200) {
       setState(() {
-        ledBottonStatus = true;
+//    log灯的状态
+        if (jsonDecode(response.body)["logLed"] == 1) {
+          _logLedStatus = true;
+        } else {
+          _logLedStatus = false;
+        }
+//    wifi灯的状态
+        if (jsonDecode(response.body)["wifiLed"] == 1) {
+          _wifiLedStatus = true;
+        } else {
+          _wifiLedStatus = false;
+        }
+//    总开关的状态
+        if (jsonDecode(response.body)["primarySwitch"] == 1) {
+          _primarySwitchStatus = true;
+        } else {
+          _primarySwitchStatus = false;
+        }
       });
     } else {
-      setState(() {
-        ledBottonStatus = false;
-      });
+      print("获取状态失败！");
     }
   }
 
   _setting() async {
     // TODO 设备设置
     TextEditingController _name_controller = TextEditingController.fromValue(
-        TextEditingValue(text: widget.plugin.info.bodyBytes["name"]));
+        TextEditingValue(text: widget.device.info["name"]));
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
@@ -129,7 +168,7 @@ class _EspPluginDemoPageState extends State<EspPluginDemoPage> {
                     onPressed: () async {
                       try {
                         String url =
-                            "http://${Config.webgRpcIp}:${widget.plugin.portConfig.localProt}/rename?name=${_name_controller.text}";
+                            "http://${Config.webgRpcIp}:${widget.device.portConfig.localProt}/rename?name=${_name_controller.text}";
                         http.get(url).timeout(const Duration(seconds: 2));
                       } catch (e) {
                         print(e.toString());
@@ -144,15 +183,17 @@ class _EspPluginDemoPageState extends State<EspPluginDemoPage> {
   _info() async {
     // TODO 设备信息
     final List _result = [];
-    _result.add("设备名称:${widget.plugin.info["name"]}");
-    _result.add("设备型号:${widget.plugin.info["model"]}");
-    _result.add("支持的界面:${widget.plugin.info["ui-support"]}");
-    _result.add("首选界面:${widget.plugin.info["ui-first"]}");
-    _result.add("固件作者:${widget.plugin.info["author"]}");
-    _result.add("邮件:${widget.plugin.info["email"]}");
-    _result.add("主页:${widget.plugin.info["home-page"]}");
-    _result.add("固件程序:${widget.plugin.info["firmware-respository"]}");
-    _result.add("固件版本:${widget.plugin.info["firmware-version"]}");
+    _result.add("设备名称:${widget.device.info["name"]}");
+    _result.add("设备型号:${widget.device.info["model"]}");
+    _result.add("物理地址:${widget.device.info["mac"]}");
+    _result.add("id:${widget.device.info["id"]}");
+    _result.add("支持的界面:${widget.device.info["ui-support"]}");
+    _result.add("首选界面:${widget.device.info["ui-first"]}");
+    _result.add("固件作者:${widget.device.info["author"]}");
+    _result.add("邮件:${widget.device.info["email"]}");
+    _result.add("主页:${widget.device.info["home-page"]}");
+    _result.add("固件程序:${widget.device.info["firmware-respository"]}");
+    _result.add("固件版本:${widget.device.info["firmware-version"]}");
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
@@ -181,14 +222,14 @@ class _EspPluginDemoPageState extends State<EspPluginDemoPage> {
     );
   }
 
-  _changeSwitchStatus() async {
+  _changeSwitchStatus(String name) async {
     String url;
-    if (ledBottonStatus) {
+    if (_logLedStatus) {
       url =
-          "http://${Config.webgRpcIp}:${widget.plugin.portConfig.localProt}/led?pin=OFF1";
+          "http://${Config.webgRpcIp}:${widget.device.portConfig.localProt}/led?pin=OFF$name";
     } else {
       url =
-          "http://${Config.webgRpcIp}:${widget.plugin.portConfig.localProt}/led?pin=ON1";
+          "http://${Config.webgRpcIp}:${widget.device.portConfig.localProt}/led?pin=ON$name";
     }
     http.Response response;
     try {

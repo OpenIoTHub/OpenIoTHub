@@ -26,6 +26,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
     height: ARROW_ICON_WIDTH,
   );
   List<PortConfig> _ServiceList = [];
+
   @override
   void initState() {
     super.initState();
@@ -71,7 +72,8 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                         color: Colors.white,
                       ),
                       onPressed: () {
-                        _launchURL("http://${Config.webgRpcIp}:${pair.localProt}");
+                        _launchURL(
+                            "http://${Config.webgRpcIp}:${pair.localProt}");
                       })
                 ]),
               );

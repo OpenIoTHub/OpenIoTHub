@@ -135,5 +135,6 @@ class ToolsTypePage extends StatelessWidget {
 class ListItem {
   String icon;
   String title;
+
   ListItem({this.icon, this.title});
 }

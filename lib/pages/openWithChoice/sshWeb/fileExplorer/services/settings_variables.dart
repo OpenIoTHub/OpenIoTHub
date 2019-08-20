@@ -7,11 +7,13 @@ import '../pages/pages.dart';
 
 class SettingsVariables {
   static SharedPreferences prefs;
+
   static Future<void> setSharedPreferences() async {
     prefs = await SharedPreferences.getInstance();
   }
 
   static Directory downloadDirectory;
+
   static Future<Directory> getDownloadDirectory() async {
     Directory dirDefault;
     if (!Platform.isIOS) {
@@ -45,6 +47,7 @@ class SettingsVariables {
   }
 
   static String view = "list";
+
   static String getView() {
     String viewPrefs;
     if (prefs != null) viewPrefs = prefs.getString("view");
@@ -58,6 +61,7 @@ class SettingsVariables {
   }
 
   static String sort = "name";
+
   static String getSort() {
     String sortPrefs;
     if (prefs != null) sortPrefs = prefs.getString("sort");
@@ -71,6 +75,7 @@ class SettingsVariables {
   }
 
   static bool sortIsDescending = true;
+
   static bool getSortIsDescending() {
     bool sortIsDescendingPrefs;
     if (prefs != null) {
@@ -86,6 +91,7 @@ class SettingsVariables {
   }
 
   static bool showHiddenFiles = true;
+
   static bool getShowHiddenFiles() {
     bool showHiddenFilesPrefs;
     if (prefs != null) showHiddenFilesPrefs = prefs.getBool("showHiddenFiles");
@@ -99,6 +105,7 @@ class SettingsVariables {
   }
 
   static String filesizeUnit = "automatic";
+
   static String getFilesizeUnit() {
     String filesizeUnitPrefs;
     if (prefs != null) filesizeUnitPrefs = prefs.getString("filesizeUnit");
@@ -156,6 +163,7 @@ class SettingsVariables {
   }
 
   static String moveCommand = "mv";
+
   static String getMoveCommand() {
     String moveCommandPrefs;
     if (prefs != null) moveCommandPrefs = prefs.getString("moveCommand");
@@ -174,6 +182,7 @@ class SettingsVariables {
   }
 
   static String copyCommand = "cp";
+
   static String getCopyCommand() {
     String copyCommandPrefs;
     if (prefs != null) copyCommandPrefs = prefs.getString("copyCommand");
