@@ -117,6 +117,12 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             CircularProgressIndicator(
+                              value: _smartConfigTypeNumber ==
+                                      _smartConfigRemainNumber
+                                  ? 0.1
+                                  : (_smartConfigTypeNumber -
+                                          _smartConfigRemainNumber) /
+                                      _smartConfigTypeNumber,
                               valueColor: AlwaysStoppedAnimation<Color>(
                                   Colors.lightBlue),
                             ),
@@ -155,27 +161,39 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
                         ),
                         RaisedButton(
                           child: Text('开始添加周围智能设备'),
-                          onPressed: () {
+                          onPressed: () async {
                             setState(() {
                               _smartConfigRemainNumber = _smartConfigTypeNumber;
                               _isLoading = true;
                               _msg = "正在发现设备，请耐心等待，大概需要一分钟";
                             });
-                            _configureEspTouch().then((v) {
-                              _checkResult();
-                            });
-                            _configureOneShot().then((v) {
-                              _checkResult();
-                            });
-                            _configureEasyLink().then((v) {
-                              _checkResult();
-                            });
                             //由于微信AirKiss配网和汉枫SmartLink都是使用本地的UDP端口10000进行监听所以，先进行AirKiss然后进行SmartLink
-                            _configureAirKiss().then((v) {
+                            await _configureAirKiss().then((v) {
                               _checkResult();
-                              _configureSmartLink().then((v) {
-                                _checkResult();
-                              });
+                              if (v) {
+                                setState(() {
+                                  _isLoading = false;
+                                });
+                                return;
+                              }
+                            });
+                            await _configureEspTouch().then((v) {
+                              _checkResult();
+                              if (v) {
+                                setState(() {
+                                  _isLoading = false;
+                                });
+                                return;
+                              }
+                            });
+                            await _configureOneShot().then((v) {
+                              _checkResult();
+                            });
+                            await _configureEasyLink().then((v) {
+                              _checkResult();
+                            });
+                            await _configureSmartLink().then((v) {
+                              _checkResult();
                             });
                           },
                         ),
@@ -243,26 +261,34 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
     }
   }
 
-  Future<void> _configureEspTouch() async {
+  Future<bool> _configureEspTouch() async {
     String output = "Unknown";
     try {
-      await Smartconfig.start(_ssid, _bssid, _password).then((v) => setState(() {
-            _msg = "附近的ESPTouch设备配网任务完成，\n当前剩下：${_smartConfigRemainNumber-1}";
-          }));
+      Map<String, dynamic> v =
+          await Smartconfig.start(_ssid, _bssid, _password);
+      setState(() {
+        _msg =
+            "附近的ESPTouch设备配网任务完成\n${v.toString()}，\n当前剩下：${_smartConfigRemainNumber - 1}";
+      });
+      if (v != null) {
+        return true;
+      }
     } on PlatformException catch (e) {
       output = "Failed to configure: '${e.message}'.";
       setState(() {
         _msg = output;
       });
     }
+    return false;
   }
 
   Future<void> _configureOneShot() async {
     String output = "Unknown";
     try {
-      await FlutterOneshot.start(_ssid, _password, 40).then((v) {
+      await FlutterOneshot.start(_ssid, _password, 20).then((v) {
         setState(() {
-          _msg = "附近的OneShot设备配网任务完成，\n当前剩下：${_smartConfigRemainNumber-1}种设备的配网任务";
+          _msg =
+              "附近的OneShot设备配网任务完成，\n当前剩下：${_smartConfigRemainNumber - 1}种设备的配网任务";
         });
       });
     } on PlatformException catch (e) {
@@ -277,10 +303,11 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
     String output = "Unknown";
     try {
       print("easyLink:ssid:$_ssid,password:$_password,bssid:$_bssid");
-      await FlutterEasylink.start(_ssid, _password, _bssid, 45)
+      await FlutterEasylink.start(_ssid, _password, _bssid, 20)
           .then((v) => setState(() {
                 print("easylink:${v.toString()}");
-                _msg = "附近的EasyLink设备配网任务完成，\n当前剩下：${_smartConfigRemainNumber-1}种设备的配网任务";
+                _msg =
+                    "附近的EasyLink设备配网任务完成，\n当前剩下：${_smartConfigRemainNumber - 1}种设备的配网任务";
               }));
     } on PlatformException catch (e) {
       output = "Failed to configure: '${e.message}'.";
@@ -293,9 +320,10 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
   Future<void> _configureSmartLink() async {
     String output = "Unknown";
     try {
-      await FlutterSmartlink.start(_ssid, _password, _bssid, 50)
+      await FlutterSmartlink.start(_ssid, _password, _bssid, 20)
           .then((v) => setState(() {
-                _msg = "附近的SmartLink设备配网任务完成，\n当前剩下：${_smartConfigRemainNumber-1}种设备的配网任务";
+                _msg =
+                    "附近的SmartLink设备配网任务完成，\n当前剩下：${_smartConfigRemainNumber - 1}种设备的配网任务";
               }));
     } on PlatformException catch (e) {
       output = "Failed to configure: '${e.message}'.";
@@ -305,27 +333,28 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
     }
   }
 
-  Future<void> _configureAirKiss() async {
+  Future<bool> _configureAirKiss() async {
     String output = "Unknown";
     try {
       AirkissOption option = AirkissOption();
       option.timegap = 1000;
-      option.trycount = 40;
+      option.trycount = 20;
       AirkissConfig ac = AirkissConfig(option: option);
-      await ac.config(_ssid, _password).then((v) {
-        if (v != null) {
-          print('result: $v');
-        }
-        setState(() {
-          _msg = "附近的AirKiss设备配网任务完成，\n当前剩下：${_smartConfigRemainNumber-1}种设备的配网任务";
-        });
+      AirkissResult v = await ac.config(_ssid, _password);
+      setState(() {
+        _msg =
+            "附近的AirKiss设备配网任务完成${v.toString()}，\n当前剩下：${_smartConfigRemainNumber - 1}种设备的配网任务";
       });
+      if (v != null) {
+        return true;
+      }
     } on PlatformException catch (e) {
       output = "Failed to configure: '${e.message}'.";
       setState(() {
         _msg = output;
       });
     }
+    return false;
   }
 
   Future<void> _checkResult() async {
@@ -336,10 +365,5 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
         _msg = "全部设备发现完成";
       });
     }
-//    else{
-//      setState(() {
-//        _isLoading = true;
-//      });
-//    }
   }
 }
