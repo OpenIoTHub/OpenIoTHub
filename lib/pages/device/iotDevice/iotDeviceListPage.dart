@@ -31,20 +31,20 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
     width: ARROW_ICON_WIDTH,
     height: ARROW_ICON_WIDTH,
   );
-  List<IoTDevice> _IoTDeviceList = [];
+  Map<String, IoTDevice> _IoTDeviceMap = Map<String, IoTDevice>();
 
   @override
   void initState() {
     super.initState();
     getAllIoTDevice().then((_) {
-      Future.delayed(const Duration(seconds: 2), () => getAllIoTDevice());
+      Future.delayed(const Duration(seconds: 5), () => getAllIoTDevice());
     });
     print("init iot devie List");
   }
 
   @override
   Widget build(BuildContext context) {
-    final tiles = _IoTDeviceList.map(
+    final tiles = _IoTDeviceMap.values.map(
       (pair) {
         var listItemContent = Padding(
           padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
@@ -149,15 +149,13 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
   }
 
   Future getAllIoTDevice() async {
+    // TODO 先从本机所处网络获取设备，再获取代理的设备
     // TODO 从各内网筛选出当前已经映射的mDNS服务中是物联网设备的，注意通过api刷新mDNS服务
     try {
       getAllSession().then((s) {
         for (int i = 0; i < s.length; i++) {
           SessionApi.getAllTCP(s[i]).then((t) {
             for (int j = 0; j < t.portConfigs.length; j++) {
-              if (j == 0) {
-                _IoTDeviceList.clear();
-              }
               //  是否是iotdevice
               if (t.portConfigs[j].description.contains("_iotdevice.")) {
                 // TODO 是否含有/info，将portConfig里面的description换成、info中的name（这个name由设备管理）
@@ -192,6 +190,7 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
 
   Future refreshmDNSServices() async {
     try {
+      await getAllIoTDevice();
       getAllSession().then((s) {
         for (int i = 0; i < s.length; i++) {
           SessionApi.refreshmDNSServices(s[i]);
@@ -205,6 +204,7 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
   }
 
   addToIoTDeviceList(PortConfig portConfig) async {
+    Map<String, IoTDevice> _IoTDeviceMapTmp = Map.from(_IoTDeviceMap);
     String url = "http://${Config.webgRpcIp}:${portConfig.localProt}/info";
     http.Response response;
     try {
@@ -216,8 +216,13 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
     if (response.statusCode == 200) {
       dynamic info = jsonDecode(u8decodeer.convert(response.bodyBytes));
       portConfig.description = info["name"];
+//      在没有重复的情况下加入列表
+      if(!_IoTDeviceMap.containsKey(info["mac"])) {
+        _IoTDeviceMapTmp[info["mac"]] =
+            IoTDevice(portConfig: portConfig, info: info);
+      }
       setState(() {
-        _IoTDeviceList.add(IoTDevice(portConfig: portConfig, info: info));
+        _IoTDeviceMap = _IoTDeviceMapTmp;
       });
     }
   }
