@@ -89,13 +89,11 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             // 通过smartconfig添加设备
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return EspSmartConfigTool(title: "添加设备");
-                },
-              ),
-            ).then((v) {
+            return showDialog(
+                context: context,
+                builder: (_) => EspSmartConfigTool(title: "添加设备", needCallBack: true,),
+            )
+            .then((v) {
               refreshmDNSServices();
             });
           },

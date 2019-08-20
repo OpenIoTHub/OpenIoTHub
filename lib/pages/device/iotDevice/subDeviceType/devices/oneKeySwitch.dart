@@ -201,12 +201,5 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
     }
     _getCurrentStatus();
   }
-
-  _launchURL(String url) async {
-    AndroidIntent intent = AndroidIntent(
-      action: 'action_view',
-      data: url,
-    );
-    await intent.launch();
-  }
+  
 }
