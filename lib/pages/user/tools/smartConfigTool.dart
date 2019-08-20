@@ -116,7 +116,7 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            CircularProgressIndicator(
+                            LinearProgressIndicator(
                               value: _smartConfigTypeNumber ==
                                       _smartConfigRemainNumber
                                   ? 0.1
@@ -125,6 +125,9 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
                                       _smartConfigTypeNumber,
                               valueColor: AlwaysStoppedAnimation<Color>(
                                   Colors.lightBlue),
+                            ),
+                            Container(
+                              height: 60.0,
                             ),
                             Text(
                                 "正在设置设备连接到路由器：\n\n${_ssid}(BSSID:${_bssid})\n\n$_msg"),
