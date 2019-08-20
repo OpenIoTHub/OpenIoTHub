@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:android_intent/android_intent.dart';
 import 'package:nat_explorer/constants/Config.dart';
 import 'package:nat_explorer/pages/device/iotDevice/iotDeviceModel.dart';
 
@@ -22,9 +21,14 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
   static const String logLed = "logLed";
   static const String wifiLed = "wifiLed";
   static const String primarySwitch = "primarySwitch";
-  bool _logLedStatus = true;
-  bool _wifiLedStatus = true;
-  bool _primarySwitchStatus = true;
+//  bool _logLedStatus = true;
+//  bool _wifiLedStatus = true;
+//  bool _primarySwitchStatus = true;
+  Map<String, bool> _status = Map.from({
+    logLed:true,
+    wifiLed:true,
+    primarySwitch:true,
+  });
 
   @override
   void initState() {
@@ -65,7 +69,7 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
               children: <Widget>[
                 IconButton(
                   icon: Icon(Icons.power_settings_new),
-                  color: _logLedStatus ? onColor : offColor,
+                  color: _status[logLed] ? onColor : offColor,
                   iconSize: 100.0,
                   onPressed: () {
                     _changeSwitchStatus(logLed);
@@ -73,7 +77,7 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
                 ),
                 IconButton(
                   icon: Icon(Icons.power_settings_new),
-                  color: _wifiLedStatus ? onColor : offColor,
+                  color: _status[wifiLed] ? onColor : offColor,
                   iconSize: 100.0,
                   onPressed: () {
                     _changeSwitchStatus(wifiLed);
@@ -81,7 +85,7 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
                 ),
                 IconButton(
                   icon: Icon(Icons.power_settings_new),
-                  color: _primarySwitchStatus ? onColor : offColor,
+                  color: _status[primarySwitch] ? onColor : offColor,
                   iconSize: 100.0,
                   onPressed: () {
                     _changeSwitchStatus(primarySwitch);
@@ -92,7 +96,9 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                _logLedStatus ? Text("已经开启") : Text("已经关闭"),
+                _status[logLed] ? Text("已经开启") : Text("已经关闭"),
+                _status[wifiLed] ? Text("已经开启") : Text("已经关闭"),
+                _status[primarySwitch] ? Text("已经开启") : Text("已经关闭"),
               ],
             )
           ]),
@@ -115,21 +121,21 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
       setState(() {
 //    log灯的状态
         if (jsonDecode(response.body)["logLed"] == 1) {
-          _logLedStatus = true;
+          _status[logLed] = false;
         } else {
-          _logLedStatus = false;
+          _status[logLed] = true;
         }
 //    wifi灯的状态
         if (jsonDecode(response.body)["wifiLed"] == 1) {
-          _wifiLedStatus = true;
+          _status[wifiLed] = false;
         } else {
-          _wifiLedStatus = false;
+          _status[wifiLed] = true;
         }
 //    总开关的状态
         if (jsonDecode(response.body)["primarySwitch"] == 1) {
-          _primarySwitchStatus = true;
+          _status[primarySwitch] = false;
         } else {
-          _primarySwitchStatus = false;
+          _status[primarySwitch] = true;
         }
       });
     } else {
@@ -224,7 +230,7 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
 
   _changeSwitchStatus(String name) async {
     String url;
-    if (_logLedStatus) {
+    if (_status[name]) {
       url =
           "http://${Config.webgRpcIp}:${widget.device.portConfig.localProt}/led?pin=OFF$name";
     } else {
@@ -242,11 +248,4 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
     _getCurrentStatus();
   }
 
-  _launchURL(String url) async {
-    AndroidIntent intent = AndroidIntent(
-      action: 'action_view',
-      data: url,
-    );
-    await intent.launch();
-  }
 }
