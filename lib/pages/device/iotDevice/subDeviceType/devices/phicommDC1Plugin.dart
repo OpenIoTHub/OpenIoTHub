@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:nat_explorer/constants/Config.dart';
 import 'package:nat_explorer/pages/device/iotDevice/iotDeviceModel.dart';
+import 'package:nat_explorer/pages/device/iotDevice/subDeviceType/commWidgets/info.dart';
 
 class PhicommDC1PluginPage extends StatefulWidget {
   PhicommDC1PluginPage({Key key, this.device}) : super(key: key);
@@ -188,43 +189,10 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
 
   _info() async {
     // TODO 设备信息
-    final List _result = [];
-    _result.add("设备名称:${widget.device.info["name"]}");
-    _result.add("设备型号:${widget.device.info["model"]}");
-    _result.add("物理地址:${widget.device.info["mac"]}");
-    _result.add("id:${widget.device.info["id"]}");
-    _result.add("支持的界面:${widget.device.info["ui-support"]}");
-    _result.add("首选界面:${widget.device.info["ui-first"]}");
-    _result.add("固件作者:${widget.device.info["author"]}");
-    _result.add("邮件:${widget.device.info["email"]}");
-    _result.add("主页:${widget.device.info["home-page"]}");
-    _result.add("固件程序:${widget.device.info["firmware-respository"]}");
-    _result.add("固件版本:${widget.device.info["firmware-version"]}");
-    _result.add("本网设备:${widget.device.noProxy ? "是" : "不是"}");
-    _result.add("设备地址:${widget.device.baseUrl}");
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
-          final tiles = _result.map(
-            (pair) {
-              return ListTile(
-                title: Text(
-                  pair,
-                ),
-              );
-            },
-          );
-          final divided = ListTile.divideTiles(
-            context: context,
-            tiles: tiles,
-          ).toList();
-
-          return Scaffold(
-            appBar: AppBar(
-              title: Text('设备信息'),
-            ),
-            body: ListView(children: divided),
-          );
+          return InfoPage(device: widget.device,);
         },
       ),
     );
