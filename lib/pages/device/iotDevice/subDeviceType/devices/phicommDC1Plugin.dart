@@ -107,7 +107,7 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
 
   _getCurrentStatus() async {
     String url =
-        "http://${Config.webgRpcIp}:${widget.device.portConfig.localProt}/status";
+        "${widget.device.baseUrl}/status";
     http.Response response;
     try {
       response = await http.get(url).timeout(const Duration(seconds: 2));
@@ -174,7 +174,7 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
                     onPressed: () async {
                       try {
                         String url =
-                            "http://${Config.webgRpcIp}:${widget.device.portConfig.localProt}/rename?name=${_name_controller.text}";
+                            "${widget.device.baseUrl}/rename?name=${_name_controller.text}";
                         http.get(url).timeout(const Duration(seconds: 2));
                       } catch (e) {
                         print(e.toString());
@@ -200,6 +200,8 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
     _result.add("主页:${widget.device.info["home-page"]}");
     _result.add("固件程序:${widget.device.info["firmware-respository"]}");
     _result.add("固件版本:${widget.device.info["firmware-version"]}");
+    _result.add("本网设备:${widget.device.noProxy ? "是" : "不是"}");
+    _result.add("设备地址:${widget.device.baseUrl}");
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
@@ -232,10 +234,10 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
     String url;
     if (_status[name]) {
       url =
-          "http://${Config.webgRpcIp}:${widget.device.portConfig.localProt}/led?pin=OFF$name";
+          "${widget.device.baseUrl}/led?pin=OFF$name";
     } else {
       url =
-          "http://${Config.webgRpcIp}:${widget.device.portConfig.localProt}/led?pin=ON$name";
+          "${widget.device.baseUrl}/led?pin=ON$name";
     }
     http.Response response;
     try {

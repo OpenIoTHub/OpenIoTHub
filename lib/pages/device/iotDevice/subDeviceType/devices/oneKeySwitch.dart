@@ -78,8 +78,7 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
   }
 
   _getCurrentStatus() async {
-    String url =
-        "http://${Config.webgRpcIp}:${widget.device.portConfig.localProt}/status";
+    String url = "${widget.device.baseUrl}/status";
     http.Response response;
     try {
       response = await http.get(url).timeout(const Duration(seconds: 2));
@@ -130,7 +129,7 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
                     onPressed: () async {
                       try {
                         String url =
-                            "http://${Config.webgRpcIp}:${widget.device.portConfig.localProt}/rename?name=${_name_controller.text}";
+                            "${widget.device.baseUrl}/rename?name=${_name_controller.text}";
                         http.get(url).timeout(const Duration(seconds: 2));
                       } catch (e) {
                         print(e.toString());
@@ -147,6 +146,8 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
     final List _result = [];
     _result.add("设备名称:${widget.device.info["name"]}");
     _result.add("设备型号:${widget.device.info["model"]}");
+    _result.add("物理地址:${widget.device.info["mac"]}");
+    _result.add("id:${widget.device.info["id"]}");
     _result.add("支持的界面:${widget.device.info["ui-support"]}");
     _result.add("首选界面:${widget.device.info["ui-first"]}");
     _result.add("固件作者:${widget.device.info["author"]}");
@@ -154,6 +155,8 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
     _result.add("主页:${widget.device.info["home-page"]}");
     _result.add("固件程序:${widget.device.info["firmware-respository"]}");
     _result.add("固件版本:${widget.device.info["firmware-version"]}");
+    _result.add("本网设备:${widget.device.noProxy ? "是" : "不是"}");
+    _result.add("设备地址:${widget.device.baseUrl}");
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
@@ -186,10 +189,10 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
     String url;
     if (ledBottonStatus) {
       url =
-          "http://${Config.webgRpcIp}:${widget.device.portConfig.localProt}/led?pin=OFF1";
+          "${widget.device.baseUrl}/led?pin=OFF1";
     } else {
       url =
-          "http://${Config.webgRpcIp}:${widget.device.portConfig.localProt}/led?pin=ON1";
+          "${widget.device.baseUrl}/led?pin=ON1";
     }
     http.Response response;
     try {

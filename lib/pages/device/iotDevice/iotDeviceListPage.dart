@@ -3,6 +3,7 @@ import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:nat_explorer/api/SessionApi.dart';
+import 'package:nat_explorer/api/Utils.dart';
 import 'package:nat_explorer/constants/Config.dart';
 import 'package:nat_explorer/pages/device/iotDevice/iotDeviceModel.dart';
 import 'package:nat_explorer/pages/user/tools/smartConfigTool.dart';
@@ -147,9 +148,23 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
   }
 
   Future getAllIoTDevice() async {
-    // TODO 先从本机所处网络获取设备，再获取代理的设备
+
     // TODO 从各内网筛选出当前已经映射的mDNS服务中是物联网设备的，注意通过api刷新mDNS服务
     try {
+      // 先从本机所处网络获取设备，再获取代理的设备
+      MDNSService config = MDNSService();
+      config.name = '_iotdevice._tcp';
+      UtilApi.getAllmDNSServiceList(config).then((v){
+        v.mDNSServices.forEach((m){
+          PortConfig portConfig = PortConfig();
+          Device device = Device();
+          device.addr = m.iP;
+          portConfig.device = device;
+          portConfig.remotePort = m.port;
+          addToIoTDeviceList(portConfig, true);
+        });
+      });
+      // 从远程获取设备
       getAllSession().then((s) {
         for (int i = 0; i < s.length; i++) {
           SessionApi.getAllTCP(s[i]).then((t) {
@@ -157,7 +172,7 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
               //  是否是iotdevice
               if (t.portConfigs[j].description.contains("_iotdevice.")) {
                 // TODO 是否含有/info，将portConfig里面的description换成、info中的name（这个name由设备管理）
-                addToIoTDeviceList(t.portConfigs[j]);
+                addToIoTDeviceList(t.portConfigs[j], false);
               }
             }
           });
@@ -202,12 +217,18 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
     }
   }
 
-  addToIoTDeviceList(PortConfig portConfig) async {
+  addToIoTDeviceList(PortConfig portConfig, bool noProxy) async {
     Map<String, IoTDevice> _IoTDeviceMapTmp = Map.from(_IoTDeviceMap);
-    String url = "http://${Config.webgRpcIp}:${portConfig.localProt}/info";
+    String baseUrl;
+    if (noProxy){
+      baseUrl = "http://${portConfig.device.addr}:${portConfig.remotePort}";
+    }else{
+      baseUrl = "http://${Config.webgRpcIp}:${portConfig.localProt}";
+    }
+    String infoUrl = "$baseUrl/info";
     http.Response response;
     try {
-      response = await http.get(url).timeout(const Duration(seconds: 2));
+      response = await http.get(infoUrl).timeout(const Duration(seconds: 2));
     } catch (e) {
       print(e.toString());
       return;
@@ -215,10 +236,13 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
     if (response.statusCode == 200) {
       dynamic info = jsonDecode(u8decodeer.convert(response.bodyBytes));
       portConfig.description = info["name"];
-//      在没有重复的情况下加入列表
+//      在没有重复的情况下直接加入列表，有重复则本内外的替代远程的
       if(!_IoTDeviceMap.containsKey(info["mac"])) {
         _IoTDeviceMapTmp[info["mac"]] =
-            IoTDevice(portConfig: portConfig, info: info);
+            IoTDevice(portConfig: portConfig, info: info, noProxy: noProxy, baseUrl: baseUrl);
+      }else if (!_IoTDeviceMap[info["mac"]].noProxy&&noProxy){
+        _IoTDeviceMapTmp[info["mac"]] =
+            IoTDevice(portConfig: portConfig, info: info, noProxy: noProxy, baseUrl: baseUrl);
       }
       setState(() {
         _IoTDeviceMap = _IoTDeviceMapTmp;
