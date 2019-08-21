@@ -110,32 +110,30 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
 //显示是设备的UI展示或者操作界面
   void _pushDeviceServiceTypes(IoTDevice device) async {
     // 查看设备的UI，1.native，2.web
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) {
-          // 写成独立的组件，支持刷新
-          String model = device.info["model"];
-          String uiFirst = device.info["ui-first"];
-          if (ModelsMap.modelsMap.containsKey(model)) {
-            if (uiFirst == "native") {
+    // 写成独立的组件，支持刷新
+    String model = device.info["model"];
+    String uiFirst = device.info["ui-first"];
+
+    if (ModelsMap.modelsMap.containsKey(model)) {
+      if (uiFirst == "native") {
+        await Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) {
               return ModelsMap.modelsMap[model](device);
-            } else if (uiFirst == "web") {
-              _openWithWeb(device);
-            } else if (uiFirst == "miniProgram") {
+            },
+          ),
+        );
+      } else if (uiFirst == "web") {
+        await _openWithWeb(device);
+      } else if (uiFirst == "miniProgram") {
 //                小程序方式打开
-            }
-          } else {
-//            TODO：模型没有注册
-            print("请尝试更新软件");
-          }
-          return null;
-        },
-      ),
-    ).then((result) {
-      setState(() {
-        getAllIoTDevice();
-      });
-    });
+      }
+      await _IoTDeviceMap.clear();
+      getAllIoTDevice();
+    } else {
+//      TODO：模型没有注册
+      print("请尝试更新软件");
+    }
   }
 
   Future getAllSession() async {
@@ -195,7 +193,8 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
         for (int i = 0; i < s.length; i++) {
           SessionApi.refreshmDNSServices(s[i]);
         }
-      }).then((_) {
+      }).then((_) async {
+        await _IoTDeviceMap.clear();
         getAllIoTDevice();
       });
     } catch (e) {
