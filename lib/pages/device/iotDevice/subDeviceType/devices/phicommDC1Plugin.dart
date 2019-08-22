@@ -22,13 +22,24 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
   static const String logLed = "logLed";
   static const String wifiLed = "wifiLed";
   static const String primarySwitch = "primarySwitch";
+  static const String plugin4 = "plugin4";
+  static const String plugin5 = "plugin5";
+  static const String plugin6 = "plugin6";
+
+//  总开关
+  static const String plugin7 = "plugin7";
+
 //  bool _logLedStatus = true;
 //  bool _wifiLedStatus = true;
 //  bool _primarySwitchStatus = true;
   Map<String, bool> _status = Map.from({
-    logLed:true,
-    wifiLed:true,
-    primarySwitch:true,
+    logLed: true,
+    wifiLed: true,
+    primarySwitch: true,
+    plugin4: true,
+    plugin5: true,
+    plugin6: true,
+    plugin7: true,
   });
 
   @override
@@ -92,6 +103,39 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
                     _changeSwitchStatus(primarySwitch);
                   },
                 ),
+//
+                IconButton(
+                  icon: Icon(Icons.power_settings_new),
+                  color: _status[plugin4] ? onColor : offColor,
+                  iconSize: 100.0,
+                  onPressed: () {
+                    _changeSwitchStatus(plugin4);
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.power_settings_new),
+                  color: _status[plugin5] ? onColor : offColor,
+                  iconSize: 100.0,
+                  onPressed: () {
+                    _changeSwitchStatus(plugin5);
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.power_settings_new),
+                  color: _status[plugin6] ? onColor : offColor,
+                  iconSize: 100.0,
+                  onPressed: () {
+                    _changeSwitchStatus(plugin6);
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.power_settings_new),
+                  color: _status[plugin7] ? onColor : offColor,
+                  iconSize: 100.0,
+                  onPressed: () {
+                    _changeSwitchStatus(plugin7);
+                  },
+                ),
               ],
             ),
             Row(
@@ -100,6 +144,10 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
                 _status[logLed] ? Text("已经开启") : Text("已经关闭"),
                 _status[wifiLed] ? Text("已经开启") : Text("已经关闭"),
                 _status[primarySwitch] ? Text("已经开启") : Text("已经关闭"),
+                _status[plugin4] ? Text("已经开启") : Text("已经关闭"),
+                _status[plugin5] ? Text("已经开启") : Text("已经关闭"),
+                _status[plugin6] ? Text("已经开启") : Text("已经关闭"),
+                _status[plugin7] ? Text("已经开启") : Text("已经关闭"),
               ],
             )
           ]),
@@ -107,8 +155,7 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
   }
 
   _getCurrentStatus() async {
-    String url =
-        "${widget.device.baseUrl}/status";
+    String url = "${widget.device.baseUrl}/status";
     http.Response response;
     try {
       response = await http.get(url).timeout(const Duration(seconds: 2));
@@ -121,23 +168,20 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
     if (response.statusCode == 200) {
       setState(() {
 //    log灯的状态
-        if (jsonDecode(response.body)["logLed"] == 1) {
-          _status[logLed] = false;
-        } else {
-          _status[logLed] = true;
-        }
+        _status[logLed] = jsonDecode(response.body)[logLed] == 1 ? true : false;
 //    wifi灯的状态
-        if (jsonDecode(response.body)["wifiLed"] == 1) {
-          _status[wifiLed] = false;
-        } else {
-          _status[wifiLed] = true;
-        }
+        _status[wifiLed] =
+            jsonDecode(response.body)[wifiLed] == 1 ? true : false;
+
+        _status[plugin4] =
+            jsonDecode(response.body)[plugin4] == 1 ? true : false;
+        _status[plugin5] =
+            jsonDecode(response.body)[plugin5] == 1 ? true : false;
+        _status[plugin6] =
+            jsonDecode(response.body)[plugin6] == 1 ? true : false;
 //    总开关的状态
-        if (jsonDecode(response.body)["primarySwitch"] == 1) {
-          _status[primarySwitch] = false;
-        } else {
-          _status[primarySwitch] = true;
-        }
+        _status[plugin7] =
+            jsonDecode(response.body)[plugin7] == 1 ? true : false;
       });
     } else {
       print("获取状态失败！");
@@ -192,7 +236,9 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
-          return InfoPage(device: widget.device,);
+          return InfoPage(
+            device: widget.device,
+          );
         },
       ),
     );
@@ -201,11 +247,9 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
   _changeSwitchStatus(String name) async {
     String url;
     if (_status[name]) {
-      url =
-          "${widget.device.baseUrl}/led?pin=OFF$name";
+      url = "${widget.device.baseUrl}/switch?off=$name";
     } else {
-      url =
-          "${widget.device.baseUrl}/led?pin=ON$name";
+      url = "${widget.device.baseUrl}/switch?on=$name";
     }
     http.Response response;
     try {
@@ -217,5 +261,4 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
     }
     _getCurrentStatus();
   }
-
 }
