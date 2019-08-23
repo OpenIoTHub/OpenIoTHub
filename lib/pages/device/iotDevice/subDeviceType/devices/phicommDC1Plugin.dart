@@ -40,10 +40,10 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
   List<String> _switchKeyList = [
     logLed,
     wifiLed,
-    plugin4,
-    plugin5,
+    plugin7,
     plugin6,
-    plugin7
+    plugin5,
+    plugin4
   ];
   List<String> _valueKeyList = [
     Voltage,
@@ -87,7 +87,7 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
     ApparentPower: "视在功率",
     ReactivePower: "无功功率",
     PowerFactor: "功率因数",
-    Energy: "电量",
+    Energy: "用电量",
   });
 
   @override
@@ -100,8 +100,8 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
   @override
   Widget build(BuildContext context) {
     final List _result = [];
-    _result.addAll(_valueKeyList);
     _result.addAll(_switchKeyList);
+    _result.addAll(_valueKeyList);
     final tiles = _result.map(
       (pair) {
         switch (pair) {
@@ -149,7 +149,7 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
     ).toList();
     return Scaffold(
       appBar: AppBar(
-        title: Text("开关控制"),
+        title: Text(widget.device.info["name"]),
         actions: <Widget>[
           IconButton(
               icon: Icon(
@@ -241,7 +241,11 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
                       try {
                         String url =
                             "${widget.device.baseUrl}/rename?name=${_name_controller.text}";
-                        http.get(url).timeout(const Duration(seconds: 2));
+                        http.get(url).timeout(const Duration(seconds: 2)).then((_){
+                          setState(() {
+                            widget.device.info["name"] = _name_controller.text;
+                          });
+                        });
                       } catch (e) {
                         print(e.toString());
                         return;
