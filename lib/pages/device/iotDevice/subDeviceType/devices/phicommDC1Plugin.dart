@@ -26,30 +26,68 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
   static const String plugin5 = "plugin5";
   static const String plugin6 = "plugin6";
 
-//  总开关
+  //  总开关
   static const String plugin7 = "plugin7";
+
+  static const String Voltage = "Voltage";
+  static const String Current = "Current";
+  static const String ActivePower = "ActivePower";
+  static const String ApparentPower = "ApparentPower";
+  static const String ReactivePower = "ReactivePower";
+  static const String PowerFactor = "PowerFactor";
+  static const String Energy = "Energy";
+
+  List<String> _switchKeyList = [
+    logLed,
+    wifiLed,
+    plugin4,
+    plugin5,
+    plugin6,
+    plugin7
+  ];
+  List<String> _valueKeyList = [
+    Voltage,
+    Current,
+    ActivePower,
+    ApparentPower,
+    ReactivePower,
+    PowerFactor,
+    Energy
+  ];
 
 //  bool _logLedStatus = true;
 //  bool _wifiLedStatus = true;
 //  bool _primarySwitchStatus = true;
-  Map<String, bool> _status = Map.from({
+  Map<String, dynamic> _status = Map.from({
     logLed: true,
     wifiLed: true,
-
     plugin4: true,
     plugin5: true,
     plugin6: true,
     plugin7: true,
+    Voltage: 0.0,
+    Current: 0.0,
+    ActivePower: 0.0,
+    ApparentPower: 0.0,
+    ReactivePower: 0.0,
+    PowerFactor: 0.0,
+    Energy: 0.0,
   });
 
   Map<String, String> _realName = Map.from({
     logLed: "Logo灯",
     wifiLed: "WIFI灯",
-
     plugin7: "总开关",
     plugin6: "第一个插口",
     plugin5: "第二个插口",
     plugin4: "第三个插口",
+    Voltage: "电压",
+    Current: "电流",
+    ActivePower: "有功功率",
+    ApparentPower: "视在功率",
+    ReactivePower: "无功功率",
+    PowerFactor: "功率因数",
+    Energy: "电量",
   });
 
   @override
@@ -61,41 +99,48 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final List _result = [logLed,plugin7,wifiLed,plugin6,plugin5,plugin4];
+    final List _result = [];
+    _result.addAll(_valueKeyList);
+    _result.addAll(_switchKeyList);
     final tiles = _result.map(
-          (pair) {
-            switch (pair) {
-              case logLed:
-              case plugin7:
-              case wifiLed:
-              case plugin6:
-              case plugin5:
-              case plugin4:
-                return ListTile(
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(_realName[pair]),
-                      Switch(
-                        onChanged: (_){
-                          _changeSwitchStatus(pair);
-                        },
-                        value: _status[pair],
-                        activeColor: Colors.green,
-                        inactiveThumbColor: Colors.red,
-                      ),
-                    ],
+      (pair) {
+        switch (pair) {
+          case logLed:
+          case plugin7:
+          case wifiLed:
+          case plugin6:
+          case plugin5:
+          case plugin4:
+            return ListTile(
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(_realName[pair]),
+                  Switch(
+                    onChanged: (_) {
+                      _changeSwitchStatus(pair);
+                    },
+                    value: _status[pair],
+                    activeColor: Colors.green,
+                    inactiveThumbColor: Colors.red,
                   ),
-                );
-                break;
-              default:
-                return ListTile(
-                  title: Text(
-                    "不支持的项目:$pair",
-                  ),
-                );
-                break;
-            }
+                ],
+              ),
+            );
+            break;
+          default:
+            return ListTile(
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(_realName[pair]),
+                  Text(":"),
+                  Text(_status[pair].toString()),
+                ],
+              ),
+            );
+            break;
+        }
       },
     );
     final divided = ListTile.divideTiles(
@@ -106,6 +151,14 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
       appBar: AppBar(
         title: Text("开关控制"),
         actions: <Widget>[
+          IconButton(
+              icon: Icon(
+                Icons.refresh,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                _getCurrentStatus();
+              }),
           IconButton(
               icon: Icon(
                 Icons.settings,
@@ -140,22 +193,16 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
     }
 //    同步状态到界面
     if (response.statusCode == 200) {
-      setState(() {
-//    log灯的状态
-        _status[logLed] = jsonDecode(response.body)[logLed] == 1 ? true : false;
-//    wifi灯的状态
-        _status[wifiLed] =
-            jsonDecode(response.body)[wifiLed] == 1 ? true : false;
-
-        _status[plugin4] =
-            jsonDecode(response.body)[plugin4] == 1 ? true : false;
-        _status[plugin5] =
-            jsonDecode(response.body)[plugin5] == 1 ? true : false;
-        _status[plugin6] =
-            jsonDecode(response.body)[plugin6] == 1 ? true : false;
-//    总开关的状态
-        _status[plugin7] =
-            jsonDecode(response.body)[plugin7] == 1 ? true : false;
+      _switchKeyList.forEach((switchValue) {
+        setState(() {
+          _status[switchValue] =
+              jsonDecode(response.body)[switchValue] == 1 ? true : false;
+        });
+      });
+      _valueKeyList.forEach((value) {
+        setState(() {
+          _status[value] = jsonDecode(response.body)[value];
+        });
       });
     } else {
       print("获取状态失败！");
