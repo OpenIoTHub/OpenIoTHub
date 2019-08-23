@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:nat_explorer/constants/Config.dart';
 import 'package:nat_explorer/pages/device/iotDevice/iotDeviceModel.dart';
 import 'package:nat_explorer/pages/device/iotDevice/subDeviceType/commWidgets/info.dart';
+import 'package:nat_explorer/pages/device/iotDevice/subDeviceType/commWidgets/uploadOTA.dart';
 
 class PhicommDC1PluginPage extends StatefulWidget {
   PhicommDC1PluginPage({Key key, this.device}) : super(key: key);
@@ -169,6 +170,14 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
               }),
           IconButton(
               icon: Icon(
+                Icons.file_upload,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                _ota();
+              }),
+          IconButton(
+              icon: Icon(
                 Icons.info,
                 color: Colors.white,
               ),
@@ -263,6 +272,19 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
         builder: (context) {
           return InfoPage(
             device: widget.device,
+          );
+        },
+      ),
+    );
+  }
+
+  _ota() async {
+    // OTA
+    await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) {
+          return UploadOTAPage(
+            url: "${widget.device.baseUrl}/update",
           );
         },
       ),
