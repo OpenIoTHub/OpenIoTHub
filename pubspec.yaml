@@ -62,7 +62,7 @@ dependencies:
   open_file: ^2.0.1+2
   outline_material_icons: ^0.1.0
   package_info: ^0.4.0+3
-  path_provider: ^1.1.0
+  path_provider: ^1.2.0
   provider: ^2.0.0
   ssh: ^0.0.3
 #ssh file over
