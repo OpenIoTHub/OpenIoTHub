@@ -226,17 +226,19 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
         context: context,
         builder: (_) => AlertDialog(
                 title: Text("设置名称："),
-                content: ListView(
-                  children: <Widget>[
-                    TextFormField(
-                      controller: _name_controller,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
-                        labelText: '名称',
-                      ),
-                    )
-                  ],
-                ),
+                content: Container(
+                    height: 150,
+                    child: ListView(
+                      children: <Widget>[
+                        TextFormField(
+                          controller: _name_controller,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(10.0),
+                            labelText: '名称',
+                          ),
+                        )
+                      ],
+                    )),
                 actions: <Widget>[
                   FlatButton(
                     child: Text("取消"),
@@ -250,7 +252,10 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
                       try {
                         String url =
                             "${widget.device.baseUrl}/rename?name=${_name_controller.text}";
-                        http.get(url).timeout(const Duration(seconds: 2)).then((_){
+                        http
+                            .get(url)
+                            .timeout(const Duration(seconds: 2))
+                            .then((_) {
                           setState(() {
                             widget.device.info["name"] = _name_controller.text;
                           });
@@ -279,16 +284,23 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
   }
 
   _ota() async {
-    // OTA
-    await Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) {
-          return UploadOTAPage(
-            url: "${widget.device.baseUrl}/update",
-          );
-        },
-      ),
-    );
+    return showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+                title: Text("升级固件："),
+                content: Container(
+                    height: 150,
+                    child: UploadOTAPage(
+                      url: "${widget.device.baseUrl}/update",
+                    )),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text("取消"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ]));
   }
 
   _changeSwitchStatus(String name) async {

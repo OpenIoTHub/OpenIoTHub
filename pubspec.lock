@@ -15,20 +15,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.3.2"
-  archive:
-    dependency: transitive
-    description:
-      name: archive
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.0.10"
-  args:
-    dependency: transitive
-    description:
-      name: args
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.5.2"
   async:
     dependency: transitive
     description:
@@ -91,7 +77,7 @@ packages:
       name: crypto
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.2"
+    version: "2.1.1+1"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -241,13 +227,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.9.8+3"
-  image:
-    dependency: transitive
-    description:
-      name: image
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.1.4"
   jaguar:
     dependency: transitive
     description:
@@ -367,13 +346,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.2.2"
-  petitparser:
-    dependency: transitive
-    description:
-      name: petitparser
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.4.0"
   platform:
     dependency: transitive
     description:
@@ -505,13 +477,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.10.1+7"
-  xml:
-    dependency: transitive
-    description:
-      name: xml
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "3.5.0"
 sdks:
-  dart: ">=2.4.0 <3.0.0"
+  dart: ">=2.2.2 <3.0.0"
   flutter: ">=1.5.0 <2.0.0"

@@ -53,27 +53,22 @@ class _UploadOTAPageState extends State<UploadOTAPage> {
       await File(localBinPath).delete();
     }
     var downResponse = await Dio().download(fromUrl, localBinPath);
-    if (downResponse.statusCode != 200){
-      return;
-    }
-    if(uploading){
+    if (downResponse.statusCode != 200 || uploading || widget.url == null || widget.url == ""){
       return;
     }
     uploading = true;
-    if(widget.url == null || widget.url == ""){
-      widget.url = "/update";
-    }
     FormData formData = FormData.from({
       "update": UploadFileInfo(File(localBinPath), "ota.bin")
     });
     var response = await Dio().post(widget.url, data: formData);
     uploading = false;
+    await Navigator.of(context).pop();
     if (response.statusCode == 200 && jsonDecode(response.data)["code"] == 0){
 //      成功
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
-              title: Text("设置名称："),
+              title: Text("OTA结果："),
               content: ListView(
                 children: <Widget>[
                   Text("更新成功！"),
@@ -88,26 +83,27 @@ class _UploadOTAPageState extends State<UploadOTAPage> {
                 )
               ]),
       );
+    } else {
+      //      失败
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+            title: Text("OTA结果："),
+            content: ListView(
+              children: <Widget>[
+                Text("更新失败！"),
+              ],
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text("确定"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ]),
+      );
     }
-//      失败
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-          title: Text("设置名称："),
-          content: ListView(
-            children: <Widget>[
-              Text("更新失败！"),
-            ],
-          ),
-          actions: <Widget>[
-            FlatButton(
-              child: Text("确定"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            )
-          ]),
-    );
   }
 
 }
