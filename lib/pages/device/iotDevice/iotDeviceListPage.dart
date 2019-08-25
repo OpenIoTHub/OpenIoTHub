@@ -24,6 +24,7 @@ class IoTDeviceListPage extends StatefulWidget {
 }
 
 class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
+  bool onRefreshing = false;
   Utf8Decoder u8decodeer = Utf8Decoder();
   static const double ARROW_ICON_WIDTH = 16.0;
   final titleTextStyle = TextStyle(fontSize: 16.0);
@@ -148,7 +149,7 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
   }
 
   Future getAllIoTDevice() async {
-
+    onRefreshing = true;
     // TODO 从各内网筛选出当前已经映射的mDNS服务中是物联网设备的，注意通过api刷新mDNS服务
     try {
       // 先从本机所处网络获取设备，再获取代理的设备
@@ -199,6 +200,8 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
                     )
                   ]));
     }
+    await Future.delayed(const Duration(seconds: 1), () => {});
+    onRefreshing = false;
   }
 
   Future refreshmDNSServices() async {
@@ -218,7 +221,6 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
   }
 
   addToIoTDeviceList(PortConfig portConfig, bool noProxy) async {
-    Map<String, IoTDevice> _IoTDeviceMapTmp = Map.from(_IoTDeviceMap);
     String baseUrl;
     if (noProxy){
       baseUrl = "http://${portConfig.device.addr}:${portConfig.remotePort}";
@@ -238,14 +240,14 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
       portConfig.description = info["name"];
 //      在没有重复的情况下直接加入列表，有重复则本内外的替代远程的
       if(!_IoTDeviceMap.containsKey(info["mac"])) {
-        _IoTDeviceMapTmp[info["mac"]] =
+        _IoTDeviceMap[info["mac"]] =
             IoTDevice(portConfig: portConfig, info: info, noProxy: noProxy, baseUrl: baseUrl);
       }else if (!_IoTDeviceMap[info["mac"]].noProxy&&noProxy){
-        _IoTDeviceMapTmp[info["mac"]] =
+        _IoTDeviceMap[info["mac"]] =
             IoTDevice(portConfig: portConfig, info: info, noProxy: noProxy, baseUrl: baseUrl);
       }
       setState(() {
-        _IoTDeviceMap = _IoTDeviceMapTmp;
+
       });
     }
   }

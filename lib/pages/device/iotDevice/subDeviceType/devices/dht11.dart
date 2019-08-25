@@ -16,9 +16,6 @@ class DHT11Page extends StatefulWidget {
 }
 
 class _DHT11PageState extends State<DHT11Page> {
-  static const Color onColor = Colors.green;
-  static const Color offColor = Colors.red;
-
   static const String temperature = "temperature";
   static const String humidity = "humidity";
 
@@ -27,9 +24,6 @@ class _DHT11PageState extends State<DHT11Page> {
     humidity,
   ];
 
-//  bool _logLedStatus = true;
-//  bool _wifiLedStatus = true;
-//  bool _primarySwitchStatus = true;
   Map<String, double> _status = Map.from({
     temperature: 0.0,
     humidity: 0.0,
