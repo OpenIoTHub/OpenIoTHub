@@ -13,5 +13,10 @@ class ModelsMap {
         device: device,
       );
     },
+    "com.iotserv.devices.dht11": (IoTDevice device) {
+      return DHT11Page(
+        device: device,
+      );
+    },
   });
 }
