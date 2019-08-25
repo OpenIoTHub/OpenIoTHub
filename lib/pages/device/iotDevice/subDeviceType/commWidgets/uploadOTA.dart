@@ -33,6 +33,7 @@ class _UploadOTAPageState extends State<UploadOTAPage> {
                       decoration: InputDecoration(labelText: '固件网址'),
                     ),
                   ),
+                  Container(height: 10),
                   RaisedButton(
                     child: Text('开始更新'),
                     onPressed: () {
@@ -54,6 +55,27 @@ class _UploadOTAPageState extends State<UploadOTAPage> {
     }
     var downResponse = await Dio().download(fromUrl, localBinPath);
     if (downResponse.statusCode != 200 || uploading || widget.url == null || widget.url == ""){
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+            title: Text("OTA结果："),
+            content: Container(
+              height: 50,
+              child:ListView(
+                children: <Widget>[
+                  Text("下载设备程序失败！结果：${downResponse.statusCode}"),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text("确定"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ]),
+      );
       return;
     }
     uploading = true;
@@ -69,10 +91,13 @@ class _UploadOTAPageState extends State<UploadOTAPage> {
           context: context,
           builder: (_) => AlertDialog(
               title: Text("OTA结果："),
-              content: ListView(
+              content: Container(
+                height: 30,
+                child:ListView(
                 children: <Widget>[
                   Text("更新成功！"),
                 ],
+              ),
               ),
               actions: <Widget>[
                 FlatButton(
@@ -89,10 +114,13 @@ class _UploadOTAPageState extends State<UploadOTAPage> {
         context: context,
         builder: (_) => AlertDialog(
             title: Text("OTA结果："),
-            content: ListView(
-              children: <Widget>[
-                Text("更新失败！"),
-              ],
+            content: Container(
+              height: 30,
+              child:ListView(
+                children: <Widget>[
+                  Text("更新失败！"),
+                ],
+              ),
             ),
             actions: <Widget>[
               FlatButton(
