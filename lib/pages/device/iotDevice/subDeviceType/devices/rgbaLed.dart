@@ -36,11 +36,11 @@ class _RGBALedPageState extends State<RGBALedPage> {
   ];
 
   Map<String, dynamic> _status = Map.from({
-    r: 255,
-    g: 255,
-    b: 255,
+    r: 70,
+    g: 130,
+    b: 70,
     a: 255,
-    led: true,
+    led: false,
   });
 
   @override
@@ -101,6 +101,14 @@ class _RGBALedPageState extends State<RGBALedPage> {
                 enableLabel: true,
                 pickerAreaHeightPercent: 0.8,
               ),
+            ),
+            Switch(
+              onChanged: (_) {
+                _changeSwitchStatus(led);
+              },
+              value: _status[led],
+              activeColor: onColor,
+              inactiveThumbColor: offColor,
             ),
           ]),
     );
