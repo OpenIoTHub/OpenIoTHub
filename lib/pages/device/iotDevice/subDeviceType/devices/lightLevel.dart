@@ -1,4 +1,4 @@
-//DHT11:https://github.com/iotdevice/esp8266-dht11
+//这个模型是用来展示数据量的模型，比如：温度，湿度，光照强度
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -6,32 +6,32 @@ import 'package:nat_explorer/pages/device/iotDevice/iotDeviceModel.dart';
 import 'package:nat_explorer/pages/device/iotDevice/subDeviceType/commWidgets/info.dart';
 import 'package:nat_explorer/pages/device/iotDevice/subDeviceType/commWidgets/uploadOTA.dart';
 
-class DHT11Page extends StatefulWidget {
-  DHT11Page({Key key, this.device}) : super(key: key);
+class LightLevelPage extends StatefulWidget {
+  LightLevelPage({Key key, this.device}) : super(key: key);
 
   final IoTDevice device;
 
   @override
-  _DHT11PageState createState() => _DHT11PageState();
+  _LightLevelPageState createState() => _LightLevelPageState();
 }
 
-class _DHT11PageState extends State<DHT11Page> {
-  static const String temperature = "temperature";
-  static const String humidity = "humidity";
+class _LightLevelPageState extends State<LightLevelPage> {
+  static const String lightLevel = "lightLevel";
 
   List<String> _valueKeyList = [
-    temperature,
-    humidity,
+    lightLevel,
   ];
 
   Map<String, double> _status = Map.from({
-    temperature: 0.0,
-    humidity: 0.0,
+    lightLevel: null,
   });
 
   Map<String, String> _realName = Map.from({
-    temperature: "温度",
-    humidity: "湿度",
+    lightLevel: "光照强度",
+  });
+
+  Map<String, String> _units = Map.from({
+    lightLevel: "lx",
   });
 
   @override
@@ -48,8 +48,7 @@ class _DHT11PageState extends State<DHT11Page> {
     final tiles = _result.map(
       (pair) {
         switch (pair) {
-          case temperature:
-          case humidity:
+          case lightLevel:
             return ListTile(
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -57,6 +56,7 @@ class _DHT11PageState extends State<DHT11Page> {
                   Text(_realName[pair]),
                   Text(":"),
                   Text(_status[pair].toString()),
+                  Text(_units[pair])
                 ],
               ),
             );
