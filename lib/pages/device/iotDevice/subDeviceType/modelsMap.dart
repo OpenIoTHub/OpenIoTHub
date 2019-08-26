@@ -27,5 +27,11 @@ class ModelsMap {
         device: device,
       );
     },
+    //    RGBA LED控制器
+    "com.iotserv.devices.rgbaLed": (IoTDevice device) {
+      return RGBALedPage(
+        device: device,
+      );
+    },
   });
 }
