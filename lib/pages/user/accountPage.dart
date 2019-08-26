@@ -4,10 +4,13 @@ import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:nat_explorer/constants/Constants.dart';
 import 'package:nat_explorer/events/LoginEvent.dart';
 import 'package:nat_explorer/events/LogoutEvent.dart';
+import 'package:nat_explorer/pages/device/iotDevice/iotDeviceModel.dart';
+import 'package:nat_explorer/pages/device/iotDevice/subDeviceType/devices/rgbaLed.dart';
 import 'package:nat_explorer/pages/openWithChoice/sshWeb/fileExplorer/pages/settings.dart';
 import 'package:nat_explorer/pages/openWithChoice/sshWeb/fileExplorer/shared/custom_theme.dart';
 import 'package:nat_explorer/pages/user/player.dart';
 import 'package:nat_explorer/pages/user/tools/toolsTypePage.dart';
+import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -307,7 +310,9 @@ class MyInfoPageState extends State<MyInfoPage> {
     } else if (title == "测试") {
 //      String databasesPath = await getDatabasesPath();
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => VideoApp()
+          .push(MaterialPageRoute(builder: (context) =>
+          RGBALedPage(device: IoTDevice(info:Map(),portConfig:PortConfig()),)
+//          VideoApp()
 //              builder: (context) => Text('databasesPath')
               ));
     } else {

@@ -27,9 +27,7 @@ class _RGBALedPageState extends State<RGBALedPage> {
   static const String a = "a";
   static const String led = "led";
 
-  List<String> _switchKeyList = [
-    led
-  ];
+  List<String> _switchKeyList = [led];
   List<String> _valueKeyList = [
     r,
     g,
@@ -92,14 +90,19 @@ class _RGBALedPageState extends State<RGBALedPage> {
               }),
         ],
       ),
-      body:SingleChildScrollView(
-        child: ColorPicker(
-          pickerColor: Color.fromARGB(_status[a], _status[r], _status[g], _status[b]),
-          onColorChanged: _changeColorStatus,
-          enableLabel: true,
-          pickerAreaHeightPercent: 0.8,
-        ),
-      ),
+      body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            SingleChildScrollView(
+              child: ColorPicker(
+                pickerColor: Color.fromARGB(
+                    _status[a], _status[r], _status[g], _status[b]),
+                onColorChanged: _changeColorStatus,
+                enableLabel: true,
+                pickerAreaHeightPercent: 0.8,
+              ),
+            ),
+          ]),
     );
   }
 
@@ -235,7 +238,8 @@ class _RGBALedPageState extends State<RGBALedPage> {
   }
 
   _changeColorStatus(Color color) async {
-    String url = "${widget.device.baseUrl}/color?$r=${color.red}&$g=${color.green}&$b=${color.blue}&$a=${color.alpha}";
+    String url =
+        "${widget.device.baseUrl}/color?$r=${color.red}&$g=${color.green}&$b=${color.blue}&$a=${color.alpha}";
     http.Response response;
     try {
       response = await http.get(url).timeout(const Duration(seconds: 2));
@@ -246,5 +250,4 @@ class _RGBALedPageState extends State<RGBALedPage> {
     }
     _getCurrentStatus();
   }
-
 }
