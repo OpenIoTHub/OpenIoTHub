@@ -221,6 +221,9 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
   }
 
   addToIoTDeviceList(PortConfig portConfig, bool noProxy) async {
+//TODO    尝试从mDNS的Text中获取数据
+    dynamic mDNSInfo = jsonDecode(portConfig.mDNSInfo);
+
     String baseUrl;
     if (noProxy){
       baseUrl = "http://${portConfig.device.addr}:${portConfig.remotePort}";

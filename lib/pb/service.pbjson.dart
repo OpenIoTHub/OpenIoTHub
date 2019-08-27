@@ -115,6 +115,7 @@ const PortConfig$json = const {
     const {'1': 'RemotePort', '3': 3, '4': 1, '5': 5, '10': 'RemotePort'},
     const {'1': 'Description', '3': 4, '4': 1, '5': 9, '10': 'Description'},
     const {'1': 'RemotePortStatus', '3': 5, '4': 1, '5': 8, '10': 'RemotePortStatus'},
+    const {'1': 'MDNSInfo', '3': 6, '4': 1, '5': 9, '10': 'MDNSInfo'},
   ],
 };
 

@@ -439,6 +439,7 @@ class PortConfig extends $pb.GeneratedMessage {
     ..a<$core.int>(3, 'remotePort', $pb.PbFieldType.O3)
     ..aOS(4, 'description')
     ..aOB(5, 'remotePortStatus')
+    ..aOS(6, 'mDNSInfo')
     ..hasRequiredFields = false
   ;
 
@@ -480,6 +481,11 @@ class PortConfig extends $pb.GeneratedMessage {
   set remotePortStatus($core.bool v) { $_setBool(4, v); }
   $core.bool hasRemotePortStatus() => $_has(4);
   void clearRemotePortStatus() => clearField(5);
+
+  $core.String get mDNSInfo => $_getS(5, '');
+  set mDNSInfo($core.String v) { $_setString(5, v); }
+  $core.bool hasMDNSInfo() => $_has(5);
+  void clearMDNSInfo() => clearField(6);
 }
 
 class PortList extends $pb.GeneratedMessage {
