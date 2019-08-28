@@ -162,6 +162,7 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
           device.addr = m.iP;
           portConfig.device = device;
           portConfig.remotePort = m.port;
+          portConfig.mDNSInfo = m.mDNSInfo;
           addToIoTDeviceList(portConfig, true);
         });
       });
@@ -221,18 +222,24 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
   }
 
   addToIoTDeviceList(PortConfig portConfig, bool noProxy) async {
-    dynamic info;
+    print("===text1:${portConfig.toString()}");
+    Map<String, dynamic> info = Map<String, dynamic>();
 //TODO    尝试从mDNS的Text中获取数据
-//    Map<String,dynamic> mDNSInfo = jsonDecode(portConfig.mDNSInfo);
-//    if(mDNSInfo != null&&mDNSInfo.containsKey("text")){
-//      List<String> text = mDNSInfo["text"];
-//      text.forEach((t){
-//        List<String> s = t.split("=");
-//        if (s.length==2){
-//          info[s[0]] = s[1];
-//        }
-//      });
-//    }
+    if(portConfig.mDNSInfo != null && portConfig.mDNSInfo != ""){
+      Map<String, dynamic> mDNSInfo = jsonDecode(portConfig.mDNSInfo);
+      if(mDNSInfo != null&&mDNSInfo.containsKey("text")){
+        print("===text2:${mDNSInfo["text"].toString()}");
+        List<String> text = mDNSInfo["text"];
+        if(text != null){
+          text.forEach((t){
+            List<String> s = t.split("=");
+            if (s.length==2){
+              info[s[0]] = s[1];
+            }
+          });
+        }
+      }
+    }
 
     String baseUrl;
     if (noProxy){
@@ -249,9 +256,14 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
       return;
     }
     if (response.statusCode == 200) {
-      info = jsonDecode(u8decodeer.convert(response.bodyBytes));
+      info.addAll(jsonDecode(u8decodeer.convert(response.bodyBytes)));
+    }
+    print("===text3:${info}");
+    setState(() {
       //TODO 去掉不符合条件的
-      portConfig.description = info["name"];
+      if(info.containsKey("name")){
+        portConfig.description = info["name"];
+      }
 //      在没有重复的情况下直接加入列表，有重复则本内外的替代远程的
       if(!_IoTDeviceMap.containsKey(info["mac"])) {
         _IoTDeviceMap[info["mac"]] =
@@ -260,10 +272,7 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
         _IoTDeviceMap[info["mac"]] =
             IoTDevice(portConfig: portConfig, info: info, noProxy: noProxy, baseUrl: baseUrl);
       }
-      setState(() {
-
-      });
-    }
+    });
   }
 
   _launchURL(String url) async {

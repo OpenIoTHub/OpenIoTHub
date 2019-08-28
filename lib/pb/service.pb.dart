@@ -34,6 +34,7 @@ class MDNSService extends $pb.GeneratedMessage {
     ..aOS(1, 'name')
     ..aOS(2, 'iP')
     ..a<$core.int>(3, 'port', $pb.PbFieldType.O3)
+    ..aOS(4, 'mDNSInfo')
     ..hasRequiredFields = false
   ;
 
@@ -65,6 +66,11 @@ class MDNSService extends $pb.GeneratedMessage {
   set port($core.int v) { $_setSignedInt32(2, v); }
   $core.bool hasPort() => $_has(2);
   void clearPort() => clearField(3);
+
+  $core.String get mDNSInfo => $_getS(3, '');
+  set mDNSInfo($core.String v) { $_setString(3, v); }
+  $core.bool hasMDNSInfo() => $_has(3);
+  void clearMDNSInfo() => clearField(4);
 }
 
 class Color extends $pb.GeneratedMessage {
