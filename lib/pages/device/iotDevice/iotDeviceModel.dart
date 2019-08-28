@@ -10,7 +10,7 @@ class IoTDevice {
 //  设备的端口信息
   PortConfig portConfig;
 //  设备的注册信息
-  Map<String, String> info;
+  dynamic info;
 
   IoTDevice({this.portConfig, this.info, this.noProxy, this.baseUrl});
 }

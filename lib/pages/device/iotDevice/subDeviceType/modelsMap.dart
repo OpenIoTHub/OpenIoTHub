@@ -33,5 +33,11 @@ class ModelsMap {
         device: device,
       );
     },
+    //    串口315,433无线发射遥控器实现开门和关门
+    "com.iotserv.devices.serial-315-433": (IoTDevice device) {
+      return Serial315433Page(
+        device: device,
+      );
+    },
   });
 }
