@@ -21,13 +21,76 @@ class _RGBALedPageState extends State<RGBALedPage> {
   static const Color onColor = Colors.green;
   static const Color offColor = Colors.red;
 
+  static const Map<String, int> modes = {
+    "Static": 0,
+    "Blink": 1,
+    "Breath": 2,
+    "Color Wipe": 3,
+    "Color Wipe Inverse": 4,
+    "Color Wipe Reverse": 5,
+    "Color Wipe Reverse Inverse": 6,
+    "Color Wipe Random": 7,
+    "Random Color": 8,
+    "Single Dynamic": 9,
+    "Multi Dynamic": 10,
+    "Rainbow": 11,
+    "Rainbow Cycle": 12,
+    "Scan": 13,
+    "Dual Scan": 14,
+    "Fade": 15,
+    "Theater Chase": 16,
+    "Theater Chase Rainbow": 17,
+    "Running Lights": 18,
+    "Twinkle": 19,
+    "Twinkle Random": 20,
+    "Twinkle Fade": 21,
+    "Twinkle Fade Random": 22,
+    "Sparkle": 23,
+    "Flash Sparkle": 24,
+    "Hyper Sparkle": 25,
+    "Strobe": 26,
+    "Strobe Rainbow": 27,
+    "Multi Strobe": 28,
+    "Blink Rainbow": 29,
+    "Chase White": 30,
+    "Chase Color": 31,
+    "Chase Random": 32,
+    "Chase Rainbow": 33,
+    "Chase Flash": 34,
+    "Chase Flash Random": 35,
+    "Chase Rainbow White": 36,
+    "Chase Blackout": 37,
+    "Chase Blackout Rainbow": 38,
+    "Color Sweep Random": 39,
+    "Running Color": 40,
+    "Running Red Blue": 41,
+    "Running Random": 42,
+    "Larson Scanner": 43,
+    "Comet": 44,
+    "Fireworks": 45,
+    "Fireworks Random": 46,
+    "Merry Christmas": 47,
+    "Fire Flicker": 48,
+    "Fire Flicker (soft)": 49,
+    "Fire Flicker (intense)": 50,
+    "Circus Combustus": 51,
+    "Halloween": 52,
+    "Bicolor Chase": 53,
+    "Tricolor Chase": 54,
+    "ICU": 55,
+    "Custom 0": 56,
+    "Custom 1": 57,
+    "Custom 2": 58,
+    "Custom 3": 59
+  };
+
   bool _requsting = false;
 
   static const String color = "color";
   static const String brightness = "brightness";
 
   List<String> _valueKeyList = [
-  color,
+    color,
   ];
 
   Map<String, dynamic> _status = Map.from({
@@ -108,10 +171,10 @@ class _RGBALedPageState extends State<RGBALedPage> {
     String url = "${widget.device.baseUrl}/status";
     http.Response response;
     try {
-      if(!_requsting){
+      if (!_requsting) {
         _requsting = true;
         response = await http.get(url).timeout(const Duration(seconds: 2));
-        if(response!=null){
+        if (response != null) {
           print(response.body);
         }
       }
@@ -222,15 +285,14 @@ class _RGBALedPageState extends State<RGBALedPage> {
     String url;
     if (tempColor.red == 0 && tempColor.green == 0 && tempColor.blue == 0) {
       url =
-      "${widget.device.baseUrl}/set?c=${tempColor.value.toRadixString(16)}";
+          "${widget.device.baseUrl}/set?c=${tempColor.value.toRadixString(16)}";
     } else {
-      url =
-      "${widget.device.baseUrl}/set?c=0";
+      url = "${widget.device.baseUrl}/set?c=0";
     }
     http.Response response;
     try {
       response = await http.get(url).timeout(const Duration(seconds: 2));
-      if(response !=null){
+      if (response != null) {
         print(response.body);
       }
     } catch (e) {
@@ -246,7 +308,7 @@ class _RGBALedPageState extends State<RGBALedPage> {
         "${widget.device.baseUrl}/set?c=${tempColor.value.toRadixString(16)}";
     http.Response response;
     try {
-      if(!_requsting){
+      if (!_requsting) {
         _requsting = true;
         response = await http.get(url).timeout(const Duration(seconds: 2));
       }
