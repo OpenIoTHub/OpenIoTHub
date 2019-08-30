@@ -255,7 +255,7 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
       print(e.toString());
       return;
     }
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200&&response.bodyBytes!=null&&response.bodyBytes.length>0) {
       info.addAll(jsonDecode(u8decodeer.convert(response.bodyBytes)));
     }
     print("===text3:${info}");
@@ -273,6 +273,7 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
             IoTDevice(portConfig: portConfig, info: info, noProxy: noProxy, baseUrl: baseUrl);
       }
     });
+//    TODO 判断此配置的合法性 verify()
   }
 
   _launchURL(String url) async {

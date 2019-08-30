@@ -21,26 +21,17 @@ class _RGBALedPageState extends State<RGBALedPage> {
   static const Color onColor = Colors.green;
   static const Color offColor = Colors.red;
 
-  static const String r = "r";
-  static const String g = "g";
-  static const String b = "b";
-  static const String a = "a";
-  static const String led = "led";
+  bool _requsting = false;
 
-  List<String> _switchKeyList = [led];
+  static const String color = "color";
+  static const String brightness = "brightness";
+
   List<String> _valueKeyList = [
-    r,
-    g,
-    b,
-    a,
+  color,
   ];
 
   Map<String, dynamic> _status = Map.from({
-    r: 70,
-    g: 130,
-    b: 70,
-    a: 255,
-    led: false,
+    color: Colors.white,
   });
 
   @override
@@ -95,8 +86,7 @@ class _RGBALedPageState extends State<RGBALedPage> {
           children: <Widget>[
             SingleChildScrollView(
               child: ColorPicker(
-                pickerColor: Color.fromARGB(
-                    _status[a], _status[r], _status[g], _status[b]),
+                pickerColor: _status[color],
                 onColorChanged: _changeColorStatus,
                 enableLabel: true,
                 pickerAreaHeightPercent: 0.8,
@@ -104,9 +94,9 @@ class _RGBALedPageState extends State<RGBALedPage> {
             ),
             Switch(
               onChanged: (_) {
-                _changeSwitchStatus(led);
+                _changeSwitchStatus();
               },
-              value: _status[led],
+              value: true,
               activeColor: onColor,
               inactiveThumbColor: offColor,
             ),
@@ -118,25 +108,25 @@ class _RGBALedPageState extends State<RGBALedPage> {
     String url = "${widget.device.baseUrl}/status";
     http.Response response;
     try {
-      response = await http.get(url).timeout(const Duration(seconds: 2));
-      print(response.body);
+      if(!_requsting){
+        _requsting = true;
+        response = await http.get(url).timeout(const Duration(seconds: 2));
+        if(response!=null){
+          print(response.body);
+        }
+      }
     } catch (e) {
       print(e.toString());
       return;
     }
+    _requsting = false;
 //    同步状态到界面
     if (response.statusCode == 200) {
-      _switchKeyList.forEach((switchValue) {
-        setState(() {
-          _status[switchValue] =
-              jsonDecode(response.body)[switchValue] == 1 ? true : false;
-        });
-      });
-      _valueKeyList.forEach((value) {
-        setState(() {
-          _status[value] = jsonDecode(response.body)[value];
-        });
-      });
+//      _valueKeyList.forEach((value) {
+//        setState(() {
+//          _status[value] = jsonDecode(response.body)[value];
+//        });
+//      });
     } else {
       print("获取状态失败！");
     }
@@ -227,17 +217,22 @@ class _RGBALedPageState extends State<RGBALedPage> {
                 ]));
   }
 
-  _changeSwitchStatus(String name) async {
+  _changeSwitchStatus() async {
+    Color tempColor = Color.fromARGB(0, 255, 255, 255);
     String url;
-    if (_status[name]) {
-      url = "${widget.device.baseUrl}/switch?off=$name";
+    if (tempColor.red == 0 && tempColor.green == 0 && tempColor.blue == 0) {
+      url =
+      "${widget.device.baseUrl}/set?c=${tempColor.value.toRadixString(16)}";
     } else {
-      url = "${widget.device.baseUrl}/switch?on=$name";
+      url =
+      "${widget.device.baseUrl}/set?c=0";
     }
     http.Response response;
     try {
       response = await http.get(url).timeout(const Duration(seconds: 2));
-      print(response.body);
+      if(response !=null){
+        print(response.body);
+      }
     } catch (e) {
       print(e.toString());
       return;
@@ -246,16 +241,20 @@ class _RGBALedPageState extends State<RGBALedPage> {
   }
 
   _changeColorStatus(Color color) async {
+    Color tempColor = Color.fromARGB(0, color.red, color.green, color.blue);
     String url =
-        "${widget.device.baseUrl}/color?$r=${color.red}&$g=${color.green}&$b=${color.blue}&$a=${color.alpha}";
+        "${widget.device.baseUrl}/set?c=${tempColor.value.toRadixString(16)}";
     http.Response response;
     try {
-      response = await http.get(url).timeout(const Duration(seconds: 2));
-      print(response.body);
+      if(!_requsting){
+        _requsting = true;
+        response = await http.get(url).timeout(const Duration(seconds: 2));
+      }
     } catch (e) {
       print(e.toString());
       return;
     }
+    _requsting = false;
     _getCurrentStatus();
   }
 }
