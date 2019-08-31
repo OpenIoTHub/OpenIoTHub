@@ -135,11 +135,17 @@ class _RGBALedPageState extends State<RGBALedPage> {
       body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            DropdownButton<int>(
-              value: _currentModes,
-              onChanged: _setMode,
-              items: _getModesList(),
-            ),
+            Container(
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                  Text("特效："),
+                  DropdownButton<int>(
+                    value: _currentModes,
+                    onChanged: _setMode,
+                    items: _getModesList(),
+                  ),
+                ])),
             SingleChildScrollView(
               child: ColorPicker(
                 pickerColor: _status[color],
@@ -148,14 +154,20 @@ class _RGBALedPageState extends State<RGBALedPage> {
                 pickerAreaHeightPercent: 0.8,
               ),
             ),
-            Switch(
-              onChanged: (_) {
-                _changeSwitchStatus();
-              },
-              value: _status[color].alpha == 0 ? false : true,
-              activeColor: onColor,
-              inactiveThumbColor: offColor,
-            ),
+            Container(
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                  Text("开关："),
+                  Switch(
+                    onChanged: (_) {
+                      _changeSwitchStatus();
+                    },
+                    value: _status[color].alpha == 0 ? false : true,
+                    activeColor: onColor,
+                    inactiveThumbColor: offColor,
+                  ),
+                ])),
             Container(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -163,13 +175,13 @@ class _RGBALedPageState extends State<RGBALedPage> {
                   Text("速度："),
                   IconButton(
                     icon: Icon(Icons.arrow_drop_up),
-                    onPressed: (){
+                    onPressed: () {
                       _setSpeed("+");
-                      },
+                    },
                   ),
                   IconButton(
                     icon: Icon(Icons.arrow_drop_down),
-                    onPressed: (){
+                    onPressed: () {
                       _setSpeed("-");
                     },
                   ),
@@ -307,9 +319,9 @@ class _RGBALedPageState extends State<RGBALedPage> {
     _requsting = false;
   }
 
-  List<DropdownMenuItem<int>> _getModesList(){
+  List<DropdownMenuItem<int>> _getModesList() {
     List<DropdownMenuItem<int>> l = [];
-    modes.forEach((String k, int v){
+    modes.forEach((String k, int v) {
       l.add(DropdownMenuItem<int>(
         value: v,
         child: Text(k),
@@ -319,13 +331,12 @@ class _RGBALedPageState extends State<RGBALedPage> {
   }
 
   _setMode(int newValue) async {
-    String url =
-        "${widget.device.baseUrl}/set?m=${newValue.toString()}";
+    String url = "${widget.device.baseUrl}/set?m=${newValue.toString()}";
     try {
-        await http.get(url).timeout(const Duration(seconds: 2));
-        setState(() {
-          _currentModes = newValue;
-        });
+      await http.get(url).timeout(const Duration(seconds: 2));
+      setState(() {
+        _currentModes = newValue;
+      });
     } catch (e) {
       print(e.toString());
       return;
@@ -333,8 +344,7 @@ class _RGBALedPageState extends State<RGBALedPage> {
   }
 
   _setSpeed(String cmd) async {
-    String url =
-        "${widget.device.baseUrl}/set?s=${cmd}";
+    String url = "${widget.device.baseUrl}/set?s=${cmd}";
     try {
       await http.get(url).timeout(const Duration(seconds: 2));
     } catch (e) {
