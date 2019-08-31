@@ -21,6 +21,9 @@ class _RGBALedPageState extends State<RGBALedPage> {
   static const Color onColor = Colors.green;
   static const Color offColor = Colors.red;
 
+  static const Color wColor = Color.fromARGB(0, 255, 255, 255);
+  static const Color bColor = Color.fromARGB(0, 0, 0, 0);
+
   static const Map<String, int> modes = {
     "Static": 0,
     "Blink": 1,
@@ -89,18 +92,13 @@ class _RGBALedPageState extends State<RGBALedPage> {
   static const String color = "color";
   static const String brightness = "brightness";
 
-  List<String> _valueKeyList = [
-    color,
-  ];
-
   Map<String, dynamic> _status = Map.from({
-    color: Colors.white,
+    color: wColor,
   });
 
   @override
   void initState() {
     super.initState();
-    _getCurrentStatus();
     print("init iot devie List");
   }
 
@@ -110,14 +108,6 @@ class _RGBALedPageState extends State<RGBALedPage> {
       appBar: AppBar(
         title: Text(widget.device.info["name"]),
         actions: <Widget>[
-          IconButton(
-              icon: Icon(
-                Icons.refresh,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                _getCurrentStatus();
-              }),
           IconButton(
               icon: Icon(
                 Icons.settings,
@@ -159,40 +149,12 @@ class _RGBALedPageState extends State<RGBALedPage> {
               onChanged: (_) {
                 _changeSwitchStatus();
               },
-              value: true,
+              value: _status[color].value == bColor.value ? false : true,
               activeColor: onColor,
               inactiveThumbColor: offColor,
             ),
           ]),
     );
-  }
-
-  _getCurrentStatus() async {
-    String url = "${widget.device.baseUrl}/status";
-    http.Response response;
-    try {
-      if (!_requsting) {
-        _requsting = true;
-        response = await http.get(url).timeout(const Duration(seconds: 2));
-        if (response != null) {
-          print(response.body);
-        }
-      }
-    } catch (e) {
-      print(e.toString());
-      return;
-    }
-    _requsting = false;
-//    同步状态到界面
-    if (response.statusCode == 200) {
-//      _valueKeyList.forEach((value) {
-//        setState(() {
-//          _status[value] = jsonDecode(response.body)[value];
-//        });
-//      });
-    } else {
-      print("获取状态失败！");
-    }
   }
 
   _setting() async {
@@ -281,13 +243,19 @@ class _RGBALedPageState extends State<RGBALedPage> {
   }
 
   _changeSwitchStatus() async {
-    Color tempColor = Color.fromARGB(0, 255, 255, 255);
     String url;
-    if (tempColor.red == 0 && tempColor.green == 0 && tempColor.blue == 0) {
+    if (_status[color].value == wColor.value) {
       url =
-          "${widget.device.baseUrl}/set?c=${tempColor.value.toRadixString(16)}";
+          "${widget.device.baseUrl}/set?c=${bColor.value.toRadixString(16)}";
+      setState(() {
+        _status[color] = bColor;
+      });
     } else {
-      url = "${widget.device.baseUrl}/set?c=0";
+      url =
+      "${widget.device.baseUrl}/set?c=${wColor.value.toRadixString(16)}";
+      setState(() {
+        _status[color] = wColor;
+      });
     }
     http.Response response;
     try {
@@ -299,7 +267,6 @@ class _RGBALedPageState extends State<RGBALedPage> {
       print(e.toString());
       return;
     }
-    _getCurrentStatus();
   }
 
   _changeColorStatus(Color color) async {
@@ -317,6 +284,5 @@ class _RGBALedPageState extends State<RGBALedPage> {
       return;
     }
     _requsting = false;
-    _getCurrentStatus();
   }
 }
