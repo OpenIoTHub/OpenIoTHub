@@ -21,9 +21,6 @@ class _RGBALedPageState extends State<RGBALedPage> {
   static const Color onColor = Colors.green;
   static const Color offColor = Colors.red;
 
-  static const Color wColor = Color.fromARGB(0, 255, 255, 255);
-  static const Color bColor = Color.fromARGB(0, 0, 0, 0);
-
   static const Map<String, int> modes = {
     "Static": 0,
     "Blink": 1,
@@ -90,10 +87,9 @@ class _RGBALedPageState extends State<RGBALedPage> {
   bool _requsting = false;
 
   static const String color = "color";
-  static const String brightness = "brightness";
 
   Map<String, dynamic> _status = Map.from({
-    color: wColor,
+    color: Colors.white,
   });
 
   @override
@@ -149,7 +145,7 @@ class _RGBALedPageState extends State<RGBALedPage> {
               onChanged: (_) {
                 _changeSwitchStatus();
               },
-              value: _status[color].value == bColor.value ? false : true,
+              value: _status[color].alpha==0 ? false : true,
               activeColor: onColor,
               inactiveThumbColor: offColor,
             ),
@@ -244,45 +240,44 @@ class _RGBALedPageState extends State<RGBALedPage> {
 
   _changeSwitchStatus() async {
     String url;
-    if (_status[color].value == wColor.value) {
+    if (_status[color].alpha==0) {
       url =
-          "${widget.device.baseUrl}/set?c=${bColor.value.toRadixString(16)}";
-      setState(() {
-        _status[color] = bColor;
-      });
+          "${widget.device.baseUrl}/set?b=255";
     } else {
       url =
-      "${widget.device.baseUrl}/set?c=${wColor.value.toRadixString(16)}";
-      setState(() {
-        _status[color] = wColor;
-      });
+      "${widget.device.baseUrl}/set?b=0";
     }
-    http.Response response;
     try {
-      response = await http.get(url).timeout(const Duration(seconds: 2));
-      if (response != null) {
-        print(response.body);
-      }
+      await http.get(url).timeout(const Duration(seconds: 2));
+      setState(() {
+        _status[color] = Color.fromARGB(_status[color].alpha==0?255:0, _status[color].red, _status[color].green, _status[color].blue);;
+      });
     } catch (e) {
       print(e.toString());
       return;
     }
   }
 
-  _changeColorStatus(Color color) async {
-    Color tempColor = Color.fromARGB(0, color.red, color.green, color.blue);
+  _changeColorStatus(Color c) async {
+    Color tempColor = Color.fromARGB(0, c.red, c.green, c.blue);
     String url =
-        "${widget.device.baseUrl}/set?c=${tempColor.value.toRadixString(16)}";
+        "${widget.device.baseUrl}/set?c=${tempColor.value.toRadixString(16)}&b=${c.alpha}";
     http.Response response;
     try {
       if (!_requsting) {
         _requsting = true;
         response = await http.get(url).timeout(const Duration(seconds: 2));
+        setState(() {
+          _status[color] = c;
+        });
       }
     } catch (e) {
       print(e.toString());
       return;
     }
+    setState(() {
+      _status[color] = c;
+    });
     _requsting = false;
   }
 }
