@@ -156,6 +156,26 @@ class _RGBALedPageState extends State<RGBALedPage> {
               activeColor: onColor,
               inactiveThumbColor: offColor,
             ),
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text("速度："),
+                  IconButton(
+                    icon: Icon(Icons.arrow_drop_up),
+                    onPressed: (){
+                      _setSpeed("+");
+                      },
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.arrow_drop_down),
+                    onPressed: (){
+                      _setSpeed("-");
+                    },
+                  ),
+                ],
+              ),
+            ),
           ]),
     );
   }
@@ -306,6 +326,17 @@ class _RGBALedPageState extends State<RGBALedPage> {
         setState(() {
           _currentModes = newValue;
         });
+    } catch (e) {
+      print(e.toString());
+      return;
+    }
+  }
+
+  _setSpeed(String cmd) async {
+    String url =
+        "${widget.device.baseUrl}/set?s=${cmd}";
+    try {
+      await http.get(url).timeout(const Duration(seconds: 2));
     } catch (e) {
       print(e.toString());
       return;
