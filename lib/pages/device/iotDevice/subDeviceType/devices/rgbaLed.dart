@@ -84,6 +84,8 @@ class _RGBALedPageState extends State<RGBALedPage> {
     "Custom 3": 59
   };
 
+  int _currentModes = 0;
+
   bool _requsting = false;
 
   static const String color = "color";
@@ -133,6 +135,11 @@ class _RGBALedPageState extends State<RGBALedPage> {
       body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            DropdownButton<int>(
+              value: _currentModes,
+              onChanged: _setMode,
+              items: _getModesList(),
+            ),
             SingleChildScrollView(
               child: ColorPicker(
                 pickerColor: _status[color],
@@ -145,7 +152,7 @@ class _RGBALedPageState extends State<RGBALedPage> {
               onChanged: (_) {
                 _changeSwitchStatus();
               },
-              value: _status[color].alpha==0 ? false : true,
+              value: _status[color].alpha == 0 ? false : true,
               activeColor: onColor,
               inactiveThumbColor: offColor,
             ),
@@ -240,17 +247,17 @@ class _RGBALedPageState extends State<RGBALedPage> {
 
   _changeSwitchStatus() async {
     String url;
-    if (_status[color].alpha==0) {
-      url =
-          "${widget.device.baseUrl}/set?b=255";
+    if (_status[color].alpha == 0) {
+      url = "${widget.device.baseUrl}/set?b=255";
     } else {
-      url =
-      "${widget.device.baseUrl}/set?b=0";
+      url = "${widget.device.baseUrl}/set?b=0";
     }
     try {
       await http.get(url).timeout(const Duration(seconds: 2));
       setState(() {
-        _status[color] = Color.fromARGB(_status[color].alpha==0?255:0, _status[color].red, _status[color].green, _status[color].blue);;
+        _status[color] = Color.fromARGB(_status[color].alpha == 0 ? 255 : 0,
+            _status[color].red, _status[color].green, _status[color].blue);
+        ;
       });
     } catch (e) {
       print(e.toString());
@@ -262,11 +269,10 @@ class _RGBALedPageState extends State<RGBALedPage> {
     Color tempColor = Color.fromARGB(0, c.red, c.green, c.blue);
     String url =
         "${widget.device.baseUrl}/set?c=${tempColor.value.toRadixString(16)}&b=${c.alpha}";
-    http.Response response;
     try {
       if (!_requsting) {
         _requsting = true;
-        response = await http.get(url).timeout(const Duration(seconds: 2));
+        await http.get(url).timeout(const Duration(seconds: 2));
         setState(() {
           _status[color] = c;
         });
@@ -279,5 +285,30 @@ class _RGBALedPageState extends State<RGBALedPage> {
       _status[color] = c;
     });
     _requsting = false;
+  }
+
+  List<DropdownMenuItem<int>> _getModesList(){
+    List<DropdownMenuItem<int>> l = [];
+    modes.forEach((String k, int v){
+      l.add(DropdownMenuItem<int>(
+        value: v,
+        child: Text(k),
+      ));
+    });
+    return l;
+  }
+
+  _setMode(int newValue) async {
+    String url =
+        "${widget.device.baseUrl}/set?m=${newValue.toString()}";
+    try {
+        await http.get(url).timeout(const Duration(seconds: 2));
+        setState(() {
+          _currentModes = newValue;
+        });
+    } catch (e) {
+      print(e.toString());
+      return;
+    }
   }
 }
