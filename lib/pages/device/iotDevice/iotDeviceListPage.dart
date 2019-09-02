@@ -10,6 +10,7 @@ import 'package:nat_explorer/pages/user/tools/smartConfigTool.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
 import 'package:android_intent/android_intent.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 //统一导入全部设备类型
 import './subDeviceType/modelsMap.dart';
@@ -92,10 +93,12 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
           onPressed: () {
             // 通过smartconfig添加设备
             return showDialog(
-                context: context,
-                builder: (_) => EspSmartConfigTool(title: "添加设备", needCallBack: true,),
-            )
-            .then((v) {
+              context: context,
+              builder: (_) => EspSmartConfigTool(
+                title: "添加设备",
+                needCallBack: true,
+              ),
+            ).then((v) {
               refreshmDNSServices();
             });
           },
@@ -159,8 +162,8 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
       // 先从本机所处网络获取设备，再获取代理的设备
       MDNSService config = MDNSService();
       config.name = '_iotdevice._tcp';
-      UtilApi.getAllmDNSServiceList(config).then((v){
-        v.mDNSServices.forEach((m){
+      UtilApi.getAllmDNSServiceList(config).then((v) {
+        v.mDNSServices.forEach((m) {
           PortConfig portConfig = PortConfig();
           Device device = Device();
           device.addr = m.iP;
@@ -229,15 +232,15 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
     print("===text1:${portConfig.toString()}");
     Map<String, dynamic> info = Map<String, dynamic>();
 //TODO    尝试从mDNS的Text中获取数据
-    if(portConfig.mDNSInfo != null && portConfig.mDNSInfo != ""){
+    if (portConfig.mDNSInfo != null && portConfig.mDNSInfo != "") {
       Map<String, dynamic> mDNSInfo = jsonDecode(portConfig.mDNSInfo);
-      if(mDNSInfo != null&&mDNSInfo.containsKey("text")){
+      if (mDNSInfo != null && mDNSInfo.containsKey("text")) {
         print("===text2:${mDNSInfo["text"].toString()}");
         List text = mDNSInfo["text"];
-        if(text != null){
-          text.forEach((t){
+        if (text != null) {
+          text.forEach((t) {
             List<String> s = t.split("=");
-            if (s.length==2){
+            if (s.length == 2) {
               info[s[0]] = s[1];
             }
           });
@@ -246,9 +249,9 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
     }
 
     String baseUrl;
-    if (noProxy){
+    if (noProxy) {
       baseUrl = "http://${portConfig.device.addr}:${portConfig.remotePort}";
-    }else{
+    } else {
       baseUrl = "http://${Config.webgRpcIp}:${portConfig.localProt}";
     }
     String infoUrl = "$baseUrl/info";
@@ -259,22 +262,30 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
       print(e.toString());
       return;
     }
-    if (response.statusCode == 200&&response.bodyBytes!=null&&response.bodyBytes.length>0) {
+    if (response.statusCode == 200 &&
+        response.bodyBytes != null &&
+        response.bodyBytes.length > 0) {
       info.addAll(jsonDecode(u8decodeer.convert(response.bodyBytes)));
     }
     print("===text3:${info}");
     setState(() {
       //TODO 去掉不符合条件的
-      if(info.containsKey("name")){
+      if (info.containsKey("name")) {
         portConfig.description = info["name"];
       }
 //      在没有重复的情况下直接加入列表，有重复则本内外的替代远程的
-      if(!_IoTDeviceMap.containsKey(info["mac"])) {
-        _IoTDeviceMap[info["mac"]] =
-            IoTDevice(portConfig: portConfig, info: info, noProxy: noProxy, baseUrl: baseUrl);
-      }else if (!_IoTDeviceMap[info["mac"]].noProxy&&noProxy){
-        _IoTDeviceMap[info["mac"]] =
-            IoTDevice(portConfig: portConfig, info: info, noProxy: noProxy, baseUrl: baseUrl);
+      if (!_IoTDeviceMap.containsKey(info["mac"])) {
+        _IoTDeviceMap[info["mac"]] = IoTDevice(
+            portConfig: portConfig,
+            info: info,
+            noProxy: noProxy,
+            baseUrl: baseUrl);
+      } else if (!_IoTDeviceMap[info["mac"]].noProxy && noProxy) {
+        _IoTDeviceMap[info["mac"]] = IoTDevice(
+            portConfig: portConfig,
+            info: info,
+            noProxy: noProxy,
+            baseUrl: baseUrl);
       }
     });
 //    TODO 判断此配置的合法性 verify()
@@ -290,20 +301,38 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
 
   _openWithWeb(IoTDevice device) async {
     Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-      return WebviewScaffold(
-        url: device.baseUrl,
-        appBar: new AppBar(title: new Text("网页浏览器"), actions: <Widget>[
-          IconButton(
-              icon: Icon(
-                Icons.open_in_browser,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                _launchURL(device.baseUrl);
-              })
-        ]),
-        withZoom: true,
-      );
+//      return WebviewScaffold(
+//        url: device.baseUrl,
+//        appBar: new AppBar(title: new Text("网页浏览器"), actions: <Widget>[
+//          IconButton(
+//              icon: Icon(
+//                Icons.open_in_browser,
+//                color: Colors.white,
+//              ),
+//              onPressed: () {
+//                _launchURL(device.baseUrl);
+//              })
+//        ]),
+//        withZoom: true,
+//        resizeToAvoidBottomInset:true,
+//      );
+      return Scaffold(
+          appBar: new AppBar(title: new Text("网页浏览器"), actions: <Widget>[
+            IconButton(
+                icon: Icon(
+                  Icons.open_in_browser,
+                  color: Colors.white,
+                ),
+                onPressed: () async {
+                  await Navigator.of(context).pop();
+                  _launchURL(device.baseUrl);
+                })
+          ]),
+          body: Builder(builder: (BuildContext context) {
+            return WebView(
+                initialUrl: device.baseUrl,
+            );
+          }));
     }));
   }
 }
