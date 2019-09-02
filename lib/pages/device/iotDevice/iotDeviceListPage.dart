@@ -135,6 +135,9 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
     } else {
 //      TODO：模型没有注册
       print("请尝试更新软件");
+      if (uiFirst == "web") {
+        await _openWithWeb(device);
+      }
     }
   }
 
@@ -150,6 +153,7 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
 
   Future getAllIoTDevice() async {
     onRefreshing = true;
+    // TODO 从搜索到的mqtt组件中获取设备
     // TODO 从各内网筛选出当前已经映射的mDNS服务中是物联网设备的，注意通过api刷新mDNS服务
     try {
       // 先从本机所处网络获取设备，再获取代理的设备
@@ -229,7 +233,7 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
       Map<String, dynamic> mDNSInfo = jsonDecode(portConfig.mDNSInfo);
       if(mDNSInfo != null&&mDNSInfo.containsKey("text")){
         print("===text2:${mDNSInfo["text"].toString()}");
-        List<String> text = mDNSInfo["text"];
+        List text = mDNSInfo["text"];
         if(text != null){
           text.forEach((t){
             List<String> s = t.split("=");
@@ -287,7 +291,7 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
   _openWithWeb(IoTDevice device) async {
     Navigator.push(context, MaterialPageRoute(builder: (ctx) {
       return WebviewScaffold(
-        url: "http://${Config.webgRpcIp}:${device.portConfig.localProt}",
+        url: device.baseUrl,
         appBar: new AppBar(title: new Text("网页浏览器"), actions: <Widget>[
           IconButton(
               icon: Icon(
@@ -295,13 +299,11 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
                 color: Colors.white,
               ),
               onPressed: () {
-                _launchURL(
-                    "http://${Config.webgRpcIp}:${device.portConfig.localProt}");
+                _launchURL(device.baseUrl);
               })
         ]),
+        withZoom: true,
       );
-    })).then((_) {
-      Navigator.of(context).pop();
-    });
+    }));
   }
 }
