@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'dart:convert';
@@ -6,6 +8,7 @@ import 'package:nat_explorer/api/SessionApi.dart';
 import 'package:nat_explorer/api/Utils.dart';
 import 'package:nat_explorer/constants/Config.dart';
 import 'package:nat_explorer/pages/device/iotDevice/iotDeviceModel.dart';
+import 'package:nat_explorer/pages/openWithChoice/webPage/webPage.dart';
 import 'package:nat_explorer/pages/user/tools/smartConfigTool.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
@@ -316,6 +319,7 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
 //        withZoom: true,
 //        resizeToAvoidBottomInset:true,
 //      );
+
       return Scaffold(
           appBar: new AppBar(title: new Text("网页浏览器"), actions: <Widget>[
             IconButton(
@@ -333,6 +337,8 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
                 initialUrl: device.baseUrl,
             );
           }));
+
+//      return WebPage(title: "浏览器",url: device.baseUrl,);
     }));
   }
 }

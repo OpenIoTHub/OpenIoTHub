@@ -91,7 +91,7 @@ class _RGBALedPageState extends State<RGBALedPage> {
   static const String color = "color";
 
   Map<String, dynamic> _status = Map.from({
-    color: Colors.white,
+    color: Colors.blue,
   });
 
   @override
