@@ -1,13 +1,10 @@
-# 安卓访问端
-###### 与其它版本兼容
+# 物联网设备、私有云、内网穿透管理程序
 #### 下载地址：
-  * 安卓版：https://github.com/nat-cloud/android-explorer/releases
-  * 其他版本：https://github.com/nat-cloud/explorer/releases
-#### 内网生成访问码工具的下载地址:  
-  * 安卓版：https://github.com/nat-cloud/android-client/releases  
-  * 其他版本：https://github.com/nat-cloud/client/releases  
+  * 其他版本：https://github.com/OpenIoTHub/OpenIoTHub/releases
+#### 内网网关下载地址:
+  * 其他版本：https://github.com/OpenIoTHub/GateWay/releases
 > #### 自建转发服务器下载（高阶）：
-> * https://github.com/nat-cloud/server/releases
+> * https://github.com/OpenIoTHub/Server/releases
 > * 服务器请自行配置端口和秘钥，内网端使用你配置的信息和公网地址就可以使用自建服务器
 #### 教程：
   * 简书：https://www.jianshu.com/u/b312a876d66e
