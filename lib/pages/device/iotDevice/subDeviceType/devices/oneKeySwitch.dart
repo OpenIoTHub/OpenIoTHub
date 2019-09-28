@@ -19,7 +19,7 @@ class OneKeySwitchPage extends StatefulWidget {
 class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
   static const Color onColor = Colors.green;
   static const Color offColor = Colors.red;
-  bool ledBottonStatus = false;
+  String ledBottonStatus = "off";
 
   @override
   void initState() {
@@ -60,7 +60,7 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
               children: <Widget>[
                 IconButton(
                   icon: Icon(Icons.power_settings_new),
-                  color: ledBottonStatus ? onColor : offColor,
+                  color: ledBottonStatus == "on" ? onColor : offColor,
                   iconSize: 100.0,
                   onPressed: () {
                     _changeSwitchStatus();
@@ -71,7 +71,7 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                ledBottonStatus ? Text("已经开启") : Text("已经关闭"),
+                ledBottonStatus == "on" ? Text("已经开启") : Text("已经关闭"),
               ],
             )
           ]),
@@ -88,13 +88,9 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
       print(e.toString());
       return;
     }
-    if (response.statusCode == 200 && jsonDecode(response.body)["led1"] == 1) {
+    if (response.statusCode == 200) {
       setState(() {
-        ledBottonStatus = true;
-      });
-    } else {
-      setState(() {
-        ledBottonStatus = false;
+        ledBottonStatus = jsonDecode(response.body)["led"];
       });
     }
   }
@@ -155,13 +151,8 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
 
   _changeSwitchStatus() async {
     String url;
-    if (ledBottonStatus) {
-      url =
-          "${widget.device.baseUrl}/led?pin=OFF1";
-    } else {
-      url =
-          "${widget.device.baseUrl}/led?pin=ON1";
-    }
+    url =
+        "${widget.device.baseUrl}/led?status=${ledBottonStatus == "on" ? "off" : "on"}";
     http.Response response;
     try {
       response = await http.get(url).timeout(const Duration(seconds: 2));
