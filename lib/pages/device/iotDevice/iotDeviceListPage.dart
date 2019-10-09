@@ -160,7 +160,6 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
   Future getAllIoTDevice() async {
     onRefreshing = true;
     // TODO 从搜索到的mqtt组件中获取设备
-    // TODO 从各内网筛选出当前已经映射的mDNS服务中是物联网设备的，注意通过api刷新mDNS服务
     try {
       // 先从本机所处网络获取设备，再获取代理的设备
       MDNSService config = MDNSService();
@@ -237,17 +236,16 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
 //TODO    尝试从mDNS的Text中获取数据
     if (portConfig.mDNSInfo != null && portConfig.mDNSInfo != "") {
       Map<String, dynamic> mDNSInfo = jsonDecode(portConfig.mDNSInfo);
-      if (mDNSInfo != null && mDNSInfo.containsKey("text")) {
+      if (mDNSInfo != null && mDNSInfo.containsKey("text") && mDNSInfo["text"] != null) {
         print("===text2:${mDNSInfo["text"].toString()}");
         List text = mDNSInfo["text"];
-        if (text != null) {
-          text.forEach((t) {
-            List<String> s = t.split("=");
-            if (s.length == 2) {
-              info[s[0]] = s[1];
-            }
-          });
-        }
+        text.forEach((t) {
+          List<String> s = t.split("=");
+          if (s.length == 2) {
+            info[s[0]] = s[1];
+            print("key:${s[0]},value:${s[1]}\n");
+          }
+        });
       }
     }
 
@@ -261,14 +259,14 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
     http.Response response;
     try {
       response = await http.get(infoUrl).timeout(const Duration(seconds: 2));
+      if (response != null &&
+          response.statusCode == 200 &&
+          response.bodyBytes != null &&
+          response.bodyBytes.length > 0) {
+        info.addAll(jsonDecode(u8decodeer.convert(response.bodyBytes)));
+      }
     } catch (e) {
       print(e.toString());
-      return;
-    }
-    if (response.statusCode == 200 &&
-        response.bodyBytes != null &&
-        response.bodyBytes.length > 0) {
-      info.addAll(jsonDecode(u8decodeer.convert(response.bodyBytes)));
     }
     print("===text3:${info}");
     setState(() {
