@@ -13,4 +13,14 @@ class UtilApi {
     channel.shutdown();
     return response;
   }
+
+  static Future<String> convertOctonaryUtf8(String oldString) async {
+    final channel = Channel.getClientChannel();
+    final stub = UtilsClient(channel);
+    var stringValue = StringValue();
+    stringValue.value = oldString;
+    final response = await stub.convertOctonaryUtf8(stringValue);
+    channel.shutdown();
+    return response.value;
+  }
 }

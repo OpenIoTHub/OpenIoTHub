@@ -1108,6 +1108,11 @@ class UtilsClient extends $grpc.Client {
           ($0.MDNSService value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.MDNSServiceList.fromBuffer(value));
+  static final _$convertOctonaryUtf8 =
+      $grpc.ClientMethod<$0.StringValue, $0.StringValue>(
+          '/pb.Utils/ConvertOctonaryUtf8',
+          ($0.StringValue value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $0.StringValue.fromBuffer(value));
 
   UtilsClient($grpc.ClientChannel channel, {$grpc.CallOptions options})
       : super(channel, options: options);
@@ -1117,6 +1122,15 @@ class UtilsClient extends $grpc.Client {
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$getAllmDNSServiceList, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+
+  $grpc.ResponseFuture<$0.StringValue> convertOctonaryUtf8(
+      $0.StringValue request,
+      {$grpc.CallOptions options}) {
+    final call = $createCall(
+        _$convertOctonaryUtf8, $async.Stream.fromIterable([request]),
         options: options);
     return $grpc.ResponseFuture(call);
   }
@@ -1133,6 +1147,13 @@ abstract class UtilsServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.MDNSService.fromBuffer(value),
         ($0.MDNSServiceList value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.StringValue, $0.StringValue>(
+        'ConvertOctonaryUtf8',
+        convertOctonaryUtf8_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.StringValue.fromBuffer(value),
+        ($0.StringValue value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.MDNSServiceList> getAllmDNSServiceList_Pre(
@@ -1140,6 +1161,13 @@ abstract class UtilsServiceBase extends $grpc.Service {
     return getAllmDNSServiceList(call, await request);
   }
 
+  $async.Future<$0.StringValue> convertOctonaryUtf8_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.StringValue> request) async {
+    return convertOctonaryUtf8(call, await request);
+  }
+
   $async.Future<$0.MDNSServiceList> getAllmDNSServiceList(
       $grpc.ServiceCall call, $0.MDNSService request);
+  $async.Future<$0.StringValue> convertOctonaryUtf8(
+      $grpc.ServiceCall call, $0.StringValue request);
 }

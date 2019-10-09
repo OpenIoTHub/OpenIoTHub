@@ -9,6 +9,32 @@ import 'dart:core' as $core show bool, Deprecated, double, int, List, Map, overr
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
+class StringValue extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('StringValue', package: const $pb.PackageName('pb'))
+    ..aOS(1, 'value')
+    ..hasRequiredFields = false
+  ;
+
+  StringValue._() : super();
+  factory StringValue() => create();
+  factory StringValue.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory StringValue.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  StringValue clone() => StringValue()..mergeFromMessage(this);
+  StringValue copyWith(void Function(StringValue) updates) => super.copyWith((message) => updates(message as StringValue));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static StringValue create() => StringValue._();
+  StringValue createEmptyInstance() => create();
+  static $pb.PbList<StringValue> createRepeated() => $pb.PbList<StringValue>();
+  static StringValue getDefault() => _defaultInstance ??= create()..freeze();
+  static StringValue _defaultInstance;
+
+  $core.String get value => $_getS(0, '');
+  set value($core.String v) { $_setString(0, v); }
+  $core.bool hasValue() => $_has(0);
+  void clearValue() => clearField(1);
+}
+
 class Empty extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('Empty', package: const $pb.PackageName('pb'))
     ..hasRequiredFields = false

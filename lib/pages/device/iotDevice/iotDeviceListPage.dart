@@ -233,17 +233,17 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
   addToIoTDeviceList(PortConfig portConfig, bool noProxy) async {
     print("===text1:${portConfig.toString()}");
     Map<String, dynamic> info = Map<String, dynamic>();
-//TODO    尝试从mDNS的Text中获取数据
+    //尝试从mDNS的Text中获取数据
     if (portConfig.mDNSInfo != null && portConfig.mDNSInfo != "") {
       Map<String, dynamic> mDNSInfo = jsonDecode(portConfig.mDNSInfo);
       if (mDNSInfo != null && mDNSInfo.containsKey("text") && mDNSInfo["text"] != null) {
         print("===text2:${mDNSInfo["text"].toString()}");
         List text = mDNSInfo["text"];
-        text.forEach((t) {
+        text.forEach((t) async {
           List<String> s = t.split("=");
           if (s.length == 2) {
-            info[s[0]] = s[1];
-            print("key:${s[0]},value:${s[1]}\n");
+            info[s[0]] = await UtilApi.convertOctonaryUtf8(s[1]);
+            print("key:${s[0]},value:${await UtilApi.convertOctonaryUtf8(s[1])}\n");
           }
         });
       }
