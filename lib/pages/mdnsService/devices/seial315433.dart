@@ -1,14 +1,14 @@
 //Serial315433:https://github.com/iotdevice/serial-315-433
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:nat_explorer/pages/device/iotDevice/iotDeviceModel.dart';
-import 'package:nat_explorer/pages/device/iotDevice/subDeviceType/commWidgets/info.dart';
-import 'package:nat_explorer/pages/device/iotDevice/subDeviceType/commWidgets/uploadOTA.dart';
+import '../portService.dart';
+import '../commWidgets/info.dart';
+import '../commWidgets/uploadOTA.dart';
 
 class Serial315433Page extends StatefulWidget {
   Serial315433Page({Key key, this.device}) : super(key: key);
 
-  final IoTDevice device;
+  final PortService device;
 
   @override
   _Serial315433PageState createState() => _Serial315433PageState();

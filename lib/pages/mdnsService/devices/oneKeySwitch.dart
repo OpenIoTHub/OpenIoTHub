@@ -4,13 +4,14 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:android_intent/android_intent.dart';
 import 'package:nat_explorer/constants/Config.dart';
-import 'package:nat_explorer/pages/device/iotDevice/iotDeviceModel.dart';
-import 'package:nat_explorer/pages/device/iotDevice/subDeviceType/commWidgets/info.dart';
+import '../portService.dart';
+import '../commWidgets/info.dart';
+import '../commWidgets/uploadOTA.dart';
 
 class OneKeySwitchPage extends StatefulWidget {
   OneKeySwitchPage({Key key, this.device}) : super(key: key);
 
-  final IoTDevice device;
+  final PortService device;
 
   @override
   _OneKeySwitchPageState createState() => _OneKeySwitchPageState();

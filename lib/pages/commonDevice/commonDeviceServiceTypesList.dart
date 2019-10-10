@@ -1,9 +1,9 @@
 import 'dart:async' as DeviceServiceTypesList;
 import 'package:flutter/material.dart';
 import 'package:nat_explorer/api/CommonDeviceApi.dart';
-import 'package:nat_explorer/pages/device/commonDevice/services/tcpPortListPage.dart';
-import 'package:nat_explorer/pages/device/commonDevice/services/udpPortListPage.dart';
-import 'package:nat_explorer/pages/device/commonDevice/services/ftpPortListPage.dart';
+import './services/tcpPortListPage.dart';
+import './services/udpPortListPage.dart';
+import './services/ftpPortListPage.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 
 class CommonDeviceServiceTypesList extends StatefulWidget {

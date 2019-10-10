@@ -2,41 +2,36 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:nat_explorer/pages/device/iotDevice/iotDeviceModel.dart';
-import 'package:nat_explorer/pages/device/iotDevice/subDeviceType/commWidgets/info.dart';
-import 'package:nat_explorer/pages/device/iotDevice/subDeviceType/commWidgets/uploadOTA.dart';
+import '../portService.dart';
+import '../commWidgets/info.dart';
+import '../commWidgets/uploadOTA.dart';
 
-class DHTPage extends StatefulWidget {
-  DHTPage({Key key, this.device}) : super(key: key);
+class LightLevelPage extends StatefulWidget {
+  LightLevelPage({Key key, this.device}) : super(key: key);
 
-  final IoTDevice device;
+  final PortService device;
 
   @override
-  _DHTPageState createState() => _DHTPageState();
+  _LightLevelPageState createState() => _LightLevelPageState();
 }
 
-class _DHTPageState extends State<DHTPage> {
-  static const String temperature = "temperature";
-  static const String humidity = "humidity";
+class _LightLevelPageState extends State<LightLevelPage> {
+  static const String lightLevel = "lightLevel";
 
   List<String> _valueKeyList = [
-    temperature,
-    humidity,
+    lightLevel,
   ];
 
   Map<String, double> _status = Map.from({
-    temperature: null,
-    humidity: null,
+    lightLevel: null,
   });
 
   Map<String, String> _realName = Map.from({
-    temperature: "温度",
-    humidity: "湿度",
+    lightLevel: "光照强度",
   });
 
   Map<String, String> _units = Map.from({
-    temperature: "℃",
-    humidity: "%",
+    lightLevel: "lx",
   });
 
   @override
@@ -53,8 +48,7 @@ class _DHTPageState extends State<DHTPage> {
     final tiles = _result.map(
       (pair) {
         switch (pair) {
-          case temperature:
-          case humidity:
+          case lightLevel:
             return ListTile(
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

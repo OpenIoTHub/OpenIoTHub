@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_natcloud_service/flutter_natcloud_service.dart';
 
 import 'package:nat_explorer/constants/Config.dart';
-import 'package:nat_explorer/pages/device/commonDevice/commonDeviceListPage.dart';
-import 'package:nat_explorer/pages/device/iotDevice/iotDeviceListPage.dart';
+import './pages/commonDevice/commonDeviceListPage.dart';
+import 'package:nat_explorer/pages/mdnsService/mdnsServiceListPage.dart';
 import 'package:nat_explorer/pages/openWithChoice/sshWeb/fileExplorer/services/connection_model.dart';
 import 'package:nat_explorer/pages/openWithChoice/sshWeb/fileExplorer/shared/custom_theme.dart';
-import 'package:nat_explorer/pages/plugin/pluginListPage.dart';
 import 'package:nat_explorer/pages/session/sessionListPage.dart';
 import 'package:nat_explorer/pages/user/accountPage.dart';
 
@@ -80,12 +79,9 @@ class _MyHomePageState extends State<MyHomePage> {
         return CommonDeviceListPage(title: "主机");
         break;
       case 2:
-        return IoTDeviceListPage(title: "智能设备");
+        return MdnsServiceListPage(title: "设备和服务");
         break;
       case 3:
-        return PluginListPage(title: "插件");
-        break;
-      case 4:
         return MyInfoPage();
         break;
     }
@@ -124,21 +120,12 @@ class _MyHomePageState extends State<MyHomePage> {
             )),
         BottomNavigationBarItem(
             icon: Icon(
-              Icons.assistant_photo,
+              Icons.account_circle,
               color: _currentIndex==3?_activeColor:_inactiveColor,
             ),
             title: Text(
-              '插件',
-              style: TextStyle(color: _currentIndex==3?_activeColor:_inactiveColor),
-            )),
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.account_circle,
-              color: _currentIndex==4?_activeColor:_inactiveColor,
-            ),
-            title: Text(
               '我',
-              style: TextStyle(color: _currentIndex==4?_activeColor:_inactiveColor),
+              style: TextStyle(color: _currentIndex==3?_activeColor:_inactiveColor),
             )),
       ],
       currentIndex: index,

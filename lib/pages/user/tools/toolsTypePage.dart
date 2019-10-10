@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:nat_explorer/pages/device/commonDevice/commonDeviceListPage.dart';
+import 'package:nat_explorer/pages/commonDevice/commonDeviceListPage.dart';
 
 import 'smartConfigTool.dart';
 

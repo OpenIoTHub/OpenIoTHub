@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nat_explorer/api/Utils.dart';
-import 'package:nat_explorer/pages/client/setClient.dart';
+import './setClient.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
 

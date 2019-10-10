@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:nat_explorer/api/SessionApi.dart';
 import 'package:nat_explorer/api/Utils.dart';
 import 'package:nat_explorer/constants/Config.dart';
-import 'package:nat_explorer/pages/device/iotDevice/iotDeviceModel.dart';
+import './portService.dart';
 import 'package:nat_explorer/pages/openWithChoice/webPage/webPage.dart';
 import 'package:nat_explorer/pages/user/tools/smartConfigTool.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
@@ -16,18 +16,18 @@ import 'package:android_intent/android_intent.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 //统一导入全部设备类型
-import './subDeviceType/modelsMap.dart';
+import './modelsMap.dart';
 
-class IoTDeviceListPage extends StatefulWidget {
-  IoTDeviceListPage({Key key, this.title}) : super(key: key);
+class MdnsServiceListPage extends StatefulWidget {
+  MdnsServiceListPage({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _IoTDeviceListPageState createState() => _IoTDeviceListPageState();
+  _MdnsServiceListPageState createState() => _MdnsServiceListPageState();
 }
 
-class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
+class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
   bool onRefreshing = false;
   Utf8Decoder u8decodeer = Utf8Decoder();
   static const double ARROW_ICON_WIDTH = 16.0;
@@ -37,7 +37,7 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
     width: ARROW_ICON_WIDTH,
     height: ARROW_ICON_WIDTH,
   );
-  Map<String, IoTDevice> _IoTDeviceMap = Map<String, IoTDevice>();
+  Map<String, PortService> _IoTDeviceMap = Map<String, PortService>();
 
   @override
   void initState() {
@@ -116,7 +116,7 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
   }
 
 //显示是设备的UI展示或者操作界面
-  void _pushDeviceServiceTypes(IoTDevice device) async {
+  void _pushDeviceServiceTypes(PortService device) async {
     // 查看设备的UI，1.native，2.web
     // 写成独立的组件，支持刷新
     String model = device.info["model"];
@@ -276,13 +276,13 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
       }
 //      在没有重复的情况下直接加入列表，有重复则本内外的替代远程的
       if (!_IoTDeviceMap.containsKey(info["mac"])) {
-        _IoTDeviceMap[info["mac"]] = IoTDevice(
+        _IoTDeviceMap[info["mac"]] = PortService(
             portConfig: portConfig,
             info: info,
             noProxy: noProxy,
             baseUrl: baseUrl);
       } else if (!_IoTDeviceMap[info["mac"]].noProxy && noProxy) {
-        _IoTDeviceMap[info["mac"]] = IoTDevice(
+        _IoTDeviceMap[info["mac"]] = PortService(
             portConfig: portConfig,
             info: info,
             noProxy: noProxy,
@@ -300,7 +300,7 @@ class _IoTDeviceListPageState extends State<IoTDeviceListPage> {
     await intent.launch();
   }
 
-  _openWithWeb(IoTDevice device) async {
+  _openWithWeb(PortService device) async {
     Navigator.push(context, MaterialPageRoute(builder: (ctx) {
 //      return WebviewScaffold(
 //        url: device.baseUrl,
