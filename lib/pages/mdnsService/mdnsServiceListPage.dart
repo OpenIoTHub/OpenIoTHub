@@ -152,6 +152,9 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
   }
 
   Future getAllIoTDevice() async {
+    while(onRefreshing){
+      await Future.delayed(const Duration(milliseconds: 200), () => {});
+    }
     onRefreshing = true;
     // TODO 从搜索到的mqtt组件中获取设备
     try {
@@ -195,6 +198,10 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
             }
           });
         }
+      }).then((_){
+        Future.delayed(const Duration(seconds: 3), () => {}).then((_){
+          onRefreshing = false;
+        });
       });
     } catch (e) {
       showDialog(
@@ -217,8 +224,6 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
                     )
                   ]));
     }
-    await Future.delayed(const Duration(seconds: 1), () => {});
-    onRefreshing = false;
   }
 
   Future refreshmDNSServices() async {
@@ -268,7 +273,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     String infoUrl = "$baseUrl/info";
     http.Response response;
     try {
-      response = await http.get(infoUrl).timeout(const Duration(seconds: 2));
+      response = await http.get(infoUrl).timeout(const Duration(milliseconds: 1200));
       if (response != null &&
           response.statusCode == 200 &&
           response.bodyBytes != null &&
