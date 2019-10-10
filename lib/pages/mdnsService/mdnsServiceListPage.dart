@@ -255,7 +255,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
         });
       }
     }
-
+    //尝试从http api获取信息，可能会产生覆盖
     String baseUrl;
     if (noProxy) {
       baseUrl = "http://${portConfig.device.addr}:${portConfig.remotePort}";
@@ -277,9 +277,11 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     }
     print("===text3:${info}");
     setState(() {
-      //TODO 去掉不符合条件的
       if (info.containsKey("name")) {
         portConfig.description = info["name"];
+      }else{
+        //TODO 去掉不符合条件的
+        return;
       }
 //      在没有重复的情况下直接加入列表，有重复则本内外的替代远程的
       if (!_IoTDeviceMap.containsKey(info["mac"])) {
