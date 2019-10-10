@@ -59,7 +59,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
               Icon(Icons.devices),
               Expanded(
                   child: Text(
-                pair.portConfig.description,
+                pair.info["name"],
                 style: titleTextStyle,
               )),
               rightArrowIcon
@@ -122,29 +122,23 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     String model = device.info["model"];
     String uiFirst = device.info["ui-first"];
 
-    if (ModelsMap.modelsMap.containsKey(model)) {
-      if (uiFirst == "native") {
-        await Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) {
-              return ModelsMap.modelsMap[model](device);
-            },
-          ),
-        );
-      } else if (uiFirst == "web") {
-        await _openWithWeb(device);
-      } else if (uiFirst == "miniProgram") {
+    if (uiFirst == "native"&&ModelsMap.modelsMap.containsKey(model)) {
+      await Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) {
+            return ModelsMap.modelsMap[model](device);
+          },
+        ),
+      );
+    } else if (uiFirst == "web") {
+      await _openWithWeb(device);
+    } else if (uiFirst == "miniProgram") {
 //                小程序方式打开
-      }
-      await _IoTDeviceMap.clear();
-      getAllIoTDevice();
-    } else {
-//      TODO：模型没有注册
-      print("请尝试更新软件");
-      if (uiFirst == "web") {
-        await _openWithWeb(device);
-      }
+    }else{
+//      TODO 模型没有注册需要更新本软件或者打开方式不支持
     }
+    await _IoTDeviceMap.clear();
+    getAllIoTDevice();
   }
 
   Future getAllSession() async {
@@ -163,7 +157,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     try {
       // 先从本机所处网络获取设备，再获取代理的设备
       MDNSService config = MDNSService();
-      config.name = '_iotdevice._tcp';
+      config.name = Config.mdnsCloudService;
       UtilApi.getAllmDNSServiceList(config).then((v) {
         v.mDNSServices.forEach((m) {
           PortConfig portConfig = PortConfig();
@@ -181,7 +175,20 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
           SessionApi.getAllTCP(s[i]).then((t) {
             for (int j = 0; j < t.portConfigs.length; j++) {
               //  是否是iotdevice
-              if (t.portConfigs[j].description.contains("_iotdevice.")) {
+              Map<String,dynamic> mDNSInfo = jsonDecode(t.portConfigs[j].mDNSInfo);
+//              print("mDNSInfo:$mDNSInfo");
+//              {
+//                "name": "esp-switch-80:7D:3A:72:64:6F",
+//                "type": "_iotdevice._tcp",
+//                "domain": "local",
+//                "hostname": "esp-switch-80:7D:3A:72:64:6F.local.",
+//                "port": 80,
+//                "text": null,
+//                "ttl": 4500,
+//                "AddrIPv4": ["192.168.0.3"],
+//                "AddrIPv6": null
+//              }
+              if (mDNSInfo['type'] == Config.mdnsCloudService) {
                 // TODO 是否含有/info，将portConfig里面的description换成、info中的name（这个name由设备管理）
                 addToIoTDeviceList(t.portConfigs[j], false);
               }
