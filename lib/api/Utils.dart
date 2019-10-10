@@ -14,6 +14,7 @@ class UtilApi {
     channel.shutdown();
     return response;
   }
+
 //将形如：\228\184\178\229\143\163\232\189\172TCP的utf-8乱码转换成正常的中文
   static Future<String> convertOctonaryUtf8(String oldString) async {
     final channel = Channel.getClientChannel();

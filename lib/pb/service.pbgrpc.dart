@@ -347,28 +347,40 @@ abstract class SessionManagerServiceBase extends $grpc.Service {
 
   $async.Future<$0.SessionConfig> createOneSession(
       $grpc.ServiceCall call, $0.SessionConfig request);
+
   $async.Future<$0.Empty> deleteOneSession(
       $grpc.ServiceCall call, $0.SessionConfig request);
+
   $async.Future<$0.SessionConfig> getOneSession(
       $grpc.ServiceCall call, $0.SessionConfig request);
+
   $async.Future<$0.SessionList> getAllSession(
       $grpc.ServiceCall call, $0.Empty request);
+
   $async.Future<$0.SOCKS5Config> createOneSOCKS5(
       $grpc.ServiceCall call, $0.SOCKS5Config request);
+
   $async.Future<$0.Empty> deleteOneSOCKS5(
       $grpc.ServiceCall call, $0.SOCKS5Config request);
+
   $async.Future<$0.SOCKS5Config> getOneSOCKS5(
       $grpc.ServiceCall call, $0.SOCKS5Config request);
+
   $async.Future<$0.HTTPConfig> createOneHTTP(
       $grpc.ServiceCall call, $0.HTTPConfig request);
+
   $async.Future<$0.Empty> deleteOneHTTP(
       $grpc.ServiceCall call, $0.HTTPConfig request);
+
   $async.Future<$0.HTTPConfig> getOneHTTP(
       $grpc.ServiceCall call, $0.HTTPConfig request);
+
   $async.Future<$0.HTTPList> getAllHTTP(
       $grpc.ServiceCall call, $0.Empty request);
+
   $async.Future<$0.Empty> refreshmDNSProxyList(
       $grpc.ServiceCall call, $0.SessionConfig request);
+
   $async.Future<$0.PortList> getAllTCP(
       $grpc.ServiceCall call, $0.SessionConfig request);
 }
@@ -789,34 +801,50 @@ abstract class CommonDeviceManagerServiceBase extends $grpc.Service {
   }
 
   $async.Future<$0.Empty> addDevice($grpc.ServiceCall call, $0.Device request);
+
   $async.Future<$0.Empty> delDevice($grpc.ServiceCall call, $0.Device request);
+
   $async.Future<$0.DeviceList> getAllDevice(
       $grpc.ServiceCall call, $0.Empty request);
+
   $async.Future<$0.Empty> setDeviceMac(
       $grpc.ServiceCall call, $0.Device request);
+
   $async.Future<$0.Empty> wakeOnLAN($grpc.ServiceCall call, $0.Device request);
+
   $async.Future<$0.PortConfig> createOneTCP(
       $grpc.ServiceCall call, $0.PortConfig request);
+
   $async.Future<$0.Empty> deleteOneTCP(
       $grpc.ServiceCall call, $0.PortConfig request);
+
   $async.Future<$0.PortConfig> getOneTCP(
       $grpc.ServiceCall call, $0.PortConfig request);
+
   $async.Future<$0.PortList> getAllTCP(
       $grpc.ServiceCall call, $0.Device request);
+
   $async.Future<$0.PortConfig> createOneUDP(
       $grpc.ServiceCall call, $0.PortConfig request);
+
   $async.Future<$0.Empty> deleteOneUDP(
       $grpc.ServiceCall call, $0.PortConfig request);
+
   $async.Future<$0.PortConfig> getOneUDP(
       $grpc.ServiceCall call, $0.PortConfig request);
+
   $async.Future<$0.PortList> getAllUDP(
       $grpc.ServiceCall call, $0.Device request);
+
   $async.Future<$0.PortConfig> createOneFTP(
       $grpc.ServiceCall call, $0.PortConfig request);
+
   $async.Future<$0.Empty> deleteOneFTP(
       $grpc.ServiceCall call, $0.PortConfig request);
+
   $async.Future<$0.PortConfig> getOneFTP(
       $grpc.ServiceCall call, $0.PortConfig request);
+
   $async.Future<$0.PortList> getAllFTP(
       $grpc.ServiceCall call, $0.Device request);
 }
@@ -1081,22 +1109,31 @@ abstract class MiioGatewayManagerServiceBase extends $grpc.Service {
 
   $async.Future<$0.Empty> addDevice(
       $grpc.ServiceCall call, $0.MiioGatewayDevice request);
+
   $async.Future<$0.Empty> delDevice(
       $grpc.ServiceCall call, $0.MiioGatewayDevice request);
+
   $async.Future<$0.MiioGatewayDeviceList> getAllDevice(
       $grpc.ServiceCall call, $0.Empty request);
+
   $async.Future<$0.Empty> setColor(
       $grpc.ServiceCall call, $0.MiioGatewayDevice request);
+
   $async.Future<$0.Empty> setBrightness(
       $grpc.ServiceCall call, $0.MiioGatewayDevice request);
+
   $async.Future<$0.Empty> on(
       $grpc.ServiceCall call, $0.MiioGatewayDevice request);
+
   $async.Future<$0.Empty> off(
       $grpc.ServiceCall call, $0.MiioGatewayDevice request);
+
   $async.Future<$0.Empty> stop(
       $grpc.ServiceCall call, $0.MiioGatewayDevice request);
+
   $async.Future<$0.Empty> updateGetawayState(
       $grpc.ServiceCall call, $0.MiioGatewayDevice request);
+
   $async.Future<$0.GatewayUpdateMessage> getGetawayUpdateMessage(
       $grpc.ServiceCall call, $0.MiioGatewayDevice request);
 }
@@ -1168,6 +1205,7 @@ abstract class UtilsServiceBase extends $grpc.Service {
 
   $async.Future<$0.MDNSServiceList> getAllmDNSServiceList(
       $grpc.ServiceCall call, $0.MDNSService request);
+
   $async.Future<$0.StringValue> convertOctonaryUtf8(
       $grpc.ServiceCall call, $0.StringValue request);
 }

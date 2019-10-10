@@ -144,7 +144,9 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
-          return InfoPage(device: widget.device,);
+          return InfoPage(
+            device: widget.device,
+          );
         },
       ),
     );
@@ -164,5 +166,4 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
     }
     _getCurrentStatus();
   }
-  
 }

@@ -12,7 +12,8 @@ import 'package:flutter_smartlink/flutter_smartlink.dart';
 import 'package:airkiss/airkiss.dart';
 
 class EspSmartConfigTool extends StatefulWidget {
-  EspSmartConfigTool({Key key, this.title, this.needCallBack}) : super(key: key);
+  EspSmartConfigTool({Key key, this.title, this.needCallBack})
+      : super(key: key);
 
   final String title;
   final bool needCallBack;
@@ -178,7 +179,7 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
                                 setState(() {
                                   _isLoading = false;
                                 });
-                                if(widget.needCallBack){
+                                if (widget.needCallBack) {
                                   Navigator.of(context).pop();
                                 }
                                 return;
@@ -190,7 +191,7 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
                                 setState(() {
                                   _isLoading = false;
                                 });
-                                if(widget.needCallBack){
+                                if (widget.needCallBack) {
                                   Navigator.of(context).pop();
                                 }
                                 return;
@@ -205,7 +206,7 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
                             await _configureSmartLink().then((v) {
                               _checkResult();
                             });
-                            if(widget.needCallBack){
+                            if (widget.needCallBack) {
                               Navigator.of(context).pop();
                             }
                           },

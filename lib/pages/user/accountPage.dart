@@ -309,12 +309,13 @@ class MyInfoPageState extends State<MyInfoPage> {
 //      _goToURL("http://192.168.0.15/1.mp3", "关于");
     } else if (title == "测试") {
 //      String databasesPath = await getDatabasesPath();
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) =>
-          RGBALedPage(device: PortService(info:Map(),portConfig:PortConfig()),)
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => RGBALedPage(
+                device: PortService(info: Map(), portConfig: PortConfig()),
+              )
 //          VideoApp()
 //              builder: (context) => Text('databasesPath')
-              ));
+          ));
     } else {
       DataUtils.isLogin().then((isLogin) {
         if (!isLogin) {

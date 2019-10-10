@@ -122,7 +122,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     String model = device.info["model"];
     String uiFirst = device.info["ui-first"];
 
-    if (uiFirst == "native"&&ModelsMap.modelsMap.containsKey(model)) {
+    if (uiFirst == "native" && ModelsMap.modelsMap.containsKey(model)) {
       await Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) {
@@ -134,7 +134,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       await _openWithWeb(device);
     } else if (uiFirst == "miniProgram") {
 //                小程序方式打开
-    }else{
+    } else {
 //      TODO 模型没有注册需要更新本软件或者打开方式不支持
     }
     await _IoTDeviceMap.clear();
@@ -152,7 +152,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
   }
 
   Future getAllIoTDevice() async {
-    while(onRefreshing){
+    while (onRefreshing) {
       await Future.delayed(const Duration(milliseconds: 200), () => {});
     }
     onRefreshing = true;
@@ -178,7 +178,8 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
           SessionApi.getAllTCP(s[i]).then((t) {
             for (int j = 0; j < t.portConfigs.length; j++) {
               //  是否是iotdevice
-              Map<String,dynamic> mDNSInfo = jsonDecode(t.portConfigs[j].mDNSInfo);
+              Map<String, dynamic> mDNSInfo =
+                  jsonDecode(t.portConfigs[j].mDNSInfo);
 //              print("mDNSInfo:$mDNSInfo");
 //              {
 //                "name": "esp-switch-80:7D:3A:72:64:6F",
@@ -198,8 +199,8 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
             }
           });
         }
-      }).then((_){
-        Future.delayed(const Duration(seconds: 3), () => {}).then((_){
+      }).then((_) {
+        Future.delayed(const Duration(seconds: 3), () => {}).then((_) {
           onRefreshing = false;
         });
       });
@@ -243,7 +244,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
   }
 
   addToIoTDeviceList(PortConfig portConfig, bool noProxy) async {
-    if(portConfig == null){
+    if (portConfig == null) {
       return;
     }
     print("===text1:${portConfig.toString()}");
@@ -251,14 +252,17 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     //尝试从mDNS的Text中获取数据
     if (portConfig.mDNSInfo != null && portConfig.mDNSInfo != "") {
       Map<String, dynamic> mDNSInfo = jsonDecode(portConfig.mDNSInfo);
-      if (mDNSInfo != null && mDNSInfo.containsKey("text") && mDNSInfo["text"] != null) {
+      if (mDNSInfo != null &&
+          mDNSInfo.containsKey("text") &&
+          mDNSInfo["text"] != null) {
         print("===text2:${mDNSInfo["text"].toString()}");
         List text = mDNSInfo["text"];
         text.forEach((t) async {
           List<String> s = t.split("=");
           if (s.length == 2) {
             info[s[0]] = await UtilApi.convertOctonaryUtf8(s[1]);
-            print("key:${s[0]},value:${await UtilApi.convertOctonaryUtf8(s[1])}\n");
+            print(
+                "key:${s[0]},value:${await UtilApi.convertOctonaryUtf8(s[1])}\n");
           }
         });
       }
@@ -273,7 +277,8 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     String infoUrl = "$baseUrl/info";
     http.Response response;
     try {
-      response = await http.get(infoUrl).timeout(const Duration(milliseconds: 1200));
+      response =
+          await http.get(infoUrl).timeout(const Duration(milliseconds: 1200));
       if (response != null &&
           response.statusCode == 200 &&
           response.bodyBytes != null &&
@@ -285,7 +290,9 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     }
     print("===text3:${info}");
 //    将一些不符合条件的服务排除在列表之外
-    if (!info.containsKey("name") || info["name"] == null || info["name"] == '') {
+    if (!info.containsKey("name") ||
+        info["name"] == null ||
+        info["name"] == '') {
       return;
     }
     setState(() {
@@ -348,7 +355,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
           ]),
           body: Builder(builder: (BuildContext context) {
             return WebView(
-                initialUrl: device.baseUrl,
+              initialUrl: device.baseUrl,
             );
           }));
 

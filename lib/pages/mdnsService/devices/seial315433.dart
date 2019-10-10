@@ -138,15 +138,16 @@ class _Serial315433PageState extends State<Serial315433Page> {
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
-          return InfoPage(device: widget.device,);
+          return InfoPage(
+            device: widget.device,
+          );
         },
       ),
     );
   }
 
   _clickBotton(String cmd) async {
-    String url =
-      "${widget.device.baseUrl}/botton?status=$cmd";
+    String url = "${widget.device.baseUrl}/botton?status=$cmd";
     http.Response response;
     try {
       response = await http.get(url).timeout(const Duration(seconds: 2));
@@ -161,19 +162,19 @@ class _Serial315433PageState extends State<Serial315433Page> {
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
-            title: Text("升级固件："),
-            content: Container(
-                height: 150,
-                child: UploadOTAPage(
-                  url: "${widget.device.baseUrl}/update",
-                )),
-            actions: <Widget>[
-              FlatButton(
-                child: Text("取消"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ]));
+                title: Text("升级固件："),
+                content: Container(
+                    height: 150,
+                    child: UploadOTAPage(
+                      url: "${widget.device.baseUrl}/update",
+                    )),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text("取消"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ]));
   }
 }

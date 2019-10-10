@@ -94,38 +94,42 @@ class _MyHomePageState extends State<MyHomePage> {
         BottomNavigationBarItem(
             icon: Icon(
               Icons.home,
-              color: _currentIndex==0?_activeColor:_inactiveColor,
+              color: _currentIndex == 0 ? _activeColor : _inactiveColor,
             ),
             title: Text(
               '网络',
-              style: TextStyle(color: _currentIndex==0?_activeColor:_inactiveColor),
+              style: TextStyle(
+                  color: _currentIndex == 0 ? _activeColor : _inactiveColor),
             )),
         BottomNavigationBarItem(
             icon: Icon(
               Icons.airplay,
-              color: _currentIndex==1?_activeColor:_inactiveColor,
+              color: _currentIndex == 1 ? _activeColor : _inactiveColor,
             ),
             title: Text(
               '主机',
-              style: TextStyle(color: _currentIndex==1?_activeColor:_inactiveColor),
+              style: TextStyle(
+                  color: _currentIndex == 1 ? _activeColor : _inactiveColor),
             )),
         BottomNavigationBarItem(
             icon: Icon(
               Icons.print,
-              color: _currentIndex==2?_activeColor:_inactiveColor,
+              color: _currentIndex == 2 ? _activeColor : _inactiveColor,
             ),
             title: Text(
               '智能',
-              style: TextStyle(color: _currentIndex==2?_activeColor:_inactiveColor),
+              style: TextStyle(
+                  color: _currentIndex == 2 ? _activeColor : _inactiveColor),
             )),
         BottomNavigationBarItem(
             icon: Icon(
               Icons.account_circle,
-              color: _currentIndex==3?_activeColor:_inactiveColor,
+              color: _currentIndex == 3 ? _activeColor : _inactiveColor,
             ),
             title: Text(
               '我',
-              style: TextStyle(color: _currentIndex==3?_activeColor:_inactiveColor),
+              style: TextStyle(
+                  color: _currentIndex == 3 ? _activeColor : _inactiveColor),
             )),
       ],
       currentIndex: index,
