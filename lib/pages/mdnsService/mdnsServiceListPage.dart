@@ -238,6 +238,9 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
   }
 
   addToIoTDeviceList(PortConfig portConfig, bool noProxy) async {
+    if(portConfig == null){
+      return;
+    }
     print("===text1:${portConfig.toString()}");
     Map<String, dynamic> info = Map<String, dynamic>();
     //尝试从mDNS的Text中获取数据
@@ -276,13 +279,12 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       print(e.toString());
     }
     print("===text3:${info}");
+//    将一些不符合条件的服务排除在列表之外
+    if (!info.containsKey("name") || info["name"] == null || info["name"] == '') {
+      return;
+    }
     setState(() {
-      if (info.containsKey("name")) {
-        portConfig.description = info["name"];
-      }else{
-        //TODO 去掉不符合条件的
-        return;
-      }
+      portConfig.description = info["name"];
 //      在没有重复的情况下直接加入列表，有重复则本内外的替代远程的
       if (!_IoTDeviceMap.containsKey(info["mac"])) {
         _IoTDeviceMap[info["mac"]] = PortService(
