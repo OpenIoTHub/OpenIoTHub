@@ -1,7 +1,7 @@
 //Serial315433:https://github.com/iotdevice/serial-315-433
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import '../portService.dart';
+import '../../../model/portService.dart';
 import '../commWidgets/info.dart';
 import '../commWidgets/uploadOTA.dart';
 

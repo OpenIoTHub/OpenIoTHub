@@ -4,7 +4,7 @@ import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:nat_explorer/constants/Constants.dart';
 import 'package:nat_explorer/events/LoginEvent.dart';
 import 'package:nat_explorer/events/LogoutEvent.dart';
-import '../../pages/mdnsService/portService.dart';
+import '../../model/portService.dart';
 import '../../pages/mdnsService/devices/rgbaLed.dart';
 import 'package:nat_explorer/pages/openWithChoice/sshWeb/fileExplorer/pages/settings.dart';
 import 'package:nat_explorer/pages/openWithChoice/sshWeb/fileExplorer/shared/custom_theme.dart';

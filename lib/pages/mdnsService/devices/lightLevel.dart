@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../portService.dart';
+import '../../../model/portService.dart';
 import '../commWidgets/info.dart';
 import '../commWidgets/uploadOTA.dart';
 

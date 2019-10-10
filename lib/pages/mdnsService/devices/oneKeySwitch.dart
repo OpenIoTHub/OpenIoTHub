@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:android_intent/android_intent.dart';
 import 'package:nat_explorer/constants/Config.dart';
-import '../portService.dart';
+import '../../../model/portService.dart';
 import '../commWidgets/info.dart';
 import '../commWidgets/uploadOTA.dart';
 

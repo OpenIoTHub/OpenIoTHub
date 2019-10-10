@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:nat_explorer/api/SessionApi.dart';
 import 'package:nat_explorer/api/Utils.dart';
 import 'package:nat_explorer/constants/Config.dart';
-import './portService.dart';
+import '../../model/portService.dart';
 import 'package:nat_explorer/pages/openWithChoice/webPage/webPage.dart';
 import 'package:nat_explorer/pages/user/tools/smartConfigTool.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
