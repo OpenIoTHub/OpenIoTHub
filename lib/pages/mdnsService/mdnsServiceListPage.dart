@@ -17,6 +17,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 //统一导入全部设备类型
 import './modelsMap.dart';
+import 'commWidgets/info.dart';
 
 class MdnsServiceListPage extends StatefulWidget {
   MdnsServiceListPage({Key key, this.title}) : super(key: key);
@@ -134,6 +135,17 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       await _openWithWeb(device);
     } else if (uiFirst == "miniProgram") {
 //                小程序方式打开
+    } else if (uiFirst == "none") {
+//      TODO 没有可供显示的界面
+      await Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) {
+            return InfoPage(
+              device: device,
+            );
+          },
+        ),
+      );
     } else {
 //      TODO 模型没有注册需要更新本软件或者打开方式不支持
     }
