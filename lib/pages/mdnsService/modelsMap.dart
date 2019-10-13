@@ -39,5 +39,13 @@ class ModelsMap {
         device: device,
       );
     },
+
+    //
+    //    webDAV
+    "com.iotserv.devices.webdav": (PortService serviceInfo) {
+      return WebDAVPage(
+        serviceInfo: serviceInfo,
+      );
+    },
   });
 }
