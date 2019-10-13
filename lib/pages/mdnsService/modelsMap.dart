@@ -39,6 +39,12 @@ class ModelsMap {
         device: device,
       );
     },
+    //    串口转TCP
+    "com.iotserv.devices.UART2TCP": (PortService device) {
+      return UART2TCPPage(
+        device: device,
+      );
+    },
 
     //
     //    webDAV
