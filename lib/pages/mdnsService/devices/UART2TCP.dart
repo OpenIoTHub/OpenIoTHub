@@ -1,5 +1,10 @@
 //Serial315433:https://github.com/iotdevice/UART2TCP
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:nat_explorer/constants/Config.dart';
 import '../../../model/portService.dart';
 import '../commWidgets/info.dart';
 
@@ -13,15 +18,41 @@ class UART2TCPPage extends StatefulWidget {
 }
 
 class UART2TCPStatus extends State<UART2TCPPage> with TickerProviderStateMixin {
+  Socket uartSockt;
   final List<Msg> _messages = <Msg>[];
   final TextEditingController _textController = TextEditingController();
   bool _isWriting = false;
+
+  @override
+  Future initState() async {
+    String addr = widget.device.noProxy
+        ? widget.device.portConfig.device.addr
+        : Config.webgRpcIp;
+    int port = widget.device.noProxy ? widget.device.portConfig
+        .remotePort : widget.device.portConfig.localProt;
+    print("===addr:$addr,port:$port");
+    uartSockt = await Socket.connect(addr, port);
+    uartSockt.listen((Uint8List msg){
+      _submitMsg(false,utf8.decode(msg));
+    },cancelOnError: true);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext ctx) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.device.info["name"]),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(
+                Icons.info,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                _info();
+              }),
+        ],
       ),
       body: Column(children: <Widget>[
         Flexible(
@@ -56,7 +87,7 @@ class UART2TCPStatus extends State<UART2TCPPage> with TickerProviderStateMixin {
                       _isWriting = txt.length > 0;
                     });
                   },
-                  onSubmitted: _submitMsg,
+                  onSubmitted: (String msg) => _submitMsg(true,msg),
                   decoration:
                   InputDecoration.collapsed(hintText: "请输入消息"),
                 ),
@@ -66,7 +97,7 @@ class UART2TCPStatus extends State<UART2TCPPage> with TickerProviderStateMixin {
                   child:  IconButton(
                     icon: Icon(Icons.send),
                     onPressed: _isWriting
-                        ? () => _submitMsg(_textController.text)
+                        ? () => _submitMsg(true,_textController.text)
                         : null,
                   )
               ),
@@ -76,14 +107,17 @@ class UART2TCPStatus extends State<UART2TCPPage> with TickerProviderStateMixin {
     );
   }
 
-  void _submitMsg(String txt) {
+  void _submitMsg(bool me,String txt) {
+    if(me){
+      uartSockt.write(txt);
+    }
     _textController.clear();
     setState(() {
       _isWriting = false;
     });
     Msg msg = Msg(
 //    用户自己发送的为true，否则false
-      me:true,
+      me:me,
       txt: txt,
       animationController: AnimationController(
           vsync: this,
@@ -101,7 +135,21 @@ class UART2TCPStatus extends State<UART2TCPPage> with TickerProviderStateMixin {
     for (Msg msg in _messages) {
       msg.animationController.dispose();
     }
+    uartSockt.close();
     super.dispose();
+  }
+
+  _info() async {
+    // TODO 设备信息
+    await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) {
+          return InfoPage(
+            device: widget.device,
+          );
+        },
+      ),
+    );
   }
 
 }

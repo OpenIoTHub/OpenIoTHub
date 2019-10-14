@@ -287,19 +287,23 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       baseUrl = "http://${Config.webgRpcIp}:${portConfig.localProt}";
     }
     String infoUrl = "$baseUrl/info";
-    http.Response response;
-    try {
-      response =
-          await http.get(infoUrl).timeout(const Duration(milliseconds: 1200));
-      if (response != null &&
-          response.statusCode == 200 &&
-          response.bodyBytes != null &&
-          response.bodyBytes.length > 0) {
-        info.addAll(jsonDecode(u8decodeer.convert(response.bodyBytes)));
+    if(!info.containsKey("mdns-only") || info["mdns-only"] != "true"){
+      print("=======${info["mdns-only"]}");
+      http.Response response;
+      try {
+        response =
+        await http.get(infoUrl).timeout(const Duration(milliseconds: 1200));
+        if (response != null &&
+            response.statusCode == 200 &&
+            response.bodyBytes != null &&
+            response.bodyBytes.length > 0) {
+          info.addAll(jsonDecode(u8decodeer.convert(response.bodyBytes)));
+        }
+      } catch (e) {
+        print(e.toString());
       }
-    } catch (e) {
-      print(e.toString());
     }
+
     print("===text3:${info}");
 //    将一些不符合条件的服务排除在列表之外
     if (!info.containsKey("name") ||
