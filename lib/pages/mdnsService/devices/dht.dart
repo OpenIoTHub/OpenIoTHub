@@ -9,6 +9,7 @@ import '../commWidgets/uploadOTA.dart';
 class DHTPage extends StatefulWidget {
   DHTPage({Key key, this.device}) : super(key: key);
 
+  static final String modelName = "com.iotserv.devices.dht";
   final PortService device;
 
   @override

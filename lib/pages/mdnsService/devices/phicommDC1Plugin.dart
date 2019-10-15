@@ -10,6 +10,7 @@ import '../commWidgets/uploadOTA.dart';
 class PhicommDC1PluginPage extends StatefulWidget {
   PhicommDC1PluginPage({Key key, this.device}) : super(key: key);
 
+  static final String modelName = "com.iotserv.devices.phicomm_dc1";
   final PortService device;
 
   @override

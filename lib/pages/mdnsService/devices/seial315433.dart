@@ -8,6 +8,7 @@ import '../commWidgets/uploadOTA.dart';
 class Serial315433Page extends StatefulWidget {
   Serial315433Page({Key key, this.device}) : super(key: key);
 
+  static final String modelName = "com.iotserv.devices.serial-315-433";
   final PortService device;
 
   @override

@@ -11,6 +11,7 @@ import '../commWidgets/uploadOTA.dart';
 class OneKeySwitchPage extends StatefulWidget {
   OneKeySwitchPage({Key key, this.device}) : super(key: key);
 
+  static final String modelName = "com.iotserv.devices.one-key-switch";
   final PortService device;
 
   @override

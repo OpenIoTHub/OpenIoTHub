@@ -11,6 +11,7 @@ import '../commWidgets/info.dart';
 class UART2TCPPage extends StatefulWidget {
   UART2TCPPage({Key key, this.device}) : super(key: key);
 
+  static final String modelName = "com.iotserv.devices.UART2TCP";
   final PortService device;
 
   @override

@@ -11,6 +11,7 @@ import '../commWidgets/uploadOTA.dart';
 class RGBALedPage extends StatefulWidget {
   RGBALedPage({Key key, this.device}) : super(key: key);
 
+  static final String modelName = "com.iotserv.devices.rgbaLed";
   final PortService device;
 
   @override

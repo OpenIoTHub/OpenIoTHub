@@ -10,6 +10,7 @@ import 'package:webdav/webdav.dart';
 class WebDAVPage extends StatefulWidget {
   WebDAVPage({Key key, this.serviceInfo}) : super(key: key);
 
+  static final String modelName = "com.iotserv.devices.webdav";
   final PortService serviceInfo;
 
   @override

@@ -9,6 +9,7 @@ import '../commWidgets/uploadOTA.dart';
 class LightLevelPage extends StatefulWidget {
   LightLevelPage({Key key, this.device}) : super(key: key);
 
+  static final String modelName = "com.iotserv.devices.lightLevel";
   final PortService device;
 
   @override
