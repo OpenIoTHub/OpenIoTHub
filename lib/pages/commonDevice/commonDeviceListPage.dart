@@ -7,7 +7,7 @@ import 'package:grpc/grpc.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:android_intent/android_intent.dart';
 
-import 'package:nat_explorer/pages/device/commonDevice/commonDeviceServiceTypesList.dart';
+import './commonDeviceServiceTypesList.dart';
 
 class CommonDeviceListPage extends StatefulWidget {
   CommonDeviceListPage({Key key, this.title}) : super(key: key);

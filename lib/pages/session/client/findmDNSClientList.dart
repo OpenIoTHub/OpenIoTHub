@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:nat_explorer/api/Utils.dart';
-import 'package:nat_explorer/pages/client/setClient.dart';
+import 'package:nat_explorer/constants/Config.dart';
+import './setClient.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
-
-const String discovery_service = "_nat-cloud-client._tcp";
 
 class FindmDNSClientListPage extends StatefulWidget {
   FindmDNSClientListPage({Key key}) : super(key: key);
@@ -89,7 +88,7 @@ class _FindmDNSClientListPageState extends State<FindmDNSClientListPage> {
   void _findClientListBymDNS() async {
     MDNSService config = MDNSService();
 //    config.name = '_nat-cloud-client._tcp';
-    config.name = discovery_service;
+    config.name = Config.mdnsGatewayService;
     UtilApi.getAllmDNSServiceList(config).then((v) {
       setState(() {
         _ServiceList = v.mDNSServices;

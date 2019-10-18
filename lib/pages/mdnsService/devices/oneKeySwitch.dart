@@ -1,26 +1,32 @@
-//Serial315433:https://github.com/iotdevice/serial-315-433
+//oneKeySwitch:https://github.com/iotdevice/esp8266-switch
 import 'package:flutter/material.dart';
+import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:nat_explorer/pages/device/iotDevice/iotDeviceModel.dart';
-import 'package:nat_explorer/pages/device/iotDevice/subDeviceType/commWidgets/info.dart';
-import 'package:nat_explorer/pages/device/iotDevice/subDeviceType/commWidgets/uploadOTA.dart';
+import 'package:android_intent/android_intent.dart';
+import 'package:nat_explorer/constants/Config.dart';
+import '../../../model/portService.dart';
+import '../commWidgets/info.dart';
+import '../commWidgets/uploadOTA.dart';
 
-class Serial315433Page extends StatefulWidget {
-  Serial315433Page({Key key, this.device}) : super(key: key);
+class OneKeySwitchPage extends StatefulWidget {
+  OneKeySwitchPage({Key key, this.device}) : super(key: key);
 
-  final IoTDevice device;
+  static final String modelName = "com.iotserv.devices.one-key-switch";
+  final PortService device;
 
   @override
-  _Serial315433PageState createState() => _Serial315433PageState();
+  _OneKeySwitchPageState createState() => _OneKeySwitchPageState();
 }
 
-class _Serial315433PageState extends State<Serial315433Page> {
-  static const String _up = "up";
-  static const String _down = "down";
+class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
+  static const Color onColor = Colors.green;
+  static const Color offColor = Colors.red;
+  String ledBottonStatus = "off";
 
   @override
   void initState() {
     super.initState();
+    _getCurrentStatus();
     print("init iot devie List");
   }
 
@@ -28,7 +34,7 @@ class _Serial315433PageState extends State<Serial315433Page> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.device.info["name"]),
+        title: Text("开关控制"),
         actions: <Widget>[
           IconButton(
               icon: Icon(
@@ -37,14 +43,6 @@ class _Serial315433PageState extends State<Serial315433Page> {
               ),
               onPressed: () {
                 _setting();
-              }),
-          IconButton(
-              icon: Icon(
-                Icons.file_upload,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                _ota();
               }),
           IconButton(
               icon: Icon(
@@ -63,11 +61,11 @@ class _Serial315433PageState extends State<Serial315433Page> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 IconButton(
-                  icon: Icon(Icons.arrow_drop_up),
-                  color: Colors.green,
+                  icon: Icon(Icons.power_settings_new),
+                  color: ledBottonStatus == "on" ? onColor : offColor,
                   iconSize: 100.0,
                   onPressed: () {
-                    _clickBotton(_up);
+                    _changeSwitchStatus();
                   },
                 ),
               ],
@@ -75,18 +73,28 @@ class _Serial315433PageState extends State<Serial315433Page> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.arrow_drop_down),
-                  color: Colors.deepOrange,
-                  iconSize: 100.0,
-                  onPressed: () {
-                    _clickBotton(_down);
-                  },
-                ),
+                ledBottonStatus == "on" ? Text("已经开启") : Text("已经关闭"),
               ],
-            ),
+            )
           ]),
     );
+  }
+
+  _getCurrentStatus() async {
+    String url = "${widget.device.baseUrl}/status";
+    http.Response response;
+    try {
+      response = await http.get(url).timeout(const Duration(seconds: 2));
+      print(response.body);
+    } catch (e) {
+      print(e.toString());
+      return;
+    }
+    if (response.statusCode == 200) {
+      setState(() {
+        ledBottonStatus = jsonDecode(response.body)["led"];
+      });
+    }
   }
 
   _setting() async {
@@ -121,8 +129,7 @@ class _Serial315433PageState extends State<Serial315433Page> {
                       try {
                         String url =
                             "${widget.device.baseUrl}/rename?name=${_name_controller.text}";
-                        await http.get(url).timeout(const Duration(seconds: 2));
-                        widget.device.info["name"] = _name_controller.text;
+                        http.get(url).timeout(const Duration(seconds: 2));
                       } catch (e) {
                         print(e.toString());
                         return;
@@ -138,15 +145,18 @@ class _Serial315433PageState extends State<Serial315433Page> {
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
-          return InfoPage(device: widget.device,);
+          return InfoPage(
+            device: widget.device,
+          );
         },
       ),
     );
   }
 
-  _clickBotton(String cmd) async {
-    String url =
-      "${widget.device.baseUrl}/botton?status=$cmd";
+  _changeSwitchStatus() async {
+    String url;
+    url =
+        "${widget.device.baseUrl}/led?status=${ledBottonStatus == "on" ? "off" : "on"}";
     http.Response response;
     try {
       response = await http.get(url).timeout(const Duration(seconds: 2));
@@ -155,25 +165,6 @@ class _Serial315433PageState extends State<Serial315433Page> {
       print(e.toString());
       return;
     }
-  }
-
-  _ota() async {
-    return showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-            title: Text("升级固件："),
-            content: Container(
-                height: 150,
-                child: UploadOTAPage(
-                  url: "${widget.device.baseUrl}/update",
-                )),
-            actions: <Widget>[
-              FlatButton(
-                child: Text("取消"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ]));
+    _getCurrentStatus();
   }
 }

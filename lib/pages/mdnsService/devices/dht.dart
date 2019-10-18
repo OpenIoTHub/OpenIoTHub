@@ -2,14 +2,15 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:nat_explorer/pages/device/iotDevice/iotDeviceModel.dart';
-import 'package:nat_explorer/pages/device/iotDevice/subDeviceType/commWidgets/info.dart';
-import 'package:nat_explorer/pages/device/iotDevice/subDeviceType/commWidgets/uploadOTA.dart';
+import '../../../model/portService.dart';
+import '../commWidgets/info.dart';
+import '../commWidgets/uploadOTA.dart';
 
 class DHTPage extends StatefulWidget {
   DHTPage({Key key, this.device}) : super(key: key);
 
-  final IoTDevice device;
+  static final String modelName = "com.iotserv.devices.dht";
+  final PortService device;
 
   @override
   _DHTPageState createState() => _DHTPageState();
@@ -234,5 +235,4 @@ class _DHTPageState extends State<DHTPage> {
                   ),
                 ]));
   }
-
 }

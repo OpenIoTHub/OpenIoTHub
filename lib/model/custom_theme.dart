@@ -54,12 +54,12 @@ class CustomThemes {
     dialogBackgroundColor: Colors.white,
     indicatorColor: _lightAccentColor,
     inputDecorationTheme: InputDecorationTheme(
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(4.0)),
+//      border: OutlineInputBorder(borderRadius: BorderRadius.circular(4.0)),
       contentPadding: EdgeInsets.all(14.0),
-      focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: _lightAccentColor, width: 2.0),
-        borderRadius: BorderRadius.circular(4.0),
-      ),
+//      focusedBorder: OutlineInputBorder(
+//        borderSide: BorderSide(color: _lightAccentColor, width: 2.0),
+//        borderRadius: BorderRadius.circular(4.0),
+//      ),
       labelStyle: TextStyle(fontSize: 16.0, color: Colors.grey[600]),
     ),
     primaryColor: _lightAccentColor,

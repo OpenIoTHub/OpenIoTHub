@@ -1,42 +1,56 @@
-import '../iotDeviceModel.dart';
-import './devices.dart';
+import '../../model/portService.dart';
+import './components.dart';
 
 class ModelsMap {
   static Map<String, dynamic> modelsMap = Map.from({
-    "com.iotserv.devices.one-key-switch": (IoTDevice device) {
+    OneKeySwitchPage.modelName: (PortService device) {
 //      简单的单按钮开关
       return OneKeySwitchPage(
         device: device,
       );
     },
 //    斐讯DC1插排
-    "com.iotserv.devices.phicomm_dc1": (IoTDevice device) {
+    PhicommDC1PluginPage.modelName: (PortService device) {
       return PhicommDC1PluginPage(
         device: device,
       );
     },
 //    DHT11,DTH22系列传感器
-    "com.iotserv.devices.dht": (IoTDevice device) {
+    DHTPage.modelName: (PortService device) {
       return DHTPage(
         device: device,
       );
     },
     //    光照强度传感器
-    "com.iotserv.devices.lightLevel": (IoTDevice device) {
+    LightLevelPage.modelName: (PortService device) {
       return LightLevelPage(
         device: device,
       );
     },
     //    RGBA LED控制器
-    "com.iotserv.devices.rgbaLed": (IoTDevice device) {
+    RGBALedPage.modelName: (PortService device) {
       return RGBALedPage(
         device: device,
       );
     },
     //    串口315,433无线发射遥控器实现开门和关门
-    "com.iotserv.devices.serial-315-433": (IoTDevice device) {
+    Serial315433Page.modelName: (PortService device) {
       return Serial315433Page(
         device: device,
+      );
+    },
+    //    串口转TCP
+    UART2TCPPage.modelName: (PortService device) {
+      return UART2TCPPage(
+        device: device,
+      );
+    },
+
+    //
+    //    webDAV
+    WebDAVPage.modelName: (PortService serviceInfo) {
+      return WebDAVPage(
+        serviceInfo: serviceInfo,
       );
     },
   });

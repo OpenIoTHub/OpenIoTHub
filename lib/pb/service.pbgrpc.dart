@@ -821,286 +821,6 @@ abstract class CommonDeviceManagerServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.Device request);
 }
 
-class MiioGatewayManagerClient extends $grpc.Client {
-  static final _$addDevice = $grpc.ClientMethod<$0.MiioGatewayDevice, $0.Empty>(
-      '/pb.MiioGatewayManager/AddDevice',
-      ($0.MiioGatewayDevice value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $0.Empty.fromBuffer(value));
-  static final _$delDevice = $grpc.ClientMethod<$0.MiioGatewayDevice, $0.Empty>(
-      '/pb.MiioGatewayManager/DelDevice',
-      ($0.MiioGatewayDevice value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $0.Empty.fromBuffer(value));
-  static final _$getAllDevice =
-      $grpc.ClientMethod<$0.Empty, $0.MiioGatewayDeviceList>(
-          '/pb.MiioGatewayManager/GetAllDevice',
-          ($0.Empty value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) =>
-              $0.MiioGatewayDeviceList.fromBuffer(value));
-  static final _$setColor = $grpc.ClientMethod<$0.MiioGatewayDevice, $0.Empty>(
-      '/pb.MiioGatewayManager/SetColor',
-      ($0.MiioGatewayDevice value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $0.Empty.fromBuffer(value));
-  static final _$setBrightness =
-      $grpc.ClientMethod<$0.MiioGatewayDevice, $0.Empty>(
-          '/pb.MiioGatewayManager/SetBrightness',
-          ($0.MiioGatewayDevice value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $0.Empty.fromBuffer(value));
-  static final _$on = $grpc.ClientMethod<$0.MiioGatewayDevice, $0.Empty>(
-      '/pb.MiioGatewayManager/On',
-      ($0.MiioGatewayDevice value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $0.Empty.fromBuffer(value));
-  static final _$off = $grpc.ClientMethod<$0.MiioGatewayDevice, $0.Empty>(
-      '/pb.MiioGatewayManager/Off',
-      ($0.MiioGatewayDevice value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $0.Empty.fromBuffer(value));
-  static final _$stop = $grpc.ClientMethod<$0.MiioGatewayDevice, $0.Empty>(
-      '/pb.MiioGatewayManager/Stop',
-      ($0.MiioGatewayDevice value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $0.Empty.fromBuffer(value));
-  static final _$updateGetawayState =
-      $grpc.ClientMethod<$0.MiioGatewayDevice, $0.Empty>(
-          '/pb.MiioGatewayManager/UpdateGetawayState',
-          ($0.MiioGatewayDevice value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) => $0.Empty.fromBuffer(value));
-  static final _$getGetawayUpdateMessage =
-      $grpc.ClientMethod<$0.MiioGatewayDevice, $0.GatewayUpdateMessage>(
-          '/pb.MiioGatewayManager/GetGetawayUpdateMessage',
-          ($0.MiioGatewayDevice value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) =>
-              $0.GatewayUpdateMessage.fromBuffer(value));
-
-  MiioGatewayManagerClient($grpc.ClientChannel channel,
-      {$grpc.CallOptions options})
-      : super(channel, options: options);
-
-  $grpc.ResponseFuture<$0.Empty> addDevice($0.MiioGatewayDevice request,
-      {$grpc.CallOptions options}) {
-    final call = $createCall(_$addDevice, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
-  }
-
-  $grpc.ResponseFuture<$0.Empty> delDevice($0.MiioGatewayDevice request,
-      {$grpc.CallOptions options}) {
-    final call = $createCall(_$delDevice, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
-  }
-
-  $grpc.ResponseFuture<$0.MiioGatewayDeviceList> getAllDevice($0.Empty request,
-      {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$getAllDevice, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
-  }
-
-  $grpc.ResponseFuture<$0.Empty> setColor($0.MiioGatewayDevice request,
-      {$grpc.CallOptions options}) {
-    final call = $createCall(_$setColor, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
-  }
-
-  $grpc.ResponseFuture<$0.Empty> setBrightness($0.MiioGatewayDevice request,
-      {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$setBrightness, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
-  }
-
-  $grpc.ResponseFuture<$0.Empty> on($0.MiioGatewayDevice request,
-      {$grpc.CallOptions options}) {
-    final call = $createCall(_$on, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
-  }
-
-  $grpc.ResponseFuture<$0.Empty> off($0.MiioGatewayDevice request,
-      {$grpc.CallOptions options}) {
-    final call = $createCall(_$off, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
-  }
-
-  $grpc.ResponseFuture<$0.Empty> stop($0.MiioGatewayDevice request,
-      {$grpc.CallOptions options}) {
-    final call = $createCall(_$stop, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
-  }
-
-  $grpc.ResponseFuture<$0.Empty> updateGetawayState(
-      $0.MiioGatewayDevice request,
-      {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$updateGetawayState, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
-  }
-
-  $grpc.ResponseFuture<$0.GatewayUpdateMessage> getGetawayUpdateMessage(
-      $0.MiioGatewayDevice request,
-      {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$getGetawayUpdateMessage, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
-  }
-}
-
-abstract class MiioGatewayManagerServiceBase extends $grpc.Service {
-  $core.String get $name => 'pb.MiioGatewayManager';
-
-  MiioGatewayManagerServiceBase() {
-    $addMethod($grpc.ServiceMethod<$0.MiioGatewayDevice, $0.Empty>(
-        'AddDevice',
-        addDevice_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => $0.MiioGatewayDevice.fromBuffer(value),
-        ($0.Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.MiioGatewayDevice, $0.Empty>(
-        'DelDevice',
-        delDevice_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => $0.MiioGatewayDevice.fromBuffer(value),
-        ($0.Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.Empty, $0.MiioGatewayDeviceList>(
-        'GetAllDevice',
-        getAllDevice_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => $0.Empty.fromBuffer(value),
-        ($0.MiioGatewayDeviceList value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.MiioGatewayDevice, $0.Empty>(
-        'SetColor',
-        setColor_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => $0.MiioGatewayDevice.fromBuffer(value),
-        ($0.Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.MiioGatewayDevice, $0.Empty>(
-        'SetBrightness',
-        setBrightness_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => $0.MiioGatewayDevice.fromBuffer(value),
-        ($0.Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.MiioGatewayDevice, $0.Empty>(
-        'On',
-        on_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => $0.MiioGatewayDevice.fromBuffer(value),
-        ($0.Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.MiioGatewayDevice, $0.Empty>(
-        'Off',
-        off_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => $0.MiioGatewayDevice.fromBuffer(value),
-        ($0.Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.MiioGatewayDevice, $0.Empty>(
-        'Stop',
-        stop_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => $0.MiioGatewayDevice.fromBuffer(value),
-        ($0.Empty value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.MiioGatewayDevice, $0.Empty>(
-        'UpdateGetawayState',
-        updateGetawayState_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => $0.MiioGatewayDevice.fromBuffer(value),
-        ($0.Empty value) => value.writeToBuffer()));
-    $addMethod(
-        $grpc.ServiceMethod<$0.MiioGatewayDevice, $0.GatewayUpdateMessage>(
-            'GetGetawayUpdateMessage',
-            getGetawayUpdateMessage_Pre,
-            false,
-            false,
-            ($core.List<$core.int> value) =>
-                $0.MiioGatewayDevice.fromBuffer(value),
-            ($0.GatewayUpdateMessage value) => value.writeToBuffer()));
-  }
-
-  $async.Future<$0.Empty> addDevice_Pre($grpc.ServiceCall call,
-      $async.Future<$0.MiioGatewayDevice> request) async {
-    return addDevice(call, await request);
-  }
-
-  $async.Future<$0.Empty> delDevice_Pre($grpc.ServiceCall call,
-      $async.Future<$0.MiioGatewayDevice> request) async {
-    return delDevice(call, await request);
-  }
-
-  $async.Future<$0.MiioGatewayDeviceList> getAllDevice_Pre(
-      $grpc.ServiceCall call, $async.Future<$0.Empty> request) async {
-    return getAllDevice(call, await request);
-  }
-
-  $async.Future<$0.Empty> setColor_Pre($grpc.ServiceCall call,
-      $async.Future<$0.MiioGatewayDevice> request) async {
-    return setColor(call, await request);
-  }
-
-  $async.Future<$0.Empty> setBrightness_Pre($grpc.ServiceCall call,
-      $async.Future<$0.MiioGatewayDevice> request) async {
-    return setBrightness(call, await request);
-  }
-
-  $async.Future<$0.Empty> on_Pre($grpc.ServiceCall call,
-      $async.Future<$0.MiioGatewayDevice> request) async {
-    return on(call, await request);
-  }
-
-  $async.Future<$0.Empty> off_Pre($grpc.ServiceCall call,
-      $async.Future<$0.MiioGatewayDevice> request) async {
-    return off(call, await request);
-  }
-
-  $async.Future<$0.Empty> stop_Pre($grpc.ServiceCall call,
-      $async.Future<$0.MiioGatewayDevice> request) async {
-    return stop(call, await request);
-  }
-
-  $async.Future<$0.Empty> updateGetawayState_Pre($grpc.ServiceCall call,
-      $async.Future<$0.MiioGatewayDevice> request) async {
-    return updateGetawayState(call, await request);
-  }
-
-  $async.Future<$0.GatewayUpdateMessage> getGetawayUpdateMessage_Pre(
-      $grpc.ServiceCall call,
-      $async.Future<$0.MiioGatewayDevice> request) async {
-    return getGetawayUpdateMessage(call, await request);
-  }
-
-  $async.Future<$0.Empty> addDevice(
-      $grpc.ServiceCall call, $0.MiioGatewayDevice request);
-  $async.Future<$0.Empty> delDevice(
-      $grpc.ServiceCall call, $0.MiioGatewayDevice request);
-  $async.Future<$0.MiioGatewayDeviceList> getAllDevice(
-      $grpc.ServiceCall call, $0.Empty request);
-  $async.Future<$0.Empty> setColor(
-      $grpc.ServiceCall call, $0.MiioGatewayDevice request);
-  $async.Future<$0.Empty> setBrightness(
-      $grpc.ServiceCall call, $0.MiioGatewayDevice request);
-  $async.Future<$0.Empty> on(
-      $grpc.ServiceCall call, $0.MiioGatewayDevice request);
-  $async.Future<$0.Empty> off(
-      $grpc.ServiceCall call, $0.MiioGatewayDevice request);
-  $async.Future<$0.Empty> stop(
-      $grpc.ServiceCall call, $0.MiioGatewayDevice request);
-  $async.Future<$0.Empty> updateGetawayState(
-      $grpc.ServiceCall call, $0.MiioGatewayDevice request);
-  $async.Future<$0.GatewayUpdateMessage> getGetawayUpdateMessage(
-      $grpc.ServiceCall call, $0.MiioGatewayDevice request);
-}
-
 class UtilsClient extends $grpc.Client {
   static final _$getAllmDNSServiceList =
       $grpc.ClientMethod<$0.MDNSService, $0.MDNSServiceList>(
@@ -1108,6 +828,11 @@ class UtilsClient extends $grpc.Client {
           ($0.MDNSService value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.MDNSServiceList.fromBuffer(value));
+  static final _$convertOctonaryUtf8 =
+      $grpc.ClientMethod<$0.StringValue, $0.StringValue>(
+          '/pb.Utils/ConvertOctonaryUtf8',
+          ($0.StringValue value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $0.StringValue.fromBuffer(value));
 
   UtilsClient($grpc.ClientChannel channel, {$grpc.CallOptions options})
       : super(channel, options: options);
@@ -1117,6 +842,15 @@ class UtilsClient extends $grpc.Client {
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$getAllmDNSServiceList, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+
+  $grpc.ResponseFuture<$0.StringValue> convertOctonaryUtf8(
+      $0.StringValue request,
+      {$grpc.CallOptions options}) {
+    final call = $createCall(
+        _$convertOctonaryUtf8, $async.Stream.fromIterable([request]),
         options: options);
     return $grpc.ResponseFuture(call);
   }
@@ -1133,6 +867,13 @@ abstract class UtilsServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.MDNSService.fromBuffer(value),
         ($0.MDNSServiceList value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.StringValue, $0.StringValue>(
+        'ConvertOctonaryUtf8',
+        convertOctonaryUtf8_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.StringValue.fromBuffer(value),
+        ($0.StringValue value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.MDNSServiceList> getAllmDNSServiceList_Pre(
@@ -1140,6 +881,13 @@ abstract class UtilsServiceBase extends $grpc.Service {
     return getAllmDNSServiceList(call, await request);
   }
 
+  $async.Future<$0.StringValue> convertOctonaryUtf8_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.StringValue> request) async {
+    return convertOctonaryUtf8(call, await request);
+  }
+
   $async.Future<$0.MDNSServiceList> getAllmDNSServiceList(
       $grpc.ServiceCall call, $0.MDNSService request);
+  $async.Future<$0.StringValue> convertOctonaryUtf8(
+      $grpc.ServiceCall call, $0.StringValue request);
 }

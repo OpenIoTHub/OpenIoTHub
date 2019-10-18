@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class InfoPage extends StatelessWidget {
   InfoPage({Key key, this.device}) : super(key: key);
   dynamic device;
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class InfoPage extends StatelessWidget {
     _result.add("设备地址:${device.baseUrl}");
 
     final tiles = _result.map(
-          (pair) {
+      (pair) {
         return ListTile(
           title: Text(
             pair,

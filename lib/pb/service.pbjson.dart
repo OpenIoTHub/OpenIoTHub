@@ -5,6 +5,13 @@
 // @dart = 2.3
 // ignore_for_file: camel_case_types,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type
 
+const StringValue$json = const {
+  '1': 'StringValue',
+  '2': const [
+    const {'1': 'Value', '3': 1, '4': 1, '5': 9, '10': 'Value'},
+  ],
+};
+
 const Empty$json = const {
   '1': 'Empty',
 };
@@ -60,32 +67,6 @@ const DeviceList$json = const {
   '1': 'DeviceList',
   '2': const [
     const {'1': 'Devices', '3': 1, '4': 3, '5': 11, '6': '.pb.Device', '10': 'Devices'},
-  ],
-};
-
-const MiioGatewayDevice$json = const {
-  '1': 'MiioGatewayDevice',
-  '2': const [
-    const {'1': 'RunId', '3': 1, '4': 1, '5': 9, '10': 'RunId'},
-    const {'1': 'Addr', '3': 2, '4': 1, '5': 9, '10': 'Addr'},
-    const {'1': 'Key', '3': 3, '4': 1, '5': 9, '10': 'Key'},
-    const {'1': 'Color', '3': 4, '4': 1, '5': 11, '6': '.pb.Color', '10': 'Color'},
-    const {'1': 'Brightness', '3': 5, '4': 1, '5': 13, '10': 'Brightness'},
-  ],
-};
-
-const MiioGatewayDeviceList$json = const {
-  '1': 'MiioGatewayDeviceList',
-  '2': const [
-    const {'1': 'MiioGatewayDevices', '3': 1, '4': 3, '5': 11, '6': '.pb.MiioGatewayDevice', '10': 'MiioGatewayDevices'},
-  ],
-};
-
-const MiioGatewaySubDevice$json = const {
-  '1': 'MiioGatewaySubDevice',
-  '2': const [
-    const {'1': 'MiioGatewayDevice', '3': 1, '4': 1, '5': 11, '6': '.pb.MiioGatewayDevice', '10': 'MiioGatewayDevice'},
-    const {'1': 'ID', '3': 2, '4': 1, '5': 9, '10': 'ID'},
   ],
 };
 

@@ -9,6 +9,32 @@ import 'dart:core' as $core show bool, Deprecated, double, int, List, Map, overr
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
+class StringValue extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('StringValue', package: const $pb.PackageName('pb'))
+    ..aOS(1, 'value')
+    ..hasRequiredFields = false
+  ;
+
+  StringValue._() : super();
+  factory StringValue() => create();
+  factory StringValue.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory StringValue.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  StringValue clone() => StringValue()..mergeFromMessage(this);
+  StringValue copyWith(void Function(StringValue) updates) => super.copyWith((message) => updates(message as StringValue));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static StringValue create() => StringValue._();
+  StringValue createEmptyInstance() => create();
+  static $pb.PbList<StringValue> createRepeated() => $pb.PbList<StringValue>();
+  static StringValue getDefault() => _defaultInstance ??= create()..freeze();
+  static StringValue _defaultInstance;
+
+  $core.String get value => $_getS(0, '');
+  set value($core.String v) { $_setString(0, v); }
+  $core.bool hasValue() => $_has(0);
+  void clearValue() => clearField(1);
+}
+
 class Empty extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('Empty', package: const $pb.PackageName('pb'))
     ..hasRequiredFields = false
@@ -252,111 +278,6 @@ class DeviceList extends $pb.GeneratedMessage {
   static DeviceList _defaultInstance;
 
   $core.List<Device> get devices => $_getList(0);
-}
-
-class MiioGatewayDevice extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('MiioGatewayDevice', package: const $pb.PackageName('pb'))
-    ..aOS(1, 'runId')
-    ..aOS(2, 'addr')
-    ..aOS(3, 'key')
-    ..a<Color>(4, 'color', $pb.PbFieldType.OM, Color.getDefault, Color.create)
-    ..a<$core.int>(5, 'brightness', $pb.PbFieldType.OU3)
-    ..hasRequiredFields = false
-  ;
-
-  MiioGatewayDevice._() : super();
-  factory MiioGatewayDevice() => create();
-  factory MiioGatewayDevice.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory MiioGatewayDevice.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  MiioGatewayDevice clone() => MiioGatewayDevice()..mergeFromMessage(this);
-  MiioGatewayDevice copyWith(void Function(MiioGatewayDevice) updates) => super.copyWith((message) => updates(message as MiioGatewayDevice));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static MiioGatewayDevice create() => MiioGatewayDevice._();
-  MiioGatewayDevice createEmptyInstance() => create();
-  static $pb.PbList<MiioGatewayDevice> createRepeated() => $pb.PbList<MiioGatewayDevice>();
-  static MiioGatewayDevice getDefault() => _defaultInstance ??= create()..freeze();
-  static MiioGatewayDevice _defaultInstance;
-
-  $core.String get runId => $_getS(0, '');
-  set runId($core.String v) { $_setString(0, v); }
-  $core.bool hasRunId() => $_has(0);
-  void clearRunId() => clearField(1);
-
-  $core.String get addr => $_getS(1, '');
-  set addr($core.String v) { $_setString(1, v); }
-  $core.bool hasAddr() => $_has(1);
-  void clearAddr() => clearField(2);
-
-  $core.String get key => $_getS(2, '');
-  set key($core.String v) { $_setString(2, v); }
-  $core.bool hasKey() => $_has(2);
-  void clearKey() => clearField(3);
-
-  Color get color => $_getN(3);
-  set color(Color v) { setField(4, v); }
-  $core.bool hasColor() => $_has(3);
-  void clearColor() => clearField(4);
-
-  $core.int get brightness => $_get(4, 0);
-  set brightness($core.int v) { $_setUnsignedInt32(4, v); }
-  $core.bool hasBrightness() => $_has(4);
-  void clearBrightness() => clearField(5);
-}
-
-class MiioGatewayDeviceList extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('MiioGatewayDeviceList', package: const $pb.PackageName('pb'))
-    ..pc<MiioGatewayDevice>(1, 'miioGatewayDevices', $pb.PbFieldType.PM,MiioGatewayDevice.create)
-    ..hasRequiredFields = false
-  ;
-
-  MiioGatewayDeviceList._() : super();
-  factory MiioGatewayDeviceList() => create();
-  factory MiioGatewayDeviceList.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory MiioGatewayDeviceList.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  MiioGatewayDeviceList clone() => MiioGatewayDeviceList()..mergeFromMessage(this);
-  MiioGatewayDeviceList copyWith(void Function(MiioGatewayDeviceList) updates) => super.copyWith((message) => updates(message as MiioGatewayDeviceList));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static MiioGatewayDeviceList create() => MiioGatewayDeviceList._();
-  MiioGatewayDeviceList createEmptyInstance() => create();
-  static $pb.PbList<MiioGatewayDeviceList> createRepeated() => $pb.PbList<MiioGatewayDeviceList>();
-  static MiioGatewayDeviceList getDefault() => _defaultInstance ??= create()..freeze();
-  static MiioGatewayDeviceList _defaultInstance;
-
-  $core.List<MiioGatewayDevice> get miioGatewayDevices => $_getList(0);
-}
-
-class MiioGatewaySubDevice extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('MiioGatewaySubDevice', package: const $pb.PackageName('pb'))
-    ..a<MiioGatewayDevice>(1, 'miioGatewayDevice', $pb.PbFieldType.OM, MiioGatewayDevice.getDefault, MiioGatewayDevice.create)
-    ..aOS(2, 'iD')
-    ..hasRequiredFields = false
-  ;
-
-  MiioGatewaySubDevice._() : super();
-  factory MiioGatewaySubDevice() => create();
-  factory MiioGatewaySubDevice.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory MiioGatewaySubDevice.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  MiioGatewaySubDevice clone() => MiioGatewaySubDevice()..mergeFromMessage(this);
-  MiioGatewaySubDevice copyWith(void Function(MiioGatewaySubDevice) updates) => super.copyWith((message) => updates(message as MiioGatewaySubDevice));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static MiioGatewaySubDevice create() => MiioGatewaySubDevice._();
-  MiioGatewaySubDevice createEmptyInstance() => create();
-  static $pb.PbList<MiioGatewaySubDevice> createRepeated() => $pb.PbList<MiioGatewaySubDevice>();
-  static MiioGatewaySubDevice getDefault() => _defaultInstance ??= create()..freeze();
-  static MiioGatewaySubDevice _defaultInstance;
-
-  MiioGatewayDevice get miioGatewayDevice => $_getN(0);
-  set miioGatewayDevice(MiioGatewayDevice v) { setField(1, v); }
-  $core.bool hasMiioGatewayDevice() => $_has(0);
-  void clearMiioGatewayDevice() => clearField(1);
-
-  $core.String get iD => $_getS(1, '');
-  set iD($core.String v) { $_setString(1, v); }
-  $core.bool hasID() => $_has(1);
-  void clearID() => clearField(2);
 }
 
 class SessionConfig extends $pb.GeneratedMessage {
