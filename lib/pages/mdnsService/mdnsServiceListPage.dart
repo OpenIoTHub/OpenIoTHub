@@ -29,7 +29,6 @@ class MdnsServiceListPage extends StatefulWidget {
 }
 
 class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
-  bool onRefreshing = false;
   Utf8Decoder u8decodeer = Utf8Decoder();
   static const double ARROW_ICON_WIDTH = 16.0;
   final titleTextStyle = TextStyle(fontSize: 16.0);
@@ -51,6 +50,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
 
   @override
   Widget build(BuildContext context) {
+    print("_IoTDeviceMap:$_IoTDeviceMap");
     final tiles = _IoTDeviceMap.values.map(
       (pair) {
         var listItemContent = Padding(
@@ -149,25 +149,23 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     } else {
 //      TODO 模型没有注册需要更新本软件或者打开方式不支持
     }
-    await _IoTDeviceMap.clear();
+//    await _IoTDeviceMap.clear();
     getAllIoTDevice();
   }
 
-  Future getAllSession() async {
+  Future<List<SessionConfig>> getAllSession() async {
     try {
       final response = await SessionApi.getAllSession();
       print('Greeter client received: ${response.sessionConfigs}');
       return response.sessionConfigs;
     } catch (e) {
+      List<SessionConfig> list = [];
       print('Caught error: $e');
+      return list;
     }
   }
 
   Future getAllIoTDevice() async {
-    while (onRefreshing) {
-      await Future.delayed(const Duration(milliseconds: 200), () => {});
-    }
-    onRefreshing = true;
     // TODO 从搜索到的mqtt组件中获取设备
     try {
       // 先从本机所处网络获取设备，再获取代理的设备
@@ -186,8 +184,8 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       });
       // 从远程获取设备
       getAllSession().then((s) {
-        for (int i = 0; i < s.length; i++) {
-          SessionApi.getAllTCP(s[i]).then((t) {
+        s.forEach((SessionConfig s) {
+          SessionApi.getAllTCP(s).then((t) {
             for (int j = 0; j < t.portConfigs.length; j++) {
               //  是否是iotdevice
               Map<String, dynamic> mDNSInfo =
@@ -210,10 +208,6 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
               }
             }
           });
-        }
-      }).then((_) {
-        Future.delayed(const Duration(seconds: 3), () => {}).then((_) {
-          onRefreshing = false;
         });
       });
     } catch (e) {
@@ -247,7 +241,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
           SessionApi.refreshmDNSServices(s[i]);
         }
       }).then((_) async {
-        await _IoTDeviceMap.clear();
+//        await _IoTDeviceMap.clear();
         getAllIoTDevice();
       });
     } catch (e) {
@@ -255,7 +249,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     }
   }
 
-  addToIoTDeviceList(PortConfig portConfig, bool noProxy) async {
+  Future<void> addToIoTDeviceList(PortConfig portConfig, bool noProxy) async {
     if (portConfig == null) {
       return;
     }
@@ -269,14 +263,14 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
           mDNSInfo["text"] != null) {
         print("===text2:${mDNSInfo["text"].toString()}");
         List text = mDNSInfo["text"];
-        text.forEach((t) async {
-          List<String> s = t.split("=");
+        for (int i = 0; i < text.length; i++) {
+          List<String> s = text[i].split("=");
           if (s.length == 2) {
             info[s[0]] = await UtilApi.convertOctonaryUtf8(s[1]);
             print(
                 "key:${s[0]},value:${await UtilApi.convertOctonaryUtf8(s[1])}\n");
           }
-        });
+        }
       }
     }
     //尝试从http api获取信息，可能会产生覆盖
@@ -286,24 +280,6 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     } else {
       baseUrl = "http://${Config.webgRpcIp}:${portConfig.localProt}";
     }
-    String infoUrl = "$baseUrl/info";
-    if(!info.containsKey("mdns-only") || info["mdns-only"] != "true"){
-      print("=======${info["mdns-only"]}");
-      http.Response response;
-      try {
-        response =
-        await http.get(infoUrl).timeout(const Duration(milliseconds: 1200));
-        if (response != null &&
-            response.statusCode == 200 &&
-            response.bodyBytes != null &&
-            response.bodyBytes.length > 0) {
-          info.addAll(jsonDecode(u8decodeer.convert(response.bodyBytes)));
-        }
-      } catch (e) {
-        print(e.toString());
-      }
-    }
-
     print("===text3:${info}");
 //    将一些不符合条件的服务排除在列表之外
     if (!info.containsKey("name") ||
@@ -311,23 +287,26 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
         info["name"] == '') {
       return;
     }
-    setState(() {
-      portConfig.description = info["name"];
+    portConfig.description = info["name"];
+
 //      在没有重复的情况下直接加入列表，有重复则本内外的替代远程的
-      if (!_IoTDeviceMap.containsKey(info["mac"])) {
+    if (!_IoTDeviceMap.containsKey(info["mac"])) {
+      setState(() {
         _IoTDeviceMap[info["mac"]] = PortService(
             portConfig: portConfig,
             info: info,
             noProxy: noProxy,
             baseUrl: baseUrl);
-      } else if (!_IoTDeviceMap[info["mac"]].noProxy && noProxy) {
+      });
+    } else if (!_IoTDeviceMap[info["mac"]].noProxy && noProxy) {
+      setState(() {
         _IoTDeviceMap[info["mac"]] = PortService(
             portConfig: portConfig,
             info: info,
             noProxy: noProxy,
             baseUrl: baseUrl);
-      }
-    });
+      });
+    }
 //    TODO 判断此配置的合法性 verify()
   }
 

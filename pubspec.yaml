@@ -89,7 +89,10 @@ dependencies:
   #  颜色选择器
   flutter_colorpicker: any
   #  webDAV的文件浏览器
-  webdav: ^1.0.6-dev
+  webdav:
+    git: https://github.com/OpenIoTHub/dart-webdav
+#    path: C:\Users\Farry\StudioProjects\dart-webdav
+
 
 dev_dependencies:
   flutter_test:
@@ -154,62 +157,3 @@ flutter:
     - assets/sshFileExplorer/arrow_drop_down.png
     - assets/sshFileExplorer/arrow_drop_up.png
   #    - sshFileExplorer over
-  #    - assets/images/ic_avatar_default.png
-  #    - assets/images/ic_nav_news_normal.png
-  #    - assets/images/ic_nav_news_actived.png
-  #    - assets/images/ic_nav_tweet_normal.png
-  #    - assets/images/ic_nav_tweet_actived.png
-  #    - assets/images/ic_nav_discover_normal.png
-  #    - assets/images/ic_nav_discover_actived.png
-  #    - assets/images/ic_nav_my_normal.png
-  #    - assets/images/ic_nav_my_pressed.png
-  #    - assets/images/ic_discover_gist.png
-  #    - assets/images/ic_discover_git.png
-  #    - assets/images/ic_discover_nearby.png
-  #    - assets/images/ic_discover_pos.png
-  #    - assets/images/ic_discover_scan.png
-  #    - assets/images/ic_discover_shake.png
-  #    - assets/images/ic_discover_softwares.png
-  #    - assets/images/ic_arrow_right.png
-  #    - assets/images/ic_my_blog.png
-  #    - assets/images/ic_my_message.png
-  #    - assets/images/ic_my_question.png
-  #    - assets/images/ic_my_recommend.png
-  #    - assets/images/ic_my_team.png
-  #    - assets/images/ic_test.png
-  #    - assets/images/ic_hongshu.jpg
-  #    - assets/images/ic_img_default.jpg
-  #    - assets/images/ic_comment.png
-  #    - assets/images/cover_img.jpg
-  #    - assets/images/leftmenu/ic_xiaoheiwu.png
-  #    - assets/images/leftmenu/ic_fabu.png
-  #    - assets/images/leftmenu/ic_about.png
-  #    - assets/images/leftmenu/ic_settings.png
-  #    - assets/images/ic_osc_logo.png
-  #    - assets/images/ic_add_pics.png
-  #    - assets/images/ic_eye.png
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.io/assets-and-images/#resolution-aware.
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.io/assets-and-images/#from-packages
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.io/custom-fonts/#from-packages
