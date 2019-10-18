@@ -5,7 +5,7 @@ export 'connection_widget_tile.dart';
 export 'custom_bottom_sheet.dart';
 export 'custom_icon_button.dart';
 export 'custom_show_dialog.dart';
-export 'custom_theme.dart';
+export '../../../../../model/custom_theme.dart';
 export 'custom_tooltip.dart';
 export 'file_bottom_sheet.dart';
 export 'quick_connection_sheet.dart';

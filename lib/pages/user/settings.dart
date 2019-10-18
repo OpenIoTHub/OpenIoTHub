@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../main.dart';
-import 'pages.dart';
-import '../services/services.dart';
-import '../shared/shared.dart';
+import '../openWithChoice/sshWeb/fileExplorer/main.dart';
+import '../openWithChoice/sshWeb/fileExplorer/pages/pages.dart';
+import '../openWithChoice/sshWeb/fileExplorer/services/services.dart';
+import '../openWithChoice/sshWeb/fileExplorer/shared/shared.dart';
 
 class SettingsPage extends StatefulWidget {
   final ConnectionPage currentConnectionPage;

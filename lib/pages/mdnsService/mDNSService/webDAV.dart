@@ -35,7 +35,7 @@ class _WebDAVPageState extends State<WebDAVPage> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(pair.name),
+              Text(pair.displayName),
             ],
           ),
         );
@@ -79,11 +79,15 @@ class _WebDAVPageState extends State<WebDAVPage> {
         : Config.webgRpcIp, "", "", "/", protocol: "http",
         port: widget.serviceInfo.noProxy ? widget.serviceInfo.portConfig
             .remotePort : widget.serviceInfo.portConfig.localProt);
-    List<FileInfo> listFileRst = await webDAV.ls("/");
-    print("listFileRst:$listFileRst");
-    setState(() {
-      listFile = listFileRst;
-    });
+    try{
+      List<FileInfo> listFileRst = await webDAV.ls("/");
+      print("listFileRst:$listFileRst");
+      setState(() {
+        listFile = listFileRst;
+      });
+    }catch (e){
+      print(e.toString());
+    }
   }
 
   _info() async {

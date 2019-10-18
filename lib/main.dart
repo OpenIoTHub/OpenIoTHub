@@ -6,7 +6,7 @@ import 'package:nat_explorer/constants/Config.dart';
 import './pages/commonDevice/commonDeviceListPage.dart';
 import 'package:nat_explorer/pages/mdnsService/mdnsServiceListPage.dart';
 import 'package:nat_explorer/pages/openWithChoice/sshWeb/fileExplorer/services/connection_model.dart';
-import 'package:nat_explorer/pages/openWithChoice/sshWeb/fileExplorer/shared/custom_theme.dart';
+import 'package:nat_explorer/model/custom_theme.dart';
 import 'package:nat_explorer/pages/session/sessionListPage.dart';
 import 'package:nat_explorer/pages/user/accountPage.dart';
 
