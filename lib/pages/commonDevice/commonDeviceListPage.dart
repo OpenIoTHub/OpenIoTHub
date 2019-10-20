@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nat_explorer/api/CommonDeviceApi.dart';
 import 'package:nat_explorer/api/SessionApi.dart';
+import 'package:nat_explorer/constants/Constants.dart';
 import 'package:nat_explorer/model/custom_theme.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
@@ -21,13 +22,6 @@ class CommonDeviceListPage extends StatefulWidget {
 }
 
 class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
-  static const double ARROW_ICON_WIDTH = 16.0;
-  final titleTextStyle = TextStyle(fontSize: 16.0);
-  final rightArrowIcon = Image.asset(
-    'assets/images/ic_arrow_right.png',
-    width: ARROW_ICON_WIDTH,
-    height: ARROW_ICON_WIDTH,
-  );
   List<SessionConfig> _SessionList = [];
   List<Device> _CommonDeviceList = [];
 
@@ -51,10 +45,10 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Text(pair.description,style: titleTextStyle),
+              Text(pair.description,style: Constants.titleTextStyle),
             ],
           ),
-          trailing: rightArrowIcon,
+          trailing: Constants.rightArrowIcon,
         );
         return InkWell(
           onTap: () {
@@ -100,9 +94,9 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
                               Expanded(
                                   child: Text(
                                 pair.description,
-                                style: titleTextStyle,
+                                style: Constants.titleTextStyle,
                               )),
-                              rightArrowIcon
+                              Constants.rightArrowIcon
                             ],
                           ),
                         );

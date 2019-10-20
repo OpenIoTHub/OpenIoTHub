@@ -2,6 +2,7 @@ import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:nat_explorer/constants/Config.dart';
+import 'package:nat_explorer/constants/Constants.dart';
 import 'package:nat_explorer/model/custom_theme.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
@@ -19,14 +20,7 @@ class MDNSServiceListPage extends StatefulWidget {
 }
 
 class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
-  final _biggerFont = const TextStyle(fontSize: 16.0);
   static const double IMAGE_ICON_WIDTH = 30.0;
-  static const double ARROW_ICON_WIDTH = 16.0;
-  final rightArrowIcon = Image.asset(
-    'assets/images/ic_arrow_right.png',
-    width: ARROW_ICON_WIDTH,
-    height: ARROW_ICON_WIDTH,
-  );
   List<PortConfig> _ServiceList = [];
 
   @override
@@ -50,10 +44,10 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Text(pair.description,style: _biggerFont),
+              Text(pair.description,style: Constants.titleTextStyle),
             ],
           ),
-          trailing: rightArrowIcon,
+          trailing: Constants.rightArrowIcon,
         );
         return InkWell(
           onTap: () {
@@ -161,7 +155,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
               return ListTile(
                 title: Text(
                   pair,
-                  style: _biggerFont,
+                  style: Constants.titleTextStyle,
                 ),
               );
             },

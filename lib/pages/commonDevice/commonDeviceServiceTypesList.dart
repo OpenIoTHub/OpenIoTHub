@@ -1,6 +1,7 @@
 import 'dart:async' as DeviceServiceTypesList;
 import 'package:flutter/material.dart';
 import 'package:nat_explorer/api/CommonDeviceApi.dart';
+import 'package:nat_explorer/constants/Constants.dart';
 import './services/tcpPortListPage.dart';
 import './services/udpPortListPage.dart';
 import './services/ftpPortListPage.dart';
@@ -24,7 +25,6 @@ class _CommonDeviceServiceTypesListState
   static const String TAG_BLANK = "blankDivider";
 
   static const double IMAGE_ICON_WIDTH = 30.0;
-  static const double ARROW_ICON_WIDTH = 16.0;
 
   final imagePaths = [
     "assets/images/ic_discover_softwares.png",
@@ -36,12 +36,6 @@ class _CommonDeviceServiceTypesListState
     "assets/images/ic_discover_pos.png",
   ];
   final titles = ["TCP端口", "UDP端口", "FTP端口"];
-  final rightArrowIcon = Image.asset(
-    'assets/images/ic_arrow_right.png',
-    width: ARROW_ICON_WIDTH,
-    height: ARROW_ICON_WIDTH,
-  );
-  final titleTextStyle = TextStyle(fontSize: 16.0);
   final List listData = [];
 
   @override
@@ -110,9 +104,9 @@ class _CommonDeviceServiceTypesListState
             Expanded(
                 child: Text(
               item.title,
-              style: titleTextStyle,
+              style: Constants.titleTextStyle,
             )),
-            rightArrowIcon
+            Constants.rightArrowIcon
           ],
         ),
       );

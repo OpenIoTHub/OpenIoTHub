@@ -2,6 +2,7 @@ import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:nat_explorer/constants/Config.dart';
+import 'package:nat_explorer/constants/Constants.dart';
 import 'package:nat_explorer/pages/openWithChoice/sshWeb/SSHWebPage.dart';
 import 'package:nat_explorer/pages/openWithChoice/vncWeb/VNCWebPage.dart';
 import 'package:nat_explorer/pages/openWithChoice/aria2/Aria2Page.dart';
@@ -17,14 +18,6 @@ class OpenWithChoice extends StatelessWidget {
   static const String TAG_BLANK = "blankDivider";
 
   static const double IMAGE_ICON_WIDTH = 30.0;
-  static const double ARROW_ICON_WIDTH = 16.0;
-
-  final titleTextStyle = TextStyle(fontSize: 16.0);
-  final rightArrowIcon = Image.asset(
-    'assets/images/ic_arrow_right.png',
-    width: ARROW_ICON_WIDTH,
-    height: ARROW_ICON_WIDTH,
-  );
 
   final List listData = [];
 
@@ -97,9 +90,9 @@ class OpenWithChoice extends StatelessWidget {
             Expanded(
                 child: Text(
               item.title,
-              style: titleTextStyle,
+              style: Constants.titleTextStyle,
             )),
-            rightArrowIcon
+            Constants.rightArrowIcon
           ],
         ),
       );

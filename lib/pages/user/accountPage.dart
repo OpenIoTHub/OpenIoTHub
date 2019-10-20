@@ -27,7 +27,6 @@ class MyInfoPage extends StatefulWidget {
 
 class MyInfoPageState extends State<MyInfoPage> {
   static const double IMAGE_ICON_WIDTH = 30.0;
-  static const double ARROW_ICON_WIDTH = 16.0;
 
   var titles = ["我的消息", "设置", "工具", "使用手册", "关于", "测试"];
   var imagePaths = [
@@ -42,12 +41,6 @@ class MyInfoPageState extends State<MyInfoPage> {
   var icons = [];
   var userAvatar;
   var userName;
-  var titleTextStyle = TextStyle(fontSize: 16.0);
-  var rightArrowIcon = Image.asset(
-    'assets/images/ic_arrow_right.png',
-    width: ARROW_ICON_WIDTH,
-    height: ARROW_ICON_WIDTH,
-  );
 
   MyInfoPageState() {
     icons.add(
@@ -235,9 +228,9 @@ class MyInfoPageState extends State<MyInfoPage> {
           Expanded(
               child: Text(
             title,
-            style: titleTextStyle,
+            style: Constants.titleTextStyle,
           )),
-          rightArrowIcon
+          Constants.rightArrowIcon
         ],
       ),
     );

@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:nat_explorer/api/SessionApi.dart';
 import 'package:nat_explorer/api/Utils.dart';
 import 'package:nat_explorer/constants/Config.dart';
+import 'package:nat_explorer/constants/Constants.dart';
 import 'package:nat_explorer/model/custom_theme.dart';
 import 'package:provider/provider.dart';
 import '../../model/portService.dart';
@@ -32,13 +33,6 @@ class MdnsServiceListPage extends StatefulWidget {
 
 class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
   Utf8Decoder u8decodeer = Utf8Decoder();
-  static const double ARROW_ICON_WIDTH = 16.0;
-  final titleTextStyle = TextStyle(fontSize: 16.0);
-  final rightArrowIcon = Image.asset(
-    'assets/images/ic_arrow_right.png',
-    width: ARROW_ICON_WIDTH,
-    height: ARROW_ICON_WIDTH,
-  );
   Map<String, PortService> _IoTDeviceMap = Map<String, PortService>();
 
   @override
@@ -62,10 +56,10 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Text(pair.info["name"],style: titleTextStyle),
+              Text(pair.info["name"],style: Constants.titleTextStyle),
             ],
           ),
-          trailing: rightArrowIcon,
+          trailing: Constants.rightArrowIcon,
         );
         return InkWell(
           onTap: () {

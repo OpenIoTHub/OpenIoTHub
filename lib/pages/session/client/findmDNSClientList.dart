@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nat_explorer/api/Utils.dart';
 import 'package:nat_explorer/constants/Config.dart';
+import 'package:nat_explorer/constants/Constants.dart';
 import './setClient.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
@@ -13,14 +14,7 @@ class FindmDNSClientListPage extends StatefulWidget {
 }
 
 class _FindmDNSClientListPageState extends State<FindmDNSClientListPage> {
-  final _biggerFont = const TextStyle(fontSize: 16.0);
   static const double IMAGE_ICON_WIDTH = 30.0;
-  static const double ARROW_ICON_WIDTH = 16.0;
-  final rightArrowIcon = Image.asset(
-    'assets/images/ic_arrow_right.png',
-    width: ARROW_ICON_WIDTH,
-    height: ARROW_ICON_WIDTH,
-  );
 
   List<MDNSService> _ServiceList = [];
 
@@ -45,9 +39,9 @@ class _FindmDNSClientListPageState extends State<FindmDNSClientListPage> {
               Expanded(
                   child: Text(
                 '${pair.name}@${pair.iP}:${pair.port}',
-                style: _biggerFont,
+                style: Constants.titleTextStyle,
               )),
-              rightArrowIcon
+              Constants.rightArrowIcon
             ],
           ),
         );
