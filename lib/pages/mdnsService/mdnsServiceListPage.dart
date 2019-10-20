@@ -7,6 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:nat_explorer/api/SessionApi.dart';
 import 'package:nat_explorer/api/Utils.dart';
 import 'package:nat_explorer/constants/Config.dart';
+import 'package:nat_explorer/model/custom_theme.dart';
+import 'package:provider/provider.dart';
 import '../../model/portService.dart';
 import 'package:nat_explorer/pages/openWithChoice/webPage/webPage.dart';
 import 'package:nat_explorer/pages/user/tools/smartConfigTool.dart';
@@ -53,19 +55,17 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     print("_IoTDeviceMap:$_IoTDeviceMap");
     final tiles = _IoTDeviceMap.values.map(
       (pair) {
-        var listItemContent = Padding(
-          padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
-          child: Row(
+        var listItemContent = ListTile(
+          leading: Icon(Icons.devices,color: Provider.of<CustomTheme>(context).themeValue == "dark"
+              ? CustomThemes.dark.accentColor
+              : CustomThemes.light.accentColor),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Icon(Icons.devices),
-              Expanded(
-                  child: Text(
-                pair.info["name"],
-                style: titleTextStyle,
-              )),
-              rightArrowIcon
+              Text(pair.info["name"],style: titleTextStyle),
             ],
           ),
+          trailing: rightArrowIcon,
         );
         return InkWell(
           onTap: () {
