@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:nat_explorer/api/CommonDeviceApi.dart';
 import 'package:nat_explorer/api/SessionApi.dart';
+import 'package:nat_explorer/model/custom_theme.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:android_intent/android_intent.dart';
+import 'package:provider/provider.dart';
 
 import './commonDeviceServiceTypesList.dart';
 
@@ -42,19 +44,17 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
   Widget build(BuildContext context) {
     final tiles = _CommonDeviceList.map(
       (pair) {
-        var listItemContent = Padding(
-          padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
-          child: Row(
+        var listItemContent = ListTile(
+          leading: Icon(Icons.devices,color: Provider.of<CustomTheme>(context).themeValue == "dark"
+              ? CustomThemes.dark.accentColor
+              : CustomThemes.light.accentColor),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Icon(Icons.devices),
-              Expanded(
-                  child: Text(
-                pair.description,
-                style: titleTextStyle,
-              )),
-              rightArrowIcon
+              Text(pair.description,style: titleTextStyle),
             ],
           ),
+          trailing: rightArrowIcon,
         );
         return InkWell(
           onTap: () {

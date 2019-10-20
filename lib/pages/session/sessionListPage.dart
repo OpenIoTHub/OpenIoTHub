@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:nat_explorer/model/custom_theme.dart';
+import 'package:provider/provider.dart';
 import './client/findmDNSClientList.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
@@ -42,22 +44,17 @@ class _SessionListPageState extends State<SessionListPage> {
   Widget build(BuildContext context) {
     final tiles = _SessionList.map(
       (pair) {
-        var listItemContent = Padding(
-          padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
-          child: Row(
+        var listItemContent = ListTile(
+          leading: Icon(Icons.cloud_done,color: Provider.of<CustomTheme>(context).themeValue == "dark"
+              ? CustomThemes.dark.accentColor
+              : CustomThemes.light.accentColor),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
-                child: Icon(Icons.cloud_done),
-              ),
-              Expanded(
-                  child: Text(
-                pair.description,
-                style: _biggerFont,
-              )),
-              rightArrowIcon
+              Text(pair.description,style: _biggerFont),
             ],
           ),
+          trailing: rightArrowIcon,
         );
         return InkWell(
           onTap: () {

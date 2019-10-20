@@ -2,10 +2,12 @@ import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:nat_explorer/constants/Config.dart';
+import 'package:nat_explorer/model/custom_theme.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 import 'package:nat_explorer/api/SessionApi.dart';
+import 'package:provider/provider.dart';
 
 class MDNSServiceListPage extends StatefulWidget {
   MDNSServiceListPage({Key key, this.sessionConfig}) : super(key: key);
@@ -41,22 +43,17 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
   Widget build(BuildContext context) {
     final tiles = _ServiceList.map(
       (pair) {
-        var listItemContent = Padding(
-          padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
-          child: Row(
+        var listItemContent = ListTile(
+          leading: Icon(Icons.devices,color: Provider.of<CustomTheme>(context).themeValue == "dark"
+              ? CustomThemes.dark.accentColor
+              : CustomThemes.light.accentColor),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
-                child: Icon(Icons.devices),
-              ),
-              Expanded(
-                  child: Text(
-                pair.description,
-                style: _biggerFont,
-              )),
-              rightArrowIcon
+              Text(pair.description,style: _biggerFont),
             ],
           ),
+          trailing: rightArrowIcon,
         );
         return InkWell(
           onTap: () {
