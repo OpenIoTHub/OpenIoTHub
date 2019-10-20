@@ -58,12 +58,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _inactiveColor = Colors.black;
-  final _activeColor = Colors.orange;
+  Color _inactiveColor = Colors.black;
+  Color _activeColor = Colors.orange;
   int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    _activeColor = Provider.of<CustomTheme>(context).themeValue == "dark"
+        ? CustomThemes.dark.accentColor
+        : CustomThemes.light.accentColor;
     return Scaffold(
         body: _buildBody(_currentIndex),
         bottomNavigationBar: _buildBottomNavigationBar(_currentIndex));

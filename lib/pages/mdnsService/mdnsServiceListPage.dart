@@ -290,17 +290,17 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     portConfig.description = info["name"];
 
 //      在没有重复的情况下直接加入列表，有重复则本内外的替代远程的
-    if (!_IoTDeviceMap.containsKey(info["mac"])) {
+    if (!_IoTDeviceMap.containsKey(info["id"])) {
       setState(() {
-        _IoTDeviceMap[info["mac"]] = PortService(
+        _IoTDeviceMap[info["id"]] = PortService(
             portConfig: portConfig,
             info: info,
             noProxy: noProxy,
             baseUrl: baseUrl);
       });
-    } else if (!_IoTDeviceMap[info["mac"]].noProxy && noProxy) {
+    } else if (!_IoTDeviceMap[info["id"]].noProxy && noProxy) {
       setState(() {
-        _IoTDeviceMap[info["mac"]] = PortService(
+        _IoTDeviceMap[info["id"]] = PortService(
             portConfig: portConfig,
             info: info,
             noProxy: noProxy,

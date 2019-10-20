@@ -5,6 +5,8 @@ import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:nat_explorer/constants/Config.dart';
+import 'package:nat_explorer/model/custom_theme.dart';
+import 'package:provider/provider.dart';
 import '../../../model/portService.dart';
 import '../commWidgets/info.dart';
 import 'package:webdav/webdav.dart';
@@ -43,7 +45,9 @@ class _WebDAVPageState extends State<WebDAVPage> {
                 }
               },
               child: ListTile(
-                leading: pair.isDirectory?Icon(Icons.folder_open):Icon(Icons.insert_drive_file),
+                leading: pair.isDirectory?Icon(Icons.folder_open,color: Provider.of<CustomTheme>(context).themeValue == "dark"
+                    ? CustomThemes.dark.accentColor
+                    : CustomThemes.light.accentColor,):Icon(Icons.insert_drive_file),
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
