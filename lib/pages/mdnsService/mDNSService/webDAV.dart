@@ -22,13 +22,13 @@ class WebDAVPage extends StatefulWidget {
 }
 
 class _WebDAVPageState extends State<WebDAVPage> {
-  String currentPath = "/";
+  List<String> pathHistory = ["/"];
   List<FileInfo> listFile = [];
 
   @override
   void initState() {
     super.initState();
-    _ls(currentPath);
+    _ls();
   }
 
   @override
@@ -38,7 +38,8 @@ class _WebDAVPageState extends State<WebDAVPage> {
             return InkWell(
               onTap: () {
                 if(pair.isDirectory){
-                  _ls(pair.path);
+                  pathHistory.add(pair.path);
+                  _ls();
                 }else{
                   //TODO 文件，打开这个文件
                   _openWithWeb(widget.serviceInfo.baseUrl + pair.path);
@@ -65,7 +66,7 @@ class _WebDAVPageState extends State<WebDAVPage> {
     ).toList();
     return Scaffold(
       appBar: AppBar(
-        title: Text(currentPath),
+        title: Text(pathHistory.last),
         actions: <Widget>[
           IconButton(
               icon: Icon(
@@ -73,7 +74,7 @@ class _WebDAVPageState extends State<WebDAVPage> {
                 color: Colors.white,
               ),
               onPressed: () {
-                _ls(currentPath);
+                _ls();
               }),
           IconButton(
               icon: Icon(
@@ -91,17 +92,16 @@ class _WebDAVPageState extends State<WebDAVPage> {
 
   }
 
-  _ls(String path) async {
+  _ls() async {
     Client webDAV = Client(widget.serviceInfo.noProxy
         ? widget.serviceInfo.portConfig.device.addr
         : Config.webgRpcIp, "", "", "/", protocol: "http",
         port: widget.serviceInfo.noProxy ? widget.serviceInfo.portConfig
             .remotePort : widget.serviceInfo.portConfig.localProt);
     try{
-      List<FileInfo> listFileRst = await webDAV.ls(path);
+      List<FileInfo> listFileRst = await webDAV.ls(pathHistory.last);
       print("listFileRst:$listFileRst");
       setState(() {
-        currentPath = path;
         listFile = listFileRst;
       });
     }catch (e){
@@ -155,6 +155,13 @@ class _WebDAVPageState extends State<WebDAVPage> {
       items: [
         BottomNavigationBarItem(
             icon: Icon(
+              Icons.arrow_back_ios,
+            ),
+            title: Text(
+              '返回',
+            )),
+        BottomNavigationBarItem(
+            icon: Icon(
               Icons.cloud_upload,
             ),
             title: Text(
@@ -168,6 +175,15 @@ class _WebDAVPageState extends State<WebDAVPage> {
               '下载',
             )),
       ],
+      onTap: (int index) {
+        switch(index){
+          case 0:
+            if(pathHistory.length > 1){
+               pathHistory.removeLast();
+               _ls();
+            }
+        }
+      },
     );
   }
 
