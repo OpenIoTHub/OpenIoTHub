@@ -25,8 +25,8 @@ dependencies:
   cupertino_icons: ^0.1.2
   #  golang的后台服务
   flutter_natcloud_service:
-#    git: https://github.com/OpenIoTHub/flutter_natcloud_service
-    path: C:\Users\Farry\StudioProjects\flutter_natcloud_service
+    git: https://github.com/OpenIoTHub/flutter_natcloud_service
+#    path: C:\Users\Farry\StudioProjects\flutter_natcloud_service
   http: ^0.12.0+2
   #  grpc
   grpc: ^1.0.2
@@ -90,8 +90,8 @@ dependencies:
   flutter_colorpicker: any
   #  webDAV的文件浏览器
   webdav:
-#    git: https://github.com/OpenIoTHub/dart-webdav
-    path: C:\Users\Farry\StudioProjects\dart-webdav
+    git: https://github.com/OpenIoTHub/dart-webdav
+#    path: C:\Users\Farry\StudioProjects\dart-webdav
 
 
 dev_dependencies:

@@ -172,7 +172,7 @@ class _WebDAVPageState extends State<WebDAVPage> {
               Icons.cloud_download,
             ),
             title: Text(
-              '下载',
+              '离线下载',
             )),
       ],
       onTap: (int index) {
