@@ -64,14 +64,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    _activeColor = Provider.of<CustomTheme>(context).themeValue == "dark"
-        ? CustomThemes.dark.accentColor
-        : CustomThemes.light.accentColor;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    _activeColor = Provider.of<CustomTheme>(context).themeValue == "dark"
+        ? CustomThemes.dark.accentColor
+        : CustomThemes.light.accentColor;
     return Scaffold(
         body: _buildBody(_currentIndex),
         bottomNavigationBar: _buildBottomNavigationBar(_currentIndex));
