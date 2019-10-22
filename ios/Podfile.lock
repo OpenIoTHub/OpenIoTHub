@@ -1,0 +1,141 @@
+PODS:
+  - android_intent (0.0.1):
+    - Flutter
+  - connectivity (0.0.1):
+    - Flutter
+    - Reachability
+  - device_apps (0.0.1):
+    - Flutter
+  - file_picker (0.0.1):
+    - Flutter
+  - Flutter (1.0.0)
+  - flutter_easylink (0.0.1):
+    - Flutter
+  - flutter_natcloud_service (0.0.1):
+    - Flutter
+  - flutter_oneshot (0.0.1):
+    - Flutter
+  - flutter_smartlink (0.0.1):
+    - Flutter
+  - flutter_webview_plugin (0.0.1):
+    - Flutter
+  - NMSSH (2.3.1)
+  - open_file (0.0.1):
+    - Flutter
+  - package_info (0.0.1):
+    - Flutter
+  - path_provider (0.0.1):
+    - Flutter
+  - permission_handler (3.3.0):
+    - Flutter
+  - Reachability (3.2)
+  - shared_preferences (0.0.1):
+    - Flutter
+  - smartconfig (0.0.1):
+    - Flutter
+  - ssh (0.0.5):
+    - Flutter
+    - NMSSH
+  - url_launcher (0.0.1):
+    - Flutter
+  - video_player (0.0.1):
+    - Flutter
+  - webview_flutter (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - android_intent (from `.symlinks/plugins/android_intent/ios`)
+  - connectivity (from `.symlinks/plugins/connectivity/ios`)
+  - device_apps (from `.symlinks/plugins/device_apps/ios`)
+  - file_picker (from `.symlinks/plugins/file_picker/ios`)
+  - Flutter (from `Flutter`)
+  - flutter_easylink (from `.symlinks/plugins/flutter_easylink/ios`)
+  - flutter_natcloud_service (from `.symlinks/plugins/flutter_natcloud_service/ios`)
+  - flutter_oneshot (from `.symlinks/plugins/flutter_oneshot/ios`)
+  - flutter_smartlink (from `.symlinks/plugins/flutter_smartlink/ios`)
+  - flutter_webview_plugin (from `.symlinks/plugins/flutter_webview_plugin/ios`)
+  - open_file (from `.symlinks/plugins/open_file/ios`)
+  - package_info (from `.symlinks/plugins/package_info/ios`)
+  - path_provider (from `.symlinks/plugins/path_provider/ios`)
+  - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
+  - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
+  - smartconfig (from `.symlinks/plugins/smartconfig/ios`)
+  - ssh (from `.symlinks/plugins/ssh/ios`)
+  - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
+  - video_player (from `.symlinks/plugins/video_player/ios`)
+  - webview_flutter (from `.symlinks/plugins/webview_flutter/ios`)
+
+SPEC REPOS:
+  trunk:
+    - NMSSH
+    - Reachability
+
+EXTERNAL SOURCES:
+  android_intent:
+    :path: ".symlinks/plugins/android_intent/ios"
+  connectivity:
+    :path: ".symlinks/plugins/connectivity/ios"
+  device_apps:
+    :path: ".symlinks/plugins/device_apps/ios"
+  file_picker:
+    :path: ".symlinks/plugins/file_picker/ios"
+  Flutter:
+    :path: Flutter
+  flutter_easylink:
+    :path: ".symlinks/plugins/flutter_easylink/ios"
+  flutter_natcloud_service:
+    :path: ".symlinks/plugins/flutter_natcloud_service/ios"
+  flutter_oneshot:
+    :path: ".symlinks/plugins/flutter_oneshot/ios"
+  flutter_smartlink:
+    :path: ".symlinks/plugins/flutter_smartlink/ios"
+  flutter_webview_plugin:
+    :path: ".symlinks/plugins/flutter_webview_plugin/ios"
+  open_file:
+    :path: ".symlinks/plugins/open_file/ios"
+  package_info:
+    :path: ".symlinks/plugins/package_info/ios"
+  path_provider:
+    :path: ".symlinks/plugins/path_provider/ios"
+  permission_handler:
+    :path: ".symlinks/plugins/permission_handler/ios"
+  shared_preferences:
+    :path: ".symlinks/plugins/shared_preferences/ios"
+  smartconfig:
+    :path: ".symlinks/plugins/smartconfig/ios"
+  ssh:
+    :path: ".symlinks/plugins/ssh/ios"
+  url_launcher:
+    :path: ".symlinks/plugins/url_launcher/ios"
+  video_player:
+    :path: ".symlinks/plugins/video_player/ios"
+  webview_flutter:
+    :path: ".symlinks/plugins/webview_flutter/ios"
+
+SPEC CHECKSUMS:
+  android_intent: f144b3783d533cc5bc2cd04cdbd1dc2b6950bd69
+  connectivity: 6e94255659cc86dcbef1d452ad3e0491bb1b3e75
+  device_apps: 099590c646da044f7f410fef63229fc0aedb35a8
+  file_picker: 408623be2125b79a4539cf703be3d4b3abe5e245
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  flutter_easylink: 0957d0df0849308116a1bed266f236e3e6b2b673
+  flutter_natcloud_service: 9a55a83e75f931f3b331e67fc7161ce87f0d70d5
+  flutter_oneshot: 0972b29beac35ccc1a99b8088887f64e1d219304
+  flutter_smartlink: bc069854e0b83b8e4541b27aed4242cdd3949929
+  flutter_webview_plugin: ed9e8a6a96baf0c867e90e1bce2673913eeac694
+  NMSSH: cd689ae535a1581a6dd9fd4600ff71247df510a6
+  open_file: 02eb5cb6b21264bd3a696876f5afbfb7ca4f4b7d
+  package_info: 48b108e75b8802c2d5e126f208ef540561c98aef
+  path_provider: fb74bd0465e96b594bb3b5088ee4a4e7bb1f2a9d
+  permission_handler: 67637977b227d62d46bfbf524f335f8568de5a73
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  shared_preferences: 430726339841afefe5142b9c1f50cb6bd7793e01
+  smartconfig: b1b2a8e71c7369bbb2c024b185a75dd50ba58b79
+  ssh: 19c124ab36628047d2430e07cfade1de86992457
+  url_launcher: a1c0cc845906122c4784c542523d8cacbded5626
+  video_player: 69c5f029fac4ffe4fc8a85ea7f7b793709661549
+  webview_flutter: db3aba222b23e4dc432e0c5882834123dc50ff9f
+
+PODFILE CHECKSUM: 3dbe063e9c90a5d7c9e4e76e70a821b9e2c1d271
+
+COCOAPODS: 1.8.4

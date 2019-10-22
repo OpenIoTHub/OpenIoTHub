@@ -153,7 +153,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "893584a575aba9b6719bc557c61635118249fec1"
+      resolved-ref: "9a5ab59e37b12018039c162131da6ebd44e1cc72"
       url: "https://github.com/OpenIoTHub/flutter_natcloud_service"
     source: git
     version: "0.0.1"
