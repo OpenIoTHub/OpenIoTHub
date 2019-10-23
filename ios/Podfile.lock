@@ -119,7 +119,7 @@ SPEC CHECKSUMS:
   file_picker: 408623be2125b79a4539cf703be3d4b3abe5e245
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_easylink: 0957d0df0849308116a1bed266f236e3e6b2b673
-  flutter_natcloud_service: 9a55a83e75f931f3b331e67fc7161ce87f0d70d5
+  flutter_natcloud_service: 7da325592b738a0e77e77695e55287bb6ce3ca79
   flutter_oneshot: 0972b29beac35ccc1a99b8088887f64e1d219304
   flutter_smartlink: bc069854e0b83b8e4541b27aed4242cdd3949929
   flutter_webview_plugin: ed9e8a6a96baf0c867e90e1bce2673913eeac694
