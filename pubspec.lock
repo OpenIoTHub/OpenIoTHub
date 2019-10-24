@@ -151,11 +151,9 @@ packages:
   flutter_natcloud_service:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "067a728c99eb9e0aaf2456678def6c708d3cd61b"
-      url: "https://github.com/OpenIoTHub/flutter_natcloud_service"
-    source: git
+      path: "/Users/iotserv/AndroidStudioProjects/flutter_natcloud_service"
+      relative: false
+    source: path
     version: "0.0.1"
   flutter_oneshot:
     dependency: "direct main"
