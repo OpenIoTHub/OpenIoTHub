@@ -47,7 +47,13 @@ class ModelsMap {
     },
 
     //
-    //    webDAV
+    //    web UI,使用web方式打开服务的模型
+    WebPage.modelName: (PortService serviceInfo) {
+      return WebPage(
+        serviceInfo: serviceInfo,
+      );
+    },
+    //    webDAV文件
     WebDAVPage.modelName: (PortService serviceInfo) {
       return WebDAVPage(
         serviceInfo: serviceInfo,

@@ -117,7 +117,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     String model = device.info["model"];
     String uiFirst = device.info["ui-first"];
 
-    if (uiFirst == "native" && ModelsMap.modelsMap.containsKey(model)) {
+    if (ModelsMap.modelsMap.containsKey(model)) {
       await Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) {
@@ -125,11 +125,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
           },
         ),
       );
-    } else if (uiFirst == "web") {
-      await _openWithWeb(device);
-    } else if (uiFirst == "miniProgram") {
-//                小程序方式打开
-    } else if (uiFirst == "none") {
+    } else {
 //      TODO 没有可供显示的界面
       await Navigator.of(context).push(
         MaterialPageRoute(
@@ -140,8 +136,6 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
           },
         ),
       );
-    } else {
-//      TODO 模型没有注册需要更新本软件或者打开方式不支持
     }
 //    await _IoTDeviceMap.clear();
     getAllIoTDevice();

@@ -13,8 +13,6 @@ class InfoPage extends StatelessWidget {
     _result.add("设备型号:${device.info["model"]}");
     _result.add("物理地址:${device.info["mac"]}");
     _result.add("id:${device.info["id"]}");
-    _result.add("支持的界面:${device.info["ui-support"]}");
-    _result.add("首选界面:${device.info["ui-first"]}");
     _result.add("固件作者:${device.info["author"]}");
     _result.add("邮件:${device.info["email"]}");
     _result.add("主页:${device.info["home-page"]}");
