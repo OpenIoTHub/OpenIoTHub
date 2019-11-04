@@ -5,6 +5,8 @@ import 'package:nat_explorer/pb/service.pbgrpc.dart';
 class PortService {
 //  基础url，如：http://127.0.0.1:3679,不带根/
   String baseUrl;
+  String ip;
+  int port;
 
 //  是否是在本内外的设备
   bool noProxy = false;
@@ -15,5 +17,5 @@ class PortService {
 //  设备的注册信息
   Map<String, dynamic> info;
 
-  PortService({this.portConfig, this.info, this.noProxy, this.baseUrl});
+  PortService({this.portConfig, this.info, this.noProxy, this.baseUrl, this.ip, this.port});
 }

@@ -26,13 +26,7 @@ class UART2TCPStatus extends State<UART2TCPPage> with TickerProviderStateMixin {
 
   @override
   Future initState() async {
-    String addr = widget.device.noProxy
-        ? widget.device.portConfig.device.addr
-        : Config.webgRpcIp;
-    int port = widget.device.noProxy ? widget.device.portConfig
-        .remotePort : widget.device.portConfig.localProt;
-    print("===addr:$addr,port:$port");
-    uartSockt = await Socket.connect(addr, port);
+    uartSockt = await Socket.connect(widget.device.ip, widget.device.port);
     uartSockt.listen((Uint8List msg){
       _submitMsg(false,utf8.decode(msg));
     },cancelOnError: true);

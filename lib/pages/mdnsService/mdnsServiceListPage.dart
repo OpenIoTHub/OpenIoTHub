@@ -115,7 +115,6 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     // 查看设备的UI，1.native，2.web
     // 写成独立的组件，支持刷新
     String model = device.info["model"];
-    String uiFirst = device.info["ui-first"];
 
     if (ModelsMap.modelsMap.containsKey(model)) {
       await Navigator.of(context).push(
@@ -262,11 +261,14 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       }
     }
     //尝试从http api获取信息，可能会产生覆盖
-    String baseUrl;
+    String ip;
+    int port;
     if (noProxy) {
-      baseUrl = "http://${portConfig.device.addr}:${portConfig.remotePort}";
+      ip = portConfig.device.addr;
+      port = portConfig.remotePort;
     } else {
-      baseUrl = "http://${Config.webgRpcIp}:${portConfig.localProt}";
+      ip = Config.webgRpcIp;
+      port = portConfig.localProt;
     }
     print("===text3:${info}");
 //    将一些不符合条件的服务排除在列表之外
@@ -278,21 +280,16 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     portConfig.description = info["name"];
 
 //      在没有重复的情况下直接加入列表，有重复则本内外的替代远程的
-    if (!_IoTDeviceMap.containsKey(info["id"])) {
+    if (!_IoTDeviceMap.containsKey(info["id"]) || (!_IoTDeviceMap[info["id"]].noProxy && noProxy)) {
       setState(() {
         _IoTDeviceMap[info["id"]] = PortService(
             portConfig: portConfig,
             info: info,
             noProxy: noProxy,
-            baseUrl: baseUrl);
-      });
-    } else if (!_IoTDeviceMap[info["id"]].noProxy && noProxy) {
-      setState(() {
-        _IoTDeviceMap[info["id"]] = PortService(
-            portConfig: portConfig,
-            info: info,
-            noProxy: noProxy,
-            baseUrl: baseUrl);
+            baseUrl: "http://${ip}:${port}",
+            ip: ip,
+            port: port
+        );
       });
     }
 //    TODO 判断此配置的合法性 verify()

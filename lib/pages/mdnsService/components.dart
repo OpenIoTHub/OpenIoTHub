@@ -8,5 +8,7 @@ export './devices/seial315433.dart';
 export './devices/UART2TCP.dart';
 
 //mDNSService https://github.com/mDNSService
-export './mDNSService/web.dart';
+export './mDNSService/webUI.dart';
 export './mDNSService/webDAV.dart';
+export './mDNSService/aria2c.dart';
+export './mDNSService/mdnsResponser.dart';
