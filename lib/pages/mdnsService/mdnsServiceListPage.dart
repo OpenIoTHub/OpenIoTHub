@@ -114,7 +114,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
   void _pushDeviceServiceTypes(PortService device) async {
     // 查看设备的UI，1.native，2.web
     // 写成独立的组件，支持刷新
-    String model = device.info["model"];
+    String model = device.info["model"].replaceAll("#",".");
 
     if (ModelsMap.modelsMap.containsKey(model)) {
       await Navigator.of(context).push(
