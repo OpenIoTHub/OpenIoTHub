@@ -10,7 +10,7 @@ class InfoPage extends StatelessWidget {
     //设备信息
     final List _result = [];
     _result.add("设备名称:${device.info["name"]}");
-    _result.add("设备型号:${device.info["model"]}");
+    _result.add("设备型号:${device.info["model"].replaceAll("#",".")}");
     _result.add("物理地址:${device.info["mac"]}");
     _result.add("id:${device.info["id"]}");
     _result.add("固件作者:${device.info["author"]}");

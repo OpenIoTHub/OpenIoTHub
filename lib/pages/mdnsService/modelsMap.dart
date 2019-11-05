@@ -15,6 +15,12 @@ class ModelsMap {
         device: device,
       );
     },
+    //    斐讯TC1插排
+    PhicommTC1A1PluginPage.modelName: (PortService device) {
+      return PhicommTC1A1PluginPage(
+        device: device,
+      );
+    },
 //    DHT11,DTH22系列传感器
     DHTPage.modelName: (PortService device) {
       return DHTPage(
