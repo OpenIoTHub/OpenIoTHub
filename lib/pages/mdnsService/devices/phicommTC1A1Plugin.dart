@@ -105,6 +105,7 @@ class _PhicommTC1A1PluginPageState extends State<PhicommTC1A1PluginPage> {
                   Text(_realName[pair]),
                   Text(":"),
                   Text(_status[pair].toString()),
+                  Text("W"),
                 ],
               ),
             );
