@@ -42,7 +42,7 @@ class _WebDAVPageState extends State<WebDAVPage> {
                   _ls();
                 }else{
                   //TODO 文件，打开这个文件
-                  _openWithWeb(widget.serviceInfo.baseUrl + pair.path);
+                  _openWithWeb("http://${widget.serviceInfo.ip}:${widget.serviceInfo.port}" + pair.path);
                 }
               },
               child: ListTile(
@@ -93,11 +93,8 @@ class _WebDAVPageState extends State<WebDAVPage> {
   }
 
   _ls() async {
-    Client webDAV = Client(widget.serviceInfo.noProxy
-        ? widget.serviceInfo.portConfig.device.addr
-        : Config.webgRpcIp, "", "", "/", protocol: "http",
-        port: widget.serviceInfo.noProxy ? widget.serviceInfo.portConfig
-            .remotePort : widget.serviceInfo.portConfig.localProt);
+    Client webDAV = Client(widget.serviceInfo.ip, "", "", "/", protocol: "http",
+        port: widget.serviceInfo.port);
     try{
       List<FileInfo> listFileRst = await webDAV.ls(pathHistory.last);
       print("listFileRst:$listFileRst");

@@ -28,7 +28,7 @@ class _WebPageState extends State<WebPage> {
   @override
   Widget build(BuildContext context) {
     return WebviewScaffold(
-      url: widget.serviceInfo.baseUrl,
+      url: "http://${widget.serviceInfo.ip}:${widget.serviceInfo.port}",
       appBar: new AppBar(title: new Text("浏览器"), actions: <Widget>[
         IconButton(
             icon: Icon(
@@ -44,7 +44,7 @@ class _WebPageState extends State<WebPage> {
               color: Colors.white,
             ),
             onPressed: () {
-              _launchURL(widget.serviceInfo.baseUrl);
+              _launchURL("http://${widget.serviceInfo.ip}:${widget.serviceInfo.port}");
             })
       ]),
       withZoom: true,

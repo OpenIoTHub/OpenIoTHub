@@ -81,7 +81,7 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
   }
 
   _getCurrentStatus() async {
-    String url = "${widget.device.baseUrl}/status";
+    String url = "http://${widget.device.ip}:${widget.device.port}/status";
     http.Response response;
     try {
       response = await http.get(url).timeout(const Duration(seconds: 2));
@@ -128,7 +128,7 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
                     onPressed: () async {
                       try {
                         String url =
-                            "${widget.device.baseUrl}/rename?name=${_name_controller.text}";
+                            "http://${widget.device.ip}:${widget.device.port}/rename?name=${_name_controller.text}";
                         http.get(url).timeout(const Duration(seconds: 2));
                       } catch (e) {
                         print(e.toString());
@@ -156,7 +156,7 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
   _changeSwitchStatus() async {
     String url;
     url =
-        "${widget.device.baseUrl}/led?status=${ledBottonStatus == "on" ? "off" : "on"}";
+        "http://${widget.device.ip}:${widget.device.port}/led?status=${ledBottonStatus == "on" ? "off" : "on"}";
     http.Response response;
     try {
       response = await http.get(url).timeout(const Duration(seconds: 2));

@@ -192,7 +192,7 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
   }
 
   _getCurrentStatus() async {
-    String url = "${widget.device.baseUrl}/status";
+    String url = "http://${widget.device.ip}:${widget.device.port}/status";
     http.Response response;
     try {
       response = await http.get(url).timeout(const Duration(seconds: 2));
@@ -252,7 +252,7 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
                     onPressed: () async {
                       try {
                         String url =
-                            "${widget.device.baseUrl}/rename?name=${_name_controller.text}";
+                            "http://${widget.device.ip}:${widget.device.port}/rename?name=${_name_controller.text}";
                         http
                             .get(url)
                             .timeout(const Duration(seconds: 2))
@@ -292,7 +292,7 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
                 content: Container(
                     height: 150,
                     child: UploadOTAPage(
-                      url: "${widget.device.baseUrl}/update",
+                      url: "http://${widget.device.ip}:${widget.device.port}/update",
                     )),
                 actions: <Widget>[
                   FlatButton(
@@ -307,9 +307,9 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
   _changeSwitchStatus(String name) async {
     String url;
     if (_status[name]) {
-      url = "${widget.device.baseUrl}/switch?off=$name";
+      url = "http://${widget.device.ip}:${widget.device.port}/switch?off=$name";
     } else {
-      url = "${widget.device.baseUrl}/switch?on=$name";
+      url = "http://${widget.device.ip}:${widget.device.port}/switch?on=$name";
     }
     http.Response response;
     try {

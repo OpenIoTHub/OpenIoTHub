@@ -286,7 +286,6 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
             portConfig: portConfig,
             info: info,
             noProxy: noProxy,
-            baseUrl: "http://${ip}:${port}",
             ip: ip,
             port: port
         );
@@ -330,12 +329,12 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
                 ),
                 onPressed: () async {
                   await Navigator.of(context).pop();
-                  _launchURL(device.baseUrl);
+//                  _launchURL(device.baseUrl);
                 })
           ]),
           body: Builder(builder: (BuildContext context) {
             return WebView(
-              initialUrl: device.baseUrl,
+//              initialUrl: device.baseUrl,
             );
           }));
 

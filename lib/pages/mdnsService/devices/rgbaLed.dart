@@ -226,7 +226,7 @@ class _RGBALedPageState extends State<RGBALedPage> {
                     onPressed: () async {
                       try {
                         String url =
-                            "${widget.device.baseUrl}/rename?name=${_name_controller.text}";
+                            "http://${widget.device.ip}:${widget.device.port}/rename?name=${_name_controller.text}";
                         http
                             .get(url)
                             .timeout(const Duration(seconds: 2))
@@ -266,7 +266,7 @@ class _RGBALedPageState extends State<RGBALedPage> {
                 content: Container(
                     height: 150,
                     child: UploadOTAPage(
-                      url: "${widget.device.baseUrl}/update",
+                      url: "http://${widget.device.ip}:${widget.device.port}/update",
                     )),
                 actions: <Widget>[
                   FlatButton(
@@ -281,9 +281,9 @@ class _RGBALedPageState extends State<RGBALedPage> {
   _changeSwitchStatus() async {
     String url;
     if (_status[color].alpha == 0) {
-      url = "${widget.device.baseUrl}/set?b=255";
+      url = "http://${widget.device.ip}:${widget.device.port}/set?b=255";
     } else {
-      url = "${widget.device.baseUrl}/set?b=0";
+      url = "http://${widget.device.ip}:${widget.device.port}/set?b=0";
     }
     try {
       await http.get(url).timeout(const Duration(seconds: 2));
@@ -301,7 +301,7 @@ class _RGBALedPageState extends State<RGBALedPage> {
   _changeColorStatus(Color c) async {
     Color tempColor = Color.fromARGB(0, c.red, c.green, c.blue);
     String url =
-        "${widget.device.baseUrl}/set?c=${tempColor.value.toRadixString(16)}&b=${c.alpha}";
+        "http://${widget.device.ip}:${widget.device.port}/set?c=${tempColor.value.toRadixString(16)}&b=${c.alpha}";
     try {
       if (!_requsting) {
         _requsting = true;
@@ -332,7 +332,7 @@ class _RGBALedPageState extends State<RGBALedPage> {
   }
 
   _setMode(int newValue) async {
-    String url = "${widget.device.baseUrl}/set?m=${newValue.toString()}";
+    String url = "http://${widget.device.ip}:${widget.device.port}/set?m=${newValue.toString()}";
     try {
       await http.get(url).timeout(const Duration(seconds: 2));
       setState(() {
@@ -345,7 +345,7 @@ class _RGBALedPageState extends State<RGBALedPage> {
   }
 
   _setSpeed(String cmd) async {
-    String url = "${widget.device.baseUrl}/set?s=${cmd}";
+    String url = "http://${widget.device.ip}:${widget.device.port}/set?s=${cmd}";
     try {
       await http.get(url).timeout(const Duration(seconds: 2));
     } catch (e) {
