@@ -51,6 +51,25 @@ class _WebPageState extends State<WebPage> {
       resizeToAvoidBottomInset:true,
     );
 
+//    解决退出没有断连的问题
+//    return Scaffold(
+//        appBar: new AppBar(title: new Text("网页浏览器"), actions: <Widget>[
+//          IconButton(
+//              icon: Icon(
+//                Icons.open_in_browser,
+//                color: Colors.white,
+//              ),
+//              onPressed: () async {
+//                await Navigator.of(context).pop();
+////                  _launchURL(device.baseUrl);
+//              })
+//        ]),
+//        body: Builder(builder: (BuildContext context) {
+//          return WebView(
+////              initialUrl: device.baseUrl,
+//          );
+//        }));
+
   }
 
   _info() async {

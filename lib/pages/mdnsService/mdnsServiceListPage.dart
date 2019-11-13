@@ -143,7 +143,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
   Future<List<SessionConfig>> getAllSession() async {
     try {
       final response = await SessionApi.getAllSession();
-      print('Greeter client received: ${response.sessionConfigs}');
+      print('getAllSession received: ${response.sessionConfigs}');
       return response.sessionConfigs;
     } catch (e) {
       List<SessionConfig> list = [];
@@ -205,12 +205,6 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
                   content: Text("失败原因：$e"),
                   actions: <Widget>[
                     FlatButton(
-                      child: Text("取消"),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                    FlatButton(
                       child: Text("确认"),
                       onPressed: () {
                         Navigator.of(context).pop();
@@ -227,7 +221,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
         for (int i = 0; i < s.length; i++) {
           SessionApi.refreshmDNSServices(s[i]);
         }
-      }).then((_) async {
+      }).then((_) {
 //        await _IoTDeviceMap.clear();
         getAllIoTDevice();
       });
@@ -292,53 +286,5 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       });
     }
 //    TODO 判断此配置的合法性 verify()
-  }
-
-  _launchURL(String url) async {
-    AndroidIntent intent = AndroidIntent(
-      action: 'action_view',
-      data: url,
-    );
-    await intent.launch();
-  }
-
-  _openWithWeb(PortService device) async {
-    Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-//      return WebviewScaffold(
-//        url: device.baseUrl,
-//        appBar: new AppBar(title: new Text("网页浏览器"), actions: <Widget>[
-//          IconButton(
-//              icon: Icon(
-//                Icons.open_in_browser,
-//                color: Colors.white,
-//              ),
-//              onPressed: () {
-//                _launchURL(device.baseUrl);
-//              })
-//        ]),
-//        withZoom: true,
-//        resizeToAvoidBottomInset:true,
-//      );
-
-      return Scaffold(
-          appBar: new AppBar(title: new Text("网页浏览器"), actions: <Widget>[
-            IconButton(
-                icon: Icon(
-                  Icons.open_in_browser,
-                  color: Colors.white,
-                ),
-                onPressed: () async {
-                  await Navigator.of(context).pop();
-//                  _launchURL(device.baseUrl);
-                })
-          ]),
-          body: Builder(builder: (BuildContext context) {
-            return WebView(
-//              initialUrl: device.baseUrl,
-            );
-          }));
-
-//      return WebPage(title: "浏览器",url: device.baseUrl,);
-    }));
   }
 }
