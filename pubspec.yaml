@@ -25,8 +25,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   #  golang的后台服务
   flutter_natcloud_service:
-#    git: https://github.com/OpenIoTHub/flutter_natcloud_service
-    git: https://git.iotserv.com/iotserv/flutter_natcloud_service
+    git: https://github.com/OpenIoTHub/flutter_natcloud_service
 #    path: /Users/iotserv/AndroidStudioProjects/flutter_natcloud_service
 #    path: C:\Users\Farry\StudioProjects\flutter_natcloud_service
   http: ^0.12.0+2
@@ -40,7 +39,7 @@ dependencies:
   #  打开url
   url_launcher: ^5.0.2
   #  安卓intent调用其他程序
-  android_intent: ^0.3.2
+  android_intent: any
   #  数据存储
   shared_preferences: ^0.5.2
   #  事件总线
@@ -75,15 +74,12 @@ dependencies:
   #  w60x的OneShot配网
   flutter_oneshot:
     git: https://github.com/iotdevice/flutter_oneshot
-#    git: https://gitee.com/iotdevice/flutter_oneshot
   # 庆科easylink
   flutter_easylink:
     git: https://github.com/iotdevice/flutter_easylink
-#     git: https://gitee.com/iotdevice/flutter_easylink
   ## 汉枫smartlink
   flutter_smartlink:
     git: https://github.com/iotdevice/flutter_smartlink
-#     git: https://gitee.com/iotdevice/flutter_smartlink
   # AirKiss
   airkiss: ^1.0.1
   #dio HttpClient
@@ -93,7 +89,6 @@ dependencies:
   #  webDAV的文件浏览器
   webdav:
     git: https://github.com/OpenIoTHub/dart-webdav
-#    git: https://gitee.com/OpenIoTHub/dart-webdav
 
 
 dev_dependencies:
