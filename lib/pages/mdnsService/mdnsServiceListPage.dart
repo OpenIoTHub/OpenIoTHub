@@ -92,7 +92,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
             // 通过smartconfig添加设备
             return showDialog(
               context: context,
-              builder: (_) => EspSmartConfigTool(
+              builder: (_) => SmartConfigTool(
                 title: "添加设备",
                 needCallBack: true,
               ),

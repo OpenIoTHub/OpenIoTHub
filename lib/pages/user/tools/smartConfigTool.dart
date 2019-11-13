@@ -11,18 +11,18 @@ import 'package:flutter_easylink/flutter_easylink.dart';
 import 'package:flutter_smartlink/flutter_smartlink.dart';
 import 'package:airkiss/airkiss.dart';
 
-class EspSmartConfigTool extends StatefulWidget {
-  EspSmartConfigTool({Key key, this.title, this.needCallBack})
+class SmartConfigTool extends StatefulWidget {
+  SmartConfigTool({Key key, this.title, this.needCallBack})
       : super(key: key);
 
   final String title;
   final bool needCallBack;
 
   @override
-  _EspSmartConfigToolState createState() => _EspSmartConfigToolState();
+  _SmartConfigToolState createState() => _SmartConfigToolState();
 }
 
-class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
+class _SmartConfigToolState extends State<SmartConfigTool> {
   final int _smartConfigTypeNumber = 5;
   int _smartConfigRemainNumber;
   final Connectivity _connectivity = Connectivity();
@@ -40,7 +40,7 @@ class _EspSmartConfigToolState extends State<EspSmartConfigTool> {
   String _password = "";
   String _msg = "上面输入wifi密码开始设置设备联网";
 
-  _EspSmartConfigToolState() {
+  _SmartConfigToolState() {
     _ssidFilter.addListener(_ssidListen);
     _passwordFilter.addListener(_passwordListen);
     _bssidFilter.addListener(_bssidListen);

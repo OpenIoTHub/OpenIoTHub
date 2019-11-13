@@ -101,7 +101,7 @@ class ToolsTypePage extends StatelessWidget {
     if (title == "Smartconfig配网") {
       Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
 //        smartconfig 工具页面
-        return EspSmartConfigTool(
+        return SmartConfigTool(
           title: "Smartconfig配网",
           needCallBack: false,
         );
