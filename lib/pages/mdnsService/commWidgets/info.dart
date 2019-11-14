@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:nat_explorer/model/portService.dart';
 
 class InfoPage extends StatelessWidget {
   InfoPage({Key key, this.device}) : super(key: key);
-  dynamic device;
+  PortService device;
 
   // This widget is the root of your application.
   @override
@@ -19,7 +20,7 @@ class InfoPage extends StatelessWidget {
     _result.add("固件程序:${device.info["firmware-respository"]}");
     _result.add("固件版本:${device.info["firmware-version"]}");
     _result.add("本网设备:${device.noProxy ? "是" : "不是"}");
-    _result.add("设备地址:${device.baseUrl}");
+    _result.add("设备地址:http://${device.ip}:${device.port}");
 
     final tiles = _result.map(
       (pair) {

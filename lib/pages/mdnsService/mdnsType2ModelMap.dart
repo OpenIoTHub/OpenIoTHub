@@ -1,9 +1,6 @@
-import 'package:nat_explorer/pb/service.pbgrpc.dart';
-
 import '../../model/portService.dart';
-import './components.dart';
 
-class ModelsMap {
+class MDNS2ModelsMap {
   final Map<String, String> baseInfo = {
     "name": "OpenIoTHub Entity",
     "model": "com.iotserv.devices.web",

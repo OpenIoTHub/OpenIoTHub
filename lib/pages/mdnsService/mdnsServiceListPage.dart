@@ -1,9 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:nat_explorer/api/SessionApi.dart';
 import 'package:nat_explorer/api/Utils.dart';
 import 'package:nat_explorer/constants/Config.dart';
@@ -11,12 +8,10 @@ import 'package:nat_explorer/constants/Constants.dart';
 import 'package:nat_explorer/model/custom_theme.dart';
 import 'package:provider/provider.dart';
 import '../../model/portService.dart';
-import 'package:nat_explorer/pages/openWithChoice/webPage/webPage.dart';
+import 'mdnsType2ModelMap.dart';
 import 'package:nat_explorer/pages/user/tools/smartConfigTool.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
-import 'package:android_intent/android_intent.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 //统一导入全部设备类型
 import './modelsMap.dart';
@@ -50,13 +45,14 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     final tiles = _IoTDeviceMap.values.map(
       (pair) {
         var listItemContent = ListTile(
-          leading: Icon(Icons.devices,color: Provider.of<CustomTheme>(context).themeValue == "dark"
-              ? CustomThemes.dark.accentColor
-              : CustomThemes.light.accentColor),
+          leading: Icon(Icons.devices,
+              color: Provider.of<CustomTheme>(context).themeValue == "dark"
+                  ? CustomThemes.dark.accentColor
+                  : CustomThemes.light.accentColor),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Text(pair.info["name"],style: Constants.titleTextStyle),
+              Text(pair.info["name"], style: Constants.titleTextStyle),
             ],
           ),
           trailing: Constants.rightArrowIcon,
@@ -114,7 +110,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
   void _pushDeviceServiceTypes(PortService device) async {
     // 查看设备的UI，1.native，2.web
     // 写成独立的组件，支持刷新
-    String model = device.info["model"].replaceAll("#",".");
+    String model = device.info["model"].replaceAll("#", ".");
 
     if (ModelsMap.modelsMap.containsKey(model)) {
       await Navigator.of(context).push(
@@ -174,7 +170,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     }
   }
 
-  Future<void> addToIoTDeviceList(PortConfig portConfig, bool noProxy) async {
+  Future<void> addPortConfigs(PortConfig portConfig, bool noProxy) async {
     if (portConfig == null) {
       return;
     }
@@ -216,20 +212,25 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       return;
     }
     portConfig.description = info["name"];
+    PortService portService = PortService(
+        portConfig: portConfig,
+        info: info,
+        noProxy: noProxy,
+        ip: ip,
+        port: port);
+    addPortService(portService);
+//    TODO 判断此配置的合法性 verify()
+  }
 
+  Future<void> addPortService(PortService portService) async {
 //      在没有重复的情况下直接加入列表，有重复则本内外的替代远程的
-    if (!_IoTDeviceMap.containsKey(info["id"]) || (!_IoTDeviceMap[info["id"]].noProxy && noProxy)) {
+    if (!_IoTDeviceMap.containsKey(portService.info["id"]) ||
+        (!_IoTDeviceMap[portService.info["id"]].noProxy &&
+            portService.noProxy)) {
       setState(() {
-        _IoTDeviceMap[info["id"]] = PortService(
-            portConfig: portConfig,
-            info: info,
-            noProxy: noProxy,
-            ip: ip,
-            port: port
-        );
+        _IoTDeviceMap[portService.info["id"]] = portService;
       });
     }
-//    TODO 判断此配置的合法性 verify()
   }
 
   Future getIoTDeviceFromLocal() async {
@@ -247,23 +248,23 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
           portConfig.device = device;
           portConfig.remotePort = m.port;
           portConfig.mDNSInfo = m.mDNSInfo;
-          addToIoTDeviceList(portConfig, true);
+          addPortConfigs(portConfig, true);
         });
       });
     } catch (e) {
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
-              title: Text("从本地获取物联网列表失败："),
-              content: Text("失败原因：$e"),
-              actions: <Widget>[
-                FlatButton(
-                  child: Text("确认"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                )
-              ]));
+                  title: Text("从本地获取物联网列表失败："),
+                  content: Text("失败原因：$e"),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text("确认"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  ]));
     }
   }
 
@@ -271,16 +272,30 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     // TODO 从搜索到的mqtt组件中获取设备
     try {
       // 从远程获取设备
-      getAllSession().then((s) {
-        s.forEach((SessionConfig s) {
-          SessionApi.getAllTCP(s).then((t) {
+      getAllSession().then((List<SessionConfig> sessionConfigList) {
+        sessionConfigList.forEach((SessionConfig sessionConfig) {
+          SessionApi.getAllTCP(sessionConfig).then((t) {
             for (int j = 0; j < t.portConfigs.length; j++) {
               //  是否是iotdevice
               Map<String, dynamic> mDNSInfo =
-              jsonDecode(t.portConfigs[j].mDNSInfo);
+                  jsonDecode(t.portConfigs[j].mDNSInfo);
+//              先判断是不是 _iotdevice._tcp
               if (mDNSInfo['type'] == Config.mdnsCloudService) {
                 // TODO 是否含有/info，将portConfig里面的description换成、info中的name（这个name由设备管理）
-                addToIoTDeviceList(t.portConfigs[j], false);
+                addPortConfigs(t.portConfigs[j], false);
+              } else if (MDNS2ModelsMap.modelsMap
+                      .containsKey(mDNSInfo['type']) &&
+                  mDNSInfo['AddrIPv4'] is List &&
+                  mDNSInfo['AddrIPv4'].length > 0) {
+                // mDNS类型为其他需要兼容的类型，看看是否在mdnsType2ModelMap的key里面，如果在就转为通用组件
+                PortService portService =
+                    MDNS2ModelsMap.modelsMap[mDNSInfo['type']];
+                portService.ip = mDNSInfo['AddrIPv4'][0];
+                portService.port = mDNSInfo['port'];
+                portService.info["id"] =
+                    "$mDNSInfo['AddrIPv4']:$mDNSInfo['port']@${sessionConfig.runId}";
+                portService.noProxy = false;
+                addPortService(portService);
               }
             }
           });
@@ -290,19 +305,18 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
-              title: Text("从远程获取物联网列表失败："),
-              content: Text("失败原因：$e"),
-              actions: <Widget>[
-                FlatButton(
-                  child: Text("确认"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                )
-              ]));
+                  title: Text("从远程获取物联网列表失败："),
+                  content: Text("失败原因：$e"),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text("确认"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  ]));
     }
   }
-
 }
 
 //              print("mDNSInfo:$mDNSInfo");
