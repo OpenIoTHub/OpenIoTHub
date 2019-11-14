@@ -253,15 +253,17 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
         MDNSService allmDNSType = MDNSService();
         // 这里是name，实际传的是type
         allmDNSType.name = Config.mdnsTypeExplorer;
-        UtilApi.getAllmDNSServiceList(allmDNSType).then((MDNSServiceList allmDNSTypeResult) {
-          allmDNSTypeResult.mDNSServices.forEach((MDNSService m) {
+        UtilApi.getAllmDNSServiceList(allmDNSType).then((MDNSServiceList allmDNSTypeResult) async {
+          for (int j = 0; j < allmDNSTypeResult.mDNSServices.length; j++) {
+//          allmDNSTypeResult.mDNSServices.forEach((MDNSService m) {
+            MDNSService m = allmDNSTypeResult.mDNSServices[j];
             Map<String, dynamic> mDNSInfo =
             jsonDecode(m.mDNSInfo);
             if(mDNSInfo.containsKey("type") && MDNS2ModelsMap.modelsMap.containsKey(mDNSInfo["type"])){
               MDNSService config = MDNSService();
               // 这里是name，实际传的是type
               config.name = mDNSInfo["type"];
-              UtilApi.getAllmDNSServiceList(config).then((MDNSServiceList result) {
+              await UtilApi.getAllmDNSServiceList(config).then((MDNSServiceList result) {
                 result.mDNSServices.forEach((MDNSService m) {
                   PortService portService =
                   MDNS2ModelsMap.modelsMap[mDNSInfo['type']];
@@ -269,12 +271,12 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
                   portService.port = mDNSInfo['port'];
                   portService.info["id"] =
                   "${mDNSInfo['AddrIPv4']}:${mDNSInfo['port']}@local";
-                  portService.noProxy = false;
+                  portService.noProxy = true;
                   addPortService(portService);
                 });
               });
             }
-          });
+          };
         });
       });
     } catch (e) {
