@@ -11,4 +11,5 @@ class Config {
 
   static final String mdnsCloudService = '_iotdevice._tcp';
   static final String mdnsGatewayService = '_openiothub-gateway._tcp';
+  static final String mdnsTypeExplorer = '_services._dns-sd._udp';
 }

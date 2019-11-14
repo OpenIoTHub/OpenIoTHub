@@ -195,14 +195,12 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       }
     }
     //尝试从http api获取信息，可能会产生覆盖
-    String ip;
-    int port;
+    // 初始化为代理情况下的ip和port的取值
+    String ip = Config.webgRpcIp;
+    int port = portConfig.localProt;
     if (noProxy) {
       ip = portConfig.device.addr;
       port = portConfig.remotePort;
-    } else {
-      ip = Config.webgRpcIp;
-      port = portConfig.localProt;
     }
     print("===text3:${info}");
 //    将一些不符合条件的服务排除在列表之外
@@ -237,11 +235,11 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     // TODO 从搜索到的mqtt组件中获取设备
     try {
       // 先从本机所处网络获取设备，再获取代理的设备
-      MDNSService config = MDNSService();
-//      这里是name，实际传的是type
-      config.name = Config.mdnsCloudService;
-      UtilApi.getAllmDNSServiceList(config).then((v) {
-        v.mDNSServices.forEach((m) {
+      MDNSService iotDeviceConfig = MDNSService();
+      // 这里是name，实际传的是type
+      iotDeviceConfig.name = Config.mdnsCloudService;
+      UtilApi.getAllmDNSServiceList(iotDeviceConfig).then((MDNSServiceList iotDeviceResult) {
+        iotDeviceResult.mDNSServices.forEach((MDNSService m) {
           PortConfig portConfig = PortConfig();
           Device device = Device();
           device.addr = m.iP;
@@ -249,6 +247,34 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
           portConfig.remotePort = m.port;
           portConfig.mDNSInfo = m.mDNSInfo;
           addPortConfigs(portConfig, true);
+        });
+      }).then((_){
+        // 获取其他需要兼容的mDNS类型
+        MDNSService allmDNSType = MDNSService();
+        // 这里是name，实际传的是type
+        allmDNSType.name = Config.mdnsTypeExplorer;
+        UtilApi.getAllmDNSServiceList(allmDNSType).then((MDNSServiceList allmDNSTypeResult) {
+          allmDNSTypeResult.mDNSServices.forEach((MDNSService m) {
+            Map<String, dynamic> mDNSInfo =
+            jsonDecode(m.mDNSInfo);
+            if(mDNSInfo.containsKey("type") && MDNS2ModelsMap.modelsMap.containsKey(mDNSInfo["type"])){
+              MDNSService config = MDNSService();
+              // 这里是name，实际传的是type
+              config.name = mDNSInfo["type"];
+              UtilApi.getAllmDNSServiceList(config).then((MDNSServiceList result) {
+                result.mDNSServices.forEach((MDNSService m) {
+                  PortService portService =
+                  MDNS2ModelsMap.modelsMap[mDNSInfo['type']];
+                  portService.ip = mDNSInfo['AddrIPv4'][0];
+                  portService.port = mDNSInfo['port'];
+                  portService.info["id"] =
+                  "$mDNSInfo['AddrIPv4']:$mDNSInfo['port']@local";
+                  portService.noProxy = false;
+                  addPortService(portService);
+                });
+              });
+            }
+          });
         });
       });
     } catch (e) {
