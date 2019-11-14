@@ -140,7 +140,7 @@ class UART2TCPStatus extends State<UART2TCPPage> with TickerProviderStateMixin {
       MaterialPageRoute(
         builder: (context) {
           return InfoPage(
-            device: widget.device,
+            portService: widget.device,
           );
         },
       ),

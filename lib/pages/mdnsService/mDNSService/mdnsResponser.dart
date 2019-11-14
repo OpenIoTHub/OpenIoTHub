@@ -89,7 +89,7 @@ class _MDNSResponserPageState extends State<MDNSResponserPage> {
       MaterialPageRoute(
         builder: (context) {
           return InfoPage(
-            device: widget.serviceInfo,
+            portService: widget.serviceInfo,
           );
         },
       ),

@@ -126,7 +126,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
         MaterialPageRoute(
           builder: (context) {
             return InfoPage(
-              device: device,
+              portService: device,
             );
           },
         ),

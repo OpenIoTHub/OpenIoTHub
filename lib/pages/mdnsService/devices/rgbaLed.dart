@@ -251,7 +251,7 @@ class _RGBALedPageState extends State<RGBALedPage> {
       MaterialPageRoute(
         builder: (context) {
           return InfoPage(
-            device: widget.device,
+            portService: widget.device,
           );
         },
       ),

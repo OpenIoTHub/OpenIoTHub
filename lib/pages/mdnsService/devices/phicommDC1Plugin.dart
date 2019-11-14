@@ -277,7 +277,7 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
       MaterialPageRoute(
         builder: (context) {
           return InfoPage(
-            device: widget.device,
+            portService: widget.device,
           );
         },
       ),

@@ -146,7 +146,7 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
       MaterialPageRoute(
         builder: (context) {
           return InfoPage(
-            device: widget.device,
+            portService: widget.device,
           );
         },
       ),

@@ -140,7 +140,7 @@ class _Serial315433PageState extends State<Serial315433Page> {
       MaterialPageRoute(
         builder: (context) {
           return InfoPage(
-            device: widget.device,
+            portService: widget.device,
           );
         },
       ),

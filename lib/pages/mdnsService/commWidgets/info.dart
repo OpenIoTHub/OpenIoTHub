@@ -2,25 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:nat_explorer/model/portService.dart';
 
 class InfoPage extends StatelessWidget {
-  InfoPage({Key key, this.device}) : super(key: key);
-  PortService device;
+  InfoPage({Key key, this.portService}) : super(key: key);
+  PortService portService;
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     //设备信息
     final List _result = [];
-    _result.add("设备名称:${device.info["name"]}");
-    _result.add("设备型号:${device.info["model"].replaceAll("#",".")}");
-    _result.add("物理地址:${device.info["mac"]}");
-    _result.add("id:${device.info["id"]}");
-    _result.add("固件作者:${device.info["author"]}");
-    _result.add("邮件:${device.info["email"]}");
-    _result.add("主页:${device.info["home-page"]}");
-    _result.add("固件程序:${device.info["firmware-respository"]}");
-    _result.add("固件版本:${device.info["firmware-version"]}");
-    _result.add("本网设备:${device.noProxy ? "是" : "不是"}");
-    _result.add("设备地址:http://${device.ip}:${device.port}");
+    _result.add("设备名称:${portService.info["name"]}");
+    _result.add("设备型号:${portService.info["model"].replaceAll("#",".")}");
+    _result.add("物理地址:${portService.info["mac"]}");
+    _result.add("id:${portService.info["id"]}");
+    _result.add("固件作者:${portService.info["author"]}");
+    _result.add("邮件:${portService.info["email"]}");
+    _result.add("主页:${portService.info["home-page"]}");
+    _result.add("固件程序:${portService.info["firmware-respository"]}");
+    _result.add("固件版本:${portService.info["firmware-version"]}");
+    _result.add("本网设备:${portService.noProxy ? "是" : "不是"}");
+    _result.add("设备地址:http://${portService.ip}:${portService.port}");
 
     final tiles = _result.map(
       (pair) {

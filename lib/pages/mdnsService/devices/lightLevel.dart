@@ -203,7 +203,7 @@ class _LightLevelPageState extends State<LightLevelPage> {
       MaterialPageRoute(
         builder: (context) {
           return InfoPage(
-            device: widget.device,
+            portService: widget.device,
           );
         },
       ),

@@ -79,7 +79,7 @@ class _WebPageState extends State<WebPage> {
       MaterialPageRoute(
         builder: (context) {
           return InfoPage(
-            device: widget.serviceInfo,
+            portService: widget.serviceInfo,
           );
         },
       ),

@@ -112,7 +112,7 @@ class _WebDAVPageState extends State<WebDAVPage> {
       MaterialPageRoute(
         builder: (context) {
           return InfoPage(
-            device: widget.serviceInfo,
+            portService: widget.serviceInfo,
           );
         },
       ),

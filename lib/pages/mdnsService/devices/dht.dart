@@ -209,7 +209,7 @@ class _DHTPageState extends State<DHTPage> {
       MaterialPageRoute(
         builder: (context) {
           return InfoPage(
-            device: widget.device,
+            portService: widget.device,
           );
         },
       ),
