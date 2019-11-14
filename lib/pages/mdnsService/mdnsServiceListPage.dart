@@ -157,6 +157,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     try {
       // 先从本机所处网络获取设备，再获取代理的设备
       MDNSService config = MDNSService();
+//      这里是name，实际传的是type
       config.name = Config.mdnsCloudService;
       UtilApi.getAllmDNSServiceList(config).then((v) {
         v.mDNSServices.forEach((m) {
