@@ -154,65 +154,8 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
 
   Future getAllIoTDevice() async {
     // TODO 从搜索到的mqtt组件中获取设备
-    try {
-      // 先从本机所处网络获取设备，再获取代理的设备
-      MDNSService config = MDNSService();
-//      这里是name，实际传的是type
-      config.name = Config.mdnsCloudService;
-      UtilApi.getAllmDNSServiceList(config).then((v) {
-        v.mDNSServices.forEach((m) {
-          PortConfig portConfig = PortConfig();
-          Device device = Device();
-          device.addr = m.iP;
-          portConfig.device = device;
-          portConfig.remotePort = m.port;
-          portConfig.mDNSInfo = m.mDNSInfo;
-          addToIoTDeviceList(portConfig, true);
-        });
-      });
-      // 从远程获取设备
-      getAllSession().then((s) {
-        s.forEach((SessionConfig s) {
-          SessionApi.getAllTCP(s).then((t) {
-            for (int j = 0; j < t.portConfigs.length; j++) {
-              //  是否是iotdevice
-              Map<String, dynamic> mDNSInfo =
-                  jsonDecode(t.portConfigs[j].mDNSInfo);
-//              print("mDNSInfo:$mDNSInfo");
-//              {
-//                "name": "esp-switch-80:7D:3A:72:64:6F",
-//                "type": "_iotdevice._tcp",
-//                "domain": "local",
-//                "hostname": "esp-switch-80:7D:3A:72:64:6F.local.",
-//                "port": 80,
-//                "text": null,
-//                "ttl": 4500,
-//                "AddrIPv4": ["192.168.0.3"],
-//                "AddrIPv6": null
-//              }
-              if (mDNSInfo['type'] == Config.mdnsCloudService) {
-                // TODO 是否含有/info，将portConfig里面的description换成、info中的name（这个name由设备管理）
-                addToIoTDeviceList(t.portConfigs[j], false);
-              }
-            }
-          });
-        });
-      });
-    } catch (e) {
-      showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-                  title: Text("获取物联网列表失败："),
-                  content: Text("失败原因：$e"),
-                  actions: <Widget>[
-                    FlatButton(
-                      child: Text("确认"),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    )
-                  ]));
-    }
+    getIoTDeviceFromLocal();
+    getIoTDeviceFromRemote();
   }
 
   Future refreshmDNSServices() async {
@@ -288,4 +231,89 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     }
 //    TODO 判断此配置的合法性 verify()
   }
+
+  Future getIoTDeviceFromLocal() async {
+    // TODO 从搜索到的mqtt组件中获取设备
+    try {
+      // 先从本机所处网络获取设备，再获取代理的设备
+      MDNSService config = MDNSService();
+//      这里是name，实际传的是type
+      config.name = Config.mdnsCloudService;
+      UtilApi.getAllmDNSServiceList(config).then((v) {
+        v.mDNSServices.forEach((m) {
+          PortConfig portConfig = PortConfig();
+          Device device = Device();
+          device.addr = m.iP;
+          portConfig.device = device;
+          portConfig.remotePort = m.port;
+          portConfig.mDNSInfo = m.mDNSInfo;
+          addToIoTDeviceList(portConfig, true);
+        });
+      });
+    } catch (e) {
+      showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+              title: Text("从本地获取物联网列表失败："),
+              content: Text("失败原因：$e"),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text("确认"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ]));
+    }
+  }
+
+  Future getIoTDeviceFromRemote() async {
+    // TODO 从搜索到的mqtt组件中获取设备
+    try {
+      // 从远程获取设备
+      getAllSession().then((s) {
+        s.forEach((SessionConfig s) {
+          SessionApi.getAllTCP(s).then((t) {
+            for (int j = 0; j < t.portConfigs.length; j++) {
+              //  是否是iotdevice
+              Map<String, dynamic> mDNSInfo =
+              jsonDecode(t.portConfigs[j].mDNSInfo);
+              if (mDNSInfo['type'] == Config.mdnsCloudService) {
+                // TODO 是否含有/info，将portConfig里面的description换成、info中的name（这个name由设备管理）
+                addToIoTDeviceList(t.portConfigs[j], false);
+              }
+            }
+          });
+        });
+      });
+    } catch (e) {
+      showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+              title: Text("从远程获取物联网列表失败："),
+              content: Text("失败原因：$e"),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text("确认"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ]));
+    }
+  }
+
 }
+
+//              print("mDNSInfo:$mDNSInfo");
+//              {
+//                "name": "esp-switch-80:7D:3A:72:64:6F",
+//                "type": "_iotdevice._tcp",
+//                "domain": "local",
+//                "hostname": "esp-switch-80:7D:3A:72:64:6F.local.",
+//                "port": 80,
+//                "text": null,
+//                "ttl": 4500,
+//                "AddrIPv4": ["192.168.0.3"],
+//                "AddrIPv6": null
+//              }
