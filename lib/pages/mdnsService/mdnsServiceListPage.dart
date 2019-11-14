@@ -268,7 +268,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
                   portService.ip = mDNSInfo['AddrIPv4'][0];
                   portService.port = mDNSInfo['port'];
                   portService.info["id"] =
-                  "$mDNSInfo['AddrIPv4']:$mDNSInfo['port']@local";
+                  "${mDNSInfo['AddrIPv4']}:${mDNSInfo['port']}@local";
                   portService.noProxy = false;
                   addPortService(portService);
                 });
@@ -319,7 +319,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
                 portService.ip = mDNSInfo['AddrIPv4'][0];
                 portService.port = mDNSInfo['port'];
                 portService.info["id"] =
-                    "$mDNSInfo['AddrIPv4']:$mDNSInfo['port']@${sessionConfig.runId}";
+                    "${mDNSInfo['AddrIPv4']}:${mDNSInfo['port']}@${sessionConfig.runId}";
                 portService.noProxy = false;
                 addPortService(portService);
               }
