@@ -21,7 +21,9 @@ jobs:
     - curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
     - git lfs install
     script:
+    - "./flutter/bin/flutter doctor -v"
     - "./flutter/bin/flutter upgrade"
+    - "./flutter/bin/flutter pub get"
     - "./flutter/bin/flutter test"
     - "./flutter/bin/flutter version v1.9.0"
   - stage: deployAPK
