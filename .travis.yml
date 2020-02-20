@@ -23,6 +23,7 @@ jobs:
     script:
     - "./flutter/bin/flutter upgrade"
     - "./flutter/bin/flutter test"
+    - "./flutter/bin/flutter version v1.9.0"
   - stage: deployAPK
     os: linux
     language: android
