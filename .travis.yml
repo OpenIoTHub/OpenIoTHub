@@ -1,0 +1,93 @@
+cache:
+  directories:
+  - "$HOME/.pub-cache"
+jobs:
+  include:
+  - stage: test
+    os: linux
+    language: generic
+    sudo: false
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        packages:
+        - libstdc++6
+        - fonts-droid
+    before_script:
+    - git clone https://github.com/flutter/flutter.git -b beta --depth 1
+    script:
+    - "./flutter/bin/flutter upgrade"
+    - "./flutter/bin/flutter test"
+  - stage: deployAPK
+    os: linux
+    language: android
+    licenses:
+    - android-sdk-preview-license-.+
+    - android-sdk-license-.+
+    - google-gdk-license-.+
+    android:
+      components:
+      - tools
+      - platform-tools
+      - build-tools-27.0.3
+      - android-27
+      - sys-img-armeabi-v7a-google_apis-25
+      - extra-android-m2repository
+      - extra-google-m2repository
+      - extra-google-android-support
+    jdk: oraclejdk8
+    sudo: false
+    env: APK_OUTPUT=build/app/outputs/apk/release/app-release.apk
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        packages:
+        - libstdc++6
+        - fonts-droid
+    before_script:
+    - openssl aes-256-cbc -K $encrypted_faf484425141_key -iv $encrypted_faf484425141_iv -in key.properties.enc -out android/key.properties -d
+    - openssl aes-256-cbc -K $encrypted_a1a476bece9a_key -iv $encrypted_a1a476bece9a_iv -in feng.jks.enc -out android/app/feng.jks -d
+    - git clone https://github.com/flutter/flutter.git -b beta --depth 1
+    script:
+    - "./flutter/bin/flutter upgrade"
+    - "./flutter/bin/flutter -v build apk --release"
+    deploy:
+      provider: releases
+      skip_cleanup: true
+      api_key:
+        secure: uDRE0d3gZ5JYhl/jBiDp5zv32fHW0WMhJuhg/H4oDOxvYvyCD/1dmBMb00fFFL4gDFxl96wCGMnFcn3f55Xy8IeVMocvrQrIwRkEWsD+4vpzxFr+EBNObjyFW/jQJR3FNXpOJfWNt5unpRsmwWhUpuo7s/PJ1ONqZTctt0VYHXHY5ACmdPx9Tf6U0iAUloQyBeIfYtLN82fB4gewx7sKCnQulerGquXduthVj8URXZzS/3jMJqPL2cqGsjKZ79DPDLzVAulMmhFHs6VVeM2F2HO/GKx58ApLkltFNdoXjdmGSlvuqT1ZAJ0fOlVW78hEVmpxbbQlDPztHThFDlag4uPnlgAFm+OUZ5XXJBeJGkrGU6zRGIcghTQng9JQ3wvL1LVr+2c/MVU8n7+E2SQs7f7TF8kvSm4ok2FpH5zgEuiTIZSNicJO4ceLtigRLySnmbjgKXL1f9O1P8OENuU4hFJ+6WNJtSkzG/MeDGUKPE29rZxA62/+gmQAywDCq7R70kUae4P0XHeneorWnSUyuHhIyRVl0fY22q7U8cY6eTmARTDRKVlykFLvUN2KV8HG2f+VReG64IX93Ge48YI8H8QqeY38HzJQ0nuuF1W84omOFJKtLdtJhg2/5uiaPe7kQ1SmIcrIuqLLZqA0GelP+wLEOtGCm6bMpZdeJECPRbw=
+      file: $APK_OUTPUT
+      on:
+        tags: true
+  - stage: deployIPA
+    os: osx
+    language: objective-c
+    osx_image: xcode9.2
+    before_script:
+    - pip2 install six
+    - brew update
+    - brew install libimobiledevice
+    - brew install ideviceinstaller
+    - brew install ios-deploy
+    - git clone https://github.com/flutter/flutter.git -b beta --depth 1
+    script:
+    - "./flutter/bin/flutter upgrade"
+    - gem install cocoapods
+    - pod setup
+    - "./flutter/bin/flutter -v build ios --release --no-codesign"
+    - mkdir Runner
+    - mkdir Runner/Payload
+    - cp -r build/ios/iphoneos/Runner.app Runner/Payload/Runner.app
+    - cd Runner
+    - zip -r Runner.ipa Payload
+    deploy:
+      provider: releases
+      skip_cleanup: true
+      api_key:
+        secure: uDRE0d3gZ5JYhl/jBiDp5zv32fHW0WMhJuhg/H4oDOxvYvyCD/1dmBMb00fFFL4gDFxl96wCGMnFcn3f55Xy8IeVMocvrQrIwRkEWsD+4vpzxFr+EBNObjyFW/jQJR3FNXpOJfWNt5unpRsmwWhUpuo7s/PJ1ONqZTctt0VYHXHY5ACmdPx9Tf6U0iAUloQyBeIfYtLN82fB4gewx7sKCnQulerGquXduthVj8URXZzS/3jMJqPL2cqGsjKZ79DPDLzVAulMmhFHs6VVeM2F2HO/GKx58ApLkltFNdoXjdmGSlvuqT1ZAJ0fOlVW78hEVmpxbbQlDPztHThFDlag4uPnlgAFm+OUZ5XXJBeJGkrGU6zRGIcghTQng9JQ3wvL1LVr+2c/MVU8n7+E2SQs7f7TF8kvSm4ok2FpH5zgEuiTIZSNicJO4ceLtigRLySnmbjgKXL1f9O1P8OENuU4hFJ+6WNJtSkzG/MeDGUKPE29rZxA62/+gmQAywDCq7R70kUae4P0XHeneorWnSUyuHhIyRVl0fY22q7U8cY6eTmARTDRKVlykFLvUN2KV8HG2f+VReG64IX93Ge48YI8H8QqeY38HzJQ0nuuF1W84omOFJKtLdtJhg2/5uiaPe7kQ1SmIcrIuqLLZqA0GelP+wLEOtGCm6bMpZdeJECPRbw=
+      file: Runner.ipa
+      on:
+        tags: true
+
