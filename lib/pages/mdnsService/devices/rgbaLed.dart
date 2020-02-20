@@ -151,7 +151,6 @@ class _RGBALedPageState extends State<RGBALedPage> {
               child: ColorPicker(
                 pickerColor: _status[color],
                 onColorChanged: _changeColorStatus,
-                enableLabel: true,
                 pickerAreaHeightPercent: 0.8,
               ),
             ),
