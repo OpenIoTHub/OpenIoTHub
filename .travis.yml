@@ -18,7 +18,7 @@ jobs:
     before_script:
     - git clone https://github.com/flutter/flutter.git -b beta --depth 1
     - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
-    - curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+#    - curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
     - git lfs install
     script:
     - "./flutter/bin/flutter doctor -v"
