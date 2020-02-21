@@ -25,7 +25,7 @@ jobs:
     - "./flutter/bin/flutter upgrade"
     - "./flutter/bin/flutter pub get"
 #    - "./flutter/bin/flutter test"
-    - "./flutter/bin/flutter version v1.9.0"
+#    - "./flutter/bin/flutter version v1.9.0"
   - stage: deployAPK
     os: linux
     language: android
