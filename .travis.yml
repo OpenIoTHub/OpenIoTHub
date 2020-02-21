@@ -37,8 +37,8 @@ jobs:
       components:
       - tools
       - platform-tools
-      - build-tools-27.0.3
-      - android-27
+      - build-tools-29.0.0
+      - android-29
       - sys-img-armeabi-v7a-google_apis-25
       - extra-android-m2repository
       - extra-google-m2repository
