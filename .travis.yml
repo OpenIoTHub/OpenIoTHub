@@ -94,6 +94,5 @@ jobs:
         tags: true
 before_install:
 - openssl aes-256-cbc -K $encrypted_f0033d4e34c5_key -iv $encrypted_f0033d4e34c5_iv
-  -in key.properties.enc -out android/key.properties -d
-- openssl aes-256-cbc -K $encrypted_f0033d4e34c5_key -iv $encrypted_f0033d4e34c5_iv
-  -in key.jks.enc -out android/key.jks -d
+  -in secrets.tar.enc -out secrets.tar -d
+- tar xvf secrets.tar -C ./android
