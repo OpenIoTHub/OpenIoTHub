@@ -17,8 +17,8 @@ jobs:
         - git-lfs
     before_script:
     - git clone https://github.com/flutter/flutter.git
-    - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
     - git lfs install
+    - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
     script:
     - "./flutter/bin/flutter doctor -v"
     - "./flutter/bin/flutter upgrade"
@@ -51,9 +51,13 @@ jobs:
         - libstdc++6
         - fonts-droid
     before_script:
-    - git clone https://github.com/flutter/flutter.git -b beta --depth 1
+    - git clone https://github.com/flutter/flutter.git
+    - git lfs install
+    - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
     script:
     - "./flutter/bin/flutter upgrade"
+    - "./flutter/bin/flutter version v1.9.0"
+    - "./flutter/bin/flutter pub get"
     - "./flutter/bin/flutter -v build apk --release"
     deploy:
       provider: releases
@@ -73,9 +77,12 @@ jobs:
     - brew install libimobiledevice
     - brew install ideviceinstaller
     - brew install ios-deploy
-    - git clone https://github.com/flutter/flutter.git -b beta --depth 1
+    - git clone https://github.com/flutter/flutter.git
+    - git lfs install
+    - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
     script:
     - "./flutter/bin/flutter upgrade"
+    - "./flutter/bin/flutter version v1.9.0"
     - gem install cocoapods
     - pod setup
     - "./flutter/bin/flutter -v build ios --release --no-codesign"
