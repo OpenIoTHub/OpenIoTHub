@@ -18,14 +18,11 @@ jobs:
     before_script:
     - git clone https://github.com/flutter/flutter.git
     - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
-#    - curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
     - git lfs install
     script:
     - "./flutter/bin/flutter doctor -v"
     - "./flutter/bin/flutter upgrade"
     - "./flutter/bin/flutter pub get"
-#    - "./flutter/bin/flutter test"
-#    - "./flutter/bin/flutter version v1.9.0"
   - stage: deployAPK
     os: linux
     language: android
@@ -54,8 +51,6 @@ jobs:
         - libstdc++6
         - fonts-droid
     before_script:
-    - openssl aes-256-cbc -K $encrypted_f0033d4e34c5_key -iv $encrypted_f0033d4e34c5_iv -in key.jks.enc -out ./android/key.jks -d
-    - openssl aes-256-cbc -K $encrypted_f0033d4e34c5_key -iv $encrypted_f0033d4e34c5_iv -in key.properties.enc -out ./android/key.properties -d
     - git clone https://github.com/flutter/flutter.git -b beta --depth 1
     script:
     - "./flutter/bin/flutter upgrade"
@@ -65,7 +60,7 @@ jobs:
       skip_cleanup: true
       api_key:
         secure: uDRE0d3gZ5JYhl/jBiDp5zv32fHW0WMhJuhg/H4oDOxvYvyCD/1dmBMb00fFFL4gDFxl96wCGMnFcn3f55Xy8IeVMocvrQrIwRkEWsD+4vpzxFr+EBNObjyFW/jQJR3FNXpOJfWNt5unpRsmwWhUpuo7s/PJ1ONqZTctt0VYHXHY5ACmdPx9Tf6U0iAUloQyBeIfYtLN82fB4gewx7sKCnQulerGquXduthVj8URXZzS/3jMJqPL2cqGsjKZ79DPDLzVAulMmhFHs6VVeM2F2HO/GKx58ApLkltFNdoXjdmGSlvuqT1ZAJ0fOlVW78hEVmpxbbQlDPztHThFDlag4uPnlgAFm+OUZ5XXJBeJGkrGU6zRGIcghTQng9JQ3wvL1LVr+2c/MVU8n7+E2SQs7f7TF8kvSm4ok2FpH5zgEuiTIZSNicJO4ceLtigRLySnmbjgKXL1f9O1P8OENuU4hFJ+6WNJtSkzG/MeDGUKPE29rZxA62/+gmQAywDCq7R70kUae4P0XHeneorWnSUyuHhIyRVl0fY22q7U8cY6eTmARTDRKVlykFLvUN2KV8HG2f+VReG64IX93Ge48YI8H8QqeY38HzJQ0nuuF1W84omOFJKtLdtJhg2/5uiaPe7kQ1SmIcrIuqLLZqA0GelP+wLEOtGCm6bMpZdeJECPRbw=
-      file: $APK_OUTPUT
+      file: "$APK_OUTPUT"
       on:
         tags: true
   - stage: deployIPA
@@ -97,4 +92,8 @@ jobs:
       file: Runner.ipa
       on:
         tags: true
-
+before_install:
+- openssl aes-256-cbc -K $encrypted_f0033d4e34c5_key -iv $encrypted_f0033d4e34c5_iv
+  -in key.properties.enc -out android/key.properties -d
+- openssl aes-256-cbc -K $encrypted_f0033d4e34c5_key -iv $encrypted_f0033d4e34c5_iv
+  -in key.jks.enc -out android/key.jks -d
