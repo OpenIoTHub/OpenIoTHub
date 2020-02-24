@@ -58,6 +58,7 @@ jobs:
     - yes | sdkmanager "platforms;android-28"
     - yes | sdkmanager "platforms;android-29"
     - "./flutter/bin/flutter upgrade"
+    - "./flutter/bin/flutter doctor -v"
 #    - "./flutter/bin/flutter version v1.9.0"
     - "./flutter/bin/flutter pub get"
     - "./flutter/bin/flutter -v build apk --release --split-per-abi"
@@ -84,6 +85,8 @@ jobs:
     - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
     script:
     - "./flutter/bin/flutter upgrade"
+    - "./flutter/bin/flutter doctor -v"
+    - "./flutter/bin/flutter pub get"
 #    - "./flutter/bin/flutter version v1.9.0"
     - gem install cocoapods
     - pod setup
