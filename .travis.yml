@@ -71,7 +71,7 @@ jobs:
   - stage: deployIPA
     os: osx
     language: objective-c
-    osx_image: xcode9.2
+    osx_image: xcode11.2
     before_script:
     - pip2 install six
     - brew update
