@@ -55,6 +55,7 @@ jobs:
     - git lfs install
     - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
     script:
+    - yes | sdkmanager "platforms;android-29"
     - "./flutter/bin/flutter upgrade"
 #    - "./flutter/bin/flutter version v1.9.0"
     - "./flutter/bin/flutter pub get"
