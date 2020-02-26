@@ -67,7 +67,9 @@ jobs:
       skip_cleanup: true
       api_key:
         secure: FJ/9t6TilxefjtU64QVjKea/qR+cLUv+dOti+3aspzudcUGWuCyUOKudhtc+PKv1B7pzjrwcAm4iNs4DD4Mm/DFdRmLgjL9+Xg8RLq6pEanr+apc8qG/nRA+NSD5F9Zkj7I4cVp4X2GhXvGJ1kMxt34SazcskdQJwnbLKcVQwXlWYelf1XbI24EZJHNyA+k1Oj980zG5WE2DJ4ETGHqzjB2NutDh1OAI64l4ZUv1/VEysJejsW1popoGbu0CN7/UY6Oedzqiv1NEbcBIez7VzN3lqFwTpfyQB/yglj6yXKuNutJjlvgjOy8a/wD4m9SGlZjrQ30ebB8Pol906T98qqyg/cT7aBc0GZZ0g19hvbheJwyq21yVy5Mf/VvQa389Ud0Kk27SmYDvyPhDyIB4vhT8pC0qDAnwaIEk+q1FkriMgtdrC+oCBuUe9bAeVymXSDc9yypaKbB8KU9xpLKOeznKe/cTIToM5TlGjWI0K1amdG/DVItwS5Xxx5sfLIjAoWghlfqdJI/znKLHkKQL4oEx8/pOcY652efFoNK0PBiYc7HMRm8UEQviZCqS9l08HEvtvSI5soyNQ2OOQa8PiD63YznwDemwP8AqUHiJnw7TRuOxhvINfG1eVLYqinPD/NkH9UVdP3eVkmjrkRng2pkYBAavRLyZuLosUFtVhXQ=
-      file: build/app/outputs/apk/release/*.apk
+      file:
+        - "build/app/outputs/apk/release/app-armeabi-v7a-release.apk"
+        - "build/app/outputs/apk/release/app-arm64-v8a-release.apk"
       on:
         tags: true
 #  - stage: deployIPA
