@@ -1,5 +1,5 @@
 # 物联网设备、私有云、内网穿透管理程序
-[![Build Status](https://travis-ci.org/OpenIoTHub/OpenIoTHub.svg?branch=master)](https://travis-ci.org/OpenIoTHub/OpenIoTHub)
+[![Build Status](https://travis-ci.com/OpenIoTHub/OpenIoTHub.svg?branch=master)](https://travis-ci.com/OpenIoTHub/OpenIoTHub)
 #### 下载地址：
   * 其他版本：https://github.com/OpenIoTHub/OpenIoTHub/releases
 #### 内网网关下载地址:
