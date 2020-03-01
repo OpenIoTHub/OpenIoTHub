@@ -1,6 +1,6 @@
-#cache:
-#  directories:
-#  - "$HOME/.pub-cache"
+cache:
+  directories:
+  - "$HOME/.pub-cache"
 jobs:
   include:
 #  - stage: test
@@ -91,7 +91,7 @@ jobs:
     - gem install cocoapods
     - pod setup
     - gem install cocoapods-deintegrate
-      #    - "./flutter/bin/flutter upgrade"
+    - "./flutter/bin/flutter upgrade"
     - "./flutter/bin/flutter doctor -v"
     - "./flutter/bin/flutter pub get"
     - "./flutter/bin/flutter clean"
