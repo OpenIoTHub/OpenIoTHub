@@ -98,6 +98,8 @@ jobs:
     - cd ios
     - pod setup
     - pwd
+    - ls /Users/travis/build/OpenIoTHub/OpenIoTHub/flutter/bin/cache/artifacts/engine
+    - ls /Users/travis/build/OpenIoTHub/OpenIoTHub/flutter/bin/cache/artifacts/engine/ios
     - ls -a
     - pod deintegrate
     - pod install
