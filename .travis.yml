@@ -104,7 +104,7 @@ jobs:
     - pod deintegrate
     - pod install
     - cd ..
-    - "./flutter/bin/flutter -v build ios --release --no-codesign"
+    - "./flutter/bin/flutter build ios --debug --no-codesign"
     - mkdir Runner
     - mkdir Runner/Payload
     - cp -r build/ios/iphoneos/Runner.app Runner/Payload/Runner.app
