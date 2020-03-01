@@ -88,15 +88,16 @@ jobs:
     - git lfs install
     - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
     script:
-#    - "./flutter/bin/flutter upgrade"
-    - "./flutter/bin/flutter doctor -v"
-    - "./flutter/bin/flutter pub get"
-#    - "./flutter/bin/flutter version v1.9.0"
     - gem install cocoapods
+    - pod setup
     - gem install cocoapods-deintegrate
     - "./flutter/bin/flutter clean"
+      #    - "./flutter/bin/flutter upgrade"
+    - "./flutter/bin/flutter doctor -v"
+    - "./flutter/bin/flutter pub get"
+      #    - "./flutter/bin/flutter version v1.9.0"
+    - find . Flutter.framework
     - cd ios
-    - pod setup
     - pwd
     - ls /Users/travis/build/OpenIoTHub/OpenIoTHub/flutter/bin/cache/artifacts/engine
     - ls /Users/travis/build/OpenIoTHub/OpenIoTHub/flutter/bin/cache/artifacts/engine/ios
