@@ -96,6 +96,7 @@ jobs:
     - flutter clean
     - cd ios
     - pod setup
+    - pwd
     - pod install
     - cd ..
     - "./flutter/bin/flutter -v build ios --release --no-codesign"
