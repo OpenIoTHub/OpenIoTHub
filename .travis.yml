@@ -93,10 +93,11 @@ jobs:
     - "./flutter/bin/flutter pub get"
 #    - "./flutter/bin/flutter version v1.9.0"
     - gem install cocoapods
-    - flutter clean
+    - "./flutter/bin/flutter clean"
     - cd ios
     - pod setup
     - pwd
+    - ls -a
     - pod install
     - cd ..
     - "./flutter/bin/flutter -v build ios --release --no-codesign"
