@@ -3,26 +3,26 @@ cache:
   - "$HOME/.pub-cache"
 jobs:
   include:
-  - stage: test
-    os: linux
-    language: generic
-    sudo: false
-    addons:
-      apt:
-        sources:
-        - ubuntu-toolchain-r-test
-        packages:
-        - libstdc++6
-        - fonts-droid-fallback
-        - git-lfs
-    before_script:
-    - git clone https://github.com/flutter/flutter.git
-    - git lfs install
-    - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
-    script:
-    - "./flutter/bin/flutter doctor -v"
-    - "./flutter/bin/flutter upgrade"
-    - "./flutter/bin/flutter pub get"
+#  - stage: test
+#    os: linux
+#    language: generic
+#    sudo: false
+#    addons:
+#      apt:
+#        sources:
+#        - ubuntu-toolchain-r-test
+#        packages:
+#        - libstdc++6
+#        - fonts-droid-fallback
+#        - git-lfs
+#    before_script:
+#    - git clone https://github.com/flutter/flutter.git
+#    - git lfs install
+#    - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
+#    script:
+#    - "./flutter/bin/flutter doctor -v"
+#    - "./flutter/bin/flutter upgrade"
+#    - "./flutter/bin/flutter pub get"
   - stage: deployAPK
     os: linux
     language: android

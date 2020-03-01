@@ -1,10 +1,11 @@
 # 物联网设备、私有云、内网穿透管理程序
+[![Build Status](https://travis-ci.com/OpenIoTHub/OpenIoTHub.svg?branch=master)](https://travis-ci.com/OpenIoTHub/OpenIoTHub)
 #### 下载地址：
   * 其他版本：https://github.com/OpenIoTHub/OpenIoTHub/releases
 #### 内网网关下载地址:
-  * 其他版本：https://github.com/OpenIoTHub/GateWay/releases
+  * 其他版本：https://github.com/OpenIoTHub/gateway-go/releases
 > #### 自建转发服务器下载（高阶）：
-> * https://github.com/OpenIoTHub/Server/releases
+> * https://github.com/OpenIoTHub/server-go/releases
 > * 服务器请自行配置端口和秘钥，内网端使用你配置的信息和公网地址就可以使用自建服务器
 #### 教程：
   * 简书：https://www.jianshu.com/u/b312a876d66e
