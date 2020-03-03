@@ -51,7 +51,7 @@ jobs:
         - libstdc++6
         - fonts-droid
     before_script:
-    - git clone --branch v1.9.0 https://github.com/flutter/flutter.git
+    - git clone --branch v1.9.3 https://github.com/flutter/flutter.git
     - git lfs install
     - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
     script:
