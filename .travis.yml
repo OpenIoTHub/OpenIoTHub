@@ -94,7 +94,7 @@ jobs:
     - gem install cocoapods-deintegrate
     - "./flutter/bin/flutter upgrade"
     - "./flutter/bin/flutter doctor -v"
-    - "./flutter/bin/flutter precache"
+    - "./flutter/bin/flutter precache -a"
     - "./flutter/bin/flutter pub get"
     - "./flutter/bin/flutter clean"
       #    - "./flutter/bin/flutter version v1.9.0"
