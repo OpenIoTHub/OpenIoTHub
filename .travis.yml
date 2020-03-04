@@ -96,15 +96,8 @@ jobs:
     - "./flutter/bin/flutter doctor -v"
     - "./flutter/bin/flutter precache"
     - "./flutter/bin/flutter pub get"
+    - "./flutter/bin/flutter clean"
       #    - "./flutter/bin/flutter version v1.9.0"
-    - cd ios
-    - pwd
-    - ls /Users/travis/build/OpenIoTHub/OpenIoTHub/flutter/bin/cache/artifacts/engine
-    - ls /Users/travis/build/OpenIoTHub/OpenIoTHub/flutter/bin/cache/artifacts/engine/ios
-    - ls -a
-    - pod deintegrate
-    - pod install
-    - cd ..
     - "./flutter/bin/flutter build ios --debug --no-codesign"
     - mkdir Runner
     - mkdir Runner/Payload
