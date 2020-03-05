@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_natcloud_service/flutter_natcloud_service.dart';
@@ -129,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(
                   color: _currentIndex == 2 ? _activeColor : _inactiveColor),
             )),
-        BottomNavigationBarItem(
+        Platform.isIOS?null:BottomNavigationBarItem(
             icon: Icon(
               Icons.account_circle,
               color: _currentIndex == 3 ? _activeColor : _inactiveColor,
