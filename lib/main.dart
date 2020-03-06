@@ -99,7 +99,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildBottomNavigationBar(int index) {
-    return BottomNavigationBar(
+    return Platform.isIOS?
+    BottomNavigationBar(
       items: [
         BottomNavigationBarItem(
             icon: Icon(
@@ -131,7 +132,48 @@ class _MyHomePageState extends State<MyHomePage> {
               style: TextStyle(
                   color: _currentIndex == 2 ? _activeColor : _inactiveColor),
             )),
-        Platform.isIOS?null:BottomNavigationBarItem(
+      ],
+      currentIndex: index,
+      onTap: (int index) {
+        setState(() {
+          _currentIndex = index;
+        });
+      },
+    )
+    :
+    BottomNavigationBar(
+      items: [
+        BottomNavigationBarItem(
+            icon: Icon(
+              Icons.home,
+              color: _currentIndex == 0 ? _activeColor : _inactiveColor,
+            ),
+            title: Text(
+              '网络',
+              style: TextStyle(
+                  color: _currentIndex == 0 ? _activeColor : _inactiveColor),
+            )),
+        BottomNavigationBarItem(
+            icon: Icon(
+              Icons.airplay,
+              color: _currentIndex == 1 ? _activeColor : _inactiveColor,
+            ),
+            title: Text(
+              '主机',
+              style: TextStyle(
+                  color: _currentIndex == 1 ? _activeColor : _inactiveColor),
+            )),
+        BottomNavigationBarItem(
+            icon: Icon(
+              Icons.print,
+              color: _currentIndex == 2 ? _activeColor : _inactiveColor,
+            ),
+            title: Text(
+              '智能',
+              style: TextStyle(
+                  color: _currentIndex == 2 ? _activeColor : _inactiveColor),
+            )),
+        BottomNavigationBarItem(
             icon: Icon(
               Icons.account_circle,
               color: _currentIndex == 3 ? _activeColor : _inactiveColor,
@@ -148,6 +190,7 @@ class _MyHomePageState extends State<MyHomePage> {
           _currentIndex = index;
         });
       },
-    );
+    )
+    ;
   }
 }
