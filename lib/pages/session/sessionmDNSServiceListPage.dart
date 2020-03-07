@@ -1,6 +1,5 @@
 import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:nat_explorer/constants/Config.dart';
 import 'package:nat_explorer/constants/Constants.dart';
 import 'package:nat_explorer/model/custom_theme.dart';
@@ -9,6 +8,7 @@ import 'package:nat_explorer/pb/service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 import 'package:nat_explorer/api/SessionApi.dart';
 import 'package:provider/provider.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class MDNSServiceListPage extends StatefulWidget {
   MDNSServiceListPage({Key key, this.sessionConfig}) : super(key: key);
@@ -54,8 +54,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
             //直接打开内置web浏览器浏览页面
             Navigator.of(context)
                 .push(new MaterialPageRoute(builder: (context) {
-              return WebviewScaffold(
-                url: "http://${Config.webgRpcIp}:${pair.localProt}",
+              return Scaffold(
                 appBar: new AppBar(title: new Text("网页浏览器"), actions: <Widget>[
                   IconButton(
                       icon: Icon(
@@ -67,6 +66,10 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                             "http://${Config.webgRpcIp}:${pair.localProt}");
                       })
                 ]),
+                body: WebView(
+                  initialUrl: "http://${Config.webgRpcIp}:${pair.localProt}",
+                  javascriptMode : JavascriptMode.unrestricted
+                ),
               );
             }));
           },

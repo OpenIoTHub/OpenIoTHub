@@ -1,6 +1,5 @@
 import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:nat_explorer/api/CommonDeviceApi.dart';
 import 'package:nat_explorer/constants/Config.dart';
 import 'package:nat_explorer/constants/Constants.dart';

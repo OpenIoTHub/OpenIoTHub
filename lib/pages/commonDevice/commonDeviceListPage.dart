@@ -5,8 +5,6 @@ import 'package:nat_explorer/constants/Constants.dart';
 import 'package:nat_explorer/model/custom_theme.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
-import 'package:grpc/grpc.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:android_intent/android_intent.dart';
 import 'package:provider/provider.dart';
 

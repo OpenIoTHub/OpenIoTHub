@@ -35,7 +35,6 @@ dependencies:
   protobuf: ^0.13.11
   #  app内嵌网页浏览器
   webview_flutter: ^0.3.13
-  flutter_webview_plugin: ^0.3.5
   #  打开url
   url_launcher: ^5.0.2
   #  安卓intent调用其他程序
@@ -89,6 +88,8 @@ dependencies:
   #  webDAV的文件浏览器
   webdav:
     git: https://github.com/OpenIoTHub/dart-webdav
+  #mdns发现
+#  mdns_plugin: ^1.1.4
 
 
 dev_dependencies:

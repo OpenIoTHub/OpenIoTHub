@@ -1,9 +1,9 @@
 import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:nat_explorer/constants/Constants.dart';
 import 'package:nat_explorer/events/LoginEvent.dart';
 import 'package:nat_explorer/events/LogoutEvent.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 import '../../model/portService.dart';
 import '../../pages/mdnsService/devices/rgbaLed.dart';
 import 'package:nat_explorer/pages/user/settings.dart';
@@ -334,8 +334,7 @@ class MyInfoPageState extends State<MyInfoPage> {
 
   _goToURL(String url, title) async {
     Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-      return WebviewScaffold(
-        url: url,
+      return Scaffold(
         appBar: AppBar(title: Text(title), actions: <Widget>[
           IconButton(
               icon: Icon(
@@ -346,6 +345,10 @@ class MyInfoPageState extends State<MyInfoPage> {
                 _launchURL(url);
               })
         ]),
+        body: WebView(
+          initialUrl: url,
+            javascriptMode : JavascriptMode.unrestricted
+        ),
       );
     }));
   }

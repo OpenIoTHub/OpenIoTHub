@@ -151,7 +151,7 @@ packages:
   flutter_natcloud_service:
     dependency: "direct main"
     description:
-      path: "../flutter_natcloud_service"
+      path: "..\\flutter_natcloud_service"
       relative: true
     source: path
     version: "0.0.1"
@@ -185,13 +185,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_webview_plugin:
-    dependency: "direct main"
-    description:
-      name: flutter_webview_plugin
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.3.10+1"
   googleapis_auth:
     dependency: transitive
     description:

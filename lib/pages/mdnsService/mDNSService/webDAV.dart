@@ -1,12 +1,9 @@
 //这个模型是用来使用WebDAV的文件服务器来操作文件的
 import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'package:nat_explorer/constants/Config.dart';
 import 'package:nat_explorer/model/custom_theme.dart';
 import 'package:provider/provider.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 import '../../../model/portService.dart';
 import '../commWidgets/info.dart';
 import 'package:webdav/webdav.dart';
@@ -121,9 +118,8 @@ class _WebDAVPageState extends State<WebDAVPage> {
 
   _openWithWeb(String url) async {
     Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-      return WebviewScaffold(
-        url: url,
-        appBar: new AppBar(title: new Text("网页浏览器"), actions: <Widget>[
+      return Scaffold(
+        appBar: AppBar(title: new Text("网页浏览器"), actions: <Widget>[
           IconButton(
               icon: Icon(
                 Icons.open_in_browser,
@@ -133,8 +129,14 @@ class _WebDAVPageState extends State<WebDAVPage> {
                 _launchURL(url);
               })
         ]),
-        withZoom: true,
-        resizeToAvoidBottomInset:true,
+        // We're using a Builder here so we have a context that is below the Scaffold
+        // to allow calling Scaffold.of(context) so we can show a snackbar.
+        body: Builder(builder: (BuildContext context) {
+          return WebView(
+            initialUrl: url,
+            javascriptMode: JavascriptMode.unrestricted,
+          );
+        }),
       );
     }));
   }

@@ -1,6 +1,5 @@
 import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:nat_explorer/constants/Config.dart';
 import 'package:nat_explorer/constants/Constants.dart';
 import 'package:nat_explorer/pages/openWithChoice/sshWeb/SSHWebPage.dart';
@@ -8,6 +7,7 @@ import 'package:nat_explorer/pages/openWithChoice/vncWeb/VNCWebPage.dart';
 import 'package:nat_explorer/pages/openWithChoice/aria2/Aria2Page.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class OpenWithChoice extends StatelessWidget {
   PortConfig portConfig;
@@ -176,9 +176,8 @@ class OpenWithChoice extends StatelessWidget {
             });
           } else if (title == 'Web') {
             Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
-              return WebviewScaffold(
-                url: "http://${Config.webgRpcIp}:${portConfig.localProt}",
-                appBar: new AppBar(title: new Text("网页浏览器"), actions: <Widget>[
+              return Scaffold(
+                appBar: AppBar(title: new Text("网页浏览器"), actions: <Widget>[
                   IconButton(
                       icon: Icon(
                         Icons.open_in_browser,
@@ -189,6 +188,10 @@ class OpenWithChoice extends StatelessWidget {
                             "http://${Config.webgRpcIp}:${portConfig.localProt}");
                       })
                 ]),
+                body: WebView(
+                  initialUrl: "http://${Config.webgRpcIp}:${portConfig.localProt}",
+                  javascriptMode : JavascriptMode.unrestricted
+                ),
               );
             })).then((_) {
               Navigator.of(ctx).pop();
