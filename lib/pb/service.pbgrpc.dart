@@ -823,9 +823,9 @@ abstract class CommonDeviceManagerServiceBase extends $grpc.Service {
 
 class UtilsClient extends $grpc.Client {
   static final _$getAllmDNSServiceList =
-      $grpc.ClientMethod<$0.MDNSService, $0.MDNSServiceList>(
+      $grpc.ClientMethod<$0.Empty, $0.MDNSServiceList>(
           '/pb.Utils/GetAllmDNSServiceList',
-          ($0.MDNSService value) => value.writeToBuffer(),
+          ($0.Empty value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.MDNSServiceList.fromBuffer(value));
   static final _$convertOctonaryUtf8 =
@@ -838,7 +838,7 @@ class UtilsClient extends $grpc.Client {
       : super(channel, options: options);
 
   $grpc.ResponseFuture<$0.MDNSServiceList> getAllmDNSServiceList(
-      $0.MDNSService request,
+      $0.Empty request,
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$getAllmDNSServiceList, $async.Stream.fromIterable([request]),
@@ -860,12 +860,12 @@ abstract class UtilsServiceBase extends $grpc.Service {
   $core.String get $name => 'pb.Utils';
 
   UtilsServiceBase() {
-    $addMethod($grpc.ServiceMethod<$0.MDNSService, $0.MDNSServiceList>(
+    $addMethod($grpc.ServiceMethod<$0.Empty, $0.MDNSServiceList>(
         'GetAllmDNSServiceList',
         getAllmDNSServiceList_Pre,
         false,
         false,
-        ($core.List<$core.int> value) => $0.MDNSService.fromBuffer(value),
+        ($core.List<$core.int> value) => $0.Empty.fromBuffer(value),
         ($0.MDNSServiceList value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.StringValue, $0.StringValue>(
         'ConvertOctonaryUtf8',
@@ -877,7 +877,7 @@ abstract class UtilsServiceBase extends $grpc.Service {
   }
 
   $async.Future<$0.MDNSServiceList> getAllmDNSServiceList_Pre(
-      $grpc.ServiceCall call, $async.Future<$0.MDNSService> request) async {
+      $grpc.ServiceCall call, $async.Future<$0.Empty> request) async {
     return getAllmDNSServiceList(call, await request);
   }
 
@@ -887,7 +887,7 @@ abstract class UtilsServiceBase extends $grpc.Service {
   }
 
   $async.Future<$0.MDNSServiceList> getAllmDNSServiceList(
-      $grpc.ServiceCall call, $0.MDNSService request);
+      $grpc.ServiceCall call, $0.Empty request);
   $async.Future<$0.StringValue> convertOctonaryUtf8(
       $grpc.ServiceCall call, $0.StringValue request);
 }

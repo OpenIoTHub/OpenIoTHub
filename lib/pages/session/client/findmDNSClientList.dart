@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:nat_explorer/api/Utils.dart';
 import 'package:nat_explorer/constants/Config.dart';
@@ -38,7 +40,7 @@ class _FindmDNSClientListPageState extends State<FindmDNSClientListPage> {
               ),
               Expanded(
                   child: Text(
-                '${pair.name}@${pair.iP}:${pair.port}',
+                '${pair.instance}@${pair.iP}:${pair.port}',
                 style: Constants.titleTextStyle,
               )),
               Constants.rightArrowIcon
@@ -80,12 +82,19 @@ class _FindmDNSClientListPageState extends State<FindmDNSClientListPage> {
   }
 
   void _findClientListBymDNS() async {
-    MDNSService config = MDNSService();
-//    config.name = '_nat-cloud-client._tcp';
-    config.name = Config.mdnsGatewayService;
-    UtilApi.getAllmDNSServiceList(config).then((v) {
-      setState(() {
-        _ServiceList = v.mDNSServices;
+    await _ServiceList.clear();
+//    MDNSService config = MDNSService();
+//    config.name = '_openiothub-gateway._tcp';
+//    TODO 筛选config.name = Config.mdnsGatewayService;
+    UtilApi.getAllmDNSServiceList().then((v) {
+      v.mDNSServices.forEach((MDNSService m){
+        Map<String, dynamic> mDNSInfo =
+        jsonDecode(m.mDNSInfo);
+        if(mDNSInfo["type"] == Config.mdnsGatewayService){
+          setState(() {
+            _ServiceList.add(m);
+          });
+        }
       });
     });
   }

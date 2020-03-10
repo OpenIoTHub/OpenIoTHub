@@ -9,7 +9,7 @@ class Config {
   static final int webgRpcPort = 2080;
   static final int webRestfulPort = 1081;
 
-  static final String mdnsCloudService = '_iotdevice._tcp';
+  static final String mdnsIoTDeviceService = '_iotdevice._tcp';
   static final String mdnsGatewayService = '_openiothub-gateway._tcp';
   static final String mdnsTypeExplorer = '_services._dns-sd._udp';
 }

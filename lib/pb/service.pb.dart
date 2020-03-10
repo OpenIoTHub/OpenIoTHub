@@ -57,7 +57,7 @@ class Empty extends $pb.GeneratedMessage {
 
 class MDNSService extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('MDNSService', package: const $pb.PackageName('pb'))
-    ..aOS(1, 'name')
+    ..aOS(1, 'instance')
     ..aOS(2, 'iP')
     ..a<$core.int>(3, 'port', $pb.PbFieldType.O3)
     ..aOS(4, 'mDNSInfo')
@@ -78,10 +78,10 @@ class MDNSService extends $pb.GeneratedMessage {
   static MDNSService getDefault() => _defaultInstance ??= create()..freeze();
   static MDNSService _defaultInstance;
 
-  $core.String get name => $_getS(0, '');
-  set name($core.String v) { $_setString(0, v); }
-  $core.bool hasName() => $_has(0);
-  void clearName() => clearField(1);
+  $core.String get instance => $_getS(0, '');
+  set instance($core.String v) { $_setString(0, v); }
+  $core.bool hasInstance() => $_has(0);
+  void clearInstance() => clearField(1);
 
   $core.String get iP => $_getS(1, '');
   set iP($core.String v) { $_setString(1, v); }

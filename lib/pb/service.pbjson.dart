@@ -19,7 +19,7 @@ const Empty$json = const {
 const MDNSService$json = const {
   '1': 'MDNSService',
   '2': const [
-    const {'1': 'Name', '3': 1, '4': 1, '5': 9, '10': 'Name'},
+    const {'1': 'Instance', '3': 1, '4': 1, '5': 9, '10': 'Instance'},
     const {'1': 'IP', '3': 2, '4': 1, '5': 9, '10': 'IP'},
     const {'1': 'Port', '3': 3, '4': 1, '5': 5, '10': 'Port'},
     const {'1': 'MDNSInfo', '3': 4, '4': 1, '5': 9, '10': 'MDNSInfo'},

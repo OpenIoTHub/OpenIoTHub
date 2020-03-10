@@ -1,4 +1,5 @@
 import '../../model/portService.dart';
+import 'mDNSService/webUI.dart';
 
 class MDNS2ModelsMap {
   final Map<String, String> baseInfo = {
@@ -14,12 +15,12 @@ class MDNS2ModelsMap {
   };
   static Map<String, dynamic> modelsMap = Map.from({
     //    web UI,使用web方式打开服务的模型
-    "_homeassistant._tcp": PortService(
+    "_home-assistant._tcp": PortService(
         portConfig: null,
         noProxy: true,
         info: {
           "name": "HomeAssistant",
-          "model": "com.iotserv.devices.web",
+          "model": WebPage.modelName,
           "mac": "mac",
           "id": "id",
           "author": "Farry",

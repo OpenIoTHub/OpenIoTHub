@@ -6,12 +6,12 @@ import 'package:grpc/grpc.dart';
 
 class UtilApi {
 //获取本地的指定条件的mdns列表
-  static Future<MDNSServiceList> getAllmDNSServiceList(
-      MDNSService config) async {
+  static Future<MDNSServiceList> getAllmDNSServiceList() async {
     final channel = Channel.getClientChannel();
     final stub = UtilsClient(channel);
-    final response = await stub.getAllmDNSServiceList(config);
+    final response = await stub.getAllmDNSServiceList(Empty());
     channel.shutdown();
+    print("===getAllmDNSServiceList：${response.mDNSServices}");
     return response;
   }
 
