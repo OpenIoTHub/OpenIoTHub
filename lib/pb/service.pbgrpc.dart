@@ -828,6 +828,12 @@ class UtilsClient extends $grpc.Client {
           ($0.Empty value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.MDNSServiceList.fromBuffer(value));
+  static final _$getmDNSServiceListByType =
+      $grpc.ClientMethod<$0.StringValue, $0.MDNSServiceList>(
+          '/pb.Utils/GetmDNSServiceListByType',
+          ($0.StringValue value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.MDNSServiceList.fromBuffer(value));
   static final _$convertOctonaryUtf8 =
       $grpc.ClientMethod<$0.StringValue, $0.StringValue>(
           '/pb.Utils/ConvertOctonaryUtf8',
@@ -842,6 +848,15 @@ class UtilsClient extends $grpc.Client {
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$getAllmDNSServiceList, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+
+  $grpc.ResponseFuture<$0.MDNSServiceList> getmDNSServiceListByType(
+      $0.StringValue request,
+      {$grpc.CallOptions options}) {
+    final call = $createCall(
+        _$getmDNSServiceListByType, $async.Stream.fromIterable([request]),
         options: options);
     return $grpc.ResponseFuture(call);
   }
@@ -867,6 +882,13 @@ abstract class UtilsServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.Empty.fromBuffer(value),
         ($0.MDNSServiceList value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.StringValue, $0.MDNSServiceList>(
+        'GetmDNSServiceListByType',
+        getmDNSServiceListByType_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.StringValue.fromBuffer(value),
+        ($0.MDNSServiceList value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.StringValue, $0.StringValue>(
         'ConvertOctonaryUtf8',
         convertOctonaryUtf8_Pre,
@@ -881,6 +903,11 @@ abstract class UtilsServiceBase extends $grpc.Service {
     return getAllmDNSServiceList(call, await request);
   }
 
+  $async.Future<$0.MDNSServiceList> getmDNSServiceListByType_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.StringValue> request) async {
+    return getmDNSServiceListByType(call, await request);
+  }
+
   $async.Future<$0.StringValue> convertOctonaryUtf8_Pre(
       $grpc.ServiceCall call, $async.Future<$0.StringValue> request) async {
     return convertOctonaryUtf8(call, await request);
@@ -888,6 +915,8 @@ abstract class UtilsServiceBase extends $grpc.Service {
 
   $async.Future<$0.MDNSServiceList> getAllmDNSServiceList(
       $grpc.ServiceCall call, $0.Empty request);
+  $async.Future<$0.MDNSServiceList> getmDNSServiceListByType(
+      $grpc.ServiceCall call, $0.StringValue request);
   $async.Future<$0.StringValue> convertOctonaryUtf8(
       $grpc.ServiceCall call, $0.StringValue request);
 }

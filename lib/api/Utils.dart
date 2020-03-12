@@ -5,13 +5,25 @@ import 'package:nat_explorer/pb/service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 
 class UtilApi {
-//获取本地的指定条件的mdns列表
+//获取本地的所有mdns列表
   static Future<MDNSServiceList> getAllmDNSServiceList() async {
     final channel = Channel.getClientChannel();
     final stub = UtilsClient(channel);
     final response = await stub.getAllmDNSServiceList(Empty());
     channel.shutdown();
     print("===getAllmDNSServiceList：${response.mDNSServices}");
+    return response;
+  }
+
+  //获取本地的指定条件的mdns列表
+  static Future<MDNSServiceList> getOnemDNSServiceList(String type) async {
+    final channel = Channel.getClientChannel();
+    final stub = UtilsClient(channel);
+    StringValue sv = StringValue();
+    sv.value = type;
+    final response = await stub.getmDNSServiceListByType(sv);
+    channel.shutdown();
+    print("===getOnemDNSServiceList：${response.mDNSServices}");
     return response;
   }
 

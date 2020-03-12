@@ -86,15 +86,11 @@ class _FindmDNSClientListPageState extends State<FindmDNSClientListPage> {
 //    MDNSService config = MDNSService();
 //    config.name = '_openiothub-gateway._tcp';
 //    TODO 筛选config.name = Config.mdnsGatewayService;
-    UtilApi.getAllmDNSServiceList().then((v) {
+    UtilApi.getOnemDNSServiceList(Config.mdnsGatewayService).then((v) {
       v.mDNSServices.forEach((MDNSService m){
-        Map<String, dynamic> mDNSInfo =
-        jsonDecode(m.mDNSInfo);
-        if(mDNSInfo["type"] == Config.mdnsGatewayService){
-          setState(() {
-            _ServiceList.add(m);
-          });
-        }
+        setState(() {
+          _ServiceList.add(m);
+        });
       });
     });
   }

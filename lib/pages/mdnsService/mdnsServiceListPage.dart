@@ -305,8 +305,8 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
                 // mDNS类型为其他需要兼容的类型，看看是否在mdnsType2ModelMap的key里面，如果在就转为通用组件
                 PortService portService =
                     MDNS2ModelsMap.modelsMap[mDNSInfo['type']];
-                portService.ip = mDNSInfo['AddrIPv4'][0];
-                portService.port = mDNSInfo['port'];
+                portService.ip = Config.webgRpcIp;
+                portService.port = t.portConfigs[j].localProt;
                 portService.info["id"] =
                     "${mDNSInfo['AddrIPv4']}:${mDNSInfo['port']}@${sessionConfig.runId}";
                 portService.noProxy = false;
