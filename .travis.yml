@@ -68,7 +68,7 @@ jobs:
       #    - git clone  https://github.com/CocoaPods/Specs.git ~/.cocoapods/repos/master
       - git lfs install
       - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
-      - cd ../flutter_natcloud_service/ios/Frameworks/Explorer.framework/Versions/A && tar -xzvf Explorer.tar.gz
+      - tar -xzvf ../flutter_natcloud_service/ios/Frameworks/Explorer.framework/Versions/A/Explorer.tar.gz -C ../flutter_natcloud_service/ios/Frameworks/Explorer.framework/Versions/A
     script:
       - gem install cocoapods
       - pod setup
