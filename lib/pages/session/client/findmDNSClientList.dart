@@ -65,7 +65,7 @@ class _FindmDNSClientListPageState extends State<FindmDNSClientListPage> {
     ).toList();
     return Scaffold(
       appBar: AppBar(
-        title: Text("内网端列表"),
+        title: Text("网关列表"),
         actions: <Widget>[
           IconButton(
               icon: Icon(

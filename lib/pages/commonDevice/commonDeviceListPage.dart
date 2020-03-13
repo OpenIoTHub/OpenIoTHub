@@ -140,7 +140,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
 
   Future _addDevice(SessionConfig config) async {
     TextEditingController _description_controller =
-        TextEditingController.fromValue(TextEditingValue(text: "内网端机器"));
+        TextEditingController.fromValue(TextEditingValue(text: "内网设备"));
     TextEditingController _remote_ip_controller =
         TextEditingController.fromValue(TextEditingValue(text: "127.0.0.1"));
     return showDialog(

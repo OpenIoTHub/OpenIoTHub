@@ -83,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _buildBody(int index) {
     switch (index) {
       case 0:
-        return SessionListPage(title: "网络列表");
+        return SessionListPage(title: "网关列表");
         break;
       case 1:
         return CommonDeviceListPage(title: "主机");
@@ -108,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
               color: _currentIndex == 0 ? _activeColor : _inactiveColor,
             ),
             title: Text(
-              '网络',
+              '网关',
               style: TextStyle(
                   color: _currentIndex == 0 ? _activeColor : _inactiveColor),
             )),

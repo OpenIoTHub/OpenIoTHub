@@ -169,7 +169,7 @@ class SetClientState extends State<SetClient> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("内网穿透(内网端)"),
+          title: Text("云易连(网关)"),
         ),
         body: ListView(
           children: <Widget>[

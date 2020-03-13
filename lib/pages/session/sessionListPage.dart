@@ -65,7 +65,7 @@ class _SessionListPageState extends State<SessionListPage> {
         appBar: AppBar(
           leading: IconButton(
               icon: Icon(
-                Icons.desktop_windows,
+                Icons.search,
                 color: Colors.white,
               ),
               onPressed: () {
@@ -103,7 +103,7 @@ class _SessionListPageState extends State<SessionListPage> {
                                     controller: _token_controller,
                                     decoration: InputDecoration(
                                       contentPadding: EdgeInsets.all(10.0),
-                                      labelText: '请输入内网端Token',
+                                      labelText: '请输入远程网关Token',
                                       helperText: 'token',
                                     ),
                                   ),
