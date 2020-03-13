@@ -3,26 +3,6 @@ cache:
   - "$HOME/.pub-cache"
 jobs:
   include:
-#  - stage: test
-#    os: linux
-#    language: generic
-#    sudo: false
-#    addons:
-#      apt:
-#        sources:
-#        - ubuntu-toolchain-r-test
-#        packages:
-#        - libstdc++6
-#        - fonts-droid-fallback
-#        - git-lfs
-#    before_script:
-#    - git clone https://github.com/flutter/flutter.git
-#    - git lfs install
-#    - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
-#    script:
-#    - "./flutter/bin/flutter doctor -v"
-#    - "./flutter/bin/flutter upgrade"
-#    - "./flutter/bin/flutter pub get"
   - stage: deployAPK
     os: linux
     language: android
@@ -71,45 +51,6 @@ jobs:
       file:
         - "build/app/outputs/apk/release/app-armeabi-v7a-release.apk"
         - "build/app/outputs/apk/release/app-arm64-v8a-release.apk"
-      on:
-        tags: true
-  - stage: deployIPA
-    os: osx
-    language: objective-c
-    osx_image: xcode11.2
-    before_script:
-    - pip2 install six
-    - brew update
-    - brew install git-lfs
-    - brew install libimobiledevice
-    - brew install ideviceinstaller
-    - brew install ios-deploy
-    - git clone https://github.com/flutter/flutter.git
-#    - git clone  https://github.com/CocoaPods/Specs.git ~/.cocoapods/repos/master
-    - git lfs install
-    - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
-    script:
-    - gem install cocoapods
-    - pod setup
-    - gem install cocoapods-deintegrate
-    - "./flutter/bin/flutter upgrade"
-    - "./flutter/bin/flutter doctor -v"
-    - "./flutter/bin/flutter precache -a"
-    - "./flutter/bin/flutter pub get"
-    - "./flutter/bin/flutter clean"
-      #    - "./flutter/bin/flutter version v1.9.0"
-    - "./flutter/bin/flutter build ios --debug --no-codesign"
-    - mkdir Runner
-    - mkdir Runner/Payload
-    - cp -r build/ios/iphoneos/Runner.app Runner/Payload/Runner.app
-    - cd Runner
-    - zip -r Runner.ipa Payload
-    deploy:
-      provider: releases
-      skip_cleanup: true
-      api_key:
-        secure: FJ/9t6TilxefjtU64QVjKea/qR+cLUv+dOti+3aspzudcUGWuCyUOKudhtc+PKv1B7pzjrwcAm4iNs4DD4Mm/DFdRmLgjL9+Xg8RLq6pEanr+apc8qG/nRA+NSD5F9Zkj7I4cVp4X2GhXvGJ1kMxt34SazcskdQJwnbLKcVQwXlWYelf1XbI24EZJHNyA+k1Oj980zG5WE2DJ4ETGHqzjB2NutDh1OAI64l4ZUv1/VEysJejsW1popoGbu0CN7/UY6Oedzqiv1NEbcBIez7VzN3lqFwTpfyQB/yglj6yXKuNutJjlvgjOy8a/wD4m9SGlZjrQ30ebB8Pol906T98qqyg/cT7aBc0GZZ0g19hvbheJwyq21yVy5Mf/VvQa389Ud0Kk27SmYDvyPhDyIB4vhT8pC0qDAnwaIEk+q1FkriMgtdrC+oCBuUe9bAeVymXSDc9yypaKbB8KU9xpLKOeznKe/cTIToM5TlGjWI0K1amdG/DVItwS5Xxx5sfLIjAoWghlfqdJI/znKLHkKQL4oEx8/pOcY652efFoNK0PBiYc7HMRm8UEQviZCqS9l08HEvtvSI5soyNQ2OOQa8PiD63YznwDemwP8AqUHiJnw7TRuOxhvINfG1eVLYqinPD/NkH9UVdP3eVkmjrkRng2pkYBAavRLyZuLosUFtVhXQ=
-      file: Runner.ipa
       on:
         tags: true
 before_install:
