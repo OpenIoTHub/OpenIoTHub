@@ -1,5 +1,3 @@
-import 'package:nat_explorer/pages/mdnsService/mDNSService/getway.dart';
-
 import '../../model/portService.dart';
 import './components.dart';
 

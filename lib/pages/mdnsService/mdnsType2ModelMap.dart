@@ -1,8 +1,6 @@
 import 'package:nat_explorer/constants/Config.dart';
-import 'package:nat_explorer/pages/mdnsService/mDNSService/getway.dart';
-
 import '../../model/portService.dart';
-import 'mDNSService/webUI.dart';
+import './components.dart';
 
 class MDNS2ModelsMap {
   final Map<String, String> baseInfo = {
