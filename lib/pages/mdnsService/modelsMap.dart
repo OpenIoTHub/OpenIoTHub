@@ -59,6 +59,12 @@ class ModelsMap {
         serviceInfo: serviceInfo,
       );
     },
+    //    https://github.com/qlwz/esp_dc1 暂时使用web方式打开
+    "com.94qing.devices.esp_dc1": (PortService serviceInfo) {
+      return WebPage(
+        serviceInfo: serviceInfo,
+      );
+    },
     //    webDAV文件
     WebDAVPage.modelName: (PortService serviceInfo) {
       return WebDAVPage(
