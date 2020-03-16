@@ -1,3 +1,5 @@
+import 'package:nat_explorer/pages/mdnsService/mDNSService/getway.dart';
+
 import '../../model/portService.dart';
 import './components.dart';
 
@@ -68,6 +70,12 @@ class ModelsMap {
     //    webDAV文件
     WebDAVPage.modelName: (PortService serviceInfo) {
       return WebDAVPage(
+        serviceInfo: serviceInfo,
+      );
+    },
+    //    gateway网关
+    Gateway.modelName: (PortService serviceInfo) {
+      return Gateway(
         serviceInfo: serviceInfo,
       );
     },
