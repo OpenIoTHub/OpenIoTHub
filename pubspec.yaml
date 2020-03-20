@@ -82,7 +82,7 @@ dependencies:
   # AirKiss
   airkiss: ^1.0.1
   #dio HttpClient
-  dio: ^2.1.13
+#  dio: ^2.1.13
   #  颜色选择器
   flutter_colorpicker: any
   #  webDAV的文件浏览器
