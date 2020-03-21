@@ -74,20 +74,20 @@ class FileBottomSheet extends StatelessWidget {
                           child: Table(
                             columnWidths: {0: FixedColumnWidth(158.0)},
                             children: <TableRow>[
-                              if (!fileInfo.isDirectory)
-                                TableRow(children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(bottom: 2.0),
-                                    child: Text(
-                                      "Size:",
-                                      style: TextStyle(fontSize: tableFontSize),
-                                    ),
-                                  ),
-                                  Text(
-                                    fileInfo.convertedSize,
-                                    style: TextStyle(fontSize: tableFontSize),
-                                  ),
-                                ]),
+//                              if (!fileInfo.isDirectory)
+//                                TableRow(children: [
+//                                  Padding(
+//                                    padding: EdgeInsets.only(bottom: 2.0),
+//                                    child: Text(
+//                                      "Size:",
+//                                      style: TextStyle(fontSize: tableFontSize),
+//                                    ),
+//                                  ),
+//                                  Text(
+//                                    fileInfo.convertedSize,
+//                                    style: TextStyle(fontSize: tableFontSize),
+//                                  ),
+//                                ]),
                               TableRow(children: [
                                 Padding(
                                   padding: EdgeInsets.only(bottom: 2.0),

@@ -123,20 +123,20 @@ class QuickConnectionSheet extends StatelessWidget {
                       .requestFocus(_focusNodes[_showUsernameInput ? 1 : 2]),
                 ),
                 Divider(height: 20.0),
-                if (_showUsernameInput)
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 16.0),
-                    child: TextField(
-                      autofocus: true,
-                      autocorrect: false,
-                      focusNode: _focusNodes[1],
-                      textInputAction: TextInputAction.next,
-                      decoration: InputDecoration(labelText: "用户名"),
-                      onChanged: (String value) => _connection.username = value,
-                      onSubmitted: (String value) =>
-                          FocusScope.of(context).requestFocus(_focusNodes[2]),
-                    ),
-                  ),
+//                if (_showUsernameInput)
+//                  Padding(
+//                    padding: EdgeInsets.only(bottom: 16.0),
+//                    child: TextField(
+//                      autofocus: true,
+//                      autocorrect: false,
+//                      focusNode: _focusNodes[1],
+//                      textInputAction: TextInputAction.next,
+//                      decoration: InputDecoration(labelText: "用户名"),
+//                      onChanged: (String value) => _connection.username = value,
+//                      onSubmitted: (String value) =>
+//                          FocusScope.of(context).requestFocus(_focusNodes[2]),
+//                    ),
+//                  ),
                 TextField(
                   autofocus: true,
                   obscureText: true,

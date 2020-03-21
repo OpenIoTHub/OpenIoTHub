@@ -156,7 +156,7 @@ class _ConnectionWidgetTileState extends State<ConnectionWidgetTile> {
                           overflow: TextOverflow.fade,
                         ),
                       ),
-                      if (_getTrailingButton() != null) _getTrailingButton(),
+//                      if (_getTrailingButton() != null) _getTrailingButton(),
                     ],
                   ),
                 ],
