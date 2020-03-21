@@ -34,7 +34,7 @@ dependencies:
   #  grpc协议
   protobuf: ^0.13.11
   #  app内嵌网页浏览器
-  webview_flutter: ^0.3.13
+  webview_flutter: any
   #  打开url
   url_launcher: ^5.0.2
   #  安卓intent调用其他程序
@@ -44,7 +44,7 @@ dependencies:
   #  事件总线
   event_bus: ^1.1.0
   #  获取wifi名和bssid
-  connectivity: ^0.4.8+2
+  connectivity: any
   #  动态请求权限，定位，存储等
   permission_handler: ^3.1.0
   #  查看手机安装的app
