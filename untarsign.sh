@@ -1,0 +1,1 @@
+tar xvf secrets.tar -C ./android

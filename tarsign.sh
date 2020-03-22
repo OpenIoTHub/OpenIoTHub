@@ -1,0 +1,1 @@
+tar cvf secrets.tar key.jks key.properties
