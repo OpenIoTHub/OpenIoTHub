@@ -71,4 +71,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+
+//    add By Farry
+    implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'], exclude: [])
+//    add By Farry over
 }

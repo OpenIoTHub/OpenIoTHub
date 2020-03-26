@@ -43,5 +43,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<!--    add by Farry    -->
+        <service
+            android:name=".OpenIoTHubBackgroundService"
+            android:enabled="true"
+            android:exported="true"></service>
+<!--     add by Farry over   -->
     </application>
 </manifest>
