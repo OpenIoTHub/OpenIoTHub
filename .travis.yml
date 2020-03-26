@@ -59,15 +59,11 @@ jobs:
     language: objective-c
     osx_image: xcode11.2
     before_script:
-      - pip2 install six
       - brew update
-      - brew install git-lfs
       - brew install libimobiledevice
       - brew install ideviceinstaller
       - brew install ios-deploy
       - git clone https://github.com/flutter/flutter.git
-      #    - git clone  https://github.com/CocoaPods/Specs.git ~/.cocoapods/repos/master
-      - git lfs install
       - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
       - tar -xzvf ../flutter_natcloud_service/ios/Frameworks/Explorer.framework/Versions/A/Explorer.tar.gz -C ../flutter_natcloud_service/ios/Frameworks/Explorer.framework/Versions/A
     script:
