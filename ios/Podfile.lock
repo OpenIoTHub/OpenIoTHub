@@ -4,6 +4,8 @@ PODS:
   - connectivity (0.0.1):
     - Flutter
     - Reachability
+  - connectivity_macos (0.0.1):
+    - Flutter
   - device_apps (0.0.1):
     - Flutter
   - file_picker (0.0.1):
@@ -15,6 +17,8 @@ PODS:
     - Flutter
   - flutter_oneshot (0.0.1):
     - Flutter
+  - flutter_plugin_android_lifecycle (0.0.1):
+    - Flutter
   - flutter_smartlink (0.0.1):
     - Flutter
   - NMSSH (2.3.1)
@@ -24,19 +28,31 @@ PODS:
     - Flutter
   - path_provider (0.0.1):
     - Flutter
+  - path_provider_macos (0.0.1):
+    - Flutter
   - permission_handler (3.3.0):
     - Flutter
   - Reachability (3.2)
   - shared_preferences (0.0.1):
     - Flutter
+  - shared_preferences_macos (0.0.1):
+    - Flutter
+  - shared_preferences_web (0.0.1):
+    - Flutter
   - smartconfig (0.0.1):
     - Flutter
-  - ssh (0.0.5):
+  - ssh (0.0.6):
     - Flutter
     - NMSSH
   - url_launcher (0.0.1):
     - Flutter
+  - url_launcher_macos (0.0.1):
+    - Flutter
+  - url_launcher_web (0.0.1):
+    - Flutter
   - video_player (0.0.1):
+    - Flutter
+  - video_player_web (0.0.1):
     - Flutter
   - webview_flutter (0.0.1):
     - Flutter
@@ -44,22 +60,30 @@ PODS:
 DEPENDENCIES:
   - android_intent (from `.symlinks/plugins/android_intent/ios`)
   - connectivity (from `.symlinks/plugins/connectivity/ios`)
+  - connectivity_macos (from `.symlinks/plugins/connectivity_macos/ios`)
   - device_apps (from `.symlinks/plugins/device_apps/ios`)
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - Flutter (from `Flutter`)
   - flutter_easylink (from `.symlinks/plugins/flutter_easylink/ios`)
   - flutter_natcloud_service (from `.symlinks/plugins/flutter_natcloud_service/ios`)
   - flutter_oneshot (from `.symlinks/plugins/flutter_oneshot/ios`)
+  - flutter_plugin_android_lifecycle (from `.symlinks/plugins/flutter_plugin_android_lifecycle/ios`)
   - flutter_smartlink (from `.symlinks/plugins/flutter_smartlink/ios`)
   - open_file (from `.symlinks/plugins/open_file/ios`)
   - package_info (from `.symlinks/plugins/package_info/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
+  - path_provider_macos (from `.symlinks/plugins/path_provider_macos/ios`)
   - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
+  - shared_preferences_macos (from `.symlinks/plugins/shared_preferences_macos/ios`)
+  - shared_preferences_web (from `.symlinks/plugins/shared_preferences_web/ios`)
   - smartconfig (from `.symlinks/plugins/smartconfig/ios`)
   - ssh (from `.symlinks/plugins/ssh/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
+  - url_launcher_macos (from `.symlinks/plugins/url_launcher_macos/ios`)
+  - url_launcher_web (from `.symlinks/plugins/url_launcher_web/ios`)
   - video_player (from `.symlinks/plugins/video_player/ios`)
+  - video_player_web (from `.symlinks/plugins/video_player_web/ios`)
   - webview_flutter (from `.symlinks/plugins/webview_flutter/ios`)
 
 SPEC REPOS:
@@ -72,6 +96,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/android_intent/ios"
   connectivity:
     :path: ".symlinks/plugins/connectivity/ios"
+  connectivity_macos:
+    :path: ".symlinks/plugins/connectivity_macos/ios"
   device_apps:
     :path: ".symlinks/plugins/device_apps/ios"
   file_picker:
@@ -84,6 +110,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_natcloud_service/ios"
   flutter_oneshot:
     :path: ".symlinks/plugins/flutter_oneshot/ios"
+  flutter_plugin_android_lifecycle:
+    :path: ".symlinks/plugins/flutter_plugin_android_lifecycle/ios"
   flutter_smartlink:
     :path: ".symlinks/plugins/flutter_smartlink/ios"
   open_file:
@@ -92,44 +120,64 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/package_info/ios"
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
+  path_provider_macos:
+    :path: ".symlinks/plugins/path_provider_macos/ios"
   permission_handler:
     :path: ".symlinks/plugins/permission_handler/ios"
   shared_preferences:
     :path: ".symlinks/plugins/shared_preferences/ios"
+  shared_preferences_macos:
+    :path: ".symlinks/plugins/shared_preferences_macos/ios"
+  shared_preferences_web:
+    :path: ".symlinks/plugins/shared_preferences_web/ios"
   smartconfig:
     :path: ".symlinks/plugins/smartconfig/ios"
   ssh:
     :path: ".symlinks/plugins/ssh/ios"
   url_launcher:
     :path: ".symlinks/plugins/url_launcher/ios"
+  url_launcher_macos:
+    :path: ".symlinks/plugins/url_launcher_macos/ios"
+  url_launcher_web:
+    :path: ".symlinks/plugins/url_launcher_web/ios"
   video_player:
     :path: ".symlinks/plugins/video_player/ios"
+  video_player_web:
+    :path: ".symlinks/plugins/video_player_web/ios"
   webview_flutter:
     :path: ".symlinks/plugins/webview_flutter/ios"
 
 SPEC CHECKSUMS:
   android_intent: f144b3783d533cc5bc2cd04cdbd1dc2b6950bd69
   connectivity: 6e94255659cc86dcbef1d452ad3e0491bb1b3e75
+  connectivity_macos: e2e9731b6b22dda39eb1b128f6969d574460e191
   device_apps: 099590c646da044f7f410fef63229fc0aedb35a8
   file_picker: 408623be2125b79a4539cf703be3d4b3abe5e245
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_easylink: 0957d0df0849308116a1bed266f236e3e6b2b673
   flutter_natcloud_service: 7da325592b738a0e77e77695e55287bb6ce3ca79
   flutter_oneshot: 0972b29beac35ccc1a99b8088887f64e1d219304
+  flutter_plugin_android_lifecycle: 47de533a02850f070f5696a623995e93eddcdb9b
   flutter_smartlink: bc069854e0b83b8e4541b27aed4242cdd3949929
   NMSSH: cd689ae535a1581a6dd9fd4600ff71247df510a6
   open_file: 02eb5cb6b21264bd3a696876f5afbfb7ca4f4b7d
   package_info: 48b108e75b8802c2d5e126f208ef540561c98aef
   path_provider: fb74bd0465e96b594bb3b5088ee4a4e7bb1f2a9d
+  path_provider_macos: f760a3c5b04357c380e2fddb6f9db6f3015897e0
   permission_handler: 67637977b227d62d46bfbf524f335f8568de5a73
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   shared_preferences: 430726339841afefe5142b9c1f50cb6bd7793e01
+  shared_preferences_macos: f3f29b71ccbb56bf40c9dd6396c9acf15e214087
+  shared_preferences_web: 141cce0c3ed1a1c5bf2a0e44f52d31eeb66e5ea9
   smartconfig: b1b2a8e71c7369bbb2c024b185a75dd50ba58b79
-  ssh: 19c124ab36628047d2430e07cfade1de86992457
+  ssh: b48add2c5d3baf9c547674ca86a02fe67dede30d
   url_launcher: a1c0cc845906122c4784c542523d8cacbded5626
+  url_launcher_macos: fd7894421cd39320dce5f292fc99ea9270b2a313
+  url_launcher_web: e5527357f037c87560776e36436bf2b0288b965c
   video_player: 69c5f029fac4ffe4fc8a85ea7f7b793709661549
-  webview_flutter: db3aba222b23e4dc432e0c5882834123dc50ff9f
+  video_player_web: da8cadb8274ed4f8dbee8d7171b420dedd437ce7
+  webview_flutter: bec7599de6bfbe8008a739aa3ebd7b364ea9d0cd
 
-PODFILE CHECKSUM: 3dbe063e9c90a5d7c9e4e76e70a821b9e2c1d271
+PODFILE CHECKSUM: f32fb4e7c14f8b3ca19a369d7be425dd9241af27
 
 COCOAPODS: 1.8.4
