@@ -54,7 +54,8 @@ dependencies:
   #  player
   video_player: ^0.10.1+3
   #  mDNS
-  #  multicast_dns: ^0.1.1
+#  multicast_dns: ^0.1.1
+  mdns_plugin: ^1.1.4
   #ssh file
   file_picker: ^1.3.4+1
   flutter_speed_dial: ^1.1.1
