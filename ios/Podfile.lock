@@ -21,6 +21,8 @@ PODS:
     - Flutter
   - flutter_smartlink (0.0.1):
     - Flutter
+  - mdns_plugin (0.0.1):
+    - Flutter
   - NMSSH (2.3.1)
   - open_file (0.0.1):
     - Flutter
@@ -69,6 +71,7 @@ DEPENDENCIES:
   - flutter_oneshot (from `.symlinks/plugins/flutter_oneshot/ios`)
   - flutter_plugin_android_lifecycle (from `.symlinks/plugins/flutter_plugin_android_lifecycle/ios`)
   - flutter_smartlink (from `.symlinks/plugins/flutter_smartlink/ios`)
+  - mdns_plugin (from `.symlinks/plugins/mdns_plugin/ios`)
   - open_file (from `.symlinks/plugins/open_file/ios`)
   - package_info (from `.symlinks/plugins/package_info/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
@@ -114,6 +117,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_plugin_android_lifecycle/ios"
   flutter_smartlink:
     :path: ".symlinks/plugins/flutter_smartlink/ios"
+  mdns_plugin:
+    :path: ".symlinks/plugins/mdns_plugin/ios"
   open_file:
     :path: ".symlinks/plugins/open_file/ios"
   package_info:
@@ -159,6 +164,7 @@ SPEC CHECKSUMS:
   flutter_oneshot: 0972b29beac35ccc1a99b8088887f64e1d219304
   flutter_plugin_android_lifecycle: 47de533a02850f070f5696a623995e93eddcdb9b
   flutter_smartlink: bc069854e0b83b8e4541b27aed4242cdd3949929
+  mdns_plugin: f678ac538ece5a95490ede585dfa6b46aaaac977
   NMSSH: cd689ae535a1581a6dd9fd4600ff71247df510a6
   open_file: 02eb5cb6b21264bd3a696876f5afbfb7ca4f4b7d
   package_info: 48b108e75b8802c2d5e126f208ef540561c98aef
