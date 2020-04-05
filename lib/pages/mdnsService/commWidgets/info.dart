@@ -19,7 +19,7 @@ class InfoPage extends StatelessWidget {
     _result.add("主页:${portService.info["home-page"]}");
     _result.add("固件程序:${portService.info["firmware-respository"]}");
     _result.add("固件版本:${portService.info["firmware-version"]}");
-    _result.add("本网设备:${portService.noProxy ? "是" : "不是"}");
+    _result.add("本网设备:${portService.isLocal ? "是" : "不是"}");
     _result.add("设备地址:http://${portService.ip}:${portService.port}");
 
     final tiles = _result.map(

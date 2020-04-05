@@ -189,7 +189,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
   }
 
 //从grpc类型添加到设备列表
-  Future<void> addPortConfigs(PortConfig portConfig, bool noProxy) async {
+  Future<void> addPortConfigs(PortConfig portConfig, bool isLocal) async {
     if (portConfig == null) {
       return;
     }
@@ -220,7 +220,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
     // 初始化为代理情况下的ip和port的取值
     String ip = Config.webgRpcIp;
     int port = portConfig.localProt;
-    if (noProxy) {
+    if (isLocal) {
       ip = portConfig.device.addr;
       port = portConfig.remotePort;
     }
@@ -235,7 +235,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
     PortService portService = PortService(
         portConfig: portConfig,
         info: info,
-        noProxy: noProxy,
+        isLocal: isLocal,
         ip: ip,
         port: port);
     addPortService(portService);
@@ -248,8 +248,8 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
 //    String id = Utf8Codec().decode(portService.info["id"]);
     String id = portService.info["id"];
     if (!_IoTDeviceMap.containsKey(id) ||
-        (!_IoTDeviceMap[id].noProxy &&
-            portService.noProxy)) {
+        (!_IoTDeviceMap[id].isLocal &&
+            portService.isLocal)) {
       setState(() {
         _IoTDeviceMap[id] = portService;
       });
@@ -292,7 +292,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
                 portService.port = pc.localProt;
                 portService.info["id"] =
                     "${mDNSInfo['AddrIPv4']}:${mDNSInfo['port']}@${sessionConfig.runId}";
-                portService.noProxy = false;
+                portService.isLocal = false;
                 addPortService(portService);
               }
             });
@@ -356,7 +356,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
               portService.info[key] = Utf8Codec().decode(value);
             });
 //            portService.info = service.txt;
-            portService.noProxy = true;
+            portService.isLocal = true;
             addPortService(portService);
 //            TODO 后面带.处理
           } else if (MDNS2ModelsMap.modelsMap.containsKey(service.serviceType.substring(0,service.serviceType.length - 1))) {
@@ -366,7 +366,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
             portService.port = service.port;
             portService.info["id"] =
                 "${portService.ip}:${portService.port}@local";
-            portService.noProxy = true;
+            portService.isLocal = true;
             addPortService(portService);
           }
 //        });

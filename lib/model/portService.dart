@@ -9,7 +9,7 @@ class PortService {
   int port;
 
 //  是否是在本内外的设备
-  bool noProxy = false;
+  bool isLocal = false;
 
 //  设备的端口信息
   PortConfig portConfig;
@@ -17,5 +17,5 @@ class PortService {
 //  设备的注册信息
   Map<String, dynamic> info;
 
-  PortService({this.portConfig, this.info, this.noProxy, this.ip, this.port});
+  PortService({this.portConfig, this.info, this.isLocal, this.ip, this.port});
 }
