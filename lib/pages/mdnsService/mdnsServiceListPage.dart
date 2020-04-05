@@ -349,7 +349,11 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
           if (service.serviceType.contains(Config.mdnsIoTDeviceService)) {
             print(service.serviceType == "${Config.mdnsIoTDeviceService}.");
             PortService portService = PortService();
-            portService.ip = service.hostName;
+            if (service.addresses !=null && service.addresses.length >0 ) {
+              portService.ip = service.addresses[0];
+            }else{
+              portService.ip = service.hostName;
+            }
             portService.port = service.port;
             portService.info = Map<String, dynamic>();
             service.txt.forEach((key, value) {
@@ -362,7 +366,11 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
           } else if (MDNS2ModelsMap.modelsMap.containsKey(service.serviceType.substring(0,service.serviceType.length - 1))) {
             PortService portService =
                 MDNS2ModelsMap.modelsMap[service.serviceType.substring(0,service.serviceType.length - 1)];
-            portService.ip = service.hostName;
+            if (service.addresses !=null && service.addresses.length >0 ) {
+              portService.ip = service.addresses[0];
+            }else{
+              portService.ip = service.hostName;
+            }
             portService.port = service.port;
             portService.info["id"] =
                 "${portService.ip}:${portService.port}@local";
