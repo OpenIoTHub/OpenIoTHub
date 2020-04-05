@@ -258,11 +258,11 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
 
   Future getIoTDeviceFromLocal() async {
     // TODO 从搜索到的mqtt组件中获取设备
-    await _mdns.startDiscovery("_iotdevice._tcp", enableUpdating: true);
-    await Future.delayed(Duration(seconds: 2));
+    await _mdns.startDiscovery(Config.mdnsIoTDeviceService, enableUpdating: true);
+    await Future.delayed(Duration(seconds: 1));
     await _mdns.stopDiscovery();
-    await _mdns.startDiscovery("_home-assistant._tcp", enableUpdating: true);
-    await Future.delayed(Duration(seconds: 2));
+    await _mdns.startDiscovery(Config.mdnsTypeExplorer, enableUpdating: true);
+    await Future.delayed(Duration(seconds: 1));
     await _mdns.stopDiscovery();
   }
 
@@ -327,13 +327,20 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
 
   bool onServiceFound(mdns_plugin.MDNSService service) {
     print("Found: $service");
+//  new mdns Type
+    if(service.serviceType == Config.mdnsBaseTcpService && MDNS2ModelsMap.modelsMap.containsKey("${service.name}._tcp")){
+      _mdns.startDiscovery("${service.name}._tcp", enableUpdating: true).then((value) {
+        Future.delayed(Duration(seconds: 1)).then((value) => _mdns.stopDiscovery());
+      });
+    }
+//
     // Always returns true which begins service resolution
     return true;
   }
 
   void onServiceResolved(mdns_plugin.MDNSService service) {
     print("Resolved: $service");
-//    try {
+    try {
 //      UtilApi.getAllmDNSServiceList().then((MDNSServiceList iotDeviceResult) {
 //        print("===start:");
 //        iotDeviceResult.mDNSServices.forEach((MDNSService m) {
@@ -364,21 +371,21 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
           }
 //        });
 //      });
-//    } catch (e) {
-//      showDialog(
-//          context: context,
-//          builder: (_) => AlertDialog(
-//                  title: Text("从本地获取物联网列表失败："),
-//                  content: Text("失败原因：$e"),
-//                  actions: <Widget>[
-//                    FlatButton(
-//                      child: Text("确认"),
-//                      onPressed: () {
-//                        Navigator.of(context).pop();
-//                      },
-//                    )
-//                  ]));
-//    }
+    } catch (e) {
+      showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+                  title: Text("从本地获取物联网列表失败："),
+                  content: Text("失败原因：$e"),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text("确认"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  ]));
+    }
   }
 
   void onServiceUpdated(mdns_plugin.MDNSService service) {
