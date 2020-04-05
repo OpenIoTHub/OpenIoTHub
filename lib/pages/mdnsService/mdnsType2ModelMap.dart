@@ -18,7 +18,7 @@ class MDNS2ModelsMap {
     //    web UI,homeassistant使用web方式打开服务的模型
     "_home-assistant._tcp": PortService(
         portConfig: null,
-        noProxy: true,
+        isLocal: true,
         info: {
           "name": "HomeAssistant",
           "model": WebPage.modelName,
@@ -35,7 +35,7 @@ class MDNS2ModelsMap {
     //    web UI,使用web方式打开服务的模型
     Config.mdnsGatewayService: PortService(
         portConfig: null,
-        noProxy: true,
+        isLocal: true,
         info: {
           "name": "网关",
           "model": Gateway.modelName,
