@@ -71,6 +71,8 @@ class _WebPageState extends State<WebPage> {
     if(Platform.isIOS){
       Navigator.of(context).pop();
       _launchURL('http://${widget.serviceInfo.ip}:${widget.serviceInfo.port}');
+    }else{
+      _launchURL('http://${widget.serviceInfo.ip}:${widget.serviceInfo.port}');
     }
   }
 
