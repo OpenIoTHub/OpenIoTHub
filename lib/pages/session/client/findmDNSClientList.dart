@@ -1,12 +1,11 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:nat_explorer/api/Utils.dart';
 import 'package:nat_explorer/constants/Config.dart';
 import 'package:nat_explorer/constants/Constants.dart';
-import './setClient.dart';
-import 'package:nat_explorer/pb/service.pb.dart';
-import 'package:nat_explorer/pb/service.pbgrpc.dart';
+import 'package:nat_explorer/model/portService.dart';
+import 'package:nat_explorer/pages/mdnsService/components.dart';
+import 'package:nat_explorer/pages/mdnsService/mdnsType2ModelMap.dart';
+
+import 'package:mdns_plugin/mdns_plugin.dart' as mdns_plugin;
 
 class FindmDNSClientListPage extends StatefulWidget {
   FindmDNSClientListPage({Key key}) : super(key: key);
@@ -15,15 +14,24 @@ class FindmDNSClientListPage extends StatefulWidget {
   _FindmDNSClientListPageState createState() => _FindmDNSClientListPageState();
 }
 
-class _FindmDNSClientListPageState extends State<FindmDNSClientListPage> {
+class _FindmDNSClientListPageState extends State<FindmDNSClientListPage>
+    implements mdns_plugin.MDNSPluginDelegate {
   static const double IMAGE_ICON_WIDTH = 30.0;
 
-  List<MDNSService> _ServiceList = [];
+  List<PortService> _ServiceList = [];
+  mdns_plugin.MDNSPlugin _mdns;
 
   @override
   void initState() {
     super.initState();
+    _mdns = mdns_plugin.MDNSPlugin(this);
     _findClientListBymDNS();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _mdns.stopDiscovery();
   }
 
   @override
@@ -40,7 +48,7 @@ class _FindmDNSClientListPageState extends State<FindmDNSClientListPage> {
               ),
               Expanded(
                   child: Text(
-                '${pair.instance}@${pair.iP}:${pair.port}',
+                '${pair.ip}:${pair.port}',
                 style: Constants.titleTextStyle,
               )),
               Constants.rightArrowIcon
@@ -52,7 +60,7 @@ class _FindmDNSClientListPageState extends State<FindmDNSClientListPage> {
             //直接打开内置web浏览器浏览页面
             Navigator.of(context).push(MaterialPageRoute(builder: (context) {
 //              return Text("${pair.iP}:${pair.port}");
-              return SetClient(ip: pair.iP, port: pair.port);
+              return Gateway(serviceInfo: pair);
             }));
           },
           child: listItemContent,
@@ -65,7 +73,7 @@ class _FindmDNSClientListPageState extends State<FindmDNSClientListPage> {
     ).toList();
     return Scaffold(
       appBar: AppBar(
-        title: Text("网关列表"),
+        title: Text("发现本地网关列表"),
         actions: <Widget>[
           IconButton(
               icon: Icon(
@@ -82,16 +90,63 @@ class _FindmDNSClientListPageState extends State<FindmDNSClientListPage> {
   }
 
   void _findClientListBymDNS() async {
-    await _ServiceList.clear();
-//    MDNSService config = MDNSService();
-//    config.name = '_openiothub-gateway._tcp';
-//    TODO 筛选config.name = Config.mdnsGatewayService;
-    UtilApi.getOnemDNSServiceList(Config.mdnsGatewayService).then((v) {
-      v.mDNSServices.forEach((MDNSService m){
-        setState(() {
-          _ServiceList.add(m);
-        });
+    _ServiceList.clear();
+    _mdns.startDiscovery(Config.mdnsGatewayService, enableUpdating: true);
+  }
+
+  void onDiscoveryStarted() {
+    print("Discovery started");
+  }
+
+  void onDiscoveryStopped() {
+    print("Discovery stopped");
+  }
+
+  bool onServiceFound(mdns_plugin.MDNSService service) {
+    print("Found: $service");
+    // Always returns true which begins service resolution
+    return true;
+  }
+
+  void onServiceResolved(mdns_plugin.MDNSService service) {
+    print("Resolved: $service");
+    try {
+      print("service.serviceType:${service.serviceType}");
+      PortService portService =
+          MDNS2ModelsMap.modelsMap[Config.mdnsGatewayService];
+      if (service.addresses != null && service.addresses.length > 0) {
+        portService.ip = service.addresses[0];
+      } else {
+        portService.ip = service.hostName;
+      }
+      portService.port = service.port;
+      portService.info["id"] = "${portService.ip}:${portService.port}@local";
+      portService.isLocal = true;
+      setState(() {
+        _ServiceList.add(portService);
       });
-    });
+    } catch (e) {
+      showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+                  title: Text("从本地获取网关列表失败："),
+                  content: Text("失败原因：$e"),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text("确认"),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  ]));
+    }
+  }
+
+  void onServiceUpdated(mdns_plugin.MDNSService service) {
+    print("Updated: $service");
+  }
+
+  void onServiceRemoved(mdns_plugin.MDNSService service) {
+    print("Removed: $service");
   }
 }

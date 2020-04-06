@@ -38,13 +38,14 @@ class _SessionListPageState extends State<SessionListPage> {
     final tiles = _SessionList.map(
       (pair) {
         var listItemContent = ListTile(
-          leading: Icon(Icons.cloud_done,color: Provider.of<CustomTheme>(context).themeValue == "dark"
-              ? CustomThemes.dark.accentColor
-              : CustomThemes.light.accentColor),
+          leading: Icon(Icons.cloud_done,
+              color: Provider.of<CustomTheme>(context).themeValue == "dark"
+                  ? CustomThemes.dark.accentColor
+                  : CustomThemes.light.accentColor),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Text(pair.description,style: Constants.titleTextStyle),
+              Text(pair.description, style: Constants.titleTextStyle),
             ],
           ),
           trailing: Constants.rightArrowIcon,
@@ -63,14 +64,6 @@ class _SessionListPageState extends State<SessionListPage> {
     ).toList();
     return Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-              icon: Icon(
-                Icons.search,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                _pushFindmDNSClientListPage();
-              }),
           title: Text(widget.title),
           actions: <Widget>[
             IconButton(
@@ -80,6 +73,14 @@ class _SessionListPageState extends State<SessionListPage> {
                 ),
                 onPressed: () {
                   getAllSession();
+                }),
+            IconButton(
+                icon: Icon(
+                  Icons.search,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  _pushFindmDNSClientListPage();
                 }),
             IconButton(
                 icon: Icon(
@@ -96,7 +97,7 @@ class _SessionListPageState extends State<SessionListPage> {
                   showDialog(
                       context: context,
                       builder: (_) => AlertDialog(
-                              title: Text("添加网络："),
+                              title: Text("手动添加网关："),
                               content: ListView(
                                 children: <Widget>[
                                   TextFormField(
