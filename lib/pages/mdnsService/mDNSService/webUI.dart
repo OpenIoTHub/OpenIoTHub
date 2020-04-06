@@ -1,4 +1,6 @@
 //这个模型是用来使用WebDAV的文件服务器来操作文件的
+import 'dart:io';
+
 import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -18,9 +20,6 @@ class WebPage extends StatefulWidget {
 }
 
 class _WebPageState extends State<WebPage> {
-  List<String> pathHistory = ["/"];
-  List<FileInfo> listFile = [];
-
   @override
   Widget build(BuildContext context) {
 //    解决退出没有断连的问题
@@ -64,6 +63,15 @@ class _WebPageState extends State<WebPage> {
         },
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if(Platform.isIOS){
+      Navigator.of(context).pop();
+      _launchURL('http://${widget.serviceInfo.ip}:${widget.serviceInfo.port}');
+    }
   }
 
   _launchURL(String url) async {
