@@ -6,6 +6,7 @@ import 'package:nat_explorer/constants/Constants.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FtpPortListPage extends StatefulWidget {
   FtpPortListPage({Key key, this.device}) : super(key: key);
@@ -235,10 +236,10 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
   }
 
   _launchURL(String url) async {
-    AndroidIntent intent = AndroidIntent(
-      action: 'action_view',
-      data: url,
-    );
-    await intent.launch();
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      print('Could not launch $url');
+    }
   }
 }

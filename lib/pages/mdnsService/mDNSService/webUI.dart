@@ -1,6 +1,7 @@
 //这个模型是用来使用WebDAV的文件服务器来操作文件的
 import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import '../../../model/portService.dart';
 import '../commWidgets/info.dart';
@@ -66,11 +67,12 @@ class _WebPageState extends State<WebPage> {
   }
 
   _launchURL(String url) async {
-    AndroidIntent intent = AndroidIntent(
-      action: 'action_view',
-      data: url,
-    );
-    await intent.launch();
+//    await intent.launch();
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      print('Could not launch $url');
+    }
   }
 
 }

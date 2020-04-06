@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nat_explorer/constants/Constants.dart';
 import 'package:nat_explorer/events/LoginEvent.dart';
 import 'package:nat_explorer/events/LogoutEvent.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import '../../model/portService.dart';
 import '../../pages/mdnsService/devices/rgbaLed.dart';
@@ -325,11 +326,11 @@ class MyInfoPageState extends State<MyInfoPage> {
   }
 
   _launchURL(String url) async {
-    AndroidIntent intent = AndroidIntent(
-      action: 'action_view',
-      data: url,
-    );
-    await intent.launch();
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      print('Could not launch $url');
+    }
   }
 
   _goToURL(String url, title) async {

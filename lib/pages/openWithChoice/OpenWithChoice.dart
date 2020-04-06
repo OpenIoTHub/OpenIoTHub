@@ -7,6 +7,7 @@ import 'package:nat_explorer/pages/openWithChoice/vncWeb/VNCWebPage.dart';
 import 'package:nat_explorer/pages/openWithChoice/aria2/Aria2Page.dart';
 import 'package:nat_explorer/pb/service.pb.dart';
 import 'package:nat_explorer/pb/service.pbgrpc.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class OpenWithChoice extends StatelessWidget {
@@ -220,11 +221,11 @@ class OpenWithChoice extends StatelessWidget {
   }
 
   _launchURL(String url) async {
-    AndroidIntent intent = AndroidIntent(
-      action: 'action_view',
-      data: url,
-    );
-    await intent.launch();
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      print('Could not launch $url');
+    }
   }
 }
 
