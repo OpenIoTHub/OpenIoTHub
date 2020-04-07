@@ -27,6 +27,11 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+
+    <key>NSContactsUsageDescription</key>
+    <string>需要您的同意, 云易连才能访问您的通讯录</string>
+    <key>NSSpeechRecognitionUsageDescription</key>
+    <string>需要您的同意, 云易连才能访问语音识别</string>
 	<key>NSAppleMusicUsageDescription</key>
 	<string>需要您的同意, 云易连才能访问您的媒体资料库</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
@@ -53,6 +58,7 @@
 	<string>需要您的同意,云易连才能访问您的相册</string>
 	<key>NSRemindersUsageDescription</key>
 	<string>需要您的同意, 云易连才能访问您提醒事项</string>
+
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
