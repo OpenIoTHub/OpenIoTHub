@@ -28,6 +28,8 @@
 		<true/>
 	</dict>
 
+    <key>ITSAppUsesNonExemptEncryption</key><false/>
+
     <key>NSContactsUsageDescription</key>
     <string>需要您的同意, 云易连才能访问您的通讯录</string>
     <key>NSSpeechRecognitionUsageDescription</key>
