@@ -31,10 +31,6 @@
 	<string>需要您的同意, APP才能访问位置</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>App需要您的同意, APP才能在使用期间访问位置</string>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>processing</string>
-	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
