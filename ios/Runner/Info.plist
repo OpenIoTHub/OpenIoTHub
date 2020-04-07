@@ -37,11 +37,11 @@
     <key>NSLocationUsageDescription</key>
     <string>需要您的同意, 云易连才能访问您的位置</string>
     <key>NSLocationWhenInUseUsageDescription</key>
-    <string>App需要您的同意, 云易连才能在使用期间访问您的位置</string>
+    <string>需要您的同意, 云易连才能在使用期间访问您的位置</string>
     <key>NSLocationAlwaysUsageDescription</key>
-    <string>App需要您的同意, 云易连才能始终访问您的位置</string>
+    <string>需要您的同意, 云易连才能始终访问您的位置</string>
     <key>NSCalendarsUsageDescription</key>
-    <string>App需要您的同意, 云易连才能访问您的日历</string>
+    <string>需要您的同意, 云易连才能访问您的日历</string>
     <key>NSRemindersUsageDescription</key>
     <string>需要您的同意, 云易连才能访问您提醒事项</string>
     <key>NSMotionUsageDescription</key>
