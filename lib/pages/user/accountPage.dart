@@ -163,7 +163,7 @@ class MyInfoPageState extends State<MyInfoPage> {
   renderRow(i) {
     if (i == 0) {
       var avatarContainer = Container(
-        color: Provider.of<CustomTheme>(context).themeValue == "dark"
+        color: MediaQuery.of(context).platformBrightness == Brightness.dark
             ? CustomThemes.dark.primaryColor
             : CustomThemes.light.primaryColor,
         height: 200.0,

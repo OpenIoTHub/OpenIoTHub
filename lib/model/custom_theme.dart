@@ -67,7 +67,7 @@ class CustomThemes {
     textSelectionHandleColor: _lightAccentColor,
   );
 
-  static final Color _darkAccentColor = Colors.blueAccent[100];
+  static final Color _darkAccentColor = Colors.black26;
   static final ThemeData dark = ThemeData(
     accentColor: _darkAccentColor,
     accentColorBrightness: Brightness.light,
@@ -90,7 +90,7 @@ class CustomThemes {
       ),
       labelStyle: TextStyle(fontSize: 16.0, color: Colors.grey[300]),
     ),
-    primaryColor: Color.fromRGBO(22, 22, 22, 1),
+    primaryColor: Colors.black,
     scaffoldBackgroundColor: Color.fromRGBO(22, 22, 22, 1),
     textSelectionHandleColor: _darkAccentColor,
   );
