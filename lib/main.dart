@@ -46,6 +46,7 @@ class MyApp extends StatelessWidget {
       theme: Provider.of<CustomTheme>(context).themeValue == "dark"
           ? CustomThemes.dark
           : CustomThemes.light,
+      darkTheme: CustomThemes.dark,
       home: MyHomePage(title: '云易连'),
     );
   }
