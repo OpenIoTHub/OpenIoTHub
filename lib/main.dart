@@ -48,6 +48,7 @@ class MyApp extends StatelessWidget {
           : CustomThemes.light,
       darkTheme: CustomThemes.dark,
       home: MyHomePage(title: '云易连'),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
