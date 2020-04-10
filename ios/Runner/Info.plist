@@ -39,10 +39,6 @@
 	<string>需要您的同意,云易连才能访问您的相机</string>
 	<key>NSContactsUsageDescription</key>
 	<string>需要您的同意, 云易连才能访问您的通讯录</string>
-	<key>NSHealthShareUsageDescription</key>
-	<string>需要您的同意, 云易连才能访问您的健康分享</string>
-	<key>NSHealthUpdateUsageDescription</key>
-	<string>需要您的同意, 云易连才能访问健康更新 </string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>需要您的同意, 云易连才能始终访问您的位置</string>
 	<key>NSLocationUsageDescription</key>
