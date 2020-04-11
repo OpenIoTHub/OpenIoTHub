@@ -15,7 +15,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>$(FLUTTER_BUILD_NAME)</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
@@ -39,6 +39,8 @@
 	<string>需要您的同意,云易连才能访问您的相机</string>
 	<key>NSContactsUsageDescription</key>
 	<string>需要您的同意, 云易连才能访问您的通讯录</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>需要您的同意, 云易连才能一直在使用期间访问您的位置</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>需要您的同意, 云易连才能始终访问您的位置</string>
 	<key>NSLocationUsageDescription</key>

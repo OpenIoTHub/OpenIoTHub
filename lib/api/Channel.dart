@@ -14,7 +14,11 @@ class Channel {
     try {
       await channel.getConnection();
     } catch (e) {
-      FlutterNatcloudService.start();
+      await FlutterNatcloudService.start();
+      return ClientChannel(Config.webgRpcIp,
+          port: Config.webgRpcPort,
+          options: const ChannelOptions(
+              credentials: const ChannelCredentials.insecure()));
     }
     return channel;
   }
