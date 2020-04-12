@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_natcloud_service/flutter_natcloud_service.dart';
 
-import 'package:nat_explorer/constants/Config.dart';
+import 'package:openiothub/constants/Config.dart';
 import './pages/commonDevice/commonDeviceListPage.dart';
-import 'package:nat_explorer/pages/mdnsService/mdnsServiceListPage.dart';
-import 'package:nat_explorer/pages/openWithChoice/sshWeb/fileExplorer/services/connection_model.dart';
-import 'package:nat_explorer/model/custom_theme.dart';
-import 'package:nat_explorer/pages/session/sessionListPage.dart';
-import 'package:nat_explorer/pages/user/accountPage.dart';
+import 'package:openiothub/pages/mdnsService/mdnsServiceListPage.dart';
+import 'package:openiothub/pages/openWithChoice/sshWeb/fileExplorer/services/connection_model.dart';
+import 'package:openiothub/model/custom_theme.dart';
+import 'package:openiothub/pages/session/sessionListPage.dart';
+import 'package:openiothub/pages/user/accountPage.dart';
 
 import 'package:jaguar/jaguar.dart';
 import 'package:jaguar_flutter_asset/jaguar_flutter_asset.dart';
@@ -101,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildBottomNavigationBar(int index) {
-    return Platform.isIOS?
+    return Platform.isIOS || true ?
     BottomNavigationBar(
       items: [
         BottomNavigationBarItem(

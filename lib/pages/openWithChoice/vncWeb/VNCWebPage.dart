@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:convert';
-import 'package:nat_explorer/constants/Config.dart';
+import 'package:openiothub/constants/Config.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class VNCWebPage extends StatefulWidget {

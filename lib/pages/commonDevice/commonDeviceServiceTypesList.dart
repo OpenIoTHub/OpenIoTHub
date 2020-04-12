@@ -1,11 +1,11 @@
 import 'dart:async' as DeviceServiceTypesList;
 import 'package:flutter/material.dart';
-import 'package:nat_explorer/api/CommonDeviceApi.dart';
-import 'package:nat_explorer/constants/Constants.dart';
+import 'package:openiothub/api/CommonDeviceApi.dart';
+import 'package:openiothub/constants/Constants.dart';
 import './services/tcpPortListPage.dart';
 import './services/udpPortListPage.dart';
 import './services/ftpPortListPage.dart';
-import 'package:nat_explorer/pb/service.pb.dart';
+import 'package:openiothub/pb/service.pb.dart';
 
 class CommonDeviceServiceTypesList extends StatefulWidget {
   CommonDeviceServiceTypesList({Key key, this.device}) : super(key: key);

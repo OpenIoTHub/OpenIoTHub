@@ -1,5 +1,5 @@
-name: nat_explorer
-description: A new Flutter application of natcloud explorer.
+name: openiothub
+description: A IoT Device Manager.
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43

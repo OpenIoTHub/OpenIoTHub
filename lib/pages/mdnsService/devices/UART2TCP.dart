@@ -4,7 +4,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:nat_explorer/constants/Config.dart';
+import 'package:openiothub/constants/Config.dart';
 import '../../../model/portService.dart';
 import '../commWidgets/info.dart';
 

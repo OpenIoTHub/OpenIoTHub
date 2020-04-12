@@ -1,4 +1,4 @@
-import 'package:nat_explorer/constants/Config.dart';
+import 'package:openiothub/constants/Config.dart';
 import '../../model/portService.dart';
 import './components.dart';
 

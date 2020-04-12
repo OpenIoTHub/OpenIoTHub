@@ -1,6 +1,6 @@
-import 'package:nat_explorer/pages/openWithChoice/sshWeb/fileExplorer/services/connection.dart';
-import 'package:nat_explorer/pages/openWithChoice/sshWeb/fileExplorer/services/connection_methods.dart';
-import 'package:nat_explorer/model/custom_theme.dart';
+import 'package:openiothub/pages/openWithChoice/sshWeb/fileExplorer/services/connection.dart';
+import 'package:openiothub/pages/openWithChoice/sshWeb/fileExplorer/services/connection_methods.dart';
+import 'package:openiothub/model/custom_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';

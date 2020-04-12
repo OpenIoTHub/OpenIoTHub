@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.natcloud.nat_explorer">
+    package="com.iotserv.openiothub">
 
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
@@ -25,7 +25,7 @@
         android:icon="@mipmap/ic_launcher"
         tools:replace="android:label">
         <activity
-            android:name=".MainActivity"
+            android:name="com.iotserv.openiothub.MainActivity"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
@@ -45,7 +45,7 @@
         </activity>
 <!--    add by Farry    -->
         <service
-            android:name=".OpenIoTHubBackgroundService"
+            android:name="com.iotserv.openiothub.OpenIoTHubBackgroundService"
             android:enabled="true"
             android:exported="true"></service>
 <!--     add by Farry over   -->

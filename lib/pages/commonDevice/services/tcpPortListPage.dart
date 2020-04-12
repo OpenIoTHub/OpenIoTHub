@@ -1,10 +1,10 @@
 import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
-import 'package:nat_explorer/api/CommonDeviceApi.dart';
-import 'package:nat_explorer/constants/Constants.dart';
-import 'package:nat_explorer/pages/openWithChoice/OpenWithChoice.dart';
-import 'package:nat_explorer/pb/service.pb.dart';
-import 'package:nat_explorer/pb/service.pbgrpc.dart';
+import 'package:openiothub/api/CommonDeviceApi.dart';
+import 'package:openiothub/constants/Constants.dart';
+import 'package:openiothub/pages/openWithChoice/OpenWithChoice.dart';
+import 'package:openiothub/pb/service.pb.dart';
+import 'package:openiothub/pb/service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 
 class TcpPortListPage extends StatefulWidget {
