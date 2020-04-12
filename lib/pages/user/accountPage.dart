@@ -1,23 +1,23 @@
 import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
-import 'package:nat_explorer/constants/Constants.dart';
-import 'package:nat_explorer/events/LoginEvent.dart';
-import 'package:nat_explorer/events/LogoutEvent.dart';
+import 'package:openiothub/constants/Constants.dart';
+import 'package:openiothub/events/LoginEvent.dart';
+import 'package:openiothub/events/LogoutEvent.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import '../../model/portService.dart';
 import '../../pages/mdnsService/devices/rgbaLed.dart';
-import 'package:nat_explorer/pages/user/settings.dart';
-import 'package:nat_explorer/model/custom_theme.dart';
-import 'package:nat_explorer/pages/user/player.dart';
-import 'package:nat_explorer/pages/user/tools/toolsTypePage.dart';
-import 'package:nat_explorer/pb/service.pb.dart';
+import 'package:openiothub/pages/user/settings.dart';
+import 'package:openiothub/model/custom_theme.dart';
+import 'package:openiothub/pages/user/player.dart';
+import 'package:openiothub/pages/user/tools/toolsTypePage.dart';
+import 'package:openiothub/pb/service.pb.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:nat_explorer/util/NetUtils.dart';
-import 'package:nat_explorer/util/DataUtils.dart';
-import 'package:nat_explorer/model/UserInfo.dart';
+import 'package:openiothub/util/NetUtils.dart';
+import 'package:openiothub/util/DataUtils.dart';
+import 'package:openiothub/model/UserInfo.dart';
 
 class MyInfoPage extends StatefulWidget {
   @override

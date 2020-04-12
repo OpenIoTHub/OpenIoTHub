@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nat_explorer/model/portService.dart';
+import 'package:openiothub/model/portService.dart';
 
 class InfoPage extends StatelessWidget {
   InfoPage({Key key, this.portService}) : super(key: key);

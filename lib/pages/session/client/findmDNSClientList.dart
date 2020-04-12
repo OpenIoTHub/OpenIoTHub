@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:nat_explorer/constants/Config.dart';
-import 'package:nat_explorer/constants/Constants.dart';
-import 'package:nat_explorer/model/portService.dart';
-import 'package:nat_explorer/pages/mdnsService/components.dart';
-import 'package:nat_explorer/pages/mdnsService/mdnsType2ModelMap.dart';
+import 'package:openiothub/constants/Config.dart';
+import 'package:openiothub/constants/Constants.dart';
+import 'package:openiothub/model/portService.dart';
+import 'package:openiothub/pages/mdnsService/components.dart';
+import 'package:openiothub/pages/mdnsService/mdnsType2ModelMap.dart';
 
 import 'package:mdns_plugin/mdns_plugin.dart' as mdns_plugin;
 

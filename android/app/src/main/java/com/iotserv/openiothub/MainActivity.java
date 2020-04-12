@@ -1,4 +1,4 @@
-package com.natcloud.nat_explorer;
+package com.iotserv.openiothub;
 
 import android.content.Intent;
 import android.os.Bundle;

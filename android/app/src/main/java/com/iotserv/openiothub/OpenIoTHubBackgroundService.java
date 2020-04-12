@@ -1,4 +1,4 @@
-package com.natcloud.nat_explorer;
+package com.iotserv.openiothub;
 
 import android.annotation.TargetApi;
 import android.app.Notification;
@@ -54,7 +54,7 @@ public class OpenIoTHubBackgroundService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d("Service","onStartCommand invoke");
-        String CHANNEL_ONE_ID = "com.natcloud.nat_explorer";
+        String CHANNEL_ONE_ID = "com.iotserv.openiothub";
         String CHANNEL_ONE_NAME = "Channel Two";
         NotificationChannel notificationChannel = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

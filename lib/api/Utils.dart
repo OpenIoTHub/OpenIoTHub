@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'Channel.dart';
-import 'package:nat_explorer/pb/service.pb.dart';
-import 'package:nat_explorer/pb/service.pbgrpc.dart';
+import 'package:openiothub/pb/service.pb.dart';
+import 'package:openiothub/pb/service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 
 class UtilApi {

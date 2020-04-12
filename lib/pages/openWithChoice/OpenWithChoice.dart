@@ -1,12 +1,12 @@
 import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
-import 'package:nat_explorer/constants/Config.dart';
-import 'package:nat_explorer/constants/Constants.dart';
-import 'package:nat_explorer/pages/openWithChoice/sshWeb/SSHWebPage.dart';
-import 'package:nat_explorer/pages/openWithChoice/vncWeb/VNCWebPage.dart';
-import 'package:nat_explorer/pages/openWithChoice/aria2/Aria2Page.dart';
-import 'package:nat_explorer/pb/service.pb.dart';
-import 'package:nat_explorer/pb/service.pbgrpc.dart';
+import 'package:openiothub/constants/Config.dart';
+import 'package:openiothub/constants/Constants.dart';
+import 'package:openiothub/pages/openWithChoice/sshWeb/SSHWebPage.dart';
+import 'package:openiothub/pages/openWithChoice/vncWeb/VNCWebPage.dart';
+import 'package:openiothub/pages/openWithChoice/aria2/Aria2Page.dart';
+import 'package:openiothub/pb/service.pb.dart';
+import 'package:openiothub/pb/service.pbgrpc.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 

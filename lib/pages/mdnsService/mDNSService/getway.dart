@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:nat_explorer/api/SessionApi.dart';
-import 'package:nat_explorer/pb/service.pb.dart';
+import 'package:openiothub/api/SessionApi.dart';
+import 'package:openiothub/pb/service.pb.dart';
 
 import '../../../model/portService.dart';
 import '../commWidgets/info.dart';
