@@ -3,8 +3,7 @@ package com.iotserv.openiothub;
 import android.content.Intent;
 import android.os.Bundle;
 
-import io.flutter.app.FlutterActivity;
-import io.flutter.plugins.GeneratedPluginRegistrant;
+import io.flutter.embedding.android.FlutterActivity;
 
 public class MainActivity extends FlutterActivity {
     @Override
@@ -14,6 +13,5 @@ public class MainActivity extends FlutterActivity {
         Intent it=new Intent(this, OpenIoTHubBackgroundService.class);
         this.startService(it);
 //      add by Farry over
-        GeneratedPluginRegistrant.registerWith(this);
     }
 }

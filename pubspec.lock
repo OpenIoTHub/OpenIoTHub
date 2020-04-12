@@ -126,7 +126,7 @@ packages:
       name: file_picker
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.5.0+2"
+    version: "1.6.2"
   fixnum:
     dependency: transitive
     description:
