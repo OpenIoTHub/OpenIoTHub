@@ -1,6 +1,6 @@
 import '../../model/portService.dart';
 import './components.dart';
-
+//TODO：为每一个模型添加图标信息
 class ModelsMap {
   static Map<String, dynamic> modelsMap = Map.from({
     OneKeySwitchPage.modelName: (PortService device) {

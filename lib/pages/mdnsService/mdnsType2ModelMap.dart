@@ -1,11 +1,11 @@
 import 'package:openiothub/constants/Config.dart';
 import '../../model/portService.dart';
 import './components.dart';
-
+//兼容的mdns类型，最终的落地点都在ModelsMap里
 class MDNS2ModelsMap {
   final Map<String, String> baseInfo = {
     "name": "OpenIoTHub Entity",
-    "model": "com.iotserv.devices.web",
+    "model": WebPage.modelName,
     "mac": "mac",
     "id": "id",
     "author": "Farry",
