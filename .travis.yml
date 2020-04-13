@@ -37,7 +37,7 @@ jobs:
     script:
     - yes | sdkmanager "platforms;android-28"
     - yes | sdkmanager "platforms;android-29"
-    - mkdir release"
+    - mkdir release
     - ./flutter/bin/flutter doctor -v
 #    - ./flutter/bin/flutter version v1.9.0"
     - ./flutter/bin/flutter pub get
