@@ -349,6 +349,9 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
 //        print("===start:");
 //        iotDeviceResult.mDNSServices.forEach((MDNSService m) {
       String serviceType = service.serviceType;
+      if(serviceType == null) {
+        return;
+      }
       print("service.serviceType:${serviceType}");
       print("service.ip:${service.addresses}");
       //TODO 有关IPV6地址的处理问题
