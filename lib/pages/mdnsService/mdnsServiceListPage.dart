@@ -366,6 +366,9 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
         portService.port = service.port;
         portService.info = Map<String, dynamic>();
         service.txt.forEach((key, value) {
+          if(key == null || value == null){
+            return;
+          }
           portService.info[key] = Utf8Codec().decode(value);
         });
 //            portService.info = service.txt;
