@@ -260,10 +260,10 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
     await _mdns.startDiscovery(Config.mdnsIoTDeviceService,
         enableUpdating: true);
     await Future.delayed(Duration(seconds: 1));
-    await _mdns.stopDiscovery();
+//    await _mdns.stopDiscovery();
     await _mdns.startDiscovery(Config.mdnsTypeExplorer, enableUpdating: true);
     await Future.delayed(Duration(seconds: 1));
-    await _mdns.stopDiscovery();
+//    await _mdns.stopDiscovery();
   }
 
   Future getIoTDeviceFromRemote() async {
@@ -333,8 +333,8 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
       _mdns
           .startDiscovery("${service.name}._tcp", enableUpdating: true)
           .then((value) {
-        Future.delayed(Duration(seconds: 1))
-            .then((value) => _mdns.stopDiscovery());
+//        Future.delayed(Duration(seconds: 1));
+//            .then((value) => _mdns.stopDiscovery());
       });
     }
 //
