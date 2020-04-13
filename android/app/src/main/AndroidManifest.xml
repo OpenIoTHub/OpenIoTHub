@@ -60,7 +60,7 @@
             android:value="2" />
         <!--    add by Farry    -->
         <service
-            android:name="com.iotserv.openiothub.OpenIoTHubBackgroundService"
+            android:name=".OpenIoTHubBackgroundService"
             android:enabled="true"
             android:exported="true"></service>
 <!--     add by Farry over   -->
