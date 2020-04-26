@@ -24,6 +24,8 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
+  grpc_api:
+    git: https://github.com/OpenIoTHub/grpc-api
   #  golang的后台服务
   flutter_natcloud_service:
 #    git: https://github.com/OpenIoTHub/flutter_natcloud_service

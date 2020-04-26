@@ -13,8 +13,8 @@ import 'package:provider/provider.dart';
 import '../../model/portService.dart';
 import 'mdnsType2ModelMap.dart';
 import 'package:openiothub/pages/user/tools/smartConfigTool.dart';
-import 'package:openiothub/pb/service.pb.dart';
-import 'package:openiothub/pb/service.pbgrpc.dart';
+import 'package:grpc_api/pb/service.pb.dart';
+import 'package:grpc_api/pb/service.pbgrpc.dart';
 
 //统一导入全部设备类型
 import './modelsMap.dart';

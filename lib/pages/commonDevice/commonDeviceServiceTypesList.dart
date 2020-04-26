@@ -5,7 +5,7 @@ import 'package:openiothub/constants/Constants.dart';
 import './services/tcpPortListPage.dart';
 import './services/udpPortListPage.dart';
 import './services/ftpPortListPage.dart';
-import 'package:openiothub/pb/service.pb.dart';
+import 'package:grpc_api/pb/service.pb.dart';
 
 class CommonDeviceServiceTypesList extends StatefulWidget {
   CommonDeviceServiceTypesList({Key key, this.device}) : super(key: key);

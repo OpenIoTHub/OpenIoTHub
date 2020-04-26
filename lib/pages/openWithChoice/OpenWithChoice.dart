@@ -5,8 +5,8 @@ import 'package:openiothub/constants/Constants.dart';
 import 'package:openiothub/pages/openWithChoice/sshWeb/SSHWebPage.dart';
 import 'package:openiothub/pages/openWithChoice/vncWeb/VNCWebPage.dart';
 import 'package:openiothub/pages/openWithChoice/aria2/Aria2Page.dart';
-import 'package:openiothub/pb/service.pb.dart';
-import 'package:openiothub/pb/service.pbgrpc.dart';
+import 'package:grpc_api/pb/service.pb.dart';
+import 'package:grpc_api/pb/service.pbgrpc.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:openiothub/pb/service.pb.dart';
-import 'package:openiothub/pb/service.pbgrpc.dart';
+import 'package:grpc_api/pb/service.pb.dart';
+import 'package:grpc_api/pb/service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 
 import 'Channel.dart';
