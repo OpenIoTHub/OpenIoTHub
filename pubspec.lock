@@ -225,6 +225,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.3"
+  grpc_api:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: a60607f8987617e8f17c574d675bf2e590624ac1
+      url: "https://github.com/OpenIoTHub/grpc-api"
+    source: git
+    version: "1.0.0"
   http:
     dependency: "direct main"
     description:
