@@ -106,7 +106,6 @@ jobs:
       # build aar
       - git clone https://$Token@github.com/OpenIoTHub/OpenIoTHubService OpenIoTHubService
       # download golang
-      - brew install go
       - go version
       # install gomobile
       - go get golang.org/x/mobile/cmd/gomobile
