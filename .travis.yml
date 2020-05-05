@@ -107,6 +107,8 @@ jobs:
       - git clone https://$Token@github.com/OpenIoTHub/OpenIoTHubService OpenIoTHubService
       # download golang
       - go version
+      - go env
+      - export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
       # install gomobile
       - go get golang.org/x/mobile/cmd/gomobile
       - go get golang.org/x/mobile/cmd/gobind
