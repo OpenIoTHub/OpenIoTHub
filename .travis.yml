@@ -108,7 +108,7 @@ jobs:
       # download golang
       - go version
       - go env
-      - export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
+      - export PATH=/Users/travis/go/bin:$PATH
       # install gomobile
       - go get golang.org/x/mobile/cmd/gomobile
       - go get golang.org/x/mobile/cmd/gobind
