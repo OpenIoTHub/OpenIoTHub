@@ -1,6 +1,8 @@
 cache:
   directories:
   - "$HOME/.pub-cache"
+  - $GOPATH/pkg/mod
+  - $HOME/.cache/go-build
 jobs:
   include:
   - stage: deployAPK
