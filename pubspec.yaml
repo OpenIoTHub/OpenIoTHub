@@ -50,8 +50,6 @@ dependencies:
   shared_preferences: ^0.5.2
   #  事件总线
   event_bus: ^1.1.0
-  #  获取wifi名和bssid
-  connectivity: ^0.4.8+2
   #  动态请求权限，定位，存储等
   permission_handler: ^3.1.0
   #  查看手机安装的app
@@ -64,31 +62,18 @@ dependencies:
 #  multicast_dns: ^0.1.1
   mdns_plugin: ^1.1.4
   #ssh file
-  file_picker: ^1.3.4+1
-  flutter_speed_dial: ^1.1.1
-  floating_action_row: ^0.1.0
-  md2_tab_indicator: ^1.0.2
-  open_file: ^2.0.1+2
-  outline_material_icons: ^0.1.0
-  package_info: ^0.4.0+3
-  path_provider: ^1.2.0
-  provider: ^2.0.0
-  ssh: ^0.0.3
+#  file_picker: ^1.3.4+1
+#  flutter_speed_dial: ^1.1.1
+#  floating_action_row: ^0.1.0
+#  md2_tab_indicator: ^1.0.2
+#  open_file: ^2.0.1+2
+#  outline_material_icons: ^0.1.0
+#  package_info: ^0.4.0+3
+#  path_provider: ^1.2.0
+#  provider: ^2.0.0
+#  ssh: ^0.0.3
   #ssh file over
   #  sqflite: ^1.1.6+2
-  #  esp配网
-  smartconfig: ^0.0.1
-  #  w60x的OneShot配网
-  flutter_oneshot:
-    git: https://github.com/iotdevice/flutter_oneshot
-  # 庆科easylink
-  flutter_easylink:
-    git: https://github.com/iotdevice/flutter_easylink
-  ## 汉枫smartlink
-  flutter_smartlink:
-    git: https://github.com/iotdevice/flutter_smartlink
-  # AirKiss
-  airkiss: ^1.0.1
   #dio HttpClient
 #  dio: ^2.1.13
   #  颜色选择器
@@ -158,10 +143,3 @@ flutter:
     - assets/web/open/vnc/vendor/pako/lib/
     - assets/web/open/vnc/vendor/pako/lib/utils/
     - assets/web/open/vnc/vendor/pako/lib/zlib/
-    #      sshFileExplorer
-    - assets/sshFileExplorer/app_icon.png
-    - assets/sshFileExplorer/app_icon_black.png
-    - assets/sshFileExplorer/app_icon_white.png
-    - assets/sshFileExplorer/arrow_drop_down.png
-    - assets/sshFileExplorer/arrow_drop_up.png
-  #    - sshFileExplorer over

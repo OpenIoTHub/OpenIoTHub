@@ -2,7 +2,7 @@
 # See https://dart.dev/tools/pub/glossary#lockfile
 packages:
   airkiss:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: airkiss
       url: "https://pub.flutter-io.cn"
@@ -65,7 +65,7 @@ packages:
     source: hosted
     version: "1.14.11"
   connectivity:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: connectivity
       url: "https://pub.flutter-io.cn"
@@ -121,7 +121,7 @@ packages:
     source: hosted
     version: "1.1.1"
   file_picker:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: file_picker
       url: "https://pub.flutter-io.cn"
@@ -135,7 +135,7 @@ packages:
     source: hosted
     version: "0.10.11"
   floating_action_row:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: floating_action_row
       url: "https://pub.flutter-io.cn"
@@ -154,7 +154,7 @@ packages:
     source: hosted
     version: "0.3.4"
   flutter_easylink:
-    dependency: "direct main"
+    dependency: transitive
     description:
       path: "."
       ref: HEAD
@@ -170,7 +170,7 @@ packages:
     source: path
     version: "0.0.1"
   flutter_oneshot:
-    dependency: "direct main"
+    dependency: transitive
     description:
       path: "."
       ref: HEAD
@@ -186,7 +186,7 @@ packages:
     source: hosted
     version: "1.0.7"
   flutter_smartlink:
-    dependency: "direct main"
+    dependency: transitive
     description:
       path: "."
       ref: HEAD
@@ -195,7 +195,7 @@ packages:
     source: git
     version: "0.0.1"
   flutter_speed_dial:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: flutter_speed_dial
       url: "https://pub.flutter-io.cn"
@@ -319,7 +319,7 @@ packages:
     source: hosted
     version: "0.12.6"
   md2_tab_indicator:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: md2_tab_indicator
       url: "https://pub.flutter-io.cn"
@@ -351,12 +351,12 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "2f9f961668dff453fffb43d8fe958615e4b00f98"
+      resolved-ref: "4d7efb936e2f23d42797c2000d734e872091cb40"
       url: "https://github.com/OpenIoTHub/modules"
     source: git
     version: "0.0.1"
   open_file:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: open_file
       url: "https://pub.flutter-io.cn"
@@ -372,14 +372,14 @@ packages:
     source: git
     version: "1.0.0"
   outline_material_icons:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: outline_material_icons
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.1.1"
   package_info:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: package_info
       url: "https://pub.flutter-io.cn"
@@ -393,7 +393,7 @@ packages:
     source: hosted
     version: "1.6.4"
   path_provider:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: path_provider
       url: "https://pub.flutter-io.cn"
@@ -463,7 +463,7 @@ packages:
     source: hosted
     version: "1.0.1"
   provider:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: provider
       url: "https://pub.flutter-io.cn"
@@ -526,7 +526,7 @@ packages:
     source: sdk
     version: "0.0.99"
   smartconfig:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: smartconfig
       url: "https://pub.flutter-io.cn"
@@ -540,7 +540,7 @@ packages:
     source: hosted
     version: "1.5.5"
   ssh:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: ssh
       url: "https://pub.flutter-io.cn"
