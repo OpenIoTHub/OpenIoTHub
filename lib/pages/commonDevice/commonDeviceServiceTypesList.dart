@@ -1,6 +1,6 @@
 import 'dart:async' as DeviceServiceTypesList;
 import 'package:flutter/material.dart';
-import 'package:modules/api/CommonDeviceApi.dart';
+import 'package:modules/api/OpenIoTHub/CommonDeviceApi.dart';
 import 'package:modules/constants/Constants.dart';
 import './services/tcpPortListPage.dart';
 import './services/udpPortListPage.dart';

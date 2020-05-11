@@ -4,11 +4,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mdns_plugin/mdns_plugin.dart' as mdns_plugin;
 import 'dart:convert';
-import 'package:modules/api/SessionApi.dart';
-import 'package:modules/api/Utils.dart';
+import 'package:modules/api/OpenIoTHub/SessionApi.dart';
+import 'package:modules/api/OpenIoTHub/Utils.dart';
 import 'package:modules/constants/Config.dart';
 import 'package:modules/constants/Constants.dart';
-import 'package:modules/model/custom_theme.dart';
+import 'package:openiothub/model/custom_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:modules/model/portService.dart';
 import 'package:modules/pages/mdnsService/mdnsType2ModelMap.dart';
@@ -349,7 +349,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
 //        print("===start:");
 //        iotDeviceResult.mDNSServices.forEach((MDNSService m) {
       String serviceType = service.serviceType;
-      if(serviceType == null) {
+      if (serviceType == null) {
         return;
       }
       print("service.serviceType:${serviceType}");
@@ -366,7 +366,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
         portService.port = service.port;
         portService.info = Map<String, dynamic>();
         service.txt.forEach((key, value) {
-          if(key == null || value == null){
+          if (key == null || value == null) {
             return;
           }
           portService.info[key] = Utf8Codec().decode(value);

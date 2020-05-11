@@ -7,7 +7,7 @@ import 'package:flutter_natcloud_service/flutter_natcloud_service.dart';
 import 'package:modules/constants/Config.dart';
 import './pages/commonDevice/commonDeviceListPage.dart';
 import 'package:openiothub/pages/mdnsService/mdnsServiceListPage.dart';
-import 'package:modules/model/custom_theme.dart';
+import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub/pages/session/sessionListPage.dart';
 import 'package:openiothub/pages/user/accountPage.dart';
 
@@ -99,98 +99,103 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildBottomNavigationBar(int index) {
-    return Platform.isIOS || true ?
-    BottomNavigationBar(
-      items: [
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-              color: _currentIndex == 0 ? _activeColor : _inactiveColor,
-            ),
-            title: Text(
-              '网关',
-              style: TextStyle(
-                  color: _currentIndex == 0 ? _activeColor : _inactiveColor),
-            )),
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.airplay,
-              color: _currentIndex == 1 ? _activeColor : _inactiveColor,
-            ),
-            title: Text(
-              '主机',
-              style: TextStyle(
-                  color: _currentIndex == 1 ? _activeColor : _inactiveColor),
-            )),
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.print,
-              color: _currentIndex == 2 ? _activeColor : _inactiveColor,
-            ),
-            title: Text(
-              '智能',
-              style: TextStyle(
-                  color: _currentIndex == 2 ? _activeColor : _inactiveColor),
-            )),
-      ],
-      currentIndex: index,
-      onTap: (int index) {
-        setState(() {
-          _currentIndex = index;
-        });
-      },
-    )
-    :
-    BottomNavigationBar(
-      items: [
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-              color: _currentIndex == 0 ? _activeColor : _inactiveColor,
-            ),
-            title: Text(
-              '网络',
-              style: TextStyle(
-                  color: _currentIndex == 0 ? _activeColor : _inactiveColor),
-            )),
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.airplay,
-              color: _currentIndex == 1 ? _activeColor : _inactiveColor,
-            ),
-            title: Text(
-              '主机',
-              style: TextStyle(
-                  color: _currentIndex == 1 ? _activeColor : _inactiveColor),
-            )),
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.print,
-              color: _currentIndex == 2 ? _activeColor : _inactiveColor,
-            ),
-            title: Text(
-              '智能',
-              style: TextStyle(
-                  color: _currentIndex == 2 ? _activeColor : _inactiveColor),
-            )),
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.account_circle,
-              color: _currentIndex == 3 ? _activeColor : _inactiveColor,
-            ),
-            title: Text(
-              '我',
-              style: TextStyle(
-                  color: _currentIndex == 3 ? _activeColor : _inactiveColor),
-            )),
-      ],
-      currentIndex: index,
-      onTap: (int index) {
-        setState(() {
-          _currentIndex = index;
-        });
-      },
-    )
-    ;
+    return Platform.isIOS || true
+        ? BottomNavigationBar(
+            items: [
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.home,
+                    color: _currentIndex == 0 ? _activeColor : _inactiveColor,
+                  ),
+                  title: Text(
+                    '网关',
+                    style: TextStyle(
+                        color:
+                            _currentIndex == 0 ? _activeColor : _inactiveColor),
+                  )),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.airplay,
+                    color: _currentIndex == 1 ? _activeColor : _inactiveColor,
+                  ),
+                  title: Text(
+                    '主机',
+                    style: TextStyle(
+                        color:
+                            _currentIndex == 1 ? _activeColor : _inactiveColor),
+                  )),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.print,
+                    color: _currentIndex == 2 ? _activeColor : _inactiveColor,
+                  ),
+                  title: Text(
+                    '智能',
+                    style: TextStyle(
+                        color:
+                            _currentIndex == 2 ? _activeColor : _inactiveColor),
+                  )),
+            ],
+            currentIndex: index,
+            onTap: (int index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+          )
+        : BottomNavigationBar(
+            items: [
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.home,
+                    color: _currentIndex == 0 ? _activeColor : _inactiveColor,
+                  ),
+                  title: Text(
+                    '网络',
+                    style: TextStyle(
+                        color:
+                            _currentIndex == 0 ? _activeColor : _inactiveColor),
+                  )),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.airplay,
+                    color: _currentIndex == 1 ? _activeColor : _inactiveColor,
+                  ),
+                  title: Text(
+                    '主机',
+                    style: TextStyle(
+                        color:
+                            _currentIndex == 1 ? _activeColor : _inactiveColor),
+                  )),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.print,
+                    color: _currentIndex == 2 ? _activeColor : _inactiveColor,
+                  ),
+                  title: Text(
+                    '智能',
+                    style: TextStyle(
+                        color:
+                            _currentIndex == 2 ? _activeColor : _inactiveColor),
+                  )),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.account_circle,
+                    color: _currentIndex == 3 ? _activeColor : _inactiveColor,
+                  ),
+                  title: Text(
+                    '我',
+                    style: TextStyle(
+                        color:
+                            _currentIndex == 3 ? _activeColor : _inactiveColor),
+                  )),
+            ],
+            currentIndex: index,
+            onTap: (int index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+          );
   }
 }

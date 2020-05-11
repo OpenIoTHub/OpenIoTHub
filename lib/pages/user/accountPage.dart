@@ -1,11 +1,10 @@
-import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
 import 'package:modules/constants/Constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:modules/model/portService.dart';
 import 'package:modules/pages/mdnsService/devices/rgbaLed.dart';
-import 'package:modules/model/custom_theme.dart';
+import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub/pages/user/player.dart';
 import 'package:openiothub/pages/user/tools/toolsTypePage.dart';
 import 'package:openiothub_grpc_api/pb/service.pb.dart';
@@ -14,7 +13,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:openiothub/util/NetUtils.dart';
 import 'package:openiothub/util/DataUtils.dart';
-import 'package:modules/model/UserInfo.dart';
+import 'package:openiothub/model/UserInfo.dart';
 
 class MyInfoPage extends StatefulWidget {
   @override
@@ -327,9 +326,7 @@ class MyInfoPageState extends State<MyInfoPage> {
               })
         ]),
         body: WebView(
-          initialUrl: url,
-            javascriptMode : JavascriptMode.unrestricted
-        ),
+            initialUrl: url, javascriptMode: JavascriptMode.unrestricted),
       );
     }));
   }

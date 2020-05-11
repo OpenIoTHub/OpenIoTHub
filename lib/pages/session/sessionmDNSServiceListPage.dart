@@ -1,12 +1,11 @@
-import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
 import 'package:modules/constants/Config.dart';
 import 'package:modules/constants/Constants.dart';
-import 'package:modules/model/custom_theme.dart';
+import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub_grpc_api/pb/service.pb.dart';
 import 'package:openiothub_grpc_api/pb/service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
-import 'package:modules/api/SessionApi.dart';
+import 'package:modules/api/OpenIoTHub/SessionApi.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -39,13 +38,14 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
     final tiles = _ServiceList.map(
       (pair) {
         var listItemContent = ListTile(
-          leading: Icon(Icons.devices,color: Provider.of<CustomTheme>(context).themeValue == "dark"
-              ? CustomThemes.dark.accentColor
-              : CustomThemes.light.accentColor),
+          leading: Icon(Icons.devices,
+              color: Provider.of<CustomTheme>(context).themeValue == "dark"
+                  ? CustomThemes.dark.accentColor
+                  : CustomThemes.light.accentColor),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Text(pair.description,style: Constants.titleTextStyle),
+              Text(pair.description, style: Constants.titleTextStyle),
             ],
           ),
           trailing: Constants.rightArrowIcon,
@@ -68,9 +68,8 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                       })
                 ]),
                 body: WebView(
-                  initialUrl: "http://${Config.webgRpcIp}:${pair.localProt}",
-                  javascriptMode : JavascriptMode.unrestricted
-                ),
+                    initialUrl: "http://${Config.webgRpcIp}:${pair.localProt}",
+                    javascriptMode: JavascriptMode.unrestricted),
               );
             }));
           },
