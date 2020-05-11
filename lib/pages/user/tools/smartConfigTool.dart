@@ -12,8 +12,7 @@ import 'package:flutter_smartlink/flutter_smartlink.dart';
 import 'package:airkiss/airkiss.dart';
 
 class SmartConfigTool extends StatefulWidget {
-  SmartConfigTool({Key key, this.title, this.needCallBack})
-      : super(key: key);
+  SmartConfigTool({Key key, this.title, this.needCallBack}) : super(key: key);
 
   final String title;
   final bool needCallBack;

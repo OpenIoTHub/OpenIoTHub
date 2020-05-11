@@ -1,6 +1,5 @@
-import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
-import 'package:modules/api/CommonDeviceApi.dart';
+import 'package:modules/api/OpenIoTHub/CommonDeviceApi.dart';
 import 'package:modules/constants/Config.dart';
 import 'package:modules/constants/Constants.dart';
 import 'package:openiothub_grpc_api/pb/service.pb.dart';

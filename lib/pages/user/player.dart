@@ -1,4 +1,4 @@
-import 'package:modules/model/custom_theme.dart';
+import 'package:openiothub/model/custom_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';

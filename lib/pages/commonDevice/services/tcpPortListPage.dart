@@ -1,6 +1,5 @@
-import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
-import 'package:modules/api/CommonDeviceApi.dart';
+import 'package:modules/api/OpenIoTHub/CommonDeviceApi.dart';
 import 'package:modules/constants/Constants.dart';
 import 'package:modules/pages/openWithChoice/OpenWithChoice.dart';
 import 'package:openiothub_grpc_api/pb/service.pb.dart';
@@ -252,5 +251,4 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
       refreshmTcpList();
     });
   }
-
 }
