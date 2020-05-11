@@ -1,6 +1,6 @@
 import 'package:http/http.dart' as http;
-import 'package:grpc_api/pb/service.pb.dart';
-import 'package:grpc_api/pb/service.pbgrpc.dart';
+import 'package:openiothub_grpc_api/pb/service.pb.dart';
+import 'package:openiothub_grpc_api/pb/service.pbgrpc.dart';
 
 class PortService {
 //  基础url，如：http://127.0.0.1:3679,不带根/

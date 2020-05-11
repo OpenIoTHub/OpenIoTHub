@@ -3,8 +3,8 @@ import 'package:openiothub/api/CommonDeviceApi.dart';
 import 'package:openiothub/api/SessionApi.dart';
 import 'package:openiothub/constants/Constants.dart';
 import 'package:openiothub/model/custom_theme.dart';
-import 'package:grpc_api/pb/service.pb.dart';
-import 'package:grpc_api/pb/service.pbgrpc.dart';
+import 'package:openiothub_grpc_api/pb/service.pb.dart';
+import 'package:openiothub_grpc_api/pb/service.pbgrpc.dart';
 import 'package:android_intent/android_intent.dart';
 import 'package:provider/provider.dart';
 

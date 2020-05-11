@@ -211,6 +211,15 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  gateway_grpc_api:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "625294883c9b52e2e9e6e6906563c871e33dd37e"
+      url: "https://github.com/OpenIoTHub/gateway-grpc-api"
+    source: git
+    version: "1.0.0"
   googleapis_auth:
     dependency: transitive
     description:
@@ -225,15 +234,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.3"
-  grpc_api:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: HEAD
-      resolved-ref: a60607f8987617e8f17c574d675bf2e590624ac1
-      url: "https://github.com/OpenIoTHub/grpc-api"
-    source: git
-    version: "1.0.0"
   http:
     dependency: "direct main"
     description:
@@ -346,6 +346,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.1"
+  openiothub_grpc_api:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "19f8fef2860edad7386fc14b072e0cab262c78df"
+      url: "https://github.com/OpenIoTHub/openiothub-grpc-api"
+    source: git
+    version: "1.0.0"
   outline_material_icons:
     dependency: "direct main"
     description:
@@ -458,6 +467,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.0"
+  server_grpc_api:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: eabd1b875d2339972236f303384f4a0693b523dd
+      url: "https://github.com/OpenIoTHub/server-grpc-api"
+    source: git
+    version: "1.0.0"
   shared_preferences:
     dependency: "direct main"
     description:
