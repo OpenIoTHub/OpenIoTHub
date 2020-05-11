@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:openiothub/api/SessionApi.dart';
-import 'package:grpc_api/pb/service.pb.dart';
+import 'package:openiothub_grpc_api/pb/service.pb.dart';
 
 import '../../../model/portService.dart';
 import '../commWidgets/info.dart';

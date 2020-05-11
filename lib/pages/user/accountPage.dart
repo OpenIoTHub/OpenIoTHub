@@ -11,7 +11,7 @@ import 'package:openiothub/pages/user/settings.dart';
 import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub/pages/user/player.dart';
 import 'package:openiothub/pages/user/tools/toolsTypePage.dart';
-import 'package:grpc_api/pb/service.pb.dart';
+import 'package:openiothub_grpc_api/pb/service.pb.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';

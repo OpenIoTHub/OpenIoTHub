@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:openiothub/api/CommonDeviceApi.dart';
 import 'package:openiothub/constants/Config.dart';
 import 'package:openiothub/constants/Constants.dart';
-import 'package:grpc_api/pb/service.pb.dart';
-import 'package:grpc_api/pb/service.pbgrpc.dart';
+import 'package:openiothub_grpc_api/pb/service.pb.dart';
+import 'package:openiothub_grpc_api/pb/service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 import 'package:url_launcher/url_launcher.dart';
 
