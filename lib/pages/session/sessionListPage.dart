@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:modules/constants/Constants.dart';
 import 'package:openiothub/model/custom_theme.dart';
 import 'package:provider/provider.dart';
-import './client/findmDNSClientList.dart';
+import 'package:modules/pages/gateWay/findmDNSClientList.dart';
 import 'package:openiothub_grpc_api/pb/service.pb.dart';
 import 'package:openiothub_grpc_api/pb/service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
