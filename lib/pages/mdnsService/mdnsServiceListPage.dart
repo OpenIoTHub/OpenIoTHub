@@ -4,21 +4,21 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mdns_plugin/mdns_plugin.dart' as mdns_plugin;
 import 'dart:convert';
-import 'package:openiothub/api/SessionApi.dart';
-import 'package:openiothub/api/Utils.dart';
-import 'package:openiothub/constants/Config.dart';
-import 'package:openiothub/constants/Constants.dart';
-import 'package:openiothub/model/custom_theme.dart';
+import 'package:modules/api/SessionApi.dart';
+import 'package:modules/api/Utils.dart';
+import 'package:modules/constants/Config.dart';
+import 'package:modules/constants/Constants.dart';
+import 'package:modules/model/custom_theme.dart';
 import 'package:provider/provider.dart';
-import '../../model/portService.dart';
-import 'mdnsType2ModelMap.dart';
+import 'package:modules/model/portService.dart';
+import 'package:modules/pages/mdnsService/mdnsType2ModelMap.dart';
 import 'package:openiothub/pages/user/tools/smartConfigTool.dart';
 import 'package:openiothub_grpc_api/pb/service.pb.dart';
 import 'package:openiothub_grpc_api/pb/service.pbgrpc.dart';
 
 //统一导入全部设备类型
-import './modelsMap.dart';
-import 'commWidgets/info.dart';
+import 'package:modules/pages/mdnsService/modelsMap.dart';
+import 'package:modules/pages/mdnsService/commWidgets/info.dart';
 
 class MdnsServiceListPage extends StatefulWidget {
   MdnsServiceListPage({Key key, this.title}) : super(key: key);

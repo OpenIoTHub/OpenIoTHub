@@ -1,12 +1,12 @@
 import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
-import 'package:openiothub/constants/Config.dart';
-import 'package:openiothub/constants/Constants.dart';
-import 'package:openiothub/model/custom_theme.dart';
+import 'package:modules/constants/Config.dart';
+import 'package:modules/constants/Constants.dart';
+import 'package:modules/model/custom_theme.dart';
 import 'package:openiothub_grpc_api/pb/service.pb.dart';
 import 'package:openiothub_grpc_api/pb/service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
-import 'package:openiothub/api/SessionApi.dart';
+import 'package:modules/api/SessionApi.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';

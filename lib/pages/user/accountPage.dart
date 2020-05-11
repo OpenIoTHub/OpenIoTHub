@@ -1,14 +1,11 @@
 import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
-import 'package:openiothub/constants/Constants.dart';
-import 'package:openiothub/events/LoginEvent.dart';
-import 'package:openiothub/events/LogoutEvent.dart';
+import 'package:modules/constants/Constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import '../../model/portService.dart';
-import '../../pages/mdnsService/devices/rgbaLed.dart';
-import 'package:openiothub/pages/user/settings.dart';
-import 'package:openiothub/model/custom_theme.dart';
+import 'package:modules/model/portService.dart';
+import 'package:modules/pages/mdnsService/devices/rgbaLed.dart';
+import 'package:modules/model/custom_theme.dart';
 import 'package:openiothub/pages/user/player.dart';
 import 'package:openiothub/pages/user/tools/toolsTypePage.dart';
 import 'package:openiothub_grpc_api/pb/service.pb.dart';
@@ -17,7 +14,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:openiothub/util/NetUtils.dart';
 import 'package:openiothub/util/DataUtils.dart';
-import 'package:openiothub/model/UserInfo.dart';
+import 'package:modules/model/UserInfo.dart';
 
 class MyInfoPage extends StatefulWidget {
   @override
@@ -80,14 +77,6 @@ class MyInfoPageState extends State<MyInfoPage> {
   void initState() {
     super.initState();
     _showUserInfo();
-    Constants.eventBus.on<LogoutEvent>().listen((event) {
-      // 收到退出登录的消息，刷新个人信息显示
-      _showUserInfo();
-    });
-    Constants.eventBus.on<LoginEvent>().listen((event) {
-      // 收到登录的消息，重新获取个人信息
-      getUserInfo();
-    });
   }
 
   _showUserInfo() {
@@ -153,8 +142,6 @@ class MyInfoPageState extends State<MyInfoPage> {
     if (result != null && result == "refresh") {
       // 刷新用户信息
       getUserInfo();
-      // 通知动弹页面刷新
-      Constants.eventBus.fire(LoginEvent());
     }
   }
 
@@ -288,13 +275,6 @@ class MyInfoPageState extends State<MyInfoPage> {
 //          MaterialPageRoute(
 //              builder: (context) => Text('设置页')
 //          ));
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => SettingsPage(),
-          settings: RouteSettings(name: "settings"),
-        ),
-      );
     } else if (title == "使用手册") {
       _goToURL("https://www.jianshu.com/u/b312a876d66e", "使用手册");
     } else if (title == "关于") {

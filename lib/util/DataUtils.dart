@@ -1,6 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
-import 'package:openiothub/model/UserInfo.dart';
+import 'package:modules/model/UserInfo.dart';
 
 class DataUtils {
   static const String SP_AC_TOKEN = "accessToken";
