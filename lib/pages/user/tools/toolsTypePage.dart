@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:modules/constants/Constants.dart';
-import 'package:openiothub/pages/commonDevice/commonDeviceListPage.dart';
 
-import 'smartConfigTool.dart';
+import 'package:modules/pages/tools/smartConfigTool.dart';
 
 class ToolsTypePage extends StatelessWidget {
   static const String TAG_START = "startDivider";

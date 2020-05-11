@@ -12,7 +12,7 @@ import 'package:openiothub/model/custom_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:modules/model/portService.dart';
 import 'package:modules/pages/mdnsService/mdnsType2ModelMap.dart';
-import 'package:openiothub/pages/user/tools/smartConfigTool.dart';
+import 'package:modules/pages/tools/smartConfigTool.dart';
 import 'package:openiothub_grpc_api/pb/service.pb.dart';
 import 'package:openiothub_grpc_api/pb/service.pbgrpc.dart';
 
