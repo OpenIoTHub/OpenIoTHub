@@ -1,7 +1,7 @@
 import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
-import 'package:openiothub/api/CommonDeviceApi.dart';
-import 'package:openiothub/constants/Constants.dart';
+import 'package:modules/api/CommonDeviceApi.dart';
+import 'package:modules/constants/Constants.dart';
 import 'package:openiothub_grpc_api/pb/service.pb.dart';
 import 'package:openiothub_grpc_api/pb/service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';

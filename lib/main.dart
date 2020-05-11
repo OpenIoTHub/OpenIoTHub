@@ -4,11 +4,10 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_natcloud_service/flutter_natcloud_service.dart';
 
-import 'package:openiothub/constants/Config.dart';
+import 'package:modules/constants/Config.dart';
 import './pages/commonDevice/commonDeviceListPage.dart';
 import 'package:openiothub/pages/mdnsService/mdnsServiceListPage.dart';
-import 'package:openiothub/pages/openWithChoice/sshWeb/fileExplorer/services/connection_model.dart';
-import 'package:openiothub/model/custom_theme.dart';
+import 'package:modules/model/custom_theme.dart';
 import 'package:openiothub/pages/session/sessionListPage.dart';
 import 'package:openiothub/pages/user/accountPage.dart';
 
@@ -29,7 +28,6 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(builder: (context) => ConnectionModel()),
         ChangeNotifierProvider(builder: (context) => CustomTheme()),
       ],
       child: MyApp(),

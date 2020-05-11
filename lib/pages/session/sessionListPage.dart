@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:openiothub/constants/Constants.dart';
-import 'package:openiothub/model/custom_theme.dart';
+import 'package:modules/constants/Constants.dart';
+import 'package:modules/model/custom_theme.dart';
 import 'package:provider/provider.dart';
 import './client/findmDNSClientList.dart';
 import 'package:openiothub_grpc_api/pb/service.pb.dart';
 import 'package:openiothub_grpc_api/pb/service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 import 'package:openiothub/pages/session/sessionmDNSServiceListPage.dart';
-import 'package:openiothub/api/SessionApi.dart';
+import 'package:modules/api/SessionApi.dart';
 
 class SessionListPage extends StatefulWidget {
   SessionListPage({Key key, this.title}) : super(key: key);

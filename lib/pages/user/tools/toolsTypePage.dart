@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:openiothub/constants/Constants.dart';
+import 'package:modules/constants/Constants.dart';
 import 'package:openiothub/pages/commonDevice/commonDeviceListPage.dart';
 
 import 'smartConfigTool.dart';

@@ -39,7 +39,7 @@ dependencies:
   #  grpc
   grpc: ^1.0.2
   #  grpc协议
-  protobuf: ^0.13.11
+  protobuf: ^1.0.1
   #  app内嵌网页浏览器
   webview_flutter: ^0.3.19+9
   #  打开url
@@ -96,6 +96,9 @@ dependencies:
   #  webDAV的文件浏览器
   webdav:
     git: https://github.com/OpenIoTHub/dart-webdav
+  #  webDAV的文件浏览器
+  modules:
+    git: https://github.com/OpenIoTHub/modules
   # 应用OTA
 #  upgrader: ^0.10.2
 

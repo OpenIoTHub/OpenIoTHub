@@ -1,6 +1,4 @@
-import 'package:openiothub/pages/openWithChoice/sshWeb/fileExplorer/services/connection.dart';
-import 'package:openiothub/pages/openWithChoice/sshWeb/fileExplorer/services/connection_methods.dart';
-import 'package:openiothub/model/custom_theme.dart';
+import 'package:modules/model/custom_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
@@ -149,25 +147,5 @@ class _VideoAppState extends State<VideoApp> {
 //        ));
 //      }
 //    });
-
-    Connection _connection = Connection();
-    _connection.address = "192.168.0.15";
-    _connection.port = "22";
-    _connection.username = "root";
-    _connection.passwordOrKey = "root";
-    ConnectionMethods.connectClient(
-      context,
-      address: _connection.address,
-      port: int.parse(_connection.port),
-      username: _connection.username,
-      passwordOrKey: _connection.passwordOrKey,
-    ).then((bool connected) {
-      Navigator.popUntil(context, ModalRoute.withName("/"));
-      if (connected) {
-        ConnectionMethods.connect(context, _connection);
-      } else {
-        print('fail');
-      }
-    });
   }
 }

@@ -1,7 +1,7 @@
 import 'dart:async' as DeviceServiceTypesList;
 import 'package:flutter/material.dart';
-import 'package:openiothub/api/CommonDeviceApi.dart';
-import 'package:openiothub/constants/Constants.dart';
+import 'package:modules/api/CommonDeviceApi.dart';
+import 'package:modules/constants/Constants.dart';
 import './services/tcpPortListPage.dart';
 import './services/udpPortListPage.dart';
 import './services/ftpPortListPage.dart';
