@@ -146,6 +146,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_colorpicker:
+    dependency: transitive
+    description:
+      name: flutter_colorpicker
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.3.4"
   flutter_easylink:
     dependency: transitive
     description:
@@ -344,7 +351,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: d527dbf2bd5ea2af9aa269172341536b372a8cb2
+      resolved-ref: c788147caed5c5bed638e2c24d048797f4cc0b9d
       url: "https://github.com/OpenIoTHub/modules"
     source: git
     version: "0.0.1"
