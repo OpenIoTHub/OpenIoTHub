@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:modules/constants/Constants.dart';
+import 'package:modules/pages/commPages/appInfo.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:modules/model/portService.dart';
@@ -277,9 +278,8 @@ class MyInfoPageState extends State<MyInfoPage> {
     } else if (title == "使用手册") {
       _goToURL("https://www.jianshu.com/u/b312a876d66e", "使用手册");
     } else if (title == "关于") {
-      _goToURL("https://github.com/nat-cloud/README", "关于");
-//      _goToURL("http://192.168.0.15/fc.mp4", "关于");
-//      _goToURL("http://192.168.0.15/1.mp3", "关于");
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => AppInfoPage()));
     } else if (title == "测试") {
 //      String databasesPath = await getDatabasesPath();
       Navigator.of(context).push(MaterialPageRoute(

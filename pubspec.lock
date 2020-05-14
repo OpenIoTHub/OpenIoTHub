@@ -344,7 +344,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: b9f16ad5c3e83c42b9ebbbc84bc2de56dfee2063
+      resolved-ref: e62113dcc9a0252276e3d659ffa822beae44635b
       url: "https://github.com/OpenIoTHub/modules"
     source: git
     version: "0.0.1"
@@ -622,7 +622,7 @@ packages:
       name: video_player
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.10.10"
+    version: "0.10.11"
   video_player_platform_interface:
     dependency: transitive
     description:
