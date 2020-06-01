@@ -226,7 +226,7 @@ packages:
       name: googleapis_auth
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.2.11+1"
+    version: "0.2.12"
   grpc:
     dependency: "direct main"
     description:
@@ -335,11 +335,9 @@ packages:
   modules:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: e0bd981c803925ce20b50dc44fb755ffb12b6ba9
-      url: "https://github.com/OpenIoTHub/modules"
-    source: git
+      path: "../modules"
+      relative: true
+    source: path
     version: "0.0.1"
   open_file:
     dependency: transitive
@@ -426,7 +424,7 @@ packages:
       name: petitparser
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.0.2"
+    version: "3.0.4"
   platform:
     dependency: transitive
     description:
@@ -538,7 +536,7 @@ packages:
       name: ssh
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.0.6"
+    version: "0.0.7"
   stack_trace:
     dependency: transitive
     description:
