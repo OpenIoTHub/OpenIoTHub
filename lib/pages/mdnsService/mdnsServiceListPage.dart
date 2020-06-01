@@ -290,6 +290,8 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
                     MDNS2ModelsMap.modelsMap[mDNSInfo['type']];
                 portService.ip = Config.webgRpcIp;
                 portService.port = pc.localProt;
+                portService.info["name"] =
+                "${portService.info["name"]}@${mDNSInfo['AddrIPv4']}:${mDNSInfo['port']}@${sessionConfig.runId.substring(0, 5)}";
                 portService.info["id"] =
                     "${mDNSInfo['AddrIPv4']}:${mDNSInfo['port']}@${sessionConfig.runId}";
                 portService.isLocal = false;
@@ -393,6 +395,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
         }
         portService.port = service.port;
         portService.info["id"] = "${portService.ip}:${portService.port}@local";
+        portService.info["name"] = "${portService.info["name"]}@${portService.ip}:${portService.port}@local";
         portService.isLocal = true;
         addPortService(portService);
       }

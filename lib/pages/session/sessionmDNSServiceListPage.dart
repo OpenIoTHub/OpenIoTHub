@@ -146,7 +146,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
     final List _result = [];
     _result.add("ID:${config.runId}");
     _result.add("描述:${config.description}");
-    _result.add("连接码:${config.token}");
+    _result.add("连接码(简化后):${config.token.substring(0, 10)}");
     _result.add("转发连接状态:${config.statusToClient ? "在线" : "离线"}");
     _result.add(
         "P2P连接状态:${config.statusP2PAsClient || config.statusP2PAsServer ? "在线" : "离线"}");
