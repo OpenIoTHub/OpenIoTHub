@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:modules/api/OpenIoTHub/CommonDeviceApi.dart';
 import 'package:modules/api/OpenIoTHub/SessionApi.dart';
@@ -22,14 +24,24 @@ class CommonDeviceListPage extends StatefulWidget {
 class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
   List<SessionConfig> _SessionList = [];
   List<Device> _CommonDeviceList = [];
+  Timer _timerPeriod;
 
   @override
   void initState() {
     super.initState();
-    getAllCommonDevice().then((v) {
-      setState(() {});
+    getAllCommonDevice();
+    _timerPeriod = Timer.periodic(Duration(seconds: 3), (Timer timer) {
+      getAllCommonDevice();
     });
     print("init common devie List");
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    if (_timerPeriod != null) {
+      _timerPeriod.cancel();
+    }
   }
 
   @override
