@@ -33,7 +33,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
     implements mdns_plugin.MDNSPluginDelegate {
   Utf8Decoder u8decodeer = Utf8Decoder();
   Map<String, PortService> _IoTDeviceMap = Map<String, PortService>();
-//  Timer _timerPeriod;
+  Timer _timerPeriod;
   mdns_plugin.MDNSPlugin _mdns;
 
   @override
@@ -41,9 +41,9 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
     super.initState();
     _mdns = mdns_plugin.MDNSPlugin(this);
     getAllIoTDevice();
-//    _timerPeriod = Timer.periodic(Duration(seconds: 5), (Timer timer) {
-//      getAllIoTDevice();
-//    });
+    _timerPeriod = Timer.periodic(Duration(seconds: 3), (Timer timer) {
+      getIoTDeviceFromRemote();
+    });
     print("init iot devie List");
   }
 
@@ -117,9 +117,9 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
   @override
   void dispose() {
     super.dispose();
-//    if (_timerPeriod != null) {
-//      _timerPeriod.cancel();
-//    }
+    if (_timerPeriod != null) {
+      _timerPeriod.cancel();
+    }
     _mdns.stopDiscovery();
   }
 
