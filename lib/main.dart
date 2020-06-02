@@ -10,6 +10,7 @@ import 'package:openiothub/pages/mdnsService/mdnsServiceListPage.dart';
 import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub/pages/session/sessionListPage.dart';
 import 'package:openiothub/pages/user/accountPage.dart';
+import 'package:openiothub/util/InitAllConfig.dart';
 
 import 'package:jaguar/jaguar.dart';
 import 'package:jaguar_flutter_asset/jaguar_flutter_asset.dart';
@@ -18,6 +19,9 @@ import 'package:provider/provider.dart';
 
 void main() {
   FlutterNatcloudService.start();
+  Future.delayed(Duration(seconds: 1), (){
+    InitAllConfig();
+  });
   final server =
       Jaguar(address: Config.webStaticIp, port: Config.webStaticPort);
   server.addRoute(serveFlutterAssets());

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:modules/constants/Constants.dart';
 import 'package:openiothub/model/custom_theme.dart';
@@ -22,15 +24,23 @@ class _SessionListPageState extends State<SessionListPage> {
   static const double IMAGE_ICON_WIDTH = 30.0;
 
   List<SessionConfig> _SessionList = [];
+  Timer _timerPeriod;
 
   @override
   void initState() {
     super.initState();
-    getAllSession().then((_) {
-      Future.delayed(const Duration(milliseconds: 500)).then((_) {
-        getAllSession();
-      });
+    getAllSession();
+    _timerPeriod = Timer.periodic(Duration(seconds: 1), (Timer timer) {
+      getAllSession();
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    if (_timerPeriod != null) {
+      _timerPeriod.cancel();
+    }
   }
 
   @override
