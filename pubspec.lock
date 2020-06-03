@@ -146,13 +146,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_colorpicker:
-    dependency: transitive
-    description:
-      name: flutter_colorpicker
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.3.4"
   flutter_easylink:
     dependency: transitive
     description:
@@ -335,9 +328,11 @@ packages:
   modules:
     dependency: "direct main"
     description:
-      path: "../modules"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "526c23bd23dfb54af470f0e5a14d51a9da587d18"
+      url: "https://github.com/OpenIoTHub/modules"
+    source: git
     version: "0.0.1"
   open_file:
     dependency: transitive
@@ -351,7 +346,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "0149c4cce17a76561bf2f92867074f1d05f1f11e"
+      resolved-ref: "2db124b9500e310f45bc500970f5e87461a0f10e"
       url: "https://github.com/OpenIoTHub/openiothub-grpc-api"
     source: git
     version: "1.0.0"
@@ -496,7 +491,7 @@ packages:
       name: shared_preferences_macos
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.0.1+9"
+    version: "0.0.1+10"
   shared_preferences_platform_interface:
     dependency: transitive
     description:
