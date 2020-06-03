@@ -1,5 +1,5 @@
-import 'package:modules/api/OpenIoTHub/SessionApi.dart';
+import 'package:modules/api/OpenIoTHub/Utils.dart';
 
 Future<void> InitAllConfig() {
-  SessionApi.loadSessions();
+  UtilApi.loadAllConfig();
 }
