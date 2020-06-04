@@ -2,6 +2,7 @@ import 'dart:async' as DeviceServiceTypesList;
 import 'package:flutter/material.dart';
 import 'package:modules/api/OpenIoTHub/CommonDeviceApi.dart';
 import 'package:modules/constants/Constants.dart';
+import 'package:openiothub/pages/commonDevice/services/httpPortListPage.dart';
 import './services/tcpPortListPage.dart';
 import './services/udpPortListPage.dart';
 import './services/ftpPortListPage.dart';
@@ -139,7 +140,7 @@ class _CommonDeviceServiceTypesListState
       }));
     } else if (title == "HTTP端口") {
       Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
-        return FtpPortListPage(device: widget.device);
+        return HttpPortListPage(device: widget.device);
       }));
     }
   }
