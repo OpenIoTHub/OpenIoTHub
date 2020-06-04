@@ -60,7 +60,7 @@ class _CommonDeviceServiceTypesListState
     listData.add(TAG_END);
     listData.add(TAG_BLANK);
     listData.add(TAG_START);
-    listData.add(ListItem(title: titles[2], icon: imagePaths[3]));
+    listData.add(ListItem(title: titles[3], icon: imagePaths[3]));
     listData.add(TAG_END);
   }
 
