@@ -135,9 +135,7 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
                   ),
                   onPressed: () async {
                     //TODO 使用某种方式打开此端口，检查这个软件是否已经安装
-                    SessionConfig sessionConfig = await SessionApi.getOneSession(widget.device.runId);
-                    TokenModel tokenModel = await UtilApi.getTokenModel(sessionConfig.token);
-                    _launchURL("Http://${tokenModel.host}");
+                    _launchURL("http://${config.domain}");
                   }),
             ]),
             body: ListView(children: divided),
