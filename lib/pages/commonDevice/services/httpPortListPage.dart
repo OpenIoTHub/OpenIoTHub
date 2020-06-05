@@ -111,6 +111,7 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
   void _pushDetail(HTTPConfig config) async {
     final List _result = [];
     _result.add("端口:${config.remotePort}");
+    _result.add("域名:${config.domain}");
     _result.add("描述:${config.description}");
     _result.add("转发连接状态:${config.remotePortStatus ? "在线" : "离线"}");
     await Navigator.of(context).push(
