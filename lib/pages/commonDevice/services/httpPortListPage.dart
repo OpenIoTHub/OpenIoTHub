@@ -1,20 +1,22 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:modules/api/OpenIoTHub/SessionApi.dart';
 import 'package:modules/api/OpenIoTHub/Utils.dart';
 import 'package:modules/api/Server/HttpManager.dart';
 import 'package:modules/constants/Config.dart';
 import 'package:modules/constants/Constants.dart';
-import 'package:openiothub_grpc_api/pb/service.pb.dart';
 import 'package:openiothub_grpc_api/pb/service.pbgrpc.dart';
+import 'package:openiothub_grpc_api/pb/service.pb.dart' as openiothub;
 import 'package:server_grpc_api/pb/service.pb.dart';
-import 'package:server_grpc_api/pb/service.pbgrpc.dart';
+import 'package:server_grpc_api/pb/service.pbgrpc.dart' as server;
 import 'package:grpc/grpc.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HttpPortListPage extends StatefulWidget {
   HttpPortListPage({Key key, this.device}) : super(key: key);
 
-  Device device;
+  openiothub.Device device;
 
   @override
   _HttpPortListPageState createState() => _HttpPortListPageState();
@@ -23,11 +25,23 @@ class HttpPortListPage extends StatefulWidget {
 class _HttpPortListPageState extends State<HttpPortListPage> {
   static const double IMAGE_ICON_WIDTH = 30.0;
   List<HTTPConfig> _HttpList = [];
+  Timer _timerPeriod;
 
   @override
   void initState() {
     super.initState();
     refreshmHttpList();
+    _timerPeriod = Timer.periodic(Duration(seconds: 3), (Timer timer) {
+      refreshmHttpList();
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    if (_timerPeriod != null) {
+      _timerPeriod.cancel();
+    }
   }
 
   @override
@@ -157,7 +171,7 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
     }
   }
 
-  Future _addHttp(Device device) async {
+  Future _addHttp(openiothub.Device device) async {
     TextEditingController _description_controller =
         TextEditingController.fromValue(TextEditingValue(text: "Http"));
     TextEditingController _domain_controller =

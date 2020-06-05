@@ -351,7 +351,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: a49a5e154b7efa8d7033599aa6c3a3170e0b9c67
+      resolved-ref: d2b3f46cced179c10f46e989c06cffe9e7906fdc
       url: "https://github.com/OpenIoTHub/modules"
     source: git
     version: "0.0.1"
@@ -509,7 +509,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: d212905494424795bf9543122cfb23dad1c30377
+      resolved-ref: "23f55b20097bc3ae8ae524ac7f187403da7844f7"
       url: "https://github.com/OpenIoTHub/server-grpc-api"
     source: git
     version: "1.0.0"
