@@ -217,8 +217,6 @@ class _CommonDeviceServiceTypesListState
                   )
                 ])).then((v) {
       Navigator.of(context).pop();
-    }).then((v) {
-      Navigator.of(context).pop();
     });
   }
 
