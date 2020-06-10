@@ -121,6 +121,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
       _timerPeriod.cancel();
     }
     _mdns.stopDiscovery();
+    _IoTDeviceMap.clear();
   }
 
 //显示是设备的UI展示或者操作界面
@@ -286,14 +287,11 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
                   mDNSInfo['AddrIPv4'] is List &&
                   mDNSInfo['AddrIPv4'].length > 0) {
                 // mDNS类型为其他需要兼容的类型，看看是否在mdnsType2ModelMap的key里面，如果在就转为通用组件
-                PortService portService =
-                    MDNS2ModelsMap.modelsMap[mDNSInfo['type']];
+                PortService portService = PortService.fromJson(MDNS2ModelsMap.modelsMap[mDNSInfo['type']].toJson());
                 portService.ip = Config.webgRpcIp;
                 portService.port = pc.localProt;
-                portService.info["name"] =
-                "${portService.info["name"]}@${mDNSInfo['AddrIPv4']}:${mDNSInfo['port']}@${sessionConfig.runId.substring(0, 5)}";
                 portService.info["id"] =
-                    "${mDNSInfo['AddrIPv4']}:${mDNSInfo['port']}@${sessionConfig.runId}";
+                    "${mDNSInfo['AddrIPv4'][0]}:${mDNSInfo['port']}@${sessionConfig.runId}";
                 portService.isLocal = false;
                 addPortService(portService);
               }
@@ -395,7 +393,6 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
         }
         portService.port = service.port;
         portService.info["id"] = "${portService.ip}:${portService.port}@local";
-        portService.info["name"] = "${portService.info["name"]}@${portService.ip}:${portService.port}@local";
         portService.isLocal = true;
         addPortService(portService);
       }
