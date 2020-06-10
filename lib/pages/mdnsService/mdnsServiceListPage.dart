@@ -249,7 +249,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
 //    String id = Utf8Codec().decode(portService.info["id"]);
     String id = portService.info["id"];
     if (!_IoTDeviceMap.containsKey(id) ||
-        (!_IoTDeviceMap[id].isLocal && portService.isLocal)) {
+        (_IoTDeviceMap.containsKey(id)&&!_IoTDeviceMap[id].isLocal && portService.isLocal)) {
       setState(() {
         _IoTDeviceMap[id] = portService;
       });
@@ -287,7 +287,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
                   mDNSInfo['AddrIPv4'] is List &&
                   mDNSInfo['AddrIPv4'].length > 0) {
                 // mDNS类型为其他需要兼容的类型，看看是否在mdnsType2ModelMap的key里面，如果在就转为通用组件
-                PortService portService = PortService.fromJson(MDNS2ModelsMap.modelsMap[mDNSInfo['type']].toJson());
+                PortService portService = MDNS2ModelsMap.modelsMap[mDNSInfo['type']];
                 portService.ip = Config.webgRpcIp;
                 portService.port = pc.localProt;
                 portService.info["id"] =

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modules/constants/Config.dart';
 import 'package:modules/constants/Constants.dart';
+import 'package:modules/pages/mdnsService/commWidgets/mDNSInfo.dart';
 import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub_grpc_api/pb/service.pb.dart';
 import 'package:openiothub_grpc_api/pb/service.pbgrpc.dart';
@@ -57,6 +58,14 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                 .push(new MaterialPageRoute(builder: (context) {
               return Scaffold(
                 appBar: new AppBar(title: new Text("网页浏览器"), actions: <Widget>[
+                  IconButton(
+                      icon: Icon(
+                        Icons.info,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        _info(pair);
+                      }),
                   IconButton(
                       icon: Icon(
                         Icons.open_in_browser,
@@ -236,5 +245,18 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
     } else {
       print('Could not launch $url');
     }
+  }
+
+  _info(PortConfig portConfig) async {
+    // TODO 设备信息
+    await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) {
+          return MDNSInfoPage(
+            portConfig: portConfig,
+          );
+        },
+      ),
+    );
   }
 }
