@@ -263,7 +263,9 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
   Future getAllCommonDevice() async {
     try {
       final response = await CommonDeviceApi.getAllDevice();
-      setState(() {
+      print("=====getAllDevice:${response.devices}");
+      setState(() async {
+        await _CommonDeviceList.clear();
         _CommonDeviceList = response.devices;
       });
     } catch (e) {
