@@ -15,6 +15,7 @@ import 'package:modules/pages/mdnsService/mdnsType2ModelMap.dart';
 import 'package:modules/pages/tools/smartConfigTool.dart';
 import 'package:openiothub_grpc_api/pb/service.pb.dart';
 import 'package:openiothub_grpc_api/pb/service.pbgrpc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 //统一导入全部设备类型
 import 'package:modules/pages/mdnsService/modelsMap.dart';
@@ -247,7 +248,16 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
   Future<void> addPortService(PortService portService) async {
 //      在没有重复的情况下直接加入列表，有重复则本内外的替代远程的
 //    String id = Utf8Codec().decode(portService.info["id"]);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     String id = portService.info["id"];
+    Map<String, dynamic> device_cname_map = Map<String, String>();
+    if(prefs.containsKey(Constants.DEVICE_CNAME_KEY)){
+      String device_cname = await prefs.getString(Constants.DEVICE_CNAME_KEY);
+      device_cname_map = jsonDecode(device_cname);
+      if(device_cname_map.containsKey(id)) {
+        portService.info["name"] = device_cname_map[id].toString();
+      }
+    }
     if (!_IoTDeviceMap.containsKey(id) ||
         (_IoTDeviceMap.containsKey(id)&&!_IoTDeviceMap[id].isLocal && portService.isLocal)) {
       setState(() {
