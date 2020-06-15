@@ -284,7 +284,7 @@ class MyInfoPageState extends State<MyInfoPage> {
 //      String databasesPath = await getDatabasesPath();
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => RGBALedPage(
-                device: PortService(info: Map(), portConfig: PortConfig()),
+                device: PortService(info: Map()),
               )
 //          VideoApp()
 //              builder: (context) => Text('databasesPath')

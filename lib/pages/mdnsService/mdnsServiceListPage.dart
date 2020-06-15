@@ -235,7 +235,6 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
     }
     portConfig.description = info["name"];
     PortService portService = PortService(
-        portConfig: portConfig,
         info: info,
         isLocal: isLocal,
         ip: ip,
