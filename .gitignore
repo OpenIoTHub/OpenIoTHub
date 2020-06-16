@@ -41,6 +41,7 @@ key.properties
 key.jks
 **/android/**/GeneratedPluginRegistrant.java
 .flutter-plugins-dependencies
+*.aar
 
 # iOS/XCode related
 **/ios/**/*.mode1v3
