@@ -72,6 +72,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Color _activeColor = Colors.orange;
   int _currentIndex = 0;
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
     super.initState();
@@ -83,6 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ? CustomThemes.dark.accentColor
         : CustomThemes.light.accentColor;
     return Scaffold(
+        key: _scaffoldKey,
         drawer: _buildDrawer(),
         body: _buildBody(_currentIndex),
         bottomNavigationBar: _buildBottomNavigationBar(_currentIndex));
@@ -108,104 +111,46 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildBottomNavigationBar(int index) {
-    return Platform.isIOS || true
-        ? BottomNavigationBar(
-            items: [
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.home,
-                    color: _currentIndex == 0 ? _activeColor : _inactiveColor,
-                  ),
-                  title: Text(
-                    '网关',
-                    style: TextStyle(
-                        color:
-                            _currentIndex == 0 ? _activeColor : _inactiveColor),
-                  )),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.airplay,
-                    color: _currentIndex == 1 ? _activeColor : _inactiveColor,
-                  ),
-                  title: Text(
-                    '主机',
-                    style: TextStyle(
-                        color:
-                            _currentIndex == 1 ? _activeColor : _inactiveColor),
-                  )),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.print,
-                    color: _currentIndex == 2 ? _activeColor : _inactiveColor,
-                  ),
-                  title: Text(
-                    '智能',
-                    style: TextStyle(
-                        color:
-                            _currentIndex == 2 ? _activeColor : _inactiveColor),
-                  )),
-            ],
-            currentIndex: index,
-            onTap: (int index) {
-              setState(() {
-                _currentIndex = index;
-              });
-            },
-          )
-        : BottomNavigationBar(
-            items: [
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.home,
-                    color: _currentIndex == 0 ? _activeColor : _inactiveColor,
-                  ),
-                  title: Text(
-                    '网络',
-                    style: TextStyle(
-                        color:
-                            _currentIndex == 0 ? _activeColor : _inactiveColor),
-                  )),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.airplay,
-                    color: _currentIndex == 1 ? _activeColor : _inactiveColor,
-                  ),
-                  title: Text(
-                    '主机',
-                    style: TextStyle(
-                        color:
-                            _currentIndex == 1 ? _activeColor : _inactiveColor),
-                  )),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.print,
-                    color: _currentIndex == 2 ? _activeColor : _inactiveColor,
-                  ),
-                  title: Text(
-                    '智能',
-                    style: TextStyle(
-                        color:
-                            _currentIndex == 2 ? _activeColor : _inactiveColor),
-                  )),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.account_circle,
-                    color: _currentIndex == 3 ? _activeColor : _inactiveColor,
-                  ),
-                  title: Text(
-                    '我',
-                    style: TextStyle(
-                        color:
-                            _currentIndex == 3 ? _activeColor : _inactiveColor),
-                  )),
-            ],
-            currentIndex: index,
-            onTap: (int index) {
-              setState(() {
-                _currentIndex = index;
-              });
-            },
-          );
+    return BottomNavigationBar(
+      items: [
+        BottomNavigationBarItem(
+            icon: Icon(
+              Icons.home,
+              color: _currentIndex == 0 ? _activeColor : _inactiveColor,
+            ),
+            title: Text(
+              '网关',
+              style: TextStyle(
+                  color: _currentIndex == 0 ? _activeColor : _inactiveColor),
+            )),
+        BottomNavigationBarItem(
+            icon: Icon(
+              Icons.airplay,
+              color: _currentIndex == 1 ? _activeColor : _inactiveColor,
+            ),
+            title: Text(
+              '主机',
+              style: TextStyle(
+                  color: _currentIndex == 1 ? _activeColor : _inactiveColor),
+            )),
+        BottomNavigationBarItem(
+            icon: Icon(
+              Icons.print,
+              color: _currentIndex == 2 ? _activeColor : _inactiveColor,
+            ),
+            title: Text(
+              '智能',
+              style: TextStyle(
+                  color: _currentIndex == 2 ? _activeColor : _inactiveColor),
+            )),
+      ],
+      currentIndex: index,
+      onTap: (int index) {
+        setState(() {
+          _currentIndex = index;
+        });
+      },
+    );
   }
 
   Widget _buildDrawer() {
@@ -241,8 +186,6 @@ class _MyHomePageState extends State<MyHomePage> {
               //用一个BoxDecoration装饰器提供背景图片
               image: DecorationImage(
                 fit: BoxFit.fill,
-//                 image: NetworkImage('https://raw.githubusercontent.com/flutter/website/master/_includes/code/layout/lakes/images/lake.jpg')
-                //可以试试图片调取自本地。调用本地资源，需要到pubspec.yaml中配置文件路径
                 image: ExactAssetImage('assets/images/cover_img.jpg'),
               ),
             ),
@@ -262,7 +205,10 @@ class _MyHomePageState extends State<MyHomePage> {
               trailing: Icon(Icons.arrow_right),
               onTap: () {
                 Navigator.of(context).pop();
-                _goToURL("https://www.jianshu.com/u/b312a876d66e", "使用手册");
+                Platform.isIOS
+                    ? _launchURL("https://www.jianshu.com/u/b312a876d66e")
+                    : _goToURL(
+                        "https://www.jianshu.com/u/b312a876d66e", "使用手册");
               }),
           ListTile(
               //第二个功能项
@@ -310,5 +256,9 @@ class _MyHomePageState extends State<MyHomePage> {
             initialUrl: url, javascriptMode: JavascriptMode.unrestricted),
       );
     }));
+  }
+
+  void _openDrawer() {
+    _scaffoldKey.currentState.openDrawer();
   }
 }
