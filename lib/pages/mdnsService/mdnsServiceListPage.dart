@@ -81,6 +81,14 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
+          leading: IconButton(
+              icon: Icon(
+                Icons.menu,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              }),
           actions: <Widget>[
             IconButton(
                 icon: Icon(
@@ -234,11 +242,8 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
       return;
     }
     portConfig.description = info["name"];
-    PortService portService = PortService(
-        info: info,
-        isLocal: isLocal,
-        ip: ip,
-        port: port);
+    PortService portService =
+        PortService(info: info, isLocal: isLocal, ip: ip, port: port);
     addPortService(portService);
 //    TODO 判断此配置的合法性 verify()
   }
@@ -250,15 +255,17 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String id = portService.info["id"];
     Map<String, dynamic> device_cname_map = Map<String, String>();
-    if(prefs.containsKey(Constants.DEVICE_CNAME_KEY)){
+    if (prefs.containsKey(Constants.DEVICE_CNAME_KEY)) {
       String device_cname = await prefs.getString(Constants.DEVICE_CNAME_KEY);
       device_cname_map = jsonDecode(device_cname);
-      if(device_cname_map.containsKey(id)) {
+      if (device_cname_map.containsKey(id)) {
         portService.info["name"] = device_cname_map[id].toString();
       }
     }
     if (!_IoTDeviceMap.containsKey(id) ||
-        (_IoTDeviceMap.containsKey(id)&&!_IoTDeviceMap[id].isLocal && portService.isLocal)) {
+        (_IoTDeviceMap.containsKey(id) &&
+            !_IoTDeviceMap[id].isLocal &&
+            portService.isLocal)) {
       setState(() {
         _IoTDeviceMap[id] = portService;
       });
@@ -296,7 +303,8 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
                   mDNSInfo['AddrIPv4'] is List &&
                   mDNSInfo['AddrIPv4'].length > 0) {
                 // mDNS类型为其他需要兼容的类型，看看是否在mdnsType2ModelMap的key里面，如果在就转为通用组件
-                PortService portService = MDNS2ModelsMap.modelsMap[mDNSInfo['type']];
+                PortService portService =
+                    MDNS2ModelsMap.modelsMap[mDNSInfo['type']];
                 portService.ip = Config.webgRpcIp;
                 portService.port = pc.localProt;
                 portService.info["id"] =
