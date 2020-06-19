@@ -1,4 +1,6 @@
-rm -rf ios/Podfile ios/Podfile.lock ios/Pods ios/Runner.xcworkspace
+#rm -rf ios/Podfile
+rm -rf ios/Podfile.lock
+rm -rf ios/Runner.xcworkspace
 rm -Rf ios/Pods
 rm -Rf ios/.symlinks
 rm -Rf ios/Flutter/Flutter.framework
