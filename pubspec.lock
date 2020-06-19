@@ -358,7 +358,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "6452f77e9f3be90d735e3b84d7884ad92ff6ce35"
+      resolved-ref: "4eb67c96de5d102bfddf8961a259d3c02731fb92"
       url: "https://github.com/OpenIoTHub/modules"
     source: git
     version: "0.0.1"
@@ -608,7 +608,7 @@ packages:
       name: test_api
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.2.16"
+    version: "0.2.15"
   typed_data:
     dependency: transitive
     description:

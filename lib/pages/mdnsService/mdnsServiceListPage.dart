@@ -376,7 +376,9 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
         print(serviceType == "${Config.mdnsIoTDeviceService}.");
         PortService portService = PortService();
         if (service.addresses != null && service.addresses.length > 0) {
-          portService.ip = service.addresses[0];
+          portService.ip = service.addresses[0].contains(":")
+              ? "[${service.addresses[0]}]"
+              : service.addresses[0];
         } else {
           portService.ip = service.hostName;
         }
