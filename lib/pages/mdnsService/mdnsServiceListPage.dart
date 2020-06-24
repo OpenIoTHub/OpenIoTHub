@@ -303,10 +303,12 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
                   mDNSInfo['AddrIPv4'] is List &&
                   mDNSInfo['AddrIPv4'].length > 0) {
                 // mDNS类型为其他需要兼容的类型，看看是否在mdnsType2ModelMap的key里面，如果在就转为通用组件
+//                TODO：可能的操作同一个变量
                 PortService portService =
                     MDNS2ModelsMap.modelsMap[mDNSInfo['type']];
                 portService.ip = Config.webgRpcIp;
                 portService.port = pc.localProt;
+//                TODO 如果本身存在id，mac则使用原id，mac
                 portService.info["id"] =
                     "${mDNSInfo['AddrIPv4'][0]}:${mDNSInfo['port']}@${sessionConfig.runId}";
                 portService.isLocal = false;
