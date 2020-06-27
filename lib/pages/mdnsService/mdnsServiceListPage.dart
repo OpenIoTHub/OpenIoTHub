@@ -98,6 +98,15 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
                 onPressed: () {
                   refreshmDNSServices();
                 }),
+//            TODO 添加设备（类型：mqtt，小米，美的；设备型号：TC1-A1,TC1-A2）
+            IconButton(
+                icon: Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+
+                }),
           ],
         ),
         floatingActionButton: FloatingActionButton(

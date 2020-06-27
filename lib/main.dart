@@ -200,6 +200,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     MaterialPageRoute(builder: (context) => ToolsTypePage()));
               }),
           ListTile(
+            //TODO 管理MQTT服务器，以从MQTT服务器获取和操控设备
+              title: Text('MQTT服务器'),
+              trailing: Icon(Icons.arrow_right),
+              onTap: () {
+                Navigator.of(context).pop();
+              }),
+          ListTile(
               //第二个功能项
               title: Text('使用手册'),
               trailing: Icon(Icons.arrow_right),
