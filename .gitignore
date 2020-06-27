@@ -68,6 +68,17 @@ key.jks
 **/ios/Flutter/flutter_assets/
 **/ios/ServiceDefinitions.json
 **/ios/Runner/GeneratedPluginRegistrant.*
+# for ios fix
+ios/Pods
+ios/.symlinks
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+
+/ios/build/XCBuildData/
+/ios/Flutter/.last_build_id
+/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
+/ios/Runner.xcworkspace/contents.xcworkspacedata
+/ios/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
 
 # Exceptions to above rules.
 !**/ios/**/default.mode1v3
