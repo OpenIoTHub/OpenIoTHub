@@ -160,13 +160,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_colorpicker:
-    dependency: transitive
-    description:
-      name: flutter_colorpicker
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.3.4"
   flutter_easylink:
     dependency: transitive
     description:
@@ -608,7 +601,7 @@ packages:
       name: test_api
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.2.16"
+    version: "0.2.15"
   typed_data:
     dependency: transitive
     description:
