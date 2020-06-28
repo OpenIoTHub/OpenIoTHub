@@ -105,7 +105,7 @@ packages:
       name: device_apps
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.9"
+    version: "1.0.10"
   event_bus:
     dependency: "direct main"
     description:
@@ -126,7 +126,7 @@ packages:
       name: file
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "5.2.0"
+    version: "5.2.1"
   file_picker:
     dependency: transitive
     description:
@@ -289,7 +289,7 @@ packages:
       name: jaguar
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.4.36"
+    version: "2.4.43"
   jaguar_common:
     dependency: transitive
     description:
@@ -358,7 +358,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "3775bae0db840df152580fb64018b0569d64c8a5"
+      resolved-ref: d80ca87a4507ac49f9e266bf69c64c98ab33ca06
       url: "https://github.com/OpenIoTHub/modules"
     source: git
     version: "0.0.1"

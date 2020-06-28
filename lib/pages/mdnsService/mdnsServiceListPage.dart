@@ -101,7 +101,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
 //            TODO 添加设备（类型：mqtt，小米，美的；设备型号：TC1-A1,TC1-A2）
             IconButton(
                 icon: Icon(
-                  Icons.add,
+                  Icons.add_circle_outline,
                   color: Colors.white,
                 ),
                 onPressed: () {
@@ -314,7 +314,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
                 // mDNS类型为其他需要兼容的类型，看看是否在mdnsType2ModelMap的key里面，如果在就转为通用组件
 //                TODO：可能的操作同一个变量
                 PortService portService =
-                    MDNS2ModelsMap.modelsMap[mDNSInfo['type']];
+                    MDNS2ModelsMap.modelsMap[mDNSInfo['type']].copy();
                 portService.ip = Config.webgRpcIp;
                 portService.port = pc.localProt;
 //                TODO 如果本身存在id，mac则使用原id，mac
@@ -412,7 +412,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
         PortService portService = MDNS2ModelsMap.modelsMap[
             serviceType.endsWith(".")
                 ? serviceType.substring(0, serviceType.length - 1)
-                : serviceType];
+                : serviceType].copy();
         if (portService == null) {
           return;
         }
