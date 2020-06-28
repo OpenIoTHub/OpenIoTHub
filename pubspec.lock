@@ -358,7 +358,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "1365a18cb74a9b82b2ce0e751e3a5bacce31bcb0"
+      resolved-ref: "61c5530762f3408ec4a49ae13f7ca07787882d44"
       url: "https://github.com/OpenIoTHub/modules"
     source: git
     version: "0.0.1"
