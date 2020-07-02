@@ -104,9 +104,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
                   Icons.add_circle,
                   color: Colors.white,
                 ),
-                onPressed: () {
-
-                }),
+                onPressed: () {}),
           ],
         ),
         floatingActionButton: FloatingActionButton(
@@ -245,11 +243,11 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
     }
     print("===text3:${info}");
 //    将一些不符合条件的服务排除在列表之外
-    if (!info.containsKey("name") ||
-        info["name"] == null ||
-        info["name"] == '') {
-      return;
-    }
+//    if (!info.containsKey("name") ||
+//        info["name"] == null ||
+//        info["name"] == '') {
+//      return;
+//    }
     portConfig.description = info["name"];
     PortService portService =
         PortService(info: info, isLocal: isLocal, ip: ip, port: port);
@@ -314,14 +312,20 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
                 // mDNS类型为其他需要兼容的类型，看看是否在mdnsType2ModelMap的key里面，如果在就转为通用组件
 //                TODO：可能的操作同一个变量
                 PortService portService =
-                    MDNS2ModelsMap.modelsMap[mDNSInfo['type']];//.copy();
+                    MDNS2ModelsMap.modelsMap[mDNSInfo['type']].copy();
                 portService.ip = Config.webgRpcIp;
                 portService.port = pc.localProt;
 //                TODO 如果本身存在id，mac则使用原id，mac
-                portService.info["id"] =
-                    "${mDNSInfo['AddrIPv4'][0]}:${mDNSInfo['port']}@${sessionConfig.runId}";
-                portService.isLocal = false;
-                addPortService(portService);
+                decodemDNSInfo(pc).then((Map<String, dynamic> info) {
+                  if (info.containsKey("id")) {
+                    portService.info["id"] = info["id"].toString();
+                  } else {
+                    portService.info["id"] =
+                        "${mDNSInfo['AddrIPv4'][0]}:${mDNSInfo['port']}@${sessionConfig.runId}";
+                  }
+                  portService.isLocal = false;
+                  addPortService(portService);
+                });
               }
             });
 //            }
@@ -410,9 +414,10 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
               ? serviceType.substring(0, serviceType.length - 1)
               : serviceType)) {
         PortService portService = MDNS2ModelsMap.modelsMap[
-            serviceType.endsWith(".")
-                ? serviceType.substring(0, serviceType.length - 1)
-                : serviceType];//.copy();
+                serviceType.endsWith(".")
+                    ? serviceType.substring(0, serviceType.length - 1)
+                    : serviceType]
+            .copy();
         if (portService == null) {
           return;
         }
@@ -422,7 +427,12 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
           portService.ip = service.hostName;
         }
         portService.port = service.port;
-        portService.info["id"] = "${portService.ip}:${portService.port}@local";
+        if (service.txt.containsKey("id")) {
+          portService.info["id"] = Utf8Codec().decode(service.txt["id"]);
+        } else {
+          portService.info["id"] =
+              "${portService.ip}:${portService.port}@local";
+        }
         portService.isLocal = true;
         addPortService(portService);
       }
@@ -451,6 +461,32 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
 
   void onServiceRemoved(mdns_plugin.MDNSService service) {
     print("Removed: $service");
+  }
+
+  Future<Map<String, dynamic>> decodemDNSInfo(PortConfig portConfig) async {
+    Map<String, dynamic> info = Map<String, dynamic>();
+    //尝试从mDNS的Text中获取数据
+    if (portConfig.mDNSInfo != null && portConfig.mDNSInfo != "") {
+      Map<String, dynamic> mDNSInfo = jsonDecode(portConfig.mDNSInfo);
+      if (mDNSInfo != null &&
+          mDNSInfo.containsKey("text") &&
+          mDNSInfo["text"] != null) {
+        print("===text2:${mDNSInfo["text"].toString()}");
+        List text = mDNSInfo["text"];
+        for (int i = 0; i < text.length; i++) {
+          List<String> s = text[i].split("=");
+          if (s != null && s.length == 2) {
+            if (s[1].contains("\\")) {
+              info[s[0]] = await UtilApi.convertOctonaryUtf8(s[1]);
+            } else {
+              info[s[0]] = s[1];
+            }
+            print("key:${s[0]},value:${info[s[0]]}\n");
+          }
+        }
+      }
+    }
+    return info;
   }
 }
 
