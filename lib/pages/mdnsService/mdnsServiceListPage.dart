@@ -434,6 +434,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
               "${portService.ip}:${portService.port}@local";
         }
         portService.isLocal = true;
+        print("add local portService:${portService.toString()}");
         addPortService(portService);
       }
 //        });
