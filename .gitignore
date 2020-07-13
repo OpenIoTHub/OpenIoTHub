@@ -73,6 +73,7 @@ ios/Pods
 ios/.symlinks
 ios/Flutter/Flutter.framework
 ios/Flutter/Flutter.podspec
+ios/.symlinks/plugins/*
 
 /ios/build/XCBuildData/
 /ios/Flutter/.last_build_id
