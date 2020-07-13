@@ -104,7 +104,10 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
                   Icons.add_circle,
                   color: Colors.white,
                 ),
-                onPressed: () {}),
+                onPressed: () {
+//                  TODO：手动添加设备
+                  Scaffold.of(context).openDrawer();
+                }),
           ],
         ),
         floatingActionButton: FloatingActionButton(
