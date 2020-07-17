@@ -26,6 +26,22 @@
 - [x] 10.网络开机（WOL）
 - [ ] 11.直接备份通讯录到私有云
 - [x] 12.支持发现并操控智能家居设备([IoT Device](https://github.com/iotdevice/todo-list))
+
+---
+#### 开发：
+#### Getting Started
+
+This project is a starting point for a Flutter application.
+
+A few resources to get you started if this is your first Flutter project:
+
+- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
+
+For help getting started with Flutter, view our 
+[online documentation](https://flutter.io/docs), which offers tutorials, 
+samples, guidance on mobile development, and a full API reference.
+
 ---
 #### 预览图
   * 智能家居设备操控(https://github.com/iotdevice/esp8266-switch)
@@ -63,18 +79,3 @@
   * 我
 
 <img src="./screen/我.png" width = "50%" height = "50%" alt="我"/>
-
----
-#### 二次开发：
-#### Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
