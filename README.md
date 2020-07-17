@@ -9,8 +9,10 @@
 > #### 自建转发服务器下载（高阶）：
 > * https://github.com/OpenIoTHub/server-go/releases
 > * 服务器请自行配置端口和秘钥，网关使用你配置的信息和公网地址就可以使用自建服务器
+---
 #### 教程：
   * 简书：https://www.jianshu.com/u/b312a876d66e
+---
 #### 支持的功能：
 - [x] 1.支持搜索网关
 - [x] 2.支持配置保存，下一次启动直接加载之前的旧配置
@@ -24,28 +26,47 @@
 - [x] 10.网络开机（WOL）
 - [ ] 11.直接备份通讯录到私有云
 - [x] 12.支持发现并操控智能家居设备([IoT Device](https://github.com/iotdevice/todo-list))
-
-#### A new Flutter application of natcloud explorer.  
+---
+#### 预览图
   * 智能家居设备操控(https://github.com/iotdevice/esp8266-switch)
-![image](./screen/智能设备开关控制.png)
-  * 远程网络列表
-![image](./screen/远程网络列表.png)
-  * 内网由mDNS声明的服务
-![image](./screen/内网由mDNS声明的服务.png)
-  * 设备管理器
-![image](./screen/设备管理器.png)
-  * 设备列表
-![image](./screen/设备列表.png)
-  * 普通设备的服务
-![image](./screen/普通设备的服务.png)
-  * 普通设备的TCP服务
-![image](./screen/普通设备的TCP服务.png)
-  * TCP端口打开方式
-![image](./screen/TCP端口打开方式.png)
-  * 我
-![image](./screen/我.png)
 
-## Getting Started
+<img src="./screen/智能设备开关控制.png" width = "50%" height = "50%" alt="智能设备开关控制"/>
+
+  * 远程网络列表
+
+<img src="./screen/远程网络列表.png" width = "50%" height = "50%" alt="远程网络列表"/>
+
+  * 内网由mDNS声明的服务
+
+<img src="./screen/内网由mDNS声明的服务.png" width = "50%" height = "50%" alt="内网由mDNS声明的服务"/>
+
+  * 设备管理器
+
+<img src="./screen/设备管理器.png" width = "50%" height = "50%" alt="设备管理器"/>
+
+  * 设备列表
+
+<img src="./screen/设备列表.png" width = "50%" height = "50%" alt="设备列表"/>
+
+  * 普通设备的服务
+
+<img src="./screen/普通设备的服务.png" width = "50%" height = "50%" alt="普通设备的服务"/>
+
+  * 普通设备的TCP服务
+
+<img src="./screen/普通设备的TCP服务.png" width = "50%" height = "50%" alt="普通设备的TCP服务"/>
+
+  * TCP端口打开方式
+
+<img src="./screen/TCP端口打开方式.png" width = "50%" height = "50%" alt="TCP端口打开方式"/>
+
+  * 我
+
+<img src="./screen/我.png" width = "50%" height = "50%" alt="我"/>
+
+---
+#### 二次开发：
+#### Getting Started
 
 This project is a starting point for a Flutter application.
 
