@@ -34,7 +34,7 @@
 - [x] 12. Support the discovery and control of smart home devices ([IOT device]（ https://github.com/iotdevice/todo-list )
 
 ---
-#### 开发：
+#### Development：
 #### Getting Started
 
 This project is a starting point for a Flutter application.
