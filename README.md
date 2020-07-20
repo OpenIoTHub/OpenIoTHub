@@ -49,7 +49,7 @@ For help getting started with Flutter, view our
 samples, guidance on mobile development, and a full API reference.
 
 ---
-#### 预览图
+#### preview
   * smart home control(https://github.com/iotdevice/esp8266-switch)
 
 <img src="./screen/智能设备开关控制.png" width = "50%" height = "50%" alt="智能设备开关控制"/>
