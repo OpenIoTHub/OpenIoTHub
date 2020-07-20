@@ -1,6 +1,8 @@
 # 物联网设备、私有云、内网穿透管理程序
 [![Build Status](https://travis-ci.com/OpenIoTHub/OpenIoTHub.svg?branch=master)](https://travis-ci.com/OpenIoTHub/OpenIoTHub)
+
 [README](README.md) | [中文文档](README_zh.md)
+
 #### 下载地址(云易连)：
   * 其他版本：https://github.com/OpenIoTHub/OpenIoTHub/releases
   * iOS版本：https://apps.apple.com/cn/app/%E4%BA%91%E6%98%93%E8%BF%9E/id1501554327
