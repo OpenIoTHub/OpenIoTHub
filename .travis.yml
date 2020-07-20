@@ -110,8 +110,8 @@ jobs:
       - go version
       - go env
       - export PATH=/Users/travis/go/bin:$PATH
-      - go get golang.org/x/mobile/cmd/gomobile@6d0d39b2ca824d9f664f49cc75427cb806beee2e
-      - go get golang.org/x/mobile/cmd/gobind@6d0d39b2ca824d9f664f49cc75427cb806beee2e
+      - go get golang.org/x/mobile/cmd/gomobile
+      - go get golang.org/x/mobile/cmd/gobind
       - gomobile init
       - gomobile version
       - pwd
