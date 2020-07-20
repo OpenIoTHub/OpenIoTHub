@@ -1,7 +1,10 @@
-# 物联网设备、私有云、内网穿透管理程序
+# OpenIoTHub
 [![Build Status](https://travis-ci.com/OpenIoTHub/OpenIoTHub.svg?branch=master)](https://travis-ci.com/OpenIoTHub/OpenIoTHub)
 
 [README](README.md) | [中文文档](README_zh.md)
+
+#### OpenIoTHub（云易连）是什么？
+云易连一个免费的物联网和私有云平台，支持内网穿透,物联网设备、私有云、内网穿透管理
 
 #### 下载地址(云易连)：
   * 其他版本：https://github.com/OpenIoTHub/OpenIoTHub/releases

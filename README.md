@@ -1,34 +1,37 @@
-# 物联网设备、私有云、内网穿透管理程序
+# OpenIoTHUb
 [![Build Status](https://travis-ci.com/OpenIoTHub/OpenIoTHub.svg?branch=master)](https://travis-ci.com/OpenIoTHub/OpenIoTHub)
 
 [README](README.md) | [中文文档](README_zh.md)
 
-#### 下载地址(云易连)：
-  * 其他版本：https://github.com/OpenIoTHub/OpenIoTHub/releases
-  * iOS版本：https://apps.apple.com/cn/app/%E4%BA%91%E6%98%93%E8%BF%9E/id1501554327
-#### 内网网关下载地址:
-  * 其他版本：https://github.com/OpenIoTHub/gateway-go/releases
-  * 安卓版本：https://github.com/OpenIoTHub/GateWay/releases
-> #### 自建转发服务器下载（高阶）：
+#### What is OpenIoTHub
+💖A free IoT platform and private cloud platform
+
+#### Download OpenIoTHub App：
+  * Android,Windows,Linux,Darwin version：https://github.com/OpenIoTHub/OpenIoTHub/releases
+  * iOS version：https://apps.apple.com/cn/app/%E4%BA%91%E6%98%93%E8%BF%9E/id1501554327
+#### OpenIoTHub Gateway Download:
+  * Windows,Linux,Darwin version：https://github.com/OpenIoTHub/gateway-go/releases
+  * Android version：https://github.com/OpenIoTHub/GateWay/releases
+> #### self hosted server for OpenIoTHub（high level）：
 > * https://github.com/OpenIoTHub/server-go/releases
-> * 服务器请自行配置端口和秘钥，网关使用你配置的信息和公网地址就可以使用自建服务器
+> * The server should configure its own port and secret key. The gateway can use the self built server by using the information and public network address you have configured
 ---
-#### 教程：
+#### course：
   * 简书：https://www.jianshu.com/u/b312a876d66e
 ---
-#### 支持的功能：
-- [x] 1.支持搜索网关
-- [x] 2.支持配置保存，下一次启动直接加载之前的旧配置
-- [x] 3.支持直接打开内网的网站端口
-- [x] 4.支持直接使用内网的aria2离线下载
-- [x] 5.支持直接访问内网的ssh的终端
-- [x] 6.支持通过内网ssh访问机器的文件（上传下载）
-- [x] 7.支持直接打开内网机器的vnc桌面
-- [x] 8.支持调用手机RD Client打开内网windows的桌面
-- [x] 9.支持映射ftp协议
-- [x] 10.网络开机（WOL）
-- [ ] 11.直接备份通讯录到私有云
-- [x] 12.支持发现并操控智能家居设备([IoT Device](https://github.com/iotdevice/todo-list))
+#### supported features：
+- [x] 1.find [gateway](https://github.com/OpenIoTHub/gateway-go)
+- [x] 2.Support configuration saving, and load the old configuration directly before the next startup
+- [x] 3. Support direct opening of Intranet website port
+- [x] 4. Support offline download of aria2 using intranet directly
+- [x] 5. Support SSH terminals with direct access to Intranet
+- [x] 6. Support file access via intranet SSH (upload and download)
+- [x] 7. Support to open VNC desktop of Intranet machine directly
+- [x] 8. Support calling mobile phone Rd client to open the desktop of Intranet windows
+- [x] 9. Support mapping FTP protocol
+- [x] 10. Network boot (WOL)
+- [ ] 11. Directly back up the address book to the private cloud
+- [x] 12. Support the discovery and control of smart home devices ([IOT device]（ https://github.com/iotdevice/todo-list )
 
 ---
 #### 开发：
@@ -47,38 +50,38 @@ samples, guidance on mobile development, and a full API reference.
 
 ---
 #### 预览图
-  * 智能家居设备操控(https://github.com/iotdevice/esp8266-switch)
+  * smart home control(https://github.com/iotdevice/esp8266-switch)
 
 <img src="./screen/智能设备开关控制.png" width = "50%" height = "50%" alt="智能设备开关控制"/>
 
-  * 远程网络列表
+  * remote network list
 
 <img src="./screen/远程网络列表.png" width = "50%" height = "50%" alt="远程网络列表"/>
 
-  * 内网由mDNS声明的服务
+  * mdns service find list
 
 <img src="./screen/内网由mDNS声明的服务.png" width = "50%" height = "50%" alt="内网由mDNS声明的服务"/>
 
-  * 设备管理器
+  * device manager
 
 <img src="./screen/设备管理器.png" width = "50%" height = "50%" alt="设备管理器"/>
 
-  * 设备列表
+  * device list
 
 <img src="./screen/设备列表.png" width = "50%" height = "50%" alt="设备列表"/>
 
-  * 普通设备的服务
+  * common devices
 
 <img src="./screen/普通设备的服务.png" width = "50%" height = "50%" alt="普通设备的服务"/>
 
-  * 普通设备的TCP服务
+  * tcp service of common device
 
 <img src="./screen/普通设备的TCP服务.png" width = "50%" height = "50%" alt="普通设备的TCP服务"/>
 
-  * TCP端口打开方式
+  * the tcp open method of common device
 
 <img src="./screen/TCP端口打开方式.png" width = "50%" height = "50%" alt="TCP端口打开方式"/>
 
-  * 我
+  * me
 
 <img src="./screen/我.png" width = "50%" height = "50%" alt="我"/>
