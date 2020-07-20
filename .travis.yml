@@ -34,6 +34,7 @@ jobs:
         - libstdc++6
         - fonts-droid
     before_script:
+    - mkdir release
     - git clone https://github.com/flutter/flutter.git
     - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
     # build aar
@@ -67,7 +68,6 @@ jobs:
     script:
     - yes | sdkmanager "platforms;android-28"
     - yes | sdkmanager "platforms;android-29"
-    - mkdir release
     - ./flutter/bin/flutter doctor -v
 #    - ./flutter/bin/flutter version v1.9.0"
     - ./flutter/bin/flutter pub get
