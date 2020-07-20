@@ -3,6 +3,8 @@
 
 [README](README.md) | [中文文档](README_zh.md)
 
+Tencent QQ group: 251227638
+
 #### What is OpenIoTHub
 💖A free IoT platform and private cloud platform
 
@@ -12,6 +14,7 @@
 #### OpenIoTHub Gateway Download:
   * Windows,Linux,Darwin version：https://github.com/OpenIoTHub/gateway-go/releases
   * Android version：https://github.com/OpenIoTHub/GateWay/releases
+#### OpenIoTHub Server Download（high level, common user not necessary）:
 > #### self hosted server for OpenIoTHub（high level）：
 > * https://github.com/OpenIoTHub/server-go/releases
 > * The server should configure its own port and secret key. The gateway can use the self built server by using the information and public network address you have configured
@@ -34,7 +37,7 @@
 - [x] 12. Support the discovery and control of smart home devices ([IOT device]（ https://github.com/iotdevice/todo-list )
 
 ---
-#### Development：
+#### evelopment：
 #### Getting Started
 
 This project is a starting point for a Flutter application.
