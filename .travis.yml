@@ -137,6 +137,7 @@ jobs:
       - cd Runner
       - zip -r Runner.ipa Payload
       - tree
+      - cd ..
     deploy:
       provider: releases
       skip_cleanup: true
