@@ -96,13 +96,16 @@ jobs:
     osx_image: xcode11.6
     env:
       - secure: "PQo8ZibkX9odtb7InGim3k+fC/ltGijmCVWzVBf6su37FOCBw2p9Mra7aFQWexgb/rrARpJVwQpGofjBYwi3C3vfsI5zlh1BGKcBEFc90+dLl+i7h8LGCjBwEo0xBAv3NWmPAlO8W7CoKY/IJyPkSRSb2bMTfCeojfewsaKM0aKupnzwtBOSJ0DmA+L+lB13tRk7ySgvE20n1VU/6cJvuTdUegR9LI90Y+9irlFXiZQJDgxc04C70eE6D5bHPYc0gcocC6rGGAfLjU40k0CUJyL+ALisZUFWGZV/eLdNUqmkvRZ2do4FjU5DTg4fXcYl2LT1VMfG31BbD0H9S0jwzXZqAkJmSISKXCs6O64JNTm11xOJ9HrzbCUshrszxC7OpM4CtUEyGd3q8At0KdJMa7RAlWVhOMOJczPKNhPjn51fqzw4L7ENUx03GUDDcztbEPkxMQU09Iz/yqKnxzb+IEviMF22K1yTJfcmsIrMJZNYR4d5fXzNB3bw1yCC78qaDKvNnVnleMtELc+18FV6CJI9ujrJW6QaCvc8AOH/fJ8RZdbZbNcDqMsHMV7XyXkurOTg1M7RHF5dQA5uUd8wygN61xUzszkSN0M/cXfzzShDxvxLLBEmy1W+60tcfElGRL3x10UQKiEDSHbfKShhEIF+nbkSBbdl3PWS67yd/z0="
+    addons:
+      homebrew:
+        packages:
+          - libimobiledevice
+          - ideviceinstaller
+          - ios-deploy
+          - tree
     before_script:
       - mkdir Runner
       - mkdir Runner/Payload
-      - brew update
-      - brew install libimobiledevice
-      - brew install ideviceinstaller
-      - brew install ios-deploy
       - git clone https://github.com/flutter/flutter.git
       - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
       - tar -xzvf ../flutter_natcloud_service/ios/Frameworks/Explorer.framework/Versions/A/Explorer.tar.gz -C ../flutter_natcloud_service/ios/Frameworks/Explorer.framework/Versions/A
