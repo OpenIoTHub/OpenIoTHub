@@ -121,9 +121,9 @@ jobs:
       - cd OpenIoTHubService/mobile
       - gomobile bind -target=ios
       - cd ../..
-#      - rm -rf ../flutter_natcloud_service/ios/Frameworks/*.framework
+      - rm -rf ../flutter_natcloud_service/ios/Frameworks/*.framework
       - ls -a
-#      - cp -r ./OpenIoTHubService/mobile/*.framework ../flutter_natcloud_service/ios/Frameworks
+      - cp -r ./OpenIoTHubService/mobile/*.framework ../flutter_natcloud_service/ios/Frameworks
       - tar -czvf ./Runner/Explorer.tar.gz  ../flutter_natcloud_service/ios/Frameworks/Explorer.framework
     script:
       - gem install cocoapods

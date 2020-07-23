@@ -447,7 +447,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.iotserv.openiothub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALID_ARCHS = "arm64 arm64e armv7 armv7s";
+				VALID_ARCHS = "arm64 amd64";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Profile;
@@ -587,7 +587,7 @@
 				MARKETING_VERSION = 1.3.18;
 				PRODUCT_BUNDLE_IDENTIFIER = com.iotserv.openiothub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALID_ARCHS = "arm64 arm64e armv7 armv7s";
+				VALID_ARCHS = "arm64 amd64";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -616,7 +616,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.iotserv.openiothub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALID_ARCHS = "arm64 arm64e armv7 armv7s";
+				VALID_ARCHS = "arm64 amd64";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
