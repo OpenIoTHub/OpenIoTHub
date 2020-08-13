@@ -37,7 +37,7 @@ Tencent QQ group: 251227638
 - [x] 12. Support the discovery and control of smart home devices ([IOT device]（ https://github.com/iotdevice/todo-list )
 
 ---
-#### evelopment：
+#### Development：
 #### Getting Started
 
 This project is a starting point for a Flutter application.
@@ -52,7 +52,7 @@ For help getting started with Flutter, view our
 samples, guidance on mobile development, and a full API reference.
 
 ---
-#### preview
+#### Preview
   * smart home control(https://github.com/iotdevice/esp8266-switch)
 
 <img src="./screen/智能设备开关控制.png" width = "50%" height = "50%" alt="智能设备开关控制"/>
