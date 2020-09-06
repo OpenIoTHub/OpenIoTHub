@@ -39,8 +39,8 @@ jobs:
     # build aar
     - git clone https://$Token@github.com/OpenIoTHub/OpenIoTHubService OpenIoTHubService
       # download golang
-    - wget -q https://dl.google.com/go/go1.14.1.linux-amd64.tar.gz
-    - sudo tar -zxf go1.14.1.linux-amd64.tar.gz -C /usr/local
+    - wget -q https://dl.google.com/go/go1.15.1.linux-amd64.tar.gz
+    - sudo tar -zxf go1.15.1.linux-amd64.tar.gz -C /usr/local
     - export GOROOT=/usr/local/go
     - export GOPATH=/home/travis/go
     - export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
@@ -55,20 +55,17 @@ jobs:
     - gomobile init
     - gomobile version
     - pwd
-    #    - find / client.aar
-    - cd OpenIoTHubService/mobile
-    - gomobile bind -target=android
-    - cd ../..
     - rm -rf android/app/libs/*.aar
+    - cd OpenIoTHubService/mobile
+    - gomobile bind -target=android -o=../../android/app/libs/explorer.aar
+    - cd ../..
     - ls -a
-    - cp ./OpenIoTHubService/mobile/explorer.aar android/app/libs
-    - cp ./OpenIoTHubService/mobile/explorer.aar ./release
+    - cp ./android/app/libs/explorer.aar ./release
     # build aar over
     script:
     - yes | sdkmanager "platforms;android-28"
     - yes | sdkmanager "platforms;android-29"
     - ./flutter/bin/flutter doctor -v
-#    - ./flutter/bin/flutter version v1.9.0"
     - ./flutter/bin/flutter pub get
     - ./flutter/bin/flutter -v build apk --release --split-per-abi
     - mv build/app/outputs/apk/release/app-armeabi-v7a-release.apk ./release
@@ -104,6 +101,9 @@ jobs:
           - ios-deploy
           - tree
     before_script:
+      - brew update
+      - brew upgrade golang
+      - go version
       - mkdir Runner
       - mkdir Runner/Payload
       - git clone https://github.com/flutter/flutter.git
@@ -118,10 +118,10 @@ jobs:
       - gomobile init
       - gomobile version
       - pwd
+#      - rm -rf ../flutter_natcloud_service/ios/Frameworks/*.framework
       - cd OpenIoTHubService/mobile
       - gomobile bind -target=ios
       - cd ../..
-#      - rm -rf ../flutter_natcloud_service/ios/Frameworks/*.framework
       - ls -a
 #      - cp -r ./OpenIoTHubService/mobile/*.framework ../flutter_natcloud_service/ios/Frameworks
       - tar -czvf ./Runner/Explorer.framework.tar.gz  ../flutter_natcloud_service/ios/Frameworks/Explorer.framework
@@ -130,7 +130,6 @@ jobs:
       - gem install cocoapods-deintegrate
       - ./flutter/bin/flutter clean
       - ./flutter/bin/flutter pub get
-#      - ./flutter/bin/flutter upgrade
       - ./flutter/bin/flutter doctor -v
       - ./flutter/bin/flutter build ios  --release --no-codesign
       - cp -r build/ios/iphoneos/Runner.app Runner/Payload/Runner.app
