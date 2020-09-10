@@ -6,6 +6,7 @@
 [![Get it from the App Store](./badge-download-on-the-app-store.svg)](https://apps.apple.com/cn/app/云易连/id1501554327)
 
 Tencent QQ group: 251227638 <a target="_blank" href="https://jq.qq.com/?_wv=1027&k=1K3Dlmkm"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="OpenIoTHub群" title="OpenIoTHub群"></a>
+
 [![Tencent QQ group](./qq-group-qr.jpg)](https://jq.qq.com/?_wv=1027&k=1K3Dlmkm)
 
 #### What is OpenIoTHub
