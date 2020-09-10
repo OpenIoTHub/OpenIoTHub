@@ -3,6 +3,8 @@
 
 [README](README.md) | [中文文档](README_zh.md)
 
+[![Get it from the App Store](./badge-download-on-the-app-store.svg)](https://apps.apple.com/cn/app/云易连/id1501554327)
+
 Tencent QQ group: 251227638
 
 #### What is OpenIoTHub
