@@ -46,8 +46,6 @@ PODS:
     - Flutter
   - flutter_smartlink (0.0.1):
     - Flutter
-  - mdns_plugin (0.0.1):
-    - Flutter
   - NMSSH (2.3.1)
   - open_file (0.0.1):
     - Flutter
@@ -86,7 +84,6 @@ DEPENDENCIES:
   - flutter_natcloud_service (from `.symlinks/plugins/flutter_natcloud_service/ios`)
   - flutter_oneshot (from `.symlinks/plugins/flutter_oneshot/ios`)
   - flutter_smartlink (from `.symlinks/plugins/flutter_smartlink/ios`)
-  - mdns_plugin (from `.symlinks/plugins/mdns_plugin/ios`)
   - open_file (from `.symlinks/plugins/open_file/ios`)
   - package_info (from `.symlinks/plugins/package_info/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
@@ -123,8 +120,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_oneshot/ios"
   flutter_smartlink:
     :path: ".symlinks/plugins/flutter_smartlink/ios"
-  mdns_plugin:
-    :path: ".symlinks/plugins/mdns_plugin/ios"
   open_file:
     :path: ".symlinks/plugins/open_file/ios"
   package_info:
@@ -157,7 +152,6 @@ SPEC CHECKSUMS:
   flutter_natcloud_service: 7da325592b738a0e77e77695e55287bb6ce3ca79
   flutter_oneshot: 0972b29beac35ccc1a99b8088887f64e1d219304
   flutter_smartlink: bc069854e0b83b8e4541b27aed4242cdd3949929
-  mdns_plugin: f678ac538ece5a95490ede585dfa6b46aaaac977
   NMSSH: cd689ae535a1581a6dd9fd4600ff71247df510a6
   open_file: 02eb5cb6b21264bd3a696876f5afbfb7ca4f4b7d
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62

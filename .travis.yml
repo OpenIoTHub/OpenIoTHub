@@ -1,154 +1,235 @@
 cache:
   directories:
-  - "$HOME/.pub-cache"
-  - $HOME/.cache/go-build
+    - "$HOME/.pub-cache"
+    - "$HOME/.cache/go-build"
+    - "$GOCACHE"
+    - "$GOMODCACHE"
+    - "/var/folders"
 jobs:
   include:
-  - stage: deployAPK
-    os: linux
-    language: android
-    licenses:
-    - android-sdk-preview-license-.+
-    - android-sdk-license-.+
-    - google-gdk-license-.+
-    android:
-      components:
-      - tools
-      - platform-tools
-      - build-tools-28.0.3
-      - android-28
-      - sys-img-armeabi-v7a-google_apis-25
-      - extra-android-m2repository
-      - extra-google-m2repository
-      - extra-google-android-support
-    jdk: oraclejdk8
-    sudo: false
-    env:
-    - secure: "PQo8ZibkX9odtb7InGim3k+fC/ltGijmCVWzVBf6su37FOCBw2p9Mra7aFQWexgb/rrARpJVwQpGofjBYwi3C3vfsI5zlh1BGKcBEFc90+dLl+i7h8LGCjBwEo0xBAv3NWmPAlO8W7CoKY/IJyPkSRSb2bMTfCeojfewsaKM0aKupnzwtBOSJ0DmA+L+lB13tRk7ySgvE20n1VU/6cJvuTdUegR9LI90Y+9irlFXiZQJDgxc04C70eE6D5bHPYc0gcocC6rGGAfLjU40k0CUJyL+ALisZUFWGZV/eLdNUqmkvRZ2do4FjU5DTg4fXcYl2LT1VMfG31BbD0H9S0jwzXZqAkJmSISKXCs6O64JNTm11xOJ9HrzbCUshrszxC7OpM4CtUEyGd3q8At0KdJMa7RAlWVhOMOJczPKNhPjn51fqzw4L7ENUx03GUDDcztbEPkxMQU09Iz/yqKnxzb+IEviMF22K1yTJfcmsIrMJZNYR4d5fXzNB3bw1yCC78qaDKvNnVnleMtELc+18FV6CJI9ujrJW6QaCvc8AOH/fJ8RZdbZbNcDqMsHMV7XyXkurOTg1M7RHF5dQA5uUd8wygN61xUzszkSN0M/cXfzzShDxvxLLBEmy1W+60tcfElGRL3x10UQKiEDSHbfKShhEIF+nbkSBbdl3PWS67yd/z0="
-    addons:
-      apt:
-        sources:
-        - ubuntu-toolchain-r-test
-        packages:
-        - libstdc++6
-        - fonts-droid
-    before_script:
-    - mkdir release
-    - git clone https://github.com/flutter/flutter.git
-    - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
-    # build aar
-    - git clone https://$Token@github.com/OpenIoTHub/OpenIoTHubService OpenIoTHubService
-      # download golang
-    - wget -q https://dl.google.com/go/go1.15.1.linux-amd64.tar.gz
-    - sudo tar -zxf go1.15.1.linux-amd64.tar.gz -C /usr/local
-    - export GOROOT=/usr/local/go
-    - export GOPATH=/home/travis/go
-    - export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
-    - go version
-    # download ndk
-    - wget -q https://dl.google.com/android/repository/android-ndk-r21-linux-x86_64.zip
-    - sudo unzip -q android-ndk-r21-linux-x86_64.zip -d $ANDROID_HOME
-    - export ANDROID_NDK_HOME=$ANDROID_HOME/android-ndk-r21
-    # install gomobile
-    - go get golang.org/x/mobile/cmd/gomobile
-    - go get golang.org/x/mobile/cmd/gobind
-    - gomobile init
-    - gomobile version
-    - pwd
-    - rm -rf android/app/libs/*.aar
-    - cd OpenIoTHubService/mobile
-    - gomobile bind -target=android -o=../../android/app/libs/explorer.aar
-    - cd ../..
-    - ls -a
-    - cp ./android/app/libs/explorer.aar ./release
-    # build aar over
-    script:
-    - yes | sdkmanager "platforms;android-28"
-    - yes | sdkmanager "platforms;android-29"
-    - ./flutter/bin/flutter doctor -v
-    - ./flutter/bin/flutter pub get
-    - ./flutter/bin/flutter -v build apk --release --split-per-abi
-    - mv build/app/outputs/apk/release/app-armeabi-v7a-release.apk ./release
-    - mv build/app/outputs/apk/release/app-arm64-v8a-release.apk ./release
-    - mv build/app/outputs/apk/release/app-x86_64-release.apk ./release
-    - ./flutter/bin/flutter -v build apk --release
-    - mv build/app/outputs/apk/release/app-release.apk ./release
-    - ./flutter/bin/flutter --version
-    deploy:
-      provider: releases
-      skip_cleanup: true
-      api_key:
-        secure: FJ/9t6TilxefjtU64QVjKea/qR+cLUv+dOti+3aspzudcUGWuCyUOKudhtc+PKv1B7pzjrwcAm4iNs4DD4Mm/DFdRmLgjL9+Xg8RLq6pEanr+apc8qG/nRA+NSD5F9Zkj7I4cVp4X2GhXvGJ1kMxt34SazcskdQJwnbLKcVQwXlWYelf1XbI24EZJHNyA+k1Oj980zG5WE2DJ4ETGHqzjB2NutDh1OAI64l4ZUv1/VEysJejsW1popoGbu0CN7/UY6Oedzqiv1NEbcBIez7VzN3lqFwTpfyQB/yglj6yXKuNutJjlvgjOy8a/wD4m9SGlZjrQ30ebB8Pol906T98qqyg/cT7aBc0GZZ0g19hvbheJwyq21yVy5Mf/VvQa389Ud0Kk27SmYDvyPhDyIB4vhT8pC0qDAnwaIEk+q1FkriMgtdrC+oCBuUe9bAeVymXSDc9yypaKbB8KU9xpLKOeznKe/cTIToM5TlGjWI0K1amdG/DVItwS5Xxx5sfLIjAoWghlfqdJI/znKLHkKQL4oEx8/pOcY652efFoNK0PBiYc7HMRm8UEQviZCqS9l08HEvtvSI5soyNQ2OOQa8PiD63YznwDemwP8AqUHiJnw7TRuOxhvINfG1eVLYqinPD/NkH9UVdP3eVkmjrkRng2pkYBAavRLyZuLosUFtVhXQ=
-      file:
-        - release/app-armeabi-v7a-release.apk
-        - release/app-arm64-v8a-release.apk
-        - release/app-x86_64-release.apk
-        - release/app-release.apk
-        - release/explorer.aar
+    - stage: deployAPK
+      os: linux
+      language: android
+      licenses:
+        - android-sdk-preview-license-.+
+        - android-sdk-license-.+
+        - google-gdk-license-.+
+      android:
+        components:
+          - tools
+          - platform-tools
+          - build-tools-28.0.3
+          - android-28
+          - sys-img-armeabi-v7a-google_apis-25
+          - extra-android-m2repository
+          - extra-google-m2repository
+          - extra-google-android-support
+      jdk: oraclejdk8
+      sudo: false
+      env:
+        - secure: "PQo8ZibkX9odtb7InGim3k+fC/ltGijmCVWzVBf6su37FOCBw2p9Mra7aFQWexgb/rrARpJVwQpGofjBYwi3C3vfsI5zlh1BGKcBEFc90+dLl+i7h8LGCjBwEo0xBAv3NWmPAlO8W7CoKY/IJyPkSRSb2bMTfCeojfewsaKM0aKupnzwtBOSJ0DmA+L+lB13tRk7ySgvE20n1VU/6cJvuTdUegR9LI90Y+9irlFXiZQJDgxc04C70eE6D5bHPYc0gcocC6rGGAfLjU40k0CUJyL+ALisZUFWGZV/eLdNUqmkvRZ2do4FjU5DTg4fXcYl2LT1VMfG31BbD0H9S0jwzXZqAkJmSISKXCs6O64JNTm11xOJ9HrzbCUshrszxC7OpM4CtUEyGd3q8At0KdJMa7RAlWVhOMOJczPKNhPjn51fqzw4L7ENUx03GUDDcztbEPkxMQU09Iz/yqKnxzb+IEviMF22K1yTJfcmsIrMJZNYR4d5fXzNB3bw1yCC78qaDKvNnVnleMtELc+18FV6CJI9ujrJW6QaCvc8AOH/fJ8RZdbZbNcDqMsHMV7XyXkurOTg1M7RHF5dQA5uUd8wygN61xUzszkSN0M/cXfzzShDxvxLLBEmy1W+60tcfElGRL3x10UQKiEDSHbfKShhEIF+nbkSBbdl3PWS67yd/z0="
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - libstdc++6
+            - fonts-droid
+      before_script:
+        - mkdir release
+        - git clone https://github.com/flutter/flutter.git
+        - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
+        # build aar
+        - git clone https://$Token@github.com/OpenIoTHub/OpenIoTHubService OpenIoTHubService
+        # download golang
+        - wget -q https://dl.google.com/go/go1.15.1.linux-amd64.tar.gz
+        - sudo tar -zxf go1.15.1.linux-amd64.tar.gz -C /usr/local
+        - export GOROOT=/usr/local/go
+        - export GOPATH=/home/travis/go
+        - export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
+        - go version
+        # download ndk
+        - wget -q https://dl.google.com/android/repository/android-ndk-r21-linux-x86_64.zip
+        - sudo unzip -q android-ndk-r21-linux-x86_64.zip -d $ANDROID_HOME
+        - export ANDROID_NDK_HOME=$ANDROID_HOME/android-ndk-r21
+        # install gomobile
+        - go get golang.org/x/mobile/cmd/gomobile
+        - go get golang.org/x/mobile/cmd/gobind
+        - gomobile init
+        - gomobile version
+        - pwd
+        - rm -rf android/app/libs/*.aar
+        - cd OpenIoTHubService/mobile
+        - gomobile bind -target=android -o=../../android/app/libs/explorer.aar
+        - cd ../..
+        - ls -a
+        - cp ./android/app/libs/explorer.aar ./release
+      # build aar over
+      script:
+        - yes | sdkmanager "platforms;android-28"
+        - yes | sdkmanager "platforms;android-29"
+        - ./flutter/bin/flutter doctor -v
+        - ./flutter/bin/flutter pub get
+        - ./flutter/bin/flutter -v build apk --release --split-per-abi
+        - mv build/app/outputs/apk/release/app-armeabi-v7a-release.apk ./release
+        - mv build/app/outputs/apk/release/app-arm64-v8a-release.apk ./release
+        - mv build/app/outputs/apk/release/app-x86_64-release.apk ./release
+        - ./flutter/bin/flutter -v build apk --release
+        - mv build/app/outputs/apk/release/app-release.apk ./release
+        - ./flutter/bin/flutter --version
+      deploy:
+        provider: releases
+        skip_cleanup: true
+        api_key:
+          secure: FJ/9t6TilxefjtU64QVjKea/qR+cLUv+dOti+3aspzudcUGWuCyUOKudhtc+PKv1B7pzjrwcAm4iNs4DD4Mm/DFdRmLgjL9+Xg8RLq6pEanr+apc8qG/nRA+NSD5F9Zkj7I4cVp4X2GhXvGJ1kMxt34SazcskdQJwnbLKcVQwXlWYelf1XbI24EZJHNyA+k1Oj980zG5WE2DJ4ETGHqzjB2NutDh1OAI64l4ZUv1/VEysJejsW1popoGbu0CN7/UY6Oedzqiv1NEbcBIez7VzN3lqFwTpfyQB/yglj6yXKuNutJjlvgjOy8a/wD4m9SGlZjrQ30ebB8Pol906T98qqyg/cT7aBc0GZZ0g19hvbheJwyq21yVy5Mf/VvQa389Ud0Kk27SmYDvyPhDyIB4vhT8pC0qDAnwaIEk+q1FkriMgtdrC+oCBuUe9bAeVymXSDc9yypaKbB8KU9xpLKOeznKe/cTIToM5TlGjWI0K1amdG/DVItwS5Xxx5sfLIjAoWghlfqdJI/znKLHkKQL4oEx8/pOcY652efFoNK0PBiYc7HMRm8UEQviZCqS9l08HEvtvSI5soyNQ2OOQa8PiD63YznwDemwP8AqUHiJnw7TRuOxhvINfG1eVLYqinPD/NkH9UVdP3eVkmjrkRng2pkYBAavRLyZuLosUFtVhXQ=
+        file:
+          - release/app-armeabi-v7a-release.apk
+          - release/app-arm64-v8a-release.apk
+          - release/app-x86_64-release.apk
+          - release/app-release.apk
+          - release/explorer.aar
+        on:
+          tags: true
+    - stage: deployLinux
+      os: linux
+      dist: focal
+      language: golang
+      go:
+        - "1.15.x"
+      jdk: oraclejdk8
+      sudo: false
+      env:
+        - secure: "PQo8ZibkX9odtb7InGim3k+fC/ltGijmCVWzVBf6su37FOCBw2p9Mra7aFQWexgb/rrARpJVwQpGofjBYwi3C3vfsI5zlh1BGKcBEFc90+dLl+i7h8LGCjBwEo0xBAv3NWmPAlO8W7CoKY/IJyPkSRSb2bMTfCeojfewsaKM0aKupnzwtBOSJ0DmA+L+lB13tRk7ySgvE20n1VU/6cJvuTdUegR9LI90Y+9irlFXiZQJDgxc04C70eE6D5bHPYc0gcocC6rGGAfLjU40k0CUJyL+ALisZUFWGZV/eLdNUqmkvRZ2do4FjU5DTg4fXcYl2LT1VMfG31BbD0H9S0jwzXZqAkJmSISKXCs6O64JNTm11xOJ9HrzbCUshrszxC7OpM4CtUEyGd3q8At0KdJMa7RAlWVhOMOJczPKNhPjn51fqzw4L7ENUx03GUDDcztbEPkxMQU09Iz/yqKnxzb+IEviMF22K1yTJfcmsIrMJZNYR4d5fXzNB3bw1yCC78qaDKvNnVnleMtELc+18FV6CJI9ujrJW6QaCvc8AOH/fJ8RZdbZbNcDqMsHMV7XyXkurOTg1M7RHF5dQA5uUd8wygN61xUzszkSN0M/cXfzzShDxvxLLBEmy1W+60tcfElGRL3x10UQKiEDSHbfKShhEIF+nbkSBbdl3PWS67yd/z0="
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - clang
+            - cmake
+            - ninja-build
+            - libgtk-3-dev
+            - libblkid-dev
+      before_script:
+        - mkdir release
+        - git clone https://github.com/flutter/flutter.git
+        - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
+        # build aar
+        - git clone https://$Token@github.com/OpenIoTHub/OpenIoTHubService OpenIoTHubService
+        - go version
+      script:
+        - ./flutter/bin/flutter config --enable-linux-desktop
+        - ./flutter/bin/flutter doctor -v
+        - ./flutter/bin/flutter pub get
+        - ./flutter/bin/flutter --version
+        #    build linux release
+        - ./flutter/bin/flutter -v build linux
+        - ls build/linux/release/bundle
+        - zip –q –r OpenIoTHub-linux-desktop.zip build/linux/release/bundle/OpenIoTHub
+      deploy:
+        provider: releases
+        skip_cleanup: true
+        api_key:
+          secure: FJ/9t6TilxefjtU64QVjKea/qR+cLUv+dOti+3aspzudcUGWuCyUOKudhtc+PKv1B7pzjrwcAm4iNs4DD4Mm/DFdRmLgjL9+Xg8RLq6pEanr+apc8qG/nRA+NSD5F9Zkj7I4cVp4X2GhXvGJ1kMxt34SazcskdQJwnbLKcVQwXlWYelf1XbI24EZJHNyA+k1Oj980zG5WE2DJ4ETGHqzjB2NutDh1OAI64l4ZUv1/VEysJejsW1popoGbu0CN7/UY6Oedzqiv1NEbcBIez7VzN3lqFwTpfyQB/yglj6yXKuNutJjlvgjOy8a/wD4m9SGlZjrQ30ebB8Pol906T98qqyg/cT7aBc0GZZ0g19hvbheJwyq21yVy5Mf/VvQa389Ud0Kk27SmYDvyPhDyIB4vhT8pC0qDAnwaIEk+q1FkriMgtdrC+oCBuUe9bAeVymXSDc9yypaKbB8KU9xpLKOeznKe/cTIToM5TlGjWI0K1amdG/DVItwS5Xxx5sfLIjAoWghlfqdJI/znKLHkKQL4oEx8/pOcY652efFoNK0PBiYc7HMRm8UEQviZCqS9l08HEvtvSI5soyNQ2OOQa8PiD63YznwDemwP8AqUHiJnw7TRuOxhvINfG1eVLYqinPD/NkH9UVdP3eVkmjrkRng2pkYBAavRLyZuLosUFtVhXQ=
+        file:
+          - OpenIoTHub-linux-desktop.zip
+        on:
+          tags: true
+    - stage: deployIPAMacOS
+      os: osx
+      language: objective-c
+      osx_image: xcode11.6
+      go:
+        - "1.15.0"
+      env:
+        - secure: "PQo8ZibkX9odtb7InGim3k+fC/ltGijmCVWzVBf6su37FOCBw2p9Mra7aFQWexgb/rrARpJVwQpGofjBYwi3C3vfsI5zlh1BGKcBEFc90+dLl+i7h8LGCjBwEo0xBAv3NWmPAlO8W7CoKY/IJyPkSRSb2bMTfCeojfewsaKM0aKupnzwtBOSJ0DmA+L+lB13tRk7ySgvE20n1VU/6cJvuTdUegR9LI90Y+9irlFXiZQJDgxc04C70eE6D5bHPYc0gcocC6rGGAfLjU40k0CUJyL+ALisZUFWGZV/eLdNUqmkvRZ2do4FjU5DTg4fXcYl2LT1VMfG31BbD0H9S0jwzXZqAkJmSISKXCs6O64JNTm11xOJ9HrzbCUshrszxC7OpM4CtUEyGd3q8At0KdJMa7RAlWVhOMOJczPKNhPjn51fqzw4L7ENUx03GUDDcztbEPkxMQU09Iz/yqKnxzb+IEviMF22K1yTJfcmsIrMJZNYR4d5fXzNB3bw1yCC78qaDKvNnVnleMtELc+18FV6CJI9ujrJW6QaCvc8AOH/fJ8RZdbZbNcDqMsHMV7XyXkurOTg1M7RHF5dQA5uUd8wygN61xUzszkSN0M/cXfzzShDxvxLLBEmy1W+60tcfElGRL3x10UQKiEDSHbfKShhEIF+nbkSBbdl3PWS67yd/z0="
+      cache:
+        directories:
+          - "$HOME/.pub-cache"
+          - "$HOME/.cache/go-build"
+          - "$GOCACHE"
+          - "$GOMODCACHE"
+          - "/var/folders"
+      addons:
+        homebrew:
+          packages:
+            - libimobiledevice
+            - ideviceinstaller
+            - ios-deploy
+            - tree
+      licenses:
+        - android-sdk-preview-license-.+
+        - android-sdk-license-.+
+        - google-gdk-license-.+
+      jdk: oraclejdk8
+      before_script:
+        #      - brew upgrade golang
+        - go version
+        - go env
+        - mkdir release
+        - mkdir release/Payload
+        - git clone https://github.com/flutter/flutter.git
+        - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
+        - tar -xzvf ../flutter_natcloud_service/ios/Frameworks/Explorer.framework/Versions/A/Explorer.tar.gz -C ../flutter_natcloud_service/ios/Frameworks/Explorer.framework/Versions/A
+        - git clone https://$Token@github.com/OpenIoTHub/OpenIoTHubService OpenIoTHubService
+        - go env
+        - export PATH=/Users/travis/go/bin:$PATH
+        - go get golang.org/x/mobile/cmd/gomobile
+        - go get golang.org/x/mobile/cmd/gobind
+        - gomobile init
+        - gomobile version
+        - pwd
+        - rm -rf android/app/libs/*.aar
+        #      - rm -rf ../flutter_natcloud_service/ios/Frameworks/*.framework
+        - cd OpenIoTHubService/mobile
+        - gomobile bind -v -target=ios
+        - cd ../..
+        - ls -a
+        #      - cp -r ./OpenIoTHubService/mobile/*.framework ../flutter_natcloud_service/ios/Frameworks
+        - tar -czvf ./release/Explorer.framework.tar.gz  ../flutter_natcloud_service/ios/Frameworks/Explorer.framework
+      script:
+        - gem install cocoapods
+        - gem install cocoapods-deintegrate
+        - ./flutter/bin/flutter config --enable-macos-desktop
+        - ./flutter/bin/flutter doctor -v
+        #    build ios release
+        - ./flutter/bin/flutter build ios  --release --no-codesign
+        - ./flutter/bin/flutter build macos  --release
+        - ls build/macos/Build/Products/Release
+        - cp -r build/ios/iphoneos/Runner.app release/Payload/Runner.app
+        - zip -r ./release/OpenIoTHub-macos-desktop.zip build/macos/Build/Products/Release/OpenIoTHub.app
+        - cd release
+        - zip -r Runner.ipa Payload
+        - tree
+        - cd ..
+      deploy:
+        provider: releases
+        skip_cleanup: true
+        api_key:
+          secure: FJ/9t6TilxefjtU64QVjKea/qR+cLUv+dOti+3aspzudcUGWuCyUOKudhtc+PKv1B7pzjrwcAm4iNs4DD4Mm/DFdRmLgjL9+Xg8RLq6pEanr+apc8qG/nRA+NSD5F9Zkj7I4cVp4X2GhXvGJ1kMxt34SazcskdQJwnbLKcVQwXlWYelf1XbI24EZJHNyA+k1Oj980zG5WE2DJ4ETGHqzjB2NutDh1OAI64l4ZUv1/VEysJejsW1popoGbu0CN7/UY6Oedzqiv1NEbcBIez7VzN3lqFwTpfyQB/yglj6yXKuNutJjlvgjOy8a/wD4m9SGlZjrQ30ebB8Pol906T98qqyg/cT7aBc0GZZ0g19hvbheJwyq21yVy5Mf/VvQa389Ud0Kk27SmYDvyPhDyIB4vhT8pC0qDAnwaIEk+q1FkriMgtdrC+oCBuUe9bAeVymXSDc9yypaKbB8KU9xpLKOeznKe/cTIToM5TlGjWI0K1amdG/DVItwS5Xxx5sfLIjAoWghlfqdJI/znKLHkKQL4oEx8/pOcY652efFoNK0PBiYc7HMRm8UEQviZCqS9l08HEvtvSI5soyNQ2OOQa8PiD63YznwDemwP8AqUHiJnw7TRuOxhvINfG1eVLYqinPD/NkH9UVdP3eVkmjrkRng2pkYBAavRLyZuLosUFtVhXQ=
+        file:
+          - release/Runner.ipa
+          - release/Explorer.framework.tar.gz
+          - release/OpenIoTHub-macos-desktop.zip
       on:
         tags: true
-  - stage: deployIPA
-    os: osx
-    language: objective-c
-    osx_image: xcode11.6
-    env:
-      - secure: "PQo8ZibkX9odtb7InGim3k+fC/ltGijmCVWzVBf6su37FOCBw2p9Mra7aFQWexgb/rrARpJVwQpGofjBYwi3C3vfsI5zlh1BGKcBEFc90+dLl+i7h8LGCjBwEo0xBAv3NWmPAlO8W7CoKY/IJyPkSRSb2bMTfCeojfewsaKM0aKupnzwtBOSJ0DmA+L+lB13tRk7ySgvE20n1VU/6cJvuTdUegR9LI90Y+9irlFXiZQJDgxc04C70eE6D5bHPYc0gcocC6rGGAfLjU40k0CUJyL+ALisZUFWGZV/eLdNUqmkvRZ2do4FjU5DTg4fXcYl2LT1VMfG31BbD0H9S0jwzXZqAkJmSISKXCs6O64JNTm11xOJ9HrzbCUshrszxC7OpM4CtUEyGd3q8At0KdJMa7RAlWVhOMOJczPKNhPjn51fqzw4L7ENUx03GUDDcztbEPkxMQU09Iz/yqKnxzb+IEviMF22K1yTJfcmsIrMJZNYR4d5fXzNB3bw1yCC78qaDKvNnVnleMtELc+18FV6CJI9ujrJW6QaCvc8AOH/fJ8RZdbZbNcDqMsHMV7XyXkurOTg1M7RHF5dQA5uUd8wygN61xUzszkSN0M/cXfzzShDxvxLLBEmy1W+60tcfElGRL3x10UQKiEDSHbfKShhEIF+nbkSBbdl3PWS67yd/z0="
-    addons:
-      homebrew:
-        packages:
-          - libimobiledevice
-          - ideviceinstaller
-          - ios-deploy
-          - tree
-    before_script:
-      - brew update
-      - brew upgrade golang
-      - go version
-      - mkdir Runner
-      - mkdir Runner/Payload
-      - git clone https://github.com/flutter/flutter.git
-      - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
-      - tar -xzvf ../flutter_natcloud_service/ios/Frameworks/Explorer.framework/Versions/A/Explorer.tar.gz -C ../flutter_natcloud_service/ios/Frameworks/Explorer.framework/Versions/A
-      - git clone https://$Token@github.com/OpenIoTHub/OpenIoTHubService OpenIoTHubService
-      - go version
-      - go env
-      - export PATH=/Users/travis/go/bin:$PATH
-      - go get golang.org/x/mobile/cmd/gomobile
-      - go get golang.org/x/mobile/cmd/gobind
-      - gomobile init
-      - gomobile version
-      - pwd
-#      - rm -rf ../flutter_natcloud_service/ios/Frameworks/*.framework
-      - cd OpenIoTHubService/mobile
-      - gomobile bind -target=ios
-      - cd ../..
-      - ls -a
-#      - cp -r ./OpenIoTHubService/mobile/*.framework ../flutter_natcloud_service/ios/Frameworks
-      - tar -czvf ./Runner/Explorer.framework.tar.gz  ../flutter_natcloud_service/ios/Frameworks/Explorer.framework
-    script:
-      - gem install cocoapods
-      - gem install cocoapods-deintegrate
-      - ./flutter/bin/flutter clean
-      - ./flutter/bin/flutter pub get
-      - ./flutter/bin/flutter doctor -v
-      - ./flutter/bin/flutter build ios  --release --no-codesign
-      - cp -r build/ios/iphoneos/Runner.app Runner/Payload/Runner.app
-      - cd Runner
-      - zip -r Runner.ipa Payload
-      - tree
-      - cd ..
-    deploy:
-      provider: releases
-      skip_cleanup: true
-      api_key:
-        secure: FJ/9t6TilxefjtU64QVjKea/qR+cLUv+dOti+3aspzudcUGWuCyUOKudhtc+PKv1B7pzjrwcAm4iNs4DD4Mm/DFdRmLgjL9+Xg8RLq6pEanr+apc8qG/nRA+NSD5F9Zkj7I4cVp4X2GhXvGJ1kMxt34SazcskdQJwnbLKcVQwXlWYelf1XbI24EZJHNyA+k1Oj980zG5WE2DJ4ETGHqzjB2NutDh1OAI64l4ZUv1/VEysJejsW1popoGbu0CN7/UY6Oedzqiv1NEbcBIez7VzN3lqFwTpfyQB/yglj6yXKuNutJjlvgjOy8a/wD4m9SGlZjrQ30ebB8Pol906T98qqyg/cT7aBc0GZZ0g19hvbheJwyq21yVy5Mf/VvQa389Ud0Kk27SmYDvyPhDyIB4vhT8pC0qDAnwaIEk+q1FkriMgtdrC+oCBuUe9bAeVymXSDc9yypaKbB8KU9xpLKOeznKe/cTIToM5TlGjWI0K1amdG/DVItwS5Xxx5sfLIjAoWghlfqdJI/znKLHkKQL4oEx8/pOcY652efFoNK0PBiYc7HMRm8UEQviZCqS9l08HEvtvSI5soyNQ2OOQa8PiD63YznwDemwP8AqUHiJnw7TRuOxhvINfG1eVLYqinPD/NkH9UVdP3eVkmjrkRng2pkYBAavRLyZuLosUFtVhXQ=
-      file:
-       - Runner/Runner.ipa
-       - Runner/Explorer.framework.tar.gz
-      on:
-        tags: true
+    - stage: deployWindows
+      os: windows
+      language: go
+      go:
+        - "1.15.x"
+      before_script:
+        - git clone https://github.com/flutter/flutter.git
+        - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
+      script:
+        - ./flutter/bin/flutter.bat config --enable-windows-desktop
+        - ./flutter/bin/flutter.bat doctor -v
+        - ./flutter/bin/flutter.bat pub get
+        - ./flutter/bin/flutter.bat --version
+        #    build linux release
+        # - ./flutter/bin/flutter.bat -v build windows
+
 before_install:
-- export ANDROID_HOME=/usr/local/android-sdk
-- openssl aes-256-cbc -K $encrypted_f0033d4e34c5_key -iv $encrypted_f0033d4e34c5_iv
-  -in secrets.tar.enc -out secrets.tar -d
-- tar xvf secrets.tar -C ./android
+  - openssl aes-256-cbc -K $encrypted_f0033d4e34c5_key -iv $encrypted_f0033d4e34c5_iv
+    -in secrets.tar.enc -out secrets.tar -d
+  - tar xvf secrets.tar -C ./android
