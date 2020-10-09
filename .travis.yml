@@ -46,6 +46,12 @@ jobs:
         - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
         # build aar
         - git clone https://$Token@github.com/OpenIoTHub/OpenIoTHubService OpenIoTHubService
+        # download golang
+        - wget -q https://dl.google.com/go/go1.15.1.linux-amd64.tar.gz
+        - sudo tar -zxf go1.15.1.linux-amd64.tar.gz -C /usr/local
+        - export GOROOT=/usr/local/go
+        - export GOPATH=/home/travis/go
+        - export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
         - go version
         # install gomobile
         - go get golang.org/x/mobile/cmd/gomobile
