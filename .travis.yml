@@ -125,7 +125,7 @@ jobs:
         #    build linux release
         - ./flutter/bin/flutter -v build linux
         - ls build/linux/release/bundle
-        - zip –q –r OpenIoTHub-linux-desktop.zip build/linux/release/bundle/OpenIoTHub
+        - zip –r OpenIoTHub-linux-desktop.zip build/linux/release/bundle/*
       deploy:
         provider: releases
         skip_cleanup: true
@@ -211,8 +211,8 @@ jobs:
           - release/Runner.ipa
           - release/Explorer.framework.tar.gz
           - release/OpenIoTHub-macos-desktop.zip
-      on:
-        tags: true
+        on:
+          tags: true
     - stage: deployWindows
       os: windows
       language: go
