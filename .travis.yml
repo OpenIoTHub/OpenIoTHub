@@ -219,8 +219,11 @@ jobs:
         - ./flutter/bin/flutter.bat doctor -v
         - ./flutter/bin/flutter.bat pub get
         - ./flutter/bin/flutter.bat --version
+        - wget https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=community&rel=16&utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=link+cta&utm_content=download+commandline+parameters+vs2019+rc
+        - vs_community.exe
         #    build linux release
-        # - ./flutter/bin/flutter.bat -v build windows
+        - ./flutter/bin/flutter.bat doctor
+        - ./flutter/bin/flutter.bat -v build windows
 
 before_install:
   - openssl aes-256-cbc -K $encrypted_f0033d4e34c5_key -iv $encrypted_f0033d4e34c5_iv
