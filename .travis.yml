@@ -10,6 +10,8 @@ jobs:
     - stage: deployAPK
       os: linux
       language: android
+      go:
+        - "1.15.x"
       licenses:
         - android-sdk-preview-license-.+
         - android-sdk-license-.+
@@ -37,21 +39,14 @@ jobs:
             - fonts-droid
       before_script:
         - mkdir release
+        - yes | sdkmanager "platforms;android-28"
+        - yes | sdkmanager "platforms;android-29"
+        - yes | sdkmanager "ndk-bundle"
         - git clone https://github.com/flutter/flutter.git
         - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
         # build aar
         - git clone https://$Token@github.com/OpenIoTHub/OpenIoTHubService OpenIoTHubService
-        # download golang
-        - wget -q https://dl.google.com/go/go1.15.1.linux-amd64.tar.gz
-        - sudo tar -zxf go1.15.1.linux-amd64.tar.gz -C /usr/local
-        - export GOROOT=/usr/local/go
-        - export GOPATH=/home/travis/go
-        - export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
         - go version
-        # download ndk
-        - wget -q https://dl.google.com/android/repository/android-ndk-r21-linux-x86_64.zip
-        - sudo unzip -q android-ndk-r21-linux-x86_64.zip -d $ANDROID_HOME
-        - export ANDROID_NDK_HOME=$ANDROID_HOME/android-ndk-r21
         # install gomobile
         - go get golang.org/x/mobile/cmd/gomobile
         - go get golang.org/x/mobile/cmd/gobind
@@ -66,8 +61,6 @@ jobs:
         - cp ./android/app/libs/explorer.aar ./release
       # build aar over
       script:
-        - yes | sdkmanager "platforms;android-28"
-        - yes | sdkmanager "platforms;android-29"
         - ./flutter/bin/flutter doctor -v
         - ./flutter/bin/flutter pub get
         - ./flutter/bin/flutter -v build apk --release --split-per-abi
