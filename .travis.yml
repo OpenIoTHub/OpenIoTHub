@@ -212,26 +212,26 @@ jobs:
           - release/OpenIoTHub-macos-desktop.zip
         on:
           tags: true
-    - stage: deployWindows
-      os: windows
-      language: go
-      go:
-        - "1.15.x"
-      before_script:
-        - git clone https://github.com/flutter/flutter.git
-        - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
-      script:
-        - ./flutter/bin/flutter.bat config --enable-windows-desktop
-        - ./flutter/bin/flutter.bat doctor -v
-        - ./flutter/bin/flutter.bat pub get
-        - ./flutter/bin/flutter.bat --version
-        - wget https://github.com/OpenIoTHub/OpenIoTHub/releases/download/1.3.25/vs_community.exe
-        - vs_community.exe -h
-        - vs_community.exe --wait
-        - echo %ERRORLEVEL%
-        #    build linux release
-        - ./flutter/bin/flutter.bat doctor
-        - ./flutter/bin/flutter.bat -v build windows
+#    - stage: deployWindows
+#      os: windows
+#      language: go
+#      go:
+#        - "1.15.x"
+#      before_script:
+#        - git clone https://github.com/flutter/flutter.git
+#        - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
+#      script:
+#        - ./flutter/bin/flutter.bat config --enable-windows-desktop
+#        - ./flutter/bin/flutter.bat doctor -v
+#        - ./flutter/bin/flutter.bat pub get
+#        - ./flutter/bin/flutter.bat --version
+#        - powershell Invoke-Webrequest -uri "https://github.com/OpenIoTHub/OpenIoTHub/releases/download/1.3.25/vs_community.exe" -OutFile vs_community.exe
+#        - dir
+#        - ./vs_community.exe --wait --installPath "C:\minVS" --add Microsoft.VisualStudio.Product.BuildTools --passive --norestart
+#        - powershell Remove-Item vs_community.exe
+#        #    build linux release
+#        - ./flutter/bin/flutter.bat doctor
+#        - ./flutter/bin/flutter.bat -v build windows
 
 before_install:
   - openssl aes-256-cbc -K $encrypted_f0033d4e34c5_key -iv $encrypted_f0033d4e34c5_iv
