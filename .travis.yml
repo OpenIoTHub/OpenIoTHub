@@ -124,7 +124,7 @@ jobs:
         #    build linux release
         - ./flutter/bin/flutter -v build linux
         - ls build/linux/release/bundle
-        - zip –r OpenIoTHub-linux-desktop.zip build/linux/release/bundle
+        - zip –r -y OpenIoTHub-linux-desktop.zip build/linux/release/bundle/
       deploy:
         provider: releases
         skip_cleanup: true
@@ -225,7 +225,7 @@ jobs:
         - ./flutter/bin/flutter.bat doctor -v
         - ./flutter/bin/flutter.bat pub get
         - ./flutter/bin/flutter.bat --version
-        - wget https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=community&rel=16&utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=link+cta&utm_content=download+commandline+parameters+vs2019+rc -O vs_community.exe
+        - wget https://github.com/OpenIoTHub/OpenIoTHub/releases/download/1.3.25/vs_community.exe
         - vs_community.exe -h
         - vs_community.exe --wait
         - echo %ERRORLEVEL%
