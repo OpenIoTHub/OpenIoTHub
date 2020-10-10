@@ -226,7 +226,9 @@ jobs:
         - ./flutter/bin/flutter.bat pub get
         - ./flutter/bin/flutter.bat --version
         - wget https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=community&rel=16&utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=link+cta&utm_content=download+commandline+parameters+vs2019+rc
+        - vs_community.exe -h
         - vs_community.exe
+        - echo %ERRORLEVEL%
         #    build linux release
         - ./flutter/bin/flutter.bat doctor
         - ./flutter/bin/flutter.bat -v build windows
