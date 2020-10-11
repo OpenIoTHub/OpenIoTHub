@@ -1,4 +1,5 @@
-on: [push, pull_request]
+#on: [push, pull_request]
+on: [pull_request]
 
 name: Release Builds
 jobs:
@@ -125,8 +126,6 @@ jobs:
     runs-on: windows-latest
     steps:
       - run: |
-#          git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
-#          git clone https://$Token@github.com/OpenIoTHub/OpenIoTHubService OpenIoTHubService
           git clone https://github.com/flutter/flutter.git
           cd flutter
       - run: echo ::add-path::"$(pwd)\flutter\bin"
