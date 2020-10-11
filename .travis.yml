@@ -212,27 +212,43 @@ jobs:
           - release/OpenIoTHub-macos-desktop.zip
         on:
           tags: true
-#    - stage: deployWindows
-#      os: windows
-#      language: go
-#      go:
-#        - "1.15.x"
-#      before_script:
-#        - git clone https://github.com/flutter/flutter.git
-#        - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
-#      script:
-#        - ./flutter/bin/flutter.bat config --enable-windows-desktop
-#        - ./flutter/bin/flutter.bat doctor -v
-#        - ./flutter/bin/flutter.bat pub get
-#        - ./flutter/bin/flutter.bat --version
-#        - powershell Invoke-Webrequest -uri "https://github.com/OpenIoTHub/OpenIoTHub/releases/download/1.3.25/vs_community.exe" -OutFile vs_community.exe
-#        - dir
-#        - ./vs_community.exe --wait --installPath "C:\minVS" --add Microsoft.VisualStudio.Product.BuildTools --passive --norestart
-#        - powershell Remove-Item vs_community.exe
-#        #    build linux release
-#        - ./flutter/bin/flutter.bat doctor
-#        - ./flutter/bin/flutter.bat -v build windows
-
+    - stage: deployWindows
+      os: windows
+      language: go
+      go:
+        - "1.15.x"
+      before_script:
+        - git clone https://github.com/flutter/flutter.git
+        - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
+      script:
+        - ./flutter/bin/flutter.bat config --enable-windows-desktop
+        - ./flutter/bin/flutter.bat doctor -v
+        - ./flutter/bin/flutter.bat pub get
+        - ./flutter/bin/flutter.bat --version
+        - powershell Invoke-Webrequest -uri "https://github.com/OpenIoTHub/OpenIoTHub/releases/download/1.3.25/vs_community.exe" -OutFile vs_community.exe
+        - dir
+        - ./vs_community.exe --wait --installPath "C:\minVS"
+          --add Microsoft.VisualStudio.Workload.VCTools
+          --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64
+          --add Microsoft.VisualStudio.Component.VC.CMake.Project
+          --add Microsoft.VisualStudio.Workload.NativeDesktop
+          --passive
+          --norestart
+        - powershell Remove-Item vs_community.exe
+        #    build linux release
+        - ./flutter/bin/flutter.bat doctor
+        - ./flutter/bin/flutter.bat -v build windows
+        - 7z a OpenIoTHub-windows-desktop.zip build/windows/runner/Release
+        - dir
+      deploy:
+        provider: releases
+        skip_cleanup: true
+        api_key:
+          secure: FJ/9t6TilxefjtU64QVjKea/qR+cLUv+dOti+3aspzudcUGWuCyUOKudhtc+PKv1B7pzjrwcAm4iNs4DD4Mm/DFdRmLgjL9+Xg8RLq6pEanr+apc8qG/nRA+NSD5F9Zkj7I4cVp4X2GhXvGJ1kMxt34SazcskdQJwnbLKcVQwXlWYelf1XbI24EZJHNyA+k1Oj980zG5WE2DJ4ETGHqzjB2NutDh1OAI64l4ZUv1/VEysJejsW1popoGbu0CN7/UY6Oedzqiv1NEbcBIez7VzN3lqFwTpfyQB/yglj6yXKuNutJjlvgjOy8a/wD4m9SGlZjrQ30ebB8Pol906T98qqyg/cT7aBc0GZZ0g19hvbheJwyq21yVy5Mf/VvQa389Ud0Kk27SmYDvyPhDyIB4vhT8pC0qDAnwaIEk+q1FkriMgtdrC+oCBuUe9bAeVymXSDc9yypaKbB8KU9xpLKOeznKe/cTIToM5TlGjWI0K1amdG/DVItwS5Xxx5sfLIjAoWghlfqdJI/znKLHkKQL4oEx8/pOcY652efFoNK0PBiYc7HMRm8UEQviZCqS9l08HEvtvSI5soyNQ2OOQa8PiD63YznwDemwP8AqUHiJnw7TRuOxhvINfG1eVLYqinPD/NkH9UVdP3eVkmjrkRng2pkYBAavRLyZuLosUFtVhXQ=
+        file:
+          - OpenIoTHub-windows-desktop.zip
+        on:
+          tags: true
 before_install:
   - openssl aes-256-cbc -K $encrypted_f0033d4e34c5_key -iv $encrypted_f0033d4e34c5_iv
     -in secrets.tar.enc -out secrets.tar -d
