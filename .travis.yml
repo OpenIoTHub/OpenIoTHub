@@ -38,6 +38,7 @@ jobs:
             - libstdc++6
             - fonts-droid
       before_script:
+        - root=$(pwd)
         - mkdir release
         - yes | sdkmanager "platforms;android-28"
         - yes | sdkmanager "platforms;android-29"
@@ -61,8 +62,8 @@ jobs:
         - pwd
         - rm -rf android/app/libs/*.aar
         - cd OpenIoTHubService/mobile
-        - gomobile bind -target=android -o=../../android/app/libs/explorer.aar
-        - cd ../..
+        - gomobile bind -target=android -o=$root/android/app/libs/explorer.aar
+        - cd $root
         - ls -a
         - cp ./android/app/libs/explorer.aar ./release
       # build aar over
@@ -126,7 +127,9 @@ jobs:
         #    build linux release
         - ./flutter/bin/flutter -v build linux
         - ls build/linux/release/bundle
-        - tar -zcvf OpenIoTHub-linux-desktop.tar.gz ./build/linux/release/bundle/
+        - cp -r ./build/linux/release/bundle/* ./release
+        - tar -zcvf OpenIoTHub-linux-desktop.tar.gz ./release
+        - ls
       deploy:
         provider: releases
         skip_cleanup: true
@@ -165,10 +168,12 @@ jobs:
       jdk: oraclejdk8
       before_script:
         #      - brew upgrade golang
+        - root=$(pwd)
         - go version
         - go env
         - mkdir release
         - mkdir release/Payload
+        - mkdir release/OpenIoTHub
         - git clone https://github.com/flutter/flutter.git
         - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
         - tar -xzvf ../flutter_natcloud_service/ios/Frameworks/Explorer.framework/Versions/A/Explorer.tar.gz -C ../flutter_natcloud_service/ios/Frameworks/Explorer.framework/Versions/A
@@ -184,7 +189,7 @@ jobs:
         #      - rm -rf ../flutter_natcloud_service/ios/Frameworks/*.framework
         - cd OpenIoTHubService/mobile
         - gomobile bind -v -target=ios
-        - cd ../..
+        - cd $root
         - ls -a
         #      - cp -r ./OpenIoTHubService/mobile/*.framework ../flutter_natcloud_service/ios/Frameworks
         - tar -czvf ./release/Explorer.framework.tar.gz  ../flutter_natcloud_service/ios/Frameworks/Explorer.framework
@@ -199,11 +204,12 @@ jobs:
         - ./flutter/bin/flutter build macos  --release
         - ls build/macos/Build/Products/Release
         - cp -r build/ios/iphoneos/Runner.app release/Payload/Runner.app
-        - zip -r ./release/OpenIoTHub-macos-desktop.zip build/macos/Build/Products/Release/OpenIoTHub.app
-        - cd release
+        - cp -r build/macos/Build/Products/Release/OpenIoTHub.app release/OpenIoTHub/OpenIoTHub.app
+        - cd $root/release
+        - zip -r OpenIoTHub-macos-desktop.zip OpenIoTHub
         - zip -r Runner.ipa Payload
         - tree
-        - cd ..
+        - cd $root
       deploy:
         provider: releases
         skip_cleanup: true
@@ -224,6 +230,7 @@ jobs:
         - git clone https://github.com/flutter/flutter.git
         - git clone https://github.com/OpenIoTHub/flutter_natcloud_service.git ../flutter_natcloud_service
       script:
+        - powershell md release
         - ./flutter/bin/flutter.bat config --enable-windows-desktop
         - ./flutter/bin/flutter.bat doctor -v
         - ./flutter/bin/flutter.bat pub get
@@ -241,7 +248,8 @@ jobs:
         #    build linux release
         - ./flutter/bin/flutter.bat doctor
         - ./flutter/bin/flutter.bat -v build windows
-        - 7z a OpenIoTHub-windows-desktop.zip build/windows/runner/Release/*
+        - cd build/windows/runner/Release
+        - 7z a OpenIoTHub-windows-desktop.zip ./*
         - dir
       deploy:
         provider: releases
