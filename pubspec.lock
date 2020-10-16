@@ -335,9 +335,11 @@ packages:
   modules:
     dependency: "direct main"
     description:
-      path: "../modules"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "98f0400686439d39a24189b75d3062d6d1f93890"
+      url: "https://github.com/OpenIoTHub/modules"
+    source: git
     version: "0.0.1"
   multicast_dns:
     dependency: "direct main"

@@ -57,8 +57,8 @@ dependencies:
   #  sqflite: ^1.1.6+2
   #  webDAV的文件浏览器
   modules:
-#    git: https://github.com/OpenIoTHub/modules
-    path: ../modules/
+    git: https://github.com/OpenIoTHub/modules
+#    path: ../modules/
   # 应用OTA
 #  upgrader: ^0.10.2
   provider: ^2.0.0
