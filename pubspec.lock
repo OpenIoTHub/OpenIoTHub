@@ -328,11 +328,9 @@ packages:
   modules:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "15f80b90da11b17133f419e23415ee0bf0d96202"
-      url: "https://github.com/OpenIoTHub/modules"
-    source: git
+      path: "../modules"
+      relative: true
+    source: path
     version: "0.0.1"
   multicast_dns:
     dependency: "direct main"
@@ -525,13 +523,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
-  smartconfig:
-    dependency: transitive
-    description:
-      name: smartconfig
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.0.1"
   source_span:
     dependency: transitive
     description:
