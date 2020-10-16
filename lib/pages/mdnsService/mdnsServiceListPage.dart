@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:multicast_dns/multicast_dns.dart';
@@ -21,6 +21,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:modules/pages/mdnsService/modelsMap.dart';
 import 'package:modules/pages/mdnsService/commWidgets/info.dart';
 
+import 'package:mdns_plugin/mdns_plugin.dart' as mdns_plugin;
+
 class MdnsServiceListPage extends StatefulWidget {
   MdnsServiceListPage({Key key, this.title}) : super(key: key);
 
@@ -30,18 +32,23 @@ class MdnsServiceListPage extends StatefulWidget {
   _MdnsServiceListPageState createState() => _MdnsServiceListPageState();
 }
 
-class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
+class _MdnsServiceListPageState extends State<MdnsServiceListPage>
+    implements mdns_plugin.MDNSPluginDelegate {
   Utf8Decoder u8decodeer = Utf8Decoder();
   Map<String, PortService> _IoTDeviceMap = Map<String, PortService>();
   Timer _timerPeriod;
   final MDnsClient _mdns = MDnsClient();
+  mdns_plugin.MDNSPlugin _mdnsPlg;
 
   @override
   void initState() {
     super.initState();
-    _mdns.start().then((value) => {
-      refreshmDNSServices()
-    });
+    if(!Platform.isIOS){
+      _mdns.start();
+    }else{
+      _mdnsPlg = mdns_plugin.MDNSPlugin(this);
+    }
+    refreshmDNSServices();
     _timerPeriod = Timer.periodic(Duration(seconds: 10), (Timer timer) {
       refreshmDNSServices();
     });
@@ -139,7 +146,11 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     if (_timerPeriod != null) {
       _timerPeriod.cancel();
     }
-    _mdns.stop();
+    if(!Platform.isIOS) {
+      _mdns.stop();
+    }else{
+      _mdnsPlg.stopDiscovery();
+    }
     _IoTDeviceMap.clear();
   }
 
@@ -279,14 +290,26 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
   }
 
   Future getIoTDeviceFromLocal() async {
-    await getIoTDeviceFromLocalByType(Config.mdnsIoTDeviceService);
-    await getIoTDeviceFromLocalByType(Config.mdnsGatewayService);
-    await for (PtrResourceRecord ptr in _mdns.lookup<PtrResourceRecord>(
-        ResourceRecordQuery.serverPointer(Config.mdnsTypeExplorer))) {
-      print("ptr:");
-      print(ptr.domainName);
-      await getIoTDeviceFromLocalByType(ptr.domainName);
+    if(!Platform.isIOS){
+      await getIoTDeviceFromLocalByType(Config.mdnsIoTDeviceService);
+      await getIoTDeviceFromLocalByType(Config.mdnsGatewayService);
+      await for (PtrResourceRecord ptr in _mdns.lookup<PtrResourceRecord>(
+          ResourceRecordQuery.serverPointer(Config.mdnsTypeExplorer))) {
+        print("ptr:");
+        print(ptr.domainName);
+        await getIoTDeviceFromLocalByType(ptr.domainName);
+      }
+    }else{
+      // TODO 从搜索到的mqtt组件中获取设备
+      await _mdnsPlg.startDiscovery(Config.mdnsIoTDeviceService.replaceAll(".local", ""),
+          enableUpdating: true);
+      await Future.delayed(Duration(seconds: 1));
+//    await _mdns.stopDiscovery();
+      await _mdnsPlg.startDiscovery(Config.mdnsTypeExplorer.replaceAll(".local", ""), enableUpdating: true);
+      await Future.delayed(Duration(seconds: 1));
+//    await _mdns.stopDiscovery();
     }
+
   }
 
   Future getIoTDeviceFromLocalByType(String serviceType) async {
@@ -426,6 +449,119 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       }
     }
     return info;
+  }
+  void onDiscoveryStarted() {
+    print("Discovery started");
+  }
+
+  void onDiscoveryStopped() {
+    print("Discovery stopped");
+  }
+
+  bool onServiceFound(mdns_plugin.MDNSService service) {
+    print("Found: $service");
+//  new mdns Type
+    if (service.serviceType == Config.mdnsBaseTcpService &&
+        MDNS2ModelsMap.modelsMap.containsKey("${service.name}._tcp")) {
+      _mdnsPlg
+          .startDiscovery("${service.name}._tcp", enableUpdating: true)
+          .then((value) {
+//        Future.delayed(Duration(seconds: 1));
+//            .then((value) => _mdns.stopDiscovery());
+      });
+    }
+//
+    // Always returns true which begins service resolution
+    return true;
+  }
+
+  void onServiceResolved(mdns_plugin.MDNSService service) {
+    print("Resolved: $service");
+    try {
+//      UtilApi.getAllmDNSServiceList().then((MDNSServiceList iotDeviceResult) {
+//        print("===start:");
+//        iotDeviceResult.mDNSServices.forEach((MDNSService m) {
+      String serviceType = service.serviceType;
+      if (serviceType == null) {
+        return;
+      }
+      print("service.serviceType:${serviceType}");
+      print("service.ip:${service.addresses}");
+      //TODO 有关IPV6地址的处理问题
+      if (serviceType.contains(Config.mdnsIoTDeviceService.replaceAll(".local", ""))) {
+        PortService portService = PortService();
+        if (service.addresses != null && service.addresses.length > 0) {
+          portService.ip = service.addresses[0].contains(":")
+              ? "[${service.addresses[0]}]"
+              : service.addresses[0];
+        } else {
+          portService.ip = service.hostName;
+        }
+        portService.port = service.port;
+        portService.info = Map<String, dynamic>();
+        service.txt.forEach((key, value) {
+          if (key == null || value == null) {
+            return;
+          }
+          portService.info[key] = Utf8Codec().decode(value);
+        });
+//            portService.info = service.txt;
+        portService.isLocal = true;
+        addPortService(portService);
+//            TODO 后面带.处理
+      } else if (serviceType != null &&
+          MDNS2ModelsMap.modelsMap.containsKey(serviceType.endsWith(".")
+              ? serviceType.substring(0, serviceType.length - 1)
+              : serviceType)) {
+        PortService portService = MDNS2ModelsMap.modelsMap[
+        serviceType.endsWith(".")
+            ? serviceType.substring(0, serviceType.length - 1)
+            : serviceType]
+            .copy();
+        if (portService == null) {
+          return;
+        }
+        if (service.addresses != null && service.addresses.length > 0) {
+          portService.ip = service.addresses[0];
+        } else {
+          portService.ip = service.hostName;
+        }
+        portService.port = service.port;
+        if (service.txt.containsKey("id")) {
+          portService.info["id"] = Utf8Codec().decode(service.txt["id"]);
+        } else {
+          portService.info["id"] =
+          "${portService.ip}:${portService.port}@local";
+        }
+        portService.isLocal = true;
+        print("add local portService:${portService.toString()}");
+        addPortService(portService);
+      }
+//        });
+//      });
+    } catch (e) {
+      showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+              title: Text("从本地获取物联网列表失败："),
+              content: Text("失败原因：$e"),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text("确认"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ]));
+    }
+  }
+
+  void onServiceUpdated(mdns_plugin.MDNSService service) {
+    print("Updated: $service");
+  }
+
+  void onServiceRemoved(mdns_plugin.MDNSService service) {
+    print("Removed: $service");
   }
 }
 
