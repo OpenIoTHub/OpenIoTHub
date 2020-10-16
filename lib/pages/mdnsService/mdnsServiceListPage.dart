@@ -43,7 +43,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
   @override
   void initState() {
     super.initState();
-    if(!Platform.isIOS){
+    if(Platform.isAndroid ||Platform.isLinux||Platform.isWindows||Platform.isMacOS){
       _mdns.start();
     }else{
       _mdnsPlg = mdns_plugin.MDNSPlugin(this);
@@ -146,7 +146,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
     if (_timerPeriod != null) {
       _timerPeriod.cancel();
     }
-    if(!Platform.isIOS) {
+    if(Platform.isAndroid ||Platform.isLinux||Platform.isWindows||Platform.isMacOS) {
       _mdns.stop();
     }else{
       _mdnsPlg.stopDiscovery();
@@ -290,7 +290,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
   }
 
   Future getIoTDeviceFromLocal() async {
-    if(!Platform.isIOS){
+    if(Platform.isAndroid ||Platform.isLinux||Platform.isWindows||Platform.isMacOS){
       await getIoTDeviceFromLocalByType(Config.mdnsIoTDeviceService);
       await getIoTDeviceFromLocalByType(Config.mdnsGatewayService);
       await for (PtrResourceRecord ptr in _mdns.lookup<PtrResourceRecord>(
