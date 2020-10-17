@@ -35,12 +35,23 @@
 	<string>需要您的同意, 云易连才能访问您的媒体资料库</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>需要您的同意, 云易连才能访问您的蓝牙</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_http._tcp</string>
+		<string>_udp.local.</string>
+		<string>_tcp.local.</string>
+		<string>_services._dns-sd._udp</string>
+		<string>_openiothub-gateway._tcp</string>
+		<string>_iotdevice._tcp</string>
+	</array>
 	<key>NSCalendarsUsageDescription</key>
 	<string>需要您的同意, 云易连才能访问您的日历</string>
 	<key>NSCameraUsageDescription</key>
 	<string>需要您的同意,云易连才能访问您的相机</string>
 	<key>NSContactsUsageDescription</key>
 	<string>需要您的同意, 云易连才能访问您的通讯录</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>需要访问本地网络以使用mdns</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>需要您的同意, 云易连才能一直在使用期间访问您的位置</string>
 	<key>NSLocationAlwaysUsageDescription</key>
