@@ -318,8 +318,8 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
             info: {
               "name": "网关",
               "model": "",
-              "mac": "mac",
-              "id": "id",
+              "mac": "",
+              "id": "",
               "author": "Farry",
               "email": "newfarry@126.com",
               "home-page": "https://github.com/OpenIoTHub",
@@ -513,8 +513,11 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
           portService.ip = service.hostName;
         }
         portService.port = service.port;
-        if (service.txt.containsKey("id")) {
+        if (service.txt.containsKey("id") && service.txt["id"] != "") {
           portService.info["id"] = Utf8Codec().decode(service.txt["id"]);
+        } else if (service.txt.containsKey("id") && service.txt["id"] == "" &&
+            service.txt.containsKey("mac") && service.txt["mac"] != "") {
+          portService.info["id"] = Utf8Codec().decode(service.txt["mac"]);
         } else {
           portService.info["id"] =
               "${portService.ip}:${portService.port}@local";
