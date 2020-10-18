@@ -37,12 +37,13 @@
 	<string>需要您的同意, 云易连才能访问您的蓝牙</string>
 	<key>NSBonjourServices</key>
 	<array>
-		<string>_http._tcp</string>
-		<string>_home-assistant._tcp</string>
 		<string>_openiothub-gateway._tcp</string>
+		<string>_http._tcp</string>
+		<string>_CGI._tcp</string>
+		<string>_home-assistant._tcp</string>
 		<string>_rfb._tcp</string>
 		<string>_iotdevice._tcp</string>
-		<string>_openiothub-gateway._tcp</string>
+		<string>_services._dns-sd._udp</string>
 	</array>
 	<key>NSCalendarsUsageDescription</key>
 	<string>需要您的同意, 云易连才能访问您的日历</string>

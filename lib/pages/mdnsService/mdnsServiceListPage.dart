@@ -269,6 +269,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
   Future<void> addPortService(PortService portService) async {
 //      在没有重复的情况下直接加入列表，有重复则本内外的替代远程的
 //    String id = Utf8Codec().decode(portService.info["id"]);
+  print("addPortService:${portService.info}");
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String id = portService.info["id"];
     Map<String, dynamic> device_cname_map = Map<String, String>();
@@ -290,27 +291,19 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
   }
 
   Future getIoTDeviceFromLocal() async {
-    if (!Platform.isIOS) {
-      await getIoTDeviceFromLocalByType(Config.mdnsIoTDeviceService + ".local");
-      await getIoTDeviceFromLocalByType(Config.mdnsGatewayService + ".local");
-      await for (PtrResourceRecord ptr in _mdns.lookup<PtrResourceRecord>(
-          ResourceRecordQuery.serverPointer(Config.mdnsTypeExplorer + ".local"))) {
-        print("ptr:");
-        print(ptr.domainName);
-        await getIoTDeviceFromLocalByType(ptr.domainName);
+    List<String> typeList = MDNS2ModelsMap.getAllmDnsServiceType();
+    for (int i = 0; i < typeList.length; i++) {
+      if (!Platform.isIOS) {
+        await getIoTDeviceFromLocalByType(typeList[i] + ".local");
+      } else {
+        // TODO 从搜索到的mqtt组件中获取设备
+        print("getIoTDeviceFromLocal:${typeList[i]}");
+        await _mdnsPlg.stopDiscovery();
+        await _mdnsPlg.startDiscovery(
+            typeList[i],
+            enableUpdating: true);
+        await Future.delayed(Duration(seconds: 1));
       }
-    } else {
-      // TODO 从搜索到的mqtt组件中获取设备
-      await _mdnsPlg.startDiscovery(
-          Config.mdnsIoTDeviceService,
-          enableUpdating: true);
-      await Future.delayed(Duration(seconds: 1));
-//    await _mdns.stopDiscovery();
-      await _mdnsPlg.startDiscovery(
-          Config.mdnsTypeExplorer,
-          enableUpdating: true);
-      await Future.delayed(Duration(seconds: 1));
-//    await _mdns.stopDiscovery();
     }
   }
 
@@ -464,18 +457,6 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
 
   bool onServiceFound(mdns_plugin.MDNSService service) {
     print("Found: $service");
-//  new mdns Type
-    if (service.serviceType == Config.mdnsBaseTcpService &&
-        MDNS2ModelsMap.modelsMap.containsKey("${service.name}._tcp")) {
-      _mdnsPlg
-          .startDiscovery("${service.name}._tcp", enableUpdating: true)
-          .then((value) {
-//        Future.delayed(Duration(seconds: 1));
-//            .then((value) => _mdns.stopDiscovery());
-      });
-    }
-//
-    // Always returns true which begins service resolution
     return true;
   }
 
