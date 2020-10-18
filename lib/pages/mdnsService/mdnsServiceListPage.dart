@@ -298,6 +298,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
     for (int i = 0; i < typeList.length; i++) {
       if (!Platform.isIOS) {
         await getIoTDeviceFromLocalByType(typeList[i]);
+        await Future.delayed(Duration(milliseconds: 400));
       } else {
         // TODO 从搜索到的mqtt组件中获取设备
         print("getIoTDeviceFromLocal:${typeList[i]}");
@@ -305,8 +306,8 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
         await _mdnsPlg.startDiscovery(
             typeList[i],
             enableUpdating: true);
+        await Future.delayed(Duration(milliseconds: 700));
       }
-      await Future.delayed(Duration(milliseconds: 400));
     }
   }
 
