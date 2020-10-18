@@ -291,10 +291,10 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
 
   Future getIoTDeviceFromLocal() async {
     if (!Platform.isIOS) {
-      await getIoTDeviceFromLocalByType(Config.mdnsIoTDeviceService);
-      await getIoTDeviceFromLocalByType(Config.mdnsGatewayService);
+      await getIoTDeviceFromLocalByType(Config.mdnsIoTDeviceService + ".local");
+      await getIoTDeviceFromLocalByType(Config.mdnsGatewayService + ".local");
       await for (PtrResourceRecord ptr in _mdns.lookup<PtrResourceRecord>(
-          ResourceRecordQuery.serverPointer(Config.mdnsTypeExplorer))) {
+          ResourceRecordQuery.serverPointer(Config.mdnsTypeExplorer + ".local"))) {
         print("ptr:");
         print(ptr.domainName);
         await getIoTDeviceFromLocalByType(ptr.domainName);
@@ -302,12 +302,12 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
     } else {
       // TODO 从搜索到的mqtt组件中获取设备
       await _mdnsPlg.startDiscovery(
-          Config.mdnsIoTDeviceService.replaceAll(".local", ""),
+          Config.mdnsIoTDeviceService,
           enableUpdating: true);
       await Future.delayed(Duration(seconds: 1));
 //    await _mdns.stopDiscovery();
       await _mdnsPlg.startDiscovery(
-          Config.mdnsTypeExplorer.replaceAll(".local", ""),
+          Config.mdnsTypeExplorer,
           enableUpdating: true);
       await Future.delayed(Duration(seconds: 1));
 //    await _mdns.stopDiscovery();
@@ -381,7 +381,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
               Map<String, dynamic> mDNSInfo = jsonDecode(pc.mDNSInfo);
 //              先判断是不是 _iotdevice._tcp
               if (mDNSInfo['type'] ==
-                  Config.mdnsIoTDeviceService.replaceFirst(".local", "")) {
+                  Config.mdnsIoTDeviceService) {
                 // TODO 是否含有/info，将portConfig里面的description换成、info中的name（这个name由设备管理）
                 addPortConfigs(pc, false);
               } else if (MDNS2ModelsMap.modelsMap
@@ -493,7 +493,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
       print("service.ip:${service.addresses}");
       //TODO 有关IPV6地址的处理问题
       if (serviceType
-          .contains(Config.mdnsIoTDeviceService.replaceAll(".local", ""))) {
+          .contains(Config.mdnsIoTDeviceService)) {
         PortService portService = PortService();
         if (service.addresses != null && service.addresses.length > 0) {
           portService.ip = service.addresses[0].contains(":")
