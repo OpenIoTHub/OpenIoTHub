@@ -39,6 +39,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
   Timer _timerPeriod;
   final MDnsClient _mdns = MDnsClient();
   mdns_plugin.MDNSPlugin _mdnsPlg;
+  List<String> _supportedTypeList = MDNS2ModelsMap.getAllmDnsServiceType();
 
   @override
   void initState() {
@@ -293,47 +294,31 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
   }
 
   Future getIoTDeviceFromLocal() async {
-    List<String> typeList = MDNS2ModelsMap.getAllmDnsServiceType();
     //优先iotdevice
-    for (int i = 0; i < typeList.length; i++) {
+    for (int i = 0; i < _supportedTypeList.length; i++) {
       if (!Platform.isIOS) {
-        await getIoTDeviceFromLocalByType(typeList[i]);
-        await Future.delayed(Duration(milliseconds: 400));
+        await getIoTDeviceFromLocalByType(_supportedTypeList[i]);
+        await Future.delayed(Duration(milliseconds: 100));
       } else {
         // TODO 从搜索到的mqtt组件中获取设备
-        print("getIoTDeviceFromLocal:${typeList[i]}");
+        print("getIoTDeviceFromLocal:${_supportedTypeList[i]}");
         await _mdnsPlg.stopDiscovery();
         await _mdnsPlg.startDiscovery(
-            typeList[i],
+            _supportedTypeList[i],
             enableUpdating: true);
-        await Future.delayed(Duration(milliseconds: 700));
+        await Future.delayed(Duration(milliseconds: 500));
       }
     }
   }
 
   Future getIoTDeviceFromLocalByType(String serviceType) async {
     await for (PtrResourceRecord ptr in _mdns.lookup<PtrResourceRecord>(
-        ResourceRecordQuery.serverPointer(serviceType + ".local"))) {
+        ResourceRecordQuery.serverPointer(serviceType + ".local"), timeout: Duration(seconds: 1))) {
       await for (SrvResourceRecord srv in _mdns.lookup<SrvResourceRecord>(
           ResourceRecordQuery.service(ptr.domainName))) {
         print("SrvResourceRecord:$srv");
         //兼容的类型
-        PortService _portService = PortService(
-            isLocal: true,
-            info: {
-              "name": "未命名设备",
-              "model": "",
-              "mac": "",
-              "id": "",
-              "author": "Farry",
-              "email": "newfarry@126.com",
-              "home-page": "https://github.com/OpenIoTHub",
-              "firmware-respository":
-              "https://github.com/OpenIoTHub/gateway-go",
-              "firmware-version": "version",
-            },
-            ip: "127.0.0.1",
-            port: 80);
+        PortService _portService = MDNS2ModelsMap.basebasePortService.copy();
         if (MDNS2ModelsMap.modelsMap.containsKey(serviceType)) {
           _portService = MDNS2ModelsMap.modelsMap[serviceType].copy();
         }
@@ -341,15 +326,15 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
             .lookup<TxtResourceRecord>(ResourceRecordQuery.text(ptr.domainName))
             .forEach((TxtResourceRecord text) {
           List<String> _txts = text.text.split("\n");
-          print(_txts.length);
-          print(_txts);
-          _txts.forEach((String txt) {
-            List<String> _kv = txt.split("=");
+          print("_txts.length:${_txts.length}");
+          print("_txts:$_txts");
+          //非异步
+          for (int i = 0; i < _txts.length; i++) {
+            List<String> _kv = _txts[i].split("=");
             print("_kv:");
             print(_kv);
             _portService.info[_kv.first] = _kv.last;
-            //  TODO value 为空是否需要添加？
-          });
+          }
         });
         await for (IPAddressResourceRecord ip
             in _mdns.lookup<IPAddressResourceRecord>(
@@ -474,6 +459,12 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
 
   bool onServiceFound(mdns_plugin.MDNSService service) {
     print("Found: $service");
+//  new mdns Type
+//     if (service.serviceType == Config.mdnsBaseTcpService &&
+//         _supportedTypeList.contains("${service.name}._tcp")) {
+//       _mdnsPlg
+//           .startDiscovery("${service.name}._tcp", enableUpdating: true);
+//     }
     return true;
   }
 
@@ -492,7 +483,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
       //TODO 有关IPV6地址的处理问题
       if (serviceType
           .contains(Config.mdnsIoTDeviceService)) {
-        PortService portService = PortService();
+        PortService portService = MDNS2ModelsMap.basebasePortService.copy();
         if (service.addresses != null && service.addresses.length > 0) {
           portService.ip = service.addresses[0].contains(":")
               ? "[${service.addresses[0]}]"
@@ -502,12 +493,20 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
         }
         portService.port = service.port;
         portService.info = Map<String, dynamic>();
-        service.txt.forEach((key, value) {
-          if (key == null || value == null) {
+        for (int i = 0; i < service.txt.keys.toList().length; i++) {
+          if (service.txt.keys.toList()[i] == null ||
+              service.txt[service.txt.keys.toList()[i]] == null) {
             return;
           }
-          portService.info[key] = Utf8Codec().decode(value);
-        });
+          portService.info[service.txt.keys.toList()[i]] =
+              Utf8Codec().decode(service.txt[service.txt.keys.toList()[i]]);
+        }
+        // service.txt.forEach((key, value) {
+        //   if (key == null || value == null) {
+        //     return;
+        //   }
+        //   portService.info[key] = Utf8Codec().decode(value);
+        // });
 //            portService.info = service.txt;
         portService.isLocal = true;
         addPortService(portService);
