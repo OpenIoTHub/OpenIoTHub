@@ -54,11 +54,13 @@ jobs:
         - export GOPATH=/home/travis/go
         - export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
         - go version
+        - go env
         # install gomobile
         - go get golang.org/x/mobile/cmd/gomobile
         - go get golang.org/x/mobile/cmd/gobind
         - gomobile init
         - gomobile version
+        - gomobile clean
         - pwd
         - rm -rf android/app/libs/*.aar
         - cd OpenIoTHubService/mobile
