@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:modules/constants/Config.dart';
-import 'package:modules/constants/Constants.dart';
-import 'package:modules/pages/mdnsService/commWidgets/mDNSInfo.dart';
+import 'package:openiothub_constants/constants/Config.dart';
+import 'package:openiothub_constants/constants/Constants.dart';
+import 'package:openiothub_plugin/plugins/mdnsService/commWidgets/mDNSInfo.dart';
 import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub_grpc_api/pb/service.pb.dart';
 import 'package:openiothub_grpc_api/pb/service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
-import 'package:modules/api/OpenIoTHub/SessionApi.dart';
+import 'package:openiothub_api/api/OpenIoTHub/SessionApi.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';

@@ -4,22 +4,22 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:multicast_dns/multicast_dns.dart';
 import 'dart:convert';
-import 'package:modules/api/OpenIoTHub/SessionApi.dart';
-import 'package:modules/api/OpenIoTHub/Utils.dart';
-import 'package:modules/constants/Config.dart';
-import 'package:modules/constants/Constants.dart';
+import 'package:openiothub_api/api/OpenIoTHub/SessionApi.dart';
+import 'package:openiothub_api/api/OpenIoTHub/Utils.dart';
+import 'package:openiothub_constants/constants/Config.dart';
+import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:openiothub/model/custom_theme.dart';
 import 'package:provider/provider.dart';
-import 'package:modules/model/portService.dart';
-import 'package:modules/pages/mdnsService/mdnsType2ModelMap.dart';
-import 'package:modules/pages/tools/smartConfigTool.dart';
+import 'package:openiothub_models/models/portService.dart';
+import 'package:openiothub_plugin/plugins/mdnsService/mdnsType2ModelMap.dart';
+import 'package:openiothub_common_pages/commPages/smartConfigTool.dart';
 import 'package:openiothub_grpc_api/pb/service.pb.dart';
 import 'package:openiothub_grpc_api/pb/service.pbgrpc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 //统一导入全部设备类型
-import 'package:modules/pages/mdnsService/modelsMap.dart';
-import 'package:modules/pages/mdnsService/commWidgets/info.dart';
+import 'package:openiothub_plugin/plugins/mdnsService/modelsMap.dart';
+import 'package:openiothub_plugin/plugins/mdnsService/commWidgets/info.dart';
 
 import 'package:mdns_plugin/mdns_plugin.dart' as mdns_plugin;
 
@@ -318,7 +318,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
           ResourceRecordQuery.service(ptr.domainName))) {
         print("SrvResourceRecord:$srv");
         //兼容的类型
-        PortService _portService = MDNS2ModelsMap.basebasePortService.copy();
+        PortService _portService = MDNS2ModelsMap.basePortService.copy();
         if (MDNS2ModelsMap.modelsMap.containsKey(serviceType)) {
           _portService = MDNS2ModelsMap.modelsMap[serviceType].copy();
         }
@@ -483,7 +483,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
       //TODO 有关IPV6地址的处理问题
       if (serviceType
           .contains(Config.mdnsIoTDeviceService)) {
-        PortService portService = MDNS2ModelsMap.basebasePortService.copy();
+        PortService portService = MDNS2ModelsMap.basePortService.copy();
         if (service.addresses != null && service.addresses.length > 0) {
           portService.ip = service.addresses[0].contains(":")
               ? "[${service.addresses[0]}]"

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:modules/constants/Constants.dart';
-import 'package:modules/pages/commPages/appInfo.dart';
+import 'package:openiothub_constants/constants/Constants.dart';
+import 'package:openiothub_common_pages/commPages/appInfo.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:modules/model/portService.dart';
-import 'package:modules/pages/mdnsService/devices/rgbaLed.dart';
+import 'package:openiothub_models/models/portService.dart';
+import 'package:openiothub_plugin/plugins/mdnsService/devices/rgbaLed.dart';
 import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub/pages/user/player.dart';
 import 'package:openiothub/pages/user/tools/toolsTypePage.dart';

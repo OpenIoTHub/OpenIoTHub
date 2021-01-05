@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_natcloud_service/flutter_natcloud_service.dart';
 
-import 'package:modules/constants/Config.dart';
-import 'package:modules/pages/commPages/appInfo.dart';
-import 'package:modules/pages/mqttServerList/mqttServerList.dart';
+import 'package:openiothub_constants/constants/Config.dart';
+import 'package:openiothub_common_pages/commPages/appInfo.dart';
 import 'package:openiothub/pages/user/tools/toolsTypePage.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -207,7 +206,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onTap: () {
                 Navigator.of(context).pop();
                 Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => MqttServerListPage()));
+                    MaterialPageRoute(builder: (context) => ToolsTypePage()));
               }),
           ListTile(
               //第二个功能项
