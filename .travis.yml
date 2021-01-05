@@ -29,7 +29,7 @@ jobs:
       jdk: oraclejdk8
       sudo: false
       env:
-        - GO111MODULE=on
+        - GO111MODULE=auto
         - secure: "PQo8ZibkX9odtb7InGim3k+fC/ltGijmCVWzVBf6su37FOCBw2p9Mra7aFQWexgb/rrARpJVwQpGofjBYwi3C3vfsI5zlh1BGKcBEFc90+dLl+i7h8LGCjBwEo0xBAv3NWmPAlO8W7CoKY/IJyPkSRSb2bMTfCeojfewsaKM0aKupnzwtBOSJ0DmA+L+lB13tRk7ySgvE20n1VU/6cJvuTdUegR9LI90Y+9irlFXiZQJDgxc04C70eE6D5bHPYc0gcocC6rGGAfLjU40k0CUJyL+ALisZUFWGZV/eLdNUqmkvRZ2do4FjU5DTg4fXcYl2LT1VMfG31BbD0H9S0jwzXZqAkJmSISKXCs6O64JNTm11xOJ9HrzbCUshrszxC7OpM4CtUEyGd3q8At0KdJMa7RAlWVhOMOJczPKNhPjn51fqzw4L7ENUx03GUDDcztbEPkxMQU09Iz/yqKnxzb+IEviMF22K1yTJfcmsIrMJZNYR4d5fXzNB3bw1yCC78qaDKvNnVnleMtELc+18FV6CJI9ujrJW6QaCvc8AOH/fJ8RZdbZbNcDqMsHMV7XyXkurOTg1M7RHF5dQA5uUd8wygN61xUzszkSN0M/cXfzzShDxvxLLBEmy1W+60tcfElGRL3x10UQKiEDSHbfKShhEIF+nbkSBbdl3PWS67yd/z0="
       addons:
         apt:
