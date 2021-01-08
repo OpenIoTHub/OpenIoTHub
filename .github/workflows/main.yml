@@ -67,14 +67,12 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: 'stable'
-      - run: |
-        flutter config --enable-macos-desktop
-        flutter config --no-enable-android
-        dart scripts/mac.pub.dart
-        flutter pub get
-        flutter build macos -v --release
-        cd build/macos/Build/Products/Release
-        ditto -c -k --sequesterRsrc --keepParent invmovieconcept1.app macos-release.zip
+      - run: flutter config --enable-macos-desktop
+      - run: flutter config --no-enable-android
+      - run: flutter pub get
+      - run: flutter build macos -v --release
+      - run: cd build/macos/Build/Products/Release
+      - run: ditto -c -k --sequesterRsrc --keepParent invmovieconcept1.app macos-release.zip
       - uses: ncipollo/release-action@v1
         with:
           artifacts: 'app/build/macOS/Build/Products/Release/macos-release.zip'
@@ -85,26 +83,20 @@ jobs:
     name: Windows
     runs-on: windows-latest
     steps:
-      - run: |
-        git clone https://github.com/flutter/flutter.git
-        cd flutter
-      - run: echo ::add-path::"$(pwd)\flutter\bin"
-#      - env PATH:$(pwd)\flutter\bin;%PATH%
       - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1
         with:
-          fetch-depth: 0
-          ref: ${{ github.event.release.tag_name }}
-          path: 'app'
+          java-version: '12.x'
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
       - run: |
-        cd app
-        flutter config --enable-windows-desktop
-        flutter config --no-enable-android
-        flutter pub get
-        flutter build windows --release
-        dir
-        tree
-        cd build\windows\runner
-        Compress-Archive -Path Release -DestinationPath windows-release.zip
+      - run: flutter config --enable-windows-desktop
+      - run: flutter config --no-enable-android
+      - run: flutter pub get
+      - run: flutter build windows --release
+      - run: cd build\windows\runner
+      - run: Compress-Archive -Path Release -DestinationPath windows-release.zip
       - name: Windows release build for github
         uses: ncipollo/release-action@v1
         with:
