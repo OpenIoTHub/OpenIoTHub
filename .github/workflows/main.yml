@@ -47,9 +47,8 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: 'stable'
-      - run: |
-        flutter pub get
-        flutter build apk --release
+      - run: flutter pub get
+      - run: flutter build apk --release
       - name: Create Android Release
         uses: ncipollo/release-action@v1
         with:
