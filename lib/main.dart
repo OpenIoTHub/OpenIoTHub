@@ -36,10 +36,11 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(builder: (context) => CustomTheme()),
+        ChangeNotifierProvider(create: (context) => CustomTheme()),
       ],
       child: MyApp(),
     ),
+    // MyApp()
   );
 }
 

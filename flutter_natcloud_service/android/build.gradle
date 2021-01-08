@@ -1,0 +1,55 @@
+group 'com.example.flutter_natcloud_service'
+version '1.0'
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.2.1'
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 16
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+//    add
+    sourceSets {
+        main {
+            jniLibs.srcDir 'libs'
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.txt'
+        }
+    }
+//    add over
+}
+
+dependencies {
+//    implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'], exclude: [])
+//    implementation files('libs/classes.jar')
+}
+
+
+

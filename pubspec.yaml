@@ -11,9 +11,10 @@ description: A IoT Device Manager.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 1.3.9+5
 author: Farry<yu@iotserv.com>
 homepage: https://github.com/OpenIoTHub
+publish_to: none
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -29,7 +30,7 @@ dependencies:
   #  golang的后台服务
   flutter_natcloud_service:
 #    git: https://github.com/OpenIoTHub/flutter_natcloud_service
-    path: ../flutter_natcloud_service/
+    path: ./flutter_natcloud_service/
   http: ^0.12.0+2
   #  grpc
   grpc: ^1.0.2
@@ -73,7 +74,8 @@ dependencies:
 #    path: ../modules/
   # 应用OTA
 #  upgrader: ^0.10.2
-  provider: ^2.0.0
+#  provider: ^3.0.0
+  provider: ^4.3.2+3
 
 dev_dependencies:
   flutter_test:
