@@ -25,9 +25,8 @@ jobs:
           latest: true
           fileName: "explorer.aar"
           out-file-path: "android/app/libs"
-      - name: Decrypt large secret
-        - run: chmod +x ./.github/scripts/decrypt_secret.sh
-        - run: ./.github/scripts/decrypt_secret.sh
+      - run: chmod +x ./.github/scripts/decrypt_secret.sh
+      - run: ./.github/scripts/decrypt_secret.sh
         env:
           LARGE_SECRET_PASSPHRASE: ${{ secrets.LARGE_SECRET_PASSPHRASE }}
       - run: flutter pub get
