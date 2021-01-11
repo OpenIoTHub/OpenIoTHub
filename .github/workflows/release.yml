@@ -29,8 +29,10 @@ jobs:
         run: chmod +x ./.github/scripts/decrypt_secret.sh&&./.github/scripts/decrypt_secret.sh
         env:
           LARGE_SECRET_PASSPHRASE: ${{ secrets.GPG_LARGE_SECRET_PASSPHRASE }}
+      - run: ls android
+      - run: ls android/app/libs
       - run: flutter pub get
-      - run: flutter build apk --release
+      - run: flutter -v build apk --release
 
   ios:
     name: iOS
