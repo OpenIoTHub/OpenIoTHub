@@ -1,25 +1,16 @@
-name: Release
+name: Test
 
 on:
   push:
-    tags:
-      - '*'
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
 jobs:
   android:
     name: Android
     runs-on: ubuntu-latest
     steps:
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
       - uses: actions/checkout@v2
       - uses: subosito/flutter-action@v1
         with:
@@ -37,47 +28,23 @@ jobs:
       - run: flutter pub get
       - run: flutter clean
       - run: flutter build apk --release
-      - name: Upload Android all Release Asset
-        id: upload-android-all-apk-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/upload-artifact@v2
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./build/app/outputs/flutter-apk/app-release.apk
-          asset_name: app-release-all.apk
-          asset_content_type: binary/octet-stream
+          name: app-release-all.apk
+          path: ./build/app/outputs/flutter-apk/app-release.apk
       - run: flutter build apk --release --split-per-abi
-      - name: Upload Android arm64-v8a Release Asset
-        id: upload-android-arm64-v8a-apk-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/upload-artifact@v2
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
-          asset_name: app-arm64-v8a-release.apk
-          asset_content_type: binary/octet-stream
-      - name: Upload Android x86_64 Release Asset
-        id: upload-android-x86-64-apk-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          name: app-arm64-v8a-release.apk
+          path: ./build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
+      - uses: actions/upload-artifact@v2
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./build/app/outputs/flutter-apk/app-x86_64-release.apk
-          asset_name: app-x86_64-release.apk
-          asset_content_type: binary/octet-stream
-      - name: Upload Android armeabi-v7a Release Asset
-        id: upload-android-armeabi-v7a-apk-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          name: app-x86_64-release.apk
+          path: ./build/app/outputs/flutter-apk/app-x86_64-release.apk
+      - uses: actions/upload-artifact@v2
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
-          asset_name: app-armeabi-v7a-release.apk
-          asset_content_type: binary/octet-stream
+          name: app-armeabi-v7a-release.apk
+          path: ./build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
 
   ios:
     name: iOS
@@ -101,6 +68,10 @@ jobs:
       - run: unzip -o flutter_natcloud_service/ios/Frameworks/Explorer.framework.zip  -d ./flutter_natcloud_service/ios/Frameworks
       - run: flutter build ios  --release --no-codesign
       - run: zip -r Runner.ipa r build/ios/iphoneos
+      - uses: actions/upload-artifact@v2
+        with:
+          name: ipa
+          path: ./Runner.ipa
 
 #  linux:
 #    name: Linux
