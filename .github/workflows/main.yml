@@ -28,11 +28,12 @@ jobs:
           flutter clean
           flutter build linux --release
           cd build/linux/release
+          ls
           zip -r linux-release.zip bundle
       - name: Create linux Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: 'app/build/linux/release/linux-release.zip'
+          artifacts: 'build/linux/release/linux-release.zip'
           token: ${{ secrets.TOKEN }}
           allowUpdates: true
 
@@ -47,12 +48,48 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: 'stable'
+      - uses: OpenIoTHub/release-downloader@v1
+        with:
+          token: ${{ secrets.READ_ORG }}
+          repository: "OpenIoTHub/OpenIoTHubService"
+          latest: true
+          fileName: "explorer.aar"
+          out-file-path: "android/app/libs"
       - run: flutter pub get
       - run: flutter build apk --release
       - name: Create Android Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: 'app/build/app/outputs/apk/release/app-release.apk'
+          artifacts: 'build/app/outputs/flutter-apk/app-release.apk'
+          token: ${{ secrets.TOKEN }}
+          allowUpdates: true
+
+  ios:
+    name: iOS
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
+      - run: flutter config --no-enable-android
+      - run: flutter pub get
+      - uses: OpenIoTHub/release-downloader@v1
+        with:
+          token: ${{ secrets.READ_ORG }}
+          repository: "OpenIoTHub/OpenIoTHubService"
+          latest: true
+          fileName: "Explorer.framework.zip"
+          out-file-path: "flutter_natcloud_service/ios/Frameworks"
+      - run: unzip flutter_natcloud_service/ios/Frameworks/Explorer.framework.zip  ./flutter_natcloud_service/ios/Frameworks/Explorer.framework
+      - run: flutter build ios  --release --no-codesign
+      - run: zip -r Runner.ipa r build/ios/iphoneos
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: Runner.ipa
           token: ${{ secrets.TOKEN }}
           allowUpdates: true
 

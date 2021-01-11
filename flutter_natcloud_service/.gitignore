@@ -1,0 +1,15 @@
+.DS_Store
+.dart_tool/
+
+.packages
+.pub/
+
+build/
+
+
+.idea/workspace.xml
+
+ios/Frameworks/Explorer.framework.old/
+ios/Frameworks/Explorer.framework/
+#ios/Frameworks/Explorer.framework/Versions/A/Explorer
+#ios/Frameworks/Explorer.framework/Versions/A/Explorer.tar.gz

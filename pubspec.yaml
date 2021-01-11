@@ -29,7 +29,7 @@ dependencies:
   #  golang的后台服务
   flutter_natcloud_service:
 #    git: https://github.com/OpenIoTHub/flutter_natcloud_service
-    path: ../flutter_natcloud_service/
+    path: ./flutter_natcloud_service/
   http: ^0.12.0+2
   #  grpc
   grpc: ^1.0.2

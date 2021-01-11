@@ -179,7 +179,7 @@ packages:
   flutter_natcloud_service:
     dependency: "direct main"
     description:
-      path: "../flutter_natcloud_service"
+      path: flutter_natcloud_service
       relative: true
     source: path
     version: "0.0.1"

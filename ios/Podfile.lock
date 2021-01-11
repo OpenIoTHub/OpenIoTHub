@@ -15,8 +15,6 @@ PODS:
     - Flutter
   - package_info (0.0.1):
     - Flutter
-  - path_provider (0.0.1):
-    - Flutter
   - permission_handler (3.3.0):
     - Flutter
   - Reachability (3.2)
@@ -38,7 +36,6 @@ DEPENDENCIES:
   - flutter_smartlink (from `.symlinks/plugins/flutter_smartlink/ios`)
   - mdns_plugin (from `.symlinks/plugins/mdns_plugin/ios`)
   - package_info (from `.symlinks/plugins/package_info/ios`)
-  - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
@@ -66,8 +63,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/mdns_plugin/ios"
   package_info:
     :path: ".symlinks/plugins/package_info/ios"
-  path_provider:
-    :path: ".symlinks/plugins/path_provider/ios"
   permission_handler:
     :path: ".symlinks/plugins/permission_handler/ios"
   shared_preferences:
@@ -88,7 +83,6 @@ SPEC CHECKSUMS:
   flutter_smartlink: bc069854e0b83b8e4541b27aed4242cdd3949929
   mdns_plugin: f678ac538ece5a95490ede585dfa6b46aaaac977
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
-  path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   permission_handler: 67637977b227d62d46bfbf524f335f8568de5a73
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
