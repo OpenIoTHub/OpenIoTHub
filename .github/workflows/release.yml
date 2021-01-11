@@ -24,8 +24,8 @@ jobs:
           tag: "1.3.31"
           fileName: "explorer.aar"
           out-file-path: "android/app/libs"
-      - run: chmod +x ./.github/scripts/decrypt_secret.sh
-      - run: ./.github/scripts/decrypt_secret.sh
+      - name: Decrypt large secret
+        run: chmod +x ./.github/scripts/decrypt_secret.sh&&./.github/scripts/decrypt_secret.sh
         env:
           LARGE_SECRET_PASSPHRASE: ${{ secrets.LARGE_SECRET_PASSPHRASE }}
       - run: flutter pub get
@@ -52,7 +52,7 @@ jobs:
       - run: flutter pub get
       - uses: OpenIoTHub/release-downloader@v1
         with:
-          repository: "OpenIoTHub/OpenIoTHubService"
+          repository: "OpenIoTHub/OpenIoTHub"
           tag: "1.3.31"
           fileName: "Explorer.framework.zip"
           out-file-path: "flutter_natcloud_service/ios/Frameworks"
