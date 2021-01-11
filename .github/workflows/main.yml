@@ -7,36 +7,6 @@ on:
     branches: [ master ]
 
 jobs:
-  linux:
-    name: Linux
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-java@v1
-        with:
-          java-version: '12.x'
-      - uses: subosito/flutter-action@v1
-        with:
-          channel: 'stable'
-      - name: Install required build tools for linux
-        run: sudo apt-get update && sudo apt-get install clang cmake ninja-build pkg-config libgtk-3-dev libblkid-dev
-      - name: Build linux release
-        run: |
-          flutter config --enable-linux-desktop
-          flutter config --no-enable-android
-          flutter pub get
-          flutter clean
-          flutter build linux --release
-          cd build/linux/release
-          ls
-          zip -r linux-release.zip bundle
-      - name: Create linux Release
-        uses: ncipollo/release-action@v1
-        with:
-          artifacts: 'build/linux/release/linux-release.zip'
-          token: ${{ secrets.TOKEN }}
-          allowUpdates: true
-
   android:
     name: Android
     runs-on: ubuntu-latest
@@ -50,7 +20,7 @@ jobs:
           channel: 'stable'
       - uses: OpenIoTHub/release-downloader@v1
         with:
-          token: ${{ secrets.READ_ORG }}
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
           repository: "OpenIoTHub/OpenIoTHubService"
           latest: true
           fileName: "explorer.aar"
@@ -61,7 +31,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: 'build/app/outputs/flutter-apk/app-release.apk'
-          token: ${{ secrets.TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           allowUpdates: true
 
   ios:
@@ -79,7 +49,7 @@ jobs:
       - run: flutter pub get
       - uses: OpenIoTHub/release-downloader@v1
         with:
-          token: ${{ secrets.READ_ORG }}
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
           repository: "OpenIoTHub/OpenIoTHubService"
           latest: true
           fileName: "Explorer.framework.zip"
@@ -90,53 +60,83 @@ jobs:
       - uses: ncipollo/release-action@v1
         with:
           artifacts: Runner.ipa
-          token: ${{ secrets.TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           allowUpdates: true
 
-  macos:
-    name: MacOS
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-java@v1
-        with:
-          java-version: '12.x'
-      - uses: subosito/flutter-action@v1
-        with:
-          channel: 'stable'
-      - run: flutter config --enable-macos-desktop
-      - run: flutter config --no-enable-android
-      - run: flutter pub get
-      - run: flutter build macos -v --release
-      - run: cd build/macos/Build/Products/Release
-      - run: ditto -c -k --sequesterRsrc --keepParent invmovieconcept1.app macos-release.zip
-      - uses: ncipollo/release-action@v1
-        with:
-          artifacts: 'app/build/macOS/Build/Products/Release/macos-release.zip'
-          token: ${{ secrets.TOKEN }}
-          allowUpdates: true
-
-  windows:
-    name: Windows
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-java@v1
-        with:
-          java-version: '12.x'
-      - uses: subosito/flutter-action@v1
-        with:
-          channel: 'stable'
-      - run: |
-      - run: flutter config --enable-windows-desktop
-      - run: flutter config --no-enable-android
-      - run: flutter pub get
-      - run: flutter build windows --release
-      - run: cd build\windows\runner
-      - run: Compress-Archive -Path Release -DestinationPath windows-release.zip
-      - name: Windows release build for github
-        uses: ncipollo/release-action@v1
-        with:
-          artifacts: 'app\build\windows\runner\windows-release.zip'
-          token: ${{ secrets.TOKEN }}
-          allowUpdates: true
+#  linux:
+#    name: Linux
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - uses: actions/setup-java@v1
+#        with:
+#          java-version: '12.x'
+#      - uses: subosito/flutter-action@v1
+#        with:
+#          channel: 'stable'
+#      - name: Install required build tools for linux
+#        run: sudo apt-get update && sudo apt-get install clang cmake ninja-build pkg-config libgtk-3-dev libblkid-dev
+#      - name: Build linux release
+#        run: |
+#          flutter config --enable-linux-desktop
+#          flutter config --no-enable-android
+#          flutter pub get
+#          flutter clean
+#          flutter build linux --release
+#          cd build/linux/release
+#          ls
+#          zip -r linux-release.zip bundle
+#      - name: Create linux Release
+#        uses: ncipollo/release-action@v1
+#        with:
+#          artifacts: 'build/linux/release/linux-release.zip'
+#          token: ${{ secrets.TOKEN }}
+#          allowUpdates: true
+#
+#  macos:
+#    name: MacOS
+#    runs-on: macos-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - uses: actions/setup-java@v1
+#        with:
+#          java-version: '12.x'
+#      - uses: subosito/flutter-action@v1
+#        with:
+#          channel: 'stable'
+#      - run: flutter config --enable-macos-desktop
+#      - run: flutter config --no-enable-android
+#      - run: flutter pub get
+#      - run: flutter build macos -v --release
+#      - run: cd build/macos/Build/Products/Release
+#      - run: ditto -c -k --sequesterRsrc --keepParent invmovieconcept1.app macos-release.zip
+#      - uses: ncipollo/release-action@v1
+#        with:
+#          artifacts: 'app/build/macOS/Build/Products/Release/macos-release.zip'
+#          token: ${{ secrets.TOKEN }}
+#          allowUpdates: true
+#
+#  windows:
+#    name: Windows
+#    runs-on: windows-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - uses: actions/setup-java@v1
+#        with:
+#          java-version: '12.x'
+#      - uses: subosito/flutter-action@v1
+#        with:
+#          channel: 'stable'
+#      - run: |
+#      - run: flutter config --enable-windows-desktop
+#      - run: flutter config --no-enable-android
+#      - run: flutter pub get
+#      - run: flutter build windows --release
+#      - run: cd build\windows\runner
+#      - run: Compress-Archive -Path Release -DestinationPath windows-release.zip
+#      - name: Windows release build for github
+#        uses: ncipollo/release-action@v1
+#        with:
+#          artifacts: 'app\build\windows\runner\windows-release.zip'
+#          token: ${{ secrets.TOKEN }}
+#          allowUpdates: true
