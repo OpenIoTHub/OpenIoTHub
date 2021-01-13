@@ -83,6 +83,7 @@ jobs:
 
   ios:
     name: iOS
+    needs: android
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
