@@ -9,6 +9,8 @@ jobs:
   android:
     name: Android
     runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
     steps:
       - name: Create Release
         id: create_release
@@ -117,7 +119,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ needs.android.outputs.upload_url }}
           asset_path: ./Runner.ipa
           asset_name: Runner.ipa
           asset_content_type: binary/octet-stream
