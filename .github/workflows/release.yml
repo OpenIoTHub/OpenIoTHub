@@ -83,6 +83,16 @@ jobs:
     name: iOS
     runs-on: macos-latest
     steps:
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
       - uses: actions/checkout@v2
       - uses: actions/setup-java@v1
         with:
@@ -101,6 +111,16 @@ jobs:
       - run: unzip -o flutter_natcloud_service/ios/Frameworks/Explorer.framework.zip  -d ./flutter_natcloud_service/ios/Frameworks
       - run: flutter build ios  --release --no-codesign
       - run: zip -r Runner.ipa r build/ios/iphoneos
+      - name: Upload iOS ipa Release Asset
+        id: upload-iOS-ipa-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./Runner.ipa
+          asset_name: Runner.ipa
+          asset_content_type: binary/octet-stream
 
 #  linux:
 #    name: Linux
