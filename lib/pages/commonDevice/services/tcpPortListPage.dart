@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:openiothub_api/api/OpenIoTHub/CommonDeviceApi.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
-import 'package:openiothub_plugin/plugins/openWithChoice/OpenWithChoice.dart';
 import 'package:openiothub_grpc_api/pb/service.pb.dart';
 import 'package:openiothub_grpc_api/pb/service.pbgrpc.dart';
-import 'package:grpc/grpc.dart';
+import 'package:openiothub_plugin/plugins/openWithChoice/OpenWithChoice.dart';
 
 class TcpPortListPage extends StatefulWidget {
   TcpPortListPage({Key key, this.device}) : super(key: key);

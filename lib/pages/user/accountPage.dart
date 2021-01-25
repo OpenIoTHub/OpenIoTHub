@@ -1,20 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:openiothub_constants/constants/Constants.dart';
+import 'package:openiothub/model/UserInfo.dart';
+import 'package:openiothub/model/custom_theme.dart';
+import 'package:openiothub/pages/user/tools/toolsTypePage.dart';
+import 'package:openiothub/util/DataUtils.dart';
+import 'package:openiothub/util/NetUtils.dart';
 import 'package:openiothub_common_pages/commPages/appInfo.dart';
+import 'package:openiothub_constants/constants/Constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:openiothub_models/models/portService.dart';
-import 'package:openiothub_plugin/plugins/mdnsService/devices/rgbaLed.dart';
-import 'package:openiothub/model/custom_theme.dart';
-import 'package:openiothub/pages/user/player.dart';
-import 'package:openiothub/pages/user/tools/toolsTypePage.dart';
-import 'package:openiothub_grpc_api/pb/service.pb.dart';
-import 'package:provider/provider.dart';
-import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:openiothub/util/NetUtils.dart';
-import 'package:openiothub/util/DataUtils.dart';
-import 'package:openiothub/model/UserInfo.dart';
 
 class MyInfoPage extends StatefulWidget {
   @override
@@ -280,15 +276,6 @@ class MyInfoPageState extends State<MyInfoPage> {
     } else if (title == "关于") {
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => AppInfoPage()));
-    } else if (title == "测试") {
-//      String databasesPath = await getDatabasesPath();
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => RGBALedPage(
-                device: PortService(info: Map()),
-              )
-//          VideoApp()
-//              builder: (context) => Text('databasesPath')
-          ));
     } else {
       DataUtils.isLogin().then((isLogin) {
         if (!isLogin) {

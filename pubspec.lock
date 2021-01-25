@@ -367,7 +367,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: b6759a8a36da91dc55df55d6498d9cacb4a76165
+      resolved-ref: f88190434bb95f8fb4a24bec146a377c5ffa52ef
       url: "https://github.com/OpenIoTHub/openiothub_common_pages"
     source: git
     version: "0.0.1"
@@ -385,25 +385,16 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "51f82c68dade4ba9dac717b7053c1cd704577135"
+      resolved-ref: "1a094d3b8d1ad4c0c71627081599bf4d4e7e9191"
       url: "https://github.com/OpenIoTHub/openiothub-grpc-api"
     source: git
     version: "1.0.0"
-  openiothub_models:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "3454aa03f60c58a2f138b7c7fd43edde0ccb158b"
-      url: "https://github.com/OpenIoTHub/openiothub_models"
-    source: git
-    version: "0.0.1"
   openiothub_plugin:
     dependency: "direct main"
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "806d7937d3347fb48c6361f7a4738c7dc1efc967"
+      resolved-ref: "22c69435aea9253b17c4e68d5d7e7baacd30d3ca"
       url: "https://github.com/OpenIoTHub/openiothub_plugin"
     source: git
     version: "0.0.1"
@@ -504,7 +495,7 @@ packages:
       name: provider
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "4.3.2+3"
+    version: "4.3.3"
   retry:
     dependency: transitive
     description:
@@ -562,7 +553,7 @@ packages:
       name: shared_preferences_windows
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.0.1+3"
+    version: "0.0.2+2"
   sky_engine:
     dependency: transitive
     description: flutter

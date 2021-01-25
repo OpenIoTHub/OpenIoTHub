@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:provider/provider.dart' as provider;
 
 class CustomTheme with ChangeNotifier {
   String _themeValue = "automatic";

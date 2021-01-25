@@ -1,9 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-
-import 'package:openiothub_common_pages/commPages/appInfo.dart';
 import 'package:openiothub/pages/user/tools/toolsTypePage.dart';
+import 'package:openiothub_common_pages/commPages/appInfo.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -45,7 +44,7 @@ Widget BuildDrawer(BuildContext context) {
           ),
         ),
         ListTile(
-          //第一个功能项
+            //第一个功能项
             title: Text('工具'),
             trailing: Icon(Icons.arrow_right),
             onTap: () {
@@ -54,7 +53,7 @@ Widget BuildDrawer(BuildContext context) {
                   MaterialPageRoute(builder: (context) => ToolsTypePage()));
             }),
         ListTile(
-          //TODO 管理MQTT服务器，以从MQTT服务器获取和操控设备
+            //TODO 管理MQTT服务器，以从MQTT服务器获取和操控设备
             title: Text('MQTT服务器'),
             trailing: Icon(Icons.arrow_right),
             onTap: () {
@@ -63,35 +62,34 @@ Widget BuildDrawer(BuildContext context) {
                   MaterialPageRoute(builder: (context) => ToolsTypePage()));
             }),
         ListTile(
-          //第二个功能项
+            //第二个功能项
             title: Text('使用手册'),
             trailing: Icon(Icons.arrow_right),
             onTap: () {
               Navigator.of(context).pop();
               Platform.isIOS
                   ? _launchURL("https://www.jianshu.com/u/b312a876d66e")
-                  : _goToURL(context,
-                  "https://www.jianshu.com/u/b312a876d66e", "使用手册");
+                  : _goToURL(context, "https://www.jianshu.com/u/b312a876d66e",
+                      "使用手册");
             }),
         ListTile(
-          //第二个功能项
+            //第二个功能项
             title: Text('社区反馈'),
             trailing: Icon(Icons.arrow_right),
             onTap: () {
               Navigator.of(context).pop();
               Platform.isIOS
                   ? _launchURL("https://wulian.work")
-                  : _goToURL(context,
-                  "https://wulian.work", "社区反馈");
+                  : _goToURL(context, "https://wulian.work", "社区反馈");
             }),
         ListTile(
-          //第二个功能项
+            //第二个功能项
             title: Text('关于本软件'),
             trailing: Icon(Icons.arrow_right),
             onTap: () {
               Navigator.of(context).pop();
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => AppInfoPage()));
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => AppInfoPage()));
             }),
         Divider(), //分割线控件
         ListTile(
@@ -126,8 +124,8 @@ _goToURL(BuildContext context, String url, title) async {
               _launchURL(url);
             })
       ]),
-      body: WebView(
-          initialUrl: url, javascriptMode: JavascriptMode.unrestricted),
+      body:
+          WebView(initialUrl: url, javascriptMode: JavascriptMode.unrestricted),
     );
   }));
 }

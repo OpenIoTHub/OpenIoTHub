@@ -63,8 +63,6 @@ dependencies:
 #    git: https://github.com/OpenIoTHub/modules
   openiothub_constants:
     git: https://github.com/OpenIoTHub/openiothub_constants
-  openiothub_models:
-    git: https://github.com/OpenIoTHub/openiothub_models
   openiothub_plugin:
     git: https://github.com/OpenIoTHub/openiothub_plugin
   openiothub_api:

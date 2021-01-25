@@ -1,22 +1,18 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-
 import 'package:flutter_natcloud_service/flutter_natcloud_service.dart';
-
-import 'package:openiothub_constants/constants/Config.dart';
-import 'package:openiothub/pages/drawer/drawer.dart';
-import './pages/commonDevice/commonDeviceListPage.dart';
-import 'package:openiothub/pages/mdnsService/mdnsServiceListPage.dart';
+import 'package:jaguar/jaguar.dart';
+import 'package:jaguar_flutter_asset/jaguar_flutter_asset.dart';
 import 'package:openiothub/model/custom_theme.dart';
+import 'package:openiothub/pages/drawer/drawer.dart';
+import 'package:openiothub/pages/mdnsService/mdnsServiceListPage.dart';
 import 'package:openiothub/pages/session/sessionListPage.dart';
 import 'package:openiothub/pages/user/accountPage.dart';
 import 'package:openiothub/util/InitAllConfig.dart';
-
-import 'package:jaguar/jaguar.dart';
-import 'package:jaguar_flutter_asset/jaguar_flutter_asset.dart';
-
+import 'package:openiothub_constants/constants/Config.dart';
 import 'package:provider/provider.dart';
+
+import './pages/commonDevice/commonDeviceListPage.dart';
 
 void main() {
   FlutterNatcloudService.start();
