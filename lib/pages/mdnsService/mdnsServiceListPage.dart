@@ -330,7 +330,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
                   title: Text("从远程获取物联网列表失败："),
                   content: Text("失败原因：$e"),
                   actions: <Widget>[
-                    FlatButton(
+                    TextButton(
                       child: Text("确认"),
                       onPressed: () {
                         Navigator.of(context).pop();
@@ -350,7 +350,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
 
   bool onServiceFound(mdns_plugin.MDNSService service) {
     print("Found: $service");
-//  new mdns Type
+//  mdns Type
 //     if (service.serviceType == Config.mdnsBaseTcpService &&
 //         _supportedTypeList.contains("${service.name}._tcp")) {
 //       _mdnsPlg
@@ -442,7 +442,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
                   title: Text("从本地获取物联网列表失败："),
                   content: Text("失败原因：$e"),
                   actions: <Widget>[
-                    FlatButton(
+                    TextButton(
                       child: Text("确认"),
                       onPressed: () {
                         Navigator.of(context).pop();

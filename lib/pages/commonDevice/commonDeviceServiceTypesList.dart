@@ -198,18 +198,18 @@ class _CommonDeviceServiceTypesListState
   Future _deleteCurrentDevice() async {
     showDialog(
         context: context,
-        builder: (_) => new AlertDialog(
-                title: new Text("删除设备"),
-                content: new Text("确认删除此设备？"),
+        builder: (_) => AlertDialog(
+                title: Text("删除设备"),
+                content: Text("确认删除此设备？"),
                 actions: <Widget>[
-                  new FlatButton(
-                    child: new Text("取消"),
+                  TextButton(
+                    child: Text("取消"),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
-                  new FlatButton(
-                    child: new Text("删除"),
+                  TextButton(
+                    child: Text("删除"),
                     onPressed: () {
                       CommonDeviceApi.deleteOneDevice(widget.device)
                           .then((result) {
@@ -228,26 +228,26 @@ class _CommonDeviceServiceTypesListState
     }
     return showDialog(
         context: context,
-        builder: (_) => new AlertDialog(
-                title: new Text("唤醒设备"),
-                content: new Text("第一次使用请选择\'设置物理地址\'，设置过物理地址可以直接点击\'唤醒设备\'。"),
+        builder: (_) => AlertDialog(
+                title: Text("唤醒设备"),
+                content: Text("第一次使用请选择\'设置物理地址\'，设置过物理地址可以直接点击\'唤醒设备\'。"),
                 actions: <Widget>[
-                  new FlatButton(
-                    child: new Text("取消"),
+                  TextButton(
+                    child: Text("取消"),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
-                  new FlatButton(
-                    child: new Text("重设物理地址"),
+                  TextButton(
+                    child: Text("重设物理地址"),
                     onPressed: () {
                       _setMacAddr().then((_) {
                         Navigator.of(context).pop();
                       });
                     },
                   ),
-                  new FlatButton(
-                    child: new Text("唤醒设备"),
+                  TextButton(
+                    child: Text("唤醒设备"),
                     onPressed: () {
                       CommonDeviceApi.wakeOnLAN(widget.device).then((_) {
                         Navigator.of(context).pop();
@@ -262,8 +262,8 @@ class _CommonDeviceServiceTypesListState
         TextEditingValue(text: "54-07-2F-BB-BB-2F"));
     return showDialog(
         context: context,
-        builder: (_) => new AlertDialog(
-                title: new Text("设置物理地址"),
+        builder: (_) => AlertDialog(
+                title: Text("设置物理地址"),
                 content: ListView(
                   children: <Widget>[
                     TextFormField(
@@ -277,14 +277,14 @@ class _CommonDeviceServiceTypesListState
                   ],
                 ),
                 actions: <Widget>[
-                  new FlatButton(
-                    child: new Text("取消"),
+                  TextButton(
+                    child: Text("取消"),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
-                  new FlatButton(
-                    child: new Text("设置"),
+                  TextButton(
+                    child: Text("设置"),
                     onPressed: () {
                       var device = widget.device;
                       device.mac = _mac_controller.text;

@@ -54,13 +54,13 @@ class _VideoAppState extends State<VideoApp> {
 //                          title: Text("打开方式："),
 //                          content: OpenWithChoice(config),
 //                          actions: <Widget>[
-//                            FlatButton(
+//                            TextButton(
 //                              child: Text("取消"),
 //                              onPressed: () {
 //                                Navigator.of(context).pop();
 //                              },
 //                            ),
-//                            FlatButton(
+//                            TextButton(
 //                              child: Text("添加"),
 //                              onPressed: () {
 //                                Navigator.of(context).pop();

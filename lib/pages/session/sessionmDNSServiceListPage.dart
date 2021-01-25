@@ -54,9 +54,9 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
           onTap: () {
             //直接打开内置web浏览器浏览页面
             Navigator.of(context)
-                .push(new MaterialPageRoute(builder: (context) {
+                .push(MaterialPageRoute(builder: (context) {
               return Scaffold(
-                appBar: new AppBar(title: new Text("网页浏览器"), actions: <Widget>[
+                appBar: AppBar(title: Text("网页浏览器"), actions: <Widget>[
                   IconButton(
                       icon: Icon(
                         Icons.info,
@@ -119,13 +119,13 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                             title: Text("删除内网"),
                             content: Text("确认删除此内网？"),
                             actions: <Widget>[
-                              FlatButton(
+                              TextButton(
                                 child: Text("取消"),
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
                               ),
-                              FlatButton(
+                              TextButton(
                                 child: Text("删除"),
                                 onPressed: () {
                                   deleteOneSession(widget.sessionConfig);
@@ -197,7 +197,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                   title: Text("删除结果："),
                   content: Text("删除成功！"),
                   actions: <Widget>[
-                    FlatButton(
+                    TextButton(
                       child: Text("确认"),
                       onPressed: () {
                         Navigator.of(context).pop();
@@ -214,13 +214,13 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                   title: Text("删除结果："),
                   content: Text("删除失败！$e"),
                   actions: <Widget>[
-                    FlatButton(
+                    TextButton(
                       child: Text("取消"),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
                     ),
-                    FlatButton(
+                    TextButton(
                       child: Text("确认"),
                       onPressed: () {
                         Navigator.of(context).pop();

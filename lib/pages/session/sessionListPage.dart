@@ -136,13 +136,13 @@ class _SessionListPageState extends State<SessionListPage> {
                                 ],
                               ),
                               actions: <Widget>[
-                                FlatButton(
+                                TextButton(
                                   child: Text("取消"),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
                                 ),
-                                FlatButton(
+                                TextButton(
                                   child: Text("添加"),
                                   onPressed: () {
                                     SessionConfig config = SessionConfig();
@@ -216,7 +216,7 @@ class _SessionListPageState extends State<SessionListPage> {
                   title: Text("删除结果："),
                   content: Text("删除成功！"),
                   actions: <Widget>[
-                    FlatButton(
+                    TextButton(
                       child: Text("确认"),
                       onPressed: () {
                         Navigator.of(context).pop();
@@ -233,13 +233,13 @@ class _SessionListPageState extends State<SessionListPage> {
                   title: Text("删除结果："),
                   content: Text("删除失败！$e"),
                   actions: <Widget>[
-                    FlatButton(
+                    TextButton(
                       child: Text("取消"),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
                     ),
-                    FlatButton(
+                    TextButton(
                       child: Text("确认"),
                       onPressed: () {
                         Navigator.of(context).pop();

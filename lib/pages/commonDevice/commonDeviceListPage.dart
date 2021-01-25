@@ -140,7 +140,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
                                   children: divided,
                                 ),
                                 actions: <Widget>[
-                                  FlatButton(
+                                  TextButton(
                                     child: Text("取消"),
                                     onPressed: () {
                                       Navigator.of(context).pop();
@@ -188,13 +188,13 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
                   ],
                 ),
                 actions: <Widget>[
-                  FlatButton(
+                  TextButton(
                     child: Text("取消"),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
-                  FlatButton(
+                  TextButton(
                     child: Text("添加"),
                     onPressed: () {
                       var device = Device();
@@ -251,13 +251,13 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
                   title: Text("创建设备失败："),
                   content: Text("失败原因：$e"),
                   actions: <Widget>[
-                    FlatButton(
+                    TextButton(
                       child: Text("取消"),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
                     ),
-                    FlatButton(
+                    TextButton(
                       child: Text("确认"),
                       onPressed: () {
                         Navigator.of(context).pop();
@@ -282,13 +282,13 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
                   title: Text("获取内网列表失败："),
                   content: Text("失败原因：$e"),
                   actions: <Widget>[
-                    FlatButton(
+                    TextButton(
                       child: Text("取消"),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
                     ),
-                    FlatButton(
+                    TextButton(
                       child: Text("确认"),
                       onPressed: () {
                         Navigator.of(context).pop();

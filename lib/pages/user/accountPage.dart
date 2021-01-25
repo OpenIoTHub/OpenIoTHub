@@ -237,7 +237,7 @@ class MyInfoPageState extends State<MyInfoPage> {
             title: Text('提示'),
             content: Text('没有登录，现在去登录吗？'),
             actions: <Widget>[
-              FlatButton(
+              TextButton(
                 child: Text(
                   '取消',
                   style: TextStyle(color: Colors.red),
@@ -246,7 +246,7 @@ class MyInfoPageState extends State<MyInfoPage> {
                   Navigator.of(context).pop();
                 },
               ),
-              FlatButton(
+              TextButton(
                 child: Text(
                   '确定',
                   style: TextStyle(color: Colors.blue),

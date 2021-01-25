@@ -181,13 +181,13 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
                   ],
                 ),
                 actions: <Widget>[
-                  FlatButton(
+                  TextButton(
                     child: Text("取消"),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
-                  FlatButton(
+                  TextButton(
                     child: Text("添加"),
                     onPressed: () {
                       var UDPConfig = PortConfig();
@@ -206,18 +206,18 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
   Future _deleteCurrentUDP(PortConfig config) async {
     showDialog(
         context: context,
-        builder: (_) => new AlertDialog(
-                title: new Text("删除UDP"),
-                content: new Text("确认删除此UDP？"),
+        builder: (_) => AlertDialog(
+                title: Text("删除UDP"),
+                content: Text("确认删除此UDP？"),
                 actions: <Widget>[
-                  new FlatButton(
-                    child: new Text("取消"),
+                  TextButton(
+                    child: Text("取消"),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
-                  new FlatButton(
-                    child: new Text("删除"),
+                  TextButton(
+                    child: Text("删除"),
                     onPressed: () {
                       CommonDeviceApi.deleteOneUDP(config).then((result) {
                         Navigator.of(context).pop();

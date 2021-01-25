@@ -137,13 +137,13 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                                 title: Text("打开方式："),
                                 content: OpenWithChoice(config),
                                 actions: <Widget>[
-                                  FlatButton(
+                                  TextButton(
                                     child: Text("取消"),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
                                   ),
-                                  FlatButton(
+                                  TextButton(
                                     child: Text("添加"),
                                     onPressed: () {
                                       Navigator.of(context).pop();
@@ -201,13 +201,13 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                   ],
                 ),
                 actions: <Widget>[
-                  FlatButton(
+                  TextButton(
                     child: Text("取消"),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
-                  FlatButton(
+                  TextButton(
                     child: Text("添加"),
                     onPressed: () {
                       var tcpConfig = PortConfig();
@@ -226,18 +226,18 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
   Future _deleteCurrentTCP(PortConfig config) async {
     showDialog(
         context: context,
-        builder: (_) => new AlertDialog(
-                title: new Text("删除TCP"),
-                content: new Text("确认删除此TCP？"),
+        builder: (_) => AlertDialog(
+                title: Text("删除TCP"),
+                content: Text("确认删除此TCP？"),
                 actions: <Widget>[
-                  new FlatButton(
-                    child: new Text("取消"),
+                  TextButton(
+                    child: Text("取消"),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
-                  new FlatButton(
-                    child: new Text("删除"),
+                  TextButton(
+                    child: Text("删除"),
                     onPressed: () {
                       CommonDeviceApi.deleteOneTCP(config).then((result) {
                         Navigator.of(context).pop();

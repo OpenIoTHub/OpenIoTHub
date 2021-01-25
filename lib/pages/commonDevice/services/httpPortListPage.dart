@@ -206,13 +206,13 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
                   ],
                 ),
                 actions: <Widget>[
-                  FlatButton(
+                  TextButton(
                     child: Text("取消"),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
-                  FlatButton(
+                  TextButton(
                     child: Text("添加"),
                     onPressed: () {
                       HTTPConfig HttpConfig = HTTPConfig();
@@ -232,18 +232,18 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
   Future _deleteCurrentHttp(HTTPConfig config) async {
     showDialog(
         context: context,
-        builder: (_) => new AlertDialog(
-                title: new Text("删除Http"),
-                content: new Text("确认删除此Http？"),
+        builder: (_) => AlertDialog(
+                title: Text("删除Http"),
+                content: Text("确认删除此Http？"),
                 actions: <Widget>[
-                  new FlatButton(
-                    child: new Text("取消"),
+                  TextButton(
+                    child: Text("取消"),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
-                  new FlatButton(
-                    child: new Text("删除"),
+                  TextButton(
+                    child: Text("删除"),
                     onPressed: () {
                       HttpManager.DeleteOneHTTP(config).then((result) {
                         Navigator.of(context).pop();
