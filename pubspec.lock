@@ -226,7 +226,7 @@ packages:
       name: googleapis_auth
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.2.12"
+    version: "0.2.12+1"
   grpc:
     dependency: "direct main"
     description:
@@ -367,7 +367,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "7ce6ef6f7ea4dd08ac8ca88536e0b29d25eb8800"
+      resolved-ref: fae964af0c8b89a5602234bf8b89100bc2932b8f
       url: "https://github.com/OpenIoTHub/openiothub_common_pages"
     source: git
     version: "0.0.1"

@@ -34,17 +34,21 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
   Utf8Decoder u8decodeer = Utf8Decoder();
   Map<String, PortService> _IoTDeviceMap = Map<String, PortService>();
   Timer _timerPeriod;
-  final MDnsClient _mdns = MDnsClient();
+  final MDnsClient _mdns = MDnsClient(rawDatagramSocketFactory:
+      (dynamic host, int port, {bool reuseAddress, bool reusePort, int ttl}) {
+    return RawDatagramSocket.bind(host, port,
+        reuseAddress: true, reusePort: false, ttl: ttl);
+  });
   mdns_plugin.MDNSPlugin _mdnsPlg;
   List<String> _supportedTypeList = MDNS2ModelsMap.getAllmDnsServiceType();
 
   @override
   void initState() {
     super.initState();
-    if (!Platform.isIOS) {
-      _mdns.start();
-    } else {
+    if (Platform.isIOS || Platform.isAndroid) {
       _mdnsPlg = mdns_plugin.MDNSPlugin(this);
+    } else {
+      _mdns.start();
     }
     Future.delayed(Duration(milliseconds: 500))
         .then((value) => {refreshmDNSServices()});
@@ -145,10 +149,10 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
     if (_timerPeriod != null) {
       _timerPeriod.cancel();
     }
-    if (!Platform.isIOS) {
-      _mdns.stop();
-    } else {
+    if (Platform.isIOS || Platform.isAndroid) {
       _mdnsPlg.stopDiscovery();
+    } else {
+      _mdns.stop();
     }
     _IoTDeviceMap.clear();
   }
@@ -219,6 +223,11 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
     if (!portService.isLocal) {
       portService.ip = "127.0.0.1";
     }
+    if (!portService.info.containsKey("name") ||
+        portService.info["name"] == null ||
+        portService.info["name"].isEmpty) {
+      return;
+    }
     print("addPortService:${portService.info}");
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String id = portService.info["id"];
@@ -243,16 +252,18 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
   Future getIoTDeviceFromLocal() async {
     //优先iotdevice
     for (int i = 0; i < _supportedTypeList.length; i++) {
-      if (!Platform.isIOS) {
-        await getIoTDeviceFromLocalByType(_supportedTypeList[i]);
-        await Future.delayed(Duration(milliseconds: 100));
-      } else {
+      if (Platform.isIOS || Platform.isAndroid) {
         // TODO 从搜索到的mqtt组件中获取设备
         print("getIoTDeviceFromLocal:${_supportedTypeList[i]}");
-        await _mdnsPlg.stopDiscovery();
+        if (_mdnsPlg != null) {
+        // await _mdnsPlg.stopDiscovery();
+        }
         await _mdnsPlg.startDiscovery(_supportedTypeList[i],
             enableUpdating: true);
         await Future.delayed(Duration(milliseconds: 500));
+      } else {
+        await getIoTDeviceFromLocalByType(_supportedTypeList[i]);
+        await Future.delayed(Duration(milliseconds: 100));
       }
     }
   }
