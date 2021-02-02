@@ -106,6 +106,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.5"
+  cryptoutils:
+    dependency: transitive
+    description:
+      name: cryptoutils
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.4.0"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -206,6 +213,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_vlc_player:
+    dependency: transitive
+    description:
+      name: flutter_vlc_player
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.0"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -358,7 +372,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "938f2d48404def4279fce0ccc3ccc92319d62ea0"
+      resolved-ref: d47a04657a21032f3f1575ac91412bf3cd0dcc0a
       url: "https://github.com/OpenIoTHub/openiothub_api"
     source: git
     version: "0.0.1"
@@ -394,7 +408,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "22c69435aea9253b17c4e68d5d7e7baacd30d3ca"
+      resolved-ref: "8134d16cabcb9e4648280003a44c258bf9b6b667"
       url: "https://github.com/OpenIoTHub/openiothub_plugin"
     source: git
     version: "0.0.1"
@@ -404,7 +418,7 @@ packages:
       name: package_info
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.4.3+2"
+    version: "0.4.3+4"
   path:
     dependency: transitive
     description:
@@ -642,7 +656,7 @@ packages:
       name: url_launcher_web
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.1.5+1"
+    version: "0.1.5+3"
   url_launcher_windows:
     dependency: transitive
     description:
@@ -707,7 +721,7 @@ packages:
       name: win32
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.7.4"
+    version: "1.7.4+1"
   xdg_directories:
     dependency: transitive
     description:
