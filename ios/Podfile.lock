@@ -11,8 +11,12 @@ PODS:
     - Flutter
   - flutter_smartlink (0.0.1):
     - Flutter
+  - flutter_vlc_player (0.0.3):
+    - Flutter
+    - MobileVLCKit (~> 3.3.10)
   - mdns_plugin (0.0.1):
     - Flutter
+  - MobileVLCKit (3.3.15)
   - package_info (0.0.1):
     - Flutter
   - permission_handler (3.3.0):
@@ -34,6 +38,7 @@ DEPENDENCIES:
   - flutter_natcloud_service (from `.symlinks/plugins/flutter_natcloud_service/ios`)
   - flutter_oneshot (from `.symlinks/plugins/flutter_oneshot/ios`)
   - flutter_smartlink (from `.symlinks/plugins/flutter_smartlink/ios`)
+  - flutter_vlc_player (from `.symlinks/plugins/flutter_vlc_player/ios`)
   - mdns_plugin (from `.symlinks/plugins/mdns_plugin/ios`)
   - package_info (from `.symlinks/plugins/package_info/ios`)
   - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
@@ -43,6 +48,8 @@ DEPENDENCIES:
   - webview_flutter (from `.symlinks/plugins/webview_flutter/ios`)
 
 SPEC REPOS:
+  https://gitee.com/mirrors/CocoaPods-Specs.git:
+    - MobileVLCKit
   trunk:
     - Reachability
 
@@ -59,6 +66,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_oneshot/ios"
   flutter_smartlink:
     :path: ".symlinks/plugins/flutter_smartlink/ios"
+  flutter_vlc_player:
+    :path: ".symlinks/plugins/flutter_vlc_player/ios"
   mdns_plugin:
     :path: ".symlinks/plugins/mdns_plugin/ios"
   package_info:
@@ -81,7 +90,9 @@ SPEC CHECKSUMS:
   flutter_natcloud_service: 7da325592b738a0e77e77695e55287bb6ce3ca79
   flutter_oneshot: 0972b29beac35ccc1a99b8088887f64e1d219304
   flutter_smartlink: bc069854e0b83b8e4541b27aed4242cdd3949929
+  flutter_vlc_player: 1f44e19b01feacdb6e2b49a8e9cbd0966d17e10e
   mdns_plugin: f678ac538ece5a95490ede585dfa6b46aaaac977
+  MobileVLCKit: d49847b272be23de89212e8205334334e5ec7331
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   permission_handler: 67637977b227d62d46bfbf524f335f8568de5a73
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
@@ -90,6 +101,6 @@ SPEC CHECKSUMS:
   video_player: 9cc823b1d9da7e8427ee591e8438bfbcde500e6e
   webview_flutter: d2b4d6c66968ad042ad94cbb791f5b72b4678a96
 
-PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+PODFILE CHECKSUM: c63898d7b5e3a686849e7c42bcf92fd060649f87
 
 COCOAPODS: 1.10.1
