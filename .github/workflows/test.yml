@@ -15,6 +15,8 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: 'stable'
+      - name: specify NDK
+        run: chmod +x ./.github/scripts/download-ndk.sh && ./.github/scripts/download-ndk.sh
       - uses: OpenIoTHub/release-downloader@v1
         with:
           repository: "OpenIoTHub/OpenIoTHub"
@@ -25,14 +27,14 @@ jobs:
         run: chmod +x ./.github/scripts/decrypt_secret.sh&&./.github/scripts/decrypt_secret.sh
         env:
           LARGE_SECRET_PASSPHRASE: ${{ secrets.GPG_LARGE_SECRET_PASSPHRASE }}
-      - run: flutter pub get
-      - run: flutter clean
-      - run: flutter build apk --release
+      - run: flutter build apk --profile
+      - run: flutter build apk --debug
+      - run: flutter build apk --release -v
       - uses: actions/upload-artifact@v2
         with:
           name: app-release-all.apk
           path: ./build/app/outputs/flutter-apk/app-release.apk
-      - run: flutter build apk --release --split-per-abi
+      - run: flutter build apk --release --split-per-abi -v
       - uses: actions/upload-artifact@v2
         with:
           name: app-arm64-v8a-release.apk

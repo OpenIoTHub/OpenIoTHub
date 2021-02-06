@@ -21,7 +21,7 @@ packages:
       name: async
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.5.0-nullsafety.3"
+    version: "2.5.0"
   auth_header:
     dependency: transitive
     description:
@@ -35,35 +35,35 @@ packages:
       name: boolean_selector
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.0-nullsafety.3"
+    version: "2.1.0"
   characters:
     dependency: transitive
     description:
       name: characters
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.1.0-nullsafety.5"
+    version: "1.1.0"
   charcode:
     dependency: transitive
     description:
       name: charcode
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.2.0-nullsafety.3"
+    version: "1.2.0"
   clock:
     dependency: transitive
     description:
       name: clock
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.1.0-nullsafety.3"
+    version: "1.1.0"
   collection:
     dependency: transitive
     description:
       name: collection
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.15.0-nullsafety.5"
+    version: "1.15.0"
   connectivity:
     dependency: transitive
     description:
@@ -140,7 +140,7 @@ packages:
       name: fake_async
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.2.0-nullsafety.3"
+    version: "1.2.0"
   ffi:
     dependency: transitive
     description:
@@ -161,7 +161,7 @@ packages:
       name: file_picker
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.5"
+    version: "2.1.5+1"
   filesystem_picker:
     dependency: transitive
     description:
@@ -345,7 +345,7 @@ packages:
       name: js
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.6.3-nullsafety.3"
+    version: "0.6.3"
   logging:
     dependency: transitive
     description:
@@ -359,7 +359,7 @@ packages:
       name: matcher
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.12.10-nullsafety.3"
+    version: "0.12.10"
   mdns_plugin:
     dependency: "direct main"
     description:
@@ -373,7 +373,7 @@ packages:
       name: meta
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.3.0-nullsafety.6"
+    version: "1.3.0"
   mime:
     dependency: transitive
     description:
@@ -436,7 +436,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: c44c431569ea9b30dd62b4b13008232341659117
+      resolved-ref: "43bcbd3239696ee357c89924b8cf69de921a5b16"
       url: "https://github.com/OpenIoTHub/openiothub_plugin"
     source: git
     version: "0.0.1"
@@ -453,7 +453,7 @@ packages:
       name: path
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.8.0-nullsafety.3"
+    version: "1.8.0"
   path_provider:
     dependency: transitive
     description:
@@ -544,7 +544,7 @@ packages:
       name: protobuf
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.1"
   provider:
     dependency: "direct main"
     description:
@@ -621,49 +621,49 @@ packages:
       name: source_span
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.8.0-nullsafety.4"
+    version: "1.8.0"
   stack_trace:
     dependency: transitive
     description:
       name: stack_trace
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.10.0-nullsafety.6"
+    version: "1.10.0"
   stream_channel:
     dependency: transitive
     description:
       name: stream_channel
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.0-nullsafety.3"
+    version: "2.1.0"
   string_scanner:
     dependency: transitive
     description:
       name: string_scanner
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.1.0-nullsafety.3"
+    version: "1.1.0"
   term_glyph:
     dependency: transitive
     description:
       name: term_glyph
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.2.0-nullsafety.3"
+    version: "1.2.0"
   test_api:
     dependency: transitive
     description:
       name: test_api
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.2.19-nullsafety.6"
+    version: "0.2.19"
   typed_data:
     dependency: transitive
     description:
       name: typed_data
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.3.0-nullsafety.5"
+    version: "1.3.0"
   url_launcher:
     dependency: "direct main"
     description:
@@ -719,7 +719,7 @@ packages:
       name: vector_math
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.0-nullsafety.5"
+    version: "2.1.0"
   video_player:
     dependency: "direct main"
     description:

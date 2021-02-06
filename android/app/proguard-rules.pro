@@ -5,4 +5,7 @@
 -keep class io.flutter.view.**  { *; }
 -keep class io.flutter.**  { *; }
 -keep class io.flutter.plugins.**  { *; }
+-keep class io.flutter.embedding.engine.plugins.lifecycle.** { *; }
 -keep class org.videolan.libvlc.** { *; }
+-keep class androidx.lifecycle.DefaultLifecycleObserver
+-keep class com.mr.flutter.plugin.filepicker.** { *; }

@@ -26,6 +26,8 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: 'stable'
+      - name: specify NDK
+        run: chmod +x ./.github/scripts/download-ndk.sh && ./.github/scripts/download-ndk.sh
       - uses: OpenIoTHub/release-downloader@v1
         with:
           repository: "OpenIoTHub/OpenIoTHub"
@@ -37,7 +39,8 @@ jobs:
         env:
           LARGE_SECRET_PASSPHRASE: ${{ secrets.GPG_LARGE_SECRET_PASSPHRASE }}
       - run: flutter pub get
-      - run: flutter clean
+      - run: flutter build apk --profile
+      - run: flutter build apk --debug
       - run: flutter build apk --release
       - name: Upload Android all Release Asset
         id: upload-android-all-apk-asset
