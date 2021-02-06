@@ -49,7 +49,7 @@ dependencies:
   #  动态请求权限，定位，存储等
   permission_handler: ^3.1.0
   #  查看手机安装的app
-  device_apps: ^1.0.8
+#  device_apps: ^1.0.8
   #  静态网页sever
   jaguar_flutter_asset: ^2.2.0
   #  player

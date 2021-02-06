@@ -70,7 +70,7 @@ packages:
       name: connectivity
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.4.9+5"
+    version: "2.0.2"
   connectivity_for_web:
     dependency: transitive
     description:
@@ -120,13 +120,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.1.3"
-  device_apps:
-    dependency: "direct main"
+  dio:
+    dependency: transitive
     description:
-      name: device_apps
+      name: dio
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.2.0"
+    version: "3.0.10"
   event_bus:
     dependency: "direct main"
     description:
@@ -155,6 +155,20 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "5.2.1"
+  file_picker:
+    dependency: transitive
+    description:
+      name: file_picker
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.1.5"
+  filesystem_picker:
+    dependency: transitive
+    description:
+      name: filesystem_picker
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.4"
   fixnum:
     dependency: transitive
     description:
@@ -199,6 +213,13 @@ packages:
       url: "https://github.com/iotdevice/flutter_oneshot"
     source: git
     version: "0.0.1"
+  flutter_plugin_android_lifecycle:
+    dependency: transitive
+    description:
+      name: flutter_plugin_android_lifecycle
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.11"
   flutter_smartlink:
     dependency: transitive
     description:
@@ -225,6 +246,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  fluttertoast:
+    dependency: transitive
+    description:
+      name: fluttertoast
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "7.1.6"
   gateway_grpc_api:
     dependency: transitive
     description:
@@ -381,7 +409,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: fae964af0c8b89a5602234bf8b89100bc2932b8f
+      resolved-ref: "7b0998ff2558b256fb40c1816de0d386d71eeb64"
       url: "https://github.com/OpenIoTHub/openiothub_common_pages"
     source: git
     version: "0.0.1"
@@ -408,7 +436,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "8134d16cabcb9e4648280003a44c258bf9b6b667"
+      resolved-ref: c44c431569ea9b30dd62b4b13008232341659117
       url: "https://github.com/OpenIoTHub/openiothub_plugin"
     source: git
     version: "0.0.1"
@@ -426,6 +454,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.8.0-nullsafety.3"
+  path_provider:
+    dependency: transitive
+    description:
+      name: path_provider
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.6.27"
   path_provider_linux:
     dependency: transitive
     description:
@@ -433,6 +468,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.0.1+2"
+  path_provider_macos:
+    dependency: transitive
+    description:
+      name: path_provider_macos
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.4+8"
   path_provider_platform_interface:
     dependency: transitive
     description:
@@ -460,7 +502,7 @@ packages:
       name: pedantic
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.9.2"
+    version: "1.10.0"
   permission_handler:
     dependency: "direct main"
     description:
@@ -481,7 +523,7 @@ packages:
       name: platform
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.2.1"
+    version: "3.0.0"
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -567,7 +609,7 @@ packages:
       name: shared_preferences_windows
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.0.2+2"
+    version: "0.0.2+3"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -715,6 +757,20 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.3.24"
+  wifi_info_flutter:
+    dependency: transitive
+    description:
+      name: wifi_info_flutter
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.3"
+  wifi_info_flutter_platform_interface:
+    dependency: transitive
+    description:
+      name: wifi_info_flutter_platform_interface
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.0"
   win32:
     dependency: transitive
     description:
