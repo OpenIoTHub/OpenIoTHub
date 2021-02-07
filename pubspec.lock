@@ -154,7 +154,7 @@ packages:
       name: file
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "5.2.1"
+    version: "6.0.0"
   file_picker:
     dependency: transitive
     description:
@@ -304,13 +304,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.9.8+3"
-  intl:
-    dependency: transitive
-    description:
-      name: intl
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.16.1"
   jaguar:
     dependency: transitive
     description:
@@ -436,7 +429,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "43bcbd3239696ee357c89924b8cf69de921a5b16"
+      resolved-ref: "3c0f3cf9c1d4a664120ec450be8fc6a76ed8d2be"
       url: "https://github.com/OpenIoTHub/openiothub_plugin"
     source: git
     version: "0.0.1"
@@ -537,7 +530,7 @@ packages:
       name: process
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.0.13"
+    version: "4.0.0"
   protobuf:
     dependency: "direct main"
     description:
