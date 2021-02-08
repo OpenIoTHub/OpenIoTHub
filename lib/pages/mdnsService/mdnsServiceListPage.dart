@@ -260,10 +260,10 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
         }
         await _mdnsPlg.startDiscovery(_supportedTypeList[i],
             enableUpdating: true);
-        await Future.delayed(Duration(milliseconds: 500));
+        await Future.delayed(Duration(seconds: 1));
       } else {
         await getIoTDeviceFromLocalByType(_supportedTypeList[i]);
-        await Future.delayed(Duration(milliseconds: 100));
+        await Future.delayed(Duration(seconds: 1));
       }
     }
   }
@@ -423,6 +423,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
         if (portService == null) {
           return;
         }
+        //TODO 选取一个同网段的ip
         if (service.addresses != null && service.addresses.length > 0) {
           portService.ip = service.addresses[0];
         } else {

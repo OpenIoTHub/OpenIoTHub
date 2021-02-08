@@ -20,7 +20,7 @@ jobs:
       - uses: OpenIoTHub/release-downloader@v1
         with:
           repository: "OpenIoTHub/OpenIoTHub"
-          tag: "1.3.31"
+          tag: "1.3.35"
           fileName: "explorer.aar"
           out-file-path: "android/app/libs"
       - name: Decrypt large secret
@@ -64,7 +64,7 @@ jobs:
       - uses: OpenIoTHub/release-downloader@v1
         with:
           repository: "OpenIoTHub/OpenIoTHub"
-          tag: "1.3.31"
+          tag: "1.3.35"
           fileName: "Explorer.framework.zip"
           out-file-path: "flutter_natcloud_service/ios/Frameworks"
       - run: unzip -o flutter_natcloud_service/ios/Frameworks/Explorer.framework.zip  -d ./flutter_natcloud_service/ios/Frameworks
