@@ -424,7 +424,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
           return;
         }
         //TODO 选取一个同网段的ip
-        if (service.addresses != null && service.addresses.length > 0) {
+        if (service.addresses != null && service.addresses.length == 1) {
           portService.ip = service.addresses[0];
         } else {
           portService.ip = service.hostName;
