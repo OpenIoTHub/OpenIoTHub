@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:openiothub/pages/user/tools/toolsTypePage.dart';
 import 'package:openiothub_common_pages/commPages/appInfo.dart';
+import 'package:openiothub_common_pages/commPages/settings.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -43,6 +44,15 @@ Widget BuildDrawer(BuildContext context) {
             ),
           ),
         ),
+        ListTile(
+          //第一个功能项
+            title: Text('配置'),
+            trailing: Icon(Icons.arrow_right),
+            onTap: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => SettingsPage(title: "配置",)));
+            }),
         ListTile(
             //第一个功能项
             title: Text('工具'),
