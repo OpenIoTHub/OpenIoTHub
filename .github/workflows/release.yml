@@ -30,10 +30,11 @@ jobs:
         run: chmod +x ./.github/scripts/download-ndk.sh && ./.github/scripts/download-ndk.sh
       - uses: OpenIoTHub/release-downloader@v1
         with:
-          repository: "OpenIoTHub/OpenIoTHub"
-          tag: "1.3.35"
+          repository: "OpenIoTHub/OpenIoTHubService"
+          latest: true
           fileName: "explorer.aar"
           out-file-path: "android/app/libs"
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
       - name: Decrypt large secret
         run: chmod +x ./.github/scripts/decrypt_secret.sh&&./.github/scripts/decrypt_secret.sh
         env:
@@ -100,11 +101,13 @@ jobs:
       - run: flutter pub get
       - uses: OpenIoTHub/release-downloader@v1
         with:
-          repository: "OpenIoTHub/OpenIoTHub"
-          tag: "1.3.35"
+          repository: "OpenIoTHub/OpenIoTHubService"
+          latest: true
           fileName: "Explorer.framework.zip"
           out-file-path: "flutter_natcloud_service/ios/Frameworks"
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
       - run: unzip -o flutter_natcloud_service/ios/Frameworks/Explorer.framework.zip  -d ./flutter_natcloud_service/ios/Frameworks
+      - run： agvtool new-marketing-version ${{ github.ref }}
       - run: flutter build ios  --release --no-codesign
       - run: zip -r Runner.ipa r build/ios/iphoneos
       - name: Upload iOS ipa Release Asset

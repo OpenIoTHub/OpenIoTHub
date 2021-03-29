@@ -258,9 +258,10 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
         if (_mdnsPlg != null) {
         // await _mdnsPlg.stopDiscovery();
         }
+        await Future.delayed(Duration(milliseconds: 500));
         await _mdnsPlg.startDiscovery(_supportedTypeList[i],
             enableUpdating: true);
-        await Future.delayed(Duration(seconds: 1));
+        await Future.delayed(Duration(seconds: 1),);
       } else {
         await getIoTDeviceFromLocalByType(_supportedTypeList[i]);
         await Future.delayed(Duration(seconds: 1));
