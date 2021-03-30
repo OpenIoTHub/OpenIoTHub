@@ -107,10 +107,6 @@ jobs:
           out-file-path: "flutter_natcloud_service/ios/Frameworks"
           token: ${{ secrets.MY_GITHUB_TOKEN }}
       - run: unzip -o flutter_natcloud_service/ios/Frameworks/Explorer.framework.zip  -d ./flutter_natcloud_service/ios/Frameworks
-      - name: Upload iOS ipa Release Asset
-        run: cd ios&&agvtool new-marketing-version $TAG&&cd ..
-        env:
-          TAG: ${{ github.ref }}
       - run: flutter build ios  --release --no-codesign
       - run: zip -r Runner.ipa r build/ios/iphoneos
       - name: Upload iOS ipa Release Asset
