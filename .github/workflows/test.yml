@@ -28,6 +28,8 @@ jobs:
         run: chmod +x ./.github/scripts/decrypt_secret.sh&&./.github/scripts/decrypt_secret.sh
         env:
           LARGE_SECRET_PASSPHRASE: ${{ secrets.GPG_LARGE_SECRET_PASSPHRASE }}
+      - run: flutter pub upgrade
+      - run: flutter pub get
       - run: flutter build apk --profile
       - run: flutter build apk --debug
       - run: flutter build apk --release -v
@@ -61,6 +63,7 @@ jobs:
         with:
           channel: 'stable'
       - run: flutter config --no-enable-android
+      - run: flutter pub upgrade
       - run: flutter pub get
       - uses: OpenIoTHub/release-downloader@v1
         with:
