@@ -161,7 +161,7 @@ packages:
       name: file_picker
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.5+1"
+    version: "2.1.7"
   filesystem_picker:
     dependency: transitive
     description:
@@ -191,11 +191,9 @@ packages:
   flutter_easylink:
     dependency: transitive
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: a68b0ac23af8e31605a7c7cc2980881d10fecdcc
-      url: "https://github.com/iotdevice/flutter_easylink"
-    source: git
+      name: flutter_easylink
+      url: "https://pub.flutter-io.cn"
+    source: hosted
     version: "0.0.1"
   flutter_natcloud_service:
     dependency: "direct main"
@@ -207,11 +205,9 @@ packages:
   flutter_oneshot:
     dependency: transitive
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: bb3cd0f44b4a0607d75001e39734d45d753333ad
-      url: "https://github.com/iotdevice/flutter_oneshot"
-    source: git
+      name: flutter_oneshot
+      url: "https://pub.flutter-io.cn"
+    source: hosted
     version: "0.0.1"
   flutter_plugin_android_lifecycle:
     dependency: transitive
@@ -223,11 +219,9 @@ packages:
   flutter_smartlink:
     dependency: transitive
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: a30acd4758cd3e847aeb0c3a94d3ff68bada996c
-      url: "https://github.com/iotdevice/flutter_smartlink"
-    source: git
+      name: flutter_smartlink
+      url: "https://pub.flutter-io.cn"
+    source: hosted
     version: "0.0.1"
   flutter_test:
     dependency: "direct dev"
@@ -256,12 +250,10 @@ packages:
   gateway_grpc_api:
     dependency: transitive
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "93cceaa39a9726cc0a5bf6f317ab474472414c71"
-      url: "https://github.com/OpenIoTHub/gateway-grpc-api"
-    source: git
-    version: "1.0.0"
+      name: gateway_grpc_api
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.1"
   googleapis_auth:
     dependency: transitive
     description:
@@ -391,47 +383,37 @@ packages:
   openiothub_api:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "9656ee9492135f6d873afeab46afa4a64e90c90e"
-      url: "https://github.com/OpenIoTHub/openiothub_api"
-    source: git
+      name: openiothub_api
+      url: "https://pub.flutter-io.cn"
+    source: hosted
     version: "0.0.1"
   openiothub_common_pages:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: c84e3ec8d4466019886a3f1419476e9e0927abf4
-      url: "https://github.com/OpenIoTHub/openiothub_common_pages"
-    source: git
+      name: openiothub_common_pages
+      url: "https://pub.flutter-io.cn"
+    source: hosted
     version: "0.0.1"
   openiothub_constants:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "9445228b8a6951c78a9696131778e6da527b4ae6"
-      url: "https://github.com/OpenIoTHub/openiothub_constants"
-    source: git
-    version: "0.0.1"
+      name: openiothub_constants
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.2"
   openiothub_grpc_api:
     dependency: transitive
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "1a094d3b8d1ad4c0c71627081599bf4d4e7e9191"
-      url: "https://github.com/OpenIoTHub/openiothub-grpc-api"
-    source: git
-    version: "1.0.0"
+      name: openiothub_grpc_api
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.1"
   openiothub_plugin:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "94ab20f4984cea193109908c23080b5555e69e75"
-      url: "https://github.com/OpenIoTHub/openiothub_plugin"
-    source: git
+      name: openiothub_plugin
+      url: "https://pub.flutter-io.cn"
+    source: hosted
     version: "0.0.1"
   package_info:
     dependency: transitive
@@ -453,7 +435,7 @@ packages:
       name: path_provider
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.6.27"
+    version: "1.6.28"
   path_provider_linux:
     dependency: transitive
     description:
@@ -503,13 +485,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.3.0"
-  petitparser:
-    dependency: transitive
-    description:
-      name: petitparser
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "3.1.0"
   platform:
     dependency: transitive
     description:
@@ -530,7 +505,7 @@ packages:
       name: process
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "4.1.0"
+    version: "4.2.1"
   protobuf:
     dependency: "direct main"
     description:
@@ -545,22 +520,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.3.3"
-  retry:
-    dependency: transitive
-    description:
-      name: retry
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.0.0"
   server_grpc_api:
     dependency: transitive
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "145d1d08bb8c631f29b89237ffb52c5513456aee"
-      url: "https://github.com/OpenIoTHub/server-grpc-api"
-    source: git
-    version: "1.0.0"
+      name: server_grpc_api
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.1"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -734,15 +700,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.1.4+1"
-  webdav:
-    dependency: transitive
-    description:
-      path: "."
-      ref: HEAD
-      resolved-ref: b57fdab0fa896d104141f284d529a356292ada57
-      url: "https://github.com/OpenIoTHub/dart-webdav"
-    source: git
-    version: "1.0.6-dev"
   webview_flutter:
     dependency: "direct main"
     description:
@@ -770,7 +727,7 @@ packages:
       name: win32
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.5"
   xdg_directories:
     dependency: transitive
     description:
@@ -778,13 +735,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.1.2"
-  xml:
-    dependency: transitive
-    description:
-      name: xml
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "3.7.0"
 sdks:
-  dart: ">=2.12.0-259.9.beta <3.0.0"
+  dart: ">=2.12.0 <3.0.0"
   flutter: ">=1.22.0"
