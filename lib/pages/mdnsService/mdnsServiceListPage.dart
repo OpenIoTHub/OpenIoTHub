@@ -8,7 +8,7 @@ import 'package:mdns_plugin/mdns_plugin.dart' as mdns_plugin;
 import 'package:multicast_dns/multicast_dns.dart';
 import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub_api/api/OpenIoTHub/SessionApi.dart';
-import 'package:openiothub_common_pages/commPages/smartConfigTool.dart';
+import 'package:openiothub_common_pages/wifiConfig/smartConfigTool.dart';
 import 'package:openiothub_constants/constants/Config.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:openiothub_grpc_api/pb/service.pb.dart';
