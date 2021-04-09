@@ -12,6 +12,7 @@ jobs:
     outputs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
     steps:
+      - uses: actions/checkout@v2
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -23,7 +24,6 @@ jobs:
           draft: false
           prerelease: false
           body_path: ./.github/doc/DownloadDescription.md
-      - uses: actions/checkout@v2
       - uses: subosito/flutter-action@v1
         with:
           channel: 'stable'
