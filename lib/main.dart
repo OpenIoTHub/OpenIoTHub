@@ -4,7 +4,7 @@ import 'package:flutter_natcloud_service/flutter_natcloud_service.dart';
 import 'package:jaguar/jaguar.dart';
 import 'package:jaguar_flutter_asset/jaguar_flutter_asset.dart';
 import 'package:openiothub/model/custom_theme.dart';
-import 'package:openiothub/pages/drawer/drawer.dart';
+import 'package:openiothub/pages/drawer/drawerUI.dart';
 import 'package:openiothub/pages/mdnsService/mdnsServiceListPage.dart';
 import 'package:openiothub/pages/session/sessionListPage.dart';
 import 'package:openiothub/pages/user/accountPage.dart';
@@ -80,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
         : CustomThemes.light.accentColor;
     return Scaffold(
         key: _scaffoldKey,
-        drawer: BuildDrawer(context),
+        drawer: DrawerUI(),
         body: _buildBody(_currentIndex),
         bottomNavigationBar: _buildBottomNavigationBar(_currentIndex));
   }
