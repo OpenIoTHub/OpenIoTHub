@@ -50,9 +50,7 @@ class _State extends State<RegisterPage> {
                       if (operationResponse.code == 0) {
                         Fluttertoast.showToast(
                                 msg: "注册成功!请使用注册信息登录!${operationResponse.msg}")
-                            .then((value) => Navigator.of(context).push(
-                                MaterialPageRoute(
-                                    builder: (context) => LoginPage())));
+                            .then((value) => Navigator.of(context).pop());
                       } else {
                         Fluttertoast.showToast(
                             msg: "注册失败!请重新注册:${operationResponse.msg}");

@@ -72,9 +72,7 @@ class _State extends State<LoginPage> {
                         await prefs.setString(
                             SharedPreferencesKey.USER_AVATAR_KEY,
                             userLoginResponse.userInfo.avatar);
-                        Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => UserInfoPage()));
+                        Navigator.of(context).pop();
                       } else {
                         Fluttertoast.showToast(
                             msg: "登录失败:${userLoginResponse.msg}");
