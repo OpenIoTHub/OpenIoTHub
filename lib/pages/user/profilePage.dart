@@ -209,7 +209,7 @@ class _ProfilePageState extends State<ProfilePage> {
       });
     } else {
       setState(() {
-        username = "";
+        username = "未登录";
       });
     }
     if (prefs.containsKey(SharedPreferencesKey.USER_EMAIL_KEY)) {
@@ -218,7 +218,7 @@ class _ProfilePageState extends State<ProfilePage> {
       });
     } else {
       setState(() {
-        useremail = "未登录";
+        useremail = "";
       });
     }
     if (prefs.containsKey(SharedPreferencesKey.USER_MOBILE_KEY)) {
