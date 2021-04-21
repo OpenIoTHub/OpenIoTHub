@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:openiothub/pages/user/LoginPage.dart';
 import 'package:openiothub/pages/user/tools/toolsTypePage.dart';
 import 'package:openiothub/pages/user/userInfoPage.dart';
+import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_common_pages/commPages/appInfo.dart';
 import 'package:openiothub_common_pages/commPages/settings.dart';
 import 'package:openiothub_constants/openiothub_constants.dart';
@@ -70,8 +71,8 @@ class _DrawerUIState extends State<DrawerUI> {
               onTap: () async {
                 Navigator.of(context).pop();
                 //  判断是否已经登录，如果已经登录就显示用户信息页面(包含退出登录)，如果没有登录就跳转到注册页面
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                if (prefs.containsKey(SharedPreferencesKey.USER_TOKEN_KEY)) {
+                bool userSignedIned = await userSignedIn();
+                if (userSignedIned) {
                   //  已经登录
                   Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => UserInfoPage()));
@@ -106,7 +107,9 @@ class _DrawerUIState extends State<DrawerUI> {
               title: Text('MQTT服务器'),
               trailing: Icon(Icons.arrow_right),
               onTap: () {
-                Navigator.of(context).pop();
+                if(Navigator.of(context).canPop()){
+                  Navigator.of(context).pop();
+                }
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => ToolsTypePage()));
               }),

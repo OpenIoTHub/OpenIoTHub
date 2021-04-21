@@ -74,14 +74,7 @@ class _SessionListPageState extends State<SessionListPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
-          leading: IconButton(
-              icon: Icon(
-                Icons.menu,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              }),
+          centerTitle: true,
           actions: <Widget>[
             IconButton(
                 icon: Icon(

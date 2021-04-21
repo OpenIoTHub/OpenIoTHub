@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iot_manager_grpc_api/pb/common.pb.dart';
+import 'package:openiothub/pages/user/LoginPage.dart';
 import 'package:openiothub_api/api/IoTManager/UserManager.dart';
+import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_constants/openiothub_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -70,30 +72,45 @@ class _UserInfoPageState extends State<UserInfoPage> {
   }
 
   Future<void> _getUserInfo() async {
+    bool b = await userSignedIn();
+    if (!b) {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => LoginPage()));
+    }
     //从网络同步一遍到本地
     SharedPreferences prefs = await SharedPreferences.getInstance();
     UserInfo userInfo = await UserManager.GetUserInfo();
+    await prefs.setString(SharedPreferencesKey.USER_NAME_KEY, userInfo.name);
+    await prefs.setString(SharedPreferencesKey.USER_EMAIL_KEY, userInfo.email);
     await prefs.setString(
-        SharedPreferencesKey.USER_NAME_KEY,userInfo.name);
+        SharedPreferencesKey.USER_MOBILE_KEY, userInfo.mobile);
     await prefs.setString(
-        SharedPreferencesKey.USER_EMAIL_KEY,userInfo.email);
-    await prefs.setString(
-        SharedPreferencesKey.USER_MOBILE_KEY,userInfo.mobile);
-    await prefs.setString(
-        SharedPreferencesKey.USER_AVATAR_KEY,userInfo.avatar);
+        SharedPreferencesKey.USER_AVATAR_KEY, userInfo.avatar);
     if (prefs.containsKey(SharedPreferencesKey.USER_NAME_KEY)) {
       setState(() {
         username = prefs.getString(SharedPreferencesKey.USER_NAME_KEY);
+      });
+    } else {
+      setState(() {
+        username = "";
       });
     }
     if (prefs.containsKey(SharedPreferencesKey.USER_EMAIL_KEY)) {
       setState(() {
         useremail = prefs.getString(SharedPreferencesKey.USER_EMAIL_KEY);
       });
+    } else {
+      setState(() {
+        useremail = "";
+      });
     }
     if (prefs.containsKey(SharedPreferencesKey.USER_MOBILE_KEY)) {
       setState(() {
         usermobile = prefs.getString(SharedPreferencesKey.USER_MOBILE_KEY);
+      });
+    } else {
+      setState(() {
+        usermobile = "";
       });
     }
   }
@@ -104,7 +121,12 @@ class _UserInfoPageState extends State<UserInfoPage> {
     await prefs.remove(SharedPreferencesKey.USER_NAME_KEY);
     await prefs.remove(SharedPreferencesKey.USER_EMAIL_KEY);
     await prefs.remove(SharedPreferencesKey.USER_MOBILE_KEY);
-    Navigator.of(context).pop();
+    if (Navigator.of(context).canPop()) {
+      Navigator.of(context).pop();
+    } else {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => LoginPage()));
+    }
   }
 
   Future<void> _modifyInfo(String type) async {

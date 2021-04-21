@@ -96,9 +96,7 @@ flutter:
     - assets/images/
     - assets/images/leftmenu/
     - assets/images/leftmenu/avatars/
-#    - assets/images/leftmenu/avatars/panda.jpg
     - assets/images/leftmenu/background/
-#    - assets/images/leftmenu/background/cover_img.jpg
     #    -
     - assets/web/open/aria2/
     #    -

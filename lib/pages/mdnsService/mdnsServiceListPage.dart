@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:mdns_plugin/mdns_plugin.dart' as mdns_plugin;
 import 'package:multicast_dns/multicast_dns.dart';
 import 'package:openiothub/model/custom_theme.dart';
+import 'package:openiothub/pages/mdnsService/AddMqttDevicesPage.dart';
 import 'package:openiothub_api/api/OpenIoTHub/SessionApi.dart';
 import 'package:openiothub_common_pages/wifiConfig/smartConfigTool.dart';
 import 'package:openiothub_constants/constants/Config.dart';
@@ -76,11 +77,13 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
           ),
           trailing: Constants.rightArrowIcon,
         );
-        return InkWell(
-          onTap: () {
-            _pushDeviceServiceTypes(pair);
-          },
-          child: listItemContent,
+        return Card(
+          child: InkWell(
+            onTap: () {
+              _pushDeviceServiceTypes(pair);
+            },
+            child: listItemContent,
+          )
         );
       },
     );
@@ -91,14 +94,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
-          leading: IconButton(
-              icon: Icon(
-                Icons.menu,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              }),
+          centerTitle: true,
           actions: <Widget>[
             IconButton(
                 icon: Icon(
@@ -115,30 +111,17 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
                   color: Colors.white,
                 ),
                 onPressed: () {
-//                  TODO：手动添加设备
-                  Scaffold.of(context).openDrawer();
+//                  TODO：手动添加MQTT设备
+//                   Scaffold.of(context).openDrawer();
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return AddMqttDevicesPage();
+                      },
+                    ),
+                  );
                 }),
           ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            // 通过smartconfig添加设备
-            return showDialog(
-              context: context,
-              builder: (_) => SmartConfigTool(
-                title: "添加设备",
-                needCallBack: true,
-              ),
-            ).then((v) {
-              refreshmDNSServices();
-            });
-          },
-          child: IconButton(
-            icon: Icon(Icons.add),
-            color: Colors.black,
-            onPressed: null,
-            iconSize: 40,
-          ),
         ),
         body: ListView(children: divided));
   }
