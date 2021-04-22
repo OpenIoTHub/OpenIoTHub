@@ -48,9 +48,9 @@ class _SessionListPageState extends State<SessionListPage> {
       (pair) {
         var listItemContent = ListTile(
           leading: Icon(Icons.cloud_done,
-              color: Provider.of<CustomTheme>(context).themeValue == "dark"
-                  ? CustomThemes.dark.accentColor
-                  : CustomThemes.light.accentColor),
+              color: Provider.of<CustomTheme>(context).isLightTheme()
+                  ? CustomThemes.light.accentColor
+                  : CustomThemes.dark.accentColor),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -72,90 +72,54 @@ class _SessionListPageState extends State<SessionListPage> {
       tiles: tiles,
     ).toList();
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-          centerTitle: true,
-          actions: <Widget>[
-            IconButton(
-                icon: Icon(
-                  Icons.refresh,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  getAllSession();
-                }),
-            IconButton(
-                icon: Icon(
-                  Icons.search,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  _pushFindmDNSClientListPage();
-                }),
-            IconButton(
-                icon: Icon(
-                  Icons.add_circle,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  TextEditingController _token_controller =
-                      TextEditingController.fromValue(
-                          TextEditingValue(text: ""));
-                  TextEditingController _description_controller =
-                      TextEditingController.fromValue(
-                          TextEditingValue(text: "我的网络"));
-                  showDialog(
-                      context: context,
-                      builder: (_) => AlertDialog(
-                              title: Text("手动添加网关："),
-                              content: ListView(
-                                children: <Widget>[
-                                  TextFormField(
-                                    controller: _token_controller,
-                                    decoration: InputDecoration(
-                                      contentPadding: EdgeInsets.all(10.0),
-                                      labelText: '请输入远程网关Token',
-                                      helperText: 'token',
-                                    ),
-                                  ),
-                                  TextFormField(
-                                    controller: _description_controller,
-                                    decoration: InputDecoration(
-                                      contentPadding: EdgeInsets.all(10.0),
-                                      labelText: '请输入备注',
-                                      helperText: '备注',
-                                    ),
-                                  )
-                                ],
-                              ),
-                              actions: <Widget>[
-                                TextButton(
-                                  child: Text("取消"),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                                TextButton(
-                                  child: Text("添加"),
-                                  onPressed: () {
-                                    SessionConfig config = SessionConfig();
-                                    config.token = _token_controller.text;
-                                    config.description =
-                                        _description_controller.text;
-                                    createOneSession(config).then((restlt) {
-                                      Navigator.of(context).pop();
-                                    });
-                                  },
-                                )
-                              ])).then((restlt) {
-                    setState(() {
-                      getAllSession();
-                    });
-                  });
-                }),
-          ],
-        ),
-        body: ListView(children: divided));
+      appBar: AppBar(
+        title: Text(widget.title),
+        centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(
+                Icons.refresh,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                getAllSession();
+              }),
+          IconButton(
+              icon: Icon(
+                Icons.search,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                _pushFindmDNSClientListPage();
+              }),
+          IconButton(
+              icon: Icon(
+                Icons.add_circle,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                _addGateway();
+              }),
+        ],
+      ),
+      body: divided.length > 0
+          ? ListView(children: divided)
+          : Container(
+              child: Column(children: [
+                Image.asset('assets/images/empty_list.png'),
+                TextButton(
+                    style: ButtonStyle(
+                      side: MaterialStateProperty.all(
+                          BorderSide(color: Colors.grey, width: 1)),
+                      shape: MaterialStateProperty.all(StadiumBorder()),
+                    ),
+                    onPressed: () {
+                      _addGateway();
+                    },
+                    child: Text("请先添加网关"))
+              ]),
+            ),
+    );
   }
 
   void _pushmDNSServices(SessionConfig config) async {
@@ -268,5 +232,59 @@ class _SessionListPageState extends State<SessionListPage> {
       child:
           Image.asset(path, width: IMAGE_ICON_WIDTH, height: IMAGE_ICON_WIDTH),
     );
+  }
+
+  void _addGateway() {
+    TextEditingController _token_controller =
+        TextEditingController.fromValue(TextEditingValue(text: ""));
+    TextEditingController _description_controller =
+        TextEditingController.fromValue(TextEditingValue(text: "我的网络"));
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+                title: Text("手动添加网关："),
+                content: ListView(
+                  children: <Widget>[
+                    TextFormField(
+                      controller: _token_controller,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(10.0),
+                        labelText: '请输入远程网关Token',
+                        helperText: 'token',
+                      ),
+                    ),
+                    TextFormField(
+                      controller: _description_controller,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(10.0),
+                        labelText: '请输入备注',
+                        helperText: '备注',
+                      ),
+                    )
+                  ],
+                ),
+                actions: <Widget>[
+                  TextButton(
+                    child: Text("取消"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  TextButton(
+                    child: Text("添加"),
+                    onPressed: () {
+                      SessionConfig config = SessionConfig();
+                      config.token = _token_controller.text;
+                      config.description = _description_controller.text;
+                      createOneSession(config).then((restlt) {
+                        Navigator.of(context).pop();
+                      });
+                    },
+                  )
+                ])).then((restlt) {
+      setState(() {
+        getAllSession();
+      });
+    });
   }
 }

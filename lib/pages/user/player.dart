@@ -28,9 +28,9 @@ class _VideoAppState extends State<VideoApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: '测试',
-      theme: Provider.of<CustomTheme>(context).themeValue == "dark"
-          ? CustomThemes.dark
-          : CustomThemes.light,
+      theme: Provider.of<CustomTheme>(context).isLightTheme()
+          ? CustomThemes.light
+          : CustomThemes.dark,
       home: Scaffold(
         appBar: AppBar(title: Text('播放器'), actions: <Widget>[
           IconButton(

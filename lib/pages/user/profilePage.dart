@@ -71,9 +71,9 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Container _buildHeader() {
     return Container(
-      color: Provider.of<CustomTheme>(context).themeValue == "dark"
-          ? CustomThemes.dark.accentColor
-          : CustomThemes.light.accentColor,
+      color: Provider.of<CustomTheme>(context).isLightTheme()
+          ? CustomThemes.light.accentColor
+          : CustomThemes.dark.accentColor,
       height: 150.0,
       child: Center(
         child: Column(
@@ -96,10 +96,20 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                     )
-                  : Image.asset(
-                      'assets/images/leftmenu/avatars/panda.jpg',
+                  : Container(
                       width: 60.0,
                       height: 60.0,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Color(0xffffffff),
+                          width: 2.0,
+                        ),
+                        image: DecorationImage(
+                          image: ExactAssetImage("assets/images/leftmenu/avatars/panda.jpg"),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
               onTap: () async {
                 _login();

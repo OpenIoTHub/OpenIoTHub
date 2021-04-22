@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,7 +15,7 @@ class CustomTheme with ChangeNotifier {
 
   bool isLightTheme() {
     if (_themeValue == "automatic") {
-      return true;
+      return window.platformBrightness == Brightness.light;
     } else if (_themeValue == "light") {
       return true;
     } else {
@@ -50,7 +52,6 @@ class CustomThemes {
       padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
     ),
     brightness: Brightness.light,
-    cursorColor: _lightAccentColor,
     dialogBackgroundColor: Colors.white,
     indicatorColor: _lightAccentColor,
     inputDecorationTheme: InputDecorationTheme(
@@ -64,10 +65,9 @@ class CustomThemes {
     ),
     primaryColor: _lightAccentColor,
     scaffoldBackgroundColor: Colors.white,
-    textSelectionHandleColor: _lightAccentColor,
   );
 
-  static final Color _darkAccentColor = Colors.black26;
+  static final Color _darkAccentColor = Colors.black;
   static final ThemeData dark = ThemeData(
     accentColor: _darkAccentColor,
     accentColorBrightness: Brightness.light,
@@ -79,7 +79,6 @@ class CustomThemes {
       padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
     ),
     brightness: Brightness.dark,
-    cursorColor: _darkAccentColor,
     dialogBackgroundColor: Color.fromRGBO(62, 62, 62, 1),
     inputDecorationTheme: InputDecorationTheme(
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(4.0)),
@@ -91,7 +90,6 @@ class CustomThemes {
       labelStyle: TextStyle(fontSize: 16.0, color: Colors.grey[300]),
     ),
     primaryColor: Colors.black,
-    scaffoldBackgroundColor: Color.fromRGBO(22, 22, 22, 1),
-    textSelectionHandleColor: _darkAccentColor,
+    scaffoldBackgroundColor: Colors.black,
   );
 }

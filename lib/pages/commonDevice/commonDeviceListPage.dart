@@ -49,9 +49,9 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
       (pair) {
         var listItemContent = ListTile(
           leading: Icon(Icons.devices,
-              color: Provider.of<CustomTheme>(context).themeValue == "dark"
-                  ? CustomThemes.dark.accentColor
-                  : CustomThemes.light.accentColor),
+              color: Provider.of<CustomTheme>(context).isLightTheme()
+                  ? CustomThemes.light.accentColor
+                  : CustomThemes.dark.accentColor),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -93,62 +93,27 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  getAllSession().then((v) {
-                    final titles = _SessionList.map(
-                      (pair) {
-                        var listItemContent = Padding(
-                          padding:
-                              const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
-                          child: Row(
-                            children: <Widget>[
-                              Icon(Icons.cloud_done),
-                              Expanded(
-                                  child: Text(
-                                pair.description,
-                                style: Constants.titleTextStyle,
-                              )),
-                              Constants.rightArrowIcon
-                            ],
-                          ),
-                        );
-                        return InkWell(
-                          onTap: () {
-                            _addDevice(pair).then((v) {
-                              Navigator.of(context).pop();
-                            });
-                          },
-                          child: listItemContent,
-                        );
-                      },
-                    );
-                    final divided = ListTile.divideTiles(
-                      context: context,
-                      tiles: titles,
-                    ).toList();
-                    showDialog(
-                        context: context,
-                        builder: (_) => AlertDialog(
-                                title: Text("选择一个内网："),
-                                content: ListView(
-                                  children: divided,
-                                ),
-                                actions: <Widget>[
-                                  TextButton(
-                                    child: Text("取消"),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                  )
-                                ])).then((v) {
-                      getAllCommonDevice().then((v) {
-                        setState(() {});
-                      });
-                    });
-                  });
+                  _addDeviceFromSession();
                 }),
           ],
         ),
-        body: ListView(children: divided));
+        body: divided.length > 0
+            ? ListView(children: divided)
+            : Container(
+          child: Column(children: [
+            Image.asset('assets/images/empty_list.png'),
+            TextButton(
+                style: ButtonStyle(
+                  side: MaterialStateProperty.all(
+                      BorderSide(color: Colors.grey, width: 1)),
+                  shape: MaterialStateProperty.all(StadiumBorder()),
+                ),
+                onPressed: () {
+                  _addDeviceFromSession();
+                },
+                child: Text("请先添加主机"))
+          ]),
+        ),);
   }
 
   Future _addDevice(SessionConfig config) async {
@@ -289,5 +254,60 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
                     )
                   ]));
     }
+  }
+
+  void _addDeviceFromSession() {
+    getAllSession().then((v) {
+      final titles = _SessionList.map(
+            (pair) {
+          var listItemContent = Padding(
+            padding:
+            const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
+            child: Row(
+              children: <Widget>[
+                Icon(Icons.cloud_done),
+                Expanded(
+                    child: Text(
+                      pair.description,
+                      style: Constants.titleTextStyle,
+                    )),
+                Constants.rightArrowIcon
+              ],
+            ),
+          );
+          return InkWell(
+            onTap: () {
+              _addDevice(pair).then((v) {
+                Navigator.of(context).pop();
+              });
+            },
+            child: listItemContent,
+          );
+        },
+      );
+      final divided = ListTile.divideTiles(
+        context: context,
+        tiles: titles,
+      ).toList();
+      showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+              title: Text("选择一个内网："),
+              content: ListView(
+                children: divided,
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: Text("取消"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ])).then((v) {
+        getAllCommonDevice().then((v) {
+          setState(() {});
+        });
+      });
+    });
   }
 }

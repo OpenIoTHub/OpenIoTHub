@@ -46,9 +46,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: '云易连',
-      theme: Provider.of<CustomTheme>(context).themeValue == "dark"
-          ? CustomThemes.dark
-          : CustomThemes.light,
+      theme: CustomThemes.light,
       darkTheme: CustomThemes.dark,
       home: MyHomePage(title: '云易连'),
       debugShowCheckedModeBanner: false,
@@ -77,9 +75,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    _activeColor = Provider.of<CustomTheme>(context).themeValue == "dark"
-        ? CustomThemes.dark.accentColor
-        : CustomThemes.light.accentColor;
     return Scaffold(
         key: _scaffoldKey,
         // drawer: DrawerUI(),
@@ -128,7 +123,9 @@ class _MyHomePageState extends State<MyHomePage> {
     return BottomAppBar(
       shape: CircularNotchedRectangle(),
       notchMargin: 6.0,
-      color: Colors.white,
+      color: Provider.of<CustomTheme>(context).isLightTheme()
+          ? CustomThemes.light.scaffoldBackgroundColor
+          : CustomThemes.dark.scaffoldBackgroundColor,
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -163,7 +160,9 @@ class _MyHomePageState extends State<MyHomePage> {
       padItem = Padding(
         padding: padding,
         child: Container(
-          color: Colors.white,
+          color: Provider.of<CustomTheme>(context).isLightTheme()
+              ? CustomThemes.light.scaffoldBackgroundColor
+              : CustomThemes.dark.scaffoldBackgroundColor,
           child: Center(
             child: Column(
               children: <Widget>[

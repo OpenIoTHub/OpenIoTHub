@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mdns_plugin/mdns_plugin.dart' as mdns_plugin;
@@ -66,9 +67,9 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
       (pair) {
         var listItemContent = ListTile(
           leading: Icon(Icons.devices,
-              color: Provider.of<CustomTheme>(context).themeValue == "dark"
-                  ? CustomThemes.dark.accentColor
-                  : CustomThemes.light.accentColor),
+              color: Provider.of<CustomTheme>(context).isLightTheme()
+                  ? CustomThemes.light.accentColor
+                  : CustomThemes.dark.accentColor),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -78,13 +79,12 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
           trailing: Constants.rightArrowIcon,
         );
         return Card(
-          child: InkWell(
-            onTap: () {
-              _pushDeviceServiceTypes(pair);
-            },
-            child: listItemContent,
-          )
-        );
+            child: InkWell(
+          onTap: () {
+            _pushDeviceServiceTypes(pair);
+          },
+          child: listItemContent,
+        ));
       },
     );
     final divided = ListTile.divideTiles(
@@ -92,38 +92,64 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
       tiles: tiles,
     ).toList();
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-          centerTitle: true,
-          actions: <Widget>[
-            IconButton(
-                icon: Icon(
-                  Icons.refresh,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  refreshmDNSServices();
-                }),
+      appBar: AppBar(
+        title: Text(widget.title),
+        centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(
+                Icons.refresh,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                refreshmDNSServices();
+              }),
 //            TODO 添加设备（类型：mqtt，小米，美的；设备型号：TC1-A1,TC1-A2）
-            IconButton(
-                icon: Icon(
-                  Icons.add_circle,
-                  color: Colors.white,
-                ),
-                onPressed: () {
+          IconButton(
+              icon: Icon(
+                Icons.add_circle,
+                color: Colors.white,
+              ),
+              onPressed: () {
 //                  TODO：手动添加MQTT设备
 //                   Scaffold.of(context).openDrawer();
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return AddMqttDevicesPage();
-                      },
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return AddMqttDevicesPage();
+                    },
+                  ),
+                );
+              }),
+        ],
+      ),
+      body: divided.length > 0
+          ? ListView(children: divided)
+          : Container(
+              child: Column(children: [
+                Image.asset('assets/images/empty_list.png'),
+                TextButton(
+                    style: ButtonStyle(
+                      side: MaterialStateProperty.all(
+                          BorderSide(color: Colors.grey, width: 1)),
+                      shape: MaterialStateProperty.all(StadiumBorder()),
                     ),
-                  );
-                }),
-          ],
-        ),
-        body: ListView(children: divided));
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return SmartConfigTool(
+                              title: "添加设备",
+                              needCallBack: true,
+                            );
+                          },
+                        ),
+                      );
+                    },
+                    child: Text("请先添加设备"))
+              ]),
+            ),
+    );
   }
 
   @override
@@ -216,7 +242,8 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
     String id = portService.info["id"];
     Map<String, dynamic> device_cname_map = Map<String, String>();
     if (prefs.containsKey(SharedPreferencesKey.DEVICE_CNAME_KEY)) {
-      String device_cname = await prefs.getString(SharedPreferencesKey.DEVICE_CNAME_KEY);
+      String device_cname =
+          await prefs.getString(SharedPreferencesKey.DEVICE_CNAME_KEY);
       device_cname_map = jsonDecode(device_cname);
       if (device_cname_map.containsKey(id)) {
         portService.info["name"] = device_cname_map[id].toString();
@@ -239,12 +266,14 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
         // TODO 从搜索到的mqtt组件中获取设备
         print("getIoTDeviceFromLocal:${_supportedTypeList[i]}");
         if (_mdnsPlg != null) {
-        // await _mdnsPlg.stopDiscovery();
+          // await _mdnsPlg.stopDiscovery();
         }
         await Future.delayed(Duration(milliseconds: 500));
         await _mdnsPlg.startDiscovery(_supportedTypeList[i],
             enableUpdating: true);
-        await Future.delayed(Duration(seconds: 1),);
+        await Future.delayed(
+          Duration(seconds: 1),
+        );
       } else {
         await getIoTDeviceFromLocalByType(_supportedTypeList[i]);
         await Future.delayed(Duration(seconds: 1));

@@ -39,9 +39,9 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
       (pair) {
         var listItemContent = ListTile(
           leading: Icon(Icons.devices,
-              color: Provider.of<CustomTheme>(context).themeValue == "dark"
-                  ? CustomThemes.dark.accentColor
-                  : CustomThemes.light.accentColor),
+              color: Provider.of<CustomTheme>(context).isLightTheme()
+                  ? CustomThemes.light.accentColor
+                  : CustomThemes.dark.accentColor),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
