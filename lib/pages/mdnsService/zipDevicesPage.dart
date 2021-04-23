@@ -1,15 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:iot_manager_grpc_api/pb/mqttDeviceManager.pbgrpc.dart';
 import 'package:openiothub/model/custom_theme.dart';
-import 'package:openiothub/pages/user/LoginPage.dart';
 import 'package:openiothub_api/openiothub_api.dart';
+import 'package:openiothub_common_pages/user/LoginPage.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:provider/provider.dart';
-
-import 'package:iot_manager_grpc_api/pb/mqttDeviceManager.pbgrpc.dart';
-
-import 'package:openiothub_api/openiothub_api.dart';
 
 class ZipDevicesPage extends StatefulWidget {
   @override
@@ -96,7 +93,8 @@ class _ZipDevicesPageState extends State<ZipDevicesPage> {
                     child: Text("确认"),
                     onPressed: () async {
                       // print("添加该设备到云易连");
-                      _addDeviceAndSetMqttServer(zipLocalDevice);
+                      _addDeviceAndSetMqttServer(zipLocalDevice)
+                          .then((value) => Navigator.of(context).pop());
                     },
                   )
                 ]));
@@ -107,18 +105,22 @@ class _ZipDevicesPageState extends State<ZipDevicesPage> {
     bool userSignedIned = await userSignedIn();
     if (!userSignedIned) {
       Fluttertoast.showToast(msg: "您还没有登录!请先登录再添加设备");
-      Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => LoginPage()));
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => LoginPage()));
     }
     //  添加设备到数据库
     MqttDeviceInfo mqttDeviceInfo = MqttDeviceInfo();
+    mqttDeviceInfo.deviceId = zipLocalDevice.mac;
+    mqttDeviceInfo.deviceModel =
+        "com.iotserv.devices.${zipLocalDevice.type_name}";
     await MqttDeviceManager.AddMqttDevice(mqttDeviceInfo);
     //  根据数据库生成mqtt的账号
-    MqttInfo mqttInfo = await MqttDeviceManager.GenerateMqttUsernamePassword(mqttDeviceInfo);
+    MqttInfo mqttInfo =
+        await MqttDeviceManager.GenerateMqttUsernamePassword(mqttDeviceInfo);
     //  将生成的账号配置到设备
-
+    await zipLocalDevice.configMqttServer(mqttInfo);
     //  提示配置结果
-    Fluttertoast.showToast(msg: "注册失败!请重新注册");
+    Fluttertoast.showToast(msg: "添加成功!");
     return;
   }
 }

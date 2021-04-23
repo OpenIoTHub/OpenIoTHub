@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:openiothub/model/custom_theme.dart';
-import 'package:openiothub/pages/user/LoginPage.dart';
+import 'package:openiothub_common_pages/user/LoginPage.dart';
 import 'package:openiothub/pages/user/tools/toolsTypePage.dart';
-import 'package:openiothub/pages/user/userInfoPage.dart';
+import 'package:openiothub_common_pages/user/userInfoPage.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_common_pages/commPages/appInfo.dart';
 import 'package:openiothub_common_pages/commPages/settings.dart';
@@ -219,7 +219,7 @@ class _ProfilePageState extends State<ProfilePage> {
       });
     } else {
       setState(() {
-        username = "未登录";
+        username = null;
       });
     }
     if (prefs.containsKey(SharedPreferencesKey.USER_EMAIL_KEY)) {
