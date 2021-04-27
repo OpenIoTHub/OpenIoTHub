@@ -112,7 +112,7 @@ class _ZipDevicesPageState extends State<ZipDevicesPage> {
     MqttDeviceInfo mqttDeviceInfo = MqttDeviceInfo();
     mqttDeviceInfo.deviceId = zipLocalDevice.mac;
     mqttDeviceInfo.deviceModel =
-        "com.iotserv.devices.${zipLocalDevice.type_name}";
+        "com.iotserv.devices.mqtt.${zipLocalDevice.type_name}";
     await MqttDeviceManager.AddMqttDevice(mqttDeviceInfo);
     //  根据数据库生成mqtt的账号
     MqttInfo mqttInfo =

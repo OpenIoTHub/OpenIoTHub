@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:openiothub/pages/mdnsService/zipDevicesPage.dart';
+import 'package:openiothub/pages/mdnsService/thirdDevice/zipDevicesPage.dart';
 
 class AddMqttDevicesPage extends StatefulWidget {
   @override

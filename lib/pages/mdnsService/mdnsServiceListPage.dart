@@ -10,6 +10,7 @@ import 'package:multicast_dns/multicast_dns.dart';
 import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub/pages/mdnsService/AddMqttDevicesPage.dart';
 import 'package:openiothub_api/api/OpenIoTHub/SessionApi.dart';
+import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_common_pages/wifiConfig/smartConfigTool.dart';
 import 'package:openiothub_constants/constants/Config.dart';
 import 'package:openiothub_constants/openiothub_constants.dart';
@@ -21,6 +22,7 @@ import 'package:openiothub_plugin/plugins/mdnsService/mdnsType2ModelMap.dart';
 import 'package:openiothub_plugin/plugins/mdnsService/modelsMap.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:iot_manager_grpc_api/pb/mqttDeviceManager.pbgrpc.dart';
 
 class MdnsServiceListPage extends StatefulWidget {
   MdnsServiceListPage({Key key, this.title}) : super(key: key);
@@ -64,7 +66,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
   Widget build(BuildContext context) {
     print("_IoTDeviceMap:$_IoTDeviceMap");
     final tiles = _IoTDeviceMap.values.map(
-      (pair) {
+      (PortService pair) {
         var listItemContent = ListTile(
           leading: Icon(Icons.devices,
               color: Provider.of<CustomTheme>(context).isLightTheme()
@@ -213,6 +215,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
 
 //刷新设备列表
   Future refreshmDNSServices() async {
+    getIoTDeviceFromMqttServer();
     getIoTDeviceFromLocal();
     try {
       getAllSession().then((s) {
@@ -229,9 +232,6 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
 
 //添加设备
   Future<void> addPortService(PortService portService) async {
-    if (!portService.isLocal) {
-      portService.ip = "127.0.0.1";
-    }
     if (!portService.info.containsKey("name") ||
         portService.info["name"] == null ||
         portService.info["name"].isEmpty) {
@@ -332,6 +332,27 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
         addPortService(_portService);
       }
     }
+  }
+
+  Future getIoTDeviceFromMqttServer() async {
+    MqttDeviceInfoList mqttDeviceInfoList = await MqttDeviceManager.GetAllMqttDevice();
+    mqttDeviceInfoList.mqttDeviceInfoList.forEach((MqttDeviceInfo mqttDeviceInfo) {
+      PortService _portService = PortService();
+    //  TODO
+      _portService.ip = mqttDeviceInfo.mqttInfo.mqttServerHost;
+      _portService.port = mqttDeviceInfo.mqttInfo.mqttServerPort;
+      _portService.isLocal = false;
+      _portService.info["name"] = mqttDeviceInfo.deviceDefaultName!=""?mqttDeviceInfo.deviceDefaultName:mqttDeviceInfo.deviceModel;
+      _portService.info["id"] = mqttDeviceInfo.deviceId;
+      _portService.info["mac"] = mqttDeviceInfo.deviceId;
+      _portService.info["model"] = mqttDeviceInfo.deviceModel;
+      _portService.info["username"] = mqttDeviceInfo.mqttInfo.mqttClientUserName;
+      _portService.info["password"] = mqttDeviceInfo.mqttInfo.mqttClientUserPassword;
+      _portService.info["client-id"] = mqttDeviceInfo.mqttInfo.mqttClientId;
+      _portService.info["tls"] = mqttDeviceInfo.mqttInfo.sSLorTLS.toString();
+      _portService.info["enable_delete"] = true.toString();
+      addPortService(_portService);
+    });
   }
 
   Future getIoTDeviceFromRemote() async {
