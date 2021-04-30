@@ -28,7 +28,7 @@ packages:
       name: auth_header
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.4"
+    version: "3.0.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -92,20 +92,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.6"
-  convert:
-    dependency: transitive
-    description:
-      name: convert
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.1.1"
   crypto:
     dependency: transitive
     description:
       name: crypto
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.5"
+    version: "3.0.1"
   cryptoutils:
     dependency: transitive
     description:
@@ -133,7 +126,7 @@ packages:
       name: event_bus
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.1.1"
+    version: "2.0.0"
   fake_async:
     dependency: transitive
     description:
@@ -295,7 +288,7 @@ packages:
       name: http_server
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.9.8+3"
+    version: "1.0.0"
   iot_manager_grpc_api:
     dependency: transitive
     description:
@@ -309,28 +302,21 @@ packages:
       name: jaguar
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.4.46"
+    version: "3.0.10"
   jaguar_common:
     dependency: transitive
     description:
       name: jaguar_common
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.4"
+    version: "3.0.0"
   jaguar_flutter_asset:
     dependency: "direct main"
     description:
       name: jaguar_flutter_asset
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.2.0"
-  jaguar_serializer:
-    dependency: transitive
-    description:
-      name: jaguar_serializer
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.2.12"
+    version: "3.0.0"
   js:
     dependency: transitive
     description:
@@ -344,7 +330,7 @@ packages:
       name: logging
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.11.4"
+    version: "1.0.1"
   matcher:
     dependency: transitive
     description:
@@ -372,7 +358,14 @@ packages:
       name: mime
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.9.7"
+    version: "1.0.0"
+  mqtt5_client:
+    dependency: transitive
+    description:
+      name: mqtt5_client
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.1.0"
   multicast_dns:
     dependency: "direct main"
     description:
@@ -393,7 +386,7 @@ packages:
       name: openiothub_api
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.0.2+16"
+    version: "0.0.2+17"
   openiothub_common_pages:
     dependency: "direct main"
     description:
@@ -421,7 +414,7 @@ packages:
       name: openiothub_plugin
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.0.2+4"
+    version: "0.0.2+12"
   package_info:
     dependency: transitive
     description:
@@ -477,7 +470,7 @@ packages:
       name: path_tree
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.2.4"
+    version: "3.0.0"
   pedantic:
     dependency: transitive
     description:
@@ -678,7 +671,7 @@ packages:
       name: uuid
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.2.2"
+    version: "3.0.4"
   vector_math:
     dependency: transitive
     description:
