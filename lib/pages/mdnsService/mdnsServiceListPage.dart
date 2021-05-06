@@ -215,7 +215,9 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
 
 //刷新设备列表
   Future refreshmDNSServices() async {
-    getIoTDeviceFromMqttServer();
+    if (await userSignedIn()) {
+      getIoTDeviceFromMqttServer();
+    }
     getIoTDeviceFromLocal();
     try {
       getAllSession().then((s) {

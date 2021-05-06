@@ -25,7 +25,7 @@ void main() {
   server.serve(logRequests: true).then((v) {
     server.log.onRecord.listen((r) => debugPrint("==serve-log：$r"));
   });
-
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MultiProvider(
       providers: [
