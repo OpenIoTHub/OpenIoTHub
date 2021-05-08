@@ -51,6 +51,9 @@ PODS:
   - fluttertoast (0.0.2):
     - Flutter
     - Toast
+  - fluwx (0.0.1):
+    - Flutter
+    - WechatOpenSDK (= 1.8.7.1)
   - mdns_plugin (0.0.1):
     - Flutter
   - MobileVLCKit (3.3.15)
@@ -74,6 +77,7 @@ PODS:
     - Flutter
   - webview_flutter (0.0.1):
     - Flutter
+  - WechatOpenSDK (1.8.7.1)
   - wifi_info_flutter (0.0.1):
     - Flutter
 
@@ -87,6 +91,7 @@ DEPENDENCIES:
   - flutter_smartlink (from `.symlinks/plugins/flutter_smartlink/ios`)
   - flutter_vlc_player (from `.symlinks/plugins/flutter_vlc_player/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
+  - fluwx (from `.symlinks/plugins/fluwx/ios`)
   - mdns_plugin (from `.symlinks/plugins/mdns_plugin/ios`)
   - package_info (from `.symlinks/plugins/package_info/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
@@ -107,6 +112,7 @@ SPEC REPOS:
     - SDWebImage
     - SwiftyGif
     - Toast
+    - WechatOpenSDK
 
 EXTERNAL SOURCES:
   connectivity:
@@ -127,6 +133,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_vlc_player/ios"
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
+  fluwx:
+    :path: ".symlinks/plugins/fluwx/ios"
   mdns_plugin:
     :path: ".symlinks/plugins/mdns_plugin/ios"
   package_info:
@@ -158,6 +166,7 @@ SPEC CHECKSUMS:
   flutter_smartlink: 18c271f7f14a872e028ba3dd89e5fa33db4ca83b
   flutter_vlc_player: 1f44e19b01feacdb6e2b49a8e9cbd0966d17e10e
   fluttertoast: 6122fa75143e992b1d3470f61000f591a798cc58
+  fluwx: 07a55ed66bf3a4961e836a2a411b02dcada32902
   mdns_plugin: f678ac538ece5a95490ede585dfa6b46aaaac977
   MobileVLCKit: d49847b272be23de89212e8205334334e5ec7331
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
@@ -171,8 +180,9 @@ SPEC CHECKSUMS:
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
   video_player: 9cc823b1d9da7e8427ee591e8438bfbcde500e6e
   webview_flutter: d2b4d6c66968ad042ad94cbb791f5b72b4678a96
+  WechatOpenSDK: 6a4d1436c15b3b5fe2a0bd383f3046010186da44
   wifi_info_flutter: 55d4c2469034f5b5c38063ccefa62f708a503a2b
 
-PODFILE CHECKSUM: c5e102240b5e0c6cefb4b8f18d217c794c30aff6
+PODFILE CHECKSUM: 597dfb9d55f00704b59f30951a6bd08689b7ad06
 
 COCOAPODS: 1.10.1

@@ -70,6 +70,7 @@ dependencies:
 #  upgrader: ^0.10.2
 #  provider: ^3.0.0
   provider: ^4.3.2+3
+  fluwx: ^2.4.1
 
 dev_dependencies:
   flutter_test:
@@ -95,6 +96,7 @@ flutter:
     - assets/
     - assets/images/
     - assets/images/leftmenu/
+    - assets/images/splash/
     - assets/images/leftmenu/avatars/
     - assets/images/leftmenu/background/
     #    -
