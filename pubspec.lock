@@ -92,6 +92,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.6"
+  convert:
+    dependency: transitive
+    description:
+      name: convert
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.0.0"
   crypto:
     dependency: transitive
     description:
@@ -188,13 +195,18 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.0.5"
+  flutter_localizations:
+    dependency: "direct main"
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_natcloud_service:
     dependency: "direct main"
     description:
       path: flutter_natcloud_service
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.0.1+3"
   flutter_oneshot:
     dependency: transitive
     description:
@@ -241,19 +253,12 @@ packages:
     source: sdk
     version: "0.0.0"
   fluttertoast:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: fluttertoast
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "7.1.8"
-  fluwx:
-    dependency: "direct main"
-    description:
-      name: fluwx
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.6.2"
   gateway_grpc_api:
     dependency: transitive
     description:
@@ -303,6 +308,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.0"
+  intl:
+    dependency: transitive
+    description:
+      name: intl
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.17.0"
   iot_manager_grpc_api:
     dependency: transitive
     description:
@@ -338,6 +350,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.6.3"
+  json_annotation:
+    dependency: transitive
+    description:
+      name: json_annotation
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "4.0.1"
   logging:
     dependency: transitive
     description:
@@ -400,21 +419,21 @@ packages:
       name: openiothub_api
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.0.2+17"
+    version: "0.0.2+18"
   openiothub_common_pages:
     dependency: "direct main"
     description:
       name: openiothub_common_pages
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.0.2+12"
+    version: "0.0.2+16"
   openiothub_constants:
     dependency: "direct main"
     description:
       name: openiothub_constants
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.0.2+4"
+    version: "0.0.2+7"
   openiothub_grpc_api:
     dependency: transitive
     description:
@@ -428,7 +447,7 @@ packages:
       name: openiothub_plugin
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.0.2+17"
+    version: "0.0.2+18"
   package_info:
     dependency: transitive
     description:
@@ -721,6 +740,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.3.24"
+  wechat_kit:
+    dependency: "direct main"
+    description:
+      name: wechat_kit
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.3.1"
   wifi_info_flutter:
     dependency: transitive
     description:

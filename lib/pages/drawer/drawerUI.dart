@@ -187,14 +187,14 @@ _goToURL(BuildContext context, String url, title) async {
   Navigator.push(context, MaterialPageRoute(builder: (ctx) {
     return Scaffold(
       appBar: AppBar(title: Text(title), actions: <Widget>[
-        IconButton(
-            icon: Icon(
-              Icons.open_in_browser,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              _launchURL(url);
-            })
+        // IconButton(
+        //     icon: Icon(
+        //       Icons.open_in_browser,
+        //       color: Colors.white,
+        //     ),
+        //     onPressed: () {
+        //       _launchURL(url);
+        //     })
       ]),
       body:
           WebView(initialUrl: url, javascriptMode: JavascriptMode.unrestricted),

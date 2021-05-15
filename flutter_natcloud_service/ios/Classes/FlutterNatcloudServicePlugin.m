@@ -11,13 +11,22 @@
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
   if ([@"start" isEqualToString:call.method]) {
-    NSString* path = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,
-                                                              NSUserDomainMask,
-                                                              YES) objectAtIndex:0];
-    ExplorerRun(path);
+      //NSString* path = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,
+      //                                                          NSUserDomainMask,
+      //                                                         YES) objectAtIndex:0];
+      //ExplorerRun(path);
+    //NSThread *thread1 = [[NSThread alloc]initWithTarget:self selector:@selector(method:) object:@"方式一启动"];
+    [[NSThread alloc]initWithTarget:self selector:@selector(method:) object:@"方式一启动"];
     result([@"iOS " stringByAppendingString:[[UIDevice currentDevice] systemVersion]]);
   } else {
     result(FlutterMethodNotImplemented);
   }
+}
+
+-(void)method:(NSString*)name{
+    NSString* path = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory,
+                                                              NSUserDomainMask,
+                                                              YES) objectAtIndex:0];
+    ExplorerRun(path);
 }
 @end

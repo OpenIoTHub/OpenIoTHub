@@ -37,7 +37,8 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
     implements mdns_plugin.MDNSPluginDelegate {
   Utf8Decoder u8decodeer = Utf8Decoder();
   Map<String, PortService> _IoTDeviceMap = Map<String, PortService>();
-  Timer _timerPeriod;
+  Timer _timerPeriodLocal;
+  Timer _timerPeriodRemote;
   final MDnsClient _mdns = MDnsClient(rawDatagramSocketFactory:
       (dynamic host, int port, {bool reuseAddress, bool reusePort, int ttl}) {
     return RawDatagramSocket.bind(host, port,
@@ -55,9 +56,15 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
       _mdns.start();
     }
     Future.delayed(Duration(milliseconds: 500))
-        .then((value) => {refreshmDNSServices()});
-    _timerPeriod = Timer.periodic(Duration(seconds: 10), (Timer timer) {
-      refreshmDNSServices();
+        .then((value) {
+          refreshmDNSServicesFromeLocal();
+          refreshmDNSServicesFromeRemote();
+        });
+    _timerPeriodLocal = Timer.periodic(Duration(seconds: 10), (Timer timer) {
+      refreshmDNSServicesFromeLocal();
+    });
+    _timerPeriodRemote = Timer.periodic(Duration(seconds: 2), (Timer timer) {
+      refreshmDNSServicesFromeRemote();
     });
     print("init iot devie List");
   }
@@ -104,7 +111,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
                 color: Colors.white,
               ),
               onPressed: () {
-                refreshmDNSServices();
+                refreshmDNSServicesFromeLocal();
               }),
 //            TODO 添加设备（类型：mqtt，小米，美的；设备型号：TC1-A1,TC1-A2）
           IconButton(
@@ -157,8 +164,11 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
   @override
   void dispose() {
     super.dispose();
-    if (_timerPeriod != null) {
-      _timerPeriod.cancel();
+    if (_timerPeriodLocal != null) {
+      _timerPeriodLocal.cancel();
+    }
+    if (_timerPeriodRemote != null) {
+      _timerPeriodRemote.cancel();
     }
     if (Platform.isIOS || Platform.isAndroid) {
       _mdnsPlg.stopDiscovery();
@@ -214,11 +224,15 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
 //获取所有的设备列表（本地网络和远程网络）
 
 //刷新设备列表
-  Future refreshmDNSServices() async {
+  Future refreshmDNSServicesFromeLocal() async {
+    getIoTDeviceFromLocal();
+  }
+
+  //刷新设备列表
+  Future refreshmDNSServicesFromeRemote() async {
     if (await userSignedIn()) {
       getIoTDeviceFromMqttServer();
     }
-    getIoTDeviceFromLocal();
     try {
       getAllSession().then((s) {
         s.forEach((SessionConfig sc) {

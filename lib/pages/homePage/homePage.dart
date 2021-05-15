@@ -1,4 +1,8 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub/pages/mdnsService/mdnsServiceListPage.dart';
 import 'package:openiothub/pages/session/sessionListPage.dart';
@@ -8,6 +12,9 @@ import 'package:provider/provider.dart';
 
 import '../commonDevice/commonDeviceListPage.dart';
 
+import 'package:openiothub/generated/l10n.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
@@ -16,15 +23,57 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   Color _activeColor = Colors.orange;
   int _currentIndex = 0;
+  Timer _timer;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.inactive: // 处于这种状态的应用程序应该假设它们可能在任何时候暂停。
+        // Fluttertoast.showToast(msg: "程序状态：${state.toString()}");
+        // if (Platform.isIOS) {
+        //   // _timer = Timer.periodic(Duration(seconds: 10), (timer) {
+        //   //   exit(0);
+        //   // });
+        //   exit(0);
+        // }
+        break;
+      case AppLifecycleState.resumed: //从后台切换前台，界面可见
+        // Fluttertoast.showToast(msg: "程序状态：${state.toString()}");
+        if (_timer != null) {
+          _timer.cancel();
+        }
+        break;
+      case AppLifecycleState.paused: // 界面不可见，后台
+        // Fluttertoast.showToast(msg: "程序状态：${state.toString()}");
+        if (Platform.isIOS) {
+          // _timer = Timer.periodic(Duration(seconds: 10), (timer) {
+          //   exit(0);
+          // });
+          // exit(0);
+        }
+        break;
+      case AppLifecycleState.detached: // APP结束时调用
+        // Fluttertoast.showToast(msg: "程序状态：${state.toString()}");
+        exit(1);
+        break;
+    }
+  }
+
+  @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   @override
@@ -57,16 +106,16 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _buildBody(int index) {
     switch (index) {
       case 0:
-        return MdnsServiceListPage(title: "智能");
+        return MdnsServiceListPage(title: S.current.tab_smart);
         break;
       case 1:
-        return SessionListPage(title: "网关");
+        return SessionListPage(title: S.current.tab_gateway);
         break;
       case 2:
-        return CommonDeviceListPage(title: "主机");
+        return CommonDeviceListPage(title: S.current.tab_host);
         break;
       case 3:
-      // return UserInfoPage();
+        // return UserInfoPage();
         return ProfilePage();
         break;
     }
@@ -84,11 +133,11 @@ class _MyHomePageState extends State<MyHomePage> {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildBotomItem(_currentIndex, 0, Icons.home, "智能"),
-          _buildBotomItem(_currentIndex, 1, Icons.airplay, "网关"),
+          _buildBotomItem(_currentIndex, 0, Icons.home, S.current.tab_smart),
+          _buildBotomItem(_currentIndex, 1, Icons.airplay, S.current.tab_gateway),
           _buildBotomItem(_currentIndex, -1, null, "null"),
-          _buildBotomItem(_currentIndex, 2, Icons.print, "主机"),
-          _buildBotomItem(_currentIndex, 3, Icons.person, "我的"),
+          _buildBotomItem(_currentIndex, 2, Icons.print, S.current.tab_host),
+          _buildBotomItem(_currentIndex, 3, Icons.person, S.current.tab_user),
         ],
       ),
     );

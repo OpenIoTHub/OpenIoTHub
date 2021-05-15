@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub_api/api/OpenIoTHub/CommonDeviceApi.dart';
 import 'package:openiothub_api/api/OpenIoTHub/SessionApi.dart';
@@ -195,7 +196,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
         _SessionList = response.sessionConfigs;
       });
     } catch (e) {
-      print('Caught error: $e');
+      Fluttertoast.showToast(msg: "getAllSession：${e}");
     }
   }
 
@@ -203,25 +204,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
     try {
       await CommonDeviceApi.createOneDevice(device);
     } catch (e) {
-      showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-                  title: Text("创建设备失败："),
-                  content: Text("失败原因：$e"),
-                  actions: <Widget>[
-                    TextButton(
-                      child: Text("取消"),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                    TextButton(
-                      child: Text("确认"),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    )
-                  ]));
+      Fluttertoast.showToast(msg: "创建设备失败：${e}");
     }
   }
 
@@ -229,30 +212,12 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
     try {
       final response = await CommonDeviceApi.getAllDevice();
       print("=====getAllDevice:${response.devices}");
-      setState(() async {
-        await _CommonDeviceList.clear();
+      setState(() {
         _CommonDeviceList = response.devices;
       });
     } catch (e) {
-      showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-                  title: Text("获取内网列表失败："),
-                  content: Text("失败原因：$e"),
-                  actions: <Widget>[
-                    TextButton(
-                      child: Text("取消"),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                    TextButton(
-                      child: Text("确认"),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    )
-                  ]));
+      print("openiothub获取设备失败:$e");
+      // Fluttertoast.showToast(msg: "获取设备列表失败：${e}");
     }
   }
 

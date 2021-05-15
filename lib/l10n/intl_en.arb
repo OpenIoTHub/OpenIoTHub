@@ -1,0 +1,7 @@
+{
+  "app_title": "OpenIoTHub",
+  "tab_smart": "smart",
+  "tab_gateway": "gateway",
+  "tab_host": "host",
+  "tab_user": "user"
+}

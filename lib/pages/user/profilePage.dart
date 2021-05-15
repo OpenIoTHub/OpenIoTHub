@@ -1,13 +1,14 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_natcloud_service/flutter_natcloud_service.dart';
 import 'package:openiothub/model/custom_theme.dart';
-import 'package:openiothub_common_pages/user/LoginPage.dart';
 import 'package:openiothub/pages/user/tools/toolsTypePage.dart';
-import 'package:openiothub_common_pages/user/userInfoPage.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_common_pages/commPages/appInfo.dart';
 import 'package:openiothub_common_pages/commPages/settings.dart';
+import 'package:openiothub_common_pages/user/LoginPage.dart';
+import 'package:openiothub_common_pages/user/userInfoPage.dart';
 import 'package:openiothub_constants/constants/SharedPreferences.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,9 +27,12 @@ class _ProfilePageState extends State<ProfilePage> {
 
   String userAvatar;
 
+  List<ListTile> _listTiles;
+
   @override
   void initState() {
     super.initState();
+    _initListTiles();
     _getUserInfo();
   }
 
@@ -50,7 +54,7 @@ class _ProfilePageState extends State<ProfilePage> {
           separatorBuilder: (context, index) {
             return Divider();
           },
-          itemCount: 6,
+          itemCount: _listTiles == null? 1 : _listTiles.length + 1,
         ));
   }
 
@@ -106,7 +110,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           width: 2.0,
                         ),
                         image: DecorationImage(
-                          image: ExactAssetImage("assets/images/leftmenu/avatars/panda.jpg"),
+                          image: ExactAssetImage(
+                              "assets/images/leftmenu/avatars/panda.jpg"),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -128,59 +133,65 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
+  _initListTiles() {
+    setState(() {
+      _listTiles = <ListTile>[
+        ListTile(
+          //第一个功能项
+            title: Text('配置'),
+            leading: Icon(Icons.settings),
+            trailing: Icon(Icons.arrow_right),
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => SettingsPage(
+                    title: "配置",
+                  )));
+            }),
+        ListTile(
+          //第一个功能项
+            title: Text('工具'),
+            leading: Icon(Icons.pan_tool),
+            trailing: Icon(Icons.arrow_right),
+            onTap: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => ToolsTypePage()));
+            }),
+        ListTile(
+          //第二个功能项
+            title: Text('使用手册'),
+            leading: Icon(Icons.add_chart),
+            trailing: Icon(Icons.arrow_right),
+            onTap: () {
+              String url = "https://b23.tv/wVAMWn";
+              Platform.isIOS
+                  ? _goToURL(context, url, "使用手册")
+                  : _goToURL(context, url, "使用手册");
+            }),
+        // ListTile(
+        //     //第二个功能项
+        //     title: Text('社区反馈'),
+        //     leading: Icon(Icons.all_inclusive),
+        //     trailing: Icon(Icons.arrow_right),
+        //     onTap: () {
+        //       Platform.isIOS
+        //           ? _goToURL(context, "https://wulian.work", "社区反馈")
+        //           : _goToURL(context, "https://wulian.work", "社区反馈");
+        //     }),
+        ListTile(
+          //第二个功能项
+            title: Text('关于本软件'),
+            leading: Icon(Icons.info),
+            trailing: Icon(Icons.arrow_right),
+            onTap: () {
+              FlutterNatcloudService.start();
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => AppInfoPage()));
+            }),
+      ];
+    });
+  }
+
   ListTile _buildListTile(int _index) {
-    List<ListTile> _listTiles = <ListTile>[
-      ListTile(
-          //第一个功能项
-          title: Text('配置'),
-          leading: Icon(Icons.settings),
-          trailing: Icon(Icons.arrow_right),
-          onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => SettingsPage(
-                      title: "配置",
-                    )));
-          }),
-      ListTile(
-          //第一个功能项
-          title: Text('工具'),
-          leading: Icon(Icons.pan_tool),
-          trailing: Icon(Icons.arrow_right),
-          onTap: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => ToolsTypePage()));
-          }),
-      ListTile(
-          //第二个功能项
-          title: Text('使用手册'),
-          leading: Icon(Icons.add_chart),
-          trailing: Icon(Icons.arrow_right),
-          onTap: () {
-            Platform.isIOS
-                ? _launchURL("https://www.jianshu.com/u/b312a876d66e")
-                : _goToURL(
-                    context, "https://www.jianshu.com/u/b312a876d66e", "使用手册");
-          }),
-      ListTile(
-          //第二个功能项
-          title: Text('社区反馈'),
-          leading: Icon(Icons.all_inclusive),
-          trailing: Icon(Icons.arrow_right),
-          onTap: () {
-            Platform.isIOS
-                ? _launchURL("https://wulian.work")
-                : _goToURL(context, "https://wulian.work", "社区反馈");
-          }),
-      ListTile(
-          //第二个功能项
-          title: Text('关于本软件'),
-          leading: Icon(Icons.info),
-          trailing: Icon(Icons.arrow_right),
-          onTap: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => AppInfoPage()));
-          }),
-    ];
     return _listTiles[_index];
   }
 
@@ -196,14 +207,14 @@ class _ProfilePageState extends State<ProfilePage> {
     Navigator.push(context, MaterialPageRoute(builder: (ctx) {
       return Scaffold(
         appBar: AppBar(title: Text(title), actions: <Widget>[
-          IconButton(
-              icon: Icon(
-                Icons.open_in_browser,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                _launchURL(url);
-              })
+          // IconButton(
+          //     icon: Icon(
+          //       Icons.open_in_browser,
+          //       color: Colors.white,
+          //     ),
+          //     onPressed: () {
+          //       _launchURL(url);
+          //     })
         ]),
         body: WebView(
             initialUrl: url, javascriptMode: JavascriptMode.unrestricted),
