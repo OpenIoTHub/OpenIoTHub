@@ -1,5 +1,5 @@
 // DO NOT EDIT. This is code generated via package:intl/generate_localized.dart
-// This is a library that provides messages for a zh_CN locale. All the
+// This is a library that provides messages for a zh_Hant locale. All the
 // messages from the main program should be duplicated here with the same
 // function name.
 
@@ -17,20 +17,20 @@ final messages = new MessageLookup();
 typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 
 class MessageLookup extends MessageLookupByLibrary {
-  String get localeName => 'zh_CN';
+  String get localeName => 'zh_Hant';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
-    "app_title" : MessageLookupByLibrary.simpleMessage("云易连"),
-    "profile_about_this_app" : MessageLookupByLibrary.simpleMessage("关于本软件"),
-    "profile_click_avatar_to_sign_in" : MessageLookupByLibrary.simpleMessage("点击头像登录"),
-    "profile_docs" : MessageLookupByLibrary.simpleMessage("文档"),
-    "profile_not_logged_in" : MessageLookupByLibrary.simpleMessage("未登录"),
-    "profile_settings" : MessageLookupByLibrary.simpleMessage("设置"),
+    "app_title" : MessageLookupByLibrary.simpleMessage("雲易連"),
+    "profile_about_this_app" : MessageLookupByLibrary.simpleMessage("關於本軟件"),
+    "profile_click_avatar_to_sign_in" : MessageLookupByLibrary.simpleMessage("點擊頭像登錄"),
+    "profile_docs" : MessageLookupByLibrary.simpleMessage("文檔"),
+    "profile_not_logged_in" : MessageLookupByLibrary.simpleMessage("未登錄"),
+    "profile_settings" : MessageLookupByLibrary.simpleMessage("設置"),
     "profile_tools" : MessageLookupByLibrary.simpleMessage("工具"),
-    "tab_gateway" : MessageLookupByLibrary.simpleMessage("网关"),
-    "tab_host" : MessageLookupByLibrary.simpleMessage("主机"),
+    "tab_gateway" : MessageLookupByLibrary.simpleMessage("網關"),
+    "tab_host" : MessageLookupByLibrary.simpleMessage("主機"),
     "tab_smart" : MessageLookupByLibrary.simpleMessage("智能"),
-    "tab_user" : MessageLookupByLibrary.simpleMessage("用户")
+    "tab_user" : MessageLookupByLibrary.simpleMessage("用戶")
   };
 }

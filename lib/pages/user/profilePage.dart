@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_natcloud_service/flutter_natcloud_service.dart';
+import 'package:openiothub/generated/l10n.dart';
 import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub/pages/user/tools/toolsTypePage.dart';
 import 'package:openiothub_api/openiothub_api.dart';
@@ -21,7 +22,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  String username = "未登录";
+  String username = S.current.profile_not_logged_in;
   String useremail = "";
   String usermobile = "";
 
@@ -124,7 +125,7 @@ class _ProfilePageState extends State<ProfilePage> {
               height: 10.0,
             ),
             Text(
-              username ??= '点击头像登录',
+              username ??= S.current.profile_click_avatar_to_sign_in,
               style: TextStyle(color: Color(0xffffffff)),
             ),
           ],
@@ -138,18 +139,18 @@ class _ProfilePageState extends State<ProfilePage> {
       _listTiles = <ListTile>[
         ListTile(
           //第一个功能项
-            title: Text('配置'),
+            title: Text(S.current.profile_settings),
             leading: Icon(Icons.settings),
             trailing: Icon(Icons.arrow_right),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => SettingsPage(
-                    title: "配置",
+                    title: S.current.profile_settings,
                   )));
             }),
         ListTile(
           //第一个功能项
-            title: Text('工具'),
+            title: Text(S.current.profile_tools),
             leading: Icon(Icons.pan_tool),
             trailing: Icon(Icons.arrow_right),
             onTap: () {
@@ -158,14 +159,14 @@ class _ProfilePageState extends State<ProfilePage> {
             }),
         ListTile(
           //第二个功能项
-            title: Text('使用手册'),
+            title: Text(S.current.profile_docs),
             leading: Icon(Icons.add_chart),
             trailing: Icon(Icons.arrow_right),
             onTap: () {
               String url = "https://b23.tv/wVAMWn";
               Platform.isIOS
-                  ? _goToURL(context, url, "使用手册")
-                  : _goToURL(context, url, "使用手册");
+                  ? _goToURL(context, url, S.current.profile_docs)
+                  : _goToURL(context, url, S.current.profile_docs);
             }),
         // ListTile(
         //     //第二个功能项
@@ -179,7 +180,7 @@ class _ProfilePageState extends State<ProfilePage> {
         //     }),
         ListTile(
           //第二个功能项
-            title: Text('关于本软件'),
+            title: Text(S.current.profile_about_this_app),
             leading: Icon(Icons.info),
             trailing: Icon(Icons.arrow_right),
             onTap: () {

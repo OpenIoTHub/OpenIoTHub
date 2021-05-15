@@ -22,6 +22,12 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "app_title" : MessageLookupByLibrary.simpleMessage("OpenIoTHub"),
+    "profile_about_this_app" : MessageLookupByLibrary.simpleMessage("About this App"),
+    "profile_click_avatar_to_sign_in" : MessageLookupByLibrary.simpleMessage("Click avatar to sign in"),
+    "profile_docs" : MessageLookupByLibrary.simpleMessage("Docs"),
+    "profile_not_logged_in" : MessageLookupByLibrary.simpleMessage("Not logged in"),
+    "profile_settings" : MessageLookupByLibrary.simpleMessage("Settings"),
+    "profile_tools" : MessageLookupByLibrary.simpleMessage("Tools"),
     "tab_gateway" : MessageLookupByLibrary.simpleMessage("gateway"),
     "tab_host" : MessageLookupByLibrary.simpleMessage("host"),
     "tab_smart" : MessageLookupByLibrary.simpleMessage("smart"),

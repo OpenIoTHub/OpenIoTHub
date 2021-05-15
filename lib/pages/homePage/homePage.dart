@@ -13,7 +13,6 @@ import 'package:provider/provider.dart';
 import '../commonDevice/commonDeviceListPage.dart';
 
 import 'package:openiothub/generated/l10n.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
