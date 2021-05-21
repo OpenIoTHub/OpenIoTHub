@@ -20,7 +20,8 @@ def gitVersionTag() {
     def matcher = version =~ pattern
 
     if (matcher) {
-        version = version.substring(0, matcher.start()) + "." + matcher[0][1]
+//        version = version.substring(0, matcher.start()) + "." + matcher[0][1]
+        version = version + ".0"
     } else {
         version = version + ".0"
     }
