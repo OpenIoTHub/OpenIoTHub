@@ -62,8 +62,8 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.iotserv.openiothub"
-        minSdkVersion 16
-        targetSdkVersion 28
+        minSdkVersion 17
+        targetSdkVersion 30
         versionCode gitVersionCode()
         versionName gitVersionTag()
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

@@ -40,56 +40,7 @@ class CustomTheme with ChangeNotifier {
 
 class CustomThemes {
   static final Color _lightAccentColor = Colors.orange;
-  static final ThemeData light = ThemeData(
-    accentColor: _lightAccentColor,
-    accentColorBrightness: Brightness.dark,
-    bottomAppBarTheme:
-        BottomAppBarTheme(color: _lightAccentColor, elevation: 8.0),
-    buttonColor: _lightAccentColor,
-    buttonTheme: ButtonThemeData(
-      textTheme: ButtonTextTheme.primary,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
-      padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-    ),
-    brightness: Brightness.light,
-    dialogBackgroundColor: Colors.white,
-    indicatorColor: _lightAccentColor,
-    inputDecorationTheme: InputDecorationTheme(
-//      border: OutlineInputBorder(borderRadius: BorderRadius.circular(4.0)),
-      contentPadding: EdgeInsets.all(14.0),
-//      focusedBorder: OutlineInputBorder(
-//        borderSide: BorderSide(color: _lightAccentColor, width: 2.0),
-//        borderRadius: BorderRadius.circular(4.0),
-//      ),
-      labelStyle: TextStyle(fontSize: 16.0, color: Colors.grey[600]),
-    ),
-    primaryColor: _lightAccentColor,
-    scaffoldBackgroundColor: Colors.white,
-  );
+  static final ThemeData light = ThemeData(brightness: Brightness.light,primarySwatch: _lightAccentColor, primaryColor: _lightAccentColor);
 
-  static final Color _darkAccentColor = Colors.black;
-  static final ThemeData dark = ThemeData(
-    accentColor: _darkAccentColor,
-    accentColorBrightness: Brightness.light,
-    bottomAppBarColor: Color.fromRGBO(50, 50, 50, 1),
-    bottomAppBarTheme: BottomAppBarTheme(elevation: 8.0),
-    buttonTheme: ButtonThemeData(
-      textTheme: ButtonTextTheme.primary,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
-      padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-    ),
-    brightness: Brightness.dark,
-    dialogBackgroundColor: Color.fromRGBO(62, 62, 62, 1),
-    inputDecorationTheme: InputDecorationTheme(
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(4.0)),
-      contentPadding: EdgeInsets.all(14.0),
-      focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: _darkAccentColor, width: 2.0),
-        borderRadius: BorderRadius.circular(4.0),
-      ),
-      labelStyle: TextStyle(fontSize: 16.0, color: Colors.grey[300]),
-    ),
-    primaryColor: Colors.black,
-    scaffoldBackgroundColor: Colors.black,
-  );
+  static final ThemeData dark = ThemeData(brightness: Brightness.dark);
 }

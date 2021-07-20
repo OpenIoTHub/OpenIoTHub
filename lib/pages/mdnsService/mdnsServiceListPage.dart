@@ -9,6 +9,7 @@ import 'package:mdns_plugin/mdns_plugin.dart' as mdns_plugin;
 import 'package:multicast_dns/multicast_dns.dart';
 import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub/pages/mdnsService/AddMqttDevicesPage.dart';
+import 'package:openiothub/util/ThemeUtils.dart';
 import 'package:openiothub_api/api/OpenIoTHub/SessionApi.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_common_pages/wifiConfig/smartConfigTool.dart';
@@ -55,11 +56,10 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
     } else {
       _mdns.start();
     }
-    Future.delayed(Duration(milliseconds: 500))
-        .then((value) {
-          refreshmDNSServicesFromeLocal();
-          refreshmDNSServicesFromeRemote();
-        });
+    Future.delayed(Duration(milliseconds: 500)).then((value) {
+      refreshmDNSServicesFromeLocal();
+      refreshmDNSServicesFromeRemote();
+    });
     _timerPeriodLocal = Timer.periodic(Duration(seconds: 10), (Timer timer) {
       refreshmDNSServicesFromeLocal();
     });
@@ -136,7 +136,9 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
           ? ListView(children: divided)
           : Container(
               child: Column(children: [
-                Image.asset('assets/images/empty_list.png'),
+                ThemeUtils.isDarkMode(context)
+                    ? Image.asset('assets/images/empty_list_black.png')
+                    : Image.asset('assets/images/empty_list.png'),
                 TextButton(
                     style: ButtonStyle(
                       side: MaterialStateProperty.all(
@@ -351,19 +353,25 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
   }
 
   Future getIoTDeviceFromMqttServer() async {
-    MqttDeviceInfoList mqttDeviceInfoList = await MqttDeviceManager.GetAllMqttDevice();
-    mqttDeviceInfoList.mqttDeviceInfoList.forEach((MqttDeviceInfo mqttDeviceInfo) {
+    MqttDeviceInfoList mqttDeviceInfoList =
+        await MqttDeviceManager.GetAllMqttDevice();
+    mqttDeviceInfoList.mqttDeviceInfoList
+        .forEach((MqttDeviceInfo mqttDeviceInfo) {
       PortService _portService = PortService();
-    //  TODO
+      //  TODO
       _portService.ip = mqttDeviceInfo.mqttInfo.mqttServerHost;
       _portService.port = mqttDeviceInfo.mqttInfo.mqttServerPort;
       _portService.isLocal = false;
-      _portService.info["name"] = mqttDeviceInfo.deviceDefaultName!=""?mqttDeviceInfo.deviceDefaultName:mqttDeviceInfo.deviceModel;
+      _portService.info["name"] = mqttDeviceInfo.deviceDefaultName != ""
+          ? mqttDeviceInfo.deviceDefaultName
+          : mqttDeviceInfo.deviceModel;
       _portService.info["id"] = mqttDeviceInfo.deviceId;
       _portService.info["mac"] = mqttDeviceInfo.deviceId;
       _portService.info["model"] = mqttDeviceInfo.deviceModel;
-      _portService.info["username"] = mqttDeviceInfo.mqttInfo.mqttClientUserName;
-      _portService.info["password"] = mqttDeviceInfo.mqttInfo.mqttClientUserPassword;
+      _portService.info["username"] =
+          mqttDeviceInfo.mqttInfo.mqttClientUserName;
+      _portService.info["password"] =
+          mqttDeviceInfo.mqttInfo.mqttClientUserPassword;
       _portService.info["client-id"] = mqttDeviceInfo.mqttInfo.mqttClientId;
       _portService.info["tls"] = mqttDeviceInfo.mqttInfo.sSLorTLS.toString();
       _portService.info["enable_delete"] = true.toString();

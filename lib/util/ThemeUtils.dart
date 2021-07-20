@@ -22,4 +22,8 @@ class ThemeUtils {
 
   // 当前的主题色
   static Color currentColorTheme = defaultColor;
+
+  static bool isDarkMode(BuildContext context) {
+    return Theme.of(context).brightness == Brightness.dark;
+  }
 }

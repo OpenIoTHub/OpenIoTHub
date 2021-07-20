@@ -1,28 +1,30 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_natcloud_service/flutter_natcloud_service.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jaguar/jaguar.dart';
 import 'package:jaguar_flutter_asset/jaguar_flutter_asset.dart';
-import 'package:openiothub/util/InitAllConfig.dart';
+import 'package:openiothub_api/api/OpenIoTHub/Utils.dart';
 import 'package:openiothub_constants/constants/Config.dart';
 import 'package:openiothub_constants/constants/WeChatConfig.dart';
 import 'package:wechat_kit/wechat_kit.dart';
+
+import 'package:openiothub_grpc_api/pb/service.pb.dart';
 
 Future<void> init(){
   initBackgroundService();
   initHttpAssets();
   initWechat();
   initSystemUi();
+  loadConfig();
 }
 
 Future<void> initBackgroundService(){
   FlutterNatcloudService.start().then((String value) {
     // Fluttertoast.showToast(msg: "FlutterNatcloudService.start()：$value}");
-  });
-  Future.delayed(Duration(seconds: 1), () {
-    InitAllConfig();
   });
 }
 
@@ -49,4 +51,12 @@ Future<void> initSystemUi(){
     SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(statusBarColor:Colors.transparent);
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   }
+}
+
+Future<void> loadConfig(){
+  Future.delayed(Duration(milliseconds: 500), () {
+    UtilApi.SyncConfigWithToken().then((OpenIoTHubOperationResponse rsp) {
+      // Fluttertoast.showToast(msg: rsp.msg);
+    });
+  });
 }

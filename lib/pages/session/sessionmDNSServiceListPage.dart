@@ -91,7 +91,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
     ).toList();
     return Scaffold(
       appBar: AppBar(
-        title: Text("本网络内的网关列表"),
+        title: Text("本网络内的mdns列表"),
         actions: <Widget>[
           IconButton(
               icon: Icon(
