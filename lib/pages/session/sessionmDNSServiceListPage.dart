@@ -116,8 +116,8 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                 showDialog(
                     context: context,
                     builder: (_) => AlertDialog(
-                            title: Text("删除内网"),
-                            content: Text("确认删除此内网？"),
+                            title: Text("删除网关"),
+                            content: Text("确认删除此网关？"),
                             actions: <Widget>[
                               TextButton(
                                 child: Text("取消"),

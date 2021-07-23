@@ -10,6 +10,7 @@ import 'package:jaguar_flutter_asset/jaguar_flutter_asset.dart';
 import 'package:openiothub_api/api/OpenIoTHub/Utils.dart';
 import 'package:openiothub_constants/constants/Config.dart';
 import 'package:openiothub_constants/constants/WeChatConfig.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wechat_kit/wechat_kit.dart';
 
 import 'package:openiothub_grpc_api/pb/service.pb.dart';
@@ -22,7 +23,9 @@ Future<void> init(){
   loadConfig();
 }
 
-Future<void> initBackgroundService(){
+Future<void> initBackgroundService() async {
+  // SharedPreferences prefs = await SharedPreferences.getInstance();
+  // await prefs.setBool("foreground", true);
   FlutterNatcloudService.start().then((String value) {
     // Fluttertoast.showToast(msg: "FlutterNatcloudService.start()：$value}");
   });

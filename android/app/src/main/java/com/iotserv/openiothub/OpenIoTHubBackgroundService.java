@@ -11,10 +11,16 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
+import android.content.SharedPreferences;
 
 import explorer.Explorer;
 
 public class OpenIoTHubBackgroundService extends Service {
+    Thread t1;
+    private static final String SHARED_PREFERENCES_NAME = "FlutterSharedPreferences";
+    private static final String PREFIX = "flutter.";
+    SharedPreferences preferences;
+
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -33,12 +39,11 @@ public class OpenIoTHubBackgroundService extends Service {
         } else{
             path = getFilesDir().getAbsolutePath();
         }
-        Thread t1= new Thread(){
+        t1= new Thread(){
             public void run(){
                 Explorer.run(path);
             }
         };
-        t1.start();
         super.onCreate();
     }
 
@@ -54,6 +59,16 @@ public class OpenIoTHubBackgroundService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d("Service","onStartCommand invoke");
+        t1.start();
+        preferences = this.getSharedPreferences(SHARED_PREFERENCES_NAME, this.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = preferences.edit();
+//        editor.putBoolean(PREFIX + "foreground",true);
+//        editor.commit();
+//        System.out.println("preferences.getBooean:" + preferences.getBoolean(PREFIX + "foreground", false));
+        int i = 0;
+        if(preferences.getBoolean(PREFIX + "foreground", false)){
+            i = 1;
+        }
         String CHANNEL_ONE_ID = "com.iotserv.openiothub";
         String CHANNEL_ONE_NAME = "Channel Two";
         NotificationChannel notificationChannel = null;
@@ -76,7 +91,7 @@ public class OpenIoTHubBackgroundService extends Service {
                     .setContentIntent(pendingIntent)
                     .build();
             notification.flags |= Notification.FLAG_NO_CLEAR;
-            startForeground(1, notification);
+            startForeground(i, notification);
         }else{
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
             Notification notification = new Notification.Builder(this)
@@ -87,7 +102,7 @@ public class OpenIoTHubBackgroundService extends Service {
                     .setContentIntent(pendingIntent)
                     .build();
             notification.flags |= Notification.FLAG_NO_CLEAR;
-            startForeground(1, notification);
+            startForeground(i, notification);
         }
         return super.onStartCommand(intent, flags, startId);
     }
@@ -98,6 +113,8 @@ public class OpenIoTHubBackgroundService extends Service {
     @Override
     public void onDestroy() {
         Log.d("Service","onDestroy invoke");
+        stopForeground(true);// 停止前台服务--参数：表示是否移除之前的通知
+        t1.stop();
         super.onDestroy();
     }
 
