@@ -38,7 +38,8 @@ class _CommonDeviceServiceTypesListState
     "assets/images/ic_discover_nearby.png",
     "assets/images/ic_discover_pos.png",
   ];
-  final titles = ["TCP端口", "UDP端口", "FTP端口", "HTTP端口"];
+  final titles = ["TCP端口", "UDP端口", "FTP端口"];
+  // , "HTTP端口"
   final List listData = [];
 
   @override
@@ -60,10 +61,10 @@ class _CommonDeviceServiceTypesListState
     listData.add(TAG_START);
     listData.add(ListItem(title: titles[2], icon: imagePaths[2]));
     listData.add(TAG_END);
-    listData.add(TAG_BLANK);
-    listData.add(TAG_START);
-    listData.add(ListItem(title: titles[3], icon: imagePaths[3]));
-    listData.add(TAG_END);
+    // listData.add(TAG_BLANK);
+    // listData.add(TAG_START);
+    // listData.add(ListItem(title: titles[3], icon: imagePaths[3]));
+    // listData.add(TAG_END);
   }
 
   Widget getIconImage(path) {

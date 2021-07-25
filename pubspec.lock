@@ -440,7 +440,7 @@ packages:
       name: openiothub_api
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.0.2+37"
+    version: "0.0.2+38"
   openiothub_common_pages:
     dependency: "direct main"
     description:

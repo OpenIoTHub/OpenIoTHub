@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:openiothub_api/api/OpenIoTHub/CommonDeviceApi.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:openiothub_grpc_api/pb/service.pb.dart';
@@ -157,6 +158,8 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
         TextEditingController.fromValue(TextEditingValue(text: "我的UDP"));
     TextEditingController _remote_port_controller =
         TextEditingController.fromValue(TextEditingValue(text: ""));
+    TextEditingController _local_port_controller =
+        TextEditingController.fromValue(TextEditingValue(text: ""));
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
@@ -178,7 +181,15 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
                         labelText: '端口号',
                         helperText: '该机器的端口号',
                       ),
-                    )
+                    ),
+                    TextFormField(
+                      controller: _local_port_controller,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(10.0),
+                        labelText: '映射到本手机端口号(随机则填0)',
+                        helperText: '本手机1024以上空闲端口号',
+                      ),
+                    ),
                   ],
                 ),
                 actions: <Widget>[
@@ -194,8 +205,17 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
                       var UDPConfig = PortConfig();
                       UDPConfig.device = device;
                       UDPConfig.description = _description_controller.text;
-                      UDPConfig.remotePort =
-                          int.parse(_remote_port_controller.text);
+                      try {
+                        UDPConfig.remotePort =
+                            int.parse(_remote_port_controller.text);
+                        UDPConfig.localProt =
+                            int.parse(_local_port_controller.text);
+                      } catch (e) {
+                        Fluttertoast.showToast(msg: "检查端口是否为数字$e");
+                        return;
+                      }
+                      UDPConfig.networkProtocol = "udp";
+                      UDPConfig.applicationProtocol = "unknown";
                       CommonDeviceApi.createOneUDP(UDPConfig).then((restlt) {
                         Navigator.of(context).pop();
                       });

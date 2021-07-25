@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:openiothub_api/api/OpenIoTHub/CommonDeviceApi.dart';
 import 'package:openiothub_constants/constants/Config.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
@@ -159,6 +160,8 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
         TextEditingController.fromValue(TextEditingValue(text: "FTP"));
     TextEditingController _remote_port_controller =
         TextEditingController.fromValue(TextEditingValue(text: "21"));
+    TextEditingController _local_port_controller =
+        TextEditingController.fromValue(TextEditingValue(text: "21"));
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
@@ -180,7 +183,14 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
                         labelText: '端口号',
                         helperText: '该机器的端口号',
                       ),
-                    )
+                    ),
+                    TextFormField(
+                        controller: _local_port_controller,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.all(10.0),
+                          labelText: '映射到本手机端口号(随机则填0)',
+                          helperText: '本手机1024以上空闲端口号',
+                        ))
                   ],
                 ),
                 actions: <Widget>[
@@ -196,8 +206,17 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
                       var FTPConfig = PortConfig();
                       FTPConfig.device = device;
                       FTPConfig.description = _description_controller.text;
-                      FTPConfig.remotePort =
-                          int.parse(_remote_port_controller.text);
+                      try {
+                        FTPConfig.remotePort =
+                            int.parse(_remote_port_controller.text);
+                        FTPConfig.localProt =
+                            int.parse(_local_port_controller.text);
+                      } catch (e) {
+                        Fluttertoast.showToast(msg: "检查端口是否为数字$e");
+                        return;
+                      }
+                      FTPConfig.networkProtocol = "tcp";
+                      FTPConfig.applicationProtocol = "ftp";
                       CommonDeviceApi.createOneFTP(FTPConfig).then((restlt) {
                         Navigator.of(context).pop();
                       });

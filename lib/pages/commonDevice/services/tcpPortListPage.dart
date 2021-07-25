@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:openiothub_api/api/OpenIoTHub/CommonDeviceApi.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:openiothub_grpc_api/pb/service.pb.dart';
@@ -177,6 +178,10 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
         TextEditingController.fromValue(TextEditingValue(text: "我的TCP"));
     TextEditingController _remote_port_controller =
         TextEditingController.fromValue(TextEditingValue(text: "80"));
+    TextEditingController _local_port_controller =
+    TextEditingController.fromValue(TextEditingValue(text: "0"));
+    TextEditingController _domain_controller =
+    TextEditingController.fromValue(TextEditingValue(text: "www.example.com"));
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
@@ -195,10 +200,26 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                       controller: _remote_port_controller,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
-                        labelText: '端口号',
+                        labelText: '远程机器需要访问的端口号',
                         helperText: '该机器的端口号',
                       ),
-                    )
+                    ),
+                    TextFormField(
+                      controller: _local_port_controller,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(10.0),
+                        labelText: '映射到本手机端口号(随机则填0)',
+                        helperText: '本手机1024以上空闲端口号',
+                      ),
+                    ),
+                    TextFormField(
+                      controller: _domain_controller,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(10.0),
+                        labelText: '网站映射到外网的域名',
+                        helperText: '不是网站端口请不要修改;不想映射到服务器请不要修改',
+                      ),
+                    ),
                   ],
                 ),
                 actions: <Widget>[
@@ -214,8 +235,22 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                       var tcpConfig = PortConfig();
                       tcpConfig.device = device;
                       tcpConfig.description = _description_controller.text;
-                      tcpConfig.remotePort =
-                          int.parse(_remote_port_controller.text);
+                      try {
+                        tcpConfig.remotePort =
+                            int.parse(_remote_port_controller.text);
+                        tcpConfig.localProt =
+                            int.parse(_local_port_controller.text);
+                      }catch(e){
+                        Fluttertoast.showToast(msg: "检查端口是否为数字$e");
+                        return;
+                      }
+                      tcpConfig.networkProtocol = "tcp";
+                      if(_domain_controller.text != "www.example.com"){
+                        tcpConfig.domain = _domain_controller.text;
+                        tcpConfig.applicationProtocol = "http";
+                      }else{
+                        tcpConfig.applicationProtocol = "unknown";
+                      }
                       CommonDeviceApi.createOneTCP(tcpConfig).then((restlt) {
                         Navigator.of(context).pop();
                       });
