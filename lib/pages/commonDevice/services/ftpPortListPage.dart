@@ -91,6 +91,7 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
 
   void _pushDetail(PortConfig config) async {
     final List _result = [];
+    _result.add("UUID:${config.uuid}");
     _result.add("端口:${config.remotePort}");
     _result.add("映射到端口:${config.localProt}");
     _result.add("描述:${config.description}");

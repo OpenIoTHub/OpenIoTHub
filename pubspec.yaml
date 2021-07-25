@@ -51,7 +51,7 @@ dependencies:
 #    git: https://github.com/OpenIoTHub/modules
   openiothub_constants: ^0.0.1
   openiothub_plugin: ^0.0.2+4
-  openiothub_api: ^0.0.1
+  openiothub_api: ^0.0.2
   openiothub_common_pages: ^0.0.1
 #    path: ../modules/
   # 应用OTA

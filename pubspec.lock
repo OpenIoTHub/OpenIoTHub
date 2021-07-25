@@ -342,7 +342,7 @@ packages:
       name: iot_manager_grpc_api
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.0.2+24"
+    version: "0.0.2+25"
   jaguar:
     dependency: transitive
     description:
@@ -440,14 +440,14 @@ packages:
       name: openiothub_api
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.0.2+30"
+    version: "0.0.2+37"
   openiothub_common_pages:
     dependency: "direct main"
     description:
       name: openiothub_common_pages
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.0.2+46"
+    version: "0.0.2+49"
   openiothub_constants:
     dependency: "direct main"
     description:
@@ -461,14 +461,14 @@ packages:
       name: openiothub_grpc_api
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.0.1+10"
+    version: "0.0.1+12"
   openiothub_plugin:
     dependency: "direct main"
     description:
       name: openiothub_plugin
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.0.2+22"
+    version: "0.0.2+25"
   package_info:
     dependency: transitive
     description:

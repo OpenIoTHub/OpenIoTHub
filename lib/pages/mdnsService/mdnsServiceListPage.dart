@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mdns_plugin/mdns_plugin.dart' as mdns_plugin;
 import 'package:multicast_dns/multicast_dns.dart';
 import 'package:openiothub/model/custom_theme.dart';
@@ -256,16 +257,15 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
       return;
     }
     print("addPortService:${portService.info}");
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     String id = portService.info["id"];
-    Map<String, dynamic> device_cname_map = Map<String, String>();
-    if (prefs.containsKey(SharedPreferencesKey.DEVICE_CNAME_KEY)) {
-      String device_cname =
-          await prefs.getString(SharedPreferencesKey.DEVICE_CNAME_KEY);
-      device_cname_map = jsonDecode(device_cname);
-      if (device_cname_map.containsKey(id)) {
-        portService.info["name"] = device_cname_map[id].toString();
-      }
+    String value = "";
+    try {
+      value = await CnameManager.GetCname(id);
+    }catch(e){
+      Fluttertoast.showToast(msg: e);
+    }
+    if ( value != "" && value != null) {
+      portService.info["name"] = value;
     }
     if (!_IoTDeviceMap.containsKey(id) ||
         (_IoTDeviceMap.containsKey(id) &&

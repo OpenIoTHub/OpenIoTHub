@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub_api/api/OpenIoTHub/SessionApi.dart';
+import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_constants/constants/Config.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:openiothub_grpc_api/pb/service.pb.dart';
@@ -53,8 +56,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
         return InkWell(
           onTap: () {
             //直接打开内置web浏览器浏览页面
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
               return Scaffold(
                 appBar: AppBar(title: Text("网页浏览器"), actions: <Widget>[
                   IconButton(
@@ -128,9 +130,9 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                               TextButton(
                                 child: Text("删除"),
                                 onPressed: () {
+                                  Navigator.of(context).pop();
                                   deleteOneSession(widget.sessionConfig);
 //                                  ：TODO 删除之后刷新列表
-                                  Navigator.of(context).pop();
                                 },
                               )
                             ]));
@@ -175,7 +177,24 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
             context: context,
             tiles: tiles,
           ).toList();
-
+          divided.add(TextButton(
+              onPressed: () async {
+                String uuid = config.runId;
+                var gatewayJwtValue = await GatewayManager.GetGatewayJwtByGatewayUuid(config.runId);
+                String gatewayJwt = gatewayJwtValue.value;
+                String data = '''
+gatewayuuid: ${getOneUUID()}
+logconfig:
+  enablestdout: true
+  logfilepath: ""
+loginwithtokenmap:
+  $uuid: $gatewayJwt
+''';
+                Clipboard.setData(ClipboardData(text: data));
+                Fluttertoast.showToast(
+                    msg: "网关的token已经复制到了剪切板！你可以将这个token复制到网关的配置文件了");
+              },
+              child: Text("复制网关Token")));
           return Scaffold(
             appBar: AppBar(
               title: Text('网络详情'),
@@ -188,46 +207,19 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
   }
 
   Future deleteOneSession(SessionConfig config) async {
+    //先通知远程的网关删除配置再删除本地的代理（拦截同时删除服务器配置）
     try {
-      final response = await SessionApi.deleteOneSession(config);
-      print('Greeter client received: ${response}');
-      showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-                  title: Text("删除结果："),
-                  content: Text("删除成功！"),
-                  actions: <Widget>[
-                    TextButton(
-                      child: Text("确认"),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    )
-                  ])).then((result) {
-        Navigator.of(context).pop();
-      });
+      SessionApi.deleteRemoteGatewayConfig(config);
     } catch (e) {
-      print('Caught error: $e');
-      showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-                  title: Text("删除结果："),
-                  content: Text("删除失败！$e"),
-                  actions: <Widget>[
-                    TextButton(
-                      child: Text("取消"),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                    TextButton(
-                      child: Text("确认"),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    )
-                  ]));
+      Fluttertoast.showToast(msg: "删除远程网关的配置失败$e");
     }
+    try {
+      SessionApi.deleteOneSession(config);
+    } catch (e) {
+      Fluttertoast.showToast(msg: "删除本地网关的映射失败$e");
+    }
+    Fluttertoast.showToast(msg: "网关成功!");
+    Navigator.of(context).pop();
   }
 
   Future refreshmDNSServices(SessionConfig sessionConfig) async {

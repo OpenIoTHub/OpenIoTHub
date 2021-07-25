@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 import 'package:openiothub/model/custom_theme.dart';
@@ -13,6 +14,15 @@ import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:openiothub_grpc_api/pb/service.pb.dart';
 import 'package:openiothub_grpc_api/pb/service.pbgrpc.dart';
 import 'package:provider/provider.dart';
+
+import 'package:gateway_grpc_api/pb/service.pb.dart';
+import 'package:gateway_grpc_api/pb/service.pbgrpc.dart';
+import 'package:iot_manager_grpc_api/pb/gatewayManager.pb.dart';
+import 'package:openiothub_api/api/GateWay/GatewayLoginManager.dart';
+import 'package:openiothub_api/api/OpenIoTHub/SessionApi.dart';
+import 'package:openiothub_api/openiothub_api.dart';
+import 'package:openiothub_grpc_api/pb/service.pb.dart';
+import 'package:openiothub_grpc_api/pb/service.pbgrpc.dart';
 
 class SessionListPage extends StatefulWidget {
   SessionListPage({Key key, this.title}) : super(key: key);
@@ -242,34 +252,12 @@ class _SessionListPageState extends State<SessionListPage> {
   }
 
   void _addGateway() {
-    TextEditingController _token_controller =
-        TextEditingController.fromValue(TextEditingValue(text: ""));
-    TextEditingController _description_controller =
-        TextEditingController.fromValue(TextEditingValue(text: "我的网络"));
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: Text("手动添加网关："),
-                content: ListView(
-                  children: <Widget>[
-                    TextFormField(
-                      controller: _token_controller,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
-                        labelText: '请输入远程网关Token',
-                        helperText: 'token',
-                      ),
-                    ),
-                    TextFormField(
-                      controller: _description_controller,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
-                        labelText: '请输入备注',
-                        helperText: '备注',
-                      ),
-                    )
-                  ],
-                ),
+                title: Text("手动添加一个网关？"),
+                content:
+                    Text("自动生成一个网关信息，回头拿着token填写到网关配置文件即可，适合于手机无法同局域网发现网关的情况"),
                 actions: <Widget>[
                   TextButton(
                     child: Text("取消"),
@@ -279,19 +267,45 @@ class _SessionListPageState extends State<SessionListPage> {
                   ),
                   TextButton(
                     child: Text("添加"),
-                    onPressed: () {
-                      SessionConfig config = SessionConfig();
-                      config.token = _token_controller.text;
-                      config.description = _description_controller.text;
-                      createOneSession(config).then((restlt) {
-                        Navigator.of(context).pop();
-                      });
+                    onPressed: () async {
+                      // 从服务器自动生成一个网关
+                      GatewayInfo gatewayInfo = await GatewayManager
+                          .GenerateOneGatewayWithDefaultServer();
+                      await _addToMySessionList(
+                          gatewayInfo.openIoTHubJwt, gatewayInfo.name);
+                      String uuid = gatewayInfo.gatewayUuid;
+                      String gatewayJwt = gatewayInfo.gatewayJwt;
+                      String data = '''
+gatewayuuid: ${getOneUUID()}
+logconfig:
+  enablestdout: true
+  logfilepath: ""
+loginwithtokenmap:
+  $uuid: $gatewayJwt
+''';
+                      Clipboard.setData(ClipboardData(text: data));
+                      Fluttertoast.showToast(
+                          msg: "网关的id与token已经复制到剪切板，请将剪切板的配置填写到网关的配置文件中");
+                      Navigator.of(context).pop();
                     },
                   )
                 ])).then((restlt) {
+
       setState(() {
         getAllSession();
       });
     });
+  }
+
+  Future _addToMySessionList(String token, name) async {
+    SessionConfig config = SessionConfig();
+    config.token = token;
+    config.description = name;
+    try {
+      await SessionApi.createOneSession(config);
+      Fluttertoast.showToast(msg: "添加网关成功！");
+    } catch (exception) {
+      Fluttertoast.showToast(msg: "登录失败：${exception}");
+    }
   }
 }

@@ -7,6 +7,7 @@ import 'package:flutter_natcloud_service/flutter_natcloud_service.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jaguar/jaguar.dart';
 import 'package:jaguar_flutter_asset/jaguar_flutter_asset.dart';
+import 'package:openiothub_api/api/IoTManager/CnameManager.dart';
 import 'package:openiothub_api/api/OpenIoTHub/Utils.dart';
 import 'package:openiothub_constants/constants/Config.dart';
 import 'package:openiothub_constants/constants/WeChatConfig.dart';
@@ -62,4 +63,5 @@ Future<void> loadConfig(){
       // Fluttertoast.showToast(msg: rsp.msg);
     });
   });
+  CnameManager.LoadAllCnameFromRemote();
 }
