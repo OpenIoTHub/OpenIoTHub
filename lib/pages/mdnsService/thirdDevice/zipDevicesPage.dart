@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:iot_manager_grpc_api/pb/mqttDeviceManager.pbgrpc.dart';
+import 'package:iot_manager_grpc_api/iot_manager_grpc_api.dart';
 import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_common_pages/user/LoginPage.dart';

@@ -15,8 +15,8 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: 'stable'
-      - name: specify NDK
-        run: chmod +x ./.github/scripts/download-ndk.sh && ./.github/scripts/download-ndk.sh
+#      - name: specify NDK
+#        run: chmod +x ./.github/scripts/download-ndk.sh && ./.github/scripts/download-ndk.sh
       - uses: OpenIoTHub/release-downloader@v1
         with:
           repository: "OpenIoTHub/OpenIoTHubService"
@@ -30,8 +30,8 @@ jobs:
           LARGE_SECRET_PASSPHRASE: ${{ secrets.GPG_LARGE_SECRET_PASSPHRASE }}
       - run: flutter pub upgrade
       - run: flutter pub get
-      - run: flutter build apk --profile
-      - run: flutter build apk --debug
+#      - run: flutter build apk --profile
+#      - run: flutter build apk --debug
       - run: flutter build apk --release -v
       - uses: actions/upload-artifact@v2
         with:

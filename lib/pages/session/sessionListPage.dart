@@ -15,14 +15,7 @@ import 'package:openiothub_grpc_api/pb/service.pb.dart';
 import 'package:openiothub_grpc_api/pb/service.pbgrpc.dart';
 import 'package:provider/provider.dart';
 
-import 'package:gateway_grpc_api/pb/service.pb.dart';
-import 'package:gateway_grpc_api/pb/service.pbgrpc.dart';
-import 'package:iot_manager_grpc_api/pb/gatewayManager.pb.dart';
-import 'package:openiothub_api/api/GateWay/GatewayLoginManager.dart';
-import 'package:openiothub_api/api/OpenIoTHub/SessionApi.dart';
-import 'package:openiothub_api/openiothub_api.dart';
-import 'package:openiothub_grpc_api/pb/service.pb.dart';
-import 'package:openiothub_grpc_api/pb/service.pbgrpc.dart';
+import 'package:iot_manager_grpc_api/iot_manager_grpc_api.dart';
 
 class SessionListPage extends StatefulWidget {
   SessionListPage({Key key, this.title}) : super(key: key);

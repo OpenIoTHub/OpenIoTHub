@@ -23,8 +23,7 @@ import 'package:openiothub_plugin/plugins/mdnsService/mdnsType2ModelMap.dart';
 //统一导入全部设备类型
 import 'package:openiothub_plugin/plugins/mdnsService/modelsMap.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:iot_manager_grpc_api/pb/mqttDeviceManager.pbgrpc.dart';
+import 'package:iot_manager_grpc_api/iot_manager_grpc_api.dart';
 
 class MdnsServiceListPage extends StatefulWidget {
   MdnsServiceListPage({Key key, this.title}) : super(key: key);

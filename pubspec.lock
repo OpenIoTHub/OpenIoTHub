@@ -274,7 +274,7 @@ packages:
     source: hosted
     version: "7.1.8"
   gateway_grpc_api:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: gateway_grpc_api
       url: "https://pub.flutter-io.cn"
@@ -337,12 +337,12 @@ packages:
     source: hosted
     version: "0.17.0"
   iot_manager_grpc_api:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: iot_manager_grpc_api
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.0.2+29"
+    version: "0.0.2+31"
   jaguar:
     dependency: transitive
     description:
@@ -440,7 +440,7 @@ packages:
       name: openiothub_api
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.0.2+40"
+    version: "0.0.2+42"
   openiothub_common_pages:
     dependency: "direct main"
     description:
@@ -456,7 +456,7 @@ packages:
     source: hosted
     version: "0.0.2+9"
   openiothub_grpc_api:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: openiothub_grpc_api
       url: "https://pub.flutter-io.cn"
@@ -573,7 +573,7 @@ packages:
       name: process
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "4.2.2"
+    version: "4.2.3"
   protobuf:
     dependency: "direct main"
     description:
@@ -603,7 +603,7 @@ packages:
     source: hosted
     version: "0.25.0"
   server_grpc_api:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: server_grpc_api
       url: "https://pub.flutter-io.cn"

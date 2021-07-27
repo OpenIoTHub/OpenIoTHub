@@ -53,6 +53,12 @@ dependencies:
   openiothub_plugin: ^0.0.2+4
   openiothub_api: ^0.0.2
   openiothub_common_pages: ^0.0.1
+
+  openiothub_grpc_api: ^0.0.1
+  server_grpc_api: ^0.0.1
+  gateway_grpc_api: ^0.0.1
+  iot_manager_grpc_api: ^0.0.2
+
 #    path: ../modules/
   # 应用OTA
 #  upgrader: ^0.10.2
