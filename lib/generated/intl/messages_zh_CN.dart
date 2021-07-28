@@ -26,6 +26,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "profile_click_avatar_to_sign_in" : MessageLookupByLibrary.simpleMessage("点击头像登录"),
     "profile_docs" : MessageLookupByLibrary.simpleMessage("文档"),
     "profile_not_logged_in" : MessageLookupByLibrary.simpleMessage("未登录"),
+    "profile_servers" : MessageLookupByLibrary.simpleMessage("我的服务器"),
     "profile_settings" : MessageLookupByLibrary.simpleMessage("设置"),
     "profile_tools" : MessageLookupByLibrary.simpleMessage("工具"),
     "tab_gateway" : MessageLookupByLibrary.simpleMessage("网关"),

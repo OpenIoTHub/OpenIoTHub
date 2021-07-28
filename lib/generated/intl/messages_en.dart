@@ -26,6 +26,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "profile_click_avatar_to_sign_in" : MessageLookupByLibrary.simpleMessage("Click avatar to sign in"),
     "profile_docs" : MessageLookupByLibrary.simpleMessage("Docs"),
     "profile_not_logged_in" : MessageLookupByLibrary.simpleMessage("Not logged in"),
+    "profile_servers" : MessageLookupByLibrary.simpleMessage("My Servers"),
     "profile_settings" : MessageLookupByLibrary.simpleMessage("Settings"),
     "profile_tools" : MessageLookupByLibrary.simpleMessage("Tools"),
     "tab_gateway" : MessageLookupByLibrary.simpleMessage("gateway"),

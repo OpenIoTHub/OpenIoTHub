@@ -8,6 +8,7 @@ import 'package:openiothub/pages/user/tools/toolsTypePage.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_common_pages/commPages/appInfo.dart';
 import 'package:openiothub_common_pages/commPages/settings.dart';
+import 'package:openiothub_common_pages/openiothub_common_pages.dart';
 import 'package:openiothub_common_pages/user/LoginPage.dart';
 import 'package:openiothub_common_pages/user/userInfoPage.dart';
 import 'package:openiothub_constants/constants/SharedPreferences.dart';
@@ -146,6 +147,17 @@ class _ProfilePageState extends State<ProfilePage> {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => SettingsPage(
                     title: S.current.profile_settings,
+                  )));
+            }),
+        ListTile(
+          //第一个功能项
+            title: Text(S.current.profile_servers),
+            leading: Icon(Icons.send_rounded),
+            trailing: Icon(Icons.arrow_right),
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => ServerPages(
+                    title: S.current.profile_servers,
                   )));
             }),
         ListTile(

@@ -115,6 +115,16 @@ class S {
     );
   }
 
+  /// `My Servers`
+  String get profile_servers {
+    return Intl.message(
+      'My Servers',
+      name: 'profile_servers',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Tools`
   String get profile_tools {
     return Intl.message(
