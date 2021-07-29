@@ -386,7 +386,26 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage>
         sessionConfigList.forEach((SessionConfig sessionConfig) {
           SessionApi.getAllTCP(sessionConfig).then((t) {
             t.portConfigs.forEach((portConfig) {
-              addPortService(portConfig.mDNSInfo);
+              PortService _portService;
+              if (MDNS2ModelsMap.modelsMap.containsKey(portConfig.mDNSInfo.info["service"])){
+                _portService = MDNS2ModelsMap.modelsMap[portConfig.mDNSInfo.info["service"]].clone();
+                _portService.info.addAll(portConfig.mDNSInfo.info);
+                _portService.ip = "127.0.0.1";
+                _portService.port = portConfig.localProt;
+                _portService.isLocal = false;
+                if (_portService.info.containsKey("id") &&
+                    _portService.info["id"] == "" &&
+                    _portService.info.containsKey("mac") &&
+                    _portService.info["mac"] != "") {
+                  _portService.info["id"] = _portService.info["mac"];
+                } else {
+                  _portService.info["id"] =
+                  "${portConfig.device.addr}:${_portService.port}@local";
+                }
+                addPortService(_portService);
+              }else{
+                addPortService(portConfig.mDNSInfo);
+              }
             });
           });
         });
