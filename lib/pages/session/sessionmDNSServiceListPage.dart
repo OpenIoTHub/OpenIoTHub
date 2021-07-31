@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:iot_manager_grpc_api/iot_manager_grpc_api.dart';
 import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub_api/api/OpenIoTHub/SessionApi.dart';
+import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_constants/constants/Config.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
@@ -93,8 +95,17 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
     ).toList();
     return Scaffold(
       appBar: AppBar(
-        title: Text("本网络内的mdns列表"),
+        title: Text("mdns列表"),
         actions: <Widget>[
+          //重新命名
+          IconButton(
+              icon: Icon(
+                Icons.edit,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                _renameDialog();
+              }),
           IconButton(
               icon: Icon(
                 Icons.refresh,
@@ -249,5 +260,50 @@ loginwithtokenmap:
         },
       ),
     );
+  }
+
+  _renameDialog() async {
+    TextEditingController _new_name_controller =
+    TextEditingController.fromValue(
+        TextEditingValue(text: widget.sessionConfig.name));
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+            title: Text("修改名称："),
+            content: ListView(
+              children: <Widget>[
+                TextFormField(
+                  controller: _new_name_controller,
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(10.0),
+                    labelText: '请输入新的名称',
+                    helperText: '名称',
+                  ),
+                )
+              ],
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text("取消"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: Text("修改"),
+                onPressed: () async {
+                  //修改服务器上的
+                  GatewayInfo gatewayInfo = GatewayInfo();
+                  gatewayInfo.gatewayUuid = widget.sessionConfig.runId;
+                  gatewayInfo.name = _new_name_controller.text;
+                  gatewayInfo.description = widget.sessionConfig.description;
+                  GatewayManager.UpdateGateway(gatewayInfo);
+                  //修改本地的
+                  widget.sessionConfig.name = _new_name_controller.text;
+                  SessionApi.UpdateSessionNameDescription(widget.sessionConfig);
+                  Navigator.of(context).pop();
+                },
+              )
+            ]));
   }
 }

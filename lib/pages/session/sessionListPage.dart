@@ -61,7 +61,7 @@ class _SessionListPageState extends State<SessionListPage> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Text(pair.description, style: Constants.titleTextStyle),
+              Text("${pair.name}(${pair.description})", style: Constants.titleTextStyle),
             ],
           ),
           trailing: Constants.rightArrowIcon,
@@ -99,14 +99,6 @@ class _SessionListPageState extends State<SessionListPage> {
               onPressed: () {
                 _pushFindmDNSClientListPage();
               }),
-          IconButton(
-              icon: Icon(
-                Icons.add_circle,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                _addGateway();
-              }),
         ],
       ),
       body: divided.length > 0
@@ -116,16 +108,7 @@ class _SessionListPageState extends State<SessionListPage> {
                 ThemeUtils.isDarkMode(context)
                     ? Image.asset('assets/images/empty_list_black.png')
                     : Image.asset('assets/images/empty_list.png'),
-                TextButton(
-                    style: ButtonStyle(
-                      side: MaterialStateProperty.all(
-                          BorderSide(color: Colors.grey, width: 1)),
-                      shape: MaterialStateProperty.all(StadiumBorder()),
-                    ),
-                    onPressed: () {
-                      _addGateway();
-                    },
-                    child: Text("请先添加网关"))
+                    Text("请使用右上角放大镜查找你在本局域网安装的网关"),
               ]),
             ),
     );
@@ -242,63 +225,5 @@ class _SessionListPageState extends State<SessionListPage> {
       child:
           Image.asset(path, width: IMAGE_ICON_WIDTH, height: IMAGE_ICON_WIDTH),
     );
-  }
-
-  void _addGateway() {
-    showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-                title: Text("手动添加一个网关？"),
-                content:
-                    Text("自动生成一个网关信息，回头拿着token填写到网关配置文件即可，适合于手机无法同局域网发现网关的情况"),
-                actions: <Widget>[
-                  TextButton(
-                    child: Text("取消"),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                  TextButton(
-                    child: Text("添加"),
-                    onPressed: () async {
-                      // 从服务器自动生成一个网关
-                      GatewayInfo gatewayInfo = await GatewayManager
-                          .GenerateOneGatewayWithDefaultServer();
-                      await _addToMySessionList(
-                          gatewayInfo.openIoTHubJwt, gatewayInfo.name);
-                      String uuid = gatewayInfo.gatewayUuid;
-                      String gatewayJwt = gatewayInfo.gatewayJwt;
-                      String data = '''
-gatewayuuid: ${getOneUUID()}
-logconfig:
-  enablestdout: true
-  logfilepath: ""
-loginwithtokenmap:
-  $uuid: $gatewayJwt
-''';
-                      Clipboard.setData(ClipboardData(text: data));
-                      Fluttertoast.showToast(
-                          msg: "网关的id与token已经复制到剪切板，请将剪切板的配置填写到网关的配置文件中");
-                      Navigator.of(context).pop();
-                    },
-                  )
-                ])).then((restlt) {
-
-      setState(() {
-        getAllSession();
-      });
-    });
-  }
-
-  Future _addToMySessionList(String token, name) async {
-    SessionConfig config = SessionConfig();
-    config.token = token;
-    config.description = name;
-    try {
-      await SessionApi.createOneSession(config);
-      Fluttertoast.showToast(msg: "添加网关成功！");
-    } catch (exception) {
-      Fluttertoast.showToast(msg: "登录失败：${exception}");
-    }
   }
 }

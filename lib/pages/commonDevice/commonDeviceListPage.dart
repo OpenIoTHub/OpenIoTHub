@@ -236,7 +236,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
                 Icon(Icons.cloud_done),
                 Expanded(
                     child: Text(
-                  pair.description,
+                      "${pair.name}(${pair.description})",
                   style: Constants.titleTextStyle,
                 )),
                 Constants.rightArrowIcon
