@@ -190,6 +190,15 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
           ).toList();
           divided.add(TextButton(
               onPressed: () async {
+                var gatewayJwtValue = await GatewayManager.GetGatewayJwtByGatewayUuid(config.runId);
+                String gatewayJwt = gatewayJwtValue.value;
+                Clipboard.setData(ClipboardData(text: gatewayJwt));
+                Fluttertoast.showToast(
+                    msg: "网关的token已经复制到了剪切板！你可以将此token作为网关参数运行或者添加到配置文件：bash>gateway-go -t <你的token>");
+              },
+              child: Text("复制网关Token")));
+          divided.add(TextButton(
+              onPressed: () async {
                 String uuid = config.runId;
                 var gatewayJwtValue = await GatewayManager.GetGatewayJwtByGatewayUuid(config.runId);
                 String gatewayJwt = gatewayJwtValue.value;
@@ -203,9 +212,9 @@ loginwithtokenmap:
 ''';
                 Clipboard.setData(ClipboardData(text: data));
                 Fluttertoast.showToast(
-                    msg: "网关的token已经复制到了剪切板！你可以将这个token复制到网关的配置文件了");
+                    msg: "网关的配置文件已经复制到了剪切板！你可以将这个配置内容复制到网关的配置文件(gateway-go.yaml)了");
               },
-              child: Text("复制网关Token")));
+              child: Text("复制网关配置内容")));
           return Scaffold(
             appBar: AppBar(
               title: Text('网络详情'),
