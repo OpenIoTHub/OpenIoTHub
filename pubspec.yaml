@@ -50,9 +50,9 @@ dependencies:
 #  modules:
 #    git: https://github.com/OpenIoTHub/modules
   openiothub_constants: ^0.0.1
-  openiothub_plugin: ^0.0.2+4
+  openiothub_plugin: ^0.0.2+30
   openiothub_api: ^0.0.2
-  openiothub_common_pages: ^0.0.1
+  openiothub_common_pages: ^0.0.2
 
   openiothub_grpc_api: ^0.0.1
   server_grpc_api: ^0.0.1

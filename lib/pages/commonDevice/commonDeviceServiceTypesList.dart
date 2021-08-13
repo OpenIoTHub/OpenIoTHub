@@ -300,6 +300,7 @@ class _CommonDeviceServiceTypesListState
   void _pushDetail() async {
 //:TODO    这里显示内网的服务，socks5等，右上角详情才展示详细信息
     final List _result = [];
+    _result.add("本设备id:${widget.device.uuid}");
     _result.add("内网id:${widget.device.runId}");
     _result.add("描述:${widget.device.description}");
     _result.add("地址:${widget.device.addr}");
