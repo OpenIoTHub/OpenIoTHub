@@ -41,7 +41,7 @@ dependencies:
   #  静态网页sever
   jaguar_flutter_asset: ^3.0.0
   #  player
-  video_player: ^0.10.1+3
+#  video_player: ^0.10.1+3
   #  mDNS
   multicast_dns: ^0.2.2
   mdns_plugin: ^1.1.4
