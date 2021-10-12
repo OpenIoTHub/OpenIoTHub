@@ -47,7 +47,7 @@ PODS:
     - Flutter
   - flutter_vlc_player (3.0.2):
     - Flutter
-    - MobileVLCKit (~> 3.3.15)
+    - MobileVLCKit (~> 3.3.17)
   - fluttertoast (0.0.2):
     - Flutter
     - Toast
@@ -56,7 +56,7 @@ PODS:
   - FMDB/standard (2.7.5)
   - mdns_plugin (0.0.1):
     - Flutter
-  - MobileVLCKit (3.3.15)
+  - MobileVLCKit (3.3.17)
   - package_info (0.0.1):
     - Flutter
   - path_provider (0.0.1):
@@ -75,8 +75,6 @@ PODS:
   - SwiftyGif (5.4.0)
   - Toast (4.0.0)
   - url_launcher (0.0.1):
-    - Flutter
-  - video_player (0.0.1):
     - Flutter
   - webview_flutter (0.0.1):
     - Flutter
@@ -107,7 +105,6 @@ DEPENDENCIES:
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
-  - video_player (from `.symlinks/plugins/video_player/ios`)
   - webview_flutter (from `.symlinks/plugins/webview_flutter/ios`)
   - wechat_kit (from `.symlinks/plugins/wechat_kit/ios`)
   - wifi_info_flutter (from `.symlinks/plugins/wifi_info_flutter/ios`)
@@ -158,8 +155,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/sqflite/ios"
   url_launcher:
     :path: ".symlinks/plugins/url_launcher/ios"
-  video_player:
-    :path: ".symlinks/plugins/video_player/ios"
   webview_flutter:
     :path: ".symlinks/plugins/webview_flutter/ios"
   wechat_kit:
@@ -172,18 +167,18 @@ SPEC CHECKSUMS:
   DKImagePickerController: b5eb7f7a388e4643264105d648d01f727110fc3d
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
   file_picker: 3e6c3790de664ccf9b882732d9db5eaf6b8d4eb1
-  Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
+  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
   flutter_easylink: b10f76d05b7855bb5c664e5e190b576dc75330cc
   flutter_natcloud_service: 7da325592b738a0e77e77695e55287bb6ce3ca79
   flutter_oneshot: 0c221471d1688cc987e41fc55f9e7b6d997e9120
   flutter_smartlink: 18c271f7f14a872e028ba3dd89e5fa33db4ca83b
-  flutter_vlc_player: bb2059d1a5833e695ec30a25864336baf065fd9f
+  flutter_vlc_player: 235ae431db52f5e02aa76d72f61806accb1841e3
   fluttertoast: 6122fa75143e992b1d3470f61000f591a798cc58
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   mdns_plugin: f678ac538ece5a95490ede585dfa6b46aaaac977
-  MobileVLCKit: d49847b272be23de89212e8205334334e5ec7331
+  MobileVLCKit: c5dd1b0ae933dc9c2348099840e753496dcdd908
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
-  path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
+  path_provider: d1e9807085df1f9cc9318206cd649dc0b76be3de
   permission_handler: 67637977b227d62d46bfbf524f335f8568de5a73
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SDWebImage: e378178472b735e84b007bfb55514c97948a0598
@@ -192,12 +187,11 @@ SPEC CHECKSUMS:
   SwiftyGif: 5d4af95df24caf1c570dbbcb32a3b8a0763bc6d7
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   url_launcher: a1c0cc845906122c4784c542523d8cacbded5626
-  video_player: 9cc823b1d9da7e8427ee591e8438bfbcde500e6e
   webview_flutter: d2b4d6c66968ad042ad94cbb791f5b72b4678a96
   wechat_kit: f0d7689116121620fcf543f42221f97a9fc2cf1e
   WechatOpenSDK: 6a4d1436c15b3b5fe2a0bd383f3046010186da44
   wifi_info_flutter: 55d4c2469034f5b5c38063ccefa62f708a503a2b
 
-PODFILE CHECKSUM: 1ae28766dbc2c84c01be043942cf2b6e793bcbe6
+PODFILE CHECKSUM: 597dfb9d55f00704b59f30951a6bd08689b7ad06
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.2
