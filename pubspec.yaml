@@ -14,7 +14,7 @@ dependencies:
 
   flutter_localizations:
     sdk: flutter
-  cupertino_icons: ^0.1.2
+  cupertino_icons: ^1.0.4
   #  golang的后台服务
   flutter_natcloud_service:
 #    git: https://github.com/OpenIoTHub/flutter_natcloud_service
@@ -29,7 +29,7 @@ dependencies:
   #  打开url
   url_launcher: ^5.0.2
   #  安卓intent调用其他程序
-  android_intent: ^0.3.6+1
+  android_intent: ^2.0.2
   #  数据存储
   shared_preferences: ^0.5.2
   #  事件总线
@@ -50,7 +50,7 @@ dependencies:
 #  modules:
 #    git: https://github.com/OpenIoTHub/modules
   openiothub_constants: ^0.0.1
-  openiothub_plugin: ^0.0.2+30
+  openiothub_plugin: ^0.0.2+37
   openiothub_api: ^0.0.2
   openiothub_common_pages: ^0.0.2
 
@@ -63,10 +63,10 @@ dependencies:
   # 应用OTA
 #  upgrader: ^0.10.2
 #  provider: ^3.0.0
-  provider: ^4.3.2+3
+  provider: ^6.0.2
 #  fluwx: ^2.4.1
   wechat_kit: ^2.3.1
-  fluttertoast: ^7.1.6
+  fluttertoast: ^8.0.8
 
 dev_dependencies:
   flutter_test:
