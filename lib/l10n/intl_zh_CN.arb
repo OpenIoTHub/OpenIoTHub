@@ -1,0 +1,14 @@
+{
+  "app_title": "云亿连",
+  "tab_smart": "智能",
+  "tab_gateway": "网关",
+  "tab_host": "主机",
+  "tab_user": "用户",
+  "profile_not_logged_in": "未登录",
+  "profile_click_avatar_to_sign_in": "点击头像登录",
+  "profile_settings": "设置",
+  "profile_servers": "我的服务器",
+  "profile_tools": "工具",
+  "profile_docs": "文档",
+  "profile_about_this_app": "关于本软件"
+}

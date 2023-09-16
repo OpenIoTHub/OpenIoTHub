@@ -3,9 +3,11 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  url_launcher_linux
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST
+  openiothub_mobile_service
 )
 
 set(PLUGIN_BUNDLED_LIBRARIES)
