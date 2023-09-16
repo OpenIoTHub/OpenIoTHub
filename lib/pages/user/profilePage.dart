@@ -23,7 +23,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String useremail = "";
   String usermobile = "";
 
-  late String userAvatar;
+  String userAvatar ="";
 
   late List<ListTile> _listTiles;
 
@@ -82,7 +82,7 @@ class _ProfilePageState extends State<ProfilePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             GestureDetector(
-              child: userAvatar != null
+              child: userAvatar != ""
                   ? Container(
                       width: 60.0,
                       height: 60.0,

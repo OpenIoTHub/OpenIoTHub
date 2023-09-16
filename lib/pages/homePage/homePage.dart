@@ -128,7 +128,10 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         return ProfilePage();
         break;
     }
-    return Text("没有匹配的内容");
+    return MdnsServiceListPage(
+      title: S.current.tab_smart,
+      key: UniqueKey(),
+    );
   }
 
   Widget _buildBottomNavigationBar(int index) {
@@ -145,7 +148,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
           _buildBotomItem(_currentIndex, 0, Icons.home, S.current.tab_smart),
           _buildBotomItem(
               _currentIndex, 1, Icons.airplay, S.current.tab_gateway),
-          _buildBotomItem(_currentIndex, -1, Icons.ac_unit, "null"),
+          _buildBotomItem(_currentIndex, -1, Icons.ac_unit, ""),
           _buildBotomItem(_currentIndex, 2, Icons.print, S.current.tab_host),
           _buildBotomItem(_currentIndex, 3, Icons.person, S.current.tab_user),
         ],
