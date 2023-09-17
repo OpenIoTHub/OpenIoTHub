@@ -5,10 +5,10 @@ packages:
     dependency: transitive
     description:
       name: airkiss_dart
-      sha256: "7770455e5d9abde1737caf0277dc42b1640702bfbfa2e652d9280c5bc47cc791"
+      sha256: "56c296e0984f0380afe9ad0503520542d1b8b3846e344a73894d34d891ea8bd8"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.0"
+    version: "1.0.0+5"
   android_intent:
     dependency: "direct main"
     description:
@@ -497,18 +497,18 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_api
-      sha256: e62db173e8cfe89660e1abd7748339365642792ec614d880b07e94393f8f9900
+      sha256: "14c3063d20f53c0ba140add640a1e9da5dea347cea29045032158f19b1ba1ac7"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.1+1"
+    version: "1.0.1+2"
   openiothub_common_pages:
     dependency: "direct main"
     description:
       name: openiothub_common_pages
-      sha256: "1c79bfd7445af0f7778dc371ea315ecafa535c657cd1c8643cf57198015069c5"
+      sha256: ab53f3f92f722ce0cb3e278400d28fb9b66fa4d2c9c33995761964761b0f245a
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.1+2"
+    version: "1.0.1+3"
   openiothub_constants:
     dependency: "direct main"
     description:
@@ -529,10 +529,10 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_mobile_service
-      sha256: ee2572d16bf75a2b06ff27e74d2f7d2fcc66e329dbd81e3278d21e9b3976c4ad
+      sha256: ad1de75dc26a7c0750c0afaca45e425d7bcb3c2ba2d2a0adb7c94510844e1fbb
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.0.4"
+    version: "0.0.6"
   openiothub_plugin:
     dependency: "direct main"
     description:
