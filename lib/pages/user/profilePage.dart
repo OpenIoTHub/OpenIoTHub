@@ -194,7 +194,7 @@ class _ProfilePageState extends State<ProfilePage> {
             leading: Icon(Icons.info),
             trailing: Icon(Icons.arrow_right),
             onTap: () {
-              openiothub_mobile_service.run();
+              // openiothub_mobile_service.run();
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => AppInfoPage(
                         key: UniqueKey(),
