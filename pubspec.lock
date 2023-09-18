@@ -529,10 +529,10 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_mobile_service
-      sha256: ad1de75dc26a7c0750c0afaca45e425d7bcb3c2ba2d2a0adb7c94510844e1fbb
+      sha256: "1e509e248ea9ee1ceea718e6821334e6f79a3a2b5dfed0dcbb11f908910c1e5d"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.0.6"
+    version: "0.0.6+1"
   openiothub_plugin:
     dependency: "direct main"
     description:

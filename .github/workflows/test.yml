@@ -68,7 +68,6 @@ jobs:
           channel: stable
           cache: true
       - run: flutter config --no-enable-android
-      - run: flutter pub upgrade
       - run: flutter pub get
       - run: flutter build ipa  --release --no-codesign
       - uses: actions/upload-artifact@v2
@@ -111,12 +110,12 @@ jobs:
       - run: flutter config --no-enable-android
       - run: flutter pub get
       - run: flutter build macos --release
-      - run: cd build/macos/Build/Products/Release
-      - run: ditto -c -k --sequesterRsrc --keepParent openiothub.app macos-release.zip
-      - uses: actions/upload-artifact@v2
-        with:
-          name: macos-release.zip
-          path: ./build/macOS/Build/Products/Release/macos-release.zip
+#      - run: cd build/macos/Build/Products/Release
+#      - run: ditto -c -k --sequesterRsrc --keepParent openiothub.app macos-release.zip
+#      - uses: actions/upload-artifact@v2
+#        with:
+#          name: macos-release.zip
+#          path: ./build/macOS/Build/Products/Release/macos-release.zip
 #
   windows:
     name: Windows
@@ -133,9 +132,9 @@ jobs:
       - run: flutter config --no-enable-android
       - run: flutter pub get
       - run: flutter build windows --release
-      - run: cd build\windows\runner
-      - run: Compress-Archive -Path Release -DestinationPath windows-release.zip
-      - uses: actions/upload-artifact@v2
-        with:
-          name: macos-release.zip
-          path: ./build/windows/runner/windows-release.zip
+#      - run: cd build\windows\runner
+#      - run: Compress-Archive -Path Release -DestinationPath windows-release.zip
+#      - uses: actions/upload-artifact@v2
+#        with:
+#          name: macos-release.zip
+#          path: ./build/windows/runner/windows-release.zip
