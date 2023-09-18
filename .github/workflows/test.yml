@@ -90,8 +90,10 @@ jobs:
           flutter build linux --release
       - name: Install snapcraft
         run: sudo snap install snapcraft --classic
-      - name: Install multipass
-        run: sudo snap install multipass --classic
+#      - name: Install multipass
+#        run: sudo snap install multipass --classic
+      - name: Run hash -r
+        run: hash -r
       - name: run snapcraft
         run: snapcraft
 #
