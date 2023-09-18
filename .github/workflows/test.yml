@@ -30,24 +30,24 @@ jobs:
       - run: flutter pub get
 #      - run: flutter build apk --profile
 #      - run: flutter build apk --debug
-      - run: flutter build apk --release -v
+      - run: flutter build apk --release
       - uses: actions/upload-artifact@v2
         with:
           name: app-release-all.apk
           path: ./build/app/outputs/flutter-apk/app-release.apk
-      - run: flutter build apk --release --split-per-abi -v
-      - uses: actions/upload-artifact@v2
-        with:
-          name: app-arm64-v8a-release.apk
-          path: ./build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
-      - uses: actions/upload-artifact@v2
-        with:
-          name: app-x86_64-release.apk
-          path: ./build/app/outputs/flutter-apk/app-x86_64-release.apk
-      - uses: actions/upload-artifact@v2
-        with:
-          name: app-armeabi-v7a-release.apk
-          path: ./build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
+#      - run: flutter build apk --release --split-per-abi
+#      - uses: actions/upload-artifact@v2
+#        with:
+#          name: app-arm64-v8a-release.apk
+#          path: ./build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
+#      - uses: actions/upload-artifact@v2
+#        with:
+#          name: app-x86_64-release.apk
+#          path: ./build/app/outputs/flutter-apk/app-x86_64-release.apk
+#      - uses: actions/upload-artifact@v2
+#        with:
+#          name: app-armeabi-v7a-release.apk
+#          path: ./build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
 
   ios:
     name: iOS
@@ -70,87 +70,72 @@ jobs:
       - run: flutter config --no-enable-android
       - run: flutter pub upgrade
       - run: flutter pub get
-      - run: flutter build ios  --release --no-codesign
-      - run: zip -r Runner.ipa r build/ios/iphoneos
+      - run: flutter build ipa  --release --no-codesign
       - uses: actions/upload-artifact@v2
         with:
-          name: ipa
-          path: ./Runner.ipa
+          name: Runner.xcarchive
+          path: ./build/ios/archive/Runner.xcarchive
 
-#  linux:
-#    name: Linux
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v2
-#      - uses: actions/setup-java@v1
-#        with:
-#          java-version: '12.x'
-#      - uses: subosito/flutter-action@v1
-#        with:
-#          channel: 'stable'
-#      - name: Install required build tools for linux
-#        run: sudo apt-get update && sudo apt-get install clang cmake ninja-build pkg-config libgtk-3-dev libblkid-dev
-#      - name: Build linux release
-#        run: |
-#          flutter config --enable-linux-desktop
-#          flutter config --no-enable-android
-#          flutter pub get
-#          flutter clean
-#          flutter build linux --release
-#          cd build/linux/release
-#          ls
-#          zip -r linux-release.zip bundle
-#      - name: Create linux Release
-#        uses: ncipollo/release-action@v1
-#        with:
-#          artifacts: 'build/linux/release/linux-release.zip'
-#          token: ${{ secrets.TOKEN }}
-#          allowUpdates: true
+  linux:
+    name: Linux
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
+      - name: Install required build tools for linux
+        run: sudo apt-get update && sudo apt-get install clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
+      - name: Build linux release
+        run: |
+          flutter config --enable-linux-desktop
+          flutter config --no-enable-android
+          flutter pub get
+          flutter build linux --release
 #
-#  macos:
-#    name: MacOS
-#    runs-on: macos-latest
-#    steps:
-#      - uses: actions/checkout@v2
-#      - uses: actions/setup-java@v1
-#        with:
-#          java-version: '12.x'
-#      - uses: subosito/flutter-action@v1
-#        with:
-#          channel: 'stable'
-#      - run: flutter config --enable-macos-desktop
-#      - run: flutter config --no-enable-android
-#      - run: flutter pub get
-#      - run: flutter build macos -v --release
-#      - run: cd build/macos/Build/Products/Release
-#      - run: ditto -c -k --sequesterRsrc --keepParent invmovieconcept1.app macos-release.zip
-#      - uses: ncipollo/release-action@v1
-#        with:
-#          artifacts: 'app/build/macOS/Build/Products/Release/macos-release.zip'
-#          token: ${{ secrets.TOKEN }}
-#          allowUpdates: true
+  macos:
+    name: MacOS
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
+      - run: flutter config --enable-macos-desktop
+      - run: flutter config --no-enable-android
+      - run: flutter pub get
+      - run: flutter build macos --release
+      - run: cd build/macos/Build/Products/Release
+      - run: ditto -c -k --sequesterRsrc --keepParent openiothub.app macos-release.zip
+      - uses: actions/upload-artifact@v2
+        with:
+          name: macos-release.zip
+          path: ./build/macOS/Build/Products/Release/macos-release.zip
 #
-#  windows:
-#    name: Windows
-#    runs-on: windows-latest
-#    steps:
-#      - uses: actions/checkout@v2
-#      - uses: actions/setup-java@v1
-#        with:
-#          java-version: '12.x'
-#      - uses: subosito/flutter-action@v1
-#        with:
-#          channel: 'stable'
-#      - run: |
-#      - run: flutter config --enable-windows-desktop
-#      - run: flutter config --no-enable-android
-#      - run: flutter pub get
-#      - run: flutter build windows --release
-#      - run: cd build\windows\runner
-#      - run: Compress-Archive -Path Release -DestinationPath windows-release.zip
-#      - name: Windows release build for github
-#        uses: ncipollo/release-action@v1
-#        with:
-#          artifacts: 'app\build\windows\runner\windows-release.zip'
-#          token: ${{ secrets.TOKEN }}
-#          allowUpdates: true
+  windows:
+    name: Windows
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
+      - run: flutter config --enable-windows-desktop
+      - run: flutter config --no-enable-android
+      - run: flutter pub get
+      - run: flutter build windows --release
+      - run: cd build\windows\runner
+      - run: Compress-Archive -Path Release -DestinationPath windows-release.zip
+      - uses: actions/upload-artifact@v2
+        with:
+          name: macos-release.zip
+          path: ./build/windows/runner/windows-release.zip
