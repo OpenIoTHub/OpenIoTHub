@@ -90,12 +90,16 @@ jobs:
           flutter build linux --release
       - name: Install snapcraft
         run: sudo snap install snapcraft --classic
-#      - name: Install multipass
-#        run: sudo snap install multipass --classic
+      - name: Install lxd
+        run: |
+          sudo snap install lxd
+          echo ~
+          sudo usermod -a -G lxd runner
+          sudo lxd init
       - name: Run hash -r
         run: hash -r
       - name: run snapcraft
-        run: snapcraft
+        run: snapcraft --use-lxd
 #
   macos:
     name: MacOS
