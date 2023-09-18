@@ -90,11 +90,8 @@ jobs:
           flutter build linux --release
       - name: Install snapcraft
         run: sudo snap install snapcraft --classic
-      - name: Install lxd
-        run: |
-          sudo snap install lxd
-          echo ~
-          sudo usermod -a -G lxd runner
+      - name: Config lxd
+        run:
           sudo lxd init
       - name: Run hash -r
         run: hash -r
