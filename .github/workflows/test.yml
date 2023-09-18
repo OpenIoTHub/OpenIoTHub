@@ -92,8 +92,12 @@ jobs:
         run: sudo snap install snapcraft --classic
       - name: Run hash -r
         run: hash -r
+      - uses: whywaita/setup-lxd@v1
+        with:
+          lxd_version: latest/stable
       - name: run snapcraft
         run: |
+          echo $USERNAME
           sudo usermod -a -G lxd runner
           snapcraft --use-lxd
 #
