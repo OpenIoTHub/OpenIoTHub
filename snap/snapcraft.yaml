@@ -1,0 +1,28 @@
+name: openiothub
+version: 0.1.0
+summary: OpenIoTHub App
+description: OpenIoTHub App for IoT device and proxy!
+
+confinement: strict
+base: core18
+grade: stable
+
+#slots:
+#  dbus-openiothub: # adjust accordingly to your app name
+#    interface: dbus
+#    bus: session
+#    name: org.bar.super_cool_app # adjust accordingly to your app name and
+
+apps:
+  openiothub:
+    command: openiothub
+    extensions: [flutter-master]
+    plugs:
+      - network
+#    slots:
+#      - dbus-openiothub
+parts:
+  openiothub:
+    source: .
+    plugin: flutter
+    flutter-target: lib/main.dart

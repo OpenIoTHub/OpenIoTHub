@@ -30,10 +30,14 @@ jobs:
       - run: flutter pub upgrade
       - run: flutter pub get
       - run: flutter build apk --release
-      - uses: actions/upload-artifact@v3
+      - name: Release APK
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
         with:
-          name: app-release-all.apk
-          path: ./build/app/outputs/flutter-apk/app-release.apk
+          files: |
+            ./build/app/outputs/flutter-apk/app-release.apk
+            LICENSE
+          body_path: ./.github/doc/DownloadDescription.md
 
   ios:
     name: iOS

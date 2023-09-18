@@ -88,6 +88,12 @@ jobs:
           flutter config --no-enable-android
           flutter pub get
           flutter build linux --release
+      - name: Install snapcraft
+        run: sudo snap install snapcraft --classic
+      - name: Install multipass
+        run: sudo snap install multipass --classic
+      - name: run snapcraft
+        run: snapcraft
 #
   macos:
     name: MacOS
