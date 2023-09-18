@@ -33,20 +33,20 @@ jobs:
 #      - run: flutter build apk --profile
 #      - run: flutter build apk --debug
       - run: flutter build apk --release
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: app-release-all.apk
           path: ./build/app/outputs/flutter-apk/app-release.apk
 #      - run: flutter build apk --release --split-per-abi
-#      - uses: actions/upload-artifact@v2
+#      - uses: actions/upload-artifact@v3
 #        with:
 #          name: app-arm64-v8a-release.apk
 #          path: ./build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
-#      - uses: actions/upload-artifact@v2
+#      - uses: actions/upload-artifact@v3
 #        with:
 #          name: app-x86_64-release.apk
 #          path: ./build/app/outputs/flutter-apk/app-x86_64-release.apk
-#      - uses: actions/upload-artifact@v2
+#      - uses: actions/upload-artifact@v3
 #        with:
 #          name: app-armeabi-v7a-release.apk
 #          path: ./build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
@@ -67,7 +67,7 @@ jobs:
       - run: flutter config --no-enable-android
       - run: flutter pub get
       - run: flutter build ipa  --release --no-codesign
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: Runner.xcarchive
           path: ./build/ios/archive/Runner.xcarchive
@@ -103,7 +103,7 @@ jobs:
       - run: flutter build macos --release
 #      - run: cd build/macos/Build/Products/Release
 #      - run: ditto -c -k --sequesterRsrc --keepParent openiothub.app macos-release.zip
-#      - uses: actions/upload-artifact@v2
+#      - uses: actions/upload-artifact@v3
 #        with:
 #          name: macos-release.zip
 #          path: ./build/macOS/Build/Products/Release/macos-release.zip
@@ -122,7 +122,7 @@ jobs:
       - run: flutter build windows --release
 #      - run: cd build\windows\runner
 #      - run: Compress-Archive -Path Release -DestinationPath windows-release.zip
-#      - uses: actions/upload-artifact@v2
+#      - uses: actions/upload-artifact@v3
 #        with:
 #          name: macos-release.zip
 #          path: ./build/windows/runner/windows-release.zip

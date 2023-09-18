@@ -30,7 +30,7 @@ jobs:
       - run: flutter pub upgrade
       - run: flutter pub get
       - run: flutter build apk --release
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: app-release-all.apk
           path: ./build/app/outputs/flutter-apk/app-release.apk
@@ -51,7 +51,7 @@ jobs:
       - run: flutter config --no-enable-android
       - run: flutter pub get
       - run: flutter build ipa  --release --no-codesign
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: Runner.xcarchive
           path: ./build/ios/archive/Runner.xcarchive
