@@ -93,7 +93,9 @@ jobs:
       - name: Run hash -r
         run: hash -r
       - name: run snapcraft
-        run: snapcraft --use-lxd
+        run: |
+          sudo usermod -a -G lxd runner
+          snapcraft --use-lxd
 #
   macos:
     name: MacOS
