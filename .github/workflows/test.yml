@@ -93,7 +93,7 @@ jobs:
       - name: Run hash -r
         run: hash -r
       - name: Setup LXD
-        uses: canonical/setup-lxd
+        uses: canonical/setup-lxd@v0.1.1
         with:
           channel: latest/stable
       - name: run snapcraft
