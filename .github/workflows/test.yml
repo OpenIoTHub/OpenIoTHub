@@ -75,6 +75,8 @@ jobs:
   linux:
     name: Linux
     runs-on: ubuntu-latest
+    env:
+      SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_TOKEN }}
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
@@ -91,7 +93,6 @@ jobs:
       - name: Install snapcraft
         run: |
           sudo snap install snapcraft --classic
-          echo ${{ secrets.SNAPCRAFT_TOKEN }} | snapcraft login --with -
       - name: Run hash -r
         run: hash -r
       - name: Setup LXD
