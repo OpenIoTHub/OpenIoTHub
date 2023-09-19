@@ -7,70 +7,70 @@ on:
     branches: [ master ]
 
 jobs:
-  android:
-    name: Android
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Decrypt large secret
-        run: chmod +x ./.github/scripts/decrypt_secret.sh&&./.github/scripts/decrypt_secret.sh
-        env:
-          LARGE_SECRET_PASSPHRASE: ${{ secrets.GPG_LARGE_SECRET_PASSPHRASE }}
-#      - uses: actions/setup-java@v3
+#  android:
+#    name: Android
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v3
+#      - name: Decrypt large secret
+#        run: chmod +x ./.github/scripts/decrypt_secret.sh&&./.github/scripts/decrypt_secret.sh
+#        env:
+#          LARGE_SECRET_PASSPHRASE: ${{ secrets.GPG_LARGE_SECRET_PASSPHRASE }}
+##      - uses: actions/setup-java@v3
+##        with:
+##          distribution: 'temurin'
+##          java-version: '17'
+#      - name: Set up Dart
+#        uses: dart-lang/setup-dart@v1
 #        with:
-#          distribution: 'temurin'
-#          java-version: '17'
-      - name: Set up Dart
-        uses: dart-lang/setup-dart@v1
-        with:
-          sdk: stable
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: stable
-      - run: flutter pub upgrade
-      - run: flutter pub get
-#      - run: flutter build apk --profile
-#      - run: flutter build apk --debug
-      - run: flutter build apk --release
-      - uses: actions/upload-artifact@v3
-        with:
-          name: app-release-all.apk
-          path: ./build/app/outputs/flutter-apk/app-release.apk
-#      - run: flutter build apk --release --split-per-abi
+#          sdk: stable
+#      - name: Set up Flutter
+#        uses: subosito/flutter-action@v2
+#        with:
+#          channel: stable
+#      - run: flutter pub upgrade
+#      - run: flutter pub get
+##      - run: flutter build apk --profile
+##      - run: flutter build apk --debug
+#      - run: flutter build apk --release
 #      - uses: actions/upload-artifact@v3
 #        with:
-#          name: app-arm64-v8a-release.apk
-#          path: ./build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
+#          name: app-release-all.apk
+#          path: ./build/app/outputs/flutter-apk/app-release.apk
+##      - run: flutter build apk --release --split-per-abi
+##      - uses: actions/upload-artifact@v3
+##        with:
+##          name: app-arm64-v8a-release.apk
+##          path: ./build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
+##      - uses: actions/upload-artifact@v3
+##        with:
+##          name: app-x86_64-release.apk
+##          path: ./build/app/outputs/flutter-apk/app-x86_64-release.apk
+##      - uses: actions/upload-artifact@v3
+##        with:
+##          name: app-armeabi-v7a-release.apk
+##          path: ./build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
+#
+#  ios:
+#    name: iOS
+#    runs-on: macos-latest
+#    steps:
+#      - uses: actions/checkout@v3
+#      - name: Set up Dart
+#        uses: dart-lang/setup-dart@v1
+#        with:
+#          sdk: stable
+#      - name: Set up Flutter
+#        uses: subosito/flutter-action@v2
+#        with:
+#          channel: stable
+#      - run: flutter config --no-enable-android
+#      - run: flutter pub get
+#      - run: flutter build ipa  --release --no-codesign
 #      - uses: actions/upload-artifact@v3
 #        with:
-#          name: app-x86_64-release.apk
-#          path: ./build/app/outputs/flutter-apk/app-x86_64-release.apk
-#      - uses: actions/upload-artifact@v3
-#        with:
-#          name: app-armeabi-v7a-release.apk
-#          path: ./build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
-
-  ios:
-    name: iOS
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up Dart
-        uses: dart-lang/setup-dart@v1
-        with:
-          sdk: stable
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: stable
-      - run: flutter config --no-enable-android
-      - run: flutter pub get
-      - run: flutter build ipa  --release --no-codesign
-      - uses: actions/upload-artifact@v3
-        with:
-          name: Runner.xcarchive
-          path: ./build/ios/archive/Runner.xcarchive
+#          name: Runner.xcarchive
+#          path: ./build/ios/archive/Runner.xcarchive
 
   linux:
     name: Linux
@@ -92,49 +92,48 @@ jobs:
         run: sudo snap install snapcraft --classic
       - name: Run hash -r
         run: hash -r
-      - uses: whywaita/setup-lxd@v1
+      - name: Setup LXD
+        uses: canonical/setup-lxd@[version]
         with:
-          lxd_version: latest/stable
+          channel: latest/stable
       - name: run snapcraft
         run: |
-          echo $USERNAME
-          sudo usermod -a -G lxd runner
           snapcraft --use-lxd
-#
-  macos:
-    name: MacOS
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-      - run: flutter config --enable-macos-desktop
-      - run: flutter config --no-enable-android
-      - run: flutter pub get
-      - run: flutter build macos --release
-#      - run: cd build/macos/Build/Products/Release
-#      - run: ditto -c -k --sequesterRsrc --keepParent openiothub.app macos-release.zip
-#      - uses: actions/upload-artifact@v3
+##
+#  macos:
+#    name: MacOS
+#    runs-on: macos-latest
+#    steps:
+#      - uses: actions/checkout@v3
+#      - uses: subosito/flutter-action@v2
 #        with:
-#          name: macos-release.zip
-#          path: ./build/macOS/Build/Products/Release/macos-release.zip
-#
-  windows:
-    name: Windows
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-      - run: flutter config --enable-windows-desktop
-      - run: flutter config --no-enable-android
-      - run: flutter pub get
-      - run: flutter build windows --release
-#      - run: cd build\windows\runner
-#      - run: Compress-Archive -Path Release -DestinationPath windows-release.zip
-#      - uses: actions/upload-artifact@v3
+#          channel: 'stable'
+#      - run: flutter config --enable-macos-desktop
+#      - run: flutter config --no-enable-android
+#      - run: flutter pub get
+#      - run: flutter build macos --release
+##      - run: cd build/macos/Build/Products/Release
+##      - run: ditto -c -k --sequesterRsrc --keepParent openiothub.app macos-release.zip
+##      - uses: actions/upload-artifact@v3
+##        with:
+##          name: macos-release.zip
+##          path: ./build/macOS/Build/Products/Release/macos-release.zip
+##
+#  windows:
+#    name: Windows
+#    runs-on: windows-latest
+#    steps:
+#      - uses: actions/checkout@v3
+#      - uses: subosito/flutter-action@v2
 #        with:
-#          name: macos-release.zip
-#          path: ./build/windows/runner/windows-release.zip
+#          channel: 'stable'
+#      - run: flutter config --enable-windows-desktop
+#      - run: flutter config --no-enable-android
+#      - run: flutter pub get
+#      - run: flutter build windows --release
+##      - run: cd build\windows\runner
+##      - run: Compress-Archive -Path Release -DestinationPath windows-release.zip
+##      - uses: actions/upload-artifact@v3
+##        with:
+##          name: macos-release.zip
+##          path: ./build/windows/runner/windows-release.zip
