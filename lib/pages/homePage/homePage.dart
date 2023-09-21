@@ -23,7 +23,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   Color _activeColor = Colors.orange;
   int _currentIndex = 0;
-  late Timer _timer;
+  Timer? _timer;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -42,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
       case AppLifecycleState.resumed: //从后台切换前台，界面可见
         // Fluttertoast.showToast(msg: "程序状态：${state.toString()}");
         if (_timer != null) {
-          _timer.cancel();
+          _timer!.cancel();
         }
         break;
       case AppLifecycleState.paused: // 界面不可见，后台
@@ -148,7 +148,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
           _buildBotomItem(_currentIndex, 0, Icons.home, S.current.tab_smart),
           _buildBotomItem(
               _currentIndex, 1, Icons.airplay, S.current.tab_gateway),
-          _buildBotomItem(_currentIndex, -1, Icons.ac_unit, ""),
+          _buildBotomItem(_currentIndex, -1, null, ""),
           _buildBotomItem(_currentIndex, 2, Icons.print, S.current.tab_host),
           _buildBotomItem(_currentIndex, 3, Icons.person, S.current.tab_user),
         ],
@@ -156,12 +156,12 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     );
   }
 
-  _buildBotomItem(int selectIndex, int index, IconData iconData, String title) {
+  _buildBotomItem(int selectIndex, int index, IconData? iconData, String title) {
     //未选中状态的样式
-    TextStyle textStyle = TextStyle(fontSize: 12.0, color: Colors.grey);
+    TextStyle textStyle = const TextStyle(fontSize: 12.0, color: Colors.grey);
     MaterialColor? iconColor = Colors.grey;
     double iconSize = 20;
-    EdgeInsetsGeometry padding = EdgeInsets.only(top: 8.0);
+    EdgeInsetsGeometry padding = const EdgeInsets.only(top: 8.0);
 
     if (selectIndex == index) {
       //选中状态的文字样式
@@ -199,9 +199,9 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     }
     Widget item = Expanded(
       flex: 1,
-      child: new GestureDetector(
+      child: GestureDetector(
         onTap: () {
-          if (index != _currentIndex) {
+          if (index != _currentIndex && index != -1) {
             setState(() {
               _currentIndex = index;
             });
