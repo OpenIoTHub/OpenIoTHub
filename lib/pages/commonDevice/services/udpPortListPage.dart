@@ -32,8 +32,8 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
           padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
           child: Row(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
                 child: Icon(Icons.devices),
               ),
               Expanded(
@@ -63,7 +63,7 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
         title: Text("UDP端口列表"),
         actions: <Widget>[
           IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.refresh,
                 color: Colors.white,
               ),
@@ -72,7 +72,7 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
                 refreshmUDPList();
               }),
           IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.add_circle,
                 color: Colors.white,
               ),
@@ -116,7 +116,7 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
           return Scaffold(
             appBar: AppBar(title: Text('端口详情'), actions: <Widget>[
               IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.delete,
                     color: Colors.red,
                   ),
@@ -155,11 +155,11 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
 
   Future _addUDP(Device device) async {
     TextEditingController _description_controller =
-        TextEditingController.fromValue(TextEditingValue(text: "我的UDP"));
+        TextEditingController.fromValue(const TextEditingValue(text: "我的UDP"));
     TextEditingController _remote_port_controller =
-        TextEditingController.fromValue(TextEditingValue(text: ""));
+        TextEditingController.fromValue(const TextEditingValue(text: ""));
     TextEditingController _local_port_controller =
-        TextEditingController.fromValue(TextEditingValue(text: ""));
+        TextEditingController.fromValue(const TextEditingValue(text: ""));
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
@@ -168,7 +168,7 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
                   children: <Widget>[
                     TextFormField(
                       controller: _description_controller,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: '备注',
                         helperText: '自定义备注',
@@ -176,7 +176,7 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
                     ),
                     TextFormField(
                       controller: _remote_port_controller,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: '端口号',
                         helperText: '该机器的端口号',
@@ -184,7 +184,7 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
                     ),
                     TextFormField(
                       controller: _local_port_controller,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: '映射到本手机端口号(随机则填0)',
                         helperText: '本手机1024以上空闲端口号',
@@ -194,13 +194,13 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
                 ),
                 actions: <Widget>[
                   TextButton(
-                    child: Text("取消"),
+                    child: const Text("取消"),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: Text("添加"),
+                    child: const Text("添加"),
                     onPressed: () {
                       var UDPConfig = PortConfig();
                       UDPConfig.device = device;
@@ -228,17 +228,17 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: Text("删除UDP"),
-                content: Text("确认删除此UDP？"),
+                title: const Text("删除UDP"),
+                content: const Text("确认删除此UDP？"),
                 actions: <Widget>[
                   TextButton(
-                    child: Text("取消"),
+                    child: const Text("取消"),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: Text("删除"),
+                    child: const Text("删除"),
                     onPressed: () {
                       CommonDeviceApi.deleteOneUDP(config).then((result) {
                         Navigator.of(context).pop();

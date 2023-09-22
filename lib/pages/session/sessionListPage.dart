@@ -32,7 +32,7 @@ class _SessionListPageState extends State<SessionListPage> {
   void initState() {
     super.initState();
     getAllSession();
-    _timerPeriod = Timer.periodic(Duration(seconds: 1), (Timer timer) {
+    _timerPeriod = Timer.periodic(const Duration(seconds: 2), (Timer timer) {
       getAllSession();
     });
   }

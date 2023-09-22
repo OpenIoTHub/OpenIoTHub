@@ -66,7 +66,7 @@ class LaunchState extends State<SplashPage> {
                   _countdown = 1;
                 },
                 child: Container(
-                  padding: EdgeInsets.fromLTRB(5, 2, 5, 2),
+                  padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.black12,
@@ -75,11 +75,11 @@ class LaunchState extends State<SplashPage> {
                     text: TextSpan(children: <TextSpan>[
                       TextSpan(
                           text: '$_countdown',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 18,
                             color: Colors.blue,
                           )),
-                      TextSpan(
+                      const TextSpan(
                         text: '跳过',
                         style: TextStyle(
                           fontSize: 18,

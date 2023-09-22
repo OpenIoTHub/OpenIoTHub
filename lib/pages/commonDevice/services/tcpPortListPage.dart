@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:openiothub_api/api/OpenIoTHub/CommonDeviceApi.dart';
@@ -34,8 +35,8 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
           padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
           child: Row(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
                 child: Icon(Icons.devices),
               ),
               Expanded(
@@ -65,7 +66,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
         title: Text("TCP端口列表"),
         actions: <Widget>[
           IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.refresh,
                 color: Colors.white,
               ),
@@ -74,7 +75,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                 refreshmTcpList();
               }),
           IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.add_circle,
                 color: Colors.white,
               ),
@@ -118,7 +119,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
           return Scaffold(
             appBar: AppBar(title: Text('端口详情'), actions: <Widget>[
               IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.delete,
                     color: Colors.red,
                   ),
@@ -127,7 +128,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                     _deleteCurrentTCP(config);
                   }),
               IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.open_in_browser,
                     color: Colors.white,
                   ),
@@ -137,17 +138,17 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                     showDialog(
                         context: context,
                         builder: (_) => AlertDialog(
-                                title: Text("打开方式："),
+                                title: const Text("打开方式："),
                                 content: OpenWithChoice(config),
                                 actions: <Widget>[
                                   TextButton(
-                                    child: Text("取消"),
+                                    child: const Text("取消"),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
                                   ),
                                   TextButton(
-                                    child: Text("添加"),
+                                    child: const Text("添加"),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
@@ -170,28 +171,30 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
         });
       });
     } catch (e) {
-      print('Caught error: $e');
+      if (kDebugMode) {
+        print('Caught error: $e');
+      }
     }
   }
 
   Future _addTCP(Device device) async {
     TextEditingController _description_controller =
-        TextEditingController.fromValue(TextEditingValue(text: "我的TCP"));
+        TextEditingController.fromValue(const TextEditingValue(text: "我的TCP"));
     TextEditingController _remote_port_controller =
-        TextEditingController.fromValue(TextEditingValue(text: "80"));
+        TextEditingController.fromValue(const TextEditingValue(text: "80"));
     TextEditingController _local_port_controller =
-        TextEditingController.fromValue(TextEditingValue(text: "0"));
+        TextEditingController.fromValue(const TextEditingValue(text: "0"));
     TextEditingController _domain_controller = TextEditingController.fromValue(
-        TextEditingValue(text: "www.example.com"));
+        const TextEditingValue(text: "www.example.com"));
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: Text("添加端口："),
+                title: const Text("添加端口："),
                 content: ListView(
                   children: <Widget>[
                     TextFormField(
                       controller: _description_controller,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: '备注',
                         helperText: '自定义备注',
@@ -199,7 +202,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                     ),
                     TextFormField(
                       controller: _remote_port_controller,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: '远程机器需要访问的端口号',
                         helperText: '该机器的端口号',
@@ -207,7 +210,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                     ),
                     TextFormField(
                       controller: _local_port_controller,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: '映射到本手机端口号(随机则填0)',
                         helperText: '本手机1024以上空闲端口号',
@@ -215,7 +218,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                     ),
                     TextFormField(
                       controller: _domain_controller,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: '网站映射到外网的域名',
                         helperText: '不是网站端口请不要修改;不想映射到服务器请不要修改',
@@ -225,13 +228,13 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                 ),
                 actions: <Widget>[
                   TextButton(
-                    child: Text("取消"),
+                    child: const Text("取消"),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: Text("添加"),
+                    child: const Text("添加"),
                     onPressed: () {
                       var tcpConfig = PortConfig();
                       tcpConfig.device = device;
@@ -264,17 +267,17 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: Text("删除TCP"),
-                content: Text("确认删除此TCP？"),
+                title: const Text("删除TCP"),
+                content: const Text("确认删除此TCP？"),
                 actions: <Widget>[
                   TextButton(
-                    child: Text("取消"),
+                    child: const Text("取消"),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: Text("删除"),
+                    child: const Text("删除"),
                     onPressed: () {
                       CommonDeviceApi.deleteOneTCP(config).then((result) {
                         Navigator.of(context).pop();

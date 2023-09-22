@@ -50,7 +50,7 @@ class _ProfilePageState extends State<ProfilePage> {
             return _buildListTile(index);
           },
           separatorBuilder: (context, index) {
-            return Divider();
+            return const Divider();
           },
           itemCount: _listTiles == null ? 1 : _listTiles.length + 1,
         ));
@@ -107,7 +107,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           color: Color(0xffffffff),
                           width: 2.0,
                         ),
-                        image: DecorationImage(
+                        image: const DecorationImage(
                           image: ExactAssetImage(
                               "assets/images/leftmenu/avatars/panda.jpg"),
                           fit: BoxFit.cover,
@@ -118,7 +118,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 _login();
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 10.0,
             ),
             Text(
@@ -209,8 +209,8 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
+    if (await canLaunchUrl(url as Uri)) {
+      await launchUrl(url as Uri);
     } else {
       print('Could not launch $url');
     }

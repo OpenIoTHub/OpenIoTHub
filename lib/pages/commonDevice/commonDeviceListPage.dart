@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:openiothub/model/custom_theme.dart';
@@ -31,7 +32,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
   void initState() {
     super.initState();
     getAllCommonDevice();
-    _timerPeriod = Timer.periodic(Duration(seconds: 3), (Timer timer) {
+    _timerPeriod = Timer.periodic(const Duration(seconds: 5), (Timer timer) {
       getAllCommonDevice();
     });
     print("init common devie List");
@@ -40,9 +41,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
   @override
   void dispose() {
     super.dispose();
-    if (_timerPeriod != null) {
-      _timerPeriod.cancel();
-    }
+    _timerPeriod.cancel();
   }
 
   @override
@@ -80,7 +79,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
         centerTitle: true,
         actions: <Widget>[
           IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.refresh,
                 color: Colors.white,
               ),
@@ -90,7 +89,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
                 });
               }),
           IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.add_circle,
                 color: Colors.white,
               ),
@@ -99,7 +98,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
               }),
         ],
       ),
-      body: divided.length > 0
+      body: divided.isNotEmpty
           ? ListView(children: divided)
           : Container(
               child: Column(children: [
@@ -109,7 +108,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
                 TextButton(
                     style: ButtonStyle(
                       side: MaterialStateProperty.all(
-                          BorderSide(color: Colors.grey, width: 1)),
+                          const BorderSide(color: Colors.grey, width: 1)),
                       shape: MaterialStateProperty.all(StadiumBorder()),
                     ),
                     onPressed: () {
@@ -134,7 +133,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
                   children: <Widget>[
                     TextFormField(
                       controller: _description_controller,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: '备注',
                         helperText: '自定义备注',
@@ -142,7 +141,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
                     ),
                     TextFormField(
                       controller: _remote_ip_controller,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: '远程内网的IP',
                         helperText: '内网设备的IP',
@@ -222,7 +221,9 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
         _CommonDeviceList = response.devices;
       });
     } catch (e) {
-      print("openiothub获取设备失败:$e");
+      if (kDebugMode) {
+        print("openiothub获取设备失败:$e");
+      }
       // Fluttertoast.showToast(msg: "获取设备列表失败：${e}");
     }
   }
@@ -235,7 +236,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
             padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
             child: Row(
               children: <Widget>[
-                Icon(Icons.cloud_done),
+                const Icon(Icons.cloud_done),
                 Expanded(
                     child: Text(
                   "${pair.name}(${pair.description})",
@@ -262,13 +263,13 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
-                  title: Text("选择一个内网："),
+                  title: const Text("选择一个内网："),
                   content: ListView(
                     children: divided,
                   ),
                   actions: <Widget>[
                     TextButton(
-                      child: Text("取消"),
+                      child: const Text("取消"),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },

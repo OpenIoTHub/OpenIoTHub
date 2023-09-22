@@ -59,18 +59,18 @@ class ToolsTypePage extends StatelessWidget {
     if (item is String) {
       switch (item) {
         case TAG_START:
-          return Divider(
+          return const Divider(
             height: 1.0,
           );
           break;
         case TAG_END:
-          return Divider(
+          return const Divider(
             height: 1.0,
           );
           break;
         case TAG_CENTER:
-          return Padding(
-            padding: const EdgeInsets.fromLTRB(50.0, 0.0, 0.0, 0.0),
+          return const Padding(
+            padding: EdgeInsets.fromLTRB(50.0, 0.0, 0.0, 0.0),
             child: Divider(
               height: 1.0,
             ),

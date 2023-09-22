@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:openiothub_api/api/Server/HttpManager.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
@@ -25,7 +26,7 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
   void initState() {
     super.initState();
     refreshmHttpList();
-    _timerPeriod = Timer.periodic(Duration(seconds: 3), (Timer timer) {
+    _timerPeriod = Timer.periodic(const Duration(seconds: 3), (Timer timer) {
       refreshmHttpList();
     });
   }
@@ -33,10 +34,8 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
   @override
   void dispose() {
     super.dispose();
-    if (_timerPeriod != null) {
-      _timerPeriod.cancel();
+    _timerPeriod.cancel();
     }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +45,8 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
           padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
           child: Row(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
                 child: Icon(Icons.devices),
               ),
               Expanded(
@@ -74,10 +73,10 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
     ).toList();
     return Scaffold(
       appBar: AppBar(
-        title: Text("Http端口列表"),
+        title: const Text("Http端口列表"),
         actions: <Widget>[
           IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.refresh,
                 color: Colors.white,
               ),
@@ -86,7 +85,7 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
                 refreshmHttpList();
               }),
           IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.add_circle,
                 color: Colors.white,
               ),
@@ -127,9 +126,9 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
           ).toList();
 
           return Scaffold(
-            appBar: AppBar(title: Text('端口详情'), actions: <Widget>[
+            appBar: AppBar(title: const Text('端口详情'), actions: <Widget>[
               IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.delete,
                     color: Colors.red,
                   ),
@@ -138,7 +137,7 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
                     _deleteCurrentHttp(config);
                   }),
               IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.open_in_browser,
                     color: Colors.white,
                   ),
@@ -181,7 +180,7 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
                   children: <Widget>[
                     TextFormField(
                       controller: _description_controller,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: '备注',
                         helperText: '自定义备注',
@@ -189,7 +188,7 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
                     ),
                     TextFormField(
                       controller: _domain_controller,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: '域名',
                         helperText: '配置该端口的域名',
@@ -197,7 +196,7 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
                     ),
                     TextFormField(
                       controller: _port_controller,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: '端口',
                         helperText: '需要映射的端口',
@@ -207,13 +206,13 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
                 ),
                 actions: <Widget>[
                   TextButton(
-                    child: Text("取消"),
+                    child: const Text("取消"),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: Text("添加"),
+                    child: const Text("添加"),
                     onPressed: () {
                       HTTPConfig HttpConfig = HTTPConfig();
                       HttpConfig.runId = device.runId;
@@ -233,17 +232,17 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: Text("删除Http"),
-                content: Text("确认删除此Http？"),
+                title: const Text("删除Http"),
+                content: const Text("确认删除此Http？"),
                 actions: <Widget>[
                   TextButton(
-                    child: Text("取消"),
+                    child: const Text("取消"),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: Text("删除"),
+                    child: const Text("删除"),
                     onPressed: () {
                       HttpManager.DeleteOneHTTP(config).then((result) {
                         Navigator.of(context).pop();
@@ -258,10 +257,12 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
   }
 
   _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
+    if (await canLaunchUrl(url as Uri)) {
+      await launchUrl(url as Uri);
     } else {
-      print('Could not launch $url');
+      if (kDebugMode) {
+        print('Could not launch $url');
+      }
     }
   }
 }

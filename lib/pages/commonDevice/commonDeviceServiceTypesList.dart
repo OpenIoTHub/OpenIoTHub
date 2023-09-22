@@ -82,18 +82,18 @@ class _CommonDeviceServiceTypesListState
     if (item is String) {
       switch (item) {
         case TAG_START:
-          return Divider(
+          return const Divider(
             height: 1.0,
           );
           break;
         case TAG_END:
-          return Divider(
+          return const Divider(
             height: 1.0,
           );
           break;
         case TAG_CENTER:
-          return Padding(
-            padding: const EdgeInsets.fromLTRB(50.0, 0.0, 0.0, 0.0),
+          return const Padding(
+            padding: EdgeInsets.fromLTRB(50.0, 0.0, 0.0, 0.0),
             child: Divider(
               height: 1.0,
             ),
@@ -171,9 +171,9 @@ class _CommonDeviceServiceTypesListState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("服务"), actions: <Widget>[
+        appBar: AppBar(title: const Text("服务"), actions: <Widget>[
           IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.delete,
                 color: Colors.red,
               ),
@@ -182,7 +182,7 @@ class _CommonDeviceServiceTypesListState
                 _deleteCurrentDevice();
               }),
           IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.power_settings_new,
                 color: Colors.white,
               ),
@@ -192,7 +192,7 @@ class _CommonDeviceServiceTypesListState
               }),
 //            TODO 设备的详情
           IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.info,
                 color: Colors.white,
               ),
@@ -214,11 +214,11 @@ class _CommonDeviceServiceTypesListState
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: Text("删除设备"),
-                content: Text("确认删除此设备？"),
+                title: const Text("删除设备"),
+                content: const Text("确认删除此设备？"),
                 actions: <Widget>[
                   TextButton(
-                    child: Text("取消"),
+                    child: const Text("取消"),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -244,17 +244,17 @@ class _CommonDeviceServiceTypesListState
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: Text("唤醒设备"),
-                content: Text("第一次使用请选择\'设置物理地址\'，设置过物理地址可以直接点击\'唤醒设备\'。"),
+                title: const Text("唤醒设备"),
+                content: const Text("第一次使用请选择\'设置物理地址\'，设置过物理地址可以直接点击\'唤醒设备\'。"),
                 actions: <Widget>[
                   TextButton(
-                    child: Text("取消"),
+                    child: const Text("取消"),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: Text("重设物理地址"),
+                    child: const Text("重设物理地址"),
                     onPressed: () {
                       _setMacAddr().then((_) {
                         Navigator.of(context).pop();
@@ -262,7 +262,7 @@ class _CommonDeviceServiceTypesListState
                     },
                   ),
                   TextButton(
-                    child: Text("唤醒设备"),
+                    child: const Text("唤醒设备"),
                     onPressed: () {
                       CommonDeviceApi.wakeOnLAN(widget.device).then((_) {
                         Navigator.of(context).pop();
@@ -274,7 +274,7 @@ class _CommonDeviceServiceTypesListState
 
   Future _setMacAddr() async {
     TextEditingController _mac_controller = TextEditingController.fromValue(
-        TextEditingValue(text: "54-07-2F-BB-BB-2F"));
+        const TextEditingValue(text: "54-07-2F-BB-BB-2F"));
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
@@ -283,7 +283,7 @@ class _CommonDeviceServiceTypesListState
                   children: <Widget>[
                     TextFormField(
                       controller: _mac_controller,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: '物理地址',
                         helperText: '机器有线网卡的物理地址',
@@ -293,13 +293,13 @@ class _CommonDeviceServiceTypesListState
                 ),
                 actions: <Widget>[
                   TextButton(
-                    child: Text("取消"),
+                    child: const Text("取消"),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: Text("设置"),
+                    child: const Text("设置"),
                     onPressed: () {
                       var device = widget.device;
                       device.mac = _mac_controller.text;
@@ -338,7 +338,7 @@ class _CommonDeviceServiceTypesListState
 
           return Scaffold(
             appBar: AppBar(
-              title: Text('设备详情'),
+              title: const Text('设备详情'),
             ),
             body: ListView(children: divided),
           );

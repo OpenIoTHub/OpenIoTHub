@@ -21,7 +21,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
-  Color _activeColor = Colors.orange;
+  final Color _activeColor = Colors.orange;
   int _currentIndex = 0;
   Timer? _timer;
 
@@ -136,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
 
   Widget _buildBottomNavigationBar(int index) {
     return BottomAppBar(
-      shape: CircularNotchedRectangle(),
+      shape: const CircularNotchedRectangle(),
       notchMargin: 6.0,
       color: Provider.of<CustomTheme>(context).isLightTheme()
           ? CustomThemes.light.scaffoldBackgroundColor
@@ -169,7 +169,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
       //选中状态的按钮样式
       iconColor = _activeColor as MaterialColor?;
       iconSize = 25;
-      padding = EdgeInsets.only(top: 6.0);
+      padding = const EdgeInsets.only(top: 6.0);
     }
     Widget padItem = SizedBox();
     if (iconData != null) {

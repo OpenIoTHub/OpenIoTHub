@@ -34,8 +34,8 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
           padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
           child: Row(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
                 child: Icon(Icons.devices),
               ),
               Expanded(
@@ -62,10 +62,10 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
     ).toList();
     return Scaffold(
       appBar: AppBar(
-        title: Text("FTP端口列表"),
+        title: const Text("FTP端口列表"),
         actions: <Widget>[
           IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.refresh,
                 color: Colors.white,
               ),
@@ -74,7 +74,7 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
                 refreshmFTPList();
               }),
           IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.add_circle,
                 color: Colors.white,
               ),
@@ -118,7 +118,7 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
           return Scaffold(
             appBar: AppBar(title: Text('端口详情'), actions: <Widget>[
               IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.delete,
                     color: Colors.red,
                   ),
@@ -127,7 +127,7 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
                     _deleteCurrentFTP(config);
                   }),
               IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.open_in_browser,
                     color: Colors.white,
                   ),
@@ -157,20 +157,20 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
 
   Future _addFTP(Device device) async {
     TextEditingController _description_controller =
-        TextEditingController.fromValue(TextEditingValue(text: "FTP"));
+        TextEditingController.fromValue(const TextEditingValue(text: "FTP"));
     TextEditingController _remote_port_controller =
-        TextEditingController.fromValue(TextEditingValue(text: "21"));
+        TextEditingController.fromValue(const TextEditingValue(text: "21"));
     TextEditingController _local_port_controller =
-        TextEditingController.fromValue(TextEditingValue(text: "21"));
+        TextEditingController.fromValue(const TextEditingValue(text: "21"));
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: Text("添加端口："),
+                title: const Text("添加端口："),
                 content: ListView(
                   children: <Widget>[
                     TextFormField(
                       controller: _description_controller,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: '备注',
                         helperText: '自定义备注',
@@ -178,7 +178,7 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
                     ),
                     TextFormField(
                       controller: _remote_port_controller,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: '端口号',
                         helperText: '该机器的端口号',
@@ -186,7 +186,7 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
                     ),
                     TextFormField(
                         controller: _local_port_controller,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           contentPadding: EdgeInsets.all(10.0),
                           labelText: '映射到本手机端口号(随机则填0)',
                           helperText: '本手机1024以上空闲端口号',
@@ -195,13 +195,13 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
                 ),
                 actions: <Widget>[
                   TextButton(
-                    child: Text("取消"),
+                    child: const Text("取消"),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: Text("添加"),
+                    child: const Text("添加"),
                     onPressed: () {
                       var FTPConfig = PortConfig();
                       FTPConfig.device = device;
@@ -229,17 +229,17 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: Text("删除FTP"),
-                content: Text("确认删除此FTP？"),
+                title: const Text("删除FTP"),
+                content: const Text("确认删除此FTP？"),
                 actions: <Widget>[
                   TextButton(
-                    child: Text("取消"),
+                    child: const Text("取消"),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: Text("删除"),
+                    child: const Text("删除"),
                     onPressed: () {
                       CommonDeviceApi.deleteOneFTP(config).then((result) {
                         Navigator.of(context).pop();
@@ -254,8 +254,8 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
   }
 
   _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
+    if (await canLaunchUrl(url as Uri)) {
+      await launchUrl(url as Uri);
     } else {
       print('Could not launch $url');
     }

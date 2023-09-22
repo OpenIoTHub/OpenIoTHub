@@ -51,10 +51,10 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       refreshmDNSServicesFromeLocal();
       refreshmDNSServicesFromeRemote();
     });
-    _timerPeriodLocal = Timer.periodic(Duration(seconds: 10), (Timer timer) {
+    _timerPeriodLocal = Timer.periodic(const Duration(seconds: 10), (Timer timer) {
       refreshmDNSServicesFromeLocal();
     });
-    _timerPeriodRemote = Timer.periodic(Duration(seconds: 2), (Timer timer) {
+    _timerPeriodRemote = Timer.periodic(const Duration(seconds: 5), (Timer timer) {
       refreshmDNSServicesFromeRemote();
     });
     print("init iot devie List");
@@ -105,22 +105,22 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
                 refreshmDNSServicesFromeLocal();
               }),
 //            TODO 添加设备（类型：mqtt，小米，美的；设备型号：TC1-A1,TC1-A2）
-          IconButton(
-              icon: Icon(
-                Icons.add_circle,
-                color: Colors.white,
-              ),
-              onPressed: () {
-//                  TODO：手动添加MQTT设备
-//                   Scaffold.of(context).openDrawer();
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return AddMqttDevicesPage();
-                    },
-                  ),
-                );
-              }),
+//           IconButton(
+//               icon: Icon(
+//                 Icons.add_circle,
+//                 color: Colors.white,
+//               ),
+//               onPressed: () {
+// //                  TODO：手动添加MQTT设备
+// //                   Scaffold.of(context).openDrawer();
+//                 Navigator.of(context).push(
+//                   MaterialPageRoute(
+//                     builder: (context) {
+//                       return AddMqttDevicesPage();
+//                     },
+//                   ),
+//                 );
+//               }),
         ],
       ),
       body: divided.length > 0
