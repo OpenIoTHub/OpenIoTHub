@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -11,6 +14,7 @@ import 'package:openiothub_grpc_api/pb/service.pbgrpc.dart';
 import 'package:openiothub_plugin/plugins/mdnsService/commWidgets/mDNSInfo.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class MDNSServiceListPage extends StatefulWidget {
@@ -56,6 +60,11 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
         );
         return InkWell(
           onTap: () {
+            if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
+              _launchURL(
+                  "http://${Config.webgRpcIp}:${pair.localProt}");
+              return;
+            }
             WebViewController controller = WebViewController()
               ..setJavaScriptMode(JavaScriptMode.unrestricted)
               ..setBackgroundColor(const Color(0x00000000))
@@ -77,9 +86,9 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
             //直接打开内置web浏览器浏览页面
             Navigator.of(context).push(MaterialPageRoute(builder: (context) {
               return Scaffold(
-                appBar: AppBar(title: Text("网页浏览器"), actions: <Widget>[
+                appBar: AppBar(title: const Text("网页浏览器"), actions: <Widget>[
                   IconButton(
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.info,
                         color: Colors.white,
                       ),
@@ -87,7 +96,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                         _info(pair);
                       }),
                   IconButton(
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.open_in_browser,
                         color: Colors.white,
                       ),
@@ -114,7 +123,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
         actions: <Widget>[
           //重新命名
           IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.edit,
                 color: Colors.white,
               ),
@@ -122,7 +131,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                 _renameDialog();
               }),
           IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.refresh,
                 color: Colors.white,
               ),
@@ -136,7 +145,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                 });
               }),
           IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.delete,
                 color: Colors.red,
               ),
@@ -144,8 +153,8 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                 showDialog(
                     context: context,
                     builder: (_) => AlertDialog(
-                            title: Text("删除网关"),
-                            content: Text("确认删除此网关？"),
+                            title: const Text("删除网关"),
+                            content: const Text("确认删除此网关？"),
                             actions: <Widget>[
                               TextButton(
                                 child: Text("取消"),
@@ -154,7 +163,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                                 },
                               ),
                               TextButton(
-                                child: Text("删除"),
+                                child: const Text("删除"),
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                   deleteOneSession(widget.sessionConfig);
@@ -164,7 +173,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                             ]));
               }),
           IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.info,
                 color: Colors.white,
               ),
@@ -214,7 +223,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                     msg:
                         "网关的token已经复制到了剪切板！你可以将此token作为网关参数运行或者添加到配置文件：bash>gateway-go -t <你的token>");
               },
-              child: Text("复制网关Token")));
+              child: const Text("复制网关Token")));
           divided.add(TextButton(
               onPressed: () async {
                 String uuid = config.runId;
@@ -235,10 +244,10 @@ loginwithtokenmap:
                     msg:
                         "网关的配置文件已经复制到了剪切板！你可以将这个配置内容复制到网关的配置文件(gateway-go.yaml)了");
               },
-              child: Text("复制网关配置内容")));
+              child: const Text("复制网关配置内容")));
           return Scaffold(
             appBar: AppBar(
-              title: Text('网络详情'),
+              title: const Text('网络详情'),
             ),
             body: ListView(children: divided),
           );
@@ -267,15 +276,19 @@ loginwithtokenmap:
     try {
       SessionApi.refreshmDNSServices(sessionConfig);
     } catch (e) {
-      print('Caught error: $e');
+      if (kDebugMode) {
+        print('Caught error: $e');
+      }
     }
   }
 
   _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
+    if (await canLaunchUrlString(url)) {
+      await launchUrlString(url);
     } else {
-      print('Could not launch $url');
+      if (kDebugMode) {
+        print('Could not launch $url');
+      }
     }
   }
 
@@ -300,12 +313,12 @@ loginwithtokenmap:
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: Text("修改名称："),
+                title: const Text("修改名称："),
                 content: ListView(
                   children: <Widget>[
                     TextFormField(
                       controller: _new_name_controller,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: '请输入新的名称',
                         helperText: '名称',
@@ -315,13 +328,13 @@ loginwithtokenmap:
                 ),
                 actions: <Widget>[
                   TextButton(
-                    child: Text("取消"),
+                    child: const Text("取消"),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: Text("修改"),
+                    child: const Text("修改"),
                     onPressed: () async {
                       //修改服务器上的
                       GatewayInfo gatewayInfo = GatewayInfo();

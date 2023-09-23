@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:openiothub_mobile_service/openiothub_mobile_service.dart' as openiothub_mobile_service;
 import 'package:openiothub/generated/l10n.dart';
@@ -11,6 +12,7 @@ import 'package:openiothub_constants/constants/SharedPreferences.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -89,7 +91,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         border: Border.all(
-                          color: Color(0xffffffff),
+                          color: const Color(0xffffffff),
                           width: 2.0,
                         ),
                         image: DecorationImage(
@@ -104,7 +106,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         border: Border.all(
-                          color: Color(0xffffffff),
+                          color: const Color(0xffffffff),
                           width: 2.0,
                         ),
                         image: const DecorationImage(
@@ -123,7 +125,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             Text(
               username ??= S.current.profile_click_avatar_to_sign_in,
-              style: TextStyle(color: Color(0xffffffff)),
+              style: const TextStyle(color: Color(0xffffffff)),
             ),
           ],
         ),
@@ -137,8 +139,8 @@ class _ProfilePageState extends State<ProfilePage> {
         ListTile(
             //第一个功能项
             title: Text(S.current.profile_settings),
-            leading: Icon(Icons.settings),
-            trailing: Icon(Icons.arrow_right),
+            leading: const Icon(Icons.settings),
+            trailing: const Icon(Icons.arrow_right),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => SettingsPage(
@@ -149,8 +151,8 @@ class _ProfilePageState extends State<ProfilePage> {
         ListTile(
             //第一个功能项
             title: Text(S.current.profile_servers),
-            leading: Icon(Icons.send_rounded),
-            trailing: Icon(Icons.arrow_right),
+            leading: const Icon(Icons.send_rounded),
+            trailing: const Icon(Icons.arrow_right),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => ServerPages(
@@ -161,8 +163,8 @@ class _ProfilePageState extends State<ProfilePage> {
         ListTile(
             //第一个功能项
             title: Text(S.current.profile_tools),
-            leading: Icon(Icons.pan_tool),
-            trailing: Icon(Icons.arrow_right),
+            leading: const Icon(Icons.pan_tool),
+            trailing: const Icon(Icons.arrow_right),
             onTap: () {
               Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => ToolsTypePage()));
@@ -170,8 +172,8 @@ class _ProfilePageState extends State<ProfilePage> {
         ListTile(
             //第二个功能项
             title: Text(S.current.profile_docs),
-            leading: Icon(Icons.add_chart),
-            trailing: Icon(Icons.arrow_right),
+            leading: const Icon(Icons.add_chart),
+            trailing: const Icon(Icons.arrow_right),
             onTap: () {
               String url = "https://b23.tv/wVAMWn";
               Platform.isIOS
@@ -191,8 +193,8 @@ class _ProfilePageState extends State<ProfilePage> {
         ListTile(
             //第二个功能项
             title: Text(S.current.profile_about_this_app),
-            leading: Icon(Icons.info),
-            trailing: Icon(Icons.arrow_right),
+            leading: const Icon(Icons.info),
+            trailing: const Icon(Icons.arrow_right),
             onTap: () {
               // openiothub_mobile_service.run();
               Navigator.of(context).push(MaterialPageRoute(
@@ -209,14 +211,20 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   _launchURL(String url) async {
-    if (await canLaunchUrl(url as Uri)) {
-      await launchUrl(url as Uri);
+    if (await canLaunchUrlString(url)) {
+      await launchUrlString(url);
     } else {
-      print('Could not launch $url');
+      if (kDebugMode) {
+        print('Could not launch $url');
+      }
     }
   }
 
   _goToURL(BuildContext context, String url, title) async {
+    if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
+      _launchURL(url);
+      return;
+    }
     WebViewController controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setBackgroundColor(const Color(0x00000000))

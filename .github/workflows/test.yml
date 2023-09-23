@@ -90,18 +90,18 @@ jobs:
           flutter config --no-enable-android
           flutter pub get
           flutter build linux --release
-      - name: Install snapcraft
-        run: |
-          sudo snap install snapcraft --classic
-      - name: Run hash -r
-        run: hash -r
-      - name: Setup LXD
-        uses: canonical/setup-lxd@v0.1.1
-        with:
-          channel: latest/stable
-      - name: run snapcraft
-        run: |
-          snapcraft --use-lxd
+#      - name: Install snapcraft
+#        run: |
+#          sudo snap install snapcraft --classic
+#      - name: Run hash -r
+#        run: hash -r
+#      - name: Setup LXD
+#        uses: canonical/setup-lxd@v0.1.1
+#        with:
+#          channel: latest/stable
+#      - name: run snapcraft
+#        run: |
+#          snapcraft --use-lxd
 #
   macos:
     name: MacOS
