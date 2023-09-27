@@ -2,6 +2,8 @@ PODS:
   - connectivity_macos (0.0.1):
     - FlutterMacOS
     - Reachability
+  - flutter_nsd (0.0.1):
+    - FlutterMacOS
   - FlutterMacOS (1.0.0)
   - openiothub_mobile_service (0.0.1):
     - FlutterMacOS
@@ -21,6 +23,7 @@ PODS:
 
 DEPENDENCIES:
   - connectivity_macos (from `Flutter/ephemeral/.symlinks/plugins/connectivity_macos/macos`)
+  - flutter_nsd (from `Flutter/ephemeral/.symlinks/plugins/flutter_nsd/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
   - openiothub_mobile_service (from `Flutter/ephemeral/.symlinks/plugins/openiothub_mobile_service/macos`)
   - package_info_plus (from `Flutter/ephemeral/.symlinks/plugins/package_info_plus/macos`)
@@ -36,6 +39,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   connectivity_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/connectivity_macos/macos
+  flutter_nsd:
+    :path: Flutter/ephemeral/.symlinks/plugins/flutter_nsd/macos
   FlutterMacOS:
     :path: Flutter/ephemeral
   openiothub_mobile_service:
@@ -51,6 +56,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   connectivity_macos: 5dae6ee11d320fac7c05f0d08bd08fc32b5514d9
+  flutter_nsd: 60e24f98ea47106c4f82e24d7f0fab78b3fbe8df
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
   openiothub_mobile_service: c100ae91f6e4c360aa178571c80c65a95600d609
   OpenIoTHubMobile: 39fa38d0fd131513bff9d9eb8eba1c4dc5e1dc44

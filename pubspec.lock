@@ -21,10 +21,10 @@ packages:
     dependency: transitive
     description:
       name: archive
-      sha256: "1227dc3efc4ea571eebb2dfb814506ed2cfb1d4b1b89fb918abdddde617ead3c"
+      sha256: "20071638cbe4e5964a427cfa0e86dce55d060bc7d82d56f3554095d7239a8765"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.4.0"
+    version: "3.4.2"
   args:
     dependency: transitive
     description:
@@ -235,6 +235,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_nsd:
+    dependency: transitive
+    description:
+      name: flutter_nsd
+      sha256: "5809891db1ee8553a655149979dc675c78ddd596380b4ab01079ba6ae635ec17"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.4.0"
   flutter_oneshot:
     dependency: transitive
     description:
@@ -276,10 +284,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_vlc_player
-      sha256: "73d9f9c3254b0e36a8f01ae8710b2c5f0b2a076c9aa5305742cdaaffd30a18a3"
+      sha256: "3e4094a0f2c9d8d7017dd3d8c270694286672fada162185499339feefbf7b870"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "7.3.1"
+    version: "7.4.0"
   flutter_vlc_player_platform_interface:
     dependency: transitive
     description:
@@ -505,10 +513,10 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_common_pages
-      sha256: "36385265aa1e30c9fcb386d4c9554ada580f70f62c4a849fb9ab9fab6567cd56"
+      sha256: "3995117a4d3fdc76ea419e01c2be187c8374a13b85bafedad1d20064f4c4246f"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.1+5"
+    version: "1.0.1+9"
   openiothub_constants:
     dependency: "direct main"
     description:
@@ -537,10 +545,10 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_plugin
-      sha256: bf47b7c5f90a5d65a393b1a972e68b5f6e2c3ccee92174526bc01271b8e8d8ad
+      sha256: "29f472148baab3079aad64f8f63bfaa0dc71af6bd859caff18a94e1d72ec4aa4"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.0+4"
+    version: "1.0.0+5"
   package_info_plus:
     dependency: transitive
     description:
@@ -982,10 +990,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: c97defd418eef4ec88c0d1652cdce84b9f7b63dd7198e266d06ac1710d527067
+      sha256: "350a11abd2d1d97e0cc7a28a81b781c08002aa2864d9e3f192ca0ffa18b06ed3"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "5.0.8"
+    version: "5.0.9"
   xdg_directories:
     dependency: transitive
     description:
