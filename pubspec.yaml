@@ -130,3 +130,20 @@ flutter:
     - assets/web/open/vnc/vendor/pako/lib/zlib/
 flutter_intl:
   enabled: true
+
+msix_config:
+  display_name: 云亿连
+  publisher: CN=OpenIoThub
+  publisher_display_name: OpenIoThub
+  identity_name: cloud.iothub.openiothub
+  #  msix_version: 1.0.0.0
+  #  logo_path: ./logo.png
+  capabilities: internetClientServer, privateNetworkClientServer, removableStorage, location
+  app_installer:
+    publish_folder_path: C:\Users\iotserv\Downloads
+    hours_between_update_checks: 0
+    automatic_background_task: true
+    update_blocks_activation: true
+    show_prompt: true
+    force_update_from_any_version: false
+  store: true
