@@ -134,6 +134,7 @@ jobs:
       - run: flutter config --no-enable-android
       - run: flutter pub get
       - run: flutter build windows --release
+      - run: dart run msix:create
 #      - run: cd build\windows\runner
 #      - run: Compress-Archive -Path Release -DestinationPath windows-release.zip
 #      - uses: actions/upload-artifact@v3
