@@ -16,10 +16,6 @@ jobs:
         run: chmod +x ./.github/scripts/decrypt_secret.sh&&./.github/scripts/decrypt_secret.sh
         env:
           LARGE_SECRET_PASSPHRASE: ${{ secrets.GPG_LARGE_SECRET_PASSPHRASE }}
-#      - uses: actions/setup-java@v3
-#        with:
-#          distribution: 'temurin'
-#          java-version: '17'
       - name: Set up Dart
         uses: dart-lang/setup-dart@v1
         with:
@@ -30,26 +26,11 @@ jobs:
           channel: stable
       - run: flutter pub upgrade
       - run: flutter pub get
-#      - run: flutter build apk --profile
-#      - run: flutter build apk --debug
       - run: flutter build apk --release
       - uses: actions/upload-artifact@v3
         with:
           name: app-release-all.apk
           path: ./build/app/outputs/flutter-apk/app-release.apk
-#      - run: flutter build apk --release --split-per-abi
-#      - uses: actions/upload-artifact@v3
-#        with:
-#          name: app-arm64-v8a-release.apk
-#          path: ./build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
-#      - uses: actions/upload-artifact@v3
-#        with:
-#          name: app-x86_64-release.apk
-#          path: ./build/app/outputs/flutter-apk/app-x86_64-release.apk
-#      - uses: actions/upload-artifact@v3
-#        with:
-#          name: app-armeabi-v7a-release.apk
-#          path: ./build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
 
   ios:
     name: iOS
@@ -115,12 +96,14 @@ jobs:
       - run: flutter config --no-enable-android
       - run: flutter pub get
       - run: flutter build macos --release
-#      - run: cd build/macos/Build/Products/Release
-#      - run: ditto -c -k --sequesterRsrc --keepParent openiothub.app macos-release.zip
-#      - uses: actions/upload-artifact@v3
-#        with:
-#          name: macos-release.zip
-#          path: ./build/macOS/Build/Products/Release/macos-release.zip
+      - run: mv build/macos/Build/Products/Release/openiothub.app build/dmg/
+      - run: ln -s /Applications  build/dmg
+      - run: ls build/dmg
+      - run: hdiutil create -srcfolder build/dmg -volname "OpenIoTHub" -format UDZO -ov -imagekey zlib-level=9 openiothub.dmg
+      - uses: actions/upload-artifact@v3
+        with:
+          name: openiothub.dmg
+          path: ./openiothub.dmg
 #
   windows:
     name: Windows
@@ -134,14 +117,13 @@ jobs:
       - run: flutter config --no-enable-android
       - run: flutter pub get
       - run: flutter build windows --release
+      - run: Compress-Archive -Path build\windows\runner\Release -DestinationPath windows-release.zip
+      - uses: actions/upload-artifact@v3
+        with:
+          name: windows-release.zip
+          path: ./windows-release.zip
       - run: dart run msix:create
       - uses: actions/upload-artifact@v3
         with:
          name: openiothub.msix
          path: ./build/windows/runner/Release/openiothub.msix
-#      - run: cd build\windows\runner
-#      - run: Compress-Archive -Path Release -DestinationPath windows-release.zip
-#      - uses: actions/upload-artifact@v3
-#        with:
-#          name: macos-release.zip
-#          path: ./build/windows/runner/windows-release.zip
