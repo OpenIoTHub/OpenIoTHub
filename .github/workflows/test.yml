@@ -71,18 +71,17 @@ jobs:
           flutter config --no-enable-android
           flutter pub get
           flutter build linux --release
-#      - name: Install snapcraft
-#        run: |
-#          sudo snap install snapcraft --classic
-#      - name: Run hash -r
-#        run: hash -r
-#      - name: Setup LXD
-#        uses: canonical/setup-lxd@v0.1.1
-#        with:
-#          channel: latest/stable
-#      - name: run snapcraft
-#        run: |
-#          snapcraft --use-lxd
+      - name: Install snapcraft
+        run: |
+          sudo snap install snapcraft --classic
+      - run: hash -r
+      - name: Setup LXD
+        uses: canonical/setup-lxd@v0.1.1
+        with:
+          channel: latest/stable
+      - name: run snapcraft
+        run: |
+          snapcraft --use-lxd
 #
   macos:
     name: MacOS
@@ -96,7 +95,7 @@ jobs:
       - run: flutter config --no-enable-android
       - run: flutter pub get
       - run: flutter build macos --release
-      - run: mv build/macos/Build/Products/Release/openiothub.app build/dmg/
+      - run: mv build/macos/Build/Products/Release/openiothub.app build/dmg/云亿连.app
       - run: ln -s /Applications  build/dmg
       - run: ls build/dmg
       - run: hdiutil create -srcfolder build/dmg -volname "OpenIoTHub" -format UDZO -ov -imagekey zlib-level=9 openiothub.dmg
@@ -117,11 +116,11 @@ jobs:
       - run: flutter config --no-enable-android
       - run: flutter pub get
       - run: flutter build windows --release
-      - run: Compress-Archive -Path build\windows\runner\Release -DestinationPath windows-release.zip
+#      - run: Compress-Archive -Path build\windows\runner\Release -DestinationPath windows-release.zip
       - uses: actions/upload-artifact@v3
         with:
           name: windows-release.zip
-          path: ./windows-release.zip
+          path: ./build/windows/runner/Release
       - run: dart run msix:create
       - uses: actions/upload-artifact@v3
         with:
