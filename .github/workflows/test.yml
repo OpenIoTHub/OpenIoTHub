@@ -87,6 +87,11 @@ jobs:
       - name: run snapcraft
         run: |
           snapcraft --use-lxd
+      - run: ls -a
+      - uses: actions/upload-artifact@v3
+        with:
+          name: openiothub_0.1.0_amd64.snap
+          path: ./openiothub_0.1.0_amd64.snap
 #
   macos:
     name: MacOS
