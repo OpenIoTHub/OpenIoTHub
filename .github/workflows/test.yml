@@ -109,6 +109,7 @@ jobs:
       - run: cp -R build/macos/Build/Products/Release/openiothub.app build/dmg/openiothub.app
       - run: ln -s /Applications  build/dmg
       - run: ls build/dmg
+      # https://github.com/create-dmg/create-dmg.git
       - run: hdiutil create -srcfolder build/dmg -volname "OpenIoTHub" -format UDZO -ov -imagekey zlib-level=9 openiothub.dmg
       - uses: actions/upload-artifact@v3
         with:
