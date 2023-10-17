@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=OpenIoTHub App
+Name=OpenIoTHub
 Comment=OpenIoTHub App for IoT device and proxy
 Exec=openiothub
 Icon=${SNAP}/meta/gui/openiothub.png

@@ -4,7 +4,7 @@ summary: OpenIoTHub App
 description: OpenIoTHub App for IoT device and proxy!
 
 confinement: strict
-base: core18
+base: core22
 grade: stable
 
 #slots:
@@ -16,9 +16,10 @@ grade: stable
 apps:
   openiothub:
     command: openiothub
-    extensions: [flutter-master]
+    extensions: [gnome]
     plugs:
       - network
+      - network-bind
 #    slots:
 #      - dbus-openiothub
 parts:
