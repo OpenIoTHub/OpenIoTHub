@@ -54,12 +54,13 @@ jobs:
       - run: flutter config --no-enable-android
       - run: flutter pub get
       - run: flutter build ipa  --release --no-codesign
+      - run: zip -r ios-release.zip ./build/ios/archive
       - name: Release iOS IPA
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            ./build/ios/archive/Runner.xcarchive
+            ios-release.zip
             LICENSE
           body_path: ./.github/doc/DownloadDescription.md
 
@@ -81,14 +82,15 @@ jobs:
           flutter config --no-enable-android
           flutter pub get
           flutter build linux --release
-#      - name: Release Linux Zip
-#        uses: softprops/action-gh-release@v1
-#        if: startsWith(github.ref, 'refs/tags/')
-#        with:
-#          files: |
-#            ./build/linux/x64/release/bundle
-#            LICENSE
-#          body_path: ./.github/doc/DownloadDescription.md
+      - run: zip -r windows-release.zip ./build/linux/x64/release/bundle
+      - name: Release Linux Zip
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            windows-release.zip
+            LICENSE
+          body_path: ./.github/doc/DownloadDescription.md
       - run: rm -rf ./build
       - name: Install snapcraft
         run: |
@@ -143,14 +145,15 @@ jobs:
       - run: flutter config --no-enable-android
       - run: flutter pub get
       - run: flutter build windows --release
-#      - name: Release windows zip
-#        uses: softprops/action-gh-release@v1
-#        if: startsWith(github.ref, 'refs/tags/')
-#        with:
-#          files: |
-#            ./build/windows/runner/Release
-#            LICENSE
-#          body_path: ./.github/doc/DownloadDescription.md
+      - run: Compress-Archive -Path build\windows\runner\Release -DestinationPath windows-release.zip
+      - name: Release windows zip
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            windows-release.zip
+            LICENSE
+          body_path: ./.github/doc/DownloadDescription.md
       - run: dart run msix:create
       - name: Release windows msix
         uses: softprops/action-gh-release@v1
