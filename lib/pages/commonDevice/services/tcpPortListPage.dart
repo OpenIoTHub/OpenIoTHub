@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:openiothub_api/api/OpenIoTHub/CommonDeviceApi.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
@@ -245,7 +245,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                         tcpConfig.localProt =
                             int.parse(_local_port_controller.text);
                       } catch (e) {
-                        Fluttertoast.showToast(msg: "检查端口是否为数字$e");
+                        showToast( "检查端口是否为数字$e");
                         return;
                       }
                       tcpConfig.networkProtocol = "tcp";

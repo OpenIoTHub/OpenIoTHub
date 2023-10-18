@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub/util/ThemeUtils.dart';
 import 'package:openiothub_api/openiothub_api.dart';
@@ -201,7 +201,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
         _SessionList = response.sessionConfigs;
       });
     } catch (e) {
-      Fluttertoast.showToast(msg: "getAllSession：${e}");
+      showToast( "getAllSession：${e}");
     }
   }
 
@@ -209,7 +209,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
     try {
       await CommonDeviceApi.createOneDevice(device);
     } catch (e) {
-      Fluttertoast.showToast(msg: "创建设备失败：${e}");
+      showToast( "创建设备失败：${e}");
     }
   }
 
@@ -224,7 +224,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
       if (kDebugMode) {
         print("openiothub获取设备失败:$e");
       }
-      // Fluttertoast.showToast(msg: "获取设备列表失败：${e}");
+      // showToast( "获取设备列表失败：${e}");
     }
   }
 

@@ -31,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {
       case AppLifecycleState.inactive: // 处于这种状态的应用程序应该假设它们可能在任何时候暂停。
-        // Fluttertoast.showToast(msg: "程序状态：${state.toString()}");
+        // showToast( "程序状态：${state.toString()}");
         // if (Platform.isIOS) {
         //   // _timer = Timer.periodic(Duration(seconds: 10), (timer) {
         //   //   exit(0);
@@ -40,13 +40,13 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         // }
         break;
       case AppLifecycleState.resumed: //从后台切换前台，界面可见
-        // Fluttertoast.showToast(msg: "程序状态：${state.toString()}");
+        // showToast( "程序状态：${state.toString()}");
         if (_timer != null) {
           _timer!.cancel();
         }
         break;
       case AppLifecycleState.paused: // 界面不可见，后台
-        // Fluttertoast.showToast(msg: "程序状态：${state.toString()}");
+        // showToast( "程序状态：${state.toString()}");
         if (Platform.isIOS) {
           // _timer = Timer.periodic(Duration(seconds: 10), (timer) {
           //   exit(0);
@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         }
         break;
       case AppLifecycleState.detached: // APP结束时调用
-        // Fluttertoast.showToast(msg: "程序状态：${state.toString()}");
+        // showToast( "程序状态：${state.toString()}");
         exit(1);
         break;
       default:

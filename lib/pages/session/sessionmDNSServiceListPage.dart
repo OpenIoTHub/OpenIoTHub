@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:iot_manager_grpc_api/iot_manager_grpc_api.dart';
 import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub_api/openiothub_api.dart';
@@ -219,8 +219,8 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                         config.runId);
                 String gatewayJwt = gatewayJwtValue.value;
                 Clipboard.setData(ClipboardData(text: gatewayJwt));
-                Fluttertoast.showToast(
-                    msg:
+                showToast(
+                    
                         "网关的token已经复制到了剪切板！你可以将此token作为网关参数运行或者添加到配置文件：bash>gateway-go -t <你的token>");
               },
               child: const Text("复制网关Token")));
@@ -240,8 +240,8 @@ loginwithtokenmap:
   $uuid: $gatewayJwt
 ''';
                 Clipboard.setData(ClipboardData(text: data));
-                Fluttertoast.showToast(
-                    msg:
+                showToast(
+                    
                         "网关的配置文件已经复制到了剪切板！你可以将这个配置内容复制到网关的配置文件(gateway-go.yaml)了");
               },
               child: const Text("复制网关配置内容")));
@@ -261,14 +261,14 @@ loginwithtokenmap:
     try {
       SessionApi.deleteRemoteGatewayConfig(config);
     } catch (e) {
-      Fluttertoast.showToast(msg: "删除远程网关的配置失败$e");
+      showToast( "删除远程网关的配置失败$e");
     }
     try {
       SessionApi.deleteOneSession(config);
     } catch (e) {
-      Fluttertoast.showToast(msg: "删除本地网关的映射失败$e");
+      showToast( "删除本地网关的映射失败$e");
     }
-    Fluttertoast.showToast(msg: "网关成功!");
+    showToast( "网关成功!");
     Navigator.of(context).pop();
   }
 

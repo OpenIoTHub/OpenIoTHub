@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-// import 'package:fluttertoast/fluttertoast.dart';
+// import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub/pages/session/sessionmDNSServiceListPage.dart';
 import 'package:openiothub/util/ThemeUtils.dart';
@@ -143,7 +143,7 @@ class _SessionListPageState extends State<SessionListPage> {
       ),
     ).then((result) {
       setState(() {
-        // Fluttertoast.showToast(msg: "我返回回来了");
+        // showToast( "我返回回来了");
         getAllSession();
       });
     });

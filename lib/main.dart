@@ -5,6 +5,7 @@ import 'package:openiothub/init.dart';
 import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub/pages/splashPage/splashPage.dart';
 import 'package:provider/provider.dart';
+import 'package:oktoast/oktoast.dart';
 
 void main() {
   runApp(
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return OKToast(child: MaterialApp(
         title: "OpenIoTHub",
         theme: CustomThemes.light,
         darkTheme: CustomThemes.dark,
@@ -39,6 +40,6 @@ class MyApp extends StatelessWidget {
           print("locales:$locales");
           return;
         },
-        home: SplashPage());
+        home: SplashPage()));
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:openiothub_api/api/OpenIoTHub/CommonDeviceApi.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:openiothub_grpc_api/pb/service.pb.dart';
@@ -211,7 +211,7 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
                         UDPConfig.localProt =
                             int.parse(_local_port_controller.text);
                       } catch (e) {
-                        Fluttertoast.showToast(msg: "检查端口是否为数字$e");
+                        showToast( "检查端口是否为数字$e");
                         return;
                       }
                       UDPConfig.networkProtocol = "udp";

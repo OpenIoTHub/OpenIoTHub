@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:iot_manager_grpc_api/iot_manager_grpc_api.dart';
 import 'package:multicast_dns/multicast_dns.dart';
 import 'package:openiothub/model/custom_theme.dart';
@@ -250,7 +250,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     try {
       value = await CnameManager.GetCname(id!);
     } catch (e) {
-      Fluttertoast.showToast(msg: e.toString());
+      showToast( e.toString());
     }
     if (value != "" && value != null) {
       portService.info["name"] = value;

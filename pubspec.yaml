@@ -70,7 +70,8 @@ dependencies:
   provider: ^6.0.2
   #  fluwx: ^2.4.1
   wechat_kit: ^2.3.1
-  fluttertoast: ^8.0.8
+#  fluttertoast: ^8.0.8
+  oktoast: ^3.3.2+1
 
 dev_dependencies:
   flutter_test:

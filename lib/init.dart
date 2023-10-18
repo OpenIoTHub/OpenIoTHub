@@ -56,7 +56,7 @@ Future<void> initSystemUi() async {
 Future<void> loadConfig() async {
   Future.delayed(Duration(milliseconds: 500), () {
     UtilApi.SyncConfigWithToken().then((OpenIoTHubOperationResponse rsp) {
-      // Fluttertoast.showToast(msg: rsp.msg);
+      // showToast( rsp.msg);
     });
   });
   CnameManager.LoadAllCnameFromRemote();

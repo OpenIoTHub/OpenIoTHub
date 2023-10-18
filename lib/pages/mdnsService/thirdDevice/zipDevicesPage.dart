@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:iot_manager_grpc_api/iot_manager_grpc_api.dart';
 import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub_api/openiothub_api.dart';
@@ -103,7 +103,7 @@ class _ZipDevicesPageState extends State<ZipDevicesPage> {
     //  检查用户是否已经登录，如果没有登录则跳转到登录界面
     bool userSignedIned = await userSignedIn();
     if (!userSignedIned) {
-      Fluttertoast.showToast(msg: "您还没有登录!请先登录再添加设备");
+      showToast( "您还没有登录!请先登录再添加设备");
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => LoginPage()));
     }
@@ -119,7 +119,7 @@ class _ZipDevicesPageState extends State<ZipDevicesPage> {
     //  将生成的账号配置到设备
     await zipLocalDevice.configMqttServer(mqttInfo);
     //  提示配置结果
-    Fluttertoast.showToast(msg: "添加成功!");
+    showToast( "添加成功!");
     return;
   }
 }
