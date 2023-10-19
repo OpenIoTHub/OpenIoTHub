@@ -163,4 +163,15 @@ jobs:
             ./build/windows/runner/Release/openiothub.msix
             LICENSE
           body_path: ./.github/doc/DownloadDescription.md
-
+      - name: Building the installer
+        run: |
+          "%programfiles(x86)%\Inno Setup 6\iscc.exe" "windows-setup.iss"
+        shell: cmd
+      - name: Release windows setup
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            Output/OpenIoTHub-Setup.exe
+            LICENSE
+          body_path: ./.github/doc/DownloadDescription.md

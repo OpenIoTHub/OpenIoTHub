@@ -143,8 +143,8 @@ jobs:
           "%programfiles(x86)%\Inno Setup 6\iscc.exe" "windows-setup.iss"
         shell: cmd
       - name: Upload the installer as an artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: ${{ github.event_name != 'pull_request' }}
         with:
-          path: "Output/OpenIoTHub-Setup.exe"
           name: OpenIoTHub-Setup.exe
+          path: Output/OpenIoTHub-Setup.exe
