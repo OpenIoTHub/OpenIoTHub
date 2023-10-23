@@ -1,14 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:iot_manager_grpc_api/iot_manager_grpc_api.dart';
-// import 'package:multicast_dns/multicast_dns.dart';
+import 'package:multicast_dns/multicast_dns.dart';
 import 'package:openiothub/model/custom_theme.dart';
-// import 'package:openiothub/pages/mdnsService/AddMqttDevicesPage.dart';
+import 'package:openiothub/pages/mdnsService/AddMqttDevicesPage.dart';
 import 'package:openiothub/util/ThemeUtils.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_common_pages/wifiConfig/smartConfigTool.dart';
@@ -20,7 +19,6 @@ import 'package:openiothub_plugin/plugins/mdnsService/mdnsType2ModelMap.dart';
 //统一导入全部设备类型
 import 'package:openiothub_plugin/plugins/mdnsService/modelsMap.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_nsd/flutter_nsd.dart';
 
 class MdnsServiceListPage extends StatefulWidget {
   MdnsServiceListPage({required Key key, required this.title})
@@ -37,41 +35,18 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
   Map<String, PortService> _IoTDeviceMap = Map<String, PortService>();
   late Timer _timerPeriodLocal;
   late Timer _timerPeriodRemote;
-  final flutterNsd = FlutterNsd();
-  bool initialStart = true;
-  bool _scanning = false;
+  final MDnsClient _mdns = MDnsClient(rawDatagramSocketFactory:
+      (dynamic host, int port,
+          {bool reuseAddress = true, bool reusePort = true, int ttl = 1}) {
+    return RawDatagramSocket.bind(host, port,
+        reuseAddress: true, reusePort: false, ttl: ttl);
+  });
   List<String> _supportedTypeList = MDNS2ModelsMap.getAllmDnsServiceType();
 
   @override
   void initState() {
     super.initState();
-    flutterNsd.stream.listen(
-          (NsdServiceInfo oneMdnsService) {
-        setState(() {
-          PortService _portService = PortService.create();
-          _portService.ip = oneMdnsService.hostname!
-              .replaceAll(RegExp(r'local.local.'), "local.");
-          _portService.port = oneMdnsService.port!;
-          _portService.isLocal = true;
-          oneMdnsService.txt!.forEach((String key, Uint8List value) {
-            _portService.info[key] = u8decodeer.convert(value);
-          });
-          print("print _portService:$_portService");
-          addPortService(_portService);
-        });
-      },
-      onError: (e) async {
-        if (e is NsdError) {
-          if (e.errorCode == NsdErrorCode.startDiscoveryFailed &&
-              initialStart) {
-          } else if (e.errorCode == NsdErrorCode.discoveryStopped &&
-              initialStart) {
-            initialStart = false;
-          }
-        }
-      },
-    );
-
+    _mdns.start();
     Future.delayed(Duration(milliseconds: 500)).then((value) {
       refreshmDNSServicesFromeLocal();
       refreshmDNSServicesFromeRemote();
@@ -183,8 +158,13 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
   @override
   void dispose() {
     super.dispose();
-    _timerPeriodLocal.cancel();
-    _timerPeriodRemote.cancel();
+    if (_timerPeriodLocal != null) {
+      _timerPeriodLocal.cancel();
+    }
+    if (_timerPeriodRemote != null) {
+      _timerPeriodRemote.cancel();
+    }
+    _mdns.stop();
     _IoTDeviceMap.clear();
   }
 
@@ -288,22 +268,64 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
   Future getIoTDeviceFromLocal() async {
     //优先iotdevice
     for (int i = 0; i < _supportedTypeList.length; i++) {
-      await getIoTDeviceFromLocalByType(_supportedTypeList[i]);
-      await Future.delayed(Duration(seconds: 1));
-      await stopDiscovery();
+      if (Platform.isIOS || Platform.isAndroid) {
+        await getIoTDeviceFromLocalByType(_supportedTypeList[i]);
+        await Future.delayed(Duration(seconds: 1));
+      }
     }
   }
 
   Future getIoTDeviceFromLocalByType(String serviceType) async {
-    if (_scanning) return;
-    _scanning = true;
-    await flutterNsd.discoverServices(serviceType + ".");
-  }
-
-  Future<void> stopDiscovery() async {
-    if (!_scanning) return;
-    _scanning = false;
-    await flutterNsd.stopDiscovery();
+    await for (PtrResourceRecord ptr in _mdns.lookup<PtrResourceRecord>(
+        ResourceRecordQuery.serverPointer(serviceType + ".local"),
+        timeout: Duration(seconds: 1))) {
+      await for (SrvResourceRecord srv in _mdns.lookup<SrvResourceRecord>(
+          ResourceRecordQuery.service(ptr.domainName))) {
+        print("SrvResourceRecord:$srv");
+        //兼容的类型
+        late PortService _portService;
+        if (MDNS2ModelsMap.modelsMap.containsKey(serviceType)) {
+          _portService = MDNS2ModelsMap.modelsMap[serviceType]!.clone();
+        }
+        await _mdns
+            .lookup<TxtResourceRecord>(ResourceRecordQuery.text(ptr.domainName))
+            .forEach((TxtResourceRecord text) {
+          List<String> _txts = text.text.split("\n");
+          print("_txts.length:${_txts.length}");
+          print("_txts:$_txts");
+          //非异步
+          for (int i = 0; i < _txts.length; i++) {
+            List<String> _kv = _txts[i].split("=");
+            print("_kv:");
+            print(_kv);
+            _portService.info[_kv.first] = _kv.last;
+          }
+        });
+        await for (IPAddressResourceRecord ip
+            in _mdns.lookup<IPAddressResourceRecord>(
+                ResourceRecordQuery.addressIPv4(srv.target))) {
+          print(ip);
+          print('Service instance found at '
+              '${srv.target}:${srv.port} with ${ip.address}.');
+          _portService.ip = ip.address.address;
+          _portService.port = srv.port;
+          _portService.isLocal = true;
+          break;
+        }
+        if (_portService.info.containsKey("id") &&
+            _portService.info["id"] == "" &&
+            _portService.info.containsKey("mac") &&
+            _portService.info["mac"] != "") {
+          _portService.info["id"] = _portService.info["mac"]!;
+        } else {
+          _portService.info["id"] =
+              "${_portService.ip}:${_portService.port}@local";
+        }
+        print("_portService:");
+        print(_portService);
+        addPortService(_portService);
+      }
+    }
   }
 
   Future getIoTDeviceFromMqttServer() async {

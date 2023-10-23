@@ -48,9 +48,6 @@ PODS:
   - flutter_vlc_player (3.0.3):
     - Flutter
     - MobileVLCKit (~> 3.6.0b9)
-  - fluttertoast (0.0.2):
-    - Flutter
-    - Toast
   - MobileVLCKit (3.6.0b10)
   - openiothub_mobile_service (0.0.1):
     - Flutter
@@ -71,7 +68,6 @@ PODS:
     - Flutter
     - FlutterMacOS
   - SwiftyGif (5.4.4)
-  - Toast (4.0.0)
   - url_launcher_ios (0.0.1):
     - Flutter
   - webview_flutter_wkwebview (0.0.1):
@@ -95,7 +91,6 @@ DEPENDENCIES:
   - flutter_oneshot (from `.symlinks/plugins/flutter_oneshot/ios`)
   - flutter_smartlink (from `.symlinks/plugins/flutter_smartlink/ios`)
   - flutter_vlc_player (from `.symlinks/plugins/flutter_vlc_player/ios`)
-  - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - openiothub_mobile_service (from `.symlinks/plugins/openiothub_mobile_service/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
@@ -115,7 +110,6 @@ SPEC REPOS:
     - Reachability
     - SDWebImage
     - SwiftyGif
-    - Toast
     - WechatOpenSDK
 
 EXTERNAL SOURCES:
@@ -135,8 +129,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_smartlink/ios"
   flutter_vlc_player:
     :path: ".symlinks/plugins/flutter_vlc_player/ios"
-  fluttertoast:
-    :path: ".symlinks/plugins/fluttertoast/ios"
   openiothub_mobile_service:
     :path: ".symlinks/plugins/openiothub_mobile_service/ios"
   package_info_plus:
@@ -167,7 +159,6 @@ SPEC CHECKSUMS:
   flutter_oneshot: 0c221471d1688cc987e41fc55f9e7b6d997e9120
   flutter_smartlink: 18c271f7f14a872e028ba3dd89e5fa33db4ca83b
   flutter_vlc_player: 2e318881576450ff081eb023d47c289f2c6681eb
-  fluttertoast: fafc4fa4d01a6a9e4f772ecd190ffa525e9e2d9c
   MobileVLCKit: 937ec2b5da5f078458d7bbdddc68f65ccce8bb62
   openiothub_mobile_service: 734fa54f78dff76ef38af0d86519e5599944c767
   OpenIoTHubMobile: 39fa38d0fd131513bff9d9eb8eba1c4dc5e1dc44
@@ -178,7 +169,6 @@ SPEC CHECKSUMS:
   SDWebImage: 96e0c18ef14010b7485210e92fac888587ebb958
   shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
   SwiftyGif: 93a1cc87bf3a51916001cf8f3d63835fb64c819f
-  Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   url_launcher_ios: 08a3dfac5fb39e8759aeb0abbd5d9480f30fc8b4
   webview_flutter_wkwebview: 2e2d318f21a5e036e2c3f26171342e95908bd60a
   wechat_kit: f0d7689116121620fcf543f42221f97a9fc2cf1e

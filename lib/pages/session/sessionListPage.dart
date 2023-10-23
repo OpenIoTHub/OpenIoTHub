@@ -81,7 +81,7 @@ class _SessionListPageState extends State<SessionListPage> {
         centerTitle: true,
         actions: <Widget>[
           IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.refresh,
                 color: Colors.white,
               ),
@@ -89,7 +89,7 @@ class _SessionListPageState extends State<SessionListPage> {
                 getAllSession();
               }),
           IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.search,
                 color: Colors.white,
               ),

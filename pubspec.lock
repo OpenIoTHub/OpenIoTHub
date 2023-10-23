@@ -545,10 +545,10 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_common_pages
-      sha256: aa6b2ea6a8160c6e050675ee19b5bc33cae37b8d9bff93c81eb05d2f813b95bf
+      sha256: "5ca06bc3900660f0fb476356870d71256abfd39dbe9995ea3586b08e38d4cd0e"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.1+11"
+    version: "1.0.1+12"
   openiothub_constants:
     dependency: "direct main"
     description:
