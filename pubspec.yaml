@@ -134,9 +134,9 @@ flutter_intl:
   enabled: true
 
 msix_config:
-  display_name: 云亿连
-  publisher: CN=OpenIoThub
-  publisher_display_name: OpenIoThub
+  display_name: openiothub
+  publisher: CN=OpenIoTHub Cloud
+  publisher_display_name: OpenIoTHub Cloud
   identity_name: cloud.iothub.openiothub
   #  msix_version: 1.0.0.0
   #  logo_path: ./logo.png

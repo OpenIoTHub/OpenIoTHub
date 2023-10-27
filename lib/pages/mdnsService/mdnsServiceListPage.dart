@@ -103,13 +103,12 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
           ),
           trailing: Constants.rightArrowIcon,
         );
-        return Card(
-            child: InkWell(
+        return InkWell(
           onTap: () {
             _pushDeviceServiceTypes(pair);
           },
           child: listItemContent,
-        ));
+        );
       },
     );
     final divided = ListTile.divideTiles(
@@ -186,6 +185,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     _timerPeriodLocal.cancel();
     _timerPeriodRemote.cancel();
     _IoTDeviceMap.clear();
+    stopDiscovery();
   }
 
 //显示是设备的UI展示或者操作界面
