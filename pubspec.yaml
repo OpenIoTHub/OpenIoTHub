@@ -135,17 +135,17 @@ flutter_intl:
 
 msix_config:
   display_name: openiothub
-  publisher: CN=OpenIoTHub Cloud
+  publisher: CN=5F64CEA2-463E-41A3-AE89-6979242A61DF
   publisher_display_name: OpenIoTHub Cloud
-  identity_name: cloud.iothub.openiothub
+  identity_name: 38916OpenIoTHubCloud.openiothub
   #  msix_version: 1.0.0.0
   #  logo_path: ./logo.png
   capabilities: internetClientServer, privateNetworkClientServer, removableStorage, location
-  app_installer:
-    publish_folder_path: C:\Users\iotserv\Downloads
-    hours_between_update_checks: 0
-    automatic_background_task: true
-    update_blocks_activation: true
-    show_prompt: true
-    force_update_from_any_version: false
+#  app_installer:
+#    publish_folder_path: C:\Users\iotserv\Downloads
+#    hours_between_update_checks: 0
+#    automatic_background_task: true
+#    update_blocks_activation: true
+#    show_prompt: true
+#    force_update_from_any_version: false
   store: true

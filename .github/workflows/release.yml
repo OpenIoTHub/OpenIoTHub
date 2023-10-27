@@ -35,7 +35,6 @@ jobs:
         with:
           files: |
             ./build/app/outputs/flutter-apk/app-release.apk
-            LICENSE
           body_path: ./.github/doc/DownloadDescription.md
 
   ios:
@@ -61,7 +60,6 @@ jobs:
         with:
           files: |
             ios-release.zip
-            LICENSE
           body_path: ./.github/doc/DownloadDescription.md
 
   linux:
@@ -89,7 +87,6 @@ jobs:
         with:
           files: |
             linux-release.zip
-            LICENSE
           body_path: ./.github/doc/DownloadDescription.md
       - run: rm -rf ./build
       - name: Install snapcraft
@@ -130,7 +127,6 @@ jobs:
         with:
           files: |
             ./openiothub.dmg
-            LICENSE
           body_path: ./.github/doc/DownloadDescription.md
   #
   windows:
@@ -152,7 +148,6 @@ jobs:
         with:
           files: |
             windows-release.zip
-            LICENSE
           body_path: ./.github/doc/DownloadDescription.md
       - run: dart run msix:create
       - name: Release windows msix
@@ -161,7 +156,6 @@ jobs:
         with:
           files: |
             ./build/windows/runner/Release/openiothub.msix
-            LICENSE
           body_path: ./.github/doc/DownloadDescription.md
       - name: Building the installer
         run: |
@@ -173,5 +167,4 @@ jobs:
         with:
           files: |
             Output/OpenIoTHub-Setup.exe
-            LICENSE
           body_path: ./.github/doc/DownloadDescription.md
