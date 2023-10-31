@@ -134,6 +134,8 @@ jobs:
           name: windows-release.zip
           path: ./build/windows/runner/Release
       - run: dart run msix:create
+      - run: flutter clean
+      - run: flutter pub get
       - uses: actions/upload-artifact@v3
         with:
          name: openiothub.msix
