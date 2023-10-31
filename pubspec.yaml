@@ -139,7 +139,10 @@ msix_config:
   publisher_display_name: OpenIoTHub Cloud
   identity_name: 38916OpenIoTHubCloud.openiothub
   #  msix_version: 1.0.0.0
-  #  logo_path: ./logo.png
+  logo_path: .\assets\images\logos\openiothub_logo.png
+  start_menu_icon_path: .\assets\images\logos\openiothub_logo.png
+  tile_icon_path: .\assets\images\logos\openiothub_logo.png
+  icons_background_color: transparent
   capabilities: internetClientServer, privateNetworkClientServer, removableStorage, location
 #  app_installer:
 #    publish_folder_path: C:\Users\iotserv\Downloads
