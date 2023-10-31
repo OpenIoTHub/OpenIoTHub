@@ -72,13 +72,13 @@ dependencies:
   wechat_kit: ^2.3.1
 #  fluttertoast: ^8.0.8
   oktoast: ^3.3.2+1
+  msix: ^3.7.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^2.0.0
-  msix: ^3.7.0
 
 flutter:
 

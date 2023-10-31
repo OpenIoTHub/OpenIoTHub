@@ -502,7 +502,7 @@ packages:
     source: hosted
     version: "4.0.2"
   msix:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: msix
       sha256: e3de4d9f52543ad6e4b0f534991e1303cbd379d24be28dd241ac60bd9439a201
