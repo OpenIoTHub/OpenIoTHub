@@ -20,7 +20,7 @@ dependencies:
 
   flutter_localizations:
     sdk: flutter
-  cupertino_icons: ^1.0.4
+  cupertino_icons: 1.0.5
   #  golang的后台服务
   openiothub_mobile_service: ^0.0.4
   http: ^0.13.0
