@@ -242,10 +242,10 @@ packages:
     dependency: "direct dev"
     description:
       name: flutter_lints
-      sha256: a25a15ebbdfc33ab1cd26c63a6ee519df92338a9c10f122adda92938253bef04
+      sha256: e2a421b7e59244faef694ba7b30562e489c2b489866e505074eb005cd7060db7
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.0.3"
+    version: "3.0.1"
   flutter_localizations:
     dependency: "direct main"
     description: flutter
@@ -317,14 +317,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  gateway_grpc_api:
-    dependency: "direct main"
-    description:
-      name: gateway_grpc_api
-      sha256: b7dc1738837fb706bd7ee0a3d48074883b615bbd3ac0b839da73aa2f0b2f3728
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.0.0"
   get_it:
     dependency: transitive
     description:
@@ -353,10 +345,10 @@ packages:
     dependency: "direct main"
     description:
       name: http
-      sha256: "5895291c13fa8a3bd82e76d5627f69e0d85ca6a30dcac95c4ea19a5d555879c2"
+      sha256: "759d1a329847dd0f39226c688d3e06a6b8679668e350e2891a6474f8b4bb8525"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.13.6"
+    version: "1.1.0"
   http2:
     dependency: transitive
     description:
@@ -397,14 +389,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.18.1"
-  iot_manager_grpc_api:
-    dependency: "direct main"
-    description:
-      name: iot_manager_grpc_api
-      sha256: "69987b2f57195e209acca095d3efc3ce2db4ce6e79bbc06aa0ab166909496e63"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.0.0"
   jaguar:
     dependency: transitive
     description:
@@ -449,10 +433,10 @@ packages:
     dependency: transitive
     description:
       name: lints
-      sha256: "0a217c6c989d21039f1498c3ed9f3ed71b354e69873f13a8dfc3c9fe76f1b452"
+      sha256: cbf8d4b858bb0134ef3ef87841abdf8d63bfc255c266b7bf6b39daa1085c4290
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.1"
+    version: "3.0.0"
   logging:
     dependency: transitive
     description:
@@ -513,10 +497,10 @@ packages:
     dependency: "direct main"
     description:
       name: multicast_dns
-      sha256: f4fd1c3365171fac5160afcb1a283001d3413dee5fd41c61d80888952d609379
+      sha256: "73fcb8e0003326d06576c773f49dcbc4156019d66f85fbf0eee8225166baefa8"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.3.2+4"
+    version: "0.3.2+5"
   nested:
     dependency: transitive
     description:
@@ -529,26 +513,26 @@ packages:
     dependency: "direct main"
     description:
       name: oktoast
-      sha256: f12a6f5c26986f8e48546104d4c0bea68dd82782940876ca299f7f406f521110
+      sha256: f1366c5c793ddfb8f55bc6fc3e45db43c45debf173b765fb4c5ec096cbdeb84a
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.3.2+1"
+    version: "3.4.0"
   openiothub_api:
     dependency: "direct main"
     description:
       name: openiothub_api
-      sha256: "14c3063d20f53c0ba140add640a1e9da5dea347cea29045032158f19b1ba1ac7"
+      sha256: "1762bc973c5c4692bdaef956a4a9c7625a62af9e459cb04bed587192848f737e"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.1+2"
+    version: "1.0.2+1"
   openiothub_common_pages:
     dependency: "direct main"
     description:
       name: openiothub_common_pages
-      sha256: "1eb85039310891f5d05560c28b4297c7aebb5601789359d4ae3ab0d752c7c0ee"
+      sha256: fefe5aa21da60bfb70385df2a14497569bf4a8efe844bb52d6c3a403e0ac6dc0
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.1+14"
+    version: "1.0.1+15"
   openiothub_constants:
     dependency: "direct main"
     description:
@@ -561,10 +545,10 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_grpc_api
-      sha256: "29378a2540e48b19c0c94d7c13612c96f14a40ef8b9e9a8ac7f2d638366a15f9"
+      sha256: "759a6d93c6e09efd49d83f32fab08362c94927627cf89958442d63f5814bd3a3"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.0"
+    version: "1.1.0+1"
   openiothub_mobile_service:
     dependency: "direct main"
     description:
@@ -577,10 +561,10 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_plugin
-      sha256: "14a54cbd0eedbca3aaf95871e231d0c908ee7e1f7dd7cf94cd8397506509ddc0"
+      sha256: "0a31e790ae367985048cad89b8342330b8cc593b6d5464f7298ac759d954a29e"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.0+7"
+    version: "1.0.0+8"
   package_config:
     dependency: transitive
     description:
@@ -729,10 +713,10 @@ packages:
     dependency: transitive
     description:
       name: plugin_platform_interface
-      sha256: da3fdfeccc4d4ff2da8f8c556704c08f912542c5fb3cf2233ed75372384a034d
+      sha256: f4f88d4a900933e7267e2b353594774fc0d07fb072b47eedcd5b54e1ea3269f8
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.6"
+    version: "2.1.7"
   pointycastle:
     dependency: transitive
     description:
@@ -745,10 +729,10 @@ packages:
     dependency: "direct main"
     description:
       name: protobuf
-      sha256: "01dd9bd0fa02548bf2ceee13545d4a0ec6046459d847b6b061d8a27237108a08"
+      sha256: "68645b24e0716782e58948f8467fd42a880f255096a821f9e7d0ec625b00c84d"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.0"
+    version: "3.1.0"
   provider:
     dependency: "direct main"
     description:
@@ -765,14 +749,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.4"
-  server_grpc_api:
-    dependency: "direct main"
-    description:
-      name: server_grpc_api
-      sha256: "0a4eb949880e891ec3145c5dfa473725c3ede1c0f5787a0af79fc99c73801ced"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.0.0"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -910,10 +886,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_ios
-      sha256: "4ac97281cf60e2e8c5cc703b2b28528f9b50c8f7cebc71df6bdf0845f647268a"
+      sha256: bba3373219b7abb6b5e0d071b0fe66dfbe005d07517a68e38d4fc3638f35c6d3
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "6.2.0"
+    version: "6.2.1"
   url_launcher_linux:
     dependency: transitive
     description:

@@ -9,7 +9,7 @@ import 'package:openiothub_api/api/IoTManager/CnameManager.dart';
 import 'package:openiothub_api/api/OpenIoTHub/Utils.dart';
 import 'package:openiothub_constants/constants/Config.dart';
 import 'package:openiothub_constants/constants/WeChatConfig.dart';
-import 'package:openiothub_grpc_api/pb/service.pb.dart';
+import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wechat_kit/wechat_kit.dart';
 

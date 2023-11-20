@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
-import 'package:iot_manager_grpc_api/iot_manager_grpc_api.dart';
+import 'package:openiothub_grpc_api/proto/manager/mqttDeviceManager.pb.dart';
 import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_common_pages/user/LoginPage.dart';

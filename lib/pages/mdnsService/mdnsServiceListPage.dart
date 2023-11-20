@@ -5,7 +5,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
-import 'package:iot_manager_grpc_api/iot_manager_grpc_api.dart';
+import 'package:openiothub_grpc_api/proto/manager/mqttDeviceManager.pb.dart';
 // import 'package:multicast_dns/multicast_dns.dart';
 import 'package:openiothub/model/custom_theme.dart';
 // import 'package:openiothub/pages/mdnsService/AddMqttDevicesPage.dart';
@@ -13,8 +13,8 @@ import 'package:openiothub/util/ThemeUtils.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_common_pages/wifiConfig/smartConfigTool.dart';
 import 'package:openiothub_constants/openiothub_constants.dart';
-import 'package:openiothub_grpc_api/pb/service.pb.dart';
-import 'package:openiothub_grpc_api/pb/service.pbgrpc.dart';
+import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
+import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:openiothub_plugin/plugins/mdnsService/commWidgets/info.dart';
 import 'package:openiothub_plugin/plugins/mdnsService/mdnsType2ModelMap.dart';
 //统一导入全部设备类型
