@@ -169,7 +169,7 @@ SPEC CHECKSUMS:
   SDWebImage: 96e0c18ef14010b7485210e92fac888587ebb958
   shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
   SwiftyGif: 93a1cc87bf3a51916001cf8f3d63835fb64c819f
-  url_launcher_ios: 08a3dfac5fb39e8759aeb0abbd5d9480f30fc8b4
+  url_launcher_ios: bf5ce03e0e2088bad9cc378ea97fa0ed5b49673b
   webview_flutter_wkwebview: 2e2d318f21a5e036e2c3f26171342e95908bd60a
   wechat_kit: f0d7689116121620fcf543f42221f97a9fc2cf1e
   WechatOpenSDK: 6a4d1436c15b3b5fe2a0bd383f3046010186da44
