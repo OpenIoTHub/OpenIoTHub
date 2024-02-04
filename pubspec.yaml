@@ -22,7 +22,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.5
   #  golang的后台服务
-  openiothub_mobile_service: ^0.0.4
+  openiothub_mobile_service: ^0.0.7+3
   http: ^1.1.0
   #  grpc
   grpc: ^3.1.0
@@ -54,9 +54,9 @@ dependencies:
   #  modules:
   #    git: https://github.com/OpenIoTHub/modules
   openiothub_constants: ^1.0.0
-  openiothub_plugin: ^1.0.0+8
-  openiothub_api: ^1.0.2
-  openiothub_common_pages: ^1.0.1+15
+  openiothub_plugin: ^1.0.2
+  openiothub_api: ^1.0.4
+  openiothub_common_pages: ^1.0.4
 
   openiothub_grpc_api: ^1.1.0+1
 #  server_grpc_api: ^1.0.0

@@ -1,7 +1,7 @@
 PODS:
-  - connectivity (0.0.1):
+  - connectivity_plus (0.0.1):
     - Flutter
-    - Reachability
+    - ReachabilitySwift
   - DKImagePickerController/Core (4.3.4):
     - DKImagePickerController/ImageDataManager
     - DKImagePickerController/Resource
@@ -51,8 +51,8 @@ PODS:
   - MobileVLCKit (3.6.0b10)
   - openiothub_mobile_service (0.0.1):
     - Flutter
-    - OpenIoTHubMobile (= 0.0.6)
-  - OpenIoTHubMobile (0.0.6)
+    - OpenIoTHubMobile (= 0.0.9)
+  - OpenIoTHubMobile (0.0.9)
   - package_info_plus (0.4.5):
     - Flutter
   - path_provider_foundation (0.0.1):
@@ -60,10 +60,10 @@ PODS:
     - FlutterMacOS
   - permission_handler_apple (9.1.1):
     - Flutter
-  - Reachability (3.2)
-  - SDWebImage (5.18.3):
-    - SDWebImage/Core (= 5.18.3)
-  - SDWebImage/Core (5.18.3)
+  - ReachabilitySwift (5.0.0)
+  - SDWebImage (5.18.10):
+    - SDWebImage/Core (= 5.18.10)
+  - SDWebImage/Core (5.18.10)
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -83,7 +83,7 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
-  - connectivity (from `.symlinks/plugins/connectivity/ios`)
+  - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - Flutter (from `Flutter`)
   - flutter_easylink (from `.symlinks/plugins/flutter_easylink/ios`)
@@ -107,14 +107,14 @@ SPEC REPOS:
     - DKPhotoGallery
     - MobileVLCKit
     - OpenIoTHubMobile
-    - Reachability
+    - ReachabilitySwift
     - SDWebImage
     - SwiftyGif
     - WechatOpenSDK
 
 EXTERNAL SOURCES:
-  connectivity:
-    :path: ".symlinks/plugins/connectivity/ios"
+  connectivity_plus:
+    :path: ".symlinks/plugins/connectivity_plus/ios"
   file_picker:
     :path: ".symlinks/plugins/file_picker/ios"
   Flutter:
@@ -149,7 +149,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/wifi_info_flutter/ios"
 
 SPEC CHECKSUMS:
-  connectivity: c4130b2985d4ef6fd26f9702e886bd5260681467
+  connectivity_plus: bf0076dd84a130856aa636df1c71ccaff908fa1d
   DKImagePickerController: b512c28220a2b8ac7419f21c491fc8534b7601ac
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
   file_picker: ce3938a0df3cc1ef404671531facef740d03f920
@@ -160,21 +160,21 @@ SPEC CHECKSUMS:
   flutter_smartlink: 18c271f7f14a872e028ba3dd89e5fa33db4ca83b
   flutter_vlc_player: 2e318881576450ff081eb023d47c289f2c6681eb
   MobileVLCKit: 937ec2b5da5f078458d7bbdddc68f65ccce8bb62
-  openiothub_mobile_service: 734fa54f78dff76ef38af0d86519e5599944c767
-  OpenIoTHubMobile: 39fa38d0fd131513bff9d9eb8eba1c4dc5e1dc44
+  openiothub_mobile_service: 36be0a1ec11926f3170e3d02a6275b31a166c10c
+  OpenIoTHubMobile: 94156aa448c94f6fe9d4ea21d47965b46960de1f
   package_info_plus: 115f4ad11e0698c8c1c5d8a689390df880f47e85
-  path_provider_foundation: 29f094ae23ebbca9d3d0cec13889cd9060c0e943
+  path_provider_foundation: 3784922295ac71e43754bd15e0653ccfd36a147c
   permission_handler_apple: e76247795d700c14ea09e3a2d8855d41ee80a2e6
-  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  SDWebImage: 96e0c18ef14010b7485210e92fac888587ebb958
-  shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
+  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
+  SDWebImage: fc8f2d48bbfd72ef39d70e981bd24a3f3be53fec
+  shared_preferences_foundation: b4c3b4cddf1c21f02770737f147a3f5da9d39695
   SwiftyGif: 93a1cc87bf3a51916001cf8f3d63835fb64c819f
-  url_launcher_ios: bf5ce03e0e2088bad9cc378ea97fa0ed5b49673b
-  webview_flutter_wkwebview: 2e2d318f21a5e036e2c3f26171342e95908bd60a
+  url_launcher_ios: bbd758c6e7f9fd7b5b1d4cde34d2b95fcce5e812
+  webview_flutter_wkwebview: be0f0d33777f1bfd0c9fdcb594786704dbf65f36
   wechat_kit: f0d7689116121620fcf543f42221f97a9fc2cf1e
   WechatOpenSDK: 6a4d1436c15b3b5fe2a0bd383f3046010186da44
   wifi_info_flutter: 55d4c2469034f5b5c38063ccefa62f708a503a2b
 
-PODFILE CHECKSUM: 70d9d25280d0dd177a5f637cdb0f0b0b12c6a189
+PODFILE CHECKSUM: a57f30d18f102dd3ce366b1d62a55ecbef2158e5
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.15.0

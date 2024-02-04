@@ -5,7 +5,7 @@
 import FlutterMacOS
 import Foundation
 
-import connectivity_macos
+import connectivity_plus
 import flutter_nsd
 import package_info_plus
 import path_provider_foundation
