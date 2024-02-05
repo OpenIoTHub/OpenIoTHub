@@ -11,7 +11,7 @@ jobs:
     name: Android
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Decrypt large secret
         run: chmod +x ./.github/scripts/decrypt_secret.sh&&./.github/scripts/decrypt_secret.sh
         env:
@@ -27,7 +27,7 @@ jobs:
       - run: flutter pub upgrade
       - run: flutter pub get
       - run: flutter build apk --release
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: app-release-all.apk
           path: ./build/app/outputs/flutter-apk/app-release.apk
@@ -36,7 +36,7 @@ jobs:
     name: iOS
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Dart
         uses: dart-lang/setup-dart@v1
         with:
@@ -48,7 +48,7 @@ jobs:
       - run: flutter config --no-enable-android
       - run: flutter pub get
       - run: flutter build ipa  --release --no-codesign
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: Runner.xcarchive
           path: ./build/ios/archive/Runner.xcarchive
@@ -59,7 +59,7 @@ jobs:
     env:
       SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_TOKEN }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
@@ -71,7 +71,7 @@ jobs:
           flutter config --no-enable-android
           flutter pub get
           flutter build linux --release
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: linux-release.zip
           path: ./build/linux/x64/release/bundle
@@ -88,7 +88,7 @@ jobs:
         run: |
           snapcraft --use-lxd
       - run: ls -a
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: openiothub_0.1.0_amd64.snap
           path: ./openiothub_0.1.0_amd64.snap
@@ -97,7 +97,7 @@ jobs:
     name: MacOS
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
@@ -111,7 +111,7 @@ jobs:
       - run: ls build/dmg
       # https://github.com/create-dmg/create-dmg.git
       - run: hdiutil create -srcfolder build/dmg -volname "OpenIoTHub" -format UDZO -ov -imagekey zlib-level=9 openiothub.dmg
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: openiothub.dmg
           path: ./openiothub.dmg
@@ -120,7 +120,7 @@ jobs:
     name: Windows
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
@@ -129,23 +129,23 @@ jobs:
       - run: flutter pub get
       - run: flutter build windows --release
 #      - run: Compress-Archive -Path build\windows\runner\Release -DestinationPath windows-release.zip
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: windows-release.zip
-          path: ./build/windows/runner/Release
+          path: ./build/windows/x64/runner/Release
       - run: flutter clean
       - run: flutter pub get
       - run: dart run msix:create
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
          name: openiothub.msix
-         path: ./build/windows/runner/Release/openiothub.msix
+         path: ./build/windows/x64/runner/Release/openiothub.msix
       - name: Building the installer
         run: |
           "%programfiles(x86)%\Inno Setup 6\iscc.exe" "windows-setup.iss"
         shell: cmd
       - name: Upload the installer as an artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ github.event_name != 'pull_request' }}
         with:
           name: OpenIoTHub-Setup.exe

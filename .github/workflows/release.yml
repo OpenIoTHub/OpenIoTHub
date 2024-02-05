@@ -13,7 +13,7 @@ jobs:
     name: Android
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Decrypt large secret
         run: chmod +x ./.github/scripts/decrypt_secret.sh&&./.github/scripts/decrypt_secret.sh
         env:
@@ -41,7 +41,7 @@ jobs:
     name: iOS
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Dart
         uses: dart-lang/setup-dart@v1
         with:
@@ -68,7 +68,7 @@ jobs:
     env:
       SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_TOKEN }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
@@ -107,7 +107,7 @@ jobs:
     name: MacOS
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
@@ -133,7 +133,7 @@ jobs:
     name: Windows
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
@@ -141,7 +141,7 @@ jobs:
       - run: flutter config --no-enable-android
       - run: flutter pub get
       - run: flutter build windows --release
-      - run: Compress-Archive -Path build\windows\runner\Release -DestinationPath windows-release.zip
+      - run: Compress-Archive -Path build\windows\x64\runner\Release -DestinationPath windows-release.zip
       - name: Release windows zip
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
@@ -155,7 +155,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            ./build/windows/runner/Release/openiothub.msix
+            ./build/windows/x64/runner/Release/openiothub.msix
           body_path: ./.github/doc/DownloadDescription.md
       - name: Building the installer
         run: |
