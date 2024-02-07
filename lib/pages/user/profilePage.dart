@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:openiothub_mobile_service/openiothub_mobile_service.dart' as openiothub_mobile_service;
 import 'package:openiothub/generated/l10n.dart';
 import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub/pages/user/tools/toolsTypePage.dart';
@@ -190,6 +189,17 @@ class _ProfilePageState extends State<ProfilePage> {
         //           ? _goToURL(context, "https://wulian.work", "社区反馈")
         //           : _goToURL(context, "https://wulian.work", "社区反馈");
         //     }),
+        ListTile(
+            //第二个功能项
+            title: Text(S.current.app_local_gateway),
+            leading: Icon(Icons.all_inclusive),
+            trailing: Icon(Icons.arrow_right),
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => GatewayQrPage(
+                    key: UniqueKey(),
+                  )));
+            }),
         ListTile(
             //第二个功能项
             title: Text(S.current.profile_about_this_app),

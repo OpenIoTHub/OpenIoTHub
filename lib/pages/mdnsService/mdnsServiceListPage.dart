@@ -181,11 +181,11 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
 
   @override
   void dispose() {
-    super.dispose();
     _timerPeriodLocal.cancel();
     _timerPeriodRemote.cancel();
     _IoTDeviceMap.clear();
     stopDiscovery();
+    super.dispose();
   }
 
 //显示是设备的UI展示或者操作界面

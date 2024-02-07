@@ -10,5 +10,6 @@
   "profile_servers": "My Servers",
   "profile_tools": "Tools",
   "profile_docs": "Docs",
+  "app_local_gateway": "App Local Gateway",
   "profile_about_this_app": "About this App"
 }

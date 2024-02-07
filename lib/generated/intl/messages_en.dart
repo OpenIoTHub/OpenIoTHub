@@ -22,6 +22,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "app_local_gateway":
+            MessageLookupByLibrary.simpleMessage("App Local Gateway"),
         "app_title": MessageLookupByLibrary.simpleMessage("OpenIoTHub"),
         "profile_about_this_app":
             MessageLookupByLibrary.simpleMessage("About this App"),

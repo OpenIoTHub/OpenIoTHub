@@ -10,5 +10,6 @@
   "profile_servers": "我的服务器",
   "profile_tools": "工具",
   "profile_docs": "文档",
+  "app_local_gateway": "本机网关",
   "profile_about_this_app": "关于本软件"
 }

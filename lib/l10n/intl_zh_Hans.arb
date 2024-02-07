@@ -1,5 +1,5 @@
 {
-  "app_title": "云易连",
+  "app_title": "云亿连",
   "tab_smart": "智能",
   "tab_gateway": "网关",
   "tab_host": "主机",
@@ -10,5 +10,6 @@
   "profile_servers": "我的服务器",
   "profile_tools": "工具",
   "profile_docs": "文档",
+  "app_local_gateway": "本机网关",
   "profile_about_this_app": "关于本软件"
 }

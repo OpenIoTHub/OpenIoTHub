@@ -22,7 +22,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "app_title": MessageLookupByLibrary.simpleMessage("雲易連"),
+        "app_local_gateway": MessageLookupByLibrary.simpleMessage("本機網關"),
+        "app_title": MessageLookupByLibrary.simpleMessage("雲億連"),
         "profile_about_this_app": MessageLookupByLibrary.simpleMessage("關於本軟件"),
         "profile_click_avatar_to_sign_in":
             MessageLookupByLibrary.simpleMessage("點擊頭像登錄"),

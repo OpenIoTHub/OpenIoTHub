@@ -160,6 +160,16 @@ class S {
     );
   }
 
+  /// `App Local Gateway`
+  String get app_local_gateway {
+    return Intl.message(
+      'App Local Gateway',
+      name: 'app_local_gateway',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `About this App`
   String get profile_about_this_app {
     return Intl.message(
