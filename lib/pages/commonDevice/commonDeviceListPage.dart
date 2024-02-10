@@ -81,7 +81,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
           IconButton(
               icon: const Icon(
                 Icons.refresh,
-                color: Colors.white,
+                // color: Colors.white,
               ),
               onPressed: () {
                 getAllCommonDevice().then((v) {
@@ -91,7 +91,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
           IconButton(
               icon: const Icon(
                 Icons.add_circle,
-                color: Colors.white,
+                // color: Colors.white,
               ),
               onPressed: () {
                 _addDeviceFromSession();

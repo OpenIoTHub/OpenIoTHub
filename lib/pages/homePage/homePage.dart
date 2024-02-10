@@ -85,6 +85,9 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         //悬浮按钮
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add),
+          shape: const CircleBorder(),
+          elevation: 2.0,
+          tooltip: 'Add Device',
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(
@@ -138,9 +141,9 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     return BottomAppBar(
       shape: const CircularNotchedRectangle(),
       notchMargin: 6.0,
-      color: Provider.of<CustomTheme>(context).isLightTheme()
-          ? CustomThemes.light.scaffoldBackgroundColor
-          : CustomThemes.dark.scaffoldBackgroundColor,
+      // color: Provider.of<CustomTheme>(context).isLightTheme()
+      //     ? CustomThemes.light.scaffoldBackgroundColor
+      //     : CustomThemes.dark.scaffoldBackgroundColor,
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -208,7 +211,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
           }
         },
         child: SizedBox(
-          height: 52,
+          // height: 52,
           child: padItem,
         ),
       ),

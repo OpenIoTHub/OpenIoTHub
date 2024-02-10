@@ -28,7 +28,7 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.iotserv.openiothub"
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion flutter.compileSdkVersion > 34 ? flutter.compileSdkVersion : 34
     ndkVersion flutter.ndkVersion
 
     compileOptions {

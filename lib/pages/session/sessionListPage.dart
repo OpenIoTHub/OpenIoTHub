@@ -83,7 +83,7 @@ class _SessionListPageState extends State<SessionListPage> {
           IconButton(
               icon: const Icon(
                 Icons.refresh,
-                color: Colors.white,
+                // color: Colors.white,
               ),
               onPressed: () {
                 getAllSession();
@@ -91,7 +91,7 @@ class _SessionListPageState extends State<SessionListPage> {
           IconButton(
               icon: const Icon(
                 Icons.search,
-                color: Colors.white,
+                // color: Colors.white,
               ),
               onPressed: () {
                 _pushFindmDNSClientListPage();
