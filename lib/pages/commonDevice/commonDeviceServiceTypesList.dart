@@ -184,7 +184,7 @@ class _CommonDeviceServiceTypesListState
           IconButton(
               icon: const Icon(
                 Icons.power_settings_new,
-                color: Colors.white,
+                // color: Colors.white,
               ),
               onPressed: () {
                 //网络唤醒
@@ -194,7 +194,7 @@ class _CommonDeviceServiceTypesListState
           IconButton(
               icon: const Icon(
                 Icons.info,
-                color: Colors.white,
+                // color: Colors.white,
               ),
               onPressed: () {
                 //网络唤醒

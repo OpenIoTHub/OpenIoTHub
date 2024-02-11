@@ -89,7 +89,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                   IconButton(
                       icon: const Icon(
                         Icons.info,
-                        color: Colors.white,
+                        // color: Colors.white,
                       ),
                       onPressed: () {
                         _info(pair);
@@ -97,7 +97,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                   IconButton(
                       icon: const Icon(
                         Icons.open_in_browser,
-                        color: Colors.white,
+                        // color: Colors.white,
                       ),
                       onPressed: () {
                         _launchURL(
@@ -124,7 +124,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
           IconButton(
               icon: const Icon(
                 Icons.edit,
-                color: Colors.white,
+                // color: Colors.white,
               ),
               onPressed: () {
                 _renameDialog();
@@ -132,7 +132,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
           IconButton(
               icon: const Icon(
                 Icons.refresh,
-                color: Colors.white,
+                // color: Colors.white,
               ),
               onPressed: () {
                 refreshmDNSServices(widget.sessionConfig).then((result) {
@@ -174,7 +174,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
           IconButton(
               icon: const Icon(
                 Icons.info,
-                color: Colors.white,
+                // color: Colors.white,
               ),
               onPressed: () {
                 _pushDetail(widget.sessionConfig);

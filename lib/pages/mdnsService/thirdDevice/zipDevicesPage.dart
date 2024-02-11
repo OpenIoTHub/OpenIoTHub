@@ -58,7 +58,7 @@ class _ZipDevicesPageState extends State<ZipDevicesPage> {
             IconButton(
                 icon: Icon(
                   Icons.refresh,
-                  color: Colors.white,
+                  // color: Colors.white,
                 ),
                 onPressed: () {
                   _findAllDevices();

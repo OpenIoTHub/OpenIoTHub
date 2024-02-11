@@ -33,7 +33,7 @@ dependencies:
   #  打开url
   url_launcher: ^6.1.11
   #  安卓intent调用其他程序
-  android_intent: ^2.0.2
+  #  android_intent: ^2.0.2
   #  数据存储
   shared_preferences: ^2.1.1
   #  事件总线

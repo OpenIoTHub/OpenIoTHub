@@ -9,14 +9,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.0+5"
-  android_intent:
-    dependency: "direct main"
-    description:
-      name: android_intent
-      sha256: "498b451c6be831de2fe032290a8699d2a185c9c6de3bbe6d90db1623a9f62321"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.0.2"
   archive:
     dependency: transitive
     description:
@@ -369,10 +361,10 @@ packages:
     dependency: transitive
     description:
       name: image
-      sha256: "49a0d4b0c12402853d3f227fe7c315601b238d126aa4caa5dbb2dcf99421aa4a"
+      sha256: "4c68bfd5ae83e700b5204c1e74451e7bf3cf750e6843c6e158289cf56bda018e"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "4.1.6"
+    version: "4.1.7"
   intl:
     dependency: transitive
     description:
@@ -473,10 +465,10 @@ packages:
     dependency: transitive
     description:
       name: mqtt5_client
-      sha256: "374fe8e70660275aad889081fe5ad28af8efe9ca2e04f4dc767588a689e67e44"
+      sha256: eeee3414f9a4a3ffeba5d40c618272590c58e70147a42e532dc72f5eb28800f3
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "4.1.0"
+    version: "4.2.0"
   msix:
     dependency: "direct main"
     description:
@@ -529,10 +521,10 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_common_pages
-      sha256: bbe40520d354d924057189a863c6e425dbdd4f87ae47d56b331de5132fd26e8a
+      sha256: "3b89fcc45002864dd3a4aa5e8a6b2f6ca3a807d7284dcae5aadd32b8193f9e37"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.4+3"
+    version: "1.0.4+4"
   openiothub_constants:
     dependency: "direct main"
     description:
@@ -561,10 +553,10 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_plugin
-      sha256: "2b4f0b6d0138b19ef991c63ae68e587c488443d7600d73c01e47bb9fc4816001"
+      sha256: b2ce1496bec10fc20a99b57fd47b0efe47001c3db2283f08e4f7555c73509759
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.2"
+    version: "1.0.2+1"
   package_config:
     dependency: transitive
     description:
@@ -974,18 +966,18 @@ packages:
     dependency: "direct main"
     description:
       name: webview_flutter
-      sha256: d81b68e88cc353e546afb93fb38958e3717282c5ac6e5d3be4a4aef9fc3c1413
+      sha256: "25e1b6e839e8cbfbd708abc6f85ed09d1727e24e08e08c6b8590d7c65c9a8932"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "4.5.0"
+    version: "4.7.0"
   webview_flutter_android:
     dependency: transitive
     description:
       name: webview_flutter_android
-      sha256: "4ea3c4e1b8ed590162b15b8a61b41b1ef3ff179a314627c16ce40c086d94b8af"
+      sha256: "3e5f4e9d818086b0d01a66fb1ff9cc72ab0cc58c71980e3d3661c5685ea0efb0"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.14.0"
+    version: "3.15.0"
   webview_flutter_platform_interface:
     dependency: transitive
     description:
@@ -998,10 +990,10 @@ packages:
     dependency: transitive
     description:
       name: webview_flutter_wkwebview
-      sha256: "4d062ad505390ecef1c4bfb6001cd857a51e00912cc9dfb66edb1886a9ebd80c"
+      sha256: "9bf168bccdf179ce90450b5f37e36fe263f591c9338828d6bf09b6f8d0f57f86"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.10.2"
+    version: "3.12.0"
   wechat_kit:
     dependency: "direct main"
     description:
@@ -1059,5 +1051,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.2.0 <4.0.0"
-  flutter: ">=3.16.0"
+  dart: ">=3.2.3 <4.0.0"
+  flutter: ">=3.16.6"

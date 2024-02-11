@@ -159,7 +159,8 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     );
   }
 
-  _buildBotomItem(int selectIndex, int index, IconData? iconData, String title) {
+  _buildBotomItem(
+      int selectIndex, int index, IconData? iconData, String title) {
     //未选中状态的样式
     TextStyle textStyle = const TextStyle(fontSize: 12.0, color: Colors.grey);
     MaterialColor? iconColor = Colors.grey;
@@ -178,24 +179,19 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     if (iconData != null) {
       padItem = Padding(
         padding: padding,
-        child: Container(
-          color: Provider.of<CustomTheme>(context).isLightTheme()
-              ? CustomThemes.light.scaffoldBackgroundColor
-              : CustomThemes.dark.scaffoldBackgroundColor,
-          child: Center(
-            child: Column(
-              children: <Widget>[
-                Icon(
-                  iconData,
-                  color: iconColor,
-                  size: iconSize,
-                ),
-                Text(
-                  title,
-                  style: textStyle,
-                )
-              ],
-            ),
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              Icon(
+                iconData,
+                color: iconColor,
+                size: iconSize,
+              ),
+              Text(
+                title,
+                style: textStyle,
+              )
+            ],
           ),
         ),
       );

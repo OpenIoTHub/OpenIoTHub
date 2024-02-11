@@ -74,9 +74,9 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Container _buildHeader() {
     return Container(
-      color: Provider.of<CustomTheme>(context).isLightTheme()
-          ? CustomThemes.light.primaryColorLight
-          : CustomThemes.dark.primaryColorDark,
+      // color: Provider.of<CustomTheme>(context).isLightTheme()
+      //     ? CustomThemes.light.primaryColorLight
+      //     : CustomThemes.dark.primaryColorDark,
       height: 150.0,
       child: Center(
         child: Column(

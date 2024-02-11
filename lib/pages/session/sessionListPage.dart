@@ -98,16 +98,14 @@ class _SessionListPageState extends State<SessionListPage> {
               }),
         ],
       ),
-      body: divided.length > 0
+      body: divided.isNotEmpty
           ? ListView(children: divided)
-          : Container(
-              child: Column(children: [
-                ThemeUtils.isDarkMode(context)
-                    ? Image.asset('assets/images/empty_list_black.png')
-                    : Image.asset('assets/images/empty_list.png'),
-                Text("请使用右上角放大镜查找你在本局域网安装的网关"),
-              ]),
-            ),
+          : Column(children: [
+            ThemeUtils.isDarkMode(context)
+                ? Image.asset('assets/images/empty_list_black.png')
+                : Image.asset('assets/images/empty_list.png'),
+            Text("请使用右上角放大镜查找你在本局域网安装的网关"),
+          ]),
     );
   }
 

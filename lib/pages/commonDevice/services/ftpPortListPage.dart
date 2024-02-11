@@ -67,7 +67,7 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
           IconButton(
               icon: const Icon(
                 Icons.refresh,
-                color: Colors.white,
+                // color: Colors.white,
               ),
               onPressed: () {
                 //刷新端口列表
@@ -76,7 +76,7 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
           IconButton(
               icon: const Icon(
                 Icons.add_circle,
-                color: Colors.white,
+                // color: Colors.white,
               ),
               onPressed: () {
 //                TODO 添加FTP端口
@@ -129,7 +129,7 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
               IconButton(
                   icon: const Icon(
                     Icons.open_in_browser,
-                    color: Colors.white,
+                    // color: Colors.white,
                   ),
                   onPressed: () {
                     //                TODO 使用某种方式打开此端口，检查这个软件是否已经安装

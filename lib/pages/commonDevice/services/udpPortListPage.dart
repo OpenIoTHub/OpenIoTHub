@@ -65,7 +65,7 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
           IconButton(
               icon: const Icon(
                 Icons.refresh,
-                color: Colors.white,
+                // color: Colors.white,
               ),
               onPressed: () {
                 //刷新端口列表
@@ -74,7 +74,7 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
           IconButton(
               icon: const Icon(
                 Icons.add_circle,
-                color: Colors.white,
+                // color: Colors.white,
               ),
               onPressed: () {
 //                TODO 添加UDP端口
