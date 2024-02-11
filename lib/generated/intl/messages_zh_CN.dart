@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "app_local_gateway": MessageLookupByLibrary.simpleMessage("本机网关"),
         "app_title": MessageLookupByLibrary.simpleMessage("云亿连"),
+        "config_device_wifi": MessageLookupByLibrary.simpleMessage("配置设备WiFi"),
         "profile_about_this_app": MessageLookupByLibrary.simpleMessage("关于本软件"),
         "profile_click_avatar_to_sign_in":
             MessageLookupByLibrary.simpleMessage("点击头像登录"),
@@ -32,6 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile_servers": MessageLookupByLibrary.simpleMessage("我的服务器"),
         "profile_settings": MessageLookupByLibrary.simpleMessage("设置"),
         "profile_tools": MessageLookupByLibrary.simpleMessage("工具"),
+        "scan_QR": MessageLookupByLibrary.simpleMessage("扫描二维码"),
         "tab_gateway": MessageLookupByLibrary.simpleMessage("网关"),
         "tab_host": MessageLookupByLibrary.simpleMessage("主机"),
         "tab_smart": MessageLookupByLibrary.simpleMessage("智能"),

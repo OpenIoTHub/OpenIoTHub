@@ -3,12 +3,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:openiothub/generated/l10n.dart';
-import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub/pages/mdnsService/mdnsServiceListPage.dart';
 import 'package:openiothub/pages/session/sessionListPage.dart';
 import 'package:openiothub/pages/user/profilePage.dart';
 import 'package:openiothub_common_pages/wifiConfig/smartConfigTool.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 import '../commonDevice/commonDeviceListPage.dart';
 
@@ -83,24 +82,55 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         body: _buildBody(_currentIndex),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         //悬浮按钮
-        floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.add),
-          shape: const CircleBorder(),
-          elevation: 2.0,
-          tooltip: 'Add Device',
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return SmartConfigTool(
-                    title: "添加设备",
-                    needCallBack: true,
-                    key: UniqueKey(),
-                  );
-                },
-              ),
-            );
-          },
+        // floatingActionButton: FloatingActionButton(
+        //   child: const Icon(Icons.add),
+        //   shape: const CircleBorder(),
+        //   elevation: 2.0,
+        //   tooltip: 'Add Device',
+        //   onPressed: () {
+        //     Navigator.of(context).push(
+        //       MaterialPageRoute(
+        //         builder: (context) {
+        //           return SmartConfigTool(
+        //             title: "添加设备",
+        //             needCallBack: true,
+        //             key: UniqueKey(),
+        //           );
+        //         },
+        //       ),
+        //     );
+        //   },
+        // ),
+        floatingActionButton: SpeedDial(
+          icon: Icons.add,
+          spacing: 10,
+          spaceBetweenChildren: 5,
+          children: [
+            SpeedDialChild(
+              elevation: 2,
+              child: const Icon(Icons.wifi_tethering),
+              label: S.current.config_device_wifi,
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return SmartConfigTool(
+                        title: S.current.config_device_wifi,
+                        needCallBack: true,
+                        key: UniqueKey(),
+                      );
+                    },
+                  ),
+                );
+              },
+            ),
+            SpeedDialChild(
+              elevation: 2,
+              child: const Icon(Icons.settings_overscan),
+              label: S.current.scan_QR,
+              onTap: () async => {},
+            ),
+          ],
         ),
         bottomNavigationBar: _buildBottomNavigationBar(_currentIndex));
   }

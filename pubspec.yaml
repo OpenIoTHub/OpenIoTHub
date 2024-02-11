@@ -73,6 +73,7 @@ dependencies:
 #  fluttertoast: ^8.0.8
   oktoast: ^3.3.2+1
   msix: ^3.16.6
+  flutter_speed_dial: ^7.0.0
 
 dev_dependencies:
   flutter_test:

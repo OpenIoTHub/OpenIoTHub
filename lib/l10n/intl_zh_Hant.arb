@@ -11,5 +11,7 @@
   "profile_tools": "工具",
   "profile_docs": "文檔",
   "app_local_gateway": "本機網關",
-  "profile_about_this_app": "關於本軟件"
+  "profile_about_this_app": "關於本軟件",
+  "config_device_wifi": "配置設備WiFi",
+  "scan_QR": "掃描二維碼"
 }

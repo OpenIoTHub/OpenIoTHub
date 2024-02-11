@@ -11,5 +11,7 @@
   "profile_tools": "Tools",
   "profile_docs": "Docs",
   "app_local_gateway": "App Local Gateway",
-  "profile_about_this_app": "About this App"
+  "profile_about_this_app": "About this App",
+  "config_device_wifi": "Config Device WiFi",
+  "scan_QR": "Scan QR"
 }

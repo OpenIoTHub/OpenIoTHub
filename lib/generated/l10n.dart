@@ -179,6 +179,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Config Device WiFi`
+  String get config_device_wifi {
+    return Intl.message(
+      'Config Device WiFi',
+      name: 'config_device_wifi',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Scan QR`
+  String get scan_QR {
+    return Intl.message(
+      'Scan QR',
+      name: 'scan_QR',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

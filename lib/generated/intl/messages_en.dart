@@ -25,6 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "app_local_gateway":
             MessageLookupByLibrary.simpleMessage("App Local Gateway"),
         "app_title": MessageLookupByLibrary.simpleMessage("OpenIoTHub"),
+        "config_device_wifi":
+            MessageLookupByLibrary.simpleMessage("Config Device WiFi"),
         "profile_about_this_app":
             MessageLookupByLibrary.simpleMessage("About this App"),
         "profile_click_avatar_to_sign_in":
@@ -35,6 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile_servers": MessageLookupByLibrary.simpleMessage("My Servers"),
         "profile_settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "profile_tools": MessageLookupByLibrary.simpleMessage("Tools"),
+        "scan_QR": MessageLookupByLibrary.simpleMessage("Scan QR"),
         "tab_gateway": MessageLookupByLibrary.simpleMessage("gateway"),
         "tab_host": MessageLookupByLibrary.simpleMessage("host"),
         "tab_smart": MessageLookupByLibrary.simpleMessage("smart"),
