@@ -469,6 +469,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.5"
+  mobile_scanner:
+    dependency: "direct main"
+    description:
+      name: mobile_scanner
+      sha256: "619ed5fd43ca9007a151f00c3dc43feedeaf235fe5647735d0237c38849d49dc"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "4.0.0"
   mqtt5_client:
     dependency: transitive
     description:

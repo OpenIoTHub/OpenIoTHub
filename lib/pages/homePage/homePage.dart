@@ -10,6 +10,7 @@ import 'package:openiothub_common_pages/wifiConfig/smartConfigTool.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 import '../commonDevice/commonDeviceListPage.dart';
+import '../commonPages/scanQR.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({required Key key, required this.title}) : super(key: key);
@@ -124,11 +125,20 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                 );
               },
             ),
+            // TODO 只有移动平台才支持扫码
             SpeedDialChild(
               elevation: 2,
               child: const Icon(Icons.settings_overscan),
               label: S.current.scan_QR,
-              onTap: () async => {},
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return ScanQRPage();
+                    },
+                  ),
+                );
+              },
             ),
           ],
         ),
