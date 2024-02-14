@@ -2,9 +2,13 @@ PODS:
   - connectivity_plus (0.0.1):
     - FlutterMacOS
     - ReachabilitySwift
+  - file_selector_macos (0.0.1):
+    - FlutterMacOS
   - flutter_nsd (0.0.1):
     - FlutterMacOS
   - FlutterMacOS (1.0.0)
+  - mobile_scanner (3.5.6):
+    - FlutterMacOS
   - openiothub_mobile_service (0.0.1):
     - FlutterMacOS
     - OpenIoTHubMobile (= 0.0.9)
@@ -23,8 +27,10 @@ PODS:
 
 DEPENDENCIES:
   - connectivity_plus (from `Flutter/ephemeral/.symlinks/plugins/connectivity_plus/macos`)
+  - file_selector_macos (from `Flutter/ephemeral/.symlinks/plugins/file_selector_macos/macos`)
   - flutter_nsd (from `Flutter/ephemeral/.symlinks/plugins/flutter_nsd/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
+  - mobile_scanner (from `Flutter/ephemeral/.symlinks/plugins/mobile_scanner/macos`)
   - openiothub_mobile_service (from `Flutter/ephemeral/.symlinks/plugins/openiothub_mobile_service/macos`)
   - package_info_plus (from `Flutter/ephemeral/.symlinks/plugins/package_info_plus/macos`)
   - path_provider_foundation (from `Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/darwin`)
@@ -39,10 +45,14 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   connectivity_plus:
     :path: Flutter/ephemeral/.symlinks/plugins/connectivity_plus/macos
+  file_selector_macos:
+    :path: Flutter/ephemeral/.symlinks/plugins/file_selector_macos/macos
   flutter_nsd:
     :path: Flutter/ephemeral/.symlinks/plugins/flutter_nsd/macos
   FlutterMacOS:
     :path: Flutter/ephemeral
+  mobile_scanner:
+    :path: Flutter/ephemeral/.symlinks/plugins/mobile_scanner/macos
   openiothub_mobile_service:
     :path: Flutter/ephemeral/.symlinks/plugins/openiothub_mobile_service/macos
   package_info_plus:
@@ -56,8 +66,10 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   connectivity_plus: 18d3c32514c886e046de60e9c13895109866c747
+  file_selector_macos: 468fb6b81fac7c0e88d71317f3eec34c3b008ff9
   flutter_nsd: 60e24f98ea47106c4f82e24d7f0fab78b3fbe8df
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
+  mobile_scanner: 54ceceae0c8da2457e26a362a6be5c61154b1829
   openiothub_mobile_service: 25f8eab4d9b80081e433f8e2ef1313a164395f06
   OpenIoTHubMobile: 94156aa448c94f6fe9d4ea21d47965b46960de1f
   package_info_plus: 02d7a575e80f194102bef286361c6c326e4c29ce

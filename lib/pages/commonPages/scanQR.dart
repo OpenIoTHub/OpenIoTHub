@@ -40,7 +40,7 @@ class _ScanQRPageState extends State<ScanQRPage> {
             onPressed: () => cameraController.toggleTorch(),
           ),
           IconButton(
-            color: Colors.white,
+            // color: Colors.white,
             icon: ValueListenableBuilder(
               valueListenable: cameraController.cameraFacingState,
               builder: (context, state, child) {

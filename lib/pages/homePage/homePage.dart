@@ -102,46 +102,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         //     );
         //   },
         // ),
-        floatingActionButton: SpeedDial(
-          icon: Icons.add,
-          spacing: 10,
-          spaceBetweenChildren: 5,
-          children: [
-            SpeedDialChild(
-              elevation: 2,
-              child: const Icon(Icons.wifi_tethering),
-              label: S.current.config_device_wifi,
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return SmartConfigTool(
-                        title: S.current.config_device_wifi,
-                        needCallBack: true,
-                        key: UniqueKey(),
-                      );
-                    },
-                  ),
-                );
-              },
-            ),
-            // TODO 只有移动平台才支持扫码
-            SpeedDialChild(
-              elevation: 2,
-              child: const Icon(Icons.settings_overscan),
-              label: S.current.scan_QR,
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return ScanQRPage();
-                    },
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
+        floatingActionButton: _build_peedDial(),
         bottomNavigationBar: _buildBottomNavigationBar(_currentIndex));
   }
 
@@ -253,5 +214,51 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
       ),
     );
     return item;
+  }
+
+  _build_peedDial() {
+    var speedDial = SpeedDial(
+      icon: Icons.add,
+      spacing: 10,
+      spaceBetweenChildren: 5,
+      children: [
+        SpeedDialChild(
+          elevation: 2,
+          child: const Icon(Icons.wifi_tethering),
+          label: S.current.config_device_wifi,
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return SmartConfigTool(
+                    title: S.current.config_device_wifi,
+                    needCallBack: true,
+                    key: UniqueKey(),
+                  );
+                },
+              ),
+            );
+          },
+        ),
+      ],
+    );
+    //只有移动平台才支持扫码
+    if (Platform.isAndroid || Platform.isIOS) {
+      speedDial.children.add(SpeedDialChild(
+        elevation: 2,
+        child: const Icon(Icons.settings_overscan),
+        label: S.current.scan_QR,
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) {
+                return ScanQRPage();
+              },
+            ),
+          );
+        },
+      ));
+    }
+    return speedDial;
   }
 }

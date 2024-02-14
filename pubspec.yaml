@@ -75,6 +75,7 @@ dependencies:
   msix: ^3.16.6
   flutter_speed_dial: ^7.0.0
   mobile_scanner: ^4.0.0
+  image_picker: ^1.0.7
 
 dev_dependencies:
   flutter_test:
