@@ -24,7 +24,7 @@ class _ScanQRPageState extends State<ScanQRPage> {
         title: Text(S.current.scan_QR),
         actions: [
           IconButton(
-            color: Colors.white,
+            // color: Colors.white,
             icon: ValueListenableBuilder(
               valueListenable: cameraController.torchState,
               builder: (context, state, child) {
@@ -62,11 +62,36 @@ class _ScanQRPageState extends State<ScanQRPage> {
         controller: cameraController,
         onDetect: (capture) {
           final List<Barcode> barcodes = capture.barcodes;
-          final Uint8List? image = capture.image;
-          showToast('Barcode length: ${barcodes.length}');
+          // final Uint8List? image = capture.image;
           for (final barcode in barcodes) {
-            debugPrint('Barcode found! ${barcode.rawValue}');
-            showToast('Barcode found! ${barcode.rawValue}');
+            // debugPrint('Barcode found! ${barcode.rawValue}');
+            // showToast('Barcode found!len:${barcodes.length},this value: ${barcode.rawValue}');
+            //根据扫码内容做不同的操作
+            if (barcode.rawValue == null) {
+              continue;
+            }
+            Uri? uri = Uri.tryParse(barcode.rawValue!);
+            if (uri == null) {
+              continue;
+            }
+            // UriData uriData = UriData.fromUri(uri);
+            // Map<String, String> parameters = uriData.parameters;
+            // showToast("parameters:$parameters");
+            switch (uri.host) {
+              case "iothub.cloud":
+                switch (uri.path) {
+                  case "/a/g":
+                    // TODO 添加网关
+                    showToast("path: ${uri.path},parameters:${uri.queryParameters}");
+                    break;
+                  default:
+                    showToast("不支持的Uri路径");
+                    break;
+                }
+                break;
+              default:
+                showToast("不支持的二维码");
+            }
           }
         },
       ),
