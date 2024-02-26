@@ -38,7 +38,7 @@ Future<void> initHttpAssets() async {
 
 Future<void> initWechat() async {
   // 初始化wechat_kit
-  Wechat.instance.registerApp(
+  WechatKitPlatform.instance.registerApp(
     appId: WeChatConfig.WECHAT_APPID,
     universalLink: WeChatConfig.WECHAT_UNIVERSAL_LINK,
   );

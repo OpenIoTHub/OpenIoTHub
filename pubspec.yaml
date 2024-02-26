@@ -56,7 +56,7 @@ dependencies:
   openiothub_constants: ^1.0.0
   openiothub_plugin: ^1.0.2
   openiothub_api: ^1.0.4
-  openiothub_common_pages: ^1.0.4
+  openiothub_common_pages: ^1.0.5
 
   openiothub_grpc_api: ^1.1.0+1
 #  server_grpc_api: ^1.0.0
@@ -69,7 +69,7 @@ dependencies:
   #  provider: ^3.0.0
   provider: ^6.0.2
   #  fluwx: ^2.4.1
-  wechat_kit: ^2.3.1
+  wechat_kit: ^6.0.1
 #  fluttertoast: ^8.0.8
   oktoast: ^3.3.2+1
   msix: ^3.16.6
@@ -155,3 +155,7 @@ msix_config:
 #    show_prompt: true
 #    force_update_from_any_version: false
   store: true
+wechat_kit:
+  #  ios: no_pay # 默认 pay
+  app_id: wx9211939fcd68a318
+  universal_link: https://iothub.cloud/app/openiothub/
