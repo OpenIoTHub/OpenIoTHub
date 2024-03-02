@@ -142,8 +142,8 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     return BottomAppBar(
       shape: const CircularNotchedRectangle(),
       notchMargin: 8.0,
-      height: 65,
-      padding: const EdgeInsets.only(top: 3.0,bottom: 3.0),
+      height: 55,
+      padding: const EdgeInsets.only(top: 1.5,bottom: 1.5),
       // color: Provider.of<CustomTheme>(context).isLightTheme()
       //     ? CustomThemes.light.scaffoldBackgroundColor
       //     : CustomThemes.dark.scaffoldBackgroundColor,
@@ -168,7 +168,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     TextStyle textStyle = const TextStyle(fontSize: 12.0, color: Colors.grey);
     MaterialColor? iconColor = Colors.grey;
     double iconSize = 20;
-    EdgeInsetsGeometry padding = const EdgeInsets.only(top: 8.0);
+    EdgeInsetsGeometry padding = const EdgeInsets.only(top: 3.0,bottom: 1.5);
 
     if (selectIndex == index) {
       //选中状态的文字样式
@@ -176,7 +176,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
       //选中状态的按钮样式
       iconColor = _activeColor as MaterialColor?;
       iconSize = 25;
-      padding = const EdgeInsets.only(top: 6.0);
+      padding = const EdgeInsets.only(top: 1.5,bottom: 1.5);
     }
     Widget padItem = const SizedBox();
     if (iconData != null) {
