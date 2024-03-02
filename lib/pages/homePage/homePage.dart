@@ -141,7 +141,9 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   Widget _buildBottomNavigationBar(int index) {
     return BottomAppBar(
       shape: const CircularNotchedRectangle(),
-      notchMargin: 6.0,
+      notchMargin: 8.0,
+      height: 65,
+      padding: const EdgeInsets.only(top: 3.0,bottom: 3.0),
       // color: Provider.of<CustomTheme>(context).isLightTheme()
       //     ? CustomThemes.light.scaffoldBackgroundColor
       //     : CustomThemes.dark.scaffoldBackgroundColor,
