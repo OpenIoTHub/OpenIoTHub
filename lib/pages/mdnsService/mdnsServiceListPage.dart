@@ -157,8 +157,8 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
           : Container(
               child: Column(children: [
                 ThemeUtils.isDarkMode(context)
-                    ? Image.asset('assets/images/empty_list_black.png')
-                    : Image.asset('assets/images/empty_list.png'),
+                    ? Center(child: Image.asset('assets/images/empty_list_black.png'),)
+                    : Center(child: Image.asset('assets/images/empty_list.png'),),
                 TextButton(
                     style: ButtonStyle(
                       side: MaterialStateProperty.all(

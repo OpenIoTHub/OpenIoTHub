@@ -102,8 +102,8 @@ class _SessionListPageState extends State<SessionListPage> {
           ? ListView(children: divided)
           : Column(children: [
               ThemeUtils.isDarkMode(context)
-                  ? Image.asset('assets/images/empty_list_black.png')
-                  : Image.asset('assets/images/empty_list.png'),
+                  ? Center(child: Image.asset('assets/images/empty_list_black.png'),)
+                  : Center(child: Image.asset('assets/images/empty_list.png'),),
               const Text("请使用右上角放大镜查找你在本局域网安装的网关"),
             ]),
     );
