@@ -43,7 +43,20 @@ class CustomThemes {
   static final ThemeData light = ThemeData(
       brightness: Brightness.light,
       primarySwatch: _lightAccentColor as MaterialColor,
-      primaryColor: _lightAccentColor);
+      primaryColor: _lightAccentColor,
+      iconTheme: const IconThemeData(color: _lightAccentColor),
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        selectedItemColor: _lightAccentColor,
+        unselectedItemColor: Colors.grey,
+        // backgroundColor: Colors.white,
+      ),
+      bottomAppBarTheme: const BottomAppBarTheme(
+        color: Colors.white,
+      ),
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        backgroundColor: _lightAccentColor,
+      ),
+  );
 
   static final ThemeData dark = ThemeData(brightness: Brightness.dark);
 }
