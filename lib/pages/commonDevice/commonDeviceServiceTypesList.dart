@@ -85,12 +85,10 @@ class _CommonDeviceServiceTypesListState
           return const Divider(
             height: 1.0,
           );
-          break;
         case TAG_END:
           return const Divider(
             height: 1.0,
           );
-          break;
         case TAG_CENTER:
           return const Padding(
             padding: EdgeInsets.fromLTRB(50.0, 0.0, 0.0, 0.0),
@@ -98,12 +96,10 @@ class _CommonDeviceServiceTypesListState
               height: 1.0,
             ),
           );
-          break;
         case TAG_BLANK:
           return Container(
             height: 20.0,
           );
-          break;
       }
     } else if (item is ListItem) {
       var listItemContent = Padding(
@@ -245,7 +241,8 @@ class _CommonDeviceServiceTypesListState
         context: context,
         builder: (_) => AlertDialog(
                 title: const Text("唤醒设备"),
-                content: const Text("第一次使用请选择\'设置物理地址\'，设置过物理地址可以直接点击\'唤醒设备\'。"),
+                content:
+                    const Text("第一次使用请选择\'设置物理地址\'，设置过物理地址可以直接点击\'唤醒设备\'。"),
                 actions: <Widget>[
                   TextButton(
                     child: const Text("取消"),

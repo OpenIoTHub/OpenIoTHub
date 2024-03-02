@@ -697,10 +697,10 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_common_pages
-      sha256: c3918e9e6558bd5c9de42f0f2eb22766abf62448ed40f6a853a06c6476203220
+      sha256: ef306646f819dd66e03b1de789e58efbfe90f307287dd05bbf239e6b011c52e7
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.5"
+    version: "1.0.5+4"
   openiothub_constants:
     dependency: "direct main"
     description:
@@ -1086,10 +1086,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_ios
-      sha256: "75bb6fe3f60070407704282a2d295630cab232991eb52542b18347a8a941df03"
+      sha256: "9149d493b075ed740901f3ee844a38a00b33116c7c5c10d7fb27df8987fb51d5"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "6.2.4"
+    version: "6.2.5"
   url_launcher_linux:
     dependency: transitive
     description:
