@@ -6,11 +6,11 @@ class NetUtils {
   // get请求的封装，传入的两个参数分别是请求URL和请求参数，请求参数以map的形式传入，会在方法体中自动拼接到URL后面
   static Future<String> get(String url,
       {required Map<String, String> params}) async {
-    if (params != null && params.isNotEmpty) {
+    if (params.isNotEmpty) {
       // 如果参数不为空，则将参数拼接到URL后面
       StringBuffer sb = StringBuffer("?");
       params.forEach((key, value) {
-        sb.write("$key" + "=" + "$value" + "&");
+        sb.write("$key=$value&");
       });
       String paramStr = sb.toString();
       paramStr = paramStr.substring(0, paramStr.length - 1);
@@ -29,7 +29,7 @@ class NetUtils {
   }
 
   static Map<String, String> getCommonHeader() {
-    Map<String, String> header = Map();
+    Map<String, String> header = {};
     header['is_flutter_osc'] = "1";
     return header;
   }

@@ -9,7 +9,8 @@ class CircleImage extends StatefulWidget {
   CircleImageType type; // network, asset
 
   CircleImage(
-      {required this.width,
+      {super.key,
+      required this.width,
       required this.height,
       required this.path,
       required this.type});
@@ -21,7 +22,7 @@ class CircleImage extends StatefulWidget {
 class CircleImageState extends State<CircleImage> {
   @override
   Widget build(BuildContext context) {
-    var img;
+    Image img;
     if (widget.type == CircleImageType.network) {
       img = Image.network(widget.path,
           width: widget.width, height: widget.height);
@@ -35,7 +36,7 @@ class CircleImageState extends State<CircleImage> {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: Colors.blue,
-        image: DecorationImage(image: img, fit: BoxFit.cover),
+        image: DecorationImage(image: img.image, fit: BoxFit.cover),
         border: Border.all(
           color: Colors.white,
           width: 2.0,

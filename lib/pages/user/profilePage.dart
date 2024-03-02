@@ -3,18 +3,17 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:openiothub/generated/l10n.dart';
-import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub/pages/user/tools/toolsTypePage.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_common_pages/openiothub_common_pages.dart';
 import 'package:openiothub_constants/constants/SharedPreferences.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
+
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
@@ -24,7 +23,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String useremail = "";
   String usermobile = "";
 
-  String userAvatar ="";
+  String userAvatar = "";
 
   late List<ListTile> _listTiles;
 
@@ -72,8 +71,8 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
-  Container _buildHeader() {
-    return Container(
+  SizedBox _buildHeader() {
+    return SizedBox(
       // color: Provider.of<CustomTheme>(context).isLightTheme()
       //     ? CustomThemes.light.primaryColorLight
       //     : CustomThemes.dark.primaryColorDark,
@@ -192,13 +191,13 @@ class _ProfilePageState extends State<ProfilePage> {
         ListTile(
             //第二个功能项
             title: Text(S.current.app_local_gateway),
-            leading: Icon(Icons.all_inclusive),
-            trailing: Icon(Icons.arrow_right),
+            leading: const Icon(Icons.all_inclusive),
+            trailing: const Icon(Icons.arrow_right),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => GatewayQrPage(
-                    key: UniqueKey(),
-                  )));
+                        key: UniqueKey(),
+                      )));
             }),
         ListTile(
             //第二个功能项
@@ -216,8 +215,8 @@ class _ProfilePageState extends State<ProfilePage> {
     });
   }
 
-  ListTile _buildListTile(int _index) {
-    return _listTiles[_index];
+  ListTile _buildListTile(int index) {
+    return _listTiles[index];
   }
 
   _launchURL(String url) async {
@@ -254,7 +253,7 @@ class _ProfilePageState extends State<ProfilePage> {
       ..loadRequest(Uri.parse(url));
     Navigator.push(context, MaterialPageRoute(builder: (ctx) {
       return Scaffold(
-        appBar: AppBar(title: Text(title), actions: <Widget>[
+        appBar: AppBar(title: Text(title), actions: const <Widget>[
           // IconButton(
           //     icon: Icon(
           //       Icons.open_in_browser,

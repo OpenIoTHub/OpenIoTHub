@@ -14,7 +14,7 @@ import 'package:provider/provider.dart';
 import './commonDeviceServiceTypesList.dart';
 
 class CommonDeviceListPage extends StatefulWidget {
-  CommonDeviceListPage({required Key key, required this.title})
+  const CommonDeviceListPage({required Key key, required this.title})
       : super(key: key);
 
   final String title;
@@ -109,30 +109,30 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
                     style: ButtonStyle(
                       side: MaterialStateProperty.all(
                           const BorderSide(color: Colors.grey, width: 1)),
-                      shape: MaterialStateProperty.all(StadiumBorder()),
+                      shape: MaterialStateProperty.all(const StadiumBorder()),
                     ),
                     onPressed: () {
                       _addDeviceFromSession();
                     },
-                    child: Text("请先添加主机"))
+                    child: const Text("请先添加主机"))
               ]),
             ),
     );
   }
 
   Future _addDevice(SessionConfig config) async {
-    TextEditingController _description_controller =
-        TextEditingController.fromValue(TextEditingValue(text: "内网设备"));
-    TextEditingController _remote_ip_controller =
-        TextEditingController.fromValue(TextEditingValue(text: "127.0.0.1"));
+    TextEditingController descriptionController =
+        TextEditingController.fromValue(const TextEditingValue(text: "内网设备"));
+    TextEditingController remoteIpController = TextEditingController.fromValue(
+        const TextEditingValue(text: "127.0.0.1"));
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: Text("添加设备："),
+                title: const Text("添加设备："),
                 content: ListView(
                   children: <Widget>[
                     TextFormField(
-                      controller: _description_controller,
+                      controller: descriptionController,
                       decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: '备注',
@@ -140,7 +140,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
                       ),
                     ),
                     TextFormField(
-                      controller: _remote_ip_controller,
+                      controller: remoteIpController,
                       decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: '远程内网的IP',
@@ -151,19 +151,19 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
                 ),
                 actions: <Widget>[
                   TextButton(
-                    child: Text("取消"),
+                    child: const Text("取消"),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: Text("添加"),
+                    child: const Text("添加"),
                     onPressed: () {
                       var device = Device();
                       device.runId = config.runId;
                       device.uuid = getOneUUID();
-                      device.description = _description_controller.text;
-                      device.addr = _remote_ip_controller.text;
+                      device.description = descriptionController.text;
+                      device.addr = remoteIpController.text;
                       createOneCommonDevice(device).then((v) {
                         getAllCommonDevice().then((v) {
                           Navigator.of(context).pop();
@@ -201,7 +201,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
         _SessionList = response.sessionConfigs;
       });
     } catch (e) {
-      showToast( "getAllSession：${e}");
+      showToast("getAllSession：$e");
     }
   }
 
@@ -209,7 +209,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
     try {
       await CommonDeviceApi.createOneDevice(device);
     } catch (e) {
-      showToast( "创建设备失败：${e}");
+      showToast("创建设备失败：$e");
     }
   }
 

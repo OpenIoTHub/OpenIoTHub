@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:openiothub/pages/homePage/homePage.dart';
 
 class SplashPage extends StatefulWidget {
+  const SplashPage({super.key});
+
   @override
   State<StatefulWidget> createState() => LaunchState();
 }
@@ -24,13 +26,13 @@ class LaunchState extends State<SplashPage> {
   void dispose() {
     super.dispose();
     print('启动页面结束');
-    if (_countdownTimer != null && _countdownTimer.isActive) {
+    if (_countdownTimer.isActive) {
       _countdownTimer.cancel();
     }
   }
 
   void _startRecordTime() {
-    _countdownTimer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         if (_countdown <= 1) {
 //          Navigator.of(context).pushNamed("/demo1");

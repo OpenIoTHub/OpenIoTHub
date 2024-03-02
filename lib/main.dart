@@ -16,7 +16,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (context) => CustomTheme()),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
     // MyApp()
   );
@@ -24,6 +24,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -45,7 +47,7 @@ class MyApp extends StatelessWidget {
               return;
             },
             home: (Platform.isAndroid || Platform.isIOS)
-                ? SplashPage()
+                ? const SplashPage()
                 : MyHomePage(
                     key: UniqueKey(),
                     title: '',

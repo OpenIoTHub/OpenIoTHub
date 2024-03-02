@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class SlideViewIndicator extends StatefulWidget {
   final int count;
 
-  SlideViewIndicator(this.count, {required Key key}) : super(key: key);
+  const SlideViewIndicator(this.count, {required Key key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => SlideViewIndicatorState();
@@ -15,7 +15,7 @@ class SlideViewIndicatorState extends State<SlideViewIndicator> {
 
   setSelectedIndex(int index) {
     setState(() {
-      this.selectedIndex = index;
+      selectedIndex = index;
     });
   }
 

@@ -35,7 +35,7 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
   void dispose() {
     super.dispose();
     _timerPeriod.cancel();
-    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,15 +102,15 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
   }
 
   void _pushDetail(HTTPConfig config) async {
-    final List _result = [];
-    _result.add("端口:${config.remotePort}");
-    _result.add("域名:${config.domain}");
-    _result.add("描述:${config.description}");
-    _result.add("转发连接状态:${config.remotePortStatus ? "在线" : "离线"}");
+    final List result = [];
+    result.add("端口:${config.remotePort}");
+    result.add("域名:${config.domain}");
+    result.add("描述:${config.description}");
+    result.add("转发连接状态:${config.remotePortStatus ? "在线" : "离线"}");
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
-          final tiles = _result.map(
+          final tiles = result.map(
             (pair) {
               return ListTile(
                 title: Text(
@@ -166,20 +166,20 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
   }
 
   Future _addHttp(openiothub.Device device) async {
-    TextEditingController _description_controller =
-        TextEditingController.fromValue(TextEditingValue(text: "Http"));
-    TextEditingController _domain_controller =
-        TextEditingController.fromValue(TextEditingValue(text: "example.com"));
-    TextEditingController _port_controller =
-        TextEditingController.fromValue(TextEditingValue(text: "80"));
+    TextEditingController descriptionController =
+        TextEditingController.fromValue(const TextEditingValue(text: "Http"));
+    TextEditingController domainController = TextEditingController.fromValue(
+        const TextEditingValue(text: "example.com"));
+    TextEditingController portController =
+        TextEditingController.fromValue(const TextEditingValue(text: "80"));
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: Text("添加端口域名："),
+                title: const Text("添加端口域名："),
                 content: ListView(
                   children: <Widget>[
                     TextFormField(
-                      controller: _description_controller,
+                      controller: descriptionController,
                       decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: '备注',
@@ -187,7 +187,7 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
                       ),
                     ),
                     TextFormField(
-                      controller: _domain_controller,
+                      controller: domainController,
                       decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: '域名',
@@ -195,7 +195,7 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
                       ),
                     ),
                     TextFormField(
-                      controller: _port_controller,
+                      controller: portController,
                       decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: '端口',
@@ -216,10 +216,10 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
                     onPressed: () {
                       HTTPConfig HttpConfig = HTTPConfig();
                       HttpConfig.runId = device.runId;
-                      HttpConfig.description = _description_controller.text;
+                      HttpConfig.description = descriptionController.text;
                       HttpConfig.remoteIP = device.addr;
-                      HttpConfig.remotePort = int.parse(_port_controller.text);
-                      HttpConfig.domain = _domain_controller.text;
+                      HttpConfig.remotePort = int.parse(portController.text);
+                      HttpConfig.domain = domainController.text;
                       HttpManager.CreateOneHTTP(HttpConfig).then((restlt) {
                         Navigator.of(context).pop();
                       });

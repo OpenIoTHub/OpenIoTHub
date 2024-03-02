@@ -1,6 +1,3 @@
-import 'dart:typed_data';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:oktoast/oktoast.dart';
@@ -28,7 +25,7 @@ class _ScanQRPageState extends State<ScanQRPage> {
             icon: ValueListenableBuilder(
               valueListenable: cameraController.torchState,
               builder: (context, state, child) {
-                switch (state as TorchState) {
+                switch (state) {
                   case TorchState.off:
                     return const Icon(Icons.flash_off, color: Colors.grey);
                   case TorchState.on:
@@ -44,7 +41,7 @@ class _ScanQRPageState extends State<ScanQRPage> {
             icon: ValueListenableBuilder(
               valueListenable: cameraController.cameraFacingState,
               builder: (context, state, child) {
-                switch (state as CameraFacing) {
+                switch (state) {
                   case CameraFacing.front:
                     return const Icon(Icons.camera_front);
                   case CameraFacing.back:
@@ -82,7 +79,8 @@ class _ScanQRPageState extends State<ScanQRPage> {
                 switch (uri.path) {
                   case "/a/g":
                     // TODO 添加网关
-                    showToast("path: ${uri.path},parameters:${uri.queryParameters}");
+                    showToast(
+                        "path: ${uri.path},parameters:${uri.queryParameters}");
                     break;
                   default:
                     showToast("不支持的Uri路径");

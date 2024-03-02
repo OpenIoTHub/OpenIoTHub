@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+
 // import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub/pages/session/sessionmDNSServiceListPage.dart';
@@ -14,7 +15,8 @@ import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:provider/provider.dart';
 
 class SessionListPage extends StatefulWidget {
-  SessionListPage({required Key key, required this.title}) : super(key: key);
+  const SessionListPage({required Key key, required this.title})
+      : super(key: key);
 
   final String title;
 
@@ -40,9 +42,7 @@ class _SessionListPageState extends State<SessionListPage> {
   @override
   void dispose() {
     super.dispose();
-    if (_timerPeriod != null) {
-      _timerPeriod.cancel();
-    }
+    _timerPeriod.cancel();
   }
 
   @override
@@ -101,11 +101,11 @@ class _SessionListPageState extends State<SessionListPage> {
       body: divided.isNotEmpty
           ? ListView(children: divided)
           : Column(children: [
-            ThemeUtils.isDarkMode(context)
-                ? Image.asset('assets/images/empty_list_black.png')
-                : Image.asset('assets/images/empty_list.png'),
-            Text("请使用右上角放大镜查找你在本局域网安装的网关"),
-          ]),
+              ThemeUtils.isDarkMode(context)
+                  ? Image.asset('assets/images/empty_list_black.png')
+                  : Image.asset('assets/images/empty_list.png'),
+              const Text("请使用右上角放大镜查找你在本局域网安装的网关"),
+            ]),
     );
   }
 
@@ -150,7 +150,7 @@ class _SessionListPageState extends State<SessionListPage> {
   Future createOneSession(SessionConfig config) async {
     try {
       final response = await SessionApi.createOneSession(config);
-      print('Greeter client received: ${response}');
+      print('Greeter client received: $response');
     } catch (e) {
       print('Caught error: $e');
     }
@@ -159,15 +159,15 @@ class _SessionListPageState extends State<SessionListPage> {
   Future deleteOneSession(SessionConfig config) async {
     try {
       final response = await SessionApi.deleteOneSession(config);
-      print('Greeter client received: ${response}');
+      print('Greeter client received: $response');
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
-                  title: Text("删除结果："),
-                  content: Text("删除成功！"),
+                  title: const Text("删除结果："),
+                  content: const Text("删除成功！"),
                   actions: <Widget>[
                     TextButton(
-                      child: Text("确认"),
+                      child: const Text("确认"),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
@@ -180,17 +180,17 @@ class _SessionListPageState extends State<SessionListPage> {
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
-                  title: Text("删除结果："),
+                  title: const Text("删除结果："),
                   content: Text("删除失败！$e"),
                   actions: <Widget>[
                     TextButton(
-                      child: Text("取消"),
+                      child: const Text("取消"),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
                     ),
                     TextButton(
-                      child: Text("确认"),
+                      child: const Text("确认"),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },

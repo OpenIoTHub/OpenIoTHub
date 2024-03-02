@@ -60,8 +60,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
         return InkWell(
           onTap: () {
             if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
-              _launchURL(
-                  "http://${Config.webgRpcIp}:${pair.localProt}");
+              _launchURL("http://${Config.webgRpcIp}:${pair.localProt}");
               return;
             }
             WebViewController controller = WebViewController()
@@ -118,7 +117,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
     ).toList();
     return Scaffold(
       appBar: AppBar(
-        title: Text("mdns列表"),
+        title: const Text("mdns列表"),
         actions: <Widget>[
           //重新命名
           IconButton(
@@ -156,7 +155,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                             content: const Text("确认删除此网关？"),
                             actions: <Widget>[
                               TextButton(
-                                child: Text("取消"),
+                                child: const Text("取消"),
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
@@ -187,17 +186,17 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
 
   void _pushDetail(SessionConfig config) async {
 //:TODO    这里显示内网的服务，socks5等，右上角详情才展示详细信息
-    final List _result = [];
-    _result.add("ID:${config.runId}");
-    _result.add("描述:${config.description}");
-    _result.add("连接码(简化后):${config.token.substring(0, 10)}");
-    _result.add("转发连接状态:${config.statusToClient ? "在线" : "离线"}");
-    _result.add(
+    final List result = [];
+    result.add("ID:${config.runId}");
+    result.add("描述:${config.description}");
+    result.add("连接码(简化后):${config.token.substring(0, 10)}");
+    result.add("转发连接状态:${config.statusToClient ? "在线" : "离线"}");
+    result.add(
         "P2P连接状态:${config.statusP2PAsClient || config.statusP2PAsServer ? "在线" : "离线"}");
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
-          final tiles = _result.map(
+          final tiles = result.map(
             (pair) {
               return ListTile(
                 title: Text(
@@ -219,8 +218,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                 String gatewayJwt = gatewayJwtValue.value;
                 Clipboard.setData(ClipboardData(text: gatewayJwt));
                 showToast(
-                    
-                        "网关的token已经复制到了剪切板！你可以将此token作为网关参数运行或者添加到配置文件：bash>gateway-go -t <你的token>");
+                    "网关的token已经复制到了剪切板！你可以将此token作为网关参数运行或者添加到配置文件：bash>gateway-go -t <你的token>");
               },
               child: const Text("复制网关Token")));
           divided.add(TextButton(
@@ -240,8 +238,7 @@ loginwithtokenmap:
 ''';
                 Clipboard.setData(ClipboardData(text: data));
                 showToast(
-                    
-                        "网关的配置文件已经复制到了剪切板！你可以将这个配置内容复制到网关的配置文件(gateway-go.yaml)了");
+                    "网关的配置文件已经复制到了剪切板！你可以将这个配置内容复制到网关的配置文件(gateway-go.yaml)了");
               },
               child: const Text("复制网关配置内容")));
           return Scaffold(
@@ -260,14 +257,14 @@ loginwithtokenmap:
     try {
       SessionApi.deleteRemoteGatewayConfig(config);
     } catch (e) {
-      showToast( "删除远程网关的配置失败$e");
+      showToast("删除远程网关的配置失败$e");
     }
     try {
       SessionApi.deleteOneSession(config);
     } catch (e) {
-      showToast( "删除本地网关的映射失败$e");
+      showToast("删除本地网关的映射失败$e");
     }
-    showToast( "网关成功!");
+    showToast("网关成功!");
     Navigator.of(context).pop();
   }
 
@@ -306,9 +303,8 @@ loginwithtokenmap:
   }
 
   _renameDialog() async {
-    TextEditingController _new_name_controller =
-        TextEditingController.fromValue(
-            TextEditingValue(text: widget.sessionConfig.name));
+    TextEditingController newNameController = TextEditingController.fromValue(
+        TextEditingValue(text: widget.sessionConfig.name));
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
@@ -316,7 +312,7 @@ loginwithtokenmap:
                 content: ListView(
                   children: <Widget>[
                     TextFormField(
-                      controller: _new_name_controller,
+                      controller: newNameController,
                       decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: '请输入新的名称',
@@ -338,12 +334,12 @@ loginwithtokenmap:
                       //修改服务器上的
                       GatewayInfo gatewayInfo = GatewayInfo();
                       gatewayInfo.gatewayUuid = widget.sessionConfig.runId;
-                      gatewayInfo.name = _new_name_controller.text;
+                      gatewayInfo.name = newNameController.text;
                       gatewayInfo.description =
                           widget.sessionConfig.description;
                       GatewayManager.UpdateGateway(gatewayInfo);
                       //修改本地的
-                      widget.sessionConfig.name = _new_name_controller.text;
+                      widget.sessionConfig.name = newNameController.text;
                       SessionApi.UpdateSessionNameDescription(
                           widget.sessionConfig);
                       Navigator.of(context).pop();

@@ -28,7 +28,7 @@ class ToolsTypePage extends StatelessWidget {
   final titles = ["多协议配网", "Airkiss", "Easylink", "Smartlink", "Oneshot"];
   final List listData = [];
 
-  ToolsTypePage() {
+  ToolsTypePage({super.key}) {
     initData();
   }
 
@@ -189,7 +189,7 @@ class ToolsTypePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("工具")),
+        appBar: AppBar(title: const Text("工具")),
         body: Padding(
           padding: const EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
           child: ListView.builder(

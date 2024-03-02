@@ -23,21 +23,19 @@ class DataUtils {
 
   // 保存用户登录信息，data中包含了token等信息
   static saveLoginInfo(Map data) async {
-    if (data != null) {
-      SharedPreferences sp = await SharedPreferences.getInstance();
-      String accessToken = data['access_token'];
-      await sp.setString(SP_AC_TOKEN, accessToken);
-      String refreshToken = data['refresh_token'];
-      await sp.setString(SP_RE_TOKEN, refreshToken);
-      int uid = data['uid'];
-      await sp.setInt(SP_UID, uid);
-      String tokenType = data['tokenType'];
-      await sp.setString(SP_TOKEN_TYPE, tokenType);
-      int expiresIn = data['expires_in'];
-      await sp.setInt(SP_EXPIRES_IN, expiresIn);
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    String accessToken = data['access_token'];
+    await sp.setString(SP_AC_TOKEN, accessToken);
+    String refreshToken = data['refresh_token'];
+    await sp.setString(SP_RE_TOKEN, refreshToken);
+    int uid = data['uid'];
+    await sp.setInt(SP_UID, uid);
+    String tokenType = data['tokenType'];
+    await sp.setString(SP_TOKEN_TYPE, tokenType);
+    int expiresIn = data['expires_in'];
+    await sp.setInt(SP_EXPIRES_IN, expiresIn);
 
-      await sp.setBool(SP_IS_LOGIN, true);
-    }
+    await sp.setBool(SP_IS_LOGIN, true);
   }
 
   // 清除登录信息
@@ -53,32 +51,30 @@ class DataUtils {
 
   // 保存用户个人信息
   static Future<UserInfo?> saveUserInfo(Map data) async {
-    if (data != null) {
-      SharedPreferences sp = await SharedPreferences.getInstance();
-      String name = data['name'];
-      int id = data['id'];
-      String gender = data['gender'];
-      String location = data['location'];
-      String avatar = data['avatar'];
-      String email = data['email'];
-      String url = data['url'];
-      await sp.setString(SP_USER_NAME, name);
-      await sp.setInt(SP_USER_ID, id);
-      await sp.setString(SP_USER_GENDER, gender);
-      await sp.setString(SP_USER_AVATAR, avatar);
-      await sp.setString(SP_USER_LOC, location);
-      await sp.setString(SP_USER_EMAIL, email);
-      await sp.setString(SP_USER_URL, url);
-      UserInfo userInfo = UserInfo(
-          id: id,
-          name: name,
-          gender: gender,
-          avatar: avatar,
-          email: email,
-          location: location,
-          url: url);
-      return userInfo;
-    }
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    String name = data['name'];
+    int id = data['id'];
+    String gender = data['gender'];
+    String location = data['location'];
+    String avatar = data['avatar'];
+    String email = data['email'];
+    String url = data['url'];
+    await sp.setString(SP_USER_NAME, name);
+    await sp.setInt(SP_USER_ID, id);
+    await sp.setString(SP_USER_GENDER, gender);
+    await sp.setString(SP_USER_AVATAR, avatar);
+    await sp.setString(SP_USER_LOC, location);
+    await sp.setString(SP_USER_EMAIL, email);
+    await sp.setString(SP_USER_URL, url);
+    UserInfo userInfo = UserInfo(
+        id: id,
+        name: name,
+        gender: gender,
+        avatar: avatar,
+        email: email,
+        location: location,
+        url: url);
+    return userInfo;
     return null;
   }
 

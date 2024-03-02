@@ -13,7 +13,7 @@ import '../commonDevice/commonDeviceListPage.dart';
 import '../commonPages/scanQR.dart';
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({required Key key, required this.title}) : super(key: key);
+  const MyHomePage({required Key key, required this.title}) : super(key: key);
   final String title;
 
   @override
@@ -129,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         break;
       case 3:
         // return UserInfoPage();
-        return ProfilePage();
+        return const ProfilePage();
         break;
     }
     return MdnsServiceListPage(
@@ -176,7 +176,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
       iconSize = 25;
       padding = const EdgeInsets.only(top: 6.0);
     }
-    Widget padItem = SizedBox();
+    Widget padItem = const SizedBox();
     if (iconData != null) {
       padItem = Padding(
         padding: padding,
@@ -252,7 +252,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) {
-                return ScanQRPage();
+                return const ScanQRPage();
               },
             ),
           );

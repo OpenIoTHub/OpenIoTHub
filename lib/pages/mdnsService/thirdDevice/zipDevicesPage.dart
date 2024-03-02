@@ -8,6 +8,8 @@ import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:provider/provider.dart';
 
 class ZipDevicesPage extends StatefulWidget {
+  const ZipDevicesPage({super.key});
+
   @override
   _ZipDevicesPageState createState() => _ZipDevicesPageState();
 }
@@ -53,10 +55,10 @@ class _ZipDevicesPageState extends State<ZipDevicesPage> {
     ).toList();
     return Scaffold(
         appBar: AppBar(
-          title: Text("设备列表"),
+          title: const Text("设备列表"),
           actions: <Widget>[
             IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.refresh,
                   // color: Colors.white,
                 ),
@@ -79,17 +81,17 @@ class _ZipDevicesPageState extends State<ZipDevicesPage> {
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: Text("添加设备到云易连"),
-                content: Text("确认添加该设备到云易连？"),
+                title: const Text("添加设备到云易连"),
+                content: const Text("确认添加该设备到云易连？"),
                 actions: <Widget>[
                   TextButton(
-                    child: Text("取消"),
+                    child: const Text("取消"),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: Text("确认"),
+                    child: const Text("确认"),
                     onPressed: () async {
                       // print("添加该设备到云易连");
                       _addDeviceAndSetMqttServer(zipLocalDevice)
@@ -103,7 +105,7 @@ class _ZipDevicesPageState extends State<ZipDevicesPage> {
     //  检查用户是否已经登录，如果没有登录则跳转到登录界面
     bool userSignedIned = await userSignedIn();
     if (!userSignedIned) {
-      showToast( "您还没有登录!请先登录再添加设备");
+      showToast("您还没有登录!请先登录再添加设备");
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => LoginPage()));
     }
@@ -119,7 +121,7 @@ class _ZipDevicesPageState extends State<ZipDevicesPage> {
     //  将生成的账号配置到设备
     await zipLocalDevice.configMqttServer(mqttInfo);
     //  提示配置结果
-    showToast( "添加成功!");
+    showToast("添加成功!");
     return;
   }
 }

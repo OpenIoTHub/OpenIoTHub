@@ -220,7 +220,7 @@ class _CommonDeviceServiceTypesListState
                     },
                   ),
                   TextButton(
-                    child: Text("删除"),
+                    child: const Text("删除"),
                     onPressed: () {
                       CommonDeviceApi.deleteOneDevice(widget.device)
                           .then((result) {
@@ -241,8 +241,7 @@ class _CommonDeviceServiceTypesListState
         context: context,
         builder: (_) => AlertDialog(
                 title: const Text("唤醒设备"),
-                content:
-                    const Text("第一次使用请选择\'设置物理地址\'，设置过物理地址可以直接点击\'唤醒设备\'。"),
+                content: const Text("第一次使用请选择'设置物理地址'，设置过物理地址可以直接点击'唤醒设备'。"),
                 actions: <Widget>[
                   TextButton(
                     child: const Text("取消"),
@@ -270,16 +269,16 @@ class _CommonDeviceServiceTypesListState
   }
 
   Future _setMacAddr() async {
-    TextEditingController _mac_controller = TextEditingController.fromValue(
+    TextEditingController macController = TextEditingController.fromValue(
         const TextEditingValue(text: "54-07-2F-BB-BB-2F"));
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: Text("设置物理地址"),
+                title: const Text("设置物理地址"),
                 content: ListView(
                   children: <Widget>[
                     TextFormField(
-                      controller: _mac_controller,
+                      controller: macController,
                       decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: '物理地址',
@@ -299,7 +298,7 @@ class _CommonDeviceServiceTypesListState
                     child: const Text("设置"),
                     onPressed: () {
                       var device = widget.device;
-                      device.mac = _mac_controller.text;
+                      device.mac = macController.text;
                       CommonDeviceApi.setDeviceMac(device).then((_) {
                         Navigator.of(context).pop();
                       });
@@ -310,16 +309,16 @@ class _CommonDeviceServiceTypesListState
 
   void _pushDetail() async {
 //:TODO    这里显示内网的服务，socks5等，右上角详情才展示详细信息
-    final List _result = [];
-    _result.add("本设备id:${widget.device.uuid}");
-    _result.add("内网id:${widget.device.runId}");
-    _result.add("描述:${widget.device.description}");
-    _result.add("地址:${widget.device.addr}");
-    _result.add("物理地址:${widget.device.mac}");
+    final List result = [];
+    result.add("本设备id:${widget.device.uuid}");
+    result.add("内网id:${widget.device.runId}");
+    result.add("描述:${widget.device.description}");
+    result.add("地址:${widget.device.addr}");
+    result.add("物理地址:${widget.device.mac}");
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
-          final tiles = _result.map(
+          final tiles = result.map(
             (pair) {
               return ListTile(
                 title: Text(

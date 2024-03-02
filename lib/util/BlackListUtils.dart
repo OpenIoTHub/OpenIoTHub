@@ -4,11 +4,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 // 黑名单工具类，用于在本地操作黑名单
 class BlackListUtils {
-  static final String spBlackList = "blackList";
+  static const String spBlackList = "blackList";
 
   // 将对象数组转化为整型数组
   static List<int> convert(List objList) {
-    if (objList == null || objList.isEmpty) {
+    if (objList.isEmpty) {
       return List<int>.empty();
     }
     List<int> intList = List<int>.empty();
@@ -20,9 +20,9 @@ class BlackListUtils {
 
   // 字符串转化为整型数组
   static List<int>? _str2intList(String str) {
-    if (str != null && str.length > 0) {
+    if (str.isNotEmpty) {
       List<String> list = str.split(",");
-      if (list != null && list.isNotEmpty) {
+      if (list.isNotEmpty) {
         List<int> intList = List<int>.empty();
         for (String s in list) {
           intList.add(int.parse(s));
@@ -35,7 +35,7 @@ class BlackListUtils {
 
   // 整型数组转化为字符串
   static String? _intList2Str(List<int> list) {
-    if (list == null || list.isEmpty) {
+    if (list.isEmpty) {
       return null;
     }
     StringBuffer sb = StringBuffer();
@@ -63,7 +63,7 @@ class BlackListUtils {
   static Future<List<int>?> getBlackListIds() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     String? str = sp.getString(spBlackList);
-    if (str != null && str.length > 0) {
+    if (str != null && str.isNotEmpty) {
       return _str2intList(str);
     }
     return null;

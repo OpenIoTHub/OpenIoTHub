@@ -63,7 +63,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
     ).toList();
     return Scaffold(
       appBar: AppBar(
-        title: Text("TCP端口列表"),
+        title: const Text("TCP端口列表"),
         actions: <Widget>[
           IconButton(
               icon: const Icon(
@@ -92,16 +92,16 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
   }
 
   void _pushDetail(PortConfig config) async {
-    final List _result = [];
-    _result.add("UUID:${config.uuid}");
-    _result.add("端口:${config.remotePort}");
-    _result.add("映射到端口:${config.localProt}");
-    _result.add("描述:${config.description}");
-    _result.add("转发连接状态:${config.remotePortStatus ? "在线" : "离线"}");
+    final List result = [];
+    result.add("UUID:${config.uuid}");
+    result.add("端口:${config.remotePort}");
+    result.add("映射到端口:${config.localProt}");
+    result.add("描述:${config.description}");
+    result.add("转发连接状态:${config.remotePortStatus ? "在线" : "离线"}");
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
-          final tiles = _result.map(
+          final tiles = result.map(
             (pair) {
               return ListTile(
                 title: Text(
@@ -117,7 +117,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
           ).toList();
 
           return Scaffold(
-            appBar: AppBar(title: Text('端口详情'), actions: <Widget>[
+            appBar: AppBar(title: const Text('端口详情'), actions: <Widget>[
               IconButton(
                   icon: const Icon(
                     Icons.delete,
@@ -178,13 +178,13 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
   }
 
   Future _addTCP(Device device) async {
-    TextEditingController _description_controller =
+    TextEditingController descriptionController =
         TextEditingController.fromValue(const TextEditingValue(text: "我的TCP"));
-    TextEditingController _remote_port_controller =
+    TextEditingController remotePortController =
         TextEditingController.fromValue(const TextEditingValue(text: "80"));
-    TextEditingController _local_port_controller =
+    TextEditingController localPortController =
         TextEditingController.fromValue(const TextEditingValue(text: "0"));
-    TextEditingController _domain_controller = TextEditingController.fromValue(
+    TextEditingController domainController = TextEditingController.fromValue(
         const TextEditingValue(text: "www.example.com"));
     return showDialog(
         context: context,
@@ -193,7 +193,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                 content: ListView(
                   children: <Widget>[
                     TextFormField(
-                      controller: _description_controller,
+                      controller: descriptionController,
                       decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: '备注',
@@ -201,7 +201,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                       ),
                     ),
                     TextFormField(
-                      controller: _remote_port_controller,
+                      controller: remotePortController,
                       decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: '远程机器需要访问的端口号',
@@ -209,7 +209,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                       ),
                     ),
                     TextFormField(
-                      controller: _local_port_controller,
+                      controller: localPortController,
                       decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: '映射到本手机端口号(随机则填0)',
@@ -217,7 +217,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                       ),
                     ),
                     TextFormField(
-                      controller: _domain_controller,
+                      controller: domainController,
                       decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: '网站映射到外网的域名',
@@ -238,19 +238,19 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                     onPressed: () {
                       var tcpConfig = PortConfig();
                       tcpConfig.device = device;
-                      tcpConfig.description = _description_controller.text;
+                      tcpConfig.description = descriptionController.text;
                       try {
                         tcpConfig.remotePort =
-                            int.parse(_remote_port_controller.text);
+                            int.parse(remotePortController.text);
                         tcpConfig.localProt =
-                            int.parse(_local_port_controller.text);
+                            int.parse(localPortController.text);
                       } catch (e) {
-                        showToast( "检查端口是否为数字$e");
+                        showToast("检查端口是否为数字$e");
                         return;
                       }
                       tcpConfig.networkProtocol = "tcp";
-                      if (_domain_controller.text != "www.example.com") {
-                        tcpConfig.domain = _domain_controller.text;
+                      if (domainController.text != "www.example.com") {
+                        tcpConfig.domain = domainController.text;
                         tcpConfig.applicationProtocol = "http";
                       } else {
                         tcpConfig.applicationProtocol = "unknown";

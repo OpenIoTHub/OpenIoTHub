@@ -26,7 +26,7 @@ class CustomTheme with ChangeNotifier {
   Future<String> getThemeValue() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? themeValuePrefs;
-    if (prefs != null) themeValuePrefs = prefs.getString("theme");
+    themeValuePrefs = prefs.getString("theme");
     return themeValuePrefs ?? themeValue;
   }
 
@@ -39,7 +39,7 @@ class CustomTheme with ChangeNotifier {
 }
 
 class CustomThemes {
-  static final Color _lightAccentColor = Colors.orange;
+  static const Color _lightAccentColor = Colors.orange;
   static final ThemeData light = ThemeData(
       brightness: Brightness.light,
       primarySwatch: _lightAccentColor as MaterialColor,

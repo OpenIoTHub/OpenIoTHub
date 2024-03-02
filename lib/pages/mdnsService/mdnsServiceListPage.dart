@@ -1,13 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:openiothub_grpc_api/proto/manager/mqttDeviceManager.pb.dart';
+
 // import 'package:multicast_dns/multicast_dns.dart';
 import 'package:openiothub/model/custom_theme.dart';
+
 // import 'package:openiothub/pages/mdnsService/AddMqttDevicesPage.dart';
 import 'package:openiothub/util/ThemeUtils.dart';
 import 'package:openiothub_api/openiothub_api.dart';
@@ -17,13 +18,14 @@ import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:openiothub_plugin/plugins/mdnsService/commWidgets/info.dart';
 import 'package:openiothub_plugin/plugins/mdnsService/mdnsType2ModelMap.dart';
+
 //统一导入全部设备类型
 import 'package:openiothub_plugin/plugins/mdnsService/modelsMap.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_nsd/flutter_nsd.dart';
 
 class MdnsServiceListPage extends StatefulWidget {
-  MdnsServiceListPage({required Key key, required this.title})
+  const MdnsServiceListPage({required Key key, required this.title})
       : super(key: key);
 
   final String title;
@@ -33,31 +35,32 @@ class MdnsServiceListPage extends StatefulWidget {
 }
 
 class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
-  Utf8Decoder u8decodeer = Utf8Decoder();
-  Map<String, PortService> _IoTDeviceMap = Map<String, PortService>();
+  Utf8Decoder u8decodeer = const Utf8Decoder();
+  final Map<String, PortService> _IoTDeviceMap = <String, PortService>{};
   late Timer _timerPeriodLocal;
   late Timer _timerPeriodRemote;
   final flutterNsd = FlutterNsd();
   bool initialStart = true;
   bool _scanning = false;
-  List<String> _supportedTypeList = MDNS2ModelsMap.getAllmDnsServiceType();
+  final List<String> _supportedTypeList =
+      MDNS2ModelsMap.getAllmDnsServiceType();
 
   @override
   void initState() {
     super.initState();
     flutterNsd.stream.listen(
-          (NsdServiceInfo oneMdnsService) {
+      (NsdServiceInfo oneMdnsService) {
         setState(() {
-          PortService _portService = PortService.create();
-          _portService.ip = oneMdnsService.hostname!
+          PortService portService = PortService.create();
+          portService.ip = oneMdnsService.hostname!
               .replaceAll(RegExp(r'local.local.'), "local.");
-          _portService.port = oneMdnsService.port!;
-          _portService.isLocal = true;
+          portService.port = oneMdnsService.port!;
+          portService.isLocal = true;
           oneMdnsService.txt!.forEach((String key, Uint8List value) {
-            _portService.info[key] = u8decodeer.convert(value);
+            portService.info[key] = u8decodeer.convert(value);
           });
-          print("print _portService:$_portService");
-          addPortService(_portService);
+          print("print _portService:$portService");
+          addPortService(portService);
         });
       },
       onError: (e) async {
@@ -72,14 +75,16 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       },
     );
 
-    Future.delayed(Duration(milliseconds: 500)).then((value) {
+    Future.delayed(const Duration(milliseconds: 500)).then((value) {
       refreshmDNSServicesFromeLocal();
       refreshmDNSServicesFromeRemote();
     });
-    _timerPeriodLocal = Timer.periodic(const Duration(seconds: 10), (Timer timer) {
+    _timerPeriodLocal =
+        Timer.periodic(const Duration(seconds: 10), (Timer timer) {
       refreshmDNSServicesFromeLocal();
     });
-    _timerPeriodRemote = Timer.periodic(const Duration(seconds: 5), (Timer timer) {
+    _timerPeriodRemote =
+        Timer.periodic(const Duration(seconds: 5), (Timer timer) {
       refreshmDNSServicesFromeRemote();
     });
     print("init iot devie List");
@@ -121,7 +126,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
         centerTitle: true,
         actions: <Widget>[
           IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.refresh,
                 // color: Colors.white,
               ),
@@ -147,7 +152,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
 //               }),
         ],
       ),
-      body: divided.length > 0
+      body: divided.isNotEmpty
           ? ListView(children: divided)
           : Container(
               child: Column(children: [
@@ -157,8 +162,8 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
                 TextButton(
                     style: ButtonStyle(
                       side: MaterialStateProperty.all(
-                          BorderSide(color: Colors.grey, width: 1)),
-                      shape: MaterialStateProperty.all(StadiumBorder()),
+                          const BorderSide(color: Colors.grey, width: 1)),
+                      shape: MaterialStateProperty.all(const StadiumBorder()),
                     ),
                     onPressed: () {
                       Navigator.of(context).push(
@@ -173,7 +178,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
                         ),
                       );
                     },
-                    child: Text("请先添加设备"))
+                    child: const Text("请先添加设备"))
               ]),
             ),
     );
@@ -246,9 +251,9 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     }
     try {
       getAllSession().then((s) {
-        s.forEach((SessionConfig sc) {
+        for (var sc in s) {
           SessionApi.refreshmDNSServices(sc);
-        });
+        }
       }).then((_) async {
         getIoTDeviceFromRemote();
       });
@@ -270,9 +275,9 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     try {
       value = await CnameManager.GetCname(id!);
     } catch (e) {
-      showToast( e.toString());
+      showToast(e.toString());
     }
-    if (value != "" && value != null) {
+    if (value != "") {
       portService.info["name"] = value;
     }
     if (!_IoTDeviceMap.containsKey(id) ||
@@ -289,7 +294,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     //优先iotdevice
     for (int i = 0; i < _supportedTypeList.length; i++) {
       await getIoTDeviceFromLocalByType(_supportedTypeList[i]);
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 1));
       await stopDiscovery();
     }
   }
@@ -297,7 +302,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
   Future getIoTDeviceFromLocalByType(String serviceType) async {
     if (_scanning) return;
     _scanning = true;
-    await flutterNsd.discoverServices(serviceType + ".");
+    await flutterNsd.discoverServices("$serviceType.");
   }
 
   Future<void> stopDiscovery() async {
@@ -309,28 +314,26 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
   Future getIoTDeviceFromMqttServer() async {
     MqttDeviceInfoList mqttDeviceInfoList =
         await MqttDeviceManager.GetAllMqttDevice();
-    mqttDeviceInfoList.mqttDeviceInfoList
-        .forEach((MqttDeviceInfo mqttDeviceInfo) {
-      PortService _portService = PortService();
+    for (var mqttDeviceInfo in mqttDeviceInfoList.mqttDeviceInfoList) {
+      PortService portService = PortService();
       //  TODO
-      _portService.ip = mqttDeviceInfo.mqttInfo.mqttServerHost;
-      _portService.port = mqttDeviceInfo.mqttInfo.mqttServerPort;
-      _portService.isLocal = false;
-      _portService.info["name"] = mqttDeviceInfo.deviceDefaultName != ""
+      portService.ip = mqttDeviceInfo.mqttInfo.mqttServerHost;
+      portService.port = mqttDeviceInfo.mqttInfo.mqttServerPort;
+      portService.isLocal = false;
+      portService.info["name"] = mqttDeviceInfo.deviceDefaultName != ""
           ? mqttDeviceInfo.deviceDefaultName
           : mqttDeviceInfo.deviceModel;
-      _portService.info["id"] = mqttDeviceInfo.deviceId;
-      _portService.info["mac"] = mqttDeviceInfo.deviceId;
-      _portService.info["model"] = mqttDeviceInfo.deviceModel;
-      _portService.info["username"] =
-          mqttDeviceInfo.mqttInfo.mqttClientUserName;
-      _portService.info["password"] =
+      portService.info["id"] = mqttDeviceInfo.deviceId;
+      portService.info["mac"] = mqttDeviceInfo.deviceId;
+      portService.info["model"] = mqttDeviceInfo.deviceModel;
+      portService.info["username"] = mqttDeviceInfo.mqttInfo.mqttClientUserName;
+      portService.info["password"] =
           mqttDeviceInfo.mqttInfo.mqttClientUserPassword;
-      _portService.info["client-id"] = mqttDeviceInfo.mqttInfo.mqttClientId;
-      _portService.info["tls"] = mqttDeviceInfo.mqttInfo.sSLorTLS.toString();
-      _portService.info["enable_delete"] = true.toString();
-      addPortService(_portService);
-    });
+      portService.info["client-id"] = mqttDeviceInfo.mqttInfo.mqttClientId;
+      portService.info["tls"] = mqttDeviceInfo.mqttInfo.sSLorTLS.toString();
+      portService.info["enable_delete"] = true.toString();
+      addPortService(portService);
+    }
   }
 
   Future getIoTDeviceFromRemote() async {
@@ -338,45 +341,45 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     try {
       // 从远程获取设备
       getAllSession().then((List<SessionConfig> sessionConfigList) {
-        sessionConfigList.forEach((SessionConfig sessionConfig) {
+        for (var sessionConfig in sessionConfigList) {
           SessionApi.getAllTCP(sessionConfig).then((t) {
-            t.portConfigs.forEach((portConfig) {
-              PortService? _portService;
+            for (var portConfig in t.portConfigs) {
+              PortService? portService;
               if (MDNS2ModelsMap.modelsMap
                   .containsKey(portConfig.mDNSInfo.info["service"])) {
-                _portService = MDNS2ModelsMap
+                portService = MDNS2ModelsMap
                     .modelsMap[portConfig.mDNSInfo.info["service"]]!
                     .clone();
-                _portService.info.addAll(portConfig.mDNSInfo.info);
-                _portService.ip = "127.0.0.1";
-                _portService.port = portConfig.localProt;
-                _portService.isLocal = false;
-                if (_portService.info.containsKey("id") &&
-                    _portService.info["id"] == "" &&
-                    _portService.info.containsKey("mac") &&
-                    _portService.info["mac"] != "") {
-                  _portService.info["id"] = _portService.info["mac"]!;
+                portService.info.addAll(portConfig.mDNSInfo.info);
+                portService.ip = "127.0.0.1";
+                portService.port = portConfig.localProt;
+                portService.isLocal = false;
+                if (portService.info.containsKey("id") &&
+                    portService.info["id"] == "" &&
+                    portService.info.containsKey("mac") &&
+                    portService.info["mac"] != "") {
+                  portService.info["id"] = portService.info["mac"]!;
                 } else {
-                  _portService.info["id"] =
-                      "${portConfig.device.addr}:${_portService.port}@local";
+                  portService.info["id"] =
+                      "${portConfig.device.addr}:${portService.port}@local";
                 }
-                addPortService(_portService);
+                addPortService(portService);
               } else {
                 addPortService(portConfig.mDNSInfo);
               }
-            });
+            }
           });
-        });
+        }
       });
     } catch (e) {
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
-                  title: Text("从远程获取物联网列表失败："),
+                  title: const Text("从远程获取物联网列表失败："),
                   content: Text("失败原因：$e"),
                   actions: <Widget>[
                     TextButton(
-                      child: Text("确认"),
+                      child: const Text("确认"),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },

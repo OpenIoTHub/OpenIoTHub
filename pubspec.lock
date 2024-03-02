@@ -292,7 +292,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_nsd:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_nsd
       sha256: fffb27a4b9103b97ef9a97d97c7439ba74b2ac46c1f6d4e948c6494fe53e8cae
@@ -510,7 +510,7 @@ packages:
     source: hosted
     version: "0.2.1+1"
   intl:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: intl
       sha256: "3bc132a9dbce73a7e4a21a17d06e1878839ffbf975568bc875c60537824b0c4d"
@@ -518,7 +518,7 @@ packages:
     source: hosted
     version: "0.18.1"
   jaguar:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: jaguar
       sha256: "1614ea947a81f2160fd6f962c5bff0b3f11eb6e5417d47140d447f4758a7f164"

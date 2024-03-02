@@ -91,16 +91,16 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
   }
 
   void _pushDetail(PortConfig config) async {
-    final List _result = [];
-    _result.add("UUID:${config.uuid}");
-    _result.add("端口:${config.remotePort}");
-    _result.add("映射到端口:${config.localProt}");
-    _result.add("描述:${config.description}");
-    _result.add("转发连接状态:${config.remotePortStatus ? "在线" : "离线"}");
+    final List result = [];
+    result.add("UUID:${config.uuid}");
+    result.add("端口:${config.remotePort}");
+    result.add("映射到端口:${config.localProt}");
+    result.add("描述:${config.description}");
+    result.add("转发连接状态:${config.remotePortStatus ? "在线" : "离线"}");
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
-          final tiles = _result.map(
+          final tiles = result.map(
             (pair) {
               return ListTile(
                 title: Text(
@@ -116,7 +116,7 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
           ).toList();
 
           return Scaffold(
-            appBar: AppBar(title: Text('端口详情'), actions: <Widget>[
+            appBar: AppBar(title: const Text('端口详情'), actions: <Widget>[
               IconButton(
                   icon: const Icon(
                     Icons.delete,
@@ -156,11 +156,11 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
   }
 
   Future _addFTP(Device device) async {
-    TextEditingController _description_controller =
+    TextEditingController descriptionController =
         TextEditingController.fromValue(const TextEditingValue(text: "FTP"));
-    TextEditingController _remote_port_controller =
+    TextEditingController remotePortController =
         TextEditingController.fromValue(const TextEditingValue(text: "21"));
-    TextEditingController _local_port_controller =
+    TextEditingController localPortController =
         TextEditingController.fromValue(const TextEditingValue(text: "21"));
     return showDialog(
         context: context,
@@ -169,7 +169,7 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
                 content: ListView(
                   children: <Widget>[
                     TextFormField(
-                      controller: _description_controller,
+                      controller: descriptionController,
                       decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: '备注',
@@ -177,7 +177,7 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
                       ),
                     ),
                     TextFormField(
-                      controller: _remote_port_controller,
+                      controller: remotePortController,
                       decoration: const InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: '端口号',
@@ -185,7 +185,7 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
                       ),
                     ),
                     TextFormField(
-                        controller: _local_port_controller,
+                        controller: localPortController,
                         decoration: const InputDecoration(
                           contentPadding: EdgeInsets.all(10.0),
                           labelText: '映射到本手机端口号(随机则填0)',
@@ -205,14 +205,14 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
                     onPressed: () {
                       var FTPConfig = PortConfig();
                       FTPConfig.device = device;
-                      FTPConfig.description = _description_controller.text;
+                      FTPConfig.description = descriptionController.text;
                       try {
                         FTPConfig.remotePort =
-                            int.parse(_remote_port_controller.text);
+                            int.parse(remotePortController.text);
                         FTPConfig.localProt =
-                            int.parse(_local_port_controller.text);
+                            int.parse(localPortController.text);
                       } catch (e) {
-                        showToast( "检查端口是否为数字$e");
+                        showToast("检查端口是否为数字$e");
                         return;
                       }
                       FTPConfig.networkProtocol = "tcp";
