@@ -199,6 +199,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Find Local Gateway`
+  String get find_local_gateway {
+    return Intl.message(
+      'Find Local Gateway',
+      name: 'find_local_gateway',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Remote Host`
+  String get add_remote_host {
+    return Intl.message(
+      'Add Remote Host',
+      name: 'add_remote_host',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -216,10 +236,8 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
 
   @override
   bool isSupported(Locale locale) => _isSupported(locale);
-
   @override
   Future<S> load(Locale locale) => S.load(locale);
-
   @override
   bool shouldReload(AppLocalizationDelegate old) => false;
 

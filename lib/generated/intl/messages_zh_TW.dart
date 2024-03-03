@@ -21,11 +21,12 @@ class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'zh_TW';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "add_remote_host": MessageLookupByLibrary.simpleMessage("添加遠程主機"),
         "app_local_gateway": MessageLookupByLibrary.simpleMessage("本機網關"),
         "app_title": MessageLookupByLibrary.simpleMessage("雲億連"),
         "config_device_wifi": MessageLookupByLibrary.simpleMessage("配置設備WiFi"),
+        "find_local_gateway": MessageLookupByLibrary.simpleMessage("發現局域網網關"),
         "profile_about_this_app": MessageLookupByLibrary.simpleMessage("關於本軟件"),
         "profile_click_avatar_to_sign_in":
             MessageLookupByLibrary.simpleMessage("點擊頭像登錄"),

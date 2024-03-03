@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:openiothub_common_pages/commPages/findmDNSClientList.dart';
 import 'package:openiothub_grpc_api/proto/manager/mqttDeviceManager.pb.dart';
 
 // import 'package:multicast_dns/multicast_dns.dart';
@@ -416,6 +417,15 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
                   _buildPopupMenuItem(Icons.qr_code_scanner, S.current.scan_QR),
               value: "scan_QR",
             ),
+            const PopupMenuDivider(
+              height: 1.0,
+            ),
+            PopupMenuItem(
+              //child: _buildPopupMenuItem(Icons.camera_alt, '扫一扫'),
+              child:
+              _buildPopupMenuItem(Icons.search, S.current.find_local_gateway),
+              value: "find_local_gateway",
+            ),
           ];
         },
         padding: EdgeInsets.only(top: 0.0),
@@ -441,6 +451,18 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
                 MaterialPageRoute(
                   builder: (context) {
                     return const ScanQRPage();
+                  },
+                ),
+              );
+              break;
+            case 'find_local_gateway':
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    // 写成独立的组件，支持刷新
+                    return FindmDNSClientListPage(
+                      key: UniqueKey(),
+                    );
                   },
                 ),
               );

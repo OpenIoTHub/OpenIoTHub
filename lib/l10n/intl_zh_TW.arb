@@ -13,5 +13,7 @@
   "app_local_gateway": "本機網關",
   "profile_about_this_app": "關於本軟件",
   "config_device_wifi": "配置設備WiFi",
-  "scan_QR": "掃描二維碼"
+  "scan_QR": "掃描二維碼",
+  "find_local_gateway": "發現局域網網關",
+  "add_remote_host": "添加遠程主機"
 }

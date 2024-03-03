@@ -21,13 +21,16 @@ class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "add_remote_host":
+            MessageLookupByLibrary.simpleMessage("Add Remote Host"),
         "app_local_gateway":
             MessageLookupByLibrary.simpleMessage("App Local Gateway"),
         "app_title": MessageLookupByLibrary.simpleMessage("OpenIoTHub"),
         "config_device_wifi":
             MessageLookupByLibrary.simpleMessage("Config Device WiFi"),
+        "find_local_gateway":
+            MessageLookupByLibrary.simpleMessage("Find Local Gateway"),
         "profile_about_this_app":
             MessageLookupByLibrary.simpleMessage("About this App"),
         "profile_click_avatar_to_sign_in":

@@ -58,5 +58,15 @@ class CustomThemes {
       ),
   );
 
-  static final ThemeData dark = ThemeData(brightness: Brightness.dark);
+  static final ThemeData dark = ThemeData(
+    brightness: Brightness.dark,
+    primarySwatch: _lightAccentColor as MaterialColor,
+    primaryColor: _lightAccentColor,
+    iconTheme: const IconThemeData(color: _lightAccentColor),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      selectedItemColor: _lightAccentColor,
+      unselectedItemColor: Colors.grey,
+      // backgroundColor: Colors.white,
+    ),
+  );
 }

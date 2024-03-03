@@ -9,10 +9,14 @@ import 'package:openiothub/util/ThemeUtils.dart';
 import 'package:openiothub_api/api/OpenIoTHub/SessionApi.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_common_pages/commPages/findmDNSClientList.dart';
+import 'package:openiothub_common_pages/wifiConfig/smartConfigTool.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:provider/provider.dart';
+
+import '../../generated/l10n.dart';
+import '../commonPages/scanQR.dart';
 
 class SessionListPage extends StatefulWidget {
   const SessionListPage({required Key key, required this.title})
@@ -79,24 +83,7 @@ class _SessionListPageState extends State<SessionListPage> {
       appBar: AppBar(
         title: Text(widget.title),
         centerTitle: true,
-        actions: <Widget>[
-          IconButton(
-              icon: const Icon(
-                Icons.refresh,
-                // color: Colors.white,
-              ),
-              onPressed: () {
-                getAllSession();
-              }),
-          IconButton(
-              icon: const Icon(
-                Icons.search,
-                // color: Colors.white,
-              ),
-              onPressed: () {
-                _pushFindmDNSClientListPage();
-              }),
-        ],
+        actions: _build_actions(),
       ),
       body: divided.isNotEmpty
           ? ListView(children: divided)
@@ -225,5 +212,98 @@ class _SessionListPageState extends State<SessionListPage> {
       child:
           Image.asset(path, width: IMAGE_ICON_WIDTH, height: IMAGE_ICON_WIDTH),
     );
+  }
+
+  static _buildPopupMenuItem(IconData icon, String title) {
+    return Row(children: <Widget>[
+      Icon(
+        icon,
+        // color: Colors.white,
+      ),
+      //Image.asset(CommonUtils.getBaseIconUrlPng("main_top_add_friends"), width: 18, height: 18,),
+
+      Container(width: 12.0),
+      Text(
+        title,
+        // style: TextStyle(color: Color(0xFFFFFFFF)),
+      )
+    ]);
+  }
+
+  List<Widget>? _build_actions() {
+    return <Widget>[
+      PopupMenuButton(
+        tooltip: "",
+        itemBuilder: (BuildContext context) {
+          return <PopupMenuEntry<String>>[
+            PopupMenuItem(
+              //child: _buildPopupMenuItem(ICons.ADDRESS_BOOK_CHECKED, '添加朋友'),
+              child: _buildPopupMenuItem(
+                  Icons.wifi_tethering, S.current.config_device_wifi),
+              value: "config_device_wifi",
+            ),
+            const PopupMenuDivider(
+              height: 1.0,
+            ),
+            PopupMenuItem(
+              //child: _buildPopupMenuItem(Icons.camera_alt, '扫一扫'),
+              child:
+              _buildPopupMenuItem(Icons.qr_code_scanner, S.current.scan_QR),
+              value: "scan_QR",
+            ),
+            const PopupMenuDivider(
+              height: 1.0,
+            ),
+            PopupMenuItem(
+              //child: _buildPopupMenuItem(Icons.camera_alt, '扫一扫'),
+              child:
+              _buildPopupMenuItem(Icons.search, S.current.find_local_gateway),
+              value: "find_local_gateway",
+            ),
+          ];
+        },
+        padding: EdgeInsets.only(top: 0.0),
+        elevation: 5.0,
+        icon: const Icon(Icons.add_circle_outline),
+        onSelected: (String selected) {
+          switch (selected) {
+            case 'config_device_wifi':
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return SmartConfigTool(
+                      title: S.current.config_device_wifi,
+                      needCallBack: true,
+                      key: UniqueKey(),
+                    );
+                  },
+                ),
+              );
+              break;
+            case 'scan_QR':
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const ScanQRPage();
+                  },
+                ),
+              );
+              break;
+            case 'find_local_gateway':
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    // 写成独立的组件，支持刷新
+                    return FindmDNSClientListPage(
+                      key: UniqueKey(),
+                    );
+                  },
+                ),
+              );
+              break;
+          }
+        },
+      ),
+    ];
   }
 }

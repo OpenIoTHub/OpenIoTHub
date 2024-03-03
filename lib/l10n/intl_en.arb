@@ -13,5 +13,7 @@
   "app_local_gateway": "App Local Gateway",
   "profile_about_this_app": "About this App",
   "config_device_wifi": "Config Device WiFi",
-  "scan_QR": "Scan QR"
+  "scan_QR": "Scan QR",
+  "find_local_gateway": "Find Local Gateway",
+  "add_remote_host": "Add Remote Host"
 }
