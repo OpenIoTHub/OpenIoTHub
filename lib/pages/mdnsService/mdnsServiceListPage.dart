@@ -21,8 +21,12 @@ import 'package:openiothub_plugin/plugins/mdnsService/mdnsType2ModelMap.dart';
 
 //统一导入全部设备类型
 import 'package:openiothub_plugin/plugins/mdnsService/modelsMap.dart';
+import 'package:protobuf/protobuf.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_nsd/flutter_nsd.dart';
+
+import '../../generated/l10n.dart';
+import '../commonPages/scanQR.dart';
 
 class MdnsServiceListPage extends StatefulWidget {
   const MdnsServiceListPage({required Key key, required this.title})
@@ -124,41 +128,20 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       appBar: AppBar(
         title: Text(widget.title),
         centerTitle: true,
-        actions: <Widget>[
-          IconButton(
-              icon: const Icon(
-                Icons.refresh,
-                // color: Colors.white,
-              ),
-              onPressed: () {
-                refreshmDNSServicesFromeLocal();
-              }),
-//            TODO 添加设备（类型：mqtt，小米，美的；设备型号：TC1-A1,TC1-A2）
-//           IconButton(
-//               icon: Icon(
-//                 Icons.add_circle,
-//                 color: Colors.white,
-//               ),
-//               onPressed: () {
-// //                  TODO：手动添加MQTT设备
-// //                   Scaffold.of(context).openDrawer();
-//                 Navigator.of(context).push(
-//                   MaterialPageRoute(
-//                     builder: (context) {
-//                       return AddMqttDevicesPage();
-//                     },
-//                   ),
-//                 );
-//               }),
-        ],
+        actions: _build_actions(),
       ),
       body: divided.isNotEmpty
           ? ListView(children: divided)
           : Container(
               child: Column(children: [
                 ThemeUtils.isDarkMode(context)
-                    ? Center(child: Image.asset('assets/images/empty_list_black.png'),)
-                    : Center(child: Image.asset('assets/images/empty_list.png'),),
+                    ? Center(
+                        child:
+                            Image.asset('assets/images/empty_list_black.png'),
+                      )
+                    : Center(
+                        child: Image.asset('assets/images/empty_list.png'),
+                      ),
                 TextButton(
                     style: ButtonStyle(
                       side: MaterialStateProperty.all(
@@ -349,7 +332,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
                   .containsKey(portConfig.mDNSInfo.info["service"])) {
                 portService = MDNS2ModelsMap
                     .modelsMap[portConfig.mDNSInfo.info["service"]]!
-                    .clone();
+                    .deepCopy();
                 portService.info.addAll(portConfig.mDNSInfo.info);
                 portService.ip = "127.0.0.1";
                 portService.port = portConfig.localProt;
@@ -386,6 +369,103 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
                     )
                   ]));
     }
+  }
+
+  static _buildPopupMenuItem(IconData icon, String title) {
+    return Row(children: <Widget>[
+      Icon(
+        icon,
+        // color: Colors.white,
+      ),
+      //Image.asset(CommonUtils.getBaseIconUrlPng("main_top_add_friends"), width: 18, height: 18,),
+
+      Container(width: 12.0),
+      Text(
+        title,
+        // style: TextStyle(color: Color(0xFFFFFFFF)),
+      )
+    ]);
+  }
+
+  List<Widget>? _build_actions() {
+    return <Widget>[
+      // IconButton(
+      //     icon: const Icon(
+      //       Icons.refresh,
+      //       // color: Colors.white,
+      //     ),
+      //     onPressed: () {
+      //       refreshmDNSServicesFromeLocal();
+      //     }),
+      PopupMenuButton(
+        tooltip: "",
+        itemBuilder: (BuildContext context) {
+          return <PopupMenuEntry<String>>[
+            PopupMenuItem(
+              //child: _buildPopupMenuItem(ICons.ADDRESS_BOOK_CHECKED, '添加朋友'),
+              child: _buildPopupMenuItem(
+                  Icons.wifi_tethering, S.current.config_device_wifi),
+              value: "config_device_wifi",
+            ),
+            const PopupMenuDivider(
+              height: 1.0,
+            ),
+            PopupMenuItem(
+              //child: _buildPopupMenuItem(Icons.camera_alt, '扫一扫'),
+              child:
+                  _buildPopupMenuItem(Icons.qr_code_scanner, S.current.scan_QR),
+              value: "scan_QR",
+            ),
+          ];
+        },
+        padding: EdgeInsets.only(top: 0.0),
+        elevation: 5.0,
+        icon: const Icon(Icons.add_circle_outline),
+        onSelected: (String selected) {
+          switch (selected) {
+            case 'config_device_wifi':
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return SmartConfigTool(
+                      title: S.current.config_device_wifi,
+                      needCallBack: true,
+                      key: UniqueKey(),
+                    );
+                  },
+                ),
+              );
+              break;
+            case 'scan_QR':
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const ScanQRPage();
+                  },
+                ),
+              );
+              break;
+          }
+        },
+      ),
+//            TODO 添加设备（类型：mqtt，小米，美的；设备型号：TC1-A1,TC1-A2）
+//           IconButton(
+//               icon: Icon(
+//                 Icons.add_circle,
+//                 color: Colors.white,
+//               ),
+//               onPressed: () {
+// //                  TODO：手动添加MQTT设备
+// //                   Scaffold.of(context).openDrawer();
+//                 Navigator.of(context).push(
+//                   MaterialPageRoute(
+//                     builder: (context) {
+//                       return AddMqttDevicesPage();
+//                     },
+//                   ),
+//                 );
+//               }),
+    ];
   }
 }
 
