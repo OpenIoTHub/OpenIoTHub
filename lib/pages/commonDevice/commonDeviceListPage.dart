@@ -54,9 +54,11 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
       (pair) {
         var listItemContent = ListTile(
           leading: Icon(Icons.devices,
-              color: Provider.of<CustomTheme>(context).isLightTheme()
-                  ? CustomThemes.light.primaryColorLight
-                  : CustomThemes.dark.primaryColorDark),
+            size: 40,
+            color: Provider.of<CustomTheme>(context).isLightTheme()
+                ? CustomThemes.light.primaryColorLight
+                : CustomThemes.dark.primaryColorDark,
+          ),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -80,7 +82,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
       },
       separatorBuilder: (context, index) {
         return const Divider(
-          indent: 50,
+          indent: 60,
         );
       },
     );

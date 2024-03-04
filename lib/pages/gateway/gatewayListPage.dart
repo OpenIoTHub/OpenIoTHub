@@ -55,9 +55,11 @@ class _GatewayListPageState extends State<GatewayListPage> {
       (pair) {
         var listItemContent = ListTile(
           leading: Icon(Icons.cloud_done,
-              color: Provider.of<CustomTheme>(context).isLightTheme()
-                  ? CustomThemes.light.primaryColorLight
-                  : CustomThemes.dark.primaryColorDark),
+            size: 40,
+            color: Provider.of<CustomTheme>(context).isLightTheme()
+                ? CustomThemes.light.primaryColorLight
+                : CustomThemes.dark.primaryColorDark,
+          ),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -82,7 +84,7 @@ class _GatewayListPageState extends State<GatewayListPage> {
       },
       separatorBuilder: (context, index) {
         return const Divider(
-          indent: 50,
+          indent: 60,
         );
       },
     );
