@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 // import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/model/custom_theme.dart';
-import 'package:openiothub/pages/session/sessionmDNSServiceListPage.dart';
+import './mDNSServiceListPage.dart';
 import 'package:openiothub/util/ThemeUtils.dart';
 import 'package:openiothub_api/api/OpenIoTHub/SessionApi.dart';
 import 'package:openiothub_api/openiothub_api.dart';
@@ -18,17 +18,17 @@ import 'package:provider/provider.dart';
 import '../../generated/l10n.dart';
 import '../commonPages/scanQR.dart';
 
-class SessionListPage extends StatefulWidget {
-  const SessionListPage({required Key key, required this.title})
+class GatewayListPage extends StatefulWidget {
+  const GatewayListPage({required Key key, required this.title})
       : super(key: key);
 
   final String title;
 
   @override
-  _SessionListPageState createState() => _SessionListPageState();
+  _GatewayListPageState createState() => _GatewayListPageState();
 }
 
-class _SessionListPageState extends State<SessionListPage> {
+class _GatewayListPageState extends State<GatewayListPage> {
   static const double IMAGE_ICON_WIDTH = 30.0;
 
   List<SessionConfig> _SessionList = [];
@@ -75,18 +75,25 @@ class _SessionListPageState extends State<SessionListPage> {
         );
       },
     );
-    final divided = ListTile.divideTiles(
-      context: context,
-      tiles: tiles,
-    ).toList();
+    final divided = ListView.separated(
+      itemCount: tiles.length,
+      itemBuilder: (context, index) {
+        return tiles.elementAt(index);
+      },
+      separatorBuilder: (context, index) {
+        return const Divider(
+          indent: 50,
+        );
+      },
+    );
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
         centerTitle: true,
         actions: _build_actions(),
       ),
-      body: divided.isNotEmpty
-          ? ListView(children: divided)
+      body: tiles.isNotEmpty
+          ? divided
           : Column(children: [
               ThemeUtils.isDarkMode(context)
                   ? Center(child: Image.asset('assets/images/empty_list_black.png'),)

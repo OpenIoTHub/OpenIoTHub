@@ -121,18 +121,25 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
         );
       },
     );
-    final divided = ListTile.divideTiles(
-      context: context,
-      tiles: tiles,
-    ).toList();
+    final divided = ListView.separated(
+      itemCount: tiles.length,
+      itemBuilder: (context, index) {
+        return tiles.elementAt(index);
+      },
+      separatorBuilder: (context, index) {
+        return const Divider(
+          indent: 50,
+        );
+      },
+    );
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
         centerTitle: true,
         actions: _build_actions(),
       ),
-      body: divided.isNotEmpty
-          ? ListView(children: divided)
+      body: tiles.isNotEmpty
+          ? divided
           : Container(
               child: Column(children: [
                 ThemeUtils.isDarkMode(context)

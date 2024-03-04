@@ -73,18 +73,25 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
         );
       },
     );
-    final divided = ListTile.divideTiles(
-      context: context,
-      tiles: tiles,
-    ).toList();
+    final divided = ListView.separated(
+      itemCount: tiles.length,
+      itemBuilder: (context, index) {
+        return tiles.elementAt(index);
+      },
+      separatorBuilder: (context, index) {
+        return const Divider(
+          indent: 50,
+        );
+      },
+    );
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
         centerTitle: true,
         actions: _build_actions(),
       ),
-      body: divided.isNotEmpty
-          ? ListView(children: divided)
+      body: tiles.isNotEmpty
+          ? divided
           : Container(
               child: Column(children: [
                 ThemeUtils.isDarkMode(context)
@@ -215,7 +222,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
 
   void _addRemoteHostFromSession() {
     getAllSession().then((v) {
-      final titles = _SessionList.map(
+      final tiles = _SessionList.map(
         (pair) {
           var listItemContent = Padding(
             padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
@@ -241,17 +248,22 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
           );
         },
       );
-      final divided = ListTile.divideTiles(
-        context: context,
-        tiles: titles,
-      ).toList();
+      final divided = ListView.separated(
+        itemCount: tiles.length,
+        itemBuilder: (context, index) {
+          return tiles.elementAt(index);
+        },
+        separatorBuilder: (context, index) {
+          return const Divider(
+            indent: 50,
+          );
+        },
+      );
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
                   title: const Text("请选择远程主机所在网络："),
-                  content: ListView(
-                    children: divided,
-                  ),
+                  content: divided,
                   actions: <Widget>[
                     TextButton(
                       child: const Text("取消"),

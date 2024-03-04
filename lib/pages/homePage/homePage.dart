@@ -4,11 +4,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:openiothub/generated/l10n.dart';
 import 'package:openiothub/pages/mdnsService/mdnsServiceListPage.dart';
-import 'package:openiothub/pages/session/sessionListPage.dart';
 import 'package:openiothub/pages/user/profilePage.dart';
 
 import '../commonDevice/commonDeviceListPage.dart';
-import '../commonPages/scanQR.dart';
+import '../gateway/gatewayListPage.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({required Key key, required this.title}) : super(key: key);
@@ -94,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         );
         break;
       case 1:
-        return SessionListPage(
+        return GatewayListPage(
           title: S.current.tab_gateway,
           key: UniqueKey(),
         );
