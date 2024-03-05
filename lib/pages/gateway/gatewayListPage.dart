@@ -67,6 +67,9 @@ class _GatewayListPageState extends State<GatewayListPage> {
                   style: Constants.titleTextStyle),
             ],
           ),
+          subtitle: pair.statusToClient||pair.statusP2PAsClient||pair.statusP2PAsServer?
+              const Text("在线",style: TextStyle(color: Colors.green),):
+          const Text("离线",style: TextStyle(color: Colors.grey),),
           trailing: Constants.rightArrowIcon,
         );
         return InkWell(

@@ -113,6 +113,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
               Text(pair.info["name"]!, style: Constants.titleTextStyle),
             ],
           ),
+          subtitle: Text(pair.info["model"]!,style: Constants.subTitleTextStyle,),
           trailing: Constants.rightArrowIcon,
         );
         return InkWell(
@@ -124,6 +125,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       },
     );
     final divided = ListView.separated(
+      // padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
       itemCount: tiles.length,
       itemBuilder: (context, index) {
         return tiles.elementAt(index);
