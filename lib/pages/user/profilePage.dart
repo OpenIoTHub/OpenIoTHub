@@ -2,14 +2,18 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:openiothub/generated/l10n.dart';
 import 'package:openiothub/pages/user/tools/toolsTypePage.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_common_pages/openiothub_common_pages.dart';
 import 'package:openiothub_constants/constants/SharedPreferences.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+
+import '../../model/custom_theme.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -37,9 +41,15 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        extendBody: true, //底部NavigationBar透明
+        extendBodyBehindAppBar: true,//顶部Bar透明
         appBar: AppBar(
-          shadowColor: Colors.transparent,
+          // shadowColor: Colors.transparent,
           toolbarHeight: 0,
+          backgroundColor: Provider.of<CustomTheme>(context).isLightTheme()
+              ? CustomThemes.light.primaryColor
+              : CustomThemes.dark.primaryColorLight,
+          systemOverlayStyle:const SystemUiOverlayStyle(statusBarColor:Colors.transparent),
         ),
         body: ListView.separated(
           itemBuilder: (context, index) {
@@ -71,11 +81,11 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
-  SizedBox _buildHeader() {
-    return SizedBox(
-      // color: Provider.of<CustomTheme>(context).isLightTheme()
-      //     ? CustomThemes.light.primaryColorLight
-      //     : CustomThemes.dark.primaryColorDark,
+  Container _buildHeader() {
+    return Container(
+      color: Provider.of<CustomTheme>(context).isLightTheme()
+          ? CustomThemes.light.primaryColor
+          : CustomThemes.dark.primaryColorLight,
       height: 150.0,
       child: Center(
         child: Column(

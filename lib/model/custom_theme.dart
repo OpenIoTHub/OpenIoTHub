@@ -44,6 +44,7 @@ class CustomThemes {
       brightness: Brightness.light,
       primarySwatch: _lightAccentColor as MaterialColor,
       primaryColor: _lightAccentColor,
+      // primaryColorLight: _lightAccentColor,
       iconTheme: const IconThemeData(color: _lightAccentColor),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         selectedItemColor: _lightAccentColor,
@@ -62,6 +63,7 @@ class CustomThemes {
     brightness: Brightness.dark,
     primarySwatch: _lightAccentColor as MaterialColor,
     primaryColor: _lightAccentColor,
+    // primaryColorLight: _lightAccentColor,
     iconTheme: const IconThemeData(color: _lightAccentColor),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       selectedItemColor: _lightAccentColor,
