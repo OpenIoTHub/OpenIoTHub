@@ -93,6 +93,16 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
         centerTitle: true,
         actions: _build_actions(),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        shape: const CircleBorder(),
+        elevation: 2.0,
+        tooltip: 'Add Host',
+        onPressed: () {
+          _addRemoteHostFromSession();
+        },
+      ),
       body: tiles.isNotEmpty
           ? divided
           : Container(
@@ -325,14 +335,6 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
               _buildPopupMenuItem(Icons.search, S.current.find_local_gateway),
               value: "find_local_gateway",
             ),
-            const PopupMenuDivider(
-              height: 1.0,
-            ),
-            PopupMenuItem(
-              child:
-              _buildPopupMenuItem(Icons.add, S.current.add_remote_host),
-              value: "add_remote_host",
-            ),
           ];
         },
         padding: EdgeInsets.only(top: 0.0),
@@ -373,9 +375,6 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
                   },
                 ),
               );
-              break;
-            case 'add_remote_host':
-              _addRemoteHostFromSession();
               break;
           }
         },
