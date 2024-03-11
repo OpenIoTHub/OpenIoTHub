@@ -48,7 +48,7 @@ class _ProfilePageState extends State<ProfilePage> {
           toolbarHeight: 0,
           backgroundColor: Provider.of<CustomTheme>(context).isLightTheme()
               ? CustomThemes.light.primaryColor
-              : CustomThemes.dark.primaryColorLight,
+              : CustomThemes.dark.primaryColor,
           systemOverlayStyle:const SystemUiOverlayStyle(statusBarColor:Colors.transparent),
         ),
         body: ListView.separated(
