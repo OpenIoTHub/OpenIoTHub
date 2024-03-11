@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:openiothub/pages/homePage/homePage.dart';
 
 class SplashPage extends StatefulWidget {
@@ -17,6 +18,7 @@ class LaunchState extends State<SplashPage> {
 
   @override
   void initState() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,overlays:[SystemUiOverlay.top]);
     super.initState();
     _startRecordTime();
     print('初始化启动页面');
@@ -25,6 +27,7 @@ class LaunchState extends State<SplashPage> {
   @override
   void dispose() {
     super.dispose();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,overlays:SystemUiOverlay.values);
     print('启动页面结束');
     if (_countdownTimer.isActive) {
       _countdownTimer.cancel();
@@ -53,13 +56,14 @@ class LaunchState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.dark(),
-      home: Scaffold(
+    return Scaffold(
+      extendBody: true, //底部NavigationBar透明
+      extendBodyBehindAppBar: true,//顶部Bar透明
+      backgroundColor: Colors.transparent,
         body: Stack(
           fit: StackFit.expand,
           children: <Widget>[
-            Image.asset(launchImage, fit: BoxFit.fill),
+            Positioned.fill(child: Image.asset(launchImage, fit: BoxFit.fill)),
             Positioned(
               top: 30,
               right: 30,
@@ -95,7 +99,6 @@ class LaunchState extends State<SplashPage> {
             )
           ],
         ),
-      ),
-    );
+      );
   }
 }

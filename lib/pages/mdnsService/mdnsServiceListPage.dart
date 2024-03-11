@@ -139,6 +139,9 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        // backgroundColor: Provider.of<CustomTheme>(context).isLightTheme()
+        //     ? CustomThemes.light.primaryColor
+        //     : CustomThemes.dark.primaryColor,
         centerTitle: true,
         actions: _build_actions(),
       ),

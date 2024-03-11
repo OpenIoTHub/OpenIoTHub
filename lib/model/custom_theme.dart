@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomTheme with ChangeNotifier {
@@ -40,27 +41,9 @@ class CustomTheme with ChangeNotifier {
 
 class CustomThemes {
   static const Color _lightAccentColor = Colors.orange;
+  static const Color _darkAccentColor = Colors.black;
   static final ThemeData light = ThemeData(
-      brightness: Brightness.light,
-      primarySwatch: _lightAccentColor as MaterialColor,
-      primaryColor: _lightAccentColor,
-      // primaryColorLight: _lightAccentColor,
-      iconTheme: const IconThemeData(color: _lightAccentColor),
-      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        selectedItemColor: _lightAccentColor,
-        unselectedItemColor: Colors.grey,
-        // backgroundColor: Colors.white,
-      ),
-      bottomAppBarTheme: const BottomAppBarTheme(
-        color: Colors.white,
-      ),
-      floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        backgroundColor: _lightAccentColor,
-      ),
-  );
-
-  static final ThemeData dark = ThemeData(
-    brightness: Brightness.dark,
+    brightness: Brightness.light,
     primarySwatch: _lightAccentColor as MaterialColor,
     primaryColor: _lightAccentColor,
     // primaryColorLight: _lightAccentColor,
@@ -69,6 +52,37 @@ class CustomThemes {
       selectedItemColor: _lightAccentColor,
       unselectedItemColor: Colors.grey,
       // backgroundColor: Colors.white,
+    ),
+    bottomAppBarTheme: const BottomAppBarTheme(
+      color: Colors.white,
+    ),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: _lightAccentColor,
+    ),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: _lightAccentColor,
+      systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          systemNavigationBarColor: Colors.white),
+    ),
+  );
+
+  static final ThemeData dark = ThemeData(
+    brightness: Brightness.dark,
+    primarySwatch: _lightAccentColor as MaterialColor,
+    primaryColor: _darkAccentColor,
+    // primaryColorLight: _lightAccentColor,
+    iconTheme: const IconThemeData(color: _lightAccentColor),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      selectedItemColor: _lightAccentColor,
+      unselectedItemColor: Colors.grey,
+      // backgroundColor: Colors.white,
+    ),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: _darkAccentColor,
+      systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          systemNavigationBarColor: Colors.black),
     ),
   );
 }

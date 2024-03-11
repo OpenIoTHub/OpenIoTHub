@@ -19,7 +19,7 @@ Future<void> init() async {
   initBackgroundService();
   initHttpAssets();
   initWechat();
-  initSystemUi();
+  // initSystemUi();
   loadConfig();
 }
 
@@ -47,12 +47,15 @@ Future<void> initWechat() async {
 }
 
 Future<void> initSystemUi() async {
+  // SystemChrome.setEnabledSystemUIMode([SystemUiOverlay.top] as SystemUiMode);
   //安卓透明状态栏
-  if (Platform.isAndroid) {
-    SystemUiOverlayStyle systemUiOverlayStyle =
-        const SystemUiOverlayStyle(statusBarColor: Colors.transparent);
-    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
-  }
+  // if (Platform.isAndroid) {
+  SystemUiOverlayStyle systemUiOverlayStyle =
+      const SystemUiOverlayStyle(statusBarColor: Colors.transparent,
+          // 导航栏下面的控制栏的颜色
+          systemNavigationBarColor:Colors.transparent);
+  SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+  // }
 }
 
 Future<void> loadConfig() async {
