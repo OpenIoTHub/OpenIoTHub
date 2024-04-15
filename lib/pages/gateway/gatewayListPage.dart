@@ -1,10 +1,9 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
-
 // import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/model/custom_theme.dart';
-import './mDNSServiceListPage.dart';
 import 'package:openiothub/util/ThemeUtils.dart';
 import 'package:openiothub_api/api/OpenIoTHub/SessionApi.dart';
 import 'package:openiothub_api/openiothub_api.dart';
@@ -17,6 +16,7 @@ import 'package:provider/provider.dart';
 
 import '../../generated/l10n.dart';
 import '../commonPages/scanQR.dart';
+import './mDNSServiceListPage.dart';
 
 class GatewayListPage extends StatefulWidget {
   const GatewayListPage({required Key key, required this.title})
@@ -54,7 +54,8 @@ class _GatewayListPageState extends State<GatewayListPage> {
     final tiles = _SessionList.map(
       (pair) {
         var listItemContent = ListTile(
-          leading: Icon(Icons.cloud_done,
+          leading: Icon(
+            Icons.cloud_done,
             size: 40,
             color: Provider.of<CustomTheme>(context).isLightTheme()
                 ? CustomThemes.light.primaryColorLight
@@ -67,9 +68,17 @@ class _GatewayListPageState extends State<GatewayListPage> {
                   style: Constants.titleTextStyle),
             ],
           ),
-          subtitle: pair.statusToClient||pair.statusP2PAsClient||pair.statusP2PAsServer?
-              const Text("在线",style: TextStyle(color: Colors.green),):
-          const Text("离线",style: TextStyle(color: Colors.grey),),
+          subtitle: pair.statusToClient ||
+                  pair.statusP2PAsClient ||
+                  pair.statusP2PAsServer
+              ? const Text(
+                  "在线",
+                  style: TextStyle(color: Colors.green),
+                )
+              : const Text(
+                  "离线",
+                  style: TextStyle(color: Colors.grey),
+                ),
           trailing: Constants.rightArrowIcon,
         );
         return InkWell(
@@ -101,8 +110,12 @@ class _GatewayListPageState extends State<GatewayListPage> {
           ? divided
           : Column(children: [
               ThemeUtils.isDarkMode(context)
-                  ? Center(child: Image.asset('assets/images/empty_list_black.png'),)
-                  : Center(child: Image.asset('assets/images/empty_list.png'),),
+                  ? Center(
+                      child: Image.asset('assets/images/empty_list_black.png'),
+                    )
+                  : Center(
+                      child: Image.asset('assets/images/empty_list.png'),
+                    ),
               const Text("请使用右上角放大镜查找你在本局域网安装的网关"),
             ]),
     );
@@ -155,7 +168,7 @@ class _GatewayListPageState extends State<GatewayListPage> {
     }
   }
 
-  Future deleteOneSession(SessionConfig config) async {
+  void deleteOneSession(SessionConfig config) async {
     try {
       final response = await SessionApi.deleteOneSession(config);
       print('Greeter client received: $response');
@@ -168,10 +181,12 @@ class _GatewayListPageState extends State<GatewayListPage> {
                     TextButton(
                       child: const Text("确认"),
                       onPressed: () {
+                        if (!context.mounted) return;
                         Navigator.of(context).pop();
                       },
                     )
                   ])).then((result) {
+        if (!context.mounted) return;
         Navigator.of(context).pop();
       });
     } catch (e) {
@@ -185,12 +200,14 @@ class _GatewayListPageState extends State<GatewayListPage> {
                     TextButton(
                       child: const Text("取消"),
                       onPressed: () {
+                        if (!context.mounted) return;
                         Navigator.of(context).pop();
                       },
                     ),
                     TextButton(
                       child: const Text("确认"),
                       onPressed: () {
+                        if (!context.mounted) return;
                         Navigator.of(context).pop();
                       },
                     )
@@ -243,36 +260,39 @@ class _GatewayListPageState extends State<GatewayListPage> {
   }
 
   List<Widget>? _build_actions() {
+    var popupMenuEntrys = <PopupMenuEntry<String>>[
+      PopupMenuItem(
+        //child: _buildPopupMenuItem(Icons.camera_alt, '扫一扫'),
+        child: _buildPopupMenuItem(Icons.search, S.current.find_local_gateway),
+        value: "find_local_gateway",
+      ),
+    ];
+    if (Platform.isAndroid || Platform.isIOS) {
+      popupMenuEntrys.addAll(<PopupMenuEntry<String>>[
+        const PopupMenuDivider(
+          height: 1.0,
+        ),
+        PopupMenuItem(
+          //child: _buildPopupMenuItem(Icons.camera_alt, '扫一扫'),
+          child: _buildPopupMenuItem(Icons.qr_code_scanner, S.current.scan_QR),
+          value: "scan_QR",
+        ),
+        const PopupMenuDivider(
+          height: 1.0,
+        ),
+        PopupMenuItem(
+          //child: _buildPopupMenuItem(ICons.ADDRESS_BOOK_CHECKED, '添加朋友'),
+          child: _buildPopupMenuItem(
+              Icons.wifi_tethering, S.current.config_device_wifi),
+          value: "config_device_wifi",
+        ),
+      ]);
+    }
     return <Widget>[
       PopupMenuButton(
         tooltip: "",
         itemBuilder: (BuildContext context) {
-          return <PopupMenuEntry<String>>[
-            PopupMenuItem(
-              //child: _buildPopupMenuItem(ICons.ADDRESS_BOOK_CHECKED, '添加朋友'),
-              child: _buildPopupMenuItem(
-                  Icons.wifi_tethering, S.current.config_device_wifi),
-              value: "config_device_wifi",
-            ),
-            const PopupMenuDivider(
-              height: 1.0,
-            ),
-            PopupMenuItem(
-              //child: _buildPopupMenuItem(Icons.camera_alt, '扫一扫'),
-              child:
-              _buildPopupMenuItem(Icons.qr_code_scanner, S.current.scan_QR),
-              value: "scan_QR",
-            ),
-            const PopupMenuDivider(
-              height: 1.0,
-            ),
-            PopupMenuItem(
-              //child: _buildPopupMenuItem(Icons.camera_alt, '扫一扫'),
-              child:
-              _buildPopupMenuItem(Icons.search, S.current.find_local_gateway),
-              value: "find_local_gateway",
-            ),
-          ];
+          return popupMenuEntrys;
         },
         padding: EdgeInsets.only(top: 0.0),
         elevation: 5.0,

@@ -81,8 +81,8 @@ class _ZipDevicesPageState extends State<ZipDevicesPage> {
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: const Text("添加设备到云易连"),
-                content: const Text("确认添加该设备到云易连？"),
+                title: const Text("添加设备到云亿连"),
+                content: const Text("确认添加该设备到云亿连？"),
                 actions: <Widget>[
                   TextButton(
                     child: const Text("取消"),
@@ -93,7 +93,7 @@ class _ZipDevicesPageState extends State<ZipDevicesPage> {
                   TextButton(
                     child: const Text("确认"),
                     onPressed: () async {
-                      // print("添加该设备到云易连");
+                      // print("添加该设备到云亿连");
                       _addDeviceAndSetMqttServer(zipLocalDevice)
                           .then((value) => Navigator.of(context).pop());
                     },

@@ -9,16 +9,16 @@ QQ群号: 251227638 <a target="_blank" href="https://jq.qq.com/?_wv=1027&k=1K3Dl
 
 [![QQ群](./qq-group-qr.jpg)](https://jq.qq.com/?_wv=1027&k=1K3Dlmkm)
 
-#### OpenIoTHub（云易连）是什么？
-云易连一个免费的物联网和私有云平台，支持内网穿透,物联网设备、私有云、内网穿透管理
+#### OpenIoTHub（云亿连）是什么？
+云亿连一个免费的物联网和私有云平台，支持内网穿透,物联网设备、私有云、内网穿透管理
 
-#### 下载地址(云易连)：
+#### 下载地址(云亿连)：
   * 其他版本：https://github.com/OpenIoTHub/OpenIoTHub/releases
   * iOS版本：https://apps.apple.com/cn/app/%E4%BA%91%E6%98%93%E8%BF%9E/id1501554327
 #### 内网网关下载地址:
   * 其他版本：https://github.com/OpenIoTHub/gateway-go/releases
   * 安卓版本：https://github.com/OpenIoTHub/GateWay/releases
-#### 云易连 服务器 下载（高阶, 一般用户用网关自动生成的配置文件中的服务器就够了）:
+#### 云亿连 服务器 下载（高阶, 一般用户用网关自动生成的配置文件中的服务器就够了）:
 > #### 自建转发服务器下载（高阶）：
 > * https://github.com/OpenIoTHub/server-go/releases
 > * 服务器请自行配置端口和秘钥，网关使用你配置的信息和公网地址就可以使用自建服务器

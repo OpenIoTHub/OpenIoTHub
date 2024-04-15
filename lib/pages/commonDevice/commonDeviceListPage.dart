@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -309,33 +310,41 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
   }
 
   List<Widget>? _build_actions() {
+    var popupMenuEntrys = <PopupMenuEntry<String>>[
+      PopupMenuItem(
+        //child: _buildPopupMenuItem(Icons.camera_alt, '扫一扫'),
+        child:
+        _buildPopupMenuItem(Icons.search, S.current.find_local_gateway),
+        value: "find_local_gateway",
+      ),
+    ];
+    if (Platform.isAndroid || Platform.isIOS) {
+      popupMenuEntrys.addAll(<PopupMenuEntry<String>>[
+        const PopupMenuDivider(
+          height: 1.0,
+        ),
+        PopupMenuItem(
+          //child: _buildPopupMenuItem(Icons.camera_alt, '扫一扫'),
+          child:
+          _buildPopupMenuItem(Icons.qr_code_scanner, S.current.scan_QR),
+          value: "scan_QR",
+        ),
+        const PopupMenuDivider(
+          height: 1.0,
+        ),
+        PopupMenuItem(
+          //child: _buildPopupMenuItem(ICons.ADDRESS_BOOK_CHECKED, '添加朋友'),
+          child: _buildPopupMenuItem(
+              Icons.wifi_tethering, S.current.config_device_wifi),
+          value: "config_device_wifi",
+        ),
+      ]);
+    }
     return <Widget>[
       PopupMenuButton(
         tooltip: "",
         itemBuilder: (BuildContext context) {
-          return <PopupMenuEntry<String>>[
-            PopupMenuItem(
-              child: _buildPopupMenuItem(
-                  Icons.wifi_tethering, S.current.config_device_wifi),
-              value: "config_device_wifi",
-            ),
-            const PopupMenuDivider(
-              height: 1.0,
-            ),
-            PopupMenuItem(
-              child:
-              _buildPopupMenuItem(Icons.qr_code_scanner, S.current.scan_QR),
-              value: "scan_QR",
-            ),
-            const PopupMenuDivider(
-              height: 1.0,
-            ),
-            PopupMenuItem(
-              child:
-              _buildPopupMenuItem(Icons.search, S.current.find_local_gateway),
-              value: "find_local_gateway",
-            ),
-          ];
+          return popupMenuEntrys;
         },
         padding: EdgeInsets.only(top: 0.0),
         elevation: 5.0,
