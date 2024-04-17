@@ -340,8 +340,11 @@ loginwithtokenmap:
                       GatewayManager.UpdateGateway(gatewayInfo);
                       //修改本地的
                       widget.sessionConfig.name = newNameController.text;
+                      // 从本机更新
                       SessionApi.UpdateSessionNameDescription(
                           widget.sessionConfig);
+                      // 从服务器更新
+                      GatewayManager.UpdateGateway(gatewayInfo);
                       Navigator.of(context).pop();
                     },
                   )
