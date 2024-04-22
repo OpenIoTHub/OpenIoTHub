@@ -17,7 +17,8 @@ class ScanQRPage extends StatefulWidget {
 }
 
 class _ScanQRPageState extends State<ScanQRPage> {
-  MobileScannerController cameraController = MobileScannerController();
+  MobileScannerController cameraController = MobileScannerController(
+      detectionSpeed: DetectionSpeed.noDuplicates, detectionTimeoutMs: 1500);
 
   @override
   Widget build(BuildContext context) {
@@ -109,6 +110,7 @@ class _ScanQRPageState extends State<ScanQRPage> {
   //已经确认过可以添加，添加到我的账号
   _addToMyAccount(String gatewayId) async {
     try {
+      // TODO 可以搞一个确认步骤，确认后添加
       // 使用扫描的Gateway ID构建一个GatewayInfo用于服务器添加
       GatewayInfo gatewayInfo = GatewayInfo(
           gatewayUuid: gatewayId,
@@ -119,9 +121,10 @@ class _ScanQRPageState extends State<ScanQRPage> {
       //将网关映射到本机
       if (operationResponse.code == 0) {
         // TODO 从服务器获取连接JWT
-        StringValue gatewayJwt =
-        await GatewayManager.GetGatewayJwtByGatewayUuid(gatewayId);
-        _addToMySessionList(gatewayJwt.value, "Gateway-${DateTime.now()}");
+        StringValue openIoTHubJwt =
+            await GatewayManager.GetOpenIoTHubJwtByGatewayUuid(gatewayId);
+        await _addToMySessionList(
+            openIoTHubJwt.value, "Gateway-${DateTime.now()}", "Gateway-${DateTime.now()} form scan QR code");
       } else {
         showToast("添加网关到我的账户失败:${operationResponse.msg}");
       }
@@ -130,10 +133,11 @@ class _ScanQRPageState extends State<ScanQRPage> {
     }
   }
 
-  Future _addToMySessionList(String token, name) async {
+  Future _addToMySessionList(String token, name, description) async {
     SessionConfig config = SessionConfig();
     config.token = token;
-    config.description = name;
+    config.name = name;
+    config.description = description;
     try {
       await SessionApi.createOneSession(config);
       showToast("添加网关成功！");
