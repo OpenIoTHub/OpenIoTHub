@@ -34,7 +34,7 @@ jobs:
       - run: flutter pub get
       - run: flutter build apk --release
       - name: Release APK
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
@@ -59,7 +59,7 @@ jobs:
       - run: flutter build ipa  --release --no-codesign
       - run: zip -r ios-release.zip ./build/ios/archive
       - name: Release iOS IPA
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
@@ -86,7 +86,7 @@ jobs:
           flutter build linux --release
       - run: zip -r linux-release.zip ./build/linux/x64/release/bundle
       - name: Release Linux Zip
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
@@ -126,7 +126,7 @@ jobs:
       # https://github.com/create-dmg/create-dmg.git
       - run: hdiutil create -srcfolder build/dmg -volname "OpenIoTHub" -format UDZO -ov -imagekey zlib-level=9 openiothub.dmg
       - name: Release MacOS dmg
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
@@ -147,7 +147,7 @@ jobs:
       - run: flutter build windows --release
       - run: Compress-Archive -Path build\windows\x64\runner\Release -DestinationPath windows-release.zip
       - name: Release windows zip
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
@@ -155,7 +155,7 @@ jobs:
           body_path: ./.github/doc/DownloadDescription.md
       - run: dart run msix:create
       - name: Release windows msix
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
@@ -166,7 +166,7 @@ jobs:
           "%programfiles(x86)%\Inno Setup 6\iscc.exe" "windows-setup.iss"
         shell: cmd
       - name: Release windows setup
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
