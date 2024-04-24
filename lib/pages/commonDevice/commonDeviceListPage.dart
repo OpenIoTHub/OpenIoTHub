@@ -66,7 +66,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
               Text(pair.description, style: Constants.titleTextStyle),
             ],
           ),
-          subtitle: Text(pair.addr,style: Constants.subTitleTextStyle,),
+          subtitle: Text("${pair.addr}@${pair.runId.substring(24)}",style: Constants.subTitleTextStyle,),
           trailing: Constants.rightArrowIcon,
         );
         return InkWell(

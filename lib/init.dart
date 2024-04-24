@@ -65,4 +65,5 @@ Future<void> loadConfig() async {
     });
   });
   CnameManager.LoadAllCnameFromRemote();
+  // TODO 后面也可以定时同步
 }

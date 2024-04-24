@@ -187,7 +187,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
   void _pushDetail(SessionConfig config) async {
 //:TODO    这里显示内网的服务，socks5等，右上角详情才展示详细信息
     final List result = [];
-    result.add("ID:${config.runId}");
+    result.add("ID(简化后):${config.runId.substring(24)}");
     result.add("描述:${config.description}");
     result.add("连接码(简化后):${config.token.substring(0, 10)}");
     result.add("转发连接状态:${config.statusToClient ? "在线" : "离线"}");
@@ -203,6 +203,10 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                   pair,
                   style: Constants.titleTextStyle,
                 ),
+                onLongPress: (){
+                  Clipboard.setData(ClipboardData(text: pair));
+                  showToast("复制成功！");
+                },
               );
             },
           );

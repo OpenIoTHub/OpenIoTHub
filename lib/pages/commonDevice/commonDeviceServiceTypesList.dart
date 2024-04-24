@@ -1,6 +1,8 @@
 import 'dart:async' as DeviceServiceTypesList;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/pages/commonDevice/services/httpPortListPage.dart';
 import 'package:openiothub_api/api/OpenIoTHub/CommonDeviceApi.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
@@ -310,8 +312,8 @@ class _CommonDeviceServiceTypesListState
   void _pushDetail() async {
 //:TODO    这里显示内网的服务，socks5等，右上角详情才展示详细信息
     final List result = [];
-    result.add("本设备id:${widget.device.uuid}");
-    result.add("内网id:${widget.device.runId}");
+    result.add("本设备id(简化后):${widget.device.uuid.substring(24)}");
+    result.add("内网id(简化后):${widget.device.runId.substring(24)}");
     result.add("描述:${widget.device.description}");
     result.add("地址:${widget.device.addr}");
     result.add("物理地址:${widget.device.mac}");
@@ -324,6 +326,10 @@ class _CommonDeviceServiceTypesListState
                 title: Text(
                   pair,
                 ),
+                onLongPress: (){
+                  Clipboard.setData(ClipboardData(text: pair));
+                  showToast("复制成功！");
+                },
               );
             },
           );
