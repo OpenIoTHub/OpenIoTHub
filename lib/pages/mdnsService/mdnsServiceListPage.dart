@@ -82,12 +82,18 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       refreshmDNSServicesFromeLocal();
       refreshmDNSServicesFromeRemote();
     });
+    Future.delayed(const Duration(milliseconds: 1000)).then((value) {
+      refreshmDNSServicesFromeRemote();
+    });
+    Future.delayed(const Duration(milliseconds: 2000)).then((value) {
+      refreshmDNSServicesFromeRemote();
+    });
     _timerPeriodLocal =
         Timer.periodic(const Duration(seconds: 15), (Timer timer) {
       refreshmDNSServicesFromeLocal();
     });
     _timerPeriodRemote =
-        Timer.periodic(const Duration(seconds: 18), (Timer timer) {
+        Timer.periodic(const Duration(seconds: 10), (Timer timer) {
       refreshmDNSServicesFromeRemote();
     });
     print("init iot devie List");
