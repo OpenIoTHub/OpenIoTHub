@@ -4,28 +4,25 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_nsd/flutter_nsd.dart';
 import 'package:oktoast/oktoast.dart';
-import 'package:openiothub_common_pages/commPages/findmDNSClientList.dart';
-import 'package:openiothub_grpc_api/proto/manager/mqttDeviceManager.pb.dart';
-
 // import 'package:multicast_dns/multicast_dns.dart';
 import 'package:openiothub/model/custom_theme.dart';
-
 // import 'package:openiothub/pages/mdnsService/AddMqttDevicesPage.dart';
 import 'package:openiothub/util/ThemeUtils.dart';
 import 'package:openiothub_api/openiothub_api.dart';
+import 'package:openiothub_common_pages/commPages/findmDNSClientList.dart';
 import 'package:openiothub_common_pages/wifiConfig/smartConfigTool.dart';
 import 'package:openiothub_constants/openiothub_constants.dart';
+import 'package:openiothub_grpc_api/proto/manager/mqttDeviceManager.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:openiothub_plugin/plugins/mdnsService/commWidgets/info.dart';
 import 'package:openiothub_plugin/plugins/mdnsService/mdnsType2ModelMap.dart';
-
 //统一导入全部设备类型
 import 'package:openiothub_plugin/plugins/mdnsService/modelsMap.dart';
 import 'package:protobuf/protobuf.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_nsd/flutter_nsd.dart';
 
 import '../../generated/l10n.dart';
 import '../commonPages/scanQR.dart';
@@ -86,11 +83,11 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       refreshmDNSServicesFromeRemote();
     });
     _timerPeriodLocal =
-        Timer.periodic(const Duration(seconds: 10), (Timer timer) {
+        Timer.periodic(const Duration(seconds: 15), (Timer timer) {
       refreshmDNSServicesFromeLocal();
     });
     _timerPeriodRemote =
-        Timer.periodic(const Duration(seconds: 5), (Timer timer) {
+        Timer.periodic(const Duration(seconds: 18), (Timer timer) {
       refreshmDNSServicesFromeRemote();
     });
     print("init iot devie List");
@@ -102,7 +99,8 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     final tiles = _IoTDeviceMap.values.map(
       (PortService pair) {
         var listItemContent = ListTile(
-          leading: Icon(Icons.devices,
+          leading: Icon(
+            Icons.devices,
             size: 40,
             color: Provider.of<CustomTheme>(context).isLightTheme()
                 ? CustomThemes.light.primaryColorLight
@@ -114,7 +112,10 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
               Text(pair.info["name"]!, style: Constants.titleTextStyle),
             ],
           ),
-          subtitle: Text(pair.info["model"]!,style: Constants.subTitleTextStyle,),
+          subtitle: Text(
+            pair.info["model"]!,
+            style: Constants.subTitleTextStyle,
+          ),
           trailing: Constants.rightArrowIcon,
         );
         return InkWell(
@@ -146,40 +147,46 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
         centerTitle: true,
         actions: _build_actions(),
       ),
-      body: tiles.isNotEmpty
-          ? divided
-          : Container(
-              child: Column(children: [
-                ThemeUtils.isDarkMode(context)
-                    ? Center(
-                        child:
-                            Image.asset('assets/images/empty_list_black.png'),
-                      )
-                    : Center(
-                        child: Image.asset('assets/images/empty_list.png'),
-                      ),
-                TextButton(
-                    style: ButtonStyle(
-                      side: MaterialStateProperty.all(
-                          const BorderSide(color: Colors.grey, width: 1)),
-                      shape: MaterialStateProperty.all(const StadiumBorder()),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return SmartConfigTool(
-                              title: "添加设备",
-                              needCallBack: true,
-                              key: UniqueKey(),
-                            );
-                          },
+      body: RefreshIndicator(
+        onRefresh: () {
+          refreshmDNSServicesFromeLocal();
+          return refreshmDNSServicesFromeRemote();
+        },
+        child: tiles.isNotEmpty
+            ? divided
+            : Container(
+                child: Column(children: [
+                  ThemeUtils.isDarkMode(context)
+                      ? Center(
+                          child:
+                              Image.asset('assets/images/empty_list_black.png'),
+                        )
+                      : Center(
+                          child: Image.asset('assets/images/empty_list.png'),
                         ),
-                      );
-                    },
-                    child: const Text("请先添加设备"))
-              ]),
-            ),
+                  TextButton(
+                      style: ButtonStyle(
+                        side: MaterialStateProperty.all(
+                            const BorderSide(color: Colors.grey, width: 1)),
+                        shape: MaterialStateProperty.all(const StadiumBorder()),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return SmartConfigTool(
+                                title: "添加设备",
+                                needCallBack: true,
+                                key: UniqueKey(),
+                              );
+                            },
+                          ),
+                        );
+                      },
+                      child: const Text("请先添加设备"))
+                ]),
+              ),
+      ),
     );
   }
 
@@ -407,8 +414,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     var popupMenuEntrys = <PopupMenuEntry<String>>[
       PopupMenuItem(
         //child: _buildPopupMenuItem(Icons.camera_alt, '扫一扫'),
-        child:
-        _buildPopupMenuItem(Icons.search, S.current.find_local_gateway),
+        child: _buildPopupMenuItem(Icons.search, S.current.find_local_gateway),
         value: "find_local_gateway",
       ),
     ];
@@ -419,8 +425,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
         ),
         PopupMenuItem(
           //child: _buildPopupMenuItem(Icons.camera_alt, '扫一扫'),
-          child:
-          _buildPopupMenuItem(Icons.qr_code_scanner, S.current.scan_QR),
+          child: _buildPopupMenuItem(Icons.qr_code_scanner, S.current.scan_QR),
           value: "scan_QR",
         ),
         const PopupMenuDivider(

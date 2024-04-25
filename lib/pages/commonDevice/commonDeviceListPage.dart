@@ -37,7 +37,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
   void initState() {
     super.initState();
     getAllCommonDevice();
-    _timerPeriod = Timer.periodic(const Duration(seconds: 5), (Timer timer) {
+    _timerPeriod = Timer.periodic(const Duration(seconds: 15), (Timer timer) {
       getAllCommonDevice();
     });
     print("init common devie List");
@@ -54,7 +54,8 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
     final tiles = _CommonDeviceList.map(
       (pair) {
         var listItemContent = ListTile(
-          leading: Icon(Icons.devices,
+          leading: Icon(
+            Icons.devices,
             size: 40,
             color: Provider.of<CustomTheme>(context).isLightTheme()
                 ? CustomThemes.light.primaryColorLight
@@ -66,7 +67,10 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
               Text(pair.description, style: Constants.titleTextStyle),
             ],
           ),
-          subtitle: Text("${pair.addr}@${pair.runId.substring(24)}",style: Constants.subTitleTextStyle,),
+          subtitle: Text(
+            "${pair.addr}@${pair.runId.substring(24)}",
+            style: Constants.subTitleTextStyle,
+          ),
           trailing: Constants.rightArrowIcon,
         );
         return InkWell(
@@ -104,25 +108,35 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
           _addRemoteHostFromSession();
         },
       ),
-      body: tiles.isNotEmpty
-          ? divided
-          : Container(
-              child: Column(children: [
-                ThemeUtils.isDarkMode(context)
-                    ? Center(child: Image.asset('assets/images/empty_list_black.png'),)
-                    : Center(child:Image.asset('assets/images/empty_list.png'),),
-                TextButton(
-                    style: ButtonStyle(
-                      side: MaterialStateProperty.all(
-                          const BorderSide(color: Colors.grey, width: 1)),
-                      shape: MaterialStateProperty.all(const StadiumBorder()),
-                    ),
-                    onPressed: () {
-                      _addRemoteHostFromSession();
-                    },
-                    child: const Text("请先添加主机"))
-              ]),
-            ),
+      body: RefreshIndicator(
+        onRefresh: () {
+          return getAllCommonDevice();
+        },
+        child: tiles.isNotEmpty
+            ? divided
+            : Container(
+                child: Column(children: [
+                  ThemeUtils.isDarkMode(context)
+                      ? Center(
+                          child:
+                              Image.asset('assets/images/empty_list_black.png'),
+                        )
+                      : Center(
+                          child: Image.asset('assets/images/empty_list.png'),
+                        ),
+                  TextButton(
+                      style: ButtonStyle(
+                        side: MaterialStateProperty.all(
+                            const BorderSide(color: Colors.grey, width: 1)),
+                        shape: MaterialStateProperty.all(const StadiumBorder()),
+                      ),
+                      onPressed: () {
+                        _addRemoteHostFromSession();
+                      },
+                      child: const Text("请先添加主机"))
+                ]),
+              ),
+      ),
     );
   }
 
@@ -313,8 +327,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
     var popupMenuEntrys = <PopupMenuEntry<String>>[
       PopupMenuItem(
         //child: _buildPopupMenuItem(Icons.camera_alt, '扫一扫'),
-        child:
-        _buildPopupMenuItem(Icons.search, S.current.find_local_gateway),
+        child: _buildPopupMenuItem(Icons.search, S.current.find_local_gateway),
         value: "find_local_gateway",
       ),
     ];
@@ -325,8 +338,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
         ),
         PopupMenuItem(
           //child: _buildPopupMenuItem(Icons.camera_alt, '扫一扫'),
-          child:
-          _buildPopupMenuItem(Icons.qr_code_scanner, S.current.scan_QR),
+          child: _buildPopupMenuItem(Icons.qr_code_scanner, S.current.scan_QR),
           value: "scan_QR",
         ),
         const PopupMenuDivider(

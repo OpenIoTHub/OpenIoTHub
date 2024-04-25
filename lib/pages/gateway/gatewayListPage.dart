@@ -38,7 +38,7 @@ class _GatewayListPageState extends State<GatewayListPage> {
   void initState() {
     super.initState();
     getAllSession();
-    _timerPeriod = Timer.periodic(const Duration(seconds: 2), (Timer timer) {
+    _timerPeriod = Timer.periodic(const Duration(seconds: 15), (Timer timer) {
       getAllSession();
     });
   }
@@ -106,18 +106,24 @@ class _GatewayListPageState extends State<GatewayListPage> {
         centerTitle: true,
         actions: _build_actions(),
       ),
-      body: tiles.isNotEmpty
-          ? divided
-          : Column(children: [
-              ThemeUtils.isDarkMode(context)
-                  ? Center(
-                      child: Image.asset('assets/images/empty_list_black.png'),
-                    )
-                  : Center(
-                      child: Image.asset('assets/images/empty_list.png'),
-                    ),
-              const Text("请使用右上角放大镜查找你在本局域网安装的网关"),
-            ]),
+      body: RefreshIndicator(
+        onRefresh: () {
+          return getAllSession();
+        },
+        child: tiles.isNotEmpty
+            ? divided
+            : Column(children: [
+                ThemeUtils.isDarkMode(context)
+                    ? Center(
+                        child:
+                            Image.asset('assets/images/empty_list_black.png'),
+                      )
+                    : Center(
+                        child: Image.asset('assets/images/empty_list.png'),
+                      ),
+                const Text("请使用右上角放大镜查找你在本局域网安装的网关"),
+              ]),
+      ),
     );
   }
 
