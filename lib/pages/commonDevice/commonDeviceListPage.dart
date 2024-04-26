@@ -82,13 +82,16 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
       },
     );
     final divided = ListView.separated(
+      padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
       itemCount: tiles.length,
       itemBuilder: (context, index) {
         return tiles.elementAt(index);
       },
       separatorBuilder: (context, index) {
         return const Divider(
+          height: 5,
           indent: 60,
+          color: Colors.black12,
         );
       },
     );

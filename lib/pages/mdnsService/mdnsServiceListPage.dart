@@ -77,9 +77,8 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
         }
       },
     );
-
+    refreshmDNSServicesFromeLocal();
     Future.delayed(const Duration(milliseconds: 500)).then((value) {
-      refreshmDNSServicesFromeLocal();
       refreshmDNSServicesFromeRemote();
     });
     Future.delayed(const Duration(milliseconds: 1000)).then((value) {
@@ -112,17 +111,13 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
                 ? CustomThemes.light.primaryColorLight
                 : CustomThemes.dark.primaryColorDark,
           ),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Text(pair.info["name"]!, style: Constants.titleTextStyle),
-            ],
-          ),
+          title: Text(pair.info["name"]!, style: Constants.titleTextStyle),
           subtitle: Text(
             pair.info["model"]!,
             style: Constants.subTitleTextStyle,
           ),
           trailing: Constants.rightArrowIcon,
+          contentPadding: const EdgeInsets.fromLTRB(16, 0.0, 16, 0.0),
         );
         return InkWell(
           onTap: () {
@@ -133,14 +128,16 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       },
     );
     final divided = ListView.separated(
-      // padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
+      padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
       itemCount: tiles.length,
       itemBuilder: (context, index) {
         return tiles.elementAt(index);
       },
       separatorBuilder: (context, index) {
         return const Divider(
+          height: 2,
           indent: 60,
+          color: Colors.black12,
         );
       },
     );
