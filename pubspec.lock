@@ -311,10 +311,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_plugin_android_lifecycle
-      sha256: "592dc01a18961a51c24ae5d963b724b2b7fa4a95c100fe8eb6ca8a5a4732cadf"
+      sha256: "8cf40eebf5dec866a6d1956ad7b4f7016e6c0cc69847ab946833b7d43743809f"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.0.18"
+    version: "2.0.19"
   flutter_seekbar:
     dependency: transitive
     description:
@@ -713,10 +713,10 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_mobile_service
-      sha256: "877fe68b7f17371301bb103756fd935a11961f0f7b7e0ed7b13df230e4537e04"
+      sha256: c4ddc1fd91995cf65958da53a99dead502c8d0333ff3528e98a6e01e8215397b
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.0.8+3"
+    version: "0.0.8+4"
   openiothub_plugin:
     dependency: "direct main"
     description:
@@ -929,10 +929,10 @@ packages:
     dependency: transitive
     description:
       name: shared_preferences_android
-      sha256: "1ee8bf911094a1b592de7ab29add6f826a7331fb854273d55918693d5364a1f2"
+      sha256: "8568a389334b6e83415b6aae55378e158fbc2314e074983362d20c562780fb06"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.2.2"
+    version: "2.2.1"
   shared_preferences_foundation:
     dependency: transitive
     description:
