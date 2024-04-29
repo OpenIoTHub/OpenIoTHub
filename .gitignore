@@ -43,3 +43,5 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 /*.dmg
+/macos/Podfile.lock
+/ios/Podfile.lock
