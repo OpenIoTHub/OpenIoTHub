@@ -110,9 +110,7 @@ class _GatewayListPageState extends State<GatewayListPage> {
         actions: _build_actions(),
       ),
       body: RefreshIndicator(
-        onRefresh: () {
-          return getAllSession();
-        },
+        onRefresh: getAllSession,
         child: tiles.isNotEmpty
             ? divided
             : Column(children: [
@@ -224,7 +222,7 @@ class _GatewayListPageState extends State<GatewayListPage> {
     }
   }
 
-  Future getAllSession() async {
+  Future<void> getAllSession() async {
     try {
       final response = await SessionApi.getAllSession();
       print('Greeter client received: ${response.sessionConfigs}');
@@ -234,6 +232,7 @@ class _GatewayListPageState extends State<GatewayListPage> {
     } catch (e) {
       print('Caught error: $e');
     }
+    return;
   }
 
   Future refreshmDNSServices(SessionConfig sessionConfig) async {

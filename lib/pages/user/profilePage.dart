@@ -183,7 +183,7 @@ class _ProfilePageState extends State<ProfilePage> {
             leading: const Icon(Icons.add_chart),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
-              String url = "https://b23.tv/wVAMWn";
+              String url = "https://space.bilibili.com/1222749704";
               Platform.isIOS
                   ? _goToURL(context, url, S.current.profile_docs)
                   : _goToURL(context, url, S.current.profile_docs);

@@ -151,9 +151,10 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
         actions: _build_actions(),
       ),
       body: RefreshIndicator(
-        onRefresh: () {
-          refreshmDNSServicesFromeLocal();
-          return refreshmDNSServicesFromeRemote();
+        onRefresh: () async {
+          await refreshmDNSServicesFromeLocal();
+          await refreshmDNSServicesFromeRemote();
+          return;
         },
         child: tiles.isNotEmpty
             ? divided

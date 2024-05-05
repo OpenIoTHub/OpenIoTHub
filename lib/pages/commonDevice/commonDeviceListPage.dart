@@ -112,9 +112,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
         },
       ),
       body: RefreshIndicator(
-        onRefresh: () {
-          return getAllCommonDevice();
-        },
+        onRefresh: getAllCommonDevice,
         child: tiles.isNotEmpty
             ? divided
             : Container(
@@ -236,7 +234,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
     }
   }
 
-  Future getAllCommonDevice() async {
+  Future<void> getAllCommonDevice() async {
     try {
       final response = await CommonDeviceApi.getAllDevice();
       print("=====getAllDevice:${response.devices}");
@@ -249,6 +247,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
       }
       // showToast( "获取设备列表失败：${e}");
     }
+    return;
   }
 
   void _addRemoteHostFromSession() {
