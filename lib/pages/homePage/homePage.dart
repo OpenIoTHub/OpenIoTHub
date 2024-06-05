@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:openiothub/generated/l10n.dart';
 import 'package:openiothub/pages/mdnsService/mdnsServiceListPage.dart';
 import 'package:openiothub/pages/user/profilePage.dart';
+import 'package:openiothub_api/utils/check.dart';
+import 'package:openiothub_common_pages/gateway/GatewayQrPage.dart';
 
 import '../commonDevice/commonDeviceListPage.dart';
 import '../gateway/gatewayListPage.dart';
@@ -64,6 +66,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    _goto_local_gateway();
   }
 
   @override
@@ -143,5 +146,21 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         _changePage(index);
       },
     );
+  }
+
+  Future<void> _goto_local_gateway() async {
+    // 如果没有登陆并且是PC平台则跳转到本地网关页面
+    bool userSignedIned = await userSignedIn();
+    if (!userSignedIned &&
+        (Platform.isWindows || Platform.isMacOS || Platform.isLinux)) {
+      Timer.periodic(const Duration(seconds: 1), (timer) {
+        timer.cancel();
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+          return GatewayQrPage(
+            key: UniqueKey(),
+          );
+        }));
+      });
+    }
   }
 }
