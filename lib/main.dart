@@ -31,7 +31,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return OKToast(
         child: MaterialApp(
-            title: "OpenIoTHub",
+            title: "云亿连",
+            // title: "OpenIoTHub",
             theme: CustomThemes.light,
             darkTheme: CustomThemes.dark,
             debugShowCheckedModeBanner: false,

@@ -160,6 +160,26 @@ class S {
     );
   }
 
+  /// `Video Tutorials`
+  String get profile_video_tutorials {
+    return Intl.message(
+      'Video Tutorials',
+      name: 'profile_video_tutorials',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `feedback`
+  String get profile_feedback {
+    return Intl.message(
+      'feedback',
+      name: 'profile_feedback',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `App Local Gateway`
   String get app_local_gateway {
     return Intl.message(

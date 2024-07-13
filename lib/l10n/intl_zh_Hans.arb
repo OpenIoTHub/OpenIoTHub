@@ -10,6 +10,8 @@
   "profile_servers": "我的服务器",
   "profile_tools": "工具",
   "profile_docs": "文档",
+  "profile_video_tutorials": "视频教程",
+  "profile_feedback": "反馈和建议",
   "app_local_gateway": "本机网关",
   "profile_about_this_app": "关于本软件",
   "config_device_wifi": "配置设备WiFi",

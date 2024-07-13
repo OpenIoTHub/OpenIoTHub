@@ -11,7 +11,7 @@ import 'package:openiothub_api/api/OpenIoTHub/Utils.dart';
 import 'package:openiothub_constants/constants/Config.dart';
 import 'package:openiothub_constants/constants/WeChatConfig.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
-
+import 'package:desktop_window/desktop_window.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wechat_kit/wechat_kit.dart';
 
@@ -21,6 +21,7 @@ Future<void> init() async {
   initWechat();
   // initSystemUi();
   loadConfig();
+  // setWindowSize();
 }
 
 Future<void> initBackgroundService() async {
@@ -66,4 +67,10 @@ Future<void> loadConfig() async {
   });
   CnameManager.LoadAllCnameFromRemote();
   // TODO 后面也可以定时同步
+}
+
+Future setWindowSize() async {
+  Size size = await DesktopWindow.getWindowSize();
+  print("windows size:$size");
+  await DesktopWindow.setWindowSize(Size(500,500));
 }

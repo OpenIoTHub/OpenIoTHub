@@ -31,10 +31,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile_click_avatar_to_sign_in":
             MessageLookupByLibrary.simpleMessage("点击头像登录"),
         "profile_docs": MessageLookupByLibrary.simpleMessage("文档"),
+        "profile_feedback": MessageLookupByLibrary.simpleMessage("反馈和建议"),
         "profile_not_logged_in": MessageLookupByLibrary.simpleMessage("未登录"),
         "profile_servers": MessageLookupByLibrary.simpleMessage("我的服务器"),
         "profile_settings": MessageLookupByLibrary.simpleMessage("设置"),
         "profile_tools": MessageLookupByLibrary.simpleMessage("工具"),
+        "profile_video_tutorials": MessageLookupByLibrary.simpleMessage("视频教程"),
         "scan_QR": MessageLookupByLibrary.simpleMessage("扫描二维码"),
         "tab_gateway": MessageLookupByLibrary.simpleMessage("网关"),
         "tab_host": MessageLookupByLibrary.simpleMessage("主机"),

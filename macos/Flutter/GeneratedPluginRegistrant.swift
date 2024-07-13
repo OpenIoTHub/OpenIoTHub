@@ -6,6 +6,7 @@ import FlutterMacOS
 import Foundation
 
 import connectivity_plus
+import desktop_window
 import file_selector_macos
 import flutter_nsd
 import mobile_scanner
@@ -16,6 +17,7 @@ import url_launcher_macos
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   ConnectivityPlugin.register(with: registry.registrar(forPlugin: "ConnectivityPlugin"))
+  DesktopWindowPlugin.register(with: registry.registrar(forPlugin: "DesktopWindowPlugin"))
   FileSelectorPlugin.register(with: registry.registrar(forPlugin: "FileSelectorPlugin"))
   SwiftFlutterNsdPlugin.register(with: registry.registrar(forPlugin: "SwiftFlutterNsdPlugin"))
   MobileScannerPlugin.register(with: registry.registrar(forPlugin: "MobileScannerPlugin"))

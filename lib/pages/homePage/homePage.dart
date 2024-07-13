@@ -2,11 +2,16 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/generated/l10n.dart';
 import 'package:openiothub/pages/mdnsService/mdnsServiceListPage.dart';
 import 'package:openiothub/pages/user/profilePage.dart';
 import 'package:openiothub_api/utils/check.dart';
+import 'package:openiothub_common_pages/commPages/feedback.dart';
 import 'package:openiothub_common_pages/gateway/GatewayQrPage.dart';
+import 'package:openiothub_common_pages/utils/goToUrl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../commonDevice/commonDeviceListPage.dart';
 import '../gateway/gatewayListPage.dart';
@@ -23,6 +28,8 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   final Color _activeColor = Colors.orange;
   int _currentIndex = 0;
   Timer? _timer;
+  SharedPreferences? prefs;
+  static const Agreed_Privacy_Policy = "Agreed_Privacy_Policy";
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -66,7 +73,12 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    _initSharedPreferences();
     _goto_local_gateway();
+    Timer.periodic(const Duration(seconds: 1), (timer) {
+      timer.cancel();
+      _show_read_privacy_policy();
+    });
   }
 
   @override
@@ -148,6 +160,10 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     );
   }
 
+  Future<void> _initSharedPreferences() async {
+    prefs = await SharedPreferences.getInstance();
+  }
+
   Future<void> _goto_local_gateway() async {
     // 如果没有登陆并且是PC平台则跳转到本地网关页面
     bool userSignedIned = await userSignedIn();
@@ -161,6 +177,77 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
           );
         }));
       });
+    }
+  }
+
+  //   展示首次进入应用提示的阅读隐私政策，后面则不会再提示
+  void _show_read_privacy_policy() {
+    // 如果没有登陆并且是PC平台则跳转到本地网关页面
+    // 获取同意隐私政策状态
+    bool agreed = prefs!.getBool(Agreed_Privacy_Policy)!=null?prefs!.getBool(Agreed_Privacy_Policy)!:false;
+    // showToast("msg:$agreed");
+    if (Platform.isAndroid && !agreed) {
+      showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+                  title: const Text("隐私政策"),
+                  scrollable: true,
+                  content: SizedBox(
+                      height: 100, // 设置Dialog的高度
+                      child: ListView(
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text("同意"),
+                              TextButton(
+                                  // 同意才可以下一步
+                                  child: const Text(
+                                    '《隐私政策》',
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                  onPressed: () async {
+                                    goToURL(
+                                        context,
+                                        "https://docs.iothub.cloud/privacyPolicy/index.html",
+                                        "《隐私政策》");
+                                  }),
+                              TextButton(
+                                  child: const Text(
+                                    '反馈渠道',
+                                    style: TextStyle(color: Colors.green),
+                                  ),
+                                  onPressed: () async {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                            builder: (context) => FeedbackPage(
+                                                  key: UniqueKey(),
+                                                )));
+                                  }),
+                            ],
+                          ),
+                          const Text("如果不同意《隐私政策》请点击\"退出应用\"")
+                        ],
+                      )),
+                  actions: <Widget>[
+                    TextButton(
+                      child: const Text(
+                        "退出应用",
+                        style: TextStyle(color: Colors.red),
+                      ),
+                      onPressed: () {
+                        SystemNavigator.pop();
+                      },
+                    ),
+                    TextButton(
+                      child: const Text("同意隐私政策"),
+                      onPressed: () async {
+                        // 保存同意状态，之后不再提示
+                        await prefs!.setBool(Agreed_Privacy_Policy, true);
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  ]));
     }
   }
 }

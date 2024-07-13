@@ -161,14 +161,30 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.7.10"
+  desktop_window:
+    dependency: "direct main"
+    description:
+      name: desktop_window
+      sha256: "6256fb6feb7b5ec1311c76a3503f89202825bfe92c0458ec5fe7a728ffa216d5"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.4.0"
   dio:
     dependency: transitive
     description:
       name: dio
-      sha256: "11e40df547d418cc0c4900a9318b26304e665da6fa4755399a9ff9efd09034b5"
+      sha256: e17f6b3097b8c51b72c74c9f071a605c47bcc8893839bd66732457a5ebe73714
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "5.4.3+1"
+    version: "5.5.0+1"
+  dio_web_adapter:
+    dependency: transitive
+    description:
+      name: dio_web_adapter
+      sha256: "36c5b2d79eb17cdae41e974b7a8284fec631651d2a6f39a8a2ff22327e90aeac"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.1"
   event_bus:
     dependency: "direct main"
     description:
@@ -348,10 +364,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_vlc_player
-      sha256: b869251c9b186f2e3d21c103734e842c90cb5b2d46af0c35c6ecc4c46cdefce6
+      sha256: "5e846156687e5a3911355916dc06558e0e827a91ef245ac59993ed74bec3ec97"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "7.4.1"
+    version: "7.4.2"
   flutter_vlc_player_platform_interface:
     dependency: transitive
     description:
@@ -385,10 +401,10 @@ packages:
     dependency: transitive
     description:
       name: googleapis_auth
-      sha256: "1401a9e55f9e0f565d3eebb18d990290f53a12d38a5f7f0230b112895778a85b"
+      sha256: befd71383a955535060acde8792e7efc11d2fccd03dd1d3ec434e85b68775938
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.5.1"
+    version: "1.6.0"
   grpc:
     dependency: "direct main"
     description:
@@ -633,10 +649,10 @@ packages:
     dependency: transitive
     description:
       name: mqtt5_client
-      sha256: "9259f7493dbb7f230673761be653a8b12f9476e4a791944cc7983a5c11767b30"
+      sha256: "3edc594d2d813bd364650983f4110b1d200ecfdc2c5968a4e6ee2bd2ebc66ee5"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "4.2.5"
+    version: "4.3.0"
   msix:
     dependency: "direct main"
     description:
@@ -649,10 +665,10 @@ packages:
     dependency: "direct main"
     description:
       name: multicast_dns
-      sha256: "316cc47a958d4bd3c67bd238fe8b44fdfb6133bad89cb191c0c3bd3edb14e296"
+      sha256: "982c4cc4cda5f98dd477bddfd623e8e4bd1014e7dbf9e7b05052e14a5b550b99"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.3.2+6"
+    version: "0.3.2+7"
   nested:
     dependency: transitive
     description:
@@ -681,18 +697,18 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_api
-      sha256: "3b9d7a0cc3729a374df738b3a4b5a340cae25625a1e5e047c62f2bb1439df3d0"
+      sha256: bc1aa12c2023d866dea8f82a52f34da61d6ab5332ec26d6f3d80a791869b3d86
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.4+2"
+    version: "1.0.4+3"
   openiothub_common_pages:
     dependency: "direct main"
     description:
       name: openiothub_common_pages
-      sha256: "3fab2b1349fba087c02d909e0f53c3d2d6905e8814db45a8bb2b72f469909340"
+      sha256: "1e39e95e526303aa01b14061950996734231b43daee7aa3c1bf18c89219e8452"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.5+9"
+    version: "1.0.5+19"
   openiothub_constants:
     dependency: "direct main"
     description:
@@ -705,10 +721,10 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_grpc_api
-      sha256: "3b1edbf99c38438e9c062fc34db346582b94e81ec639c7e86e5c67c2f0265783"
+      sha256: a3309697bd31b807645ad3edc2990ca6eb6a20b413ad53de70fa6c2b3a757444
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.1.5"
+    version: "1.1.6"
   openiothub_mobile_service:
     dependency: "direct main"
     description:
@@ -801,10 +817,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_windows
-      sha256: "8bc9f22eee8690981c22aa7fc602f5c85b497a6fb2ceb35ee5a5e5ed85ad8170"
+      sha256: bd6f00dbd873bfb70d0761682da2b3a2c2fccc2b9e84c495821639601d81afe7
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.2.1"
+    version: "2.3.0"
   path_tree:
     dependency: transitive
     description:
@@ -865,10 +881,10 @@ packages:
     dependency: transitive
     description:
       name: platform
-      sha256: "12220bb4b65720483f8fa9450b4332347737cf8213dd2840d8b2c823e47243ec"
+      sha256: "9b71283fc13df574056616011fb138fd3b793ea47cc509c189a6c3fa5f8a1a65"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.1.4"
+    version: "3.1.5"
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -1070,10 +1086,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_ios
-      sha256: "7068716403343f6ba4969b4173cbf3b84fc768042124bc2c011e5d782b24fe89"
+      sha256: e43b677296fadce447e987a2f519dcf5f6d1e527dc35d01ffab4fff5b8a7063e
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "6.3.0"
+    version: "6.3.1"
   url_launcher_linux:
     dependency: transitive
     description:
@@ -1174,10 +1190,10 @@ packages:
     dependency: transitive
     description:
       name: webview_flutter_wkwebview
-      sha256: "7affdf9d680c015b11587181171d3cad8093e449db1f7d9f0f08f4f33d24f9a0"
+      sha256: "9c62cc46fa4f2d41e10ab81014c1de470a6c6f26051a2de32111b2ee55287feb"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.13.1"
+    version: "3.14.0"
   wechat_kit:
     dependency: "direct main"
     description:

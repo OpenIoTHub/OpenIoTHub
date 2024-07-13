@@ -120,7 +120,7 @@ jobs:
       - run: flutter pub get
       - run: flutter build macos --release
       - run: mkdir -p build/dmg
-      - run: cp -R build/macos/Build/Products/Release/openiothub.app build/dmg/openiothub.app
+      - run: cp -R build/macos/Build/Products/Release/云亿连.app build/dmg/云亿连.app
       - run: ln -s /Applications  build/dmg
       - run: ls build/dmg
       # https://github.com/create-dmg/create-dmg.git

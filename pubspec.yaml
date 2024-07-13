@@ -3,7 +3,7 @@ description: A IoT Device Manager.
 homepage: https://github.com/OpenIoTHub
 publish_to: 'none'
 
-version: 1.3.71+398
+version: 1.3.71+402
 
 environment:
   sdk: '>=3.1.0-262.3.beta <4.0.0'
@@ -80,6 +80,7 @@ dependencies:
   intl: any
   jaguar: any
   flutter_nsd: any
+  desktop_window: ^0.4.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

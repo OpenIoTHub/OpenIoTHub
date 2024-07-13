@@ -18,6 +18,7 @@
         android:name="${applicationName}"
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher"
+        android:excludeFromRecents="false"
         tools:replace="android:label">
         <activity
             android:name=".MainActivity"

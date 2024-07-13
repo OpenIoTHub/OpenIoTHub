@@ -7,6 +7,7 @@ import 'package:openiothub/generated/l10n.dart';
 import 'package:openiothub/pages/user/tools/toolsTypePage.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_common_pages/openiothub_common_pages.dart';
+import 'package:openiothub_common_pages/utils/goToUrl.dart';
 import 'package:openiothub_constants/constants/SharedPreferences.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -147,7 +148,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ListTile(
             //第一个功能项
             title: Text(S.current.profile_settings),
-            leading: const Icon(Icons.settings),
+            leading: const Icon(Icons.settings_outlined),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
@@ -159,7 +160,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ListTile(
             //第一个功能项
             title: Text(S.current.profile_servers),
-            leading: const Icon(Icons.send_rounded),
+            leading: const Icon(Icons.send_outlined),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
@@ -171,7 +172,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ListTile(
             //第一个功能项
             title: Text(S.current.profile_tools),
-            leading: const Icon(Icons.pan_tool),
+            leading: const Icon(Icons.pan_tool_outlined),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
               Navigator.of(context).push(
@@ -183,36 +184,42 @@ class _ProfilePageState extends State<ProfilePage> {
             leading: const Icon(Icons.add_chart),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
-              String url = "https://space.bilibili.com/1222749704";
-              Platform.isIOS
-                  ? _goToURL(context, url, S.current.profile_docs)
-                  : _goToURL(context, url, S.current.profile_docs);
+              String url = "https://docs.iothub.cloud/";
+              goToURL(context, url, S.current.profile_docs);
             }),
-        // ListTile(
-        //     //第二个功能项
-        //     title: Text('社区反馈'),
-        //     leading: Icon(Icons.all_inclusive),
-        //     trailing: Icon(Icons.arrow_right),
-        //     onTap: () {
-        //       Platform.isIOS
-        //           ? _goToURL(context, "https://wulian.work", "社区反馈")
-        //           : _goToURL(context, "https://wulian.work", "社区反馈");
-        //     }),
         ListTile(
-            //第二个功能项
+          //第二个功能项
+            title: Text(S.current.profile_video_tutorials),
+            leading: const Icon(Icons.video_call_outlined),
+            trailing: const Icon(Icons.arrow_right),
+            onTap: () {
+              String url = "https://space.bilibili.com/1222749704";
+              goToURL(context, url, S.current.profile_video_tutorials);
+            }),
+        ListTile(
+          //第二个功能项
             title: Text(S.current.app_local_gateway),
             leading: const Icon(Icons.all_inclusive),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => GatewayQrPage(
-                        key: UniqueKey(),
-                      )));
+                    key: UniqueKey(),
+                  )));
+            }),
+        ListTile(
+            //第二个功能项
+            title: Text(S.current.profile_feedback),
+            leading: const Icon(Icons.feedback_outlined),
+            trailing: const Icon(Icons.arrow_right),
+            onTap: () {
+              String url = "https://support.qq.com/product/657356";
+              goToURL(context, url, S.current.profile_feedback);
             }),
         ListTile(
             //第二个功能项
             title: Text(S.current.profile_about_this_app),
-            leading: const Icon(Icons.info),
+            leading: const Icon(Icons.info_outline),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
               // openiothub_mobile_service.run();
@@ -237,45 +244,6 @@ class _ProfilePageState extends State<ProfilePage> {
         print('Could not launch $url');
       }
     }
-  }
-
-  _goToURL(BuildContext context, String url, title) async {
-    if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
-      _launchURL(url);
-      return;
-    }
-    WebViewController controller = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setBackgroundColor(const Color(0x00000000))
-      ..setNavigationDelegate(
-        NavigationDelegate(
-          onProgress: (int progress) {
-            // Update loading bar.
-          },
-          onPageStarted: (String url) {},
-          onPageFinished: (String url) {},
-          onWebResourceError: (WebResourceError error) {},
-          onNavigationRequest: (NavigationRequest request) {
-            return NavigationDecision.navigate;
-          },
-        ),
-      )
-      ..loadRequest(Uri.parse(url));
-    Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-      return Scaffold(
-        appBar: AppBar(title: Text(title), actions: const <Widget>[
-          // IconButton(
-          //     icon: Icon(
-          //       Icons.open_in_browser,
-          //       color: Colors.white,
-          //     ),
-          //     onPressed: () {
-          //       _launchURL(url);
-          //     })
-        ]),
-        body: WebViewWidget(controller: controller),
-      );
-    }));
   }
 
   Future<void> _getUserInfo() async {

@@ -36,11 +36,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile_click_avatar_to_sign_in":
             MessageLookupByLibrary.simpleMessage("Click avatar to sign in"),
         "profile_docs": MessageLookupByLibrary.simpleMessage("Docs"),
+        "profile_feedback": MessageLookupByLibrary.simpleMessage("feedback"),
         "profile_not_logged_in":
             MessageLookupByLibrary.simpleMessage("Not logged in"),
         "profile_servers": MessageLookupByLibrary.simpleMessage("My Servers"),
         "profile_settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "profile_tools": MessageLookupByLibrary.simpleMessage("Tools"),
+        "profile_video_tutorials":
+            MessageLookupByLibrary.simpleMessage("Video Tutorials"),
         "scan_QR": MessageLookupByLibrary.simpleMessage("Scan QR"),
         "tab_gateway": MessageLookupByLibrary.simpleMessage("gateway"),
         "tab_host": MessageLookupByLibrary.simpleMessage("host"),
