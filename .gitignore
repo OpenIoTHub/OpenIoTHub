@@ -45,3 +45,4 @@ app.*.map.json
 /*.dmg
 /macos/Podfile.lock
 /ios/Podfile.lock
+/android/*.apk
