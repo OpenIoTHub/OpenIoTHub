@@ -108,9 +108,9 @@ jobs:
       - run: flutter config --enable-macos-desktop
       - run: flutter config --no-enable-android
       - run: flutter pub get
-      - run: flutter build macos --debug
+      - run: flutter build macos --release --no-codesign
       - run: mkdir -p build/dmg
-      - run: cp -R build/macos/Build/Products/Debug/云亿连.app build/dmg/云亿连.app
+      - run: cp -R build/macos/Build/Products/Release/云亿连.app build/dmg/云亿连.app
       - run: ln -s /Applications  build/dmg
       - run: ls build/dmg
       # https://github.com/create-dmg/create-dmg.git

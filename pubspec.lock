@@ -697,42 +697,42 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_api
-      sha256: bc1aa12c2023d866dea8f82a52f34da61d6ab5332ec26d6f3d80a791869b3d86
+      sha256: "3ea98ae9e298a41033d385f1e65779774617d59ada09aa9fd4f8f8030bb2d05e"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.4+3"
+    version: "1.0.5"
   openiothub_common_pages:
     dependency: "direct main"
     description:
       name: openiothub_common_pages
-      sha256: "5754b1db6e9f1c3bc33cd6a6e37fc6797d5dc23f66781f53078e037e11f96528"
+      sha256: "4960390e95c58729e94de3a4bbe44a766adb214f5fc07bdf97b8b140e608f55f"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.5+26"
+    version: "1.0.5+27"
   openiothub_constants:
     dependency: "direct main"
     description:
       name: openiothub_constants
-      sha256: "96961737f062ec1e03e2e59f0e69d84699d217accdc94dec2c482e726408521a"
+      sha256: "053a93d2f6d16836e453a7ce4f0acbe2c76f1b89ad948f99f21048f166b5dc5f"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.1+4"
+    version: "1.0.2"
   openiothub_grpc_api:
     dependency: "direct main"
     description:
       name: openiothub_grpc_api
-      sha256: a3309697bd31b807645ad3edc2990ca6eb6a20b413ad53de70fa6c2b3a757444
+      sha256: "12af548d51f6e10905d11ae07e52f4803aa86032b0a1e3af6bec2e69fc278488"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.6"
+    version: "1.1.8"
   openiothub_mobile_service:
     dependency: "direct main"
     description:
       name: openiothub_mobile_service
-      sha256: c4ddc1fd91995cf65958da53a99dead502c8d0333ff3528e98a6e01e8215397b
+      sha256: b44ab4ab98b38f437c21482b00dbb29e769259dfae5ca74d73af4ad7a763d12a
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.8+4"
+    version: "0.0.9"
   openiothub_plugin:
     dependency: "direct main"
     description:
@@ -969,10 +969,10 @@ packages:
     dependency: transitive
     description:
       name: shared_preferences_platform_interface
-      sha256: "22e2ecac9419b4246d7c22bfbbda589e3acf5c0351137d87dd2939d984d37c3b"
+      sha256: "034650b71e73629ca08a0bd789fd1d83cc63c2d1e405946f7cef7bc37432f93a"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.2"
+    version: "2.4.0"
   shared_preferences_web:
     dependency: transitive
     description:

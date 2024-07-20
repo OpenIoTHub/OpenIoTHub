@@ -194,7 +194,7 @@ class _ProfilePageState extends State<ProfilePage> {
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
               String url = "https://space.bilibili.com/1222749704";
-              goToURL(context, url, S.current.profile_video_tutorials);
+              launchURL(url);
             }),
         ListTile(
           //第二个功能项
@@ -207,15 +207,15 @@ class _ProfilePageState extends State<ProfilePage> {
                     key: UniqueKey(),
                   )));
             }),
-        ListTile(
-            //第二个功能项
-            title: Text(S.current.profile_feedback),
-            leading: const Icon(Icons.feedback_outlined),
-            trailing: const Icon(Icons.arrow_right),
-            onTap: () {
-              String url = "https://support.qq.com/product/657356";
-              goToURL(context, url, S.current.profile_feedback);
-            }),
+        // ListTile(
+        //     //第二个功能项
+        //     title: Text(S.current.profile_feedback),
+        //     leading: const Icon(Icons.feedback_outlined),
+        //     trailing: const Icon(Icons.arrow_right),
+        //     onTap: () {
+        //       String url = "https://support.qq.com/product/657356";
+        //       goToURL(context, url, S.current.profile_feedback);
+        //     }),
         ListTile(
             //第二个功能项
             title: Text(S.current.profile_about_this_app),
