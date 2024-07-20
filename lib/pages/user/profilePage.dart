@@ -133,7 +133,7 @@ class _ProfilePageState extends State<ProfilePage> {
               height: 10.0,
             ),
             Text(
-              username ??= S.current.profile_click_avatar_to_sign_in,
+              username,
               style: const TextStyle(color: Color(0xffffffff)),
             ),
           ],

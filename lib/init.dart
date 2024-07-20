@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:openiothub/util/check/check.dart';
 import 'package:openiothub_mobile_service/openiothub_mobile_service.dart'
     as openiothub_mobile_service;
 import 'package:jaguar/jaguar.dart';
@@ -12,7 +13,6 @@ import 'package:openiothub_constants/constants/Config.dart';
 import 'package:openiothub_constants/constants/WeChatConfig.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:desktop_window/desktop_window.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wechat_kit/wechat_kit.dart';
 
 Future<void> init() async {
@@ -40,11 +40,14 @@ Future<void> initHttpAssets() async {
 }
 
 Future<void> initWechat() async {
-  // 初始化wechat_kit
-  WechatKitPlatform.instance.registerApp(
-    appId: WeChatConfig.WECHAT_APPID,
-    universalLink: WeChatConfig.WECHAT_UNIVERSAL_LINK,
-  );
+  bool agreed = await agreedPrivacyPolicy();
+  // 如果同意了隐私政策或者不是安卓平台则初始化wechat_kit
+  if (agreed||!Platform.isAndroid) {
+    WechatKitPlatform.instance.registerApp(
+      appId: WeChatConfig.WECHAT_APPID,
+      universalLink: WeChatConfig.WECHAT_UNIVERSAL_LINK,
+    );
+  }
 }
 
 Future<void> initSystemUi() async {

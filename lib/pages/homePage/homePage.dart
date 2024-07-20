@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/generated/l10n.dart';
 import 'package:openiothub/pages/mdnsService/mdnsServiceListPage.dart';
 import 'package:openiothub/pages/user/profilePage.dart';
@@ -13,6 +12,8 @@ import 'package:openiothub_common_pages/gateway/GatewayQrPage.dart';
 import 'package:openiothub_common_pages/utils/goToUrl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../configs/consts.dart';
+import '../../init.dart';
 import '../commonDevice/commonDeviceListPage.dart';
 import '../gateway/gatewayListPage.dart';
 
@@ -29,7 +30,6 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   int _currentIndex = 0;
   Timer? _timer;
   SharedPreferences? prefs;
-  static const Agreed_Privacy_Policy = "Agreed_Privacy_Policy";
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -242,8 +242,8 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                     TextButton(
                       child: const Text("同意隐私政策"),
                       onPressed: () async {
-                        // 保存同意状态，之后不再提示
-                        await prefs!.setBool(Agreed_Privacy_Policy, true);
+                        // 保存同意状态，之后不再提示,首次还会初始化微信SDK，以后直接由于有状态启动就初始化微信sdk
+                        await prefs!.setBool(Agreed_Privacy_Policy, true).then((_) => initWechat());
                         Navigator.of(context).pop();
                       },
                     )
