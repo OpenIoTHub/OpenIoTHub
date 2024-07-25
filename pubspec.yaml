@@ -3,10 +3,11 @@ description: A IoT Device Manager.
 homepage: https://github.com/OpenIoTHub
 publish_to: 'none'
 
-version: 1.3.71+402
+version: 1.3.71+403
 
 environment:
-  sdk: '>=3.1.0-262.3.beta <4.0.0'
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.19.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions

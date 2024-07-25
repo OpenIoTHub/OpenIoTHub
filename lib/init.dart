@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:openiothub/util/check/check.dart';
+import 'package:openiothub_api/openiothub_api.dart';
+import 'package:openiothub_grpc_api/google/protobuf/wrappers.pb.dart';
 import 'package:openiothub_mobile_service/openiothub_mobile_service.dart'
     as openiothub_mobile_service;
 import 'package:jaguar/jaguar.dart';
@@ -63,13 +65,19 @@ Future<void> initSystemUi() async {
 }
 
 Future<void> loadConfig() async {
-  Future.delayed(const Duration(milliseconds: 500), () {
-    UtilApi.SyncConfigWithToken().then((OpenIoTHubOperationResponse rsp) {
-      // showToast( rsp.msg);
-    });
-  });
-  CnameManager.LoadAllCnameFromRemote();
+  // Future.delayed(const Duration(milliseconds: 500), () {
+  //   UtilApi.SyncConfigWithToken().then((OpenIoTHubOperationResponse rsp) {
+  //     // showToast( rsp.msg);
+  //   });
+  // });
+  // CnameManager.LoadAllCnameFromRemote();
   // TODO 后面也可以定时同步
+  CnameManager.LoadAllCnameFromRemote().then((_) => {
+    UserManager.GetAllConfig().then((StringValue config) => {
+      UtilApi.Ping().then((_) => {UtilApi.SyncConfigWithJsonConfig(config.value)})
+    })
+  });
+  // TODO 通知UI进行刷新
 }
 
 Future setWindowSize() async {

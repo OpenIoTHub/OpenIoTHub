@@ -476,13 +476,39 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
               );
               break;
             case 'scan_QR':
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) {
-                    return const ScanQRPage();
-                  },
-                ),
-              );
+              showDialog(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                      title: const Text("摄像头扫码提示！"),
+                      scrollable: true,
+                      content: SizedBox(
+                          height: 120, // 设置Dialog的高度
+                          child: ListView(
+                            children: const <Widget>[
+                              Text("请注意，点击下方 确定 我们将请求摄像头权限进行扫码", style: TextStyle(color: Colors.red),),
+                            ],
+                          )),
+                      actions: <Widget>[
+                        TextButton(
+                          child: const Text("取消", style: TextStyle(color: Colors.grey)),
+                          onPressed: () async {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        TextButton(
+                          child: const Text("确定", style: TextStyle(color: Colors.black),),
+                          onPressed: () async {
+                            Navigator.of(context).pop();
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return const ScanQRPage();
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                      ]));
               break;
             case 'find_local_gateway':
               Navigator.of(context).push(
