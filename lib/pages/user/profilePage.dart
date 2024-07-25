@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:openiothub/generated/l10n.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/pages/user/tools/toolsTypePage.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_common_pages/openiothub_common_pages.dart';
@@ -24,7 +24,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  String username = S.current.profile_not_logged_in;
+  String username = "";
   String useremail = "";
   String usermobile = "";
 
@@ -35,12 +35,12 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    _initListTiles();
-    _getUserInfo();
   }
 
   @override
   Widget build(BuildContext context) {
+    _initListTiles();
+    _getUserInfo();
     return Scaffold(
         extendBody: true, //底部NavigationBar透明
         extendBodyBehindAppBar: true,//顶部Bar透明
@@ -147,31 +147,31 @@ class _ProfilePageState extends State<ProfilePage> {
       _listTiles = <ListTile>[
         ListTile(
             //第一个功能项
-            title: Text(S.current.profile_settings),
+            title: Text(OpenIoTHubLocalizations.of(context).profile_settings),
             leading: const Icon(Icons.settings_outlined),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => SettingsPage(
-                        title: S.current.profile_settings,
+                        title: OpenIoTHubLocalizations.of(context).profile_settings,
                         key: UniqueKey(),
                       )));
             }),
         ListTile(
             //第一个功能项
-            title: Text(S.current.profile_servers),
+            title: Text(OpenIoTHubLocalizations.of(context).profile_servers),
             leading: const Icon(Icons.send_outlined),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => ServerPages(
-                        title: S.current.profile_servers,
+                        title: OpenIoTHubLocalizations.of(context).profile_servers,
                         key: UniqueKey(),
                       )));
             }),
         ListTile(
             //第一个功能项
-            title: Text(S.current.profile_tools),
+            title: Text(OpenIoTHubLocalizations.of(context).profile_tools),
             leading: const Icon(Icons.pan_tool_outlined),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
@@ -180,16 +180,16 @@ class _ProfilePageState extends State<ProfilePage> {
             }),
         ListTile(
             //第二个功能项
-            title: Text(S.current.profile_docs),
+            title: Text(OpenIoTHubLocalizations.of(context).profile_docs),
             leading: const Icon(Icons.add_chart),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
               String url = "https://docs.iothub.cloud/";
-              goToURL(context, url, S.current.profile_docs);
+              goToURL(context, url, OpenIoTHubLocalizations.of(context).profile_docs);
             }),
         ListTile(
           //第二个功能项
-            title: Text(S.current.profile_video_tutorials),
+            title: Text(OpenIoTHubLocalizations.of(context).profile_video_tutorials),
             leading: const Icon(Icons.video_call_outlined),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
@@ -198,7 +198,7 @@ class _ProfilePageState extends State<ProfilePage> {
             }),
         ListTile(
           //第二个功能项
-            title: Text(S.current.app_local_gateway),
+            title: Text(OpenIoTHubLocalizations.of(context).app_local_gateway),
             leading: const Icon(Icons.all_inclusive),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
@@ -209,16 +209,16 @@ class _ProfilePageState extends State<ProfilePage> {
             }),
         // ListTile(
         //     //第二个功能项
-        //     title: Text(S.current.profile_feedback),
+        //     title: Text(OpenIoTHubLocalizations.of(context).profile_feedback),
         //     leading: const Icon(Icons.feedback_outlined),
         //     trailing: const Icon(Icons.arrow_right),
         //     onTap: () {
         //       String url = "https://support.qq.com/product/657356";
-        //       goToURL(context, url, S.current.profile_feedback);
+        //       goToURL(context, url, OpenIoTHubLocalizations.of(context).profile_feedback);
         //     }),
         ListTile(
             //第二个功能项
-            title: Text(S.current.profile_about_this_app),
+            title: Text(OpenIoTHubLocalizations.of(context).profile_about_this_app),
             leading: const Icon(Icons.info_outline),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
@@ -254,7 +254,7 @@ class _ProfilePageState extends State<ProfilePage> {
       });
     } else {
       setState(() {
-        username = "";
+        username = OpenIoTHubLocalizations.of(context).profile_not_logged_in;
       });
     }
     if (prefs.containsKey(SharedPreferencesKey.USER_EMAIL_KEY)) {

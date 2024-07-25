@@ -94,7 +94,7 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
+  generate: true
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
@@ -106,9 +106,7 @@ flutter:
     - assets/images/splash/
     - assets/images/leftmenu/avatars/
     - assets/images/leftmenu/background/
-    #    -
     - assets/web/open/aria2/
-    #    -
     - assets/web/open/ssh/
     - assets/web/open/ssh/static/
     - assets/web/open/ssh/static/dist/
@@ -118,7 +116,6 @@ flutter:
     - assets/web/open/ssh/static/dist/addons/fullscreen/
     - assets/web/open/ssh/static/dist/addons/linkify/
     - assets/web/open/ssh/static/dist/addons/terminado/
-    #    -
     - assets/web/open/vnc/
     - assets/web/open/vnc/app/
     - assets/web/open/vnc/app/images/
@@ -138,6 +135,10 @@ flutter:
     - assets/web/open/vnc/vendor/pako/lib/
     - assets/web/open/vnc/vendor/pako/lib/utils/
     - assets/web/open/vnc/vendor/pako/lib/zlib/
+    - assets/web/
+    - assets/web/open/
+    - assets/images/logos/
+    - assets/values/
 flutter_intl:
   enabled: true
 

@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:openiothub/generated/l10n.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/init.dart';
 import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub/pages/homePage/homePage.dart';
@@ -37,12 +37,12 @@ class MyApp extends StatelessWidget {
             darkTheme: CustomThemes.dark,
             debugShowCheckedModeBanner: false,
             localizationsDelegates: const [
-              S.delegate,
+              OpenIoTHubLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate
             ],
-            supportedLocales: S.delegate.supportedLocales,
+            supportedLocales: OpenIoTHubLocalizations.supportedLocales,
             localeListResolutionCallback: (locales, supportedLocales) {
               print("locales:$locales");
               return;

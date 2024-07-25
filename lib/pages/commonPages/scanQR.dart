@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:oktoast/oktoast.dart';
-import 'package:openiothub/generated/l10n.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub_api/api/IoTManager/GatewayManager.dart';
 import 'package:openiothub_api/api/OpenIoTHub/SessionApi.dart';
 import 'package:openiothub_grpc_api/google/protobuf/wrappers.pb.dart';
@@ -24,7 +24,7 @@ class _ScanQRPageState extends State<ScanQRPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.current.scan_QR),
+        title: Text(OpenIoTHubLocalizations.of(context).scan_QR),
         actions: [
           IconButton(
             // color: Colors.white,

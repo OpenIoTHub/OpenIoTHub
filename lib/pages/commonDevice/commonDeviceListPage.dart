@@ -14,7 +14,7 @@ import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:provider/provider.dart';
 
-import '../../generated/l10n.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import '../commonPages/scanQR.dart';
 import './commonDeviceServiceTypesList.dart';
 
@@ -329,7 +329,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
     var popupMenuEntrys = <PopupMenuEntry<String>>[
       PopupMenuItem(
         //child: _buildPopupMenuItem(Icons.camera_alt, '扫一扫'),
-        child: _buildPopupMenuItem(Icons.search, S.current.find_local_gateway),
+        child: _buildPopupMenuItem(Icons.search, OpenIoTHubLocalizations.of(context).find_local_gateway),
         value: "find_local_gateway",
       ),
     ];
@@ -340,7 +340,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
         ),
         PopupMenuItem(
           //child: _buildPopupMenuItem(Icons.camera_alt, '扫一扫'),
-          child: _buildPopupMenuItem(Icons.qr_code_scanner, S.current.scan_QR),
+          child: _buildPopupMenuItem(Icons.qr_code_scanner, OpenIoTHubLocalizations.of(context).scan_QR),
           value: "scan_QR",
         ),
         const PopupMenuDivider(
@@ -349,7 +349,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
         PopupMenuItem(
           //child: _buildPopupMenuItem(ICons.ADDRESS_BOOK_CHECKED, '添加朋友'),
           child: _buildPopupMenuItem(
-              Icons.wifi_tethering, S.current.config_device_wifi),
+              Icons.wifi_tethering, OpenIoTHubLocalizations.of(context).config_device_wifi),
           value: "config_device_wifi",
         ),
       ]);
@@ -370,7 +370,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
                 MaterialPageRoute(
                   builder: (context) {
                     return SmartConfigTool(
-                      title: S.current.config_device_wifi,
+                      title: OpenIoTHubLocalizations.of(context).config_device_wifi,
                       needCallBack: true,
                       key: UniqueKey(),
                     );

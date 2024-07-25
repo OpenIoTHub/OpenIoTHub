@@ -4,3 +4,5 @@ cd macos
 pod update
 cd ios
 pod update
+#
+flutter gen-l10n

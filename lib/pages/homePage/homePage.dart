@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:openiothub/generated/l10n.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/pages/mdnsService/mdnsServiceListPage.dart';
 import 'package:openiothub/pages/user/profilePage.dart';
 import 'package:openiothub_api/utils/check.dart';
@@ -103,19 +103,19 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     switch (index) {
       case 0:
         return MdnsServiceListPage(
-          title: S.current.tab_smart,
+          title: OpenIoTHubLocalizations.of(context).tab_smart,
           key: UniqueKey(),
         );
         break;
       case 1:
         return GatewayListPage(
-          title: S.current.tab_gateway,
+          title: OpenIoTHubLocalizations.of(context).tab_gateway,
           key: UniqueKey(),
         );
         break;
       case 2:
         return CommonDeviceListPage(
-          title: S.current.tab_host,
+          title: OpenIoTHubLocalizations.of(context).tab_host,
           key: UniqueKey(),
         );
         break;
@@ -125,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         break;
     }
     return MdnsServiceListPage(
-      title: S.current.tab_smart,
+      title: OpenIoTHubLocalizations.of(context).tab_smart,
       key: UniqueKey(),
     );
   }
@@ -138,20 +138,23 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     }
   }
 
-  final List<BottomNavigationBarItem> bottomNavItems = [
-    BottomNavigationBarItem(
-        icon: const Icon(Icons.home), label: S.current.tab_smart),
-    BottomNavigationBarItem(
-        icon: const Icon(Icons.airplay), label: S.current.tab_gateway),
-    BottomNavigationBarItem(
-        icon: const Icon(Icons.print), label: S.current.tab_host),
-    BottomNavigationBarItem(
-        icon: const Icon(Icons.person), label: S.current.tab_user)
-  ];
+  List<BottomNavigationBarItem> getBottomNavItems(BuildContext context) {
+    final List<BottomNavigationBarItem> bottomNavItems = [
+      BottomNavigationBarItem(
+          icon: const Icon(Icons.home), label: OpenIoTHubLocalizations.of(context).tab_smart),
+      BottomNavigationBarItem(
+          icon: const Icon(Icons.airplay), label: OpenIoTHubLocalizations.of(context).tab_gateway),
+      BottomNavigationBarItem(
+          icon: const Icon(Icons.print), label: OpenIoTHubLocalizations.of(context).tab_host),
+      BottomNavigationBarItem(
+          icon: const Icon(Icons.person), label: OpenIoTHubLocalizations.of(context).tab_user)
+    ];
+    return bottomNavItems;
+  }
 
   Widget _buildBottomNavigationBar() {
     return BottomNavigationBar(
-      items: bottomNavItems,
+      items: getBottomNavItems(context),
       currentIndex: _currentIndex,
       type: BottomNavigationBarType.fixed,
       onTap: (index) {
