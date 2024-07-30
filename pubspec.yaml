@@ -3,7 +3,7 @@ description: A IoT Device Manager.
 homepage: https://github.com/OpenIoTHub
 publish_to: 'none'
 
-version: 1.3.71+403
+version: 1.3.72+405
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -40,7 +40,7 @@ dependencies:
   #  事件总线
   event_bus: ^2.0.0
   #  动态请求权限，定位，存储等
-  permission_handler: ^10.2.0
+  permission_handler: ^11.3.1
   #  查看手机安装的app
   #  device_apps: ^1.0.8
   #  静态网页sever
@@ -55,7 +55,7 @@ dependencies:
   #  modules:
   #    git: https://github.com/OpenIoTHub/modules
   openiothub_constants: ^1.0.0
-  openiothub_plugin: ^1.0.2
+  openiothub_plugin: ^1.0.2+4
   openiothub_api: ^1.0.4
   openiothub_common_pages: ^1.0.5+20
 
