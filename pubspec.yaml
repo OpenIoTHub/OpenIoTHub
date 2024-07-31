@@ -57,7 +57,7 @@ dependencies:
   openiothub_constants: ^1.0.0
   openiothub_plugin: ^1.0.2+4
   openiothub_api: ^1.0.4
-  openiothub_common_pages: ^1.0.5+20
+  openiothub_common_pages: ^1.0.5+36
 
   openiothub_grpc_api: ^1.1.0+1
 #  server_grpc_api: ^1.0.0
@@ -82,6 +82,7 @@ dependencies:
   jaguar: any
   flutter_nsd: any
   desktop_window: ^0.4.0
+  tencent_kit: ^6.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -165,3 +166,6 @@ wechat_kit:
   #  ios: no_pay # 默认 pay
   app_id: wx9211939fcd68a318
   universal_link: https://iothub.cloud/app/openiothub/
+tencent_kit:
+  app_id: 1111913707
+  universal_link: https://iothub.cloud/qq_conn/1111913707

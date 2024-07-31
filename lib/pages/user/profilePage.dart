@@ -3,14 +3,17 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/pages/user/tools/toolsTypePage.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_common_pages/openiothub_common_pages.dart';
 import 'package:openiothub_common_pages/utils/goToUrl.dart';
 import 'package:openiothub_constants/constants/SharedPreferences.dart';
+import 'package:openiothub_constants/constants/ThirdAppConfig.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tencent_kit/tencent_kit.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -228,6 +231,22 @@ class _ProfilePageState extends State<ProfilePage> {
                         key: UniqueKey(),
                       )));
             }),
+        // ListTile(
+        //     //第二个功能项
+        //     title: Text("Share QQ"),
+        //     leading: const Icon(Icons.share),
+        //     trailing: const Icon(Icons.arrow_right),
+        //     onTap: () async {
+        //       var title = "云亿连内网穿透和智能家居管理";
+        //       var description = "云亿连全平台管理您的所有智能设备和私有云";
+        //       var url = "https://iothub.cloud/download.html";
+        //       TencentKitPlatform.instance.shareWebpage(
+        //         scene: TencentScene.kScene_QQ,
+        //         title: title,
+        //         // summary: description,
+        //         targetUrl: url,
+        //       );
+        //     }),
       ];
     });
   }

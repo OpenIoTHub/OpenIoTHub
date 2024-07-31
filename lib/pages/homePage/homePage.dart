@@ -246,7 +246,10 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                       child: const Text("同意隐私政策"),
                       onPressed: () async {
                         // 保存同意状态，之后不再提示,首次还会初始化微信SDK，以后直接由于有状态启动就初始化微信sdk
-                        await prefs!.setBool(Agreed_Privacy_Policy, true).then((_) => initWechat());
+                        await prefs!.setBool(Agreed_Privacy_Policy, true).then((_) {
+                          initWechat();
+                          initQQ();
+                        });
                         Navigator.of(context).pop();
                       },
                     )

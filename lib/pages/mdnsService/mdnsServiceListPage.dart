@@ -280,10 +280,16 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       return;
     }
     print("addPortService:${portService.info}");
+    if (!portService.info.containsKey("id")) {
+      return;
+    }
     String? id = portService.info["id"];
+    if (id == null || id.isEmpty) {
+      return;
+    }
     String value = "";
     try {
-      value = await CnameManager.GetCname(id!);
+      value = await CnameManager.GetCname(id);
     } catch (e) {
       showToast(e.toString());
     }
@@ -295,7 +301,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
             !_IoTDeviceMap[id]!.isLocal &&
             portService.isLocal)) {
       setState(() {
-        _IoTDeviceMap[id!] = portService;
+        _IoTDeviceMap[id] = portService;
       });
     }
   }
