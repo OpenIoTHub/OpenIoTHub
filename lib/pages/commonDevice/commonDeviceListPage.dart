@@ -326,27 +326,27 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
     var popupMenuEntrys = <PopupMenuEntry<String>>[
       PopupMenuItem(
         //child: _buildPopupMenuItem(Icons.camera_alt, '扫一扫'),
-        child: _buildPopupMenuItem(Icons.search, OpenIoTHubLocalizations.of(context).find_local_gateway),
+        child: _buildPopupMenuItem(TDIcons.search, OpenIoTHubLocalizations.of(context).find_local_gateway),
         value: "find_local_gateway",
       ),
     ];
     if (Platform.isAndroid || Platform.isIOS) {
       popupMenuEntrys.addAll(<PopupMenuEntry<String>>[
         const PopupMenuDivider(
-          height: 0.5,
+          height: 0.2,
         ),
         PopupMenuItem(
           //child: _buildPopupMenuItem(Icons.camera_alt, '扫一扫'),
-          child: _buildPopupMenuItem(Icons.qr_code_scanner, OpenIoTHubLocalizations.of(context).scan_QR),
+          child: _buildPopupMenuItem(TDIcons.scan, OpenIoTHubLocalizations.of(context).scan_QR),
           value: "scan_QR",
         ),
         const PopupMenuDivider(
-          height: 0.5,
+          height: 0.2,
         ),
         PopupMenuItem(
           //child: _buildPopupMenuItem(ICons.ADDRESS_BOOK_CHECKED, '添加朋友'),
           child: _buildPopupMenuItem(
-              Icons.wifi_tethering, OpenIoTHubLocalizations.of(context).config_device_wifi),
+              TDIcons.wifi, OpenIoTHubLocalizations.of(context).config_device_wifi),
           value: "config_device_wifi",
         ),
       ]);

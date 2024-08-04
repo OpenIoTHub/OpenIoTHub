@@ -142,13 +142,13 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   List<BottomNavigationBarItem> getBottomNavItems(BuildContext context) {
     final List<BottomNavigationBarItem> bottomNavItems = [
       BottomNavigationBarItem(
-          icon: const Icon(Icons.home), label: OpenIoTHubLocalizations.of(context).tab_smart),
+          icon: const Icon(TDIcons.home), label: OpenIoTHubLocalizations.of(context).tab_smart),
       BottomNavigationBarItem(
-          icon: const Icon(Icons.airplay), label: OpenIoTHubLocalizations.of(context).tab_gateway),
+          icon: const Icon(TDIcons.cloud), label: OpenIoTHubLocalizations.of(context).tab_gateway),
       BottomNavigationBarItem(
-          icon: const Icon(Icons.print), label: OpenIoTHubLocalizations.of(context).tab_host),
+          icon: const Icon(TDIcons.desktop), label: OpenIoTHubLocalizations.of(context).tab_host),
       BottomNavigationBarItem(
-          icon: const Icon(Icons.person), label: OpenIoTHubLocalizations.of(context).tab_user)
+          icon: const Icon(TDIcons.user), label: OpenIoTHubLocalizations.of(context).tab_user)
     ];
     return bottomNavItems;
   }

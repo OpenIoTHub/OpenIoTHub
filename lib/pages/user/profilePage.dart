@@ -152,7 +152,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ListTile(
             //第一个功能项
             title: Text(OpenIoTHubLocalizations.of(context).profile_settings),
-            leading: const Icon(Icons.settings_outlined),
+            leading: const Icon(TDIcons.setting, color: Colors.blueAccent),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
@@ -164,7 +164,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ListTile(
             //第一个功能项
             title: Text(OpenIoTHubLocalizations.of(context).profile_servers),
-            leading: const Icon(Icons.send_outlined),
+            leading: const Icon(TDIcons.server, color: Colors.blueAccent),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
@@ -176,7 +176,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ListTile(
             //第一个功能项
             title: Text(OpenIoTHubLocalizations.of(context).profile_tools),
-            leading: const Icon(Icons.pan_tool_outlined),
+            leading: const Icon(TDIcons.tools, color: Colors.blueAccent),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
               Navigator.of(context).push(
@@ -185,7 +185,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ListTile(
             //第二个功能项
             title: Text(OpenIoTHubLocalizations.of(context).profile_docs),
-            leading: const Icon(Icons.add_chart),
+            leading: const Icon(TDIcons.books, color: Colors.blueAccent),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
               String url = "https://docs.iothub.cloud/";
@@ -194,7 +194,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ListTile(
           //第二个功能项
             title: Text(OpenIoTHubLocalizations.of(context).profile_video_tutorials),
-            leading: const Icon(Icons.video_call_outlined),
+            leading: const Icon(TDIcons.video, color: Colors.blueAccent),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
               String url = "https://space.bilibili.com/1222749704";
@@ -203,7 +203,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ListTile(
           //第二个功能项
             title: Text(OpenIoTHubLocalizations.of(context).app_local_gateway),
-            leading: const Icon(Icons.all_inclusive),
+            leading: const Icon(TDIcons.wifi, color: Colors.blueAccent),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
@@ -223,7 +223,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ListTile(
             //第二个功能项
             title: Text(OpenIoTHubLocalizations.of(context).profile_about_this_app),
-            leading: const Icon(Icons.info_outline),
+            leading: const Icon(TDIcons.info_circle, color: Colors.blueAccent),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
               // openiothub_mobile_service.run();
