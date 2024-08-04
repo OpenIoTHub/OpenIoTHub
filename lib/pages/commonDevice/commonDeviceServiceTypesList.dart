@@ -7,6 +7,7 @@ import 'package:openiothub/pages/commonDevice/services/httpPortListPage.dart';
 import 'package:openiothub_api/api/OpenIoTHub/CommonDeviceApi.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
+import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import './services/ftpPortListPage.dart';
 import './services/tcpPortListPage.dart';
@@ -84,19 +85,13 @@ class _CommonDeviceServiceTypesListState
     if (item is String) {
       switch (item) {
         case TAG_START:
-          return const Divider(
-            height: 1.0,
-          );
+          return const TDDivider();
         case TAG_END:
-          return const Divider(
-            height: 1.0,
-          );
+          return const TDDivider();
         case TAG_CENTER:
           return const Padding(
             padding: EdgeInsets.fromLTRB(50.0, 0.0, 0.0, 0.0),
-            child: Divider(
-              height: 1.0,
-            ),
+            child: TDDivider(),
           );
         case TAG_BLANK:
           return Container(

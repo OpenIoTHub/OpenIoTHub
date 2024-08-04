@@ -83,6 +83,8 @@ dependencies:
   flutter_nsd: any
   desktop_window: ^0.4.0
   tencent_kit: ^6.0.1
+  fluent_ui: ^4.9.0
+  tdesign_flutter: ^0.1.6
 dev_dependencies:
   flutter_test:
     sdk: flutter

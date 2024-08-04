@@ -7,6 +7,7 @@ import 'package:openiothub_common_pages/wifiConfig/oneshot.dart';
 import 'package:openiothub_common_pages/wifiConfig/smartConfigTool.dart';
 import 'package:openiothub_common_pages/wifiConfig/smartlink.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
+import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 class ToolsTypePage extends StatelessWidget {
   static const String TAG_START = "startDivider";
@@ -59,21 +60,15 @@ class ToolsTypePage extends StatelessWidget {
     if (item is String) {
       switch (item) {
         case TAG_START:
-          return const Divider(
-            height: 1.0,
-          );
+          return const TDDivider();
           break;
         case TAG_END:
-          return const Divider(
-            height: 1.0,
-          );
+          return const TDDivider();
           break;
         case TAG_CENTER:
           return const Padding(
             padding: EdgeInsets.fromLTRB(50.0, 0.0, 0.0, 0.0),
-            child: Divider(
-              height: 1.0,
-            ),
+            child: const TDDivider(),
           );
           break;
         case TAG_BLANK:

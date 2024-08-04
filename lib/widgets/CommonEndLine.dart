@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 class CommonEndLine extends StatelessWidget {
   const CommonEndLine({super.key});
@@ -12,16 +13,12 @@ class CommonEndLine extends StatelessWidget {
         children: <Widget>[
           Expanded(
             flex: 1,
-            child: Divider(
-              height: 10.0,
-            ),
+            child: TDDivider(),
           ),
           Text("我也是有底线的"),
           Expanded(
             flex: 1,
-            child: Divider(
-              height: 10.0,
-            ),
+            child: TDDivider(),
           ),
         ],
       ),

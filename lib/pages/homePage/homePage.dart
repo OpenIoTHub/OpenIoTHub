@@ -11,6 +11,7 @@ import 'package:openiothub_common_pages/commPages/feedback.dart';
 import 'package:openiothub_common_pages/gateway/GatewayQrPage.dart';
 import 'package:openiothub_common_pages/utils/goToUrl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import '../../configs/consts.dart';
 import '../../init.dart';
@@ -233,18 +234,23 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                         ],
                       )),
                   actions: <Widget>[
-                    TextButton(
-                      child: const Text(
-                        "退出应用",
-                        style: TextStyle(color: Colors.red),
-                      ),
-                      onPressed: () {
+                    TDButton(
+                      text: "退出应用",
+                      size: TDButtonSize.large,
+                      type: TDButtonType.fill,
+                      shape: TDButtonShape.rectangle,
+                      theme: TDButtonTheme.danger,
+                      onTap: () {
                         SystemNavigator.pop();
                       },
                     ),
-                    TextButton(
-                      child: const Text("同意隐私政策"),
-                      onPressed: () async {
+                    TDButton(
+                      text: "同意隐私政策",
+                      size: TDButtonSize.large,
+                      type: TDButtonType.fill,
+                      shape: TDButtonShape.rectangle,
+                      theme: TDButtonTheme.primary,
+                      onTap: () async {
                         // 保存同意状态，之后不再提示,首次还会初始化微信SDK，以后直接由于有状态启动就初始化微信sdk
                         await prefs!.setBool(Agreed_Privacy_Policy, true).then((_) {
                           initWechat();

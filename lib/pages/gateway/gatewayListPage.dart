@@ -15,6 +15,7 @@ import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:provider/provider.dart';
 
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
+import 'package:tdesign_flutter/tdesign_flutter.dart';
 import '../commonPages/scanQR.dart';
 import './mDNSServiceListPage.dart';
 
@@ -54,12 +55,14 @@ class _GatewayListPageState extends State<GatewayListPage> {
     final tiles = _SessionList.map(
       (pair) {
         var listItemContent = ListTile(
-          leading: Icon(
-            Icons.cloud_done,
-            size: 40,
-            color: Provider.of<CustomTheme>(context).isLightTheme()
-                ? CustomThemes.light.primaryColorLight
-                : CustomThemes.dark.primaryColorDark,
+          leading: TDAvatar(
+            size: TDAvatarSize.large,
+            type: TDAvatarType.customText,
+            text: pair.name[0],
+            shape: TDAvatarShape.square,
+            backgroundColor: Provider.of<CustomTheme>(context).isLightTheme()
+                ? CustomThemes.light.iconTheme.color
+                : CustomThemes.dark.iconTheme.color,
           ),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -96,11 +99,7 @@ class _GatewayListPageState extends State<GatewayListPage> {
         return tiles.elementAt(index);
       },
       separatorBuilder: (context, index) {
-        return const Divider(
-          height: 5,
-          indent: 60,
-          color: Colors.black12,
-        );
+        return const TDDivider();
       },
     );
     return Scaffold(
@@ -278,7 +277,7 @@ class _GatewayListPageState extends State<GatewayListPage> {
     if (Platform.isAndroid || Platform.isIOS) {
       popupMenuEntrys.addAll(<PopupMenuEntry<String>>[
         const PopupMenuDivider(
-          height: 1.0,
+          height: 0.5,
         ),
         PopupMenuItem(
           //child: _buildPopupMenuItem(Icons.camera_alt, '扫一扫'),
@@ -286,7 +285,7 @@ class _GatewayListPageState extends State<GatewayListPage> {
           value: "scan_QR",
         ),
         const PopupMenuDivider(
-          height: 1.0,
+          height: 0.5,
         ),
         PopupMenuItem(
           //child: _buildPopupMenuItem(ICons.ADDRESS_BOOK_CHECKED, '添加朋友'),
