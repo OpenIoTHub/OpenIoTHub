@@ -34,6 +34,16 @@
 				<string>wx9211939fcd68a318</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>tencent</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>tencent1111913707</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
@@ -42,6 +52,21 @@
 		<string>weixin</string>
 		<string>weixinULAPI</string>
 		<string>weixinURLParamsAPI</string>
+		<string>mqq</string>
+		<string>mqqapi</string>
+		<string>tim</string>
+		<string>mqqopensdknopasteboard</string>
+		<string>mqqopensdknopasteboardios16</string>
+		<string>mqqopensdkapiV2</string>
+		<string>mqqgamebindinggroup</string>
+		<string>mqqopensdkavatar</string>
+		<string>mqqopensdkfriend</string>
+		<string>mqqopensdklaunchminiapp</string>
+		<string>mqzone</string>
+		<string>tencentapi.qq.reqContent</string>
+		<string>tencentapi.qzone.reqContent</string>
+		<string>mqqthirdappgroup</string>
+		<string>mqqopensdkminiapp</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -52,6 +77,10 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>This app needs camera access to scan QR codes</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>The app needs to obtain your location information to provide relevant services</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>The app needs to obtain your location information to provide relevant services</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app needs photos access to get QR code from photo library</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
@@ -73,9 +102,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>The app needs to obtain your location information to provide relevant services</string>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>The app needs to obtain your location information to provide relevant services</string>
 </dict>
 </plist>

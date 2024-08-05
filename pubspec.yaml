@@ -88,8 +88,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   flutter_lints: ^3.0.1
+  flutter_launcher_icons: ^0.13.1
 
 flutter:
 
@@ -171,3 +171,13 @@ wechat_kit:
 tencent_kit:
   app_id: 1111913707
   universal_link: https://iothub.cloud/qq_conn/1111913707
+flutter_launcher_icons:
+  android: false
+  ios: false
+  image_path: "assets/images/logos/openiothub_logo_1024x1024.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  windows:
+    generate: true
+    icon_size: 256 # min:48, max:256, default: 48
+  macos:
+    generate: true

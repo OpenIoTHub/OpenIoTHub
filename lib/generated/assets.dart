@@ -138,6 +138,7 @@ class Assets {
   static const String localeZhCN = 'assets/web/open/vnc/app/locale/zh_CN.json';
   static const String localeZhTW = 'assets/web/open/vnc/app/locale/zh_TW.json';
   static const String logosOpeniothubLogo = 'assets/images/logos/openiothub_logo.png';
+  static const String logosOpeniothubLogo1024x1024 = 'assets/images/logos/openiothub_logo_1024x1024.png';
   static const String pakoLICENSE = 'assets/web/open/vnc/vendor/pako/LICENSE';
   static const String pakoREADME = 'assets/web/open/vnc/vendor/pako/README.md';
   static const String soundsBell = 'assets/web/open/vnc/app/sounds/bell.mp3';
