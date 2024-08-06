@@ -9,6 +9,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0+5"
+  ansicolor:
+    dependency: transitive
+    description:
+      name: ansicolor
+      sha256: "8bf17a8ff6ea17499e40a2d2542c2f481cd7615760c6d34065cb22bfd22e6880"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.2"
   archive:
     dependency: transitive
     description:
@@ -363,6 +371,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_native_splash:
+    dependency: "direct main"
+    description:
+      name: flutter_native_splash
+      sha256: aa06fec78de2190f3db4319dd60fdc8d12b2626e93ef9828633928c2dcaea840
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.1"
   flutter_nsd:
     dependency: "direct main"
     description:
@@ -461,6 +477,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.7.0"
+  go_router:
+    dependency: "direct main"
+    description:
+      name: go_router
+      sha256: ddc16d34b0d74cb313986918c0f0885a7ba2fc24d8fb8419de75f0015144ccfe
+      url: "https://pub.dev"
+    source: hosted
+    version: "14.2.3"
   google_identity_services_web:
     dependency: transitive
     description:
@@ -545,10 +569,10 @@ packages:
     dependency: transitive
     description:
       name: image_picker_android
-      sha256: "3fe99e3a459b969f657565a853353bdea7e3d3cae34f7dd124836267d426ec87"
+      sha256: c0e72ecd170b00a5590bb71238d57dc8ad22ee14c60c6b0d1a4e05cafbc5db4b
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.12+10"
+    version: "0.8.12+11"
   image_picker_for_web:
     dependency: transitive
     description:
@@ -793,10 +817,10 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_common_pages
-      sha256: "187a8f8a2a374c82cb3f4fb2c557dfa911296e3c28c8d9d97b7540a00ff67e9f"
+      sha256: "5b26b056a2d94dffed067d81209486c6dc8445525406a1669a9bbc99b159bc06"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.5+42"
+    version: "1.0.5+46"
   openiothub_constants:
     dependency: "direct main"
     description:
