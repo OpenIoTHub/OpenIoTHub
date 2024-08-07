@@ -317,10 +317,10 @@ packages:
     dependency: "direct main"
     description:
       name: fluent_ui
-      sha256: "6f4200eab911f783c6bd7892569fdc1f85d77cef5b02fde24595ea5ce72f97c9"
+      sha256: ae97c15cbf41594e31d9582a359b5a725cb66753bef73ed845ba534d3c7ec053
       url: "https://pub.dev"
     source: hosted
-    version: "4.9.0"
+    version: "4.9.1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -817,10 +817,10 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_common_pages
-      sha256: "5b26b056a2d94dffed067d81209486c6dc8445525406a1669a9bbc99b159bc06"
+      sha256: "07f9b9517bb909a48242baf0d8017ea4cb76cb8513b89a8d2371271261e3a2c4"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.5+46"
+    version: "1.0.5+50"
   openiothub_constants:
     dependency: "direct main"
     description:
@@ -841,10 +841,10 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_mobile_service
-      sha256: "6f43f5aa6590f6653f33b4af5e961bae9b6bfdf267e112c9797bae9f0bdfc743"
+      sha256: "585eda4efa21e49a8aed6505a18ec53f32ad05c6408bdb69b5067ae0a4939595"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.9+1"
+    version: "0.0.9+2"
   openiothub_plugin:
     dependency: "direct main"
     description:
@@ -1294,10 +1294,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_web
-      sha256: a36e2d7981122fa185006b216eb6b5b97ede3f9a54b7a511bc966971ab98d049
+      sha256: "772638d3b34c779ede05ba3d38af34657a05ac55b06279ea6edd409e323dca8e"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.2"
+    version: "2.3.3"
   url_launcher_windows:
     dependency: transitive
     description:
