@@ -5,7 +5,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/init.dart';
 import 'package:openiothub/model/custom_theme.dart';
-import 'package:openiothub/pages/homePage/homePage.dart';
+import 'package:openiothub/pages/homePage/all/homePage.dart';
+import 'package:openiothub/pages/homePage/pc/pcHomePage.dart';
 import 'package:openiothub/pages/splashPage/splashPage.dart';
 import 'package:provider/provider.dart';
 import 'package:oktoast/oktoast.dart';
@@ -49,7 +50,7 @@ class MyApp extends StatelessWidget {
             },
             home: (Platform.isAndroid || Platform.isIOS)
                 ? const SplashPage()
-                : MyHomePage(
+                : PcHomePage(
                     key: UniqueKey(),
                     title: '',
                   )));

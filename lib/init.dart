@@ -15,7 +15,7 @@ import 'package:tencent_kit/tencent_kit.dart';
 import 'package:wechat_kit/wechat_kit.dart';
 
 Future<void> init() async {
-  // initBackgroundService();
+  initBackgroundService();
   initHttpAssets();
   initWechat();
   initQQ();

@@ -13,20 +13,20 @@ import 'package:openiothub_common_pages/utils/goToUrl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
-import '../../configs/consts.dart';
-import '../../init.dart';
-import '../commonDevice/commonDeviceListPage.dart';
-import '../gateway/gatewayListPage.dart';
+import '../../../configs/consts.dart';
+import '../../../init.dart';
+import '../../commonDevice/commonDeviceListPage.dart';
+import '../../gateway/gatewayListPage.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({required Key key, required this.title}) : super(key: key);
+class PcHomePage extends StatefulWidget {
+  const PcHomePage({required Key key, required this.title}) : super(key: key);
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _PcHomePageState createState() => _PcHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
+class _PcHomePageState extends State<PcHomePage> with WidgetsBindingObserver {
   final Color _activeColor = Colors.orange;
   int _currentIndex = 0;
   Timer? _timer;
