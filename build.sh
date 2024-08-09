@@ -5,4 +5,5 @@ pod update
 cd ios
 pod update
 #
+flutter pub upgrade --major-versions
 flutter gen-l10n
