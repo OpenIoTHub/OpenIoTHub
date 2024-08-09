@@ -28,7 +28,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: stable
-      - run: flutter pub upgrade
+#      - run: flutter pub upgrade
       - run: flutter pub get
       - run: flutter build apk --debug
       - uses: actions/upload-artifact@v4
