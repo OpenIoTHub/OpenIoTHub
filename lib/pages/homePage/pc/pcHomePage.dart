@@ -1,12 +1,15 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/pages/mdnsService/mdnsServiceListPage.dart';
 import 'package:openiothub/pages/user/profilePage.dart';
 import 'package:openiothub_api/utils/check.dart';
+import 'package:openiothub_common_pages/commPages/appInfo.dart';
 import 'package:openiothub_common_pages/commPages/feedback.dart';
 import 'package:openiothub_common_pages/gateway/GatewayQrPage.dart';
 import 'package:openiothub_common_pages/utils/goToUrl.dart';
@@ -18,154 +21,94 @@ import '../../../init.dart';
 import '../../commonDevice/commonDeviceListPage.dart';
 import '../../gateway/gatewayListPage.dart';
 
+class NavigationBodyItem extends StatelessWidget {
+  const NavigationBodyItem({super.key,
+    this.header,
+    this.content,
+  });
+
+  final String? header;
+  final Widget? content;
+
+  @override
+  Widget build(BuildContext context) {
+    return ScaffoldPage.withPadding(
+      header: PageHeader(title: Text(header ?? 'This is a header text')),
+      content: content ?? const SizedBox.shrink(),
+    );
+  }
+}
+
 class PcHomePage extends StatefulWidget {
-  const PcHomePage({required Key key, required this.title}) : super(key: key);
+  const PcHomePage({super.key, required this.title});
   final String title;
 
   @override
-  _PcHomePageState createState() => _PcHomePageState();
+  State<PcHomePage> createState() => _PcHomePageState();
 }
 
-class _PcHomePageState extends State<PcHomePage> with WidgetsBindingObserver {
-  final Color _activeColor = Colors.orange;
-  int _currentIndex = 0;
-  Timer? _timer;
-  SharedPreferences? prefs;
+class _PcHomePageState extends State<PcHomePage> {
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    switch (state) {
-      case AppLifecycleState.inactive: // 处于这种状态的应用程序应该假设它们可能在任何时候暂停。
-        // showToast( "程序状态：${state.toString()}");
-        // if (Platform.isIOS) {
-        //   // _timer = Timer.periodic(Duration(seconds: 10), (timer) {
-        //   //   exit(0);
-        //   // });
-        //   exit(0);
-        // }
-        break;
-      case AppLifecycleState.resumed: //从后台切换前台，界面可见
-        // showToast( "程序状态：${state.toString()}");
-        if (_timer != null) {
-          _timer!.cancel();
-        }
-        break;
-      case AppLifecycleState.paused: // 界面不可见，后台
-        // showToast( "程序状态：${state.toString()}");
-        if (Platform.isIOS) {
-          // _timer = Timer.periodic(Duration(seconds: 10), (timer) {
-          //   exit(0);
-          // });
-          // exit(0);
-        }
-        break;
-      case AppLifecycleState.detached: // APP结束时调用
-        // showToast( "程序状态：${state.toString()}");
-        exit(1);
-        break;
-      default:
-        break;
-    }
-  }
+  int topIndex=0;//默认第一个选中
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
-    _initSharedPreferences();
     _goto_local_gateway();
-    Timer.periodic(const Duration(seconds: 1), (timer) {
-      timer.cancel();
-      _show_read_privacy_policy();
-    });
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        key: _scaffoldKey,
-        // drawer: DrawerUI(),
-        body: _buildBody(_currentIndex),
-        // floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
-        // floatingActionButton: _build_peedDial(),
-        bottomNavigationBar: _buildBottomNavigationBar());
-  }
-
-//通过index判断展现的类型
-  Widget _buildBody(int index) {
-    switch (index) {
-      case 0:
-        return MdnsServiceListPage(
+    List<NavigationPaneItem> items = [
+      PaneItem(
+        icon: const Icon(TDIcons.home),
+        title: Text(OpenIoTHubLocalizations.of(context).tab_smart),
+        body: MdnsServiceListPage(
           title: OpenIoTHubLocalizations.of(context).tab_smart,
           key: UniqueKey(),
-        );
-        break;
-      case 1:
-        return GatewayListPage(
+        ),
+      ),
+      PaneItem(
+        icon: const Icon(TDIcons.internet),
+        title: Text(OpenIoTHubLocalizations.of(context).tab_gateway),
+        body: GatewayListPage(
           title: OpenIoTHubLocalizations.of(context).tab_gateway,
           key: UniqueKey(),
-        );
-        break;
-      case 2:
-        return CommonDeviceListPage(
+        ),
+      ),
+      PaneItem(
+        icon: const Icon(TDIcons.desktop),
+        title: Text(OpenIoTHubLocalizations.of(context).tab_host),
+        body: CommonDeviceListPage(
           title: OpenIoTHubLocalizations.of(context).tab_host,
           key: UniqueKey(),
-        );
-        break;
-      case 3:
-        // return UserInfoPage();
-        return const ProfilePage();
-        break;
-    }
-    return MdnsServiceListPage(
-      title: OpenIoTHubLocalizations.of(context).tab_smart,
-      key: UniqueKey(),
-    );
-  }
-
-  void _changePage(int index) {
-    if (index != _currentIndex) {
-      setState(() {
-        _currentIndex = index;
-      });
-    }
-  }
-
-  List<BottomNavigationBarItem> getBottomNavItems(BuildContext context) {
-    final List<BottomNavigationBarItem> bottomNavItems = [
-      BottomNavigationBarItem(
-          icon: const Icon(TDIcons.home), label: OpenIoTHubLocalizations.of(context).tab_smart),
-      BottomNavigationBarItem(
-          icon: const Icon(TDIcons.cloud), label: OpenIoTHubLocalizations.of(context).tab_gateway),
-      BottomNavigationBarItem(
-          icon: const Icon(TDIcons.desktop), label: OpenIoTHubLocalizations.of(context).tab_host),
-      BottomNavigationBarItem(
-          icon: const Icon(TDIcons.user), label: OpenIoTHubLocalizations.of(context).tab_user)
+        ),
+      ),
     ];
-    return bottomNavItems;
-  }
-
-  Widget _buildBottomNavigationBar() {
-    return BottomNavigationBar(
-      items: getBottomNavItems(context),
-      currentIndex: _currentIndex,
-      type: BottomNavigationBarType.fixed,
-      onTap: (index) {
-        _changePage(index);
-      },
+    return NavigationView(
+      appBar: const NavigationAppBar(
+        leading: Icon(FluentIcons.a_t_p_logo),
+        title: Text('云亿连'),
+      ),
+      pane: NavigationPane(
+        selected: topIndex,
+        onChanged: (index) => setState(() => topIndex = index),
+        displayMode:PaneDisplayMode.auto,
+        items: items,
+        footerItems: [
+          PaneItem(
+            icon: const Icon(TDIcons.user),
+            title: Text(OpenIoTHubLocalizations.of(context).tab_user),
+            body: const ProfilePage(),
+          ),
+          PaneItem(
+            icon: const Icon(TDIcons.info_circle),
+            title: const Text("关于"),
+            body: AppInfoPage(key: UniqueKey()),
+          ),
+        ],
+      ),
     );
-  }
-
-  Future<void> _initSharedPreferences() async {
-    prefs = await SharedPreferences.getInstance();
   }
 
   Future<void> _goto_local_gateway() async {
@@ -175,91 +118,12 @@ class _PcHomePageState extends State<PcHomePage> with WidgetsBindingObserver {
         (Platform.isWindows || Platform.isMacOS || Platform.isLinux)) {
       Timer.periodic(const Duration(seconds: 1), (timer) {
         timer.cancel();
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+        Navigator.of(context).push(FluentPageRoute(builder: (context) {
           return GatewayQrPage(
             key: UniqueKey(),
           );
         }));
       });
-    }
-  }
-
-  //   展示首次进入应用提示的阅读隐私政策，后面则不会再提示
-  void _show_read_privacy_policy() {
-    // 如果没有登陆并且是PC平台则跳转到本地网关页面
-    // 获取同意隐私政策状态
-    bool agreed = prefs!.getBool(Agreed_Privacy_Policy)!=null?prefs!.getBool(Agreed_Privacy_Policy)!:false;
-    // showToast("msg:$agreed");
-    if (Platform.isAndroid && !agreed) {
-      showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-                  title: const Text("隐私政策"),
-                  scrollable: true,
-                  content: SizedBox(
-                      height: 100, // 设置Dialog的高度
-                      child: ListView(
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text("同意"),
-                              TextButton(
-                                  // 同意才可以下一步
-                                  child: const Text(
-                                    '《隐私政策》',
-                                    style: TextStyle(color: Colors.red),
-                                  ),
-                                  onPressed: () async {
-                                    goToURL(
-                                        context,
-                                        "https://docs.iothub.cloud/privacyPolicy/index.html",
-                                        "《隐私政策》");
-                                  }),
-                              TextButton(
-                                  child: const Text(
-                                    '反馈渠道',
-                                    style: TextStyle(color: Colors.green),
-                                  ),
-                                  onPressed: () async {
-                                    Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                            builder: (context) => FeedbackPage(
-                                                  key: UniqueKey(),
-                                                )));
-                                  }),
-                            ],
-                          ),
-                          const Text("如果不同意《隐私政策》请点击\"退出应用\"")
-                        ],
-                      )),
-                  actions: <Widget>[
-                    TDButton(
-                      text: "退出应用",
-                      size: TDButtonSize.large,
-                      type: TDButtonType.fill,
-                      shape: TDButtonShape.rectangle,
-                      theme: TDButtonTheme.danger,
-                      onTap: () {
-                        SystemNavigator.pop();
-                      },
-                    ),
-                    TDButton(
-                      text: "同意隐私政策",
-                      size: TDButtonSize.large,
-                      type: TDButtonType.fill,
-                      shape: TDButtonShape.rectangle,
-                      theme: TDButtonTheme.primary,
-                      onTap: () async {
-                        // 保存同意状态，之后不再提示,首次还会初始化微信SDK，以后直接由于有状态启动就初始化微信sdk
-                        await prefs!.setBool(Agreed_Privacy_Policy, true).then((_) {
-                          initWechat();
-                          initQQ();
-                        });
-                        Navigator.of(context).pop();
-                      },
-                    )
-                  ]));
     }
   }
 }
