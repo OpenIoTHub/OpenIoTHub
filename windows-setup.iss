@@ -4,7 +4,7 @@
 ; OpenIoTHub-Setup.exe /verysilent /CURRENTUSER /TASKS=desktopicon /D=D:\\test
 
 #define MyAppName "OpenIoTHub"
-#define MyAppVersion "1.3.71.402"
+#define MyAppVersion "1.3.74.409"
 #define MyAppPublisher "OpenIoTHub, Inc."
 #define MyAppURL "https://iothub.cloud/"
 #define MyAppExeName "openiothub.exe"
