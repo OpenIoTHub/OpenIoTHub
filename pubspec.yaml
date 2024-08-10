@@ -144,7 +144,6 @@ flutter:
     - assets/web/
     - assets/web/open/
     - assets/images/logos/
-    - assets/values/
 flutter_intl:
   enabled: true
 
