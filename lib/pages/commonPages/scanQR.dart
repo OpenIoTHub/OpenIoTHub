@@ -106,6 +106,7 @@ class _ScanQRPageState
               return ScannerErrorWidget(error: error);
             },
             onDetect: (capture) {
+              // TODO 弹窗提示添加，阻止重复添加
               final List<Barcode> barcodes = capture.barcodes;
               // final Uint8List? image = capture.image;
               for (final barcode in barcodes) {
@@ -128,7 +129,9 @@ class _ScanQRPageState
                       case "/a/g":
                       // TODO 添加网关
                         if (uri.queryParameters.containsKey("id")) {
+                          controller.stop();
                           String id = uri.queryParameters["id"]!;
+
                           _addToMyAccount(id);
                         } else {
                           showToast(

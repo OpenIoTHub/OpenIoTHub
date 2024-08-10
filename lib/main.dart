@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
             },
             home: (Platform.isAndroid || Platform.isIOS)
                 ? const SplashPage()
-                : PcHomePage(
+                : MyHomePage(
                     key: UniqueKey(),
                     title: '',
                   )));

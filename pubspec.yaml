@@ -26,9 +26,9 @@ dependencies:
   openiothub_mobile_service: ^0.0.8+3
   http: ^1.1.0
   #  grpc
-  grpc: ^3.1.0
+  #  grpc: ^4.0.0
   #  grpc协议
-  protobuf: ^3.1.0
+  #  protobuf: ^3.1.0
   #  app内嵌网页浏览器
   webview_flutter: ^4.2.1
   #  打开url
@@ -56,7 +56,7 @@ dependencies:
   #    git: https://github.com/OpenIoTHub/modules
   openiothub_constants: ^1.0.0
   openiothub_plugin: ^1.0.2+4
-  openiothub_api: ^1.0.4
+  openiothub_api: ^1.0.5+3
   openiothub_common_pages: ^1.0.5+36
 
   openiothub_grpc_api: ^1.1.0+1
