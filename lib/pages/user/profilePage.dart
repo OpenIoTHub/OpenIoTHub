@@ -1,22 +1,16 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/pages/user/tools/toolsTypePage.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_common_pages/openiothub_common_pages.dart';
 import 'package:openiothub_common_pages/utils/goToUrl.dart';
 import 'package:openiothub_constants/constants/SharedPreferences.dart';
-import 'package:openiothub_constants/constants/ThirdAppConfig.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
-import 'package:tencent_kit/tencent_kit.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../model/custom_theme.dart';
 
@@ -47,14 +41,15 @@ class _ProfilePageState extends State<ProfilePage> {
     _getUserInfo();
     return Scaffold(
         extendBody: true, //底部NavigationBar透明
-        extendBodyBehindAppBar: true,//顶部Bar透明
+        extendBodyBehindAppBar: true, //顶部Bar透明
         appBar: AppBar(
           // shadowColor: Colors.transparent,
           toolbarHeight: 0,
           backgroundColor: Provider.of<CustomTheme>(context).isLightTheme()
               ? CustomThemes.light.primaryColor
               : CustomThemes.dark.primaryColor,
-          systemOverlayStyle:const SystemUiOverlayStyle(statusBarColor:Colors.transparent),
+          systemOverlayStyle:
+              const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
         ),
         body: ListView.separated(
           itemBuilder: (context, index) {
@@ -157,7 +152,8 @@ class _ProfilePageState extends State<ProfilePage> {
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => SettingsPage(
-                        title: OpenIoTHubLocalizations.of(context).profile_settings,
+                        title: OpenIoTHubLocalizations.of(context)
+                            .profile_settings,
                         key: UniqueKey(),
                       )));
             }),
@@ -169,7 +165,8 @@ class _ProfilePageState extends State<ProfilePage> {
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => ServerPages(
-                        title: OpenIoTHubLocalizations.of(context).profile_servers,
+                        title:
+                            OpenIoTHubLocalizations.of(context).profile_servers,
                         key: UniqueKey(),
                       )));
             }),
@@ -189,11 +186,13 @@ class _ProfilePageState extends State<ProfilePage> {
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
               String url = "https://docs.iothub.cloud/";
-              goToURL(context, url, OpenIoTHubLocalizations.of(context).profile_docs);
+              goToURL(context, url,
+                  OpenIoTHubLocalizations.of(context).profile_docs);
             }),
         ListTile(
-          //第二个功能项
-            title: Text(OpenIoTHubLocalizations.of(context).profile_video_tutorials),
+            //第二个功能项
+            title: Text(
+                OpenIoTHubLocalizations.of(context).profile_video_tutorials),
             leading: const Icon(TDIcons.video, color: Colors.blueAccent),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
@@ -201,15 +200,15 @@ class _ProfilePageState extends State<ProfilePage> {
               launchURL(url);
             }),
         ListTile(
-          //第二个功能项
+            //第二个功能项
             title: Text(OpenIoTHubLocalizations.of(context).app_local_gateway),
             leading: const Icon(TDIcons.wifi, color: Colors.blueAccent),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => GatewayQrPage(
-                    key: UniqueKey(),
-                  )));
+                        key: UniqueKey(),
+                      )));
             }),
         // ListTile(
         //     //第二个功能项
@@ -222,7 +221,8 @@ class _ProfilePageState extends State<ProfilePage> {
         //     }),
         ListTile(
             //第二个功能项
-            title: Text(OpenIoTHubLocalizations.of(context).profile_about_this_app),
+            title: Text(
+                OpenIoTHubLocalizations.of(context).profile_about_this_app),
             leading: const Icon(TDIcons.info_circle, color: Colors.blueAccent),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {

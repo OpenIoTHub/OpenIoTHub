@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
-import 'package:openiothub_grpc_api/proto/manager/mqttDeviceManager.pb.dart';
 import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_common_pages/user/LoginPage.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
+import 'package:openiothub_grpc_api/proto/manager/mqttDeviceManager.pb.dart';
 import 'package:provider/provider.dart';
 
 class ZipDevicesPage extends StatefulWidget {
@@ -82,7 +82,7 @@ class _ZipDevicesPageState extends State<ZipDevicesPage> {
         context: context,
         builder: (_) => AlertDialog(
                 title: const Text("添加设备到云亿连"),
-                content: const Text("确认添加该设备到云亿连？"),
+                content: SizedBox.expand(child: const Text("确认添加该设备到云亿连？")),
                 actions: <Widget>[
                   TextButton(
                     child: const Text("取消"),

@@ -139,7 +139,8 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                         context: context,
                         builder: (_) => AlertDialog(
                                 title: const Text("打开方式："),
-                                content: OpenWithChoice(config),
+                                content: SizedBox.expand(
+                                    child: OpenWithChoice(config)),
                                 actions: <Widget>[
                                   TextButton(
                                     child: const Text("取消"),
@@ -190,7 +191,8 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
         context: context,
         builder: (_) => AlertDialog(
                 title: const Text("添加端口："),
-                content: ListView(
+                content: SizedBox.expand(
+                    child: ListView(
                   children: <Widget>[
                     TextFormField(
                       controller: descriptionController,
@@ -225,7 +227,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                       ),
                     ),
                   ],
-                ),
+                )),
                 actions: <Widget>[
                   TextButton(
                     child: const Text("取消"),
@@ -268,7 +270,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
         context: context,
         builder: (_) => AlertDialog(
                 title: const Text("删除TCP"),
-                content: const Text("确认删除此TCP？"),
+                content: SizedBox.expand(child: const Text("确认删除此TCP？")),
                 actions: <Widget>[
                   TextButton(
                     child: const Text("取消"),

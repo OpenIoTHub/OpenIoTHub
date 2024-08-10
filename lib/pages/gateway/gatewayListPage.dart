@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 // import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub/util/ThemeUtils.dart';
@@ -13,9 +14,8 @@ import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:provider/provider.dart';
-
-import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
+
 import '../commonPages/scanQR.dart';
 import './mDNSServiceListPage.dart';
 
@@ -182,7 +182,7 @@ class _GatewayListPageState extends State<GatewayListPage> {
           context: context,
           builder: (_) => AlertDialog(
                   title: const Text("删除结果："),
-                  content: const Text("删除成功！"),
+                  content: SizedBox.expand(child: const Text("删除成功！")),
                   actions: <Widget>[
                     TextButton(
                       child: const Text("确认"),
@@ -201,7 +201,7 @@ class _GatewayListPageState extends State<GatewayListPage> {
           context: context,
           builder: (_) => AlertDialog(
                   title: const Text("删除结果："),
-                  content: Text("删除失败！$e"),
+                  content: SizedBox.expand(child: Text("删除失败！$e")),
                   actions: <Widget>[
                     TextButton(
                       child: const Text("取消"),
@@ -270,7 +270,8 @@ class _GatewayListPageState extends State<GatewayListPage> {
     var popupMenuEntrys = <PopupMenuEntry<String>>[
       PopupMenuItem(
         //child: _buildPopupMenuItem(Icons.camera_alt, '扫一扫'),
-        child: _buildPopupMenuItem(TDIcons.search, OpenIoTHubLocalizations.of(context).find_local_gateway),
+        child: _buildPopupMenuItem(TDIcons.search,
+            OpenIoTHubLocalizations.of(context).find_local_gateway),
         value: "find_local_gateway",
       ),
     ];
@@ -281,7 +282,8 @@ class _GatewayListPageState extends State<GatewayListPage> {
         ),
         PopupMenuItem(
           //child: _buildPopupMenuItem(Icons.camera_alt, '扫一扫'),
-          child: _buildPopupMenuItem(TDIcons.scan, OpenIoTHubLocalizations.of(context).scan_QR),
+          child: _buildPopupMenuItem(
+              TDIcons.scan, OpenIoTHubLocalizations.of(context).scan_QR),
           value: "scan_QR",
         ),
         const PopupMenuDivider(
@@ -289,8 +291,8 @@ class _GatewayListPageState extends State<GatewayListPage> {
         ),
         PopupMenuItem(
           //child: _buildPopupMenuItem(ICons.ADDRESS_BOOK_CHECKED, '添加朋友'),
-          child: _buildPopupMenuItem(
-              TDIcons.wifi, OpenIoTHubLocalizations.of(context).config_device_wifi),
+          child: _buildPopupMenuItem(TDIcons.wifi,
+              OpenIoTHubLocalizations.of(context).config_device_wifi),
           value: "config_device_wifi",
         ),
       ]);
@@ -311,7 +313,8 @@ class _GatewayListPageState extends State<GatewayListPage> {
                 MaterialPageRoute(
                   builder: (context) {
                     return SmartConfigTool(
-                      title: OpenIoTHubLocalizations.of(context).config_device_wifi,
+                      title: OpenIoTHubLocalizations.of(context)
+                          .config_device_wifi,
                       needCallBack: true,
                       key: UniqueKey(),
                     );
@@ -323,36 +326,42 @@ class _GatewayListPageState extends State<GatewayListPage> {
               showDialog(
                   context: context,
                   builder: (_) => AlertDialog(
-                      title: const Text("摄像头扫码提示！"),
-                      scrollable: true,
-                      content: SizedBox(
-                          height: 120, // 设置Dialog的高度
-                          child: ListView(
+                          title: const Text("摄像头扫码提示！"),
+                          scrollable: true,
+                          content: SizedBox.expand(
+                              child: ListView(
                             children: const <Widget>[
-                              Text("请注意，点击下方 确定 我们将请求摄像头权限进行扫码", style: TextStyle(color: Colors.red),),
+                              Text(
+                                "请注意，点击下方 确定 我们将请求摄像头权限进行扫码",
+                                style: TextStyle(color: Colors.red),
+                              ),
                             ],
                           )),
-                      actions: <Widget>[
-                        TextButton(
-                          child: const Text("取消", style: TextStyle(color: Colors.grey)),
-                          onPressed: () async {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                        TextButton(
-                          child: const Text("确定", style: TextStyle(color: Colors.black),),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return const ScanQRPage();
-                                },
+                          actions: <Widget>[
+                            TextButton(
+                              child: const Text("取消",
+                                  style: TextStyle(color: Colors.grey)),
+                              onPressed: () async {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            TextButton(
+                              child: const Text(
+                                "确定",
+                                style: TextStyle(color: Colors.black),
                               ),
-                            );
-                          },
-                        ),
-                      ]));
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return const ScanQRPage();
+                                    },
+                                  ),
+                                );
+                              },
+                            ),
+                          ]));
               break;
             case 'find_local_gateway':
               Navigator.of(context).push(

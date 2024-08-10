@@ -2,27 +2,20 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/material.dart';
-// import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/pages/mdnsService/mdnsServiceListPage.dart';
 import 'package:openiothub/pages/user/profilePage.dart';
 import 'package:openiothub_api/utils/check.dart';
 import 'package:openiothub_common_pages/commPages/appInfo.dart';
-import 'package:openiothub_common_pages/commPages/feedback.dart';
 import 'package:openiothub_common_pages/gateway/GatewayQrPage.dart';
-import 'package:openiothub_common_pages/utils/goToUrl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
-import '../../../configs/consts.dart';
-import '../../../init.dart';
 import '../../commonDevice/commonDeviceListPage.dart';
 import '../../gateway/gatewayListPage.dart';
 
 class NavigationBodyItem extends StatelessWidget {
-  const NavigationBodyItem({super.key,
+  const NavigationBodyItem({
+    super.key,
     this.header,
     this.content,
   });
@@ -41,6 +34,7 @@ class NavigationBodyItem extends StatelessWidget {
 
 class PcHomePage extends StatefulWidget {
   const PcHomePage({super.key, required this.title});
+
   final String title;
 
   @override
@@ -48,8 +42,7 @@ class PcHomePage extends StatefulWidget {
 }
 
 class _PcHomePageState extends State<PcHomePage> {
-
-  int topIndex=0;//默认第一个选中
+  int topIndex = 0; //默认第一个选中
 
   @override
   void initState() {
@@ -93,7 +86,7 @@ class _PcHomePageState extends State<PcHomePage> {
       pane: NavigationPane(
         selected: topIndex,
         onChanged: (index) => setState(() => topIndex = index),
-        displayMode:PaneDisplayMode.auto,
+        displayMode: PaneDisplayMode.auto,
         items: items,
         footerItems: [
           PaneItem(

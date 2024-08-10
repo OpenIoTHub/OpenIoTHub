@@ -152,7 +152,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                     context: context,
                     builder: (_) => AlertDialog(
                             title: const Text("删除网关"),
-                            content: const Text("确认删除此网关？"),
+                            content: SizedBox.expand(child: Text("确认删除此网关？")),
                             actions: <Widget>[
                               TextButton(
                                 child: const Text("取消"),
@@ -203,7 +203,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                   pair,
                   style: Constants.titleTextStyle,
                 ),
-                onLongPress: (){
+                onLongPress: () {
                   Clipboard.setData(ClipboardData(text: pair));
                   showToast("复制成功！");
                 },
@@ -313,7 +313,8 @@ loginwithtokenmap:
         context: context,
         builder: (_) => AlertDialog(
                 title: const Text("修改名称："),
-                content: ListView(
+                content: SizedBox.expand(
+                    child: ListView(
                   children: <Widget>[
                     TextFormField(
                       controller: newNameController,
@@ -324,7 +325,7 @@ loginwithtokenmap:
                       ),
                     )
                   ],
-                ),
+                )),
                 actions: <Widget>[
                   TextButton(
                     child: const Text("取消"),

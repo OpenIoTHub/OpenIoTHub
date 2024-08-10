@@ -142,13 +142,17 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   List<BottomNavigationBarItem> getBottomNavItems(BuildContext context) {
     final List<BottomNavigationBarItem> bottomNavItems = [
       BottomNavigationBarItem(
-          icon: const Icon(TDIcons.home), label: OpenIoTHubLocalizations.of(context).tab_smart),
+          icon: const Icon(TDIcons.home),
+          label: OpenIoTHubLocalizations.of(context).tab_smart),
       BottomNavigationBarItem(
-          icon: const Icon(TDIcons.internet), label: OpenIoTHubLocalizations.of(context).tab_gateway),
+          icon: const Icon(TDIcons.internet),
+          label: OpenIoTHubLocalizations.of(context).tab_gateway),
       BottomNavigationBarItem(
-          icon: const Icon(TDIcons.desktop), label: OpenIoTHubLocalizations.of(context).tab_host),
+          icon: const Icon(TDIcons.desktop),
+          label: OpenIoTHubLocalizations.of(context).tab_host),
       BottomNavigationBarItem(
-          icon: const Icon(TDIcons.user), label: OpenIoTHubLocalizations.of(context).tab_user)
+          icon: const Icon(TDIcons.user),
+          label: OpenIoTHubLocalizations.of(context).tab_user)
     ];
     return bottomNavItems;
   }
@@ -188,7 +192,9 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   void _show_read_privacy_policy() {
     // 如果没有登陆并且是PC平台则跳转到本地网关页面
     // 获取同意隐私政策状态
-    bool agreed = prefs!.getBool(Agreed_Privacy_Policy)!=null?prefs!.getBool(Agreed_Privacy_Policy)!:false;
+    bool agreed = prefs!.getBool(Agreed_Privacy_Policy) != null
+        ? prefs!.getBool(Agreed_Privacy_Policy)!
+        : false;
     // showToast("msg:$agreed");
     if (Platform.isAndroid && !agreed) {
       showDialog(
@@ -252,7 +258,9 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                       theme: TDButtonTheme.primary,
                       onTap: () async {
                         // 保存同意状态，之后不再提示,首次还会初始化微信SDK，以后直接由于有状态启动就初始化微信sdk
-                        await prefs!.setBool(Agreed_Privacy_Policy, true).then((_) {
+                        await prefs!
+                            .setBool(Agreed_Privacy_Policy, true)
+                            .then((_) {
                           initWechat();
                           initQQ();
                         });

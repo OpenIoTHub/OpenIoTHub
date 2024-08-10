@@ -15,12 +15,10 @@ class ScanQRPage extends StatefulWidget {
   const ScanQRPage({super.key});
 
   @override
-  State<ScanQRPage> createState() =>
-      _ScanQRPageState();
+  State<ScanQRPage> createState() => _ScanQRPageState();
 }
 
-class _ScanQRPageState
-    extends State<ScanQRPage> {
+class _ScanQRPageState extends State<ScanQRPage> {
   final MobileScannerController controller = MobileScannerController();
 
   Widget _buildBarcodeOverlay() {
@@ -127,7 +125,7 @@ class _ScanQRPageState
                   case "iothub.cloud":
                     switch (uri.path) {
                       case "/a/g":
-                      // TODO 添加网关
+                        // TODO 添加网关
                         if (uri.queryParameters.containsKey("id")) {
                           controller.stop();
                           String id = uri.queryParameters["id"]!;
@@ -286,14 +284,16 @@ _addToMyAccount(String gatewayId) async {
         name: "Gateway-${DateTime.now()}",
         description: "Gateway-${DateTime.now()} form scan QR code");
     OperationResponse operationResponse =
-    await GatewayManager.AddGateway(gatewayInfo);
+        await GatewayManager.AddGateway(gatewayInfo);
     //将网关映射到本机
     if (operationResponse.code == 0) {
       // TODO 从服务器获取连接JWT
       StringValue openIoTHubJwt =
-      await GatewayManager.GetOpenIoTHubJwtByGatewayUuid(gatewayId);
+          await GatewayManager.GetOpenIoTHubJwtByGatewayUuid(gatewayId);
       await _addToMySessionList(
-          openIoTHubJwt.value, "Gateway-${DateTime.now()}", "Gateway-${DateTime.now()} form scan QR code");
+          openIoTHubJwt.value,
+          "Gateway-${DateTime.now()}",
+          "Gateway-${DateTime.now()} form scan QR code");
     } else {
       showToast("添加网关到我的账户失败:${operationResponse.msg}");
     }

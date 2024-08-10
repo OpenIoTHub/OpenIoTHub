@@ -817,10 +817,10 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_common_pages
-      sha256: "53a6e7234a590edf3ae91194ce572490aa972eaf5b9a9b67f4204deef6d6855b"
+      sha256: "7ef50a271caaf6bc278cef88f26e641ce79ecd2309a375ab6f2423c17eb4d0e5"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.5+53"
+    version: "1.0.5+54"
   openiothub_constants:
     dependency: "direct main"
     description:
@@ -849,10 +849,10 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_plugin
-      sha256: eae97cedc01babc46e217644d0dfd16ff44de02c5b3db3c1605276fec585984b
+      sha256: "53934e492ca698bb7855062dd02d590117331d264c38d52a83e17c59a004ba62"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.2+10"
+    version: "1.0.2+11"
   package_config:
     dependency: transitive
     description:

@@ -208,7 +208,7 @@ class _CommonDeviceServiceTypesListState
         context: context,
         builder: (_) => AlertDialog(
                 title: const Text("删除设备"),
-                content: const Text("确认删除此设备？"),
+                content: SizedBox.expand(child: Text("确认删除此设备？")),
                 actions: <Widget>[
                   TextButton(
                     child: const Text("取消"),
@@ -238,7 +238,8 @@ class _CommonDeviceServiceTypesListState
         context: context,
         builder: (_) => AlertDialog(
                 title: const Text("唤醒设备"),
-                content: const Text("第一次使用请选择'设置物理地址'，设置过物理地址可以直接点击'唤醒设备'。"),
+                content: SizedBox.expand(
+                    child: const Text("第一次使用请选择'设置物理地址'，设置过物理地址可以直接点击'唤醒设备'。")),
                 actions: <Widget>[
                   TextButton(
                     child: const Text("取消"),
@@ -272,7 +273,8 @@ class _CommonDeviceServiceTypesListState
         context: context,
         builder: (_) => AlertDialog(
                 title: const Text("设置物理地址"),
-                content: ListView(
+                content: SizedBox.expand(
+                    child: ListView(
                   children: <Widget>[
                     TextFormField(
                       controller: macController,
@@ -283,7 +285,7 @@ class _CommonDeviceServiceTypesListState
                       ),
                     ),
                   ],
-                ),
+                )),
                 actions: <Widget>[
                   TextButton(
                     child: const Text("取消"),
@@ -321,7 +323,7 @@ class _CommonDeviceServiceTypesListState
                 title: Text(
                   pair,
                 ),
-                onLongPress: (){
+                onLongPress: () {
                   Clipboard.setData(ClipboardData(text: pair));
                   showToast("复制成功！");
                 },

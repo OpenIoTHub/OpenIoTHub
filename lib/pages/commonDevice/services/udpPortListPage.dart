@@ -164,7 +164,8 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
         context: context,
         builder: (_) => AlertDialog(
                 title: const Text("添加端口："),
-                content: ListView(
+                content: SizedBox.expand(
+                    child: ListView(
                   children: <Widget>[
                     TextFormField(
                       controller: descriptionController,
@@ -191,7 +192,7 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
                       ),
                     ),
                   ],
-                ),
+                )),
                 actions: <Widget>[
                   TextButton(
                     child: const Text("取消"),
@@ -229,7 +230,7 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
         context: context,
         builder: (_) => AlertDialog(
                 title: const Text("删除UDP"),
-                content: const Text("确认删除此UDP？"),
+                content: SizedBox.expand(child: const Text("确认删除此UDP？")),
                 actions: <Widget>[
                   TextButton(
                     child: const Text("取消"),

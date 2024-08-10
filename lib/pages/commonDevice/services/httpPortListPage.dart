@@ -176,7 +176,8 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
         context: context,
         builder: (_) => AlertDialog(
                 title: const Text("添加端口域名："),
-                content: ListView(
+                content: SizedBox.expand(
+                    child: ListView(
                   children: <Widget>[
                     TextFormField(
                       controller: descriptionController,
@@ -203,7 +204,7 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
                       ),
                     )
                   ],
-                ),
+                )),
                 actions: <Widget>[
                   TextButton(
                     child: const Text("取消"),
@@ -233,7 +234,7 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
         context: context,
         builder: (_) => AlertDialog(
                 title: const Text("删除Http"),
-                content: const Text("确认删除此Http？"),
+                content: SizedBox.expand(child: const Text("确认删除此Http？")),
                 actions: <Widget>[
                   TextButton(
                     child: const Text("取消"),
