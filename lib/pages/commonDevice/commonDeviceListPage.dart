@@ -385,15 +385,16 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
                   builder: (_) => AlertDialog(
                           title: const Text("摄像头扫码提示！"),
                           scrollable: true,
-                          content: SizedBox.expand(
+                          content: SizedBox(
+                              height: 120,
                               child: ListView(
-                            children: const <Widget>[
-                              Text(
-                                "请注意，点击下方 确定 我们将请求摄像头权限进行扫码",
-                                style: TextStyle(color: Colors.red),
-                              ),
-                            ],
-                          )),
+                                children: const <Widget>[
+                                  Text(
+                                    "请注意，点击下方 确定 我们将请求摄像头权限进行扫码",
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                ],
+                              )),
                           actions: <Widget>[
                             TextButton(
                               child: const Text("取消",
