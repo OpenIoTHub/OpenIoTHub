@@ -94,6 +94,7 @@ dev_dependencies:
   flutter_lints: ^4.0.0
   # flutter pub run flutter_launcher_icons
   flutter_launcher_icons: ^0.13.1
+#  flutter_distributor: ^0.4.5
 
 flutter:
   # The following line ensures that the Material Icons font is

@@ -1,5 +1,7 @@
 import 'openiothub_localizations.dart';
 
+// ignore_for_file: type=lint
+
 /// The translations for Chinese (`zh`).
 class OpenIoTHubLocalizationsZh extends OpenIoTHubLocalizations {
   OpenIoTHubLocalizationsZh([String locale = 'zh']) : super(locale);

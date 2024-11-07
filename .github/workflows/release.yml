@@ -21,7 +21,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
       - name: Set up Dart
         uses: dart-lang/setup-dart@v1
         with:
@@ -30,6 +30,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: stable
+          flutter-version: 3.23.0
       - run: flutter pub get
       - run: flutter build apk --release
       - name: Release APK
@@ -53,6 +54,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: stable
+          flutter-version: 3.23.0
       - run: flutter config --no-enable-android
       - run: flutter pub get
       - run: flutter build ipa  --release --no-codesign
@@ -75,6 +77,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+          flutter-version: 3.23.0
       - name: Install required build tools for linux
         run: sudo apt-get update && sudo apt-get install clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
       - name: Build linux release
@@ -114,6 +117,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+          flutter-version: 3.23.0
       - run: flutter config --enable-macos-desktop
       - run: flutter config --no-enable-android
       - run: flutter pub get
@@ -140,6 +144,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+          flutter-version: 3.23.0
       - run: flutter config --enable-windows-desktop
       - run: flutter config --no-enable-android
       - run: flutter pub get

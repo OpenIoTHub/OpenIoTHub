@@ -9,6 +9,8 @@ import 'openiothub_localizations_en.dart'
 import 'openiothub_localizations_zh.dart'
     deferred as openiothub_localizations_zh;
 
+// ignore_for_file: type=lint
+
 /// Callers can lookup localized strings with an instance of OpenIoTHubLocalizations
 /// returned by `OpenIoTHubLocalizations.of(context)`.
 ///

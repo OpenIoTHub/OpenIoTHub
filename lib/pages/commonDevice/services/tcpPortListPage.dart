@@ -97,6 +97,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
     result.add("端口:${config.remotePort}");
     result.add("映射到端口:${config.localProt}");
     result.add("描述:${config.description}");
+    result.add("域名:${config.domain}");
     result.add("转发连接状态:${config.remotePortStatus ? "在线" : "离线"}");
     await Navigator.of(context).push(
       MaterialPageRoute(
