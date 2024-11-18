@@ -88,9 +88,17 @@ jobs:
       - name: Build deb package
         run: |
           flutter_distributor package --platform linux --targets deb
+      - uses: actions/upload-artifact@v4
+        with:
+          name: openiothub.deb
+          path: dist/**/**/*.deb
       - name: Build rpm package
         run: |
           flutter_distributor package --platform linux --targets rpm
+      - uses: actions/upload-artifact@v4
+        with:
+          name: openiothub.rpm
+          path: dist/**/**/*.rpm
       - name: Build AppImage package
         run: |
           wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
@@ -99,11 +107,8 @@ jobs:
           flutter_distributor package --platform linux --targets appimage
       - uses: actions/upload-artifact@v4
         with:
-          name: openiothub_0.1.0_amd64.snap
-          path: |
-            dist/**/**/*.deb
-            dist/**/**/*.rpm
-            dist/**/**/*.AppImage
+          name: openiothub.AppImage
+          path: dist/**/**/*.AppImage
       - run: rm -rf ./build
       - name: Install snapcraft
         run: |
