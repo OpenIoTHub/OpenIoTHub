@@ -82,6 +82,9 @@ jobs:
         with:
           name: linux-release.zip
           path: ./build/linux/x64/release/bundle
+      - name: Install flutter_distributor
+        run: |
+          dart pub global activate flutter_distributor
       - name: Build deb package
         run: |
           flutter_distributor package --platform linux --targets deb
