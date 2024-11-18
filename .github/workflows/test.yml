@@ -61,7 +61,7 @@ jobs:
 
   linux:
     name: Linux
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     env:
       SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_TOKEN }}
     steps:
@@ -97,6 +97,13 @@ jobs:
           chmod +x appimagetool
           sudo mv appimagetool /usr/local/bin/
           flutter_distributor package --platform linux --targets appimage
+      - uses: actions/upload-artifact@v4
+        with:
+          name: openiothub_0.1.0_amd64.snap
+          path: |
+            dist/**/**/*.deb
+            dist/**/**/*.rpm
+            dist/**/**/*.AppImage
       - run: rm -rf ./build
       - name: Install snapcraft
         run: |
