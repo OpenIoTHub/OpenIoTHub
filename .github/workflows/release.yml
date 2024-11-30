@@ -21,7 +21,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '21'
+          java-version: '23'
       - name: Set up Dart
         uses: dart-lang/setup-dart@v1
         with:
@@ -79,7 +79,7 @@ jobs:
           channel: 'stable'
           flutter-version: 3.24.0
       - name: Install required build tools for linux
-        run: sudo apt-get update && sudo apt-get install clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
+        run: sudo apt-get update && sudo apt-get install clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev locate rpm patchelf libfuse2
       - name: Build linux release
         run: |
           flutter config --enable-linux-desktop
@@ -93,6 +93,30 @@ jobs:
         with:
           files: |
             linux-release.zip
+          body_path: ./.github/doc/DownloadDescription.md
+      - name: Install flutter_distributor
+        run: |
+          dart pub global activate flutter_distributor
+      - name: Build deb package
+        run: |
+          flutter_distributor package --platform linux --targets deb
+      - name: Build rpm package
+        run: |
+          flutter_distributor package --platform linux --targets rpm
+      - name: Build AppImage package
+        run: |
+          wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
+          chmod +x appimagetool
+          sudo mv appimagetool /usr/local/bin/
+          flutter_distributor package --platform linux --targets appimage
+      - name: Release Linux deb rpm AppImage
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            dist/**/**/*.deb
+            dist/**/**/*.rpm
+            dist/**/**/*.AppImage
           body_path: ./.github/doc/DownloadDescription.md
       - run: rm -rf ./build
       - name: Install snapcraft

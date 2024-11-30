@@ -1,11 +1,5 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:openiothub_common_pages/wifiConfig/airkiss.dart';
-import 'package:openiothub_common_pages/wifiConfig/easylink.dart';
-import 'package:openiothub_common_pages/wifiConfig/oneshot.dart';
-import 'package:openiothub_common_pages/wifiConfig/smartConfigTool.dart';
-import 'package:openiothub_common_pages/wifiConfig/smartlink.dart';
+import 'package:openiothub_common_pages/openiothub_common_pages.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
@@ -26,7 +20,7 @@ class ToolsTypePage extends StatelessWidget {
     "assets/images/ic_discover_nearby.png",
     "assets/images/ic_discover_pos.png",
   ];
-  final titles = ["多协议配网", "Airkiss", "Easylink", "Smartlink", "Oneshot"];
+  final titles = ["Airkiss"];
   final List listData = [];
 
   ToolsTypePage({super.key}) {
@@ -36,14 +30,14 @@ class ToolsTypePage extends StatelessWidget {
   initData() {
     listData.add(TAG_START);
     listData.add(ListItem(title: titles[0], icon: imagePaths[0]));
-    listData.add(TAG_CENTER);
-    listData.add(ListItem(title: titles[1], icon: imagePaths[1]));
-    listData.add(TAG_CENTER);
-    listData.add(ListItem(title: titles[2], icon: imagePaths[2]));
-    listData.add(TAG_CENTER);
-    listData.add(ListItem(title: titles[3], icon: imagePaths[3]));
-    listData.add(TAG_CENTER);
-    listData.add(ListItem(title: titles[4], icon: imagePaths[4]));
+    // listData.add(TAG_CENTER);
+    // listData.add(ListItem(title: titles[1], icon: imagePaths[1]));
+    // listData.add(TAG_CENTER);
+    // listData.add(ListItem(title: titles[2], icon: imagePaths[2]));
+    // listData.add(TAG_CENTER);
+    // listData.add(ListItem(title: titles[3], icon: imagePaths[3]));
+    // listData.add(TAG_CENTER);
+    // listData.add(ListItem(title: titles[4], icon: imagePaths[4]));
     listData.add(TAG_END);
   }
 
@@ -104,18 +98,6 @@ class ToolsTypePage extends StatelessWidget {
   void handleListItemClick(BuildContext ctx, ListItem item) {
     String title = item.title;
     switch (title) {
-      case "多协议配网":
-        {
-          Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
-//        smartconfig 工具页面
-            return SmartConfigTool(
-              title: "Smartconfig配网",
-              needCallBack: false,
-              key: UniqueKey(),
-            );
-          }));
-        }
-        break;
       case "Airkiss":
         {
           Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
@@ -127,57 +109,16 @@ class ToolsTypePage extends StatelessWidget {
           }));
         }
         break;
-      case "Easylink":
-        {
-          Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
-//        smartconfig 工具页面
-            return Easylink(
-              title: "庆科 Easylink",
-              key: UniqueKey(),
-            );
-          }));
-        }
-        break;
-      case "Smartlink":
-        {
-          Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
-//        smartconfig 工具页面
-            return Smartlink(
-              title: "汉枫 Smartlink",
-              key: UniqueKey(),
-            );
-          }));
-        }
-        break;
-      case "Oneshot":
-        {
-          Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
-//        smartconfig 工具页面
-            return Oneshot(
-              title: "联盛德 Oneshot",
-              key: UniqueKey(),
-            );
-          }));
-        }
-        break;
       default:
         {
           Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
-//        smartconfig 工具页面
-            return SmartConfigTool(
-              title: "Smartconfig配网",
-              needCallBack: false,
+            return Airkiss(
+              title: "微信 Airkiss",
               key: UniqueKey(),
             );
           }));
         }
         break;
-    }
-  }
-
-  Future scan() async {
-    try {} on Exception catch (e) {
-      print(e);
     }
   }
 

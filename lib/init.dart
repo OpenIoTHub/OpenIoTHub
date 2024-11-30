@@ -11,7 +11,7 @@ import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_constants/openiothub_constants.dart';
 import 'package:openiothub_grpc_api/google/protobuf/wrappers.pb.dart';
 import 'package:openiothub_mobile_service/openiothub_mobile_service.dart' as openiothub_mobile_service;
-import 'package:tencent_kit/tencent_kit.dart';
+// import 'package:tencent_kit/tencent_kit.dart';
 import 'package:wechat_kit/wechat_kit.dart';
 
 Future<void> init() async {
@@ -51,13 +51,13 @@ Future<void> initWechat() async {
 }
 
 Future<void> initQQ() async {
-  bool agreed = await agreedPrivacyPolicy();
-  // 如果同意了隐私政策或者不是安卓平台则初始化wechat_kit
-  if (agreed || Platform.isIOS) {
-    await TencentKitPlatform.instance.setIsPermissionGranted(granted: true);
-    await TencentKitPlatform.instance.registerApp(
-          appId: QQConfig.QQ_APPID, universalLink: QQConfig.QQ_UNIVERSAL_LINK);
-  }
+  // bool agreed = await agreedPrivacyPolicy();
+  // // 如果同意了隐私政策或者不是安卓平台则初始化wechat_kit
+  // if (agreed || Platform.isIOS) {
+  //   await TencentKitPlatform.instance.setIsPermissionGranted(granted: true);
+  //   await TencentKitPlatform.instance.registerApp(
+  //         appId: QQConfig.QQ_APPID, universalLink: QQConfig.QQ_UNIVERSAL_LINK);
+  // }
 }
 
 Future<void> initSystemUi() async {

@@ -75,14 +75,14 @@ dependencies:
   oktoast: ^3.3.2+1
   msix: ^3.16.6
   flutter_speed_dial: ^7.0.0
-  mobile_scanner: ^5.1.1
+  mobile_scanner: ^6.0.2
   image_picker: ^1.0.7
 
   intl: any
   jaguar: any
   flutter_nsd: any
   desktop_window: ^0.4.0
-  tencent_kit: ^6.0.1
+#  tencent_kit: ^6.0.1
   fluent_ui: ^4.9.0
   tdesign_flutter: ^0.1.6
   go_router: ^14.2.2
@@ -91,9 +91,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
   # flutter pub run flutter_launcher_icons
-  flutter_launcher_icons: ^0.13.1
+  flutter_launcher_icons: ^0.14.1
 #  flutter_distributor: ^0.4.5
 
 flutter:

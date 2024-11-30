@@ -11,6 +11,11 @@ subprojects {
 }
 subprojects {
     project.evaluationDependsOn(':app')
+    //https://github.com/RxReader/tencent_kit/issues/117
+//    if (project.name == "tencent_kit") {
+//        apply plugin: 'com.android.library'
+//        project.android.namespace = 'io.github.v7lin.tencent_kit'
+//    }
 }
 
 tasks.register("clean", Delete) {

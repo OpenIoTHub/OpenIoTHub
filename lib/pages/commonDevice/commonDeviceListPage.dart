@@ -9,7 +9,7 @@ import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub/util/ThemeUtils.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_common_pages/commPages/findmDNSClientList.dart';
-import 'package:openiothub_common_pages/wifiConfig/smartConfigTool.dart';
+import 'package:openiothub_common_pages/wifiConfig/airkiss.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
@@ -369,10 +369,9 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) {
-                    return SmartConfigTool(
+                    return Airkiss(
                       title: OpenIoTHubLocalizations.of(context)
                           .config_device_wifi,
-                      needCallBack: true,
                       key: UniqueKey(),
                     );
                   },

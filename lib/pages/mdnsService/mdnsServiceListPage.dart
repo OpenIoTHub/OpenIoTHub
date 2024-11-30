@@ -13,7 +13,7 @@ import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub/util/ThemeUtils.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_common_pages/commPages/findmDNSClientList.dart';
-import 'package:openiothub_common_pages/wifiConfig/smartConfigTool.dart';
+import 'package:openiothub_common_pages/wifiConfig/airkiss.dart';
 import 'package:openiothub_constants/openiothub_constants.dart';
 import 'package:openiothub_grpc_api/proto/manager/mqttDeviceManager.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
@@ -177,9 +177,8 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) {
-                              return SmartConfigTool(
+                              return Airkiss(
                                 title: "添加设备",
-                                needCallBack: true,
                                 key: UniqueKey(),
                               );
                             },
@@ -473,10 +472,9 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) {
-                    return SmartConfigTool(
+                    return Airkiss(
                       title: OpenIoTHubLocalizations.of(context)
                           .config_device_wifi,
-                      needCallBack: true,
                       key: UniqueKey(),
                     );
                   },
