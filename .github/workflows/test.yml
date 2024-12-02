@@ -227,6 +227,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: print current dir
+        run: |
+          ls -a
+          pwd
+
       - name: Build .flatpak
         uses: bilelmoussaoui/flatpak-github-actions/flatpak-builder@v5
         with:
