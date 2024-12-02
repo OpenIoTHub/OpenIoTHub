@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+
+Name=OpenIoTHub
+Comment=OpenIoTHub
+Categories=Utility;Amusement;
+
+Icon=com.iotserv.OpenIoTHub
+Exec=openiothub
+Terminal=false
+StartupWMClass=openiothub

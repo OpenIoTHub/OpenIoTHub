@@ -793,10 +793,10 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_common_pages
-      sha256: "1027eaed4a697f4906549b3f17b62a3a2a2352a5f9f18db032fe7da7f318652e"
+      sha256: f516e168d2b4abce57114d47752253c686d2f3d1da69b85a21e1245512e34d56
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.5+60"
+    version: "1.0.5+59"
   openiothub_constants:
     dependency: "direct main"
     description:
@@ -1178,6 +1178,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.1.7"
+  tencent_kit:
+    dependency: transitive
+    description:
+      name: tencent_kit
+      sha256: dd97b95e8b92cab5473d1f54a3210916e60b6b2d968bf6c47590a38fa831b5cf
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.1.0"
   term_glyph:
     dependency: transitive
     description:
