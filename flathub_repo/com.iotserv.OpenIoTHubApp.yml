@@ -27,7 +27,7 @@ modules:
 #        url: https://github.com/Merrit/flutter_flatpak_example/releases/download/v1.0.0/FlutterApp-Linux-Portable.tar.gz
 #        sha256: 5dc57e4f5b84e6527098cb1e011ef50413c660147f5da7dfbfb507527e44eb83
       - type: file
-        path: OpenIoTHubApp-Linux-Portable.tar.gz
+        path: ../OpenIoTHubApp-Linux-Portable.tar.gz
       - type: dir
         path: ../
       # - type: git
