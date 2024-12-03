@@ -200,3 +200,72 @@ jobs:
           files: |
             Output/OpenIoTHub-Setup.exe
           body_path: ./.github/doc/DownloadDescription.md
+
+  build-flutter-app:
+    name: Build and compressed Flutter app
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Flutter dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev libx11-dev pkg-config cmake ninja-build libblkid-dev
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+
+      - name: Build Flutter linux version
+        working-directory: ${{ github.workspace }}
+        run: |
+          ./build-flutter-app.sh
+
+      - name: Upload app archive to workflow
+        uses: actions/upload-artifact@v4
+        with:
+          name: OpenIoTHubApp-Archive
+          path: OpenIoTHubApp-Linux-Portable.tar.gz
+
+      - name: Release Linux OpenIoTHubApp-Linux-Portable.tar.gz
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            OpenIoTHubApp-Linux-Portable.tar.gz
+          body_path: ./.github/doc/DownloadDescription.md
+
+  build-flatpak:
+    name: Build flatpak
+    needs: build-flutter-app
+    runs-on: ubuntu-latest
+    container:
+      image: bilelmoussaoui/flatpak-github-actions:freedesktop-22.08
+      options: --privileged
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: OpenIoTHubApp-Archive
+
+      - name: Build .flatpak
+        uses: bilelmoussaoui/flatpak-github-actions/flatpak-builder@v5
+        with:
+          bundle: OpenIoTHubApp.flatpak
+          manifest-path: flathub_repo/com.iotserv.OpenIoTHubApp.yml
+
+      - name: Upload .flatpak artifact to workflow
+        uses: actions/upload-artifact@v4
+        with:
+          name: Flatpak artifact
+          path: OpenIoTHubApp.flatpak
+
+      - name: Release Linux flatpak package
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            OpenIoTHubApp.flatpak
+          body_path: ./.github/doc/DownloadDescription.md
