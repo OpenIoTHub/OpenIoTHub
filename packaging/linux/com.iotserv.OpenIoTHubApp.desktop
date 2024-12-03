@@ -2,11 +2,11 @@
 Version=1.0
 Type=Application
 
-Name=OpenIoTHub
+Name=云亿连
 Comment=OpenIoTHub
 Categories=Utility;Amusement;
 
-Icon=com.iotserv.OpenIoTHub
+Icon=com.iotserv.OpenIoTHubApp
 Exec=openiothub
 Terminal=false
 StartupWMClass=openiothub

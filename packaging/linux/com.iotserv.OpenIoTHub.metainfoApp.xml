@@ -4,7 +4,7 @@
     https://www.freedesktop.org/software/appstream/metainfocreator/#/
 -->
 <component type="desktop-application">
-  <id>com.iotserv.OpenIoTHub</id>
+  <id>com.iotserv.OpenIoTHubApp</id>
   <name>OpenIoTHub App</name>
   <summary>OpenIoTHub App</summary>
   <developer_name>iotserv</developer_name>
@@ -30,7 +30,7 @@
       <li></li>
     </ul>
   </description>
-  <launchable type="desktop-id">com.iotserv.OpenIoTHub.desktop</launchable>
+  <launchable type="desktop-id">com.iotserv.OpenIoTHubApp.desktop</launchable>
   <screenshots>
     <screenshot type="default">
 <!--   TODO   -->

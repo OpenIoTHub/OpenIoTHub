@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/flatpak/flatpak-builder/main/data/flatpak-manifest.schema.json
 
 ---
-app-id: com.iotserv.OpenIoThub
+app-id: com.iotserv.OpenIoTHubApp
 runtime: org.freedesktop.Platform
 runtime-version: "22.08"
 sdk: org.freedesktop.Sdk
@@ -15,7 +15,7 @@ finish-args:
   - --socket=pulseaudio
   - --share=network
 modules:
-  - name: OpenIoTHub
+  - name: OpenIoTHubApp
     buildsystem: simple
     only-arches:
       - x86_64
