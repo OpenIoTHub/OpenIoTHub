@@ -35,7 +35,7 @@ set -x
 
 # No spaces in project name.
 projectName=OpenIoTHubApp
-projectId=com.iotserv.OpenIoThub
+projectId=com.iotserv.OpenIoTHub
 executableName=openiothub
 
 
