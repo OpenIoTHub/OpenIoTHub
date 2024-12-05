@@ -2,9 +2,11 @@
 Version=1.0
 Type=Application
 
-Name=云亿连
-Comment=OpenIoTHub
-Categories=Utility;Amusement;
+Name=OpenIoTHub
+Name[zh_CN]=云亿连
+Comment=OpenIoTHub flatpak app
+Comment[zh_CN]=云亿连Linux桌面版
+Categories=Network;
 
 Icon=com.iotserv.OpenIoTHubApp
 Exec=openiothub

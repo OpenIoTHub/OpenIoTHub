@@ -1,6 +1,8 @@
 [Desktop Entry]
 Name=OpenIoTHub
+Name[zh_CN]=云亿连
 Comment=OpenIoTHub App for IoT device and proxy
+Comment[zh_CN]=云亿连Linux桌面版
 Exec=openiothub
 Icon=${SNAP}/meta/gui/openiothub.png
 Terminal=false
