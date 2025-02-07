@@ -182,7 +182,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ListTile(
             //第二个功能项
             title: Text(OpenIoTHubLocalizations.of(context).profile_docs),
-            leading: const Icon(TDIcons.books, color: Colors.blueAccent),
+            leading: const Icon(TDIcons.book_filled, color: Colors.blueAccent),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
               String url = "https://docs.iothub.cloud/";
