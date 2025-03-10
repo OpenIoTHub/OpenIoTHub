@@ -129,8 +129,9 @@ class _ScanQRPageState extends State<ScanQRPage> {
                         if (uri.queryParameters.containsKey("id")) {
                           controller.stop();
                           String id = uri.queryParameters["id"]!;
+                          String? host = uri.queryParameters["host"];
 
-                          _addToMyAccount(id);
+                          _addToMyAccount(id, host);
                         } else {
                           showToast(
                               "不支持的二维码，path: ${uri.path},parameters:${uri.queryParameters}");
@@ -275,14 +276,16 @@ class BarcodeOverlay extends CustomPainter {
 }
 
 //已经确认过可以添加，添加到我的账号
-_addToMyAccount(String gatewayId) async {
+_addToMyAccount(String gatewayId, String? host) async {
   try {
     // TODO 可以搞一个确认步骤，确认后添加
     // 使用扫描的Gateway ID构建一个GatewayInfo用于服务器添加
     GatewayInfo gatewayInfo = GatewayInfo(
         gatewayUuid: gatewayId,
-        name: "Gateway-${DateTime.now()}",
-        description: "Gateway-${DateTime.now()} form scan QR code");
+        // 服务器的UUID变主机地址，或者都可以
+        serverUuid: host,
+        name: "Gateway-${DateTime.now().minute}",
+        description: "Gateway-${DateTime.now()}");
     OperationResponse operationResponse =
         await GatewayManager.AddGateway(gatewayInfo);
     //将网关映射到本机
