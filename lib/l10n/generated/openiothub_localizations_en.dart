@@ -69,363 +69,375 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
   String get i_also_have_a_bottom_line => 'I also have a bottom line';
 
   @override
-  String get ftp_port_list_title => 'FTP端口列表';
+  String get ftp_port_list_title => 'FTP port list';
 
   @override
-  String get remote_port => '远程端口';
+  String get remote_port => 'Remote port';
 
   @override
-  String get local_port => '映射到本机端口';
+  String get local_port => 'Local port';
 
   @override
-  String get description => '描述';
+  String get description => 'Description';
 
   @override
-  String get forwarding_connection_status => '转发连接状态';
+  String get forwarding_connection_status => 'Forwarding connection status';
 
   @override
-  String get online => '在线';
+  String get online => 'Online';
 
   @override
-  String get offline => '离线';
+  String get offline => 'Offline';
 
   @override
-  String get port_details => '端口详情';
+  String get port_details => 'Port details';
 
   @override
-  String get add_port => '添加端口：';
+  String get add_port => 'Add port：';
 
   @override
-  String get notes => '备注';
+  String get notes => 'Notes';
 
   @override
-  String get custom_remarks => '自定义备注';
+  String get custom_remarks => 'Custom remarks';
 
   @override
-  String get port_number => '端口号';
+  String get port_number => 'Port number';
 
   @override
-  String get the_port_number_of_this_machine => '该机器的端口号';
+  String get the_port_number_of_this_machine =>
+      'The port number of this machine';
 
   @override
-  String get map_to_the_port_number_of_this_mobile_phone => '映射到本手机端口号(随机则填0)';
+  String get map_to_the_port_number_of_this_mobile_phone =>
+      'Map to the port number of this mobile phone (if random, fill in 0)';
 
   @override
   String get this_phone_has_an_idle_port_number_of_1024_or_above =>
-      '本手机1024以上空闲端口号';
+      'This phone has an idle port number of 1024 or above';
 
   @override
-  String get cancel => '取消';
+  String get cancel => 'Cancel';
 
   @override
-  String get add => '添加';
+  String get add => 'Add';
 
   @override
-  String get check_if_the_port_is_a_number => '检查端口是否为数字';
+  String get check_if_the_port_is_a_number => 'Check if the port is a number';
 
   @override
-  String get delete_ftp => '删除FTP';
+  String get delete_ftp => 'Delete FTP';
 
   @override
-  String get confirm_to_delete_this_ftp => '确认删除此FTP?';
+  String get confirm_to_delete_this_ftp => 'Are you sure to delete this FTP?';
 
   @override
-  String get delete => '删除';
+  String get delete => 'Delete';
 
   @override
-  String get http_port_list_title => 'Http端口列表';
+  String get http_port_list_title => 'HTTP port list';
 
   @override
-  String get domain => '域名';
+  String get domain => 'Domain';
 
   @override
-  String get add_port_domain_name => '添加端口域名：';
+  String get add_port_domain_name => 'Add port domain name:';
 
   @override
-  String get configure_the_domain_name_for_this_port => '配置该端口的域名';
+  String get configure_the_domain_name_for_this_port =>
+      'Configure the domain name for this port';
 
   @override
-  String get ports_that_need_to_be_mapped => '需要映射的端口';
+  String get ports_that_need_to_be_mapped => 'Ports that need to be mapped';
 
   @override
-  String get delete_this_http => '删除Http';
+  String get delete_this_http => 'Delete HTTP';
 
   @override
-  String get are_you_sure_to_delete_this_http => '确认删除此Http？';
+  String get are_you_sure_to_delete_this_http =>
+      'Are you sure to delete this HTTP?';
 
   @override
-  String get tcp_port_list_title => 'TCP端口列表';
+  String get tcp_port_list_title => 'TCP Port List';
 
   @override
-  String get opening_method => '打开方式：';
+  String get opening_method => 'Opening method:';
 
   @override
-  String get my_tcp_port => '我的TCP';
+  String get my_tcp_port => 'My TCP';
 
   @override
   String get the_port_number_that_the_remote_machine_needs_to_access =>
-      '远程机器需要访问的端口号';
+      'The port number that the remote machine needs to access';
 
   @override
-  String get domain_notes => '不是网站端口请不要修改;不想映射到服务器请不要修改';
+  String get domain_notes =>
+      'Please do not modify if it is not a website port; Do not want to map to the server, please do not modify';
 
   @override
-  String get delete_tcp => '删除TCP';
+  String get delete_tcp => 'Delete TCP';
 
   @override
-  String get confirm_to_delete_this_tcp => '确认删除此TCP?';
+  String get confirm_to_delete_this_tcp => 'Are you sure to delete this TCP?';
 
   @override
-  String get tcp_port => 'TCP端口';
+  String get tcp_port => 'TCP Port';
 
   @override
-  String get udp_port => 'UDP端口';
+  String get udp_port => 'UDP Port';
 
   @override
-  String get ftp_port => 'FTP端口';
+  String get ftp_port => 'FTP Port';
 
   @override
-  String get http_port => 'HTTP端口';
+  String get http_port => 'HTTP Port';
 
   @override
-  String get service => '服务';
+  String get service => 'Service';
 
   @override
-  String get delete_device => '删除设备';
+  String get delete_device => 'Delete device';
 
   @override
-  String get confirm_delete_device => '确认删除此设备？';
+  String get confirm_delete_device => 'Are you sure to delete this device?';
 
   @override
-  String get wake_up_device => '唤醒设备';
+  String get wake_up_device => 'Wake-up Device';
 
   @override
   String get wake_up_device_notes1 =>
-      '第一次使用请选择\'设置物理地址\'，设置过物理地址可以直接点击\'唤醒设备\'。';
+      'For the first use, please select \'Set Physical Address\'. Once the physical address has been set, you can directly click\' Wake Up Device \'.';
 
   @override
-  String get reset_physical_address => '重设物理地址';
+  String get reset_physical_address => 'Reset physical address';
 
   @override
-  String get set_physical_address => '设置物理地址';
+  String get set_physical_address => 'Set physical address';
 
   @override
-  String get physical_address => '物理地址';
+  String get physical_address => 'MAC';
 
   @override
-  String get the_physical_address_of_the_machine => '机器有线网卡的物理地址';
+  String get the_physical_address_of_the_machine =>
+      'The physical address of the machine\'s wired network card';
 
   @override
-  String get set => '设置';
+  String get set => 'Set up';
 
   @override
-  String get device_id => '本设备id(简化后)';
+  String get device_id => 'This device ID (simplified)';
 
   @override
-  String get gateway_id => '内网id(简化后)';
+  String get gateway_id => 'Internal network ID (simplified)';
 
   @override
-  String get addr => '地址';
+  String get addr => 'Address';
 
   @override
-  String get copy_successful => '复制成功!';
+  String get copy_successful => 'Copy successful!';
 
   @override
-  String get device_details => '设备详情';
+  String get device_details => 'Device details';
 
   @override
-  String get internal_network_devices => '内网设备';
+  String get internal_network_devices => 'Internal network devices';
 
   @override
-  String get add_device => '添加设备';
+  String get add_device => 'Add Device';
 
   @override
-  String get ip_address_of_remote_intranet => '远程内网的IP';
+  String get ip_address_of_remote_intranet => 'IP address of remote intranet';
 
   @override
-  String get ip_address_of_internal_network_devices => '内网设备的IP';
+  String get ip_address_of_internal_network_devices =>
+      'IP address of internal network devices';
 
   @override
-  String get create_device_failed => '创建设备失败';
+  String get create_device_failed => 'Create device failed';
 
   @override
-  String get camera_scan_code_prompt => '摄像头扫码提示！';
+  String get camera_scan_code_prompt => 'Camera scan code prompt!';
 
   @override
-  String get camera_scan_code_prompt_content => '请注意，点击下方 确定 我们将请求摄像头权限进行扫码';
+  String get camera_scan_code_prompt_content =>
+      'Please note that by clicking on \'OK\' below, we will request camera permission to scan the code';
 
   @override
   String get select_the_network_where_the_remote_host_is_located =>
-      '请选择远程主机所在网络';
+      'Please select the network where the remote host is located';
 
   @override
-  String get confirm => '确定';
+  String get confirm => 'OK';
 
   @override
-  String get udp_port_list_title => 'UDP端口列表';
+  String get udp_port_list_title => 'UDP Port List';
 
   @override
-  String get my_udp_port => '我的UDP';
+  String get my_udp_port => 'My UDP';
 
   @override
-  String get delete_udp => '删除UDP';
+  String get delete_udp => 'Delete UDP';
 
   @override
-  String get confirm_to_delete_this_udp => '确认删除此UDP?';
+  String get confirm_to_delete_this_udp => 'Are you sure to delete this UDP?';
 
   @override
-  String get please_scan_the_qr_code => '请扫码二维码';
+  String get please_scan_the_qr_code => 'Please scan the QR code';
 
   @override
-  String get scan_the_qr_code => '扫码二维码';
+  String get scan_the_qr_code => 'Scan QR code';
 
   @override
-  String get unsupported_qr_code => '不支持的二维码';
+  String get unsupported_qr_code => 'Unsupported QR code';
 
   @override
-  String get unsupported_uri_path => '不支持的Uri路径';
+  String get unsupported_uri_path => 'Unsupported Uri path';
 
   @override
-  String get adding_gateway_to_my_account_failed => '添加网关到我的账户失败';
+  String get adding_gateway_to_my_account_failed =>
+      'Adding gateway to my account failed';
 
   @override
-  String get add_gateway_failed => '添加网关失败';
+  String get add_gateway_failed => 'Adding gateway failed';
 
   @override
-  String get add_gateway_successful => '添加网关成功！';
+  String get add_gateway_successful => 'Successfully added gateway!';
 
   @override
-  String get login_failed => '登录失败';
+  String get login_failed => 'Login failed';
 
   @override
   String get please_use_the_magnifying_glass_in_the_upper_right_corner =>
-      '请使用右上角放大镜查找你在本局域网安装的网关';
+      'Please use the magnifying glass in the upper right corner to locate the gateway you have installed on this local area network';
 
   @override
-  String get delete_result => '删除结果';
+  String get delete_result => 'Delete result';
 
   @override
-  String get delete_successful => '删除成功！';
+  String get delete_successful => 'Delete successfully!';
 
   @override
-  String get delete_failed => '删除失败！';
+  String get delete_failed => 'Delete failed!';
 
   @override
-  String get web_browser => '网页浏览器';
+  String get web_browser => 'Web browser';
 
   @override
-  String get mdns_service_list => 'mdns列表';
+  String get mdns_service_list => 'Mdns list';
 
   @override
-  String get delete_gateway => '删除网关';
+  String get delete_gateway => 'Delete Gateway';
 
   @override
-  String get confirm_delete_gateway => '确认删除此网关？';
+  String get confirm_delete_gateway => 'Are you sure to delete this gateway?';
 
   @override
-  String get after_simplification => '简化后';
+  String get after_simplification => 'After simplification';
 
   @override
-  String get connection_code_simplified => '连接码(简化后)';
+  String get connection_code_simplified => 'Connection code (simplified)';
 
   @override
-  String get p2p_connection_status => 'P2P连接状态';
+  String get p2p_connection_status => 'P2P connection status';
 
   @override
-  String get modify => '修改';
+  String get modify => 'Modify';
 
   @override
   String get gateway_config_notes1 =>
-      '网关的token已经复制到了剪切板！你可以将此token作为网关参数运行或者添加到配置文件：bash>gateway-go -t <你的token>';
+      'The token for the gateway has been copied to the clipboard! You can run this token as a gateway parameter or add it to the configuration file: bash>gateway-go-t<your token>';
 
   @override
-  String get gateway_config_notes2 => '复制网关Token';
+  String get gateway_config_notes2 => 'Copy Gateway Token';
 
   @override
   String get gateway_config_notes3 =>
-      '网关的配置文件已经复制到了剪切板！你可以将这个配置内容复制到网关的配置文件(gateway-go.yaml)了';
+      'The configuration file of the gateway has been copied to the clipboard! You can copy this configuration content to the gateway configuration file (gateway-go. yaml) now';
 
   @override
-  String get gateway_config_notes4 => '复制网关配置内容';
+  String get gateway_config_notes4 => 'Copy gateway configuration content';
 
   @override
-  String get gateway_config_notes5 => '网络详情';
+  String get gateway_config_notes5 => 'Network Details';
 
   @override
   String get failed_to_delete_the_configuration_of_the_remote_gateway =>
-      '删除远程网关的配置失败';
+      'Failed to delete the configuration of the remote gateway';
 
   @override
-  String get failed_to_delete_mapping_for_local_gateway => '删除本地网关的映射失败';
+  String get failed_to_delete_mapping_for_local_gateway =>
+      'Failed to delete mapping for local gateway';
 
   @override
-  String get successfully_deleted_gateway => '删除网关成功!';
+  String get successfully_deleted_gateway => 'Successfully deleted gateway!';
 
   @override
-  String get modify_name => '修改名称：';
+  String get modify_name => 'Change name:';
 
   @override
-  String get name => '名称';
+  String get name => 'Name';
 
   @override
-  String get please_input_new_name => '请输入新的名称';
+  String get please_input_new_name => 'Please enter a new name';
 
   @override
-  String get privacy_policy => '隐私政策';
+  String get privacy_policy => 'Privacy Policy';
 
   @override
-  String get agree => '同意';
+  String get agree => 'Agree';
 
   @override
-  String get feedback_channels => '反馈渠道';
+  String get feedback_channels => 'Feedback Channels';
 
   @override
-  String
-      get if_you_do_not_agree_with_the_privacy_policy_please_click_to_exit_the_application =>
-          '如果不同意《隐私政策》请点击 退出应用';
+  String get if_you_do_not_agree_with_the_privacy_policy_please_click_to_exit_the_application =>
+      'If you do not agree with the Privacy Policy, please click to exit the application';
 
   @override
-  String get exit_the_application => '退出应用';
+  String get exit_the_application => 'Exit the application';
 
   @override
-  String get agree_to_the_privacy_policy => '同意隐私政策';
+  String get agree_to_the_privacy_policy => 'Agree to the Privacy Policy';
 
   @override
-  String get wechat => '微信';
+  String get wechat => 'Wechat';
 
   @override
-  String get tools => '工具';
+  String get tools => 'Tools';
 
   @override
-  String get skip_ad => '跳过';
+  String get skip_ad => 'Skip';
 
   @override
-  String get please_add_device_first => '请先添加设备';
+  String get please_add_device_first => 'Please add the device first';
 
   @override
-  String get failed_to_obtain_the_iot_list_remotely => '从远程获取物联网列表失败';
+  String get failed_to_obtain_the_iot_list_remotely =>
+      'Failed to obtain the IoT list remotely';
 
   @override
-  String get failure_reason => '失败原因';
+  String get failure_reason => 'Failure reason';
 
   @override
-  String get add_mqtt_devices => '添加mqtt设备';
+  String get add_mqtt_devices => 'Add MQTT device';
 
   @override
-  String get add_zip_devices => '添加zip的设备(zDC1,zTC1...)';
+  String get add_zip_devices => 'Add zip devices (zDC1, zTC1...)';
 
   @override
-  String get device_list => '设备列表';
+  String get device_list => 'Devices list';
 
   @override
-  String get add_device_to_opneiothub => '添加设备到云亿连';
+  String get add_device_to_opneiothub => 'Add device to opneiothub';
 
   @override
-  String get are_you_sure_to_add_this_device_to_openiothub => '确认添加该设备到云亿连？';
+  String get are_you_sure_to_add_this_device_to_openiothub =>
+      'Are you sure to add this device to opneiothub?';
 
   @override
-  String get you_havent_logged_in_yet => '您还没有登录!请先登录再添加设备';
+  String get you_havent_logged_in_yet =>
+      'You haven\'t logged in yet! Please log in first and then add the device';
 
   @override
-  String get add_successful => '添加成功!';
+  String get add_successful => 'Added successfully!';
 }
