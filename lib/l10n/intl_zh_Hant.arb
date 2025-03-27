@@ -18,9 +18,7 @@
   "scan_QR": "掃描二維碼",
   "find_local_gateway": "發現局域網網關",
   "add_remote_host": "添加遠程主機",
-
   "i_also_have_a_bottom_line": "我也是有底線的",
-
   "ftp_port_list_title": "FTP端口列表",
   "remote_port": "遠程端口",
   "local_port": "映射到本機端口",
@@ -42,7 +40,6 @@
   "delete_ftp": "刪除FTP",
   "confirm_to_delete_this_ftp": "確認刪除此FTP?",
   "delete": "刪除",
-
   "http_port_list_title": "Http端口列表",
   "domain": "域名",
   "add_port_domain_name": "添加端口域名：",
@@ -50,7 +47,6 @@
   "ports_that_need_to_be_mapped": "需要映射的端口",
   "delete_this_http": "刪除Http",
   "are_you_sure_to_delete_this_http": "確認刪除此Http？",
-
   "tcp_port_list_title": "TCP端口列表",
   "opening_method": "打開方式：",
   "my_tcp_port": "我的TCP",
@@ -58,7 +54,6 @@
   "domain_notes": "不是網站端口請不要修改;不想映射到服務器請不要修改",
   "delete_tcp": "刪除TCP",
   "confirm_to_delete_this_tcp": "確認刪除此TCP?",
-
   "tcp_port": "TCP端口",
   "udp_port": "UDP端口",
   "ftp_port": "FTP端口",
@@ -87,12 +82,10 @@
   "camera_scan_code_prompt_content": "請注意，點擊下方 確定 我們將請求攝像頭權限進行掃碼",
   "select_the_network_where_the_remote_host_is_located": "請選擇遠程主機所在網絡",
   "confirm": "確定",
-
   "udp_port_list_title": "UDP端口列表",
   "my_udp_port": "我的UDP",
   "delete_udp": "刪除UDP",
   "confirm_to_delete_this_udp": "確認刪除此UDP?",
-
   "please_scan_the_qr_code": "請掃碼二維碼",
   "scan_the_qr_code": "掃碼二維碼",
   "unsupported_qr_code": "不支援的二維碼",
@@ -105,7 +98,6 @@
   "delete_result": "刪除結果",
   "delete_successful": "刪除成功！",
   "delete_failed": "刪除失敗！",
-
   "web_browser": "網頁瀏覽器",
   "mdns_service_list": "mdns列表",
   "delete_gateway": "刪除網關",
@@ -125,7 +117,6 @@
   "modify_name": "修改名稱：",
   "name": "名稱",
   "please_input_new_name": "請輸入新的名稱",
-
   "privacy_policy": "隱私政策",
   "agree": "同意",
   "feedback_channels": "反饋渠道",

@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
+
 // import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub/util/ThemeUtils.dart';
@@ -123,7 +124,8 @@ class _GatewayListPageState extends State<GatewayListPage> {
                     : Center(
                         child: Image.asset('assets/images/empty_list.png'),
                       ),
-                Text(OpenIoTHubLocalizations.of(context).please_use_the_magnifying_glass_in_the_upper_right_corner),
+                Text(OpenIoTHubLocalizations.of(context)
+                    .please_use_the_magnifying_glass_in_the_upper_right_corner),
               ]),
       ),
     );
@@ -183,8 +185,11 @@ class _GatewayListPageState extends State<GatewayListPage> {
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
-                  title: Text(OpenIoTHubLocalizations.of(context).delete_result),
-                  content: SizedBox.expand(child: Text(OpenIoTHubLocalizations.of(context).delete_successful)),
+                  title:
+                      Text(OpenIoTHubLocalizations.of(context).delete_result),
+                  content: SizedBox.expand(
+                      child: Text(OpenIoTHubLocalizations.of(context)
+                          .delete_successful)),
                   actions: <Widget>[
                     TextButton(
                       child: Text(OpenIoTHubLocalizations.of(context).confirm),
@@ -202,8 +207,11 @@ class _GatewayListPageState extends State<GatewayListPage> {
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
-                  title: Text(OpenIoTHubLocalizations.of(context).delete_result),
-                  content: SizedBox.expand(child: Text("${OpenIoTHubLocalizations.of(context).delete_failed}:$e")),
+                  title:
+                      Text(OpenIoTHubLocalizations.of(context).delete_result),
+                  content: SizedBox.expand(
+                      child: Text(
+                          "${OpenIoTHubLocalizations.of(context).delete_failed}:$e")),
                   actions: <Widget>[
                     TextButton(
                       child: Text(OpenIoTHubLocalizations.of(context).cancel),
@@ -327,21 +335,24 @@ class _GatewayListPageState extends State<GatewayListPage> {
               showDialog(
                   context: context,
                   builder: (_) => AlertDialog(
-                          title: Text(OpenIoTHubLocalizations.of(context).camera_scan_code_prompt),
+                          title: Text(OpenIoTHubLocalizations.of(context)
+                              .camera_scan_code_prompt),
                           scrollable: true,
                           content: SizedBox(
                               height: 120,
                               child: ListView(
                                 children: <Widget>[
                                   Text(
-                                    OpenIoTHubLocalizations.of(context).camera_scan_code_prompt_content,
+                                    OpenIoTHubLocalizations.of(context)
+                                        .camera_scan_code_prompt_content,
                                     style: TextStyle(color: Colors.red),
                                   ),
                                 ],
                               )),
                           actions: <Widget>[
                             TextButton(
-                              child: Text(OpenIoTHubLocalizations.of(context).cancel,
+                              child: Text(
+                                  OpenIoTHubLocalizations.of(context).cancel,
                                   style: TextStyle(color: Colors.grey)),
                               onPressed: () async {
                                 Navigator.of(context).pop();

@@ -96,13 +96,16 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
   void _pushDetail(PortConfig config) async {
     final List result = [];
     result.add("UUID:${config.uuid}");
-    result.add("${OpenIoTHubLocalizations.of(context).remote_port}:${config.remotePort}");
-    result.add("${OpenIoTHubLocalizations.of(context).local_port}:${config.localProt}");
-    result.add("${OpenIoTHubLocalizations.of(context).description}:${config.description}");
-    result.add("${OpenIoTHubLocalizations.of(context).domain}:${config.domain}");
-    result.add("${OpenIoTHubLocalizations.of(context).forwarding_connection_status}:${config.remotePortStatus
-        ? OpenIoTHubLocalizations.of(context).online
-        : OpenIoTHubLocalizations.of(context).offline}");
+    result.add(
+        "${OpenIoTHubLocalizations.of(context).remote_port}:${config.remotePort}");
+    result.add(
+        "${OpenIoTHubLocalizations.of(context).local_port}:${config.localProt}");
+    result.add(
+        "${OpenIoTHubLocalizations.of(context).description}:${config.description}");
+    result
+        .add("${OpenIoTHubLocalizations.of(context).domain}:${config.domain}");
+    result.add(
+        "${OpenIoTHubLocalizations.of(context).forwarding_connection_status}:${config.remotePortStatus ? OpenIoTHubLocalizations.of(context).online : OpenIoTHubLocalizations.of(context).offline}");
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
@@ -122,46 +125,54 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
           ).toList();
 
           return Scaffold(
-            appBar: AppBar(title: Text(OpenIoTHubLocalizations.of(context).port_details), actions: <Widget>[
-              IconButton(
-                  icon: const Icon(
-                    Icons.delete,
-                    color: Colors.red,
-                  ),
-                  onPressed: () {
-                    //删除
-                    _deleteCurrentTCP(config);
-                  }),
-              IconButton(
-                  icon: const Icon(
-                    Icons.open_in_browser,
-                    // color: Colors.white,
-                  ),
-                  onPressed: () {
-                    //                TODO 使用某种方式打开此端口，检查这个软件是否已经安装
+            appBar: AppBar(
+                title: Text(OpenIoTHubLocalizations.of(context).port_details),
+                actions: <Widget>[
+                  IconButton(
+                      icon: const Icon(
+                        Icons.delete,
+                        color: Colors.red,
+                      ),
+                      onPressed: () {
+                        //删除
+                        _deleteCurrentTCP(config);
+                      }),
+                  IconButton(
+                      icon: const Icon(
+                        Icons.open_in_browser,
+                        // color: Colors.white,
+                      ),
+                      onPressed: () {
+                        //                TODO 使用某种方式打开此端口，检查这个软件是否已经安装
 //                    _launchURL("http://127.0.0.1:${config.localProt}");
-                    showDialog(
-                        context: context,
-                        builder: (_) => AlertDialog(
-                                title: Text(OpenIoTHubLocalizations.of(context).opening_method),
-                                content: SizedBox.expand(
-                                    child: OpenWithChoice(config)),
-                                actions: <Widget>[
-                                  TextButton(
-                                    child: Text(OpenIoTHubLocalizations.of(context).cancel),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                  TextButton(
-                                    child: Text(OpenIoTHubLocalizations.of(context).add),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                  )
-                                ]));
-                  }),
-            ]),
+                        showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                                    title: Text(
+                                        OpenIoTHubLocalizations.of(context)
+                                            .opening_method),
+                                    content: SizedBox.expand(
+                                        child: OpenWithChoice(config)),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        child: Text(
+                                            OpenIoTHubLocalizations.of(context)
+                                                .cancel),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                      TextButton(
+                                        child: Text(
+                                            OpenIoTHubLocalizations.of(context)
+                                                .add),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      )
+                                    ]));
+                      }),
+                ]),
             body: ListView(children: divided),
           );
         },
@@ -185,7 +196,8 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
 
   Future _addTCP(Device device) async {
     TextEditingController descriptionController =
-        TextEditingController.fromValue( TextEditingValue(text: OpenIoTHubLocalizations.of(context).my_tcp_port));
+        TextEditingController.fromValue(TextEditingValue(
+            text: OpenIoTHubLocalizations.of(context).my_tcp_port));
     TextEditingController remotePortController =
         TextEditingController.fromValue(const TextEditingValue(text: "80"));
     TextEditingController localPortController =
@@ -195,7 +207,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: Text( OpenIoTHubLocalizations.of(context).add_port),
+                title: Text(OpenIoTHubLocalizations.of(context).add_port),
                 content: SizedBox.expand(
                     child: ListView(
                   children: <Widget>[
@@ -203,24 +215,30 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                       controller: descriptionController,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
-                        labelText: OpenIoTHubLocalizations.of(context).description,
-                        helperText: OpenIoTHubLocalizations.of(context).custom_remarks,
+                        labelText:
+                            OpenIoTHubLocalizations.of(context).description,
+                        helperText:
+                            OpenIoTHubLocalizations.of(context).custom_remarks,
                       ),
                     ),
                     TextFormField(
                       controller: remotePortController,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
-                        labelText: OpenIoTHubLocalizations.of(context).the_port_number_that_the_remote_machine_needs_to_access,
-                        helperText: OpenIoTHubLocalizations.of(context).remote_port,
+                        labelText: OpenIoTHubLocalizations.of(context)
+                            .the_port_number_that_the_remote_machine_needs_to_access,
+                        helperText:
+                            OpenIoTHubLocalizations.of(context).remote_port,
                       ),
                     ),
                     TextFormField(
                       controller: localPortController,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
-                        labelText: OpenIoTHubLocalizations.of(context).map_to_the_port_number_of_this_mobile_phone,
-                        helperText: OpenIoTHubLocalizations.of(context).this_phone_has_an_idle_port_number_of_1024_or_above,
+                        labelText: OpenIoTHubLocalizations.of(context)
+                            .map_to_the_port_number_of_this_mobile_phone,
+                        helperText: OpenIoTHubLocalizations.of(context)
+                            .this_phone_has_an_idle_port_number_of_1024_or_above,
                       ),
                     ),
                     TextFormField(
@@ -228,7 +246,8 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: OpenIoTHubLocalizations.of(context).domain,
-                        helperText: OpenIoTHubLocalizations.of(context).domain_notes,
+                        helperText:
+                            OpenIoTHubLocalizations.of(context).domain_notes,
                       ),
                     ),
                   ],
@@ -252,7 +271,8 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                         tcpConfig.localProt =
                             int.parse(localPortController.text);
                       } catch (e) {
-                        showToast("${OpenIoTHubLocalizations.of(context).check_if_the_port_is_a_number}:$e");
+                        showToast(
+                            "${OpenIoTHubLocalizations.of(context).check_if_the_port_is_a_number}:$e");
                         return;
                       }
                       tcpConfig.networkProtocol = "tcp";
@@ -275,7 +295,9 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
         context: context,
         builder: (_) => AlertDialog(
                 title: Text(OpenIoTHubLocalizations.of(context).delete_tcp),
-                content: SizedBox.expand(child: Text(OpenIoTHubLocalizations.of(context).confirm_to_delete_this_tcp)),
+                content: SizedBox.expand(
+                    child: Text(OpenIoTHubLocalizations.of(context)
+                        .confirm_to_delete_this_tcp)),
                 actions: <Widget>[
                   TextButton(
                     child: Text(OpenIoTHubLocalizations.of(context).cancel),

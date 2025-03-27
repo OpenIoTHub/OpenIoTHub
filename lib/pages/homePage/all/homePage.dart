@@ -200,7 +200,8 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
-                  title: Text(OpenIoTHubLocalizations.of(context).privacy_policy),
+                  title:
+                      Text(OpenIoTHubLocalizations.of(context).privacy_policy),
                   scrollable: true,
                   content: SizedBox(
                       height: 100, // 设置Dialog的高度
@@ -224,7 +225,8 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                                   }),
                               TextButton(
                                   child: Text(
-                                    OpenIoTHubLocalizations.of(context).feedback_channels,
+                                    OpenIoTHubLocalizations.of(context)
+                                        .feedback_channels,
                                     style: TextStyle(color: Colors.green),
                                   ),
                                   onPressed: () async {
@@ -236,12 +238,14 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                                   }),
                             ],
                           ),
-                          Text(OpenIoTHubLocalizations.of(context).if_you_do_not_agree_with_the_privacy_policy_please_click_to_exit_the_application)
+                          Text(OpenIoTHubLocalizations.of(context)
+                              .if_you_do_not_agree_with_the_privacy_policy_please_click_to_exit_the_application)
                         ],
                       )),
                   actions: <Widget>[
                     TDButton(
-                      text: OpenIoTHubLocalizations.of(context).exit_the_application,
+                      text: OpenIoTHubLocalizations.of(context)
+                          .exit_the_application,
                       size: TDButtonSize.large,
                       type: TDButtonType.fill,
                       shape: TDButtonShape.rectangle,
@@ -251,7 +255,8 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                       },
                     ),
                     TDButton(
-                      text: OpenIoTHubLocalizations.of(context).agree_to_the_privacy_policy,
+                      text: OpenIoTHubLocalizations.of(context)
+                          .agree_to_the_privacy_policy,
                       size: TDButtonSize.large,
                       type: TDButtonType.fill,
                       shape: TDButtonShape.rectangle,

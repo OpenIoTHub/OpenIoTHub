@@ -18,9 +18,7 @@
   "scan_QR": "扫描二维码",
   "find_local_gateway": "发现局域网网关",
   "add_remote_host": "添加远程主机",
-
   "i_also_have_a_bottom_line": "我也是有底线的",
-
   "ftp_port_list_title": "FTP端口列表",
   "remote_port": "远程端口",
   "local_port": "映射到本机端口",
@@ -42,7 +40,6 @@
   "delete_ftp": "删除FTP",
   "confirm_to_delete_this_ftp": "确认删除此FTP?",
   "delete": "删除",
-
   "http_port_list_title": "Http端口列表",
   "domain": "域名",
   "add_port_domain_name": "添加端口域名：",
@@ -50,7 +47,6 @@
   "ports_that_need_to_be_mapped": "需要映射的端口",
   "delete_this_http": "删除Http",
   "are_you_sure_to_delete_this_http": "确认删除此Http？",
-
   "tcp_port_list_title": "TCP端口列表",
   "opening_method": "打开方式：",
   "my_tcp_port": "我的TCP",
@@ -58,7 +54,6 @@
   "domain_notes": "不是网站端口请不要修改;不想映射到服务器请不要修改",
   "delete_tcp": "删除TCP",
   "confirm_to_delete_this_tcp": "确认删除此TCP?",
-
   "tcp_port": "TCP端口",
   "udp_port": "UDP端口",
   "ftp_port": "FTP端口",
@@ -87,12 +82,10 @@
   "camera_scan_code_prompt_content": "请注意，点击下方 确定 我们将请求摄像头权限进行扫码",
   "select_the_network_where_the_remote_host_is_located": "请选择远程主机所在网络",
   "confirm": "确定",
-
   "udp_port_list_title": "UDP端口列表",
   "my_udp_port": "我的UDP",
   "delete_udp": "删除UDP",
   "confirm_to_delete_this_udp": "确认删除此UDP?",
-
   "please_scan_the_qr_code": "请扫码二维码",
   "scan_the_qr_code": "扫码二维码",
   "unsupported_qr_code": "不支持的二维码",
@@ -105,7 +98,6 @@
   "delete_result": "删除结果",
   "delete_successful": "删除成功！",
   "delete_failed": "删除失败！",
-
   "web_browser": "网页浏览器",
   "mdns_service_list": "mdns列表",
   "delete_gateway": "删除网关",
@@ -125,7 +117,6 @@
   "modify_name": "修改名称：",
   "name": "名称",
   "please_input_new_name": "请输入新的名称",
-
   "privacy_policy": "隐私政策",
   "agree": "同意",
   "feedback_channels": "反馈渠道",

@@ -85,25 +85,28 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
             //直接打开内置web浏览器浏览页面
             Navigator.of(context).push(MaterialPageRoute(builder: (context) {
               return Scaffold(
-                appBar: AppBar(title: Text(OpenIoTHubLocalizations.of(context).web_browser), actions: <Widget>[
-                  IconButton(
-                      icon: const Icon(
-                        Icons.info,
-                        // color: Colors.white,
-                      ),
-                      onPressed: () {
-                        _info(pair);
-                      }),
-                  IconButton(
-                      icon: const Icon(
-                        Icons.open_in_browser,
-                        // color: Colors.white,
-                      ),
-                      onPressed: () {
-                        _launchURL(
-                            "http://${Config.webgRpcIp}:${pair.localProt}");
-                      })
-                ]),
+                appBar: AppBar(
+                    title:
+                        Text(OpenIoTHubLocalizations.of(context).web_browser),
+                    actions: <Widget>[
+                      IconButton(
+                          icon: const Icon(
+                            Icons.info,
+                            // color: Colors.white,
+                          ),
+                          onPressed: () {
+                            _info(pair);
+                          }),
+                      IconButton(
+                          icon: const Icon(
+                            Icons.open_in_browser,
+                            // color: Colors.white,
+                          ),
+                          onPressed: () {
+                            _launchURL(
+                                "http://${Config.webgRpcIp}:${pair.localProt}");
+                          })
+                    ]),
                 body: WebViewWidget(controller: controller),
               );
             }));
@@ -152,17 +155,22 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                 showDialog(
                     context: context,
                     builder: (_) => AlertDialog(
-                            title: Text(OpenIoTHubLocalizations.of(context).delete_gateway),
-                            content: SizedBox.expand(child: Text(OpenIoTHubLocalizations.of(context).confirm_delete_gateway)),
+                            title: Text(OpenIoTHubLocalizations.of(context)
+                                .delete_gateway),
+                            content: SizedBox.expand(
+                                child: Text(OpenIoTHubLocalizations.of(context)
+                                    .confirm_delete_gateway)),
                             actions: <Widget>[
                               TextButton(
-                                child: Text(OpenIoTHubLocalizations.of(context).cancel),
+                                child: Text(
+                                    OpenIoTHubLocalizations.of(context).cancel),
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
                               ),
                               TextButton(
-                                child: Text(OpenIoTHubLocalizations.of(context).delete),
+                                child: Text(
+                                    OpenIoTHubLocalizations.of(context).delete),
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                   deleteOneSession(widget.sessionConfig);
@@ -188,16 +196,16 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
   void _pushDetail(SessionConfig config) async {
 //:TODO    这里显示内网的服务，socks5等，右上角详情才展示详细信息
     final List result = [];
-    result.add("ID(${OpenIoTHubLocalizations.of(context).after_simplification}):${config.runId.substring(24)}");
-    result.add("${OpenIoTHubLocalizations.of(context).description}:${config.description}");
-    result.add("${OpenIoTHubLocalizations.of(context).connection_code_simplified}:${config.token.substring(0, 10)}");
-    result.add("${OpenIoTHubLocalizations.of(context).forwarding_connection_status}:${config.statusToClient
-        ? OpenIoTHubLocalizations.of(context).online
-        : OpenIoTHubLocalizations.of(context).offline}");
     result.add(
-        "${OpenIoTHubLocalizations.of(context).p2p_connection_status}}:${config.statusP2PAsClient || config.statusP2PAsServer
-            ? OpenIoTHubLocalizations.of(context).online
-            : OpenIoTHubLocalizations.of(context).offline}");
+        "ID(${OpenIoTHubLocalizations.of(context).after_simplification}):${config.runId.substring(24)}");
+    result.add(
+        "${OpenIoTHubLocalizations.of(context).description}:${config.description}");
+    result.add(
+        "${OpenIoTHubLocalizations.of(context).connection_code_simplified}:${config.token.substring(0, 10)}");
+    result.add(
+        "${OpenIoTHubLocalizations.of(context).forwarding_connection_status}:${config.statusToClient ? OpenIoTHubLocalizations.of(context).online : OpenIoTHubLocalizations.of(context).offline}");
+    result.add(
+        "${OpenIoTHubLocalizations.of(context).p2p_connection_status}}:${config.statusP2PAsClient || config.statusP2PAsServer ? OpenIoTHubLocalizations.of(context).online : OpenIoTHubLocalizations.of(context).offline}");
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
@@ -210,7 +218,8 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                 ),
                 onLongPress: () {
                   Clipboard.setData(ClipboardData(text: pair));
-                  showToast(OpenIoTHubLocalizations.of(context).copy_successful);
+                  showToast(
+                      OpenIoTHubLocalizations.of(context).copy_successful);
                 },
               );
             },
@@ -229,7 +238,8 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                 showToast(
                     OpenIoTHubLocalizations.of(context).gateway_config_notes1);
               },
-              child: Text(OpenIoTHubLocalizations.of(context).gateway_config_notes2)));
+              child: Text(
+                  OpenIoTHubLocalizations.of(context).gateway_config_notes2)));
           divided.add(TextButton(
               onPressed: () async {
                 String uuid = config.runId;
@@ -249,10 +259,12 @@ loginwithtokenmap:
                 showToast(
                     OpenIoTHubLocalizations.of(context).gateway_config_notes3);
               },
-              child: Text(OpenIoTHubLocalizations.of(context).gateway_config_notes4)));
+              child: Text(
+                  OpenIoTHubLocalizations.of(context).gateway_config_notes4)));
           return Scaffold(
             appBar: AppBar(
-              title: Text(OpenIoTHubLocalizations.of(context).gateway_config_notes5),
+              title: Text(
+                  OpenIoTHubLocalizations.of(context).gateway_config_notes5),
             ),
             body: ListView(children: divided),
           );
@@ -266,12 +278,14 @@ loginwithtokenmap:
     try {
       SessionApi.deleteRemoteGatewayConfig(config);
     } catch (e) {
-      showToast("${OpenIoTHubLocalizations.of(context).failed_to_delete_the_configuration_of_the_remote_gateway}:$e");
+      showToast(
+          "${OpenIoTHubLocalizations.of(context).failed_to_delete_the_configuration_of_the_remote_gateway}:$e");
     }
     try {
       SessionApi.deleteOneSession(config);
     } catch (e) {
-      showToast("${OpenIoTHubLocalizations.of(context).failed_to_delete_mapping_for_local_gateway}:$e");
+      showToast(
+          "${OpenIoTHubLocalizations.of(context).failed_to_delete_mapping_for_local_gateway}:$e");
     }
     showToast(OpenIoTHubLocalizations.of(context).successfully_deleted_gateway);
     Navigator.of(context).pop();
@@ -325,7 +339,8 @@ loginwithtokenmap:
                       controller: newNameController,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
-                        labelText: OpenIoTHubLocalizations.of(context).please_input_new_name,
+                        labelText: OpenIoTHubLocalizations.of(context)
+                            .please_input_new_name,
                         helperText: OpenIoTHubLocalizations.of(context).name,
                       ),
                     )

@@ -91,7 +91,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
+  flutter_lints: ^4.0.0
   # flutter pub run flutter_launcher_icons
   flutter_launcher_icons: ^0.14.1
 #  flutter_distributor: ^0.4.5

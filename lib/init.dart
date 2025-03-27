@@ -10,7 +10,9 @@ import 'package:openiothub/util/check/check.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_constants/openiothub_constants.dart';
 import 'package:openiothub_grpc_api/google/protobuf/wrappers.pb.dart';
-import 'package:openiothub_mobile_service/openiothub_mobile_service.dart' as openiothub_mobile_service;
+import 'package:openiothub_mobile_service/openiothub_mobile_service.dart'
+    as openiothub_mobile_service;
+
 // import 'package:tencent_kit/tencent_kit.dart';
 import 'package:wechat_kit/wechat_kit.dart';
 

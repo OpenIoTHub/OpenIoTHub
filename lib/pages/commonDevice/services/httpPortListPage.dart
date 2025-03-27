@@ -104,12 +104,14 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
 
   void _pushDetail(HTTPConfig config) async {
     final List result = [];
-    result.add("${OpenIoTHubLocalizations.of(context).remote_port}:${config.remotePort}");
-    result.add("${OpenIoTHubLocalizations.of(context).domain}:${config.domain}");
-    result.add("${OpenIoTHubLocalizations.of(context).description}:${config.description}");
-    result.add("${OpenIoTHubLocalizations.of(context).forwarding_connection_status}:${config.remotePortStatus
-        ? OpenIoTHubLocalizations.of(context).online
-        : OpenIoTHubLocalizations.of(context).offline}");
+    result.add(
+        "${OpenIoTHubLocalizations.of(context).remote_port}:${config.remotePort}");
+    result
+        .add("${OpenIoTHubLocalizations.of(context).domain}:${config.domain}");
+    result.add(
+        "${OpenIoTHubLocalizations.of(context).description}:${config.description}");
+    result.add(
+        "${OpenIoTHubLocalizations.of(context).forwarding_connection_status}:${config.remotePortStatus ? OpenIoTHubLocalizations.of(context).online : OpenIoTHubLocalizations.of(context).offline}");
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
@@ -129,26 +131,28 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
           ).toList();
 
           return Scaffold(
-            appBar: AppBar(title: Text(OpenIoTHubLocalizations.of(context).port_details), actions: <Widget>[
-              IconButton(
-                  icon: const Icon(
-                    Icons.delete,
-                    color: Colors.red,
-                  ),
-                  onPressed: () {
-                    //TODO 删除
-                    _deleteCurrentHttp(config);
-                  }),
-              IconButton(
-                  icon: const Icon(
-                    Icons.open_in_browser,
-                    // color: Colors.white,
-                  ),
-                  onPressed: () async {
-                    //TODO 使用某种方式打开此端口，检查这个软件是否已经安装
-                    _launchURL("http://${config.domain}");
-                  }),
-            ]),
+            appBar: AppBar(
+                title: Text(OpenIoTHubLocalizations.of(context).port_details),
+                actions: <Widget>[
+                  IconButton(
+                      icon: const Icon(
+                        Icons.delete,
+                        color: Colors.red,
+                      ),
+                      onPressed: () {
+                        //TODO 删除
+                        _deleteCurrentHttp(config);
+                      }),
+                  IconButton(
+                      icon: const Icon(
+                        Icons.open_in_browser,
+                        // color: Colors.white,
+                      ),
+                      onPressed: () async {
+                        //TODO 使用某种方式打开此端口，检查这个软件是否已经安装
+                        _launchURL("http://${config.domain}");
+                      }),
+                ]),
             body: ListView(children: divided),
           );
         },
@@ -178,7 +182,8 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: Text(OpenIoTHubLocalizations.of(context).add_port_domain_name),
+                title: Text(
+                    OpenIoTHubLocalizations.of(context).add_port_domain_name),
                 content: SizedBox.expand(
                     child: ListView(
                   children: <Widget>[
@@ -187,7 +192,8 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: OpenIoTHubLocalizations.of(context).notes,
-                        helperText: OpenIoTHubLocalizations.of(context).custom_remarks,
+                        helperText:
+                            OpenIoTHubLocalizations.of(context).custom_remarks,
                       ),
                     ),
                     TextFormField(
@@ -195,15 +201,18 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: OpenIoTHubLocalizations.of(context).domain,
-                        helperText: OpenIoTHubLocalizations.of(context).configure_the_domain_name_for_this_port,
+                        helperText: OpenIoTHubLocalizations.of(context)
+                            .configure_the_domain_name_for_this_port,
                       ),
                     ),
                     TextFormField(
                       controller: portController,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
-                        labelText: OpenIoTHubLocalizations.of(context).remote_port,
-                        helperText: OpenIoTHubLocalizations.of(context).ports_that_need_to_be_mapped,
+                        labelText:
+                            OpenIoTHubLocalizations.of(context).remote_port,
+                        helperText: OpenIoTHubLocalizations.of(context)
+                            .ports_that_need_to_be_mapped,
                       ),
                     )
                   ],
@@ -236,8 +245,11 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: Text(OpenIoTHubLocalizations.of(context).delete_this_http),
-                content: SizedBox.expand(child: Text(OpenIoTHubLocalizations.of(context).are_you_sure_to_delete_this_http)),
+                title:
+                    Text(OpenIoTHubLocalizations.of(context).delete_this_http),
+                content: SizedBox.expand(
+                    child: Text(OpenIoTHubLocalizations.of(context)
+                        .are_you_sure_to_delete_this_http)),
                 actions: <Widget>[
                   TextButton(
                     child: Text(OpenIoTHubLocalizations.of(context).cancel),

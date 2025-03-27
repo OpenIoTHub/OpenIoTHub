@@ -82,8 +82,11 @@ class _ZipDevicesPageState extends State<ZipDevicesPage> {
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: Text(OpenIoTHubLocalizations.of(context).add_device_to_opneiothub),
-                content: SizedBox.expand(child: Text(OpenIoTHubLocalizations.of(context).are_you_sure_to_add_this_device_to_openiothub)),
+                title: Text(OpenIoTHubLocalizations.of(context)
+                    .add_device_to_opneiothub),
+                content: SizedBox.expand(
+                    child: Text(OpenIoTHubLocalizations.of(context)
+                        .are_you_sure_to_add_this_device_to_openiothub)),
                 actions: <Widget>[
                   TextButton(
                     child: Text(OpenIoTHubLocalizations.of(context).cancel),

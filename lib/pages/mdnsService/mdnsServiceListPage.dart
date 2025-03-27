@@ -7,8 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_nsd/flutter_nsd.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
+
 // import 'package:multicast_dns/multicast_dns.dart';
 import 'package:openiothub/model/custom_theme.dart';
+
 // import 'package:openiothub/pages/mdnsService/AddMqttDevicesPage.dart';
 import 'package:openiothub/util/ThemeUtils.dart';
 import 'package:openiothub_api/openiothub_api.dart';
@@ -20,6 +22,7 @@ import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:openiothub_plugin/plugins/mdnsService/commWidgets/info.dart';
 import 'package:openiothub_plugin/plugins/mdnsService/mdnsType2ModelMap.dart';
+
 //统一导入全部设备类型
 import 'package:openiothub_plugin/plugins/mdnsService/modelsMap.dart';
 import 'package:protobuf/protobuf.dart';
@@ -179,14 +182,16 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
                           MaterialPageRoute(
                             builder: (context) {
                               return Airkiss(
-                                title: OpenIoTHubLocalizations.of(context).add_device,
+                                title: OpenIoTHubLocalizations.of(context)
+                                    .add_device,
                                 key: UniqueKey(),
                               );
                             },
                           ),
                         );
                       },
-                      child: Text(OpenIoTHubLocalizations.of(context).please_add_device_first))
+                      child: Text(OpenIoTHubLocalizations.of(context)
+                          .please_add_device_first))
                 ]),
               ),
       ),
@@ -390,8 +395,11 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
-                  title: Text(OpenIoTHubLocalizations.of(context).failed_to_obtain_the_iot_list_remotely),
-                  content: SizedBox.expand(child: Text("${OpenIoTHubLocalizations.of(context).failure_reason}：$e")),
+                  title: Text(OpenIoTHubLocalizations.of(context)
+                      .failed_to_obtain_the_iot_list_remotely),
+                  content: SizedBox.expand(
+                      child: Text(
+                          "${OpenIoTHubLocalizations.of(context).failure_reason}：$e")),
                   actions: <Widget>[
                     TextButton(
                       child: Text(OpenIoTHubLocalizations.of(context).confirm),
@@ -486,21 +494,24 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
               showDialog(
                   context: context,
                   builder: (_) => AlertDialog(
-                          title: Text(OpenIoTHubLocalizations.of(context).camera_scan_code_prompt),
+                          title: Text(OpenIoTHubLocalizations.of(context)
+                              .camera_scan_code_prompt),
                           scrollable: true,
                           content: SizedBox(
                               height: 120,
                               child: ListView(
                                 children: <Widget>[
                                   Text(
-                                    OpenIoTHubLocalizations.of(context).camera_scan_code_prompt_content,
+                                    OpenIoTHubLocalizations.of(context)
+                                        .camera_scan_code_prompt_content,
                                     style: TextStyle(color: Colors.red),
                                   ),
                                 ],
                               )),
                           actions: <Widget>[
                             TextButton(
-                              child: Text(OpenIoTHubLocalizations.of(context).cancel,
+                              child: Text(
+                                  OpenIoTHubLocalizations.of(context).cancel,
                                   style: TextStyle(color: Colors.grey)),
                               onPressed: () async {
                                 Navigator.of(context).pop();

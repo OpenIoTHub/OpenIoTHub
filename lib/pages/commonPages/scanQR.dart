@@ -93,7 +93,8 @@ class _ScanQRPageState extends State<ScanQRPage> {
     );
 
     return Scaffold(
-      appBar: AppBar(title: Text(OpenIoTHubLocalizations.of(context).scan_the_qr_code)),
+      appBar: AppBar(
+          title: Text(OpenIoTHubLocalizations.of(context).scan_the_qr_code)),
       backgroundColor: Colors.black,
       body: Stack(
         fit: StackFit.expand,
@@ -140,12 +141,14 @@ class _ScanQRPageState extends State<ScanQRPage> {
                         }
                         break;
                       default:
-                        showToast(OpenIoTHubLocalizations.of(context).unsupported_uri_path);
+                        showToast(OpenIoTHubLocalizations.of(context)
+                            .unsupported_uri_path);
                         break;
                     }
                     break;
                   default:
-                    showToast(OpenIoTHubLocalizations.of(context).unsupported_qr_code);
+                    showToast(OpenIoTHubLocalizations.of(context)
+                        .unsupported_qr_code);
                 }
               }
             },
@@ -185,21 +188,23 @@ class _ScanQRPageState extends State<ScanQRPage> {
           name: "Gateway-${DateTime.now().minute}",
           description: "Gateway-${DateTime.now()}");
       OperationResponse operationResponse =
-      await GatewayManager.AddGateway(gatewayInfo);
+          await GatewayManager.AddGateway(gatewayInfo);
       //将网关映射到本机
       if (operationResponse.code == 0) {
         // TODO 从服务器获取连接JWT
         StringValue openIoTHubJwt =
-        await GatewayManager.GetOpenIoTHubJwtByGatewayUuid(gatewayId);
+            await GatewayManager.GetOpenIoTHubJwtByGatewayUuid(gatewayId);
         await _addToMySessionList(
             openIoTHubJwt.value,
             "Gateway-${DateTime.now()}",
             "Gateway-${DateTime.now()} form scan QR code");
       } else {
-        showToast("${OpenIoTHubLocalizations.of(context).adding_gateway_to_my_account_failed}:${operationResponse.msg}");
+        showToast(
+            "${OpenIoTHubLocalizations.of(context).adding_gateway_to_my_account_failed}:${operationResponse.msg}");
       }
     } catch (exception) {
-      showToast("${OpenIoTHubLocalizations.of(context).add_gateway_failed}：${exception}");
+      showToast(
+          "${OpenIoTHubLocalizations.of(context).add_gateway_failed}：${exception}");
     }
   }
 
@@ -212,7 +217,8 @@ class _ScanQRPageState extends State<ScanQRPage> {
       await SessionApi.createOneSession(config);
       showToast(OpenIoTHubLocalizations.of(context).add_gateway_successful);
     } catch (exception) {
-      showToast("${OpenIoTHubLocalizations.of(context).login_failed}：${exception}");
+      showToast(
+          "${OpenIoTHubLocalizations.of(context).login_failed}：${exception}");
     }
   }
 }
@@ -319,5 +325,3 @@ class BarcodeOverlay extends CustomPainter {
     return false;
   }
 }
-
-

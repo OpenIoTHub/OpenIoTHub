@@ -18,9 +18,7 @@
   "scan_QR": "Scan QR",
   "find_local_gateway": "Find Local Gateway",
   "add_remote_host": "Add Remote Host",
-
   "i_also_have_a_bottom_line": "I also have a bottom line",
-
   "ftp_port_list_title": "FTP port list",
   "remote_port": "Remote port",
   "local_port": "Local port",
@@ -42,7 +40,6 @@
   "delete_ftp": "Delete FTP",
   "confirm_to_delete_this_ftp": "Are you sure to delete this FTP?",
   "delete": "Delete",
-
   "http_port_list_title": "HTTP port list",
   "domain": "Domain",
   "add_port_domain_name": "Add port domain name:",
@@ -50,7 +47,6 @@
   "ports_that_need_to_be_mapped": "Ports that need to be mapped",
   "delete_this_http": "Delete HTTP",
   "are_you_sure_to_delete_this_http": "Are you sure to delete this HTTP?",
-
   "tcp_port_list_title": "TCP Port List",
   "opening_method": "Opening method:",
   "my_tcp_port": "My TCP",
@@ -58,7 +54,6 @@
   "domain_notes": "Please do not modify if it is not a website port; Do not want to map to the server, please do not modify",
   "delete_tcp": "Delete TCP",
   "confirm_to_delete_this_tcp": "Are you sure to delete this TCP?",
-
   "tcp_port": "TCP Port",
   "udp_port": "UDP Port",
   "ftp_port": "FTP Port",
@@ -87,12 +82,10 @@
   "camera_scan_code_prompt_content": "Please note that by clicking on 'OK' below, we will request camera permission to scan the code",
   "select_the_network_where_the_remote_host_is_located": "Please select the network where the remote host is located",
   "confirm": "OK",
-
   "udp_port_list_title": "UDP Port List",
   "my_udp_port": "My UDP",
   "delete_udp": "Delete UDP",
   "confirm_to_delete_this_udp": "Are you sure to delete this UDP?",
-
   "please_scan_the_qr_code": "Please scan the QR code",
   "scan_the_qr_code": "Scan QR code",
   "unsupported_qr_code": "Unsupported QR code",
@@ -105,7 +98,6 @@
   "delete_result": "Delete result",
   "delete_successful": "Delete successfully!",
   "delete_failed": "Delete failed!",
-
   "web_browser": "Web browser",
   "mdns_service_list": "Mdns list",
   "delete_gateway": "Delete Gateway",
@@ -125,7 +117,6 @@
   "modify_name": "Change name:",
   "name": "Name",
   "please_input_new_name": "Please enter a new name",
-
   "privacy_policy": "Privacy Policy",
   "agree": "Agree",
   "feedback_channels": "Feedback Channels",

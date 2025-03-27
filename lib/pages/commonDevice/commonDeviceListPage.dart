@@ -142,7 +142,9 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
 
   Future _addDevice(SessionConfig config) async {
     TextEditingController descriptionController =
-        TextEditingController.fromValue(TextEditingValue(text: OpenIoTHubLocalizations.of(context).internal_network_devices));
+        TextEditingController.fromValue(TextEditingValue(
+            text:
+                OpenIoTHubLocalizations.of(context).internal_network_devices));
     TextEditingController remoteIpController = TextEditingController.fromValue(
         const TextEditingValue(text: "127.0.0.1"));
     return showDialog(
@@ -156,16 +158,20 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
                       controller: descriptionController,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
-                        labelText: OpenIoTHubLocalizations.of(context).description,
-                        helperText: OpenIoTHubLocalizations.of(context).custom_remarks,
+                        labelText:
+                            OpenIoTHubLocalizations.of(context).description,
+                        helperText:
+                            OpenIoTHubLocalizations.of(context).custom_remarks,
                       ),
                     ),
                     TextFormField(
                       controller: remoteIpController,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
-                        labelText: OpenIoTHubLocalizations.of(context).ip_address_of_remote_intranet,
-                        helperText: OpenIoTHubLocalizations.of(context).ip_address_of_internal_network_devices,
+                        labelText: OpenIoTHubLocalizations.of(context)
+                            .ip_address_of_remote_intranet,
+                        helperText: OpenIoTHubLocalizations.of(context)
+                            .ip_address_of_internal_network_devices,
                       ),
                     ),
                   ],
@@ -230,7 +236,8 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
     try {
       await CommonDeviceApi.createOneDevice(device);
     } catch (e) {
-      showToast("${OpenIoTHubLocalizations.of(context).create_device_failed}：$e");
+      showToast(
+          "${OpenIoTHubLocalizations.of(context).create_device_failed}：$e");
     }
   }
 
@@ -290,7 +297,8 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
-                  title: Text(OpenIoTHubLocalizations.of(context).select_the_network_where_the_remote_host_is_located),
+                  title: Text(OpenIoTHubLocalizations.of(context)
+                      .select_the_network_where_the_remote_host_is_located),
                   content: SizedBox.expand(child: divided),
                   actions: <Widget>[
                     TextButton(
@@ -382,21 +390,24 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
               showDialog(
                   context: context,
                   builder: (_) => AlertDialog(
-                          title: Text(OpenIoTHubLocalizations.of(context).camera_scan_code_prompt),
+                          title: Text(OpenIoTHubLocalizations.of(context)
+                              .camera_scan_code_prompt),
                           scrollable: true,
                           content: SizedBox(
                               height: 120,
                               child: ListView(
                                 children: <Widget>[
                                   Text(
-                                    OpenIoTHubLocalizations.of(context).camera_scan_code_prompt_content,
+                                    OpenIoTHubLocalizations.of(context)
+                                        .camera_scan_code_prompt_content,
                                     style: TextStyle(color: Colors.red),
                                   ),
                                 ],
                               )),
                           actions: <Widget>[
                             TextButton(
-                              child: Text(OpenIoTHubLocalizations.of(context).cancel,
+                              child: Text(
+                                  OpenIoTHubLocalizations.of(context).cancel,
                                   style: TextStyle(color: Colors.grey)),
                               onPressed: () async {
                                 Navigator.of(context).pop();

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:fluent_ui/fluent_ui.dart'as fluent_ui;
+import 'package:fluent_ui/fluent_ui.dart' as fluent_ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
@@ -20,7 +20,9 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (context) => CustomTheme()),
       ],
-      child: (Platform.isAndroid || Platform.isIOS || true) ? const MyApp() : const PcApp(),
+      child: (Platform.isAndroid || Platform.isIOS || true)
+          ? const MyApp()
+          : const PcApp(),
     ),
     // MyApp()
   );
@@ -69,11 +71,9 @@ class PcApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OKToast(
-        child:fluent_ui.FluentApp(
+        child: fluent_ui.FluentApp(
       title: OpenIoTHubCommonLocalizations.of(context).app_title,
-      theme: fluent_ui.FluentThemeData(
-          accentColor: fluent_ui.Colors.orange
-      ),
+      theme: fluent_ui.FluentThemeData(accentColor: fluent_ui.Colors.orange),
       debugShowCheckedModeBanner: false,
       localizationsDelegates: const [
         OpenIoTHubLocalizations.delegate,
