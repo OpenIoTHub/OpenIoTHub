@@ -200,7 +200,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
-                  title: const Text("隐私政策"),
+                  title: Text(OpenIoTHubLocalizations.of(context).privacy_policy),
                   scrollable: true,
                   content: SizedBox(
                       height: 100, // 设置Dialog的高度
@@ -209,22 +209,22 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text("同意"),
+                              Text(OpenIoTHubLocalizations.of(context).agree),
                               TextButton(
                                   // 同意才可以下一步
-                                  child: const Text(
-                                    '《隐私政策》',
+                                  child: Text(
+                                    '《${OpenIoTHubLocalizations.of(context).privacy_policy}》',
                                     style: TextStyle(color: Colors.red),
                                   ),
                                   onPressed: () async {
                                     goToURL(
                                         context,
                                         "https://docs.iothub.cloud/privacyPolicy/index.html",
-                                        "《隐私政策》");
+                                        "《${OpenIoTHubLocalizations.of(context).privacy_policy}》");
                                   }),
                               TextButton(
-                                  child: const Text(
-                                    '反馈渠道',
+                                  child: Text(
+                                    OpenIoTHubLocalizations.of(context).feedback_channels,
                                     style: TextStyle(color: Colors.green),
                                   ),
                                   onPressed: () async {
@@ -236,12 +236,12 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                                   }),
                             ],
                           ),
-                          const Text("如果不同意《隐私政策》请点击\"退出应用\"")
+                          Text(OpenIoTHubLocalizations.of(context).if_you_do_not_agree_with_the_privacy_policy_please_click_to_exit_the_application)
                         ],
                       )),
                   actions: <Widget>[
                     TDButton(
-                      text: "退出应用",
+                      text: OpenIoTHubLocalizations.of(context).exit_the_application,
                       size: TDButtonSize.large,
                       type: TDButtonType.fill,
                       shape: TDButtonShape.rectangle,
@@ -251,7 +251,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                       },
                     ),
                     TDButton(
-                      text: "同意隐私政策",
+                      text: OpenIoTHubLocalizations.of(context).agree_to_the_privacy_policy,
                       size: TDButtonSize.large,
                       type: TDButtonType.fill,
                       shape: TDButtonShape.rectangle,

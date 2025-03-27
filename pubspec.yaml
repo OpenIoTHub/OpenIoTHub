@@ -78,7 +78,7 @@ dependencies:
   mobile_scanner: ^6.0.2
   image_picker: ^1.0.7
 
-  intl: any
+  intl: '>=0.19.0 <= 1.0.0'
   jaguar: any
   flutter_nsd: any
   desktop_window: ^0.4.0
@@ -95,6 +95,13 @@ dev_dependencies:
   # flutter pub run flutter_launcher_icons
   flutter_launcher_icons: ^0.14.1
 #  flutter_distributor: ^0.4.5
+  intl_utils: ^2.8.3
+  build_runner:
+  flutter_gen_runner:
+
+flutter_gen:
+  assets:
+    - lib/l10n/*.arb
 
 flutter:
   # The following line ensures that the Material Icons font is
@@ -145,8 +152,9 @@ flutter:
     - assets/web/
     - assets/web/open/
     - assets/images/logos/
-flutter_intl:
-  enabled: true
+
+#flutter_intl:
+#  enabled: true
 
 msix_config:
   display_name: openiothub

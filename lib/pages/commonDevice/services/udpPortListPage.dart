@@ -5,6 +5,8 @@ import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
+
 class UdpPortListPage extends StatefulWidget {
   UdpPortListPage({required Key key, required this.device}) : super(key: key);
 
@@ -60,7 +62,7 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
     ).toList();
     return Scaffold(
       appBar: AppBar(
-        title: const Text("UDP端口列表"),
+        title: Text(OpenIoTHubLocalizations.of(context).udp_port_list_title),
         actions: <Widget>[
           IconButton(
               icon: const Icon(
@@ -91,10 +93,12 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
   void _pushDetail(PortConfig config) async {
     final List result = [];
     result.add("UUID:${config.uuid}");
-    result.add("端口:${config.remotePort}");
-    result.add("映射到端口:${config.localProt}");
-    result.add("描述:${config.description}");
-    result.add("转发连接状态:${config.remotePortStatus ? "在线" : "离线"}");
+    result.add("${OpenIoTHubLocalizations.of(context).remote_port}:${config.remotePort}");
+    result.add("${OpenIoTHubLocalizations.of(context).local_port}:${config.localProt}");
+    result.add("${OpenIoTHubLocalizations.of(context).description}:${config.description}");
+    result.add("${OpenIoTHubLocalizations.of(context).forwarding_connection_status}:${config.remotePortStatus
+        ? OpenIoTHubLocalizations.of(context).online
+        : OpenIoTHubLocalizations.of(context).offline}");
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
@@ -114,7 +118,7 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
           ).toList();
 
           return Scaffold(
-            appBar: AppBar(title: const Text('端口详情'), actions: <Widget>[
+            appBar: AppBar(title: Text(OpenIoTHubLocalizations.of(context).port_details), actions: <Widget>[
               IconButton(
                   icon: const Icon(
                     Icons.delete,
@@ -155,7 +159,7 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
 
   Future _addUDP(Device device) async {
     TextEditingController descriptionController =
-        TextEditingController.fromValue(const TextEditingValue(text: "我的UDP"));
+        TextEditingController.fromValue(TextEditingValue(text: OpenIoTHubLocalizations.of(context).my_udp_port));
     TextEditingController remotePortController =
         TextEditingController.fromValue(const TextEditingValue(text: ""));
     TextEditingController localPortController =
@@ -163,45 +167,45 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: const Text("添加端口："),
+                title: Text(OpenIoTHubLocalizations.of(context).add_port),
                 content: SizedBox.expand(
                     child: ListView(
                   children: <Widget>[
                     TextFormField(
                       controller: descriptionController,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
-                        labelText: '备注',
-                        helperText: '自定义备注',
+                        labelText: OpenIoTHubLocalizations.of(context).description,
+                        helperText: OpenIoTHubLocalizations.of(context).custom_remarks,
                       ),
                     ),
                     TextFormField(
                       controller: remotePortController,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
-                        labelText: '端口号',
-                        helperText: '该机器的端口号',
+                        labelText: OpenIoTHubLocalizations.of(context).the_port_number_that_the_remote_machine_needs_to_access,
+                        helperText: OpenIoTHubLocalizations.of(context).remote_port,
                       ),
                     ),
                     TextFormField(
                       controller: localPortController,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
-                        labelText: '映射到本手机端口号(随机则填0)',
-                        helperText: '本手机1024以上空闲端口号',
+                        labelText: OpenIoTHubLocalizations.of(context).map_to_the_port_number_of_this_mobile_phone,
+                        helperText: OpenIoTHubLocalizations.of(context).this_phone_has_an_idle_port_number_of_1024_or_above,
                       ),
                     ),
                   ],
                 )),
                 actions: <Widget>[
                   TextButton(
-                    child: const Text("取消"),
+                    child: Text(OpenIoTHubLocalizations.of(context).cancel),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: const Text("添加"),
+                    child: Text(OpenIoTHubLocalizations.of(context).add),
                     onPressed: () {
                       var UDPConfig = PortConfig();
                       UDPConfig.device = device;
@@ -212,7 +216,7 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
                         UDPConfig.localProt =
                             int.parse(localPortController.text);
                       } catch (e) {
-                        showToast("检查端口是否为数字$e");
+                        showToast("${OpenIoTHubLocalizations.of(context).check_if_the_port_is_a_number}:$e");
                         return;
                       }
                       UDPConfig.networkProtocol = "udp";
@@ -229,17 +233,17 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: const Text("删除UDP"),
-                content: SizedBox.expand(child: const Text("确认删除此UDP？")),
+                title: Text(OpenIoTHubLocalizations.of(context).delete_udp),
+                content: SizedBox.expand(child: Text(OpenIoTHubLocalizations.of(context).confirm_to_delete_this_udp)),
                 actions: <Widget>[
                   TextButton(
-                    child: const Text("取消"),
+                    child: Text(OpenIoTHubLocalizations.of(context).cancel),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: const Text("删除"),
+                    child: Text(OpenIoTHubLocalizations.of(context).delete),
                     onPressed: () {
                       CommonDeviceApi.deleteOneUDP(config).then((result) {
                         Navigator.of(context).pop();

@@ -142,43 +142,43 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
 
   Future _addDevice(SessionConfig config) async {
     TextEditingController descriptionController =
-        TextEditingController.fromValue(const TextEditingValue(text: "内网设备"));
+        TextEditingController.fromValue(TextEditingValue(text: OpenIoTHubLocalizations.of(context).internal_network_devices));
     TextEditingController remoteIpController = TextEditingController.fromValue(
         const TextEditingValue(text: "127.0.0.1"));
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: const Text("添加设备："),
+                title: Text(OpenIoTHubLocalizations.of(context).add_device),
                 content: SizedBox.expand(
                     child: ListView(
                   children: <Widget>[
                     TextFormField(
                       controller: descriptionController,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
-                        labelText: '备注',
-                        helperText: '自定义备注',
+                        labelText: OpenIoTHubLocalizations.of(context).description,
+                        helperText: OpenIoTHubLocalizations.of(context).custom_remarks,
                       ),
                     ),
                     TextFormField(
                       controller: remoteIpController,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
-                        labelText: '远程内网的IP',
-                        helperText: '内网设备的IP',
+                        labelText: OpenIoTHubLocalizations.of(context).ip_address_of_remote_intranet,
+                        helperText: OpenIoTHubLocalizations.of(context).ip_address_of_internal_network_devices,
                       ),
                     ),
                   ],
                 )),
                 actions: <Widget>[
                   TextButton(
-                    child: const Text("取消"),
+                    child: Text(OpenIoTHubLocalizations.of(context).cancel),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: const Text("添加"),
+                    child: Text(OpenIoTHubLocalizations.of(context).add),
                     onPressed: () {
                       var device = Device();
                       device.runId = config.runId;
@@ -230,7 +230,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
     try {
       await CommonDeviceApi.createOneDevice(device);
     } catch (e) {
-      showToast("创建设备失败：$e");
+      showToast("${OpenIoTHubLocalizations.of(context).create_device_failed}：$e");
     }
   }
 
@@ -290,11 +290,11 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
-                  title: const Text("请选择远程主机所在网络："),
+                  title: Text(OpenIoTHubLocalizations.of(context).select_the_network_where_the_remote_host_is_located),
                   content: SizedBox.expand(child: divided),
                   actions: <Widget>[
                     TextButton(
-                      child: const Text("取消"),
+                      child: Text(OpenIoTHubLocalizations.of(context).cancel),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
@@ -382,29 +382,29 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
               showDialog(
                   context: context,
                   builder: (_) => AlertDialog(
-                          title: const Text("摄像头扫码提示！"),
+                          title: Text(OpenIoTHubLocalizations.of(context).camera_scan_code_prompt),
                           scrollable: true,
                           content: SizedBox(
                               height: 120,
                               child: ListView(
-                                children: const <Widget>[
+                                children: <Widget>[
                                   Text(
-                                    "请注意，点击下方 确定 我们将请求摄像头权限进行扫码",
+                                    OpenIoTHubLocalizations.of(context).camera_scan_code_prompt_content,
                                     style: TextStyle(color: Colors.red),
                                   ),
                                 ],
                               )),
                           actions: <Widget>[
                             TextButton(
-                              child: const Text("取消",
+                              child: Text(OpenIoTHubLocalizations.of(context).cancel,
                                   style: TextStyle(color: Colors.grey)),
                               onPressed: () async {
                                 Navigator.of(context).pop();
                               },
                             ),
                             TextButton(
-                              child: const Text(
-                                "确定",
+                              child: Text(
+                                OpenIoTHubLocalizations.of(context).confirm,
                                 style: TextStyle(color: Colors.black),
                               ),
                               onPressed: () {

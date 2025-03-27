@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:openiothub_common_pages/openiothub_common_pages.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 
 class ToolsTypePage extends StatelessWidget {
   static const String TAG_START = "startDivider";
@@ -103,7 +104,7 @@ class ToolsTypePage extends StatelessWidget {
           Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
 //        smartconfig 工具页面
             return Airkiss(
-              title: "微信 Airkiss",
+              title: "${OpenIoTHubLocalizations.of(context).wechat} Airkiss",
               key: UniqueKey(),
             );
           }));
@@ -113,7 +114,7 @@ class ToolsTypePage extends StatelessWidget {
         {
           Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
             return Airkiss(
-              title: "微信 Airkiss",
+              title: "${OpenIoTHubLocalizations.of(context).wechat} Airkiss",
               key: UniqueKey(),
             );
           }));
@@ -125,7 +126,7 @@ class ToolsTypePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("工具")),
+        appBar: AppBar(title: Text(OpenIoTHubLocalizations.of(context).tools)),
         body: Padding(
           padding: const EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
           child: ListView.builder(

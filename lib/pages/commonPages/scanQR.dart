@@ -11,6 +11,8 @@ import 'package:openiothub_grpc_api/proto/manager/common.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/gatewayManager.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
+
 class ScanQRPage extends StatefulWidget {
   const ScanQRPage({super.key});
 
@@ -91,7 +93,7 @@ class _ScanQRPageState extends State<ScanQRPage> {
     );
 
     return Scaffold(
-      appBar: AppBar(title: const Text('扫描二维码')),
+      appBar: AppBar(title: Text(OpenIoTHubLocalizations.of(context).scan_the_qr_code)),
       backgroundColor: Colors.black,
       body: Stack(
         fit: StackFit.expand,
@@ -134,16 +136,16 @@ class _ScanQRPageState extends State<ScanQRPage> {
                           _addToMyAccount(id, host);
                         } else {
                           showToast(
-                              "不支持的二维码，path: ${uri.path},parameters:${uri.queryParameters}");
+                              "${OpenIoTHubLocalizations.of(context).unsupported_qr_code}，path: ${uri.path},parameters:${uri.queryParameters}");
                         }
                         break;
                       default:
-                        showToast("不支持的Uri路径");
+                        showToast(OpenIoTHubLocalizations.of(context).unsupported_uri_path);
                         break;
                     }
                     break;
                   default:
-                    showToast("不支持的二维码");
+                    showToast(OpenIoTHubLocalizations.of(context).unsupported_qr_code);
                 }
               }
             },
@@ -169,6 +171,49 @@ class _ScanQRPageState extends State<ScanQRPage> {
   Future<void> dispose() async {
     super.dispose();
     await controller.dispose();
+  }
+
+  //已经确认过可以添加，添加到我的账号
+  void _addToMyAccount(String gatewayId, String? host) async {
+    try {
+      // TODO 可以搞一个确认步骤，确认后添加
+      // 使用扫描的Gateway ID构建一个GatewayInfo用于服务器添加
+      GatewayInfo gatewayInfo = GatewayInfo(
+          gatewayUuid: gatewayId,
+          // 服务器的UUID变主机地址，或者都可以
+          serverUuid: host,
+          name: "Gateway-${DateTime.now().minute}",
+          description: "Gateway-${DateTime.now()}");
+      OperationResponse operationResponse =
+      await GatewayManager.AddGateway(gatewayInfo);
+      //将网关映射到本机
+      if (operationResponse.code == 0) {
+        // TODO 从服务器获取连接JWT
+        StringValue openIoTHubJwt =
+        await GatewayManager.GetOpenIoTHubJwtByGatewayUuid(gatewayId);
+        await _addToMySessionList(
+            openIoTHubJwt.value,
+            "Gateway-${DateTime.now()}",
+            "Gateway-${DateTime.now()} form scan QR code");
+      } else {
+        showToast("${OpenIoTHubLocalizations.of(context).adding_gateway_to_my_account_failed}:${operationResponse.msg}");
+      }
+    } catch (exception) {
+      showToast("${OpenIoTHubLocalizations.of(context).add_gateway_failed}：${exception}");
+    }
+  }
+
+  Future _addToMySessionList(String token, name, description) async {
+    SessionConfig config = SessionConfig();
+    config.token = token;
+    config.name = name;
+    config.description = description;
+    try {
+      await SessionApi.createOneSession(config);
+      showToast(OpenIoTHubLocalizations.of(context).add_gateway_successful);
+    } catch (exception) {
+      showToast("${OpenIoTHubLocalizations.of(context).login_failed}：${exception}");
+    }
   }
 }
 
@@ -275,45 +320,4 @@ class BarcodeOverlay extends CustomPainter {
   }
 }
 
-//已经确认过可以添加，添加到我的账号
-_addToMyAccount(String gatewayId, String? host) async {
-  try {
-    // TODO 可以搞一个确认步骤，确认后添加
-    // 使用扫描的Gateway ID构建一个GatewayInfo用于服务器添加
-    GatewayInfo gatewayInfo = GatewayInfo(
-        gatewayUuid: gatewayId,
-        // 服务器的UUID变主机地址，或者都可以
-        serverUuid: host,
-        name: "Gateway-${DateTime.now().minute}",
-        description: "Gateway-${DateTime.now()}");
-    OperationResponse operationResponse =
-        await GatewayManager.AddGateway(gatewayInfo);
-    //将网关映射到本机
-    if (operationResponse.code == 0) {
-      // TODO 从服务器获取连接JWT
-      StringValue openIoTHubJwt =
-          await GatewayManager.GetOpenIoTHubJwtByGatewayUuid(gatewayId);
-      await _addToMySessionList(
-          openIoTHubJwt.value,
-          "Gateway-${DateTime.now()}",
-          "Gateway-${DateTime.now()} form scan QR code");
-    } else {
-      showToast("添加网关到我的账户失败:${operationResponse.msg}");
-    }
-  } catch (exception) {
-    showToast("添加网关失败：${exception}");
-  }
-}
 
-Future _addToMySessionList(String token, name, description) async {
-  SessionConfig config = SessionConfig();
-  config.token = token;
-  config.name = name;
-  config.description = description;
-  try {
-    await SessionApi.createOneSession(config);
-    showToast("添加网关成功！");
-  } catch (exception) {
-    showToast("登录失败：${exception}");
-  }
-}

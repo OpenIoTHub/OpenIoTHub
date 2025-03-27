@@ -13,6 +13,8 @@ import './services/ftpPortListPage.dart';
 import './services/tcpPortListPage.dart';
 import './services/udpPortListPage.dart';
 
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
+
 class CommonDeviceServiceTypesList extends StatefulWidget {
   CommonDeviceServiceTypesList({required Key key, required this.device})
       : super(key: key);
@@ -42,7 +44,7 @@ class _CommonDeviceServiceTypesListState
     "assets/images/ic_discover_nearby.png",
     "assets/images/ic_discover_pos.png",
   ];
-  final titles = ["TCP端口", "UDP端口", "FTP端口"];
+  List<String> titles = [];
 
   // , "HTTP端口"
   final List listData = [];
@@ -50,10 +52,12 @@ class _CommonDeviceServiceTypesListState
   @override
   void initState() {
     super.initState();
-    initData();
   }
 
-  initData() {
+  initData(BuildContext context) {
+    titles = [OpenIoTHubLocalizations.of(context).tcp_port,
+      OpenIoTHubLocalizations.of(context).udp_port,
+      OpenIoTHubLocalizations.of(context).ftp_port];
     listData.add(TAG_START);
     listData.add(ListItem(title: titles[0], icon: imagePaths[0]));
 //    listData.add(TAG_CENTER);
@@ -124,28 +128,28 @@ class _CommonDeviceServiceTypesListState
 
   void handleListItemClick(BuildContext ctx, ListItem item) {
     String title = item.title;
-    if (title == "TCP端口") {
+    if (title == OpenIoTHubLocalizations.of(context).tcp_port) {
       Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
         return TcpPortListPage(
           device: widget.device,
           key: UniqueKey(),
         );
       }));
-    } else if (title == "UDP端口") {
+    } else if (title == OpenIoTHubLocalizations.of(context).udp_port) {
       Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
         return UdpPortListPage(
           device: widget.device,
           key: UniqueKey(),
         );
       }));
-    } else if (title == "FTP端口") {
+    } else if (title == OpenIoTHubLocalizations.of(context).ftp_port) {
       Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
         return FtpPortListPage(
           device: widget.device,
           key: UniqueKey(),
         );
       }));
-    } else if (title == "HTTP端口") {
+    } else if (title == OpenIoTHubLocalizations.of(context).http_port) {
       Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
         return HttpPortListPage(
           device: widget.device,
@@ -163,8 +167,9 @@ class _CommonDeviceServiceTypesListState
 
   @override
   Widget build(BuildContext context) {
+    initData(context);
     return Scaffold(
-        appBar: AppBar(title: const Text("服务"), actions: <Widget>[
+        appBar: AppBar(title: Text(OpenIoTHubLocalizations.of(context).service), actions: <Widget>[
           IconButton(
               icon: const Icon(
                 Icons.delete,
@@ -207,17 +212,17 @@ class _CommonDeviceServiceTypesListState
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: const Text("删除设备"),
-                content: SizedBox.expand(child: Text("确认删除此设备？")),
+                title: Text(OpenIoTHubLocalizations.of(context).delete_device),
+                content: SizedBox.expand(child: Text(OpenIoTHubLocalizations.of(context).confirm_delete_device)),
                 actions: <Widget>[
                   TextButton(
-                    child: const Text("取消"),
+                    child: Text(OpenIoTHubLocalizations.of(context).cancel),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: const Text("删除"),
+                    child: Text(OpenIoTHubLocalizations.of(context).delete),
                     onPressed: () {
                       CommonDeviceApi.deleteOneDevice(widget.device)
                           .then((result) {
@@ -237,18 +242,18 @@ class _CommonDeviceServiceTypesListState
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: const Text("唤醒设备"),
+                title: Text(OpenIoTHubLocalizations.of(context).wake_up_device),
                 content: SizedBox.expand(
-                    child: const Text("第一次使用请选择'设置物理地址'，设置过物理地址可以直接点击'唤醒设备'。")),
+                    child: Text(OpenIoTHubLocalizations.of(context).wake_up_device_notes1)),
                 actions: <Widget>[
                   TextButton(
-                    child: const Text("取消"),
+                    child: Text(OpenIoTHubLocalizations.of(context).cancel),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: const Text("重设物理地址"),
+                    child: Text(OpenIoTHubLocalizations.of(context).reset_physical_address),
                     onPressed: () {
                       _setMacAddr().then((_) {
                         Navigator.of(context).pop();
@@ -256,7 +261,7 @@ class _CommonDeviceServiceTypesListState
                     },
                   ),
                   TextButton(
-                    child: const Text("唤醒设备"),
+                    child: Text(OpenIoTHubLocalizations.of(context).wake_up_device),
                     onPressed: () {
                       CommonDeviceApi.wakeOnLAN(widget.device).then((_) {
                         Navigator.of(context).pop();
@@ -272,29 +277,29 @@ class _CommonDeviceServiceTypesListState
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: const Text("设置物理地址"),
+                title: Text(OpenIoTHubLocalizations.of(context).set_physical_address),
                 content: SizedBox.expand(
                     child: ListView(
                   children: <Widget>[
                     TextFormField(
                       controller: macController,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
-                        labelText: '物理地址',
-                        helperText: '机器有线网卡的物理地址',
+                        labelText: OpenIoTHubLocalizations.of(context).physical_address,
+                        helperText: OpenIoTHubLocalizations.of(context).the_physical_address_of_the_machine,
                       ),
                     ),
                   ],
                 )),
                 actions: <Widget>[
                   TextButton(
-                    child: const Text("取消"),
+                    child: Text(OpenIoTHubLocalizations.of(context).cancel),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: const Text("设置"),
+                    child: Text(OpenIoTHubLocalizations.of(context).set),
                     onPressed: () {
                       var device = widget.device;
                       device.mac = macController.text;
@@ -309,11 +314,11 @@ class _CommonDeviceServiceTypesListState
   void _pushDetail() async {
 //:TODO    这里显示内网的服务，socks5等，右上角详情才展示详细信息
     final List result = [];
-    result.add("本设备id(简化后):${widget.device.uuid.substring(24)}");
-    result.add("内网id(简化后):${widget.device.runId.substring(24)}");
-    result.add("描述:${widget.device.description}");
-    result.add("地址:${widget.device.addr}");
-    result.add("物理地址:${widget.device.mac}");
+    result.add("${OpenIoTHubLocalizations.of(context).device_id}:${widget.device.uuid.substring(24)}");
+    result.add("${OpenIoTHubLocalizations.of(context).gateway_id}:${widget.device.runId.substring(24)}");
+    result.add("${OpenIoTHubLocalizations.of(context).description}:${widget.device.description}");
+    result.add("${OpenIoTHubLocalizations.of(context).addr}:${widget.device.addr}");
+    result.add("${OpenIoTHubLocalizations.of(context).physical_address}:${widget.device.mac}");
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
@@ -325,7 +330,7 @@ class _CommonDeviceServiceTypesListState
                 ),
                 onLongPress: () {
                   Clipboard.setData(ClipboardData(text: pair));
-                  showToast("复制成功！");
+                  showToast(OpenIoTHubLocalizations.of(context).copy_successful);
                 },
               );
             },
@@ -337,7 +342,7 @@ class _CommonDeviceServiceTypesListState
 
           return Scaffold(
             appBar: AppBar(
-              title: const Text('设备详情'),
+              title: Text(OpenIoTHubLocalizations.of(context).device_details),
             ),
             body: ListView(children: divided),
           );

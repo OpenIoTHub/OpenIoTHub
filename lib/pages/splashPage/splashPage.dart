@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:openiothub/pages/homePage/all/homePage.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -88,8 +89,8 @@ class LaunchState extends State<SplashPage> {
                           fontSize: 18,
                           color: Colors.blue,
                         )),
-                    const TextSpan(
-                      text: '跳过',
+                    TextSpan(
+                      text: OpenIoTHubLocalizations.of(context).skip_ad,
                       style: TextStyle(
                         fontSize: 18,
                         color: Colors.red,

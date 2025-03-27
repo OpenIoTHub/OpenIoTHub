@@ -27,6 +27,7 @@ import 'package:provider/provider.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import '../commonPages/scanQR.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 
 class MdnsServiceListPage extends StatefulWidget {
   const MdnsServiceListPage({required Key key, required this.title})
@@ -178,14 +179,14 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
                           MaterialPageRoute(
                             builder: (context) {
                               return Airkiss(
-                                title: "添加设备",
+                                title: OpenIoTHubLocalizations.of(context).add_device,
                                 key: UniqueKey(),
                               );
                             },
                           ),
                         );
                       },
-                      child: const Text("请先添加设备"))
+                      child: Text(OpenIoTHubLocalizations.of(context).please_add_device_first))
                 ]),
               ),
       ),
@@ -389,11 +390,11 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
-                  title: const Text("从远程获取物联网列表失败："),
-                  content: SizedBox.expand(child: Text("失败原因：$e")),
+                  title: Text(OpenIoTHubLocalizations.of(context).failed_to_obtain_the_iot_list_remotely),
+                  content: SizedBox.expand(child: Text("${OpenIoTHubLocalizations.of(context).failure_reason}：$e")),
                   actions: <Widget>[
                     TextButton(
-                      child: const Text("确认"),
+                      child: Text(OpenIoTHubLocalizations.of(context).confirm),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
@@ -485,29 +486,29 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
               showDialog(
                   context: context,
                   builder: (_) => AlertDialog(
-                          title: const Text("摄像头扫码提示！"),
+                          title: Text(OpenIoTHubLocalizations.of(context).camera_scan_code_prompt),
                           scrollable: true,
                           content: SizedBox(
                               height: 120,
                               child: ListView(
-                                children: const <Widget>[
+                                children: <Widget>[
                                   Text(
-                                    "请注意，点击下方 确定 我们将请求摄像头权限进行扫码",
+                                    OpenIoTHubLocalizations.of(context).camera_scan_code_prompt_content,
                                     style: TextStyle(color: Colors.red),
                                   ),
                                 ],
                               )),
                           actions: <Widget>[
                             TextButton(
-                              child: const Text("取消",
+                              child: Text(OpenIoTHubLocalizations.of(context).cancel,
                                   style: TextStyle(color: Colors.grey)),
                               onPressed: () async {
                                 Navigator.of(context).pop();
                               },
                             ),
                             TextButton(
-                              child: const Text(
-                                "确定",
+                              child: Text(
+                                OpenIoTHubLocalizations.of(context).confirm,
                                 style: TextStyle(color: Colors.black),
                               ),
                               onPressed: () async {

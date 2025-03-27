@@ -6,7 +6,8 @@ import 'package:openiothub_api/api/Server/HttpManager.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart' as openiothub;
 import 'package:openiothub_grpc_api/proto/server/server.pb.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class HttpPortListPage extends StatefulWidget {
   HttpPortListPage({required Key key, required this.device}) : super(key: key);
@@ -73,7 +74,7 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
     ).toList();
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Http端口列表"),
+        title: Text(OpenIoTHubLocalizations.of(context).http_port_list_title),
         actions: <Widget>[
           IconButton(
               icon: const Icon(
@@ -103,10 +104,12 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
 
   void _pushDetail(HTTPConfig config) async {
     final List result = [];
-    result.add("端口:${config.remotePort}");
-    result.add("域名:${config.domain}");
-    result.add("描述:${config.description}");
-    result.add("转发连接状态:${config.remotePortStatus ? "在线" : "离线"}");
+    result.add("${OpenIoTHubLocalizations.of(context).remote_port}:${config.remotePort}");
+    result.add("${OpenIoTHubLocalizations.of(context).domain}:${config.domain}");
+    result.add("${OpenIoTHubLocalizations.of(context).description}:${config.description}");
+    result.add("${OpenIoTHubLocalizations.of(context).forwarding_connection_status}:${config.remotePortStatus
+        ? OpenIoTHubLocalizations.of(context).online
+        : OpenIoTHubLocalizations.of(context).offline}");
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
@@ -126,7 +129,7 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
           ).toList();
 
           return Scaffold(
-            appBar: AppBar(title: const Text('端口详情'), actions: <Widget>[
+            appBar: AppBar(title: Text(OpenIoTHubLocalizations.of(context).port_details), actions: <Widget>[
               IconButton(
                   icon: const Icon(
                     Icons.delete,
@@ -175,45 +178,45 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: const Text("添加端口域名："),
+                title: Text(OpenIoTHubLocalizations.of(context).add_port_domain_name),
                 content: SizedBox.expand(
                     child: ListView(
                   children: <Widget>[
                     TextFormField(
                       controller: descriptionController,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
-                        labelText: '备注',
-                        helperText: '自定义备注',
+                        labelText: OpenIoTHubLocalizations.of(context).notes,
+                        helperText: OpenIoTHubLocalizations.of(context).custom_remarks,
                       ),
                     ),
                     TextFormField(
                       controller: domainController,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
-                        labelText: '域名',
-                        helperText: '配置该端口的域名',
+                        labelText: OpenIoTHubLocalizations.of(context).domain,
+                        helperText: OpenIoTHubLocalizations.of(context).configure_the_domain_name_for_this_port,
                       ),
                     ),
                     TextFormField(
                       controller: portController,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
-                        labelText: '端口',
-                        helperText: '需要映射的端口',
+                        labelText: OpenIoTHubLocalizations.of(context).remote_port,
+                        helperText: OpenIoTHubLocalizations.of(context).ports_that_need_to_be_mapped,
                       ),
                     )
                   ],
                 )),
                 actions: <Widget>[
                   TextButton(
-                    child: const Text("取消"),
+                    child: Text(OpenIoTHubLocalizations.of(context).cancel),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: const Text("添加"),
+                    child: Text(OpenIoTHubLocalizations.of(context).add),
                     onPressed: () {
                       HTTPConfig HttpConfig = HTTPConfig();
                       HttpConfig.runId = device.runId;
@@ -233,17 +236,17 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: const Text("删除Http"),
-                content: SizedBox.expand(child: const Text("确认删除此Http？")),
+                title: Text(OpenIoTHubLocalizations.of(context).delete_this_http),
+                content: SizedBox.expand(child: Text(OpenIoTHubLocalizations.of(context).are_you_sure_to_delete_this_http)),
                 actions: <Widget>[
                   TextButton(
-                    child: const Text("取消"),
+                    child: Text(OpenIoTHubLocalizations.of(context).cancel),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: const Text("删除"),
+                    child: Text(OpenIoTHubLocalizations.of(context).delete),
                     onPressed: () {
                       HttpManager.DeleteOneHTTP(config).then((result) {
                         Navigator.of(context).pop();
@@ -258,8 +261,8 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
   }
 
   _launchURL(String url) async {
-    if (await canLaunchUrl(url as Uri)) {
-      await launchUrl(url as Uri);
+    if (await canLaunchUrlString(url)) {
+      await launchUrlString(url);
     } else {
       if (kDebugMode) {
         print('Could not launch $url');

@@ -8,6 +8,8 @@ import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:openiothub_plugin/plugins/openWithChoice/OpenWithChoice.dart';
 
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
+
 class TcpPortListPage extends StatefulWidget {
   TcpPortListPage({required Key key, required this.device}) : super(key: key);
 
@@ -63,7 +65,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
     ).toList();
     return Scaffold(
       appBar: AppBar(
-        title: const Text("TCP端口列表"),
+        title: Text(OpenIoTHubLocalizations.of(context).tcp_port_list_title),
         actions: <Widget>[
           IconButton(
               icon: const Icon(
@@ -94,11 +96,13 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
   void _pushDetail(PortConfig config) async {
     final List result = [];
     result.add("UUID:${config.uuid}");
-    result.add("端口:${config.remotePort}");
-    result.add("映射到端口:${config.localProt}");
-    result.add("描述:${config.description}");
-    result.add("域名:${config.domain}");
-    result.add("转发连接状态:${config.remotePortStatus ? "在线" : "离线"}");
+    result.add("${OpenIoTHubLocalizations.of(context).remote_port}:${config.remotePort}");
+    result.add("${OpenIoTHubLocalizations.of(context).local_port}:${config.localProt}");
+    result.add("${OpenIoTHubLocalizations.of(context).description}:${config.description}");
+    result.add("${OpenIoTHubLocalizations.of(context).domain}:${config.domain}");
+    result.add("${OpenIoTHubLocalizations.of(context).forwarding_connection_status}:${config.remotePortStatus
+        ? OpenIoTHubLocalizations.of(context).online
+        : OpenIoTHubLocalizations.of(context).offline}");
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
@@ -118,7 +122,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
           ).toList();
 
           return Scaffold(
-            appBar: AppBar(title: const Text('端口详情'), actions: <Widget>[
+            appBar: AppBar(title: Text(OpenIoTHubLocalizations.of(context).port_details), actions: <Widget>[
               IconButton(
                   icon: const Icon(
                     Icons.delete,
@@ -139,18 +143,18 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                     showDialog(
                         context: context,
                         builder: (_) => AlertDialog(
-                                title: const Text("打开方式："),
+                                title: Text(OpenIoTHubLocalizations.of(context).opening_method),
                                 content: SizedBox.expand(
                                     child: OpenWithChoice(config)),
                                 actions: <Widget>[
                                   TextButton(
-                                    child: const Text("取消"),
+                                    child: Text(OpenIoTHubLocalizations.of(context).cancel),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
                                   ),
                                   TextButton(
-                                    child: const Text("添加"),
+                                    child: Text(OpenIoTHubLocalizations.of(context).add),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
@@ -181,7 +185,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
 
   Future _addTCP(Device device) async {
     TextEditingController descriptionController =
-        TextEditingController.fromValue(const TextEditingValue(text: "我的TCP"));
+        TextEditingController.fromValue( TextEditingValue(text: OpenIoTHubLocalizations.of(context).my_tcp_port));
     TextEditingController remotePortController =
         TextEditingController.fromValue(const TextEditingValue(text: "80"));
     TextEditingController localPortController =
@@ -191,53 +195,53 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: const Text("添加端口："),
+                title: Text( OpenIoTHubLocalizations.of(context).add_port),
                 content: SizedBox.expand(
                     child: ListView(
                   children: <Widget>[
                     TextFormField(
                       controller: descriptionController,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
-                        labelText: '备注',
-                        helperText: '自定义备注',
+                        labelText: OpenIoTHubLocalizations.of(context).description,
+                        helperText: OpenIoTHubLocalizations.of(context).custom_remarks,
                       ),
                     ),
                     TextFormField(
                       controller: remotePortController,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
-                        labelText: '远程机器需要访问的端口号',
-                        helperText: '该机器的端口号',
+                        labelText: OpenIoTHubLocalizations.of(context).the_port_number_that_the_remote_machine_needs_to_access,
+                        helperText: OpenIoTHubLocalizations.of(context).remote_port,
                       ),
                     ),
                     TextFormField(
                       controller: localPortController,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
-                        labelText: '映射到本手机端口号(随机则填0)',
-                        helperText: '本手机1024以上空闲端口号',
+                        labelText: OpenIoTHubLocalizations.of(context).map_to_the_port_number_of_this_mobile_phone,
+                        helperText: OpenIoTHubLocalizations.of(context).this_phone_has_an_idle_port_number_of_1024_or_above,
                       ),
                     ),
                     TextFormField(
                       controller: domainController,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
-                        labelText: '网站映射到外网的域名',
-                        helperText: '不是网站端口请不要修改;不想映射到服务器请不要修改',
+                        labelText: OpenIoTHubLocalizations.of(context).domain,
+                        helperText: OpenIoTHubLocalizations.of(context).domain_notes,
                       ),
                     ),
                   ],
                 )),
                 actions: <Widget>[
                   TextButton(
-                    child: const Text("取消"),
+                    child: Text(OpenIoTHubLocalizations.of(context).cancel),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: const Text("添加"),
+                    child: Text(OpenIoTHubLocalizations.of(context).add),
                     onPressed: () {
                       var tcpConfig = PortConfig();
                       tcpConfig.device = device;
@@ -248,7 +252,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                         tcpConfig.localProt =
                             int.parse(localPortController.text);
                       } catch (e) {
-                        showToast("检查端口是否为数字$e");
+                        showToast("${OpenIoTHubLocalizations.of(context).check_if_the_port_is_a_number}:$e");
                         return;
                       }
                       tcpConfig.networkProtocol = "tcp";
@@ -270,17 +274,17 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: const Text("删除TCP"),
-                content: SizedBox.expand(child: const Text("确认删除此TCP？")),
+                title: Text(OpenIoTHubLocalizations.of(context).delete_tcp),
+                content: SizedBox.expand(child: Text(OpenIoTHubLocalizations.of(context).confirm_to_delete_this_tcp)),
                 actions: <Widget>[
                   TextButton(
-                    child: const Text("取消"),
+                    child: Text(OpenIoTHubLocalizations.of(context).cancel),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: const Text("删除"),
+                    child: Text(OpenIoTHubLocalizations.of(context).delete),
                     onPressed: () {
                       CommonDeviceApi.deleteOneTCP(config).then((result) {
                         Navigator.of(context).pop();

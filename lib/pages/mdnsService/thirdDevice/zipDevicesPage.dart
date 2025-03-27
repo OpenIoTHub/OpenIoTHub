@@ -6,6 +6,7 @@ import 'package:openiothub_common_pages/user/LoginPage.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:openiothub_grpc_api/proto/manager/mqttDeviceManager.pb.dart';
 import 'package:provider/provider.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 
 class ZipDevicesPage extends StatefulWidget {
   const ZipDevicesPage({super.key});
@@ -55,7 +56,7 @@ class _ZipDevicesPageState extends State<ZipDevicesPage> {
     ).toList();
     return Scaffold(
         appBar: AppBar(
-          title: const Text("设备列表"),
+          title: Text(OpenIoTHubLocalizations.of(context).device_list),
           actions: <Widget>[
             IconButton(
                 icon: const Icon(
@@ -81,17 +82,17 @@ class _ZipDevicesPageState extends State<ZipDevicesPage> {
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: const Text("添加设备到云亿连"),
-                content: SizedBox.expand(child: const Text("确认添加该设备到云亿连？")),
+                title: Text(OpenIoTHubLocalizations.of(context).add_device_to_opneiothub),
+                content: SizedBox.expand(child: Text(OpenIoTHubLocalizations.of(context).are_you_sure_to_add_this_device_to_openiothub)),
                 actions: <Widget>[
                   TextButton(
-                    child: const Text("取消"),
+                    child: Text(OpenIoTHubLocalizations.of(context).cancel),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: const Text("确认"),
+                    child: Text(OpenIoTHubLocalizations.of(context).confirm),
                     onPressed: () async {
                       // print("添加该设备到云亿连");
                       _addDeviceAndSetMqttServer(zipLocalDevice)
@@ -105,7 +106,7 @@ class _ZipDevicesPageState extends State<ZipDevicesPage> {
     //  检查用户是否已经登录，如果没有登录则跳转到登录界面
     bool userSignedIned = await userSignedIn();
     if (!userSignedIned) {
-      showToast("您还没有登录!请先登录再添加设备");
+      showToast(OpenIoTHubLocalizations.of(context).you_havent_logged_in_yet);
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => LoginPage()));
     }
@@ -121,7 +122,7 @@ class _ZipDevicesPageState extends State<ZipDevicesPage> {
     //  将生成的账号配置到设备
     await zipLocalDevice.configMqttServer(mqttInfo);
     //  提示配置结果
-    showToast("添加成功!");
+    showToast(OpenIoTHubLocalizations.of(context).add_successful);
     return;
   }
 }

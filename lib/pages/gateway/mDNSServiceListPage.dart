@@ -15,6 +15,7 @@ import 'package:openiothub_plugin/plugins/mdnsService/commWidgets/mDNSInfo.dart'
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 
 class MDNSServiceListPage extends StatefulWidget {
   MDNSServiceListPage({required Key key, required this.sessionConfig})
@@ -84,7 +85,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
             //直接打开内置web浏览器浏览页面
             Navigator.of(context).push(MaterialPageRoute(builder: (context) {
               return Scaffold(
-                appBar: AppBar(title: const Text("网页浏览器"), actions: <Widget>[
+                appBar: AppBar(title: Text(OpenIoTHubLocalizations.of(context).web_browser), actions: <Widget>[
                   IconButton(
                       icon: const Icon(
                         Icons.info,
@@ -117,7 +118,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
     ).toList();
     return Scaffold(
       appBar: AppBar(
-        title: const Text("mdns列表"),
+        title: Text(OpenIoTHubLocalizations.of(context).mdns_service_list),
         actions: <Widget>[
           //重新命名
           IconButton(
@@ -151,17 +152,17 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                 showDialog(
                     context: context,
                     builder: (_) => AlertDialog(
-                            title: const Text("删除网关"),
-                            content: SizedBox.expand(child: Text("确认删除此网关？")),
+                            title: Text(OpenIoTHubLocalizations.of(context).delete_gateway),
+                            content: SizedBox.expand(child: Text(OpenIoTHubLocalizations.of(context).confirm_delete_gateway)),
                             actions: <Widget>[
                               TextButton(
-                                child: const Text("取消"),
+                                child: Text(OpenIoTHubLocalizations.of(context).cancel),
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
                               ),
                               TextButton(
-                                child: const Text("删除"),
+                                child: Text(OpenIoTHubLocalizations.of(context).delete),
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                   deleteOneSession(widget.sessionConfig);
@@ -187,12 +188,16 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
   void _pushDetail(SessionConfig config) async {
 //:TODO    这里显示内网的服务，socks5等，右上角详情才展示详细信息
     final List result = [];
-    result.add("ID(简化后):${config.runId.substring(24)}");
-    result.add("描述:${config.description}");
-    result.add("连接码(简化后):${config.token.substring(0, 10)}");
-    result.add("转发连接状态:${config.statusToClient ? "在线" : "离线"}");
+    result.add("ID(${OpenIoTHubLocalizations.of(context).after_simplification}):${config.runId.substring(24)}");
+    result.add("${OpenIoTHubLocalizations.of(context).description}:${config.description}");
+    result.add("${OpenIoTHubLocalizations.of(context).connection_code_simplified}:${config.token.substring(0, 10)}");
+    result.add("${OpenIoTHubLocalizations.of(context).forwarding_connection_status}:${config.statusToClient
+        ? OpenIoTHubLocalizations.of(context).online
+        : OpenIoTHubLocalizations.of(context).offline}");
     result.add(
-        "P2P连接状态:${config.statusP2PAsClient || config.statusP2PAsServer ? "在线" : "离线"}");
+        "${OpenIoTHubLocalizations.of(context).p2p_connection_status}}:${config.statusP2PAsClient || config.statusP2PAsServer
+            ? OpenIoTHubLocalizations.of(context).online
+            : OpenIoTHubLocalizations.of(context).offline}");
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
@@ -205,7 +210,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                 ),
                 onLongPress: () {
                   Clipboard.setData(ClipboardData(text: pair));
-                  showToast("复制成功！");
+                  showToast(OpenIoTHubLocalizations.of(context).copy_successful);
                 },
               );
             },
@@ -222,9 +227,9 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                 String gatewayJwt = gatewayJwtValue.value;
                 Clipboard.setData(ClipboardData(text: gatewayJwt));
                 showToast(
-                    "网关的token已经复制到了剪切板！你可以将此token作为网关参数运行或者添加到配置文件：bash>gateway-go -t <你的token>");
+                    OpenIoTHubLocalizations.of(context).gateway_config_notes1);
               },
-              child: const Text("复制网关Token")));
+              child: Text(OpenIoTHubLocalizations.of(context).gateway_config_notes2)));
           divided.add(TextButton(
               onPressed: () async {
                 String uuid = config.runId;
@@ -242,12 +247,12 @@ loginwithtokenmap:
 ''';
                 Clipboard.setData(ClipboardData(text: data));
                 showToast(
-                    "网关的配置文件已经复制到了剪切板！你可以将这个配置内容复制到网关的配置文件(gateway-go.yaml)了");
+                    OpenIoTHubLocalizations.of(context).gateway_config_notes3);
               },
-              child: const Text("复制网关配置内容")));
+              child: Text(OpenIoTHubLocalizations.of(context).gateway_config_notes4)));
           return Scaffold(
             appBar: AppBar(
-              title: const Text('网络详情'),
+              title: Text(OpenIoTHubLocalizations.of(context).gateway_config_notes5),
             ),
             body: ListView(children: divided),
           );
@@ -261,14 +266,14 @@ loginwithtokenmap:
     try {
       SessionApi.deleteRemoteGatewayConfig(config);
     } catch (e) {
-      showToast("删除远程网关的配置失败$e");
+      showToast("${OpenIoTHubLocalizations.of(context).failed_to_delete_the_configuration_of_the_remote_gateway}:$e");
     }
     try {
       SessionApi.deleteOneSession(config);
     } catch (e) {
-      showToast("删除本地网关的映射失败$e");
+      showToast("${OpenIoTHubLocalizations.of(context).failed_to_delete_mapping_for_local_gateway}:$e");
     }
-    showToast("网关成功!");
+    showToast(OpenIoTHubLocalizations.of(context).successfully_deleted_gateway);
     Navigator.of(context).pop();
   }
 
@@ -312,29 +317,29 @@ loginwithtokenmap:
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: const Text("修改名称："),
+                title: Text(OpenIoTHubLocalizations.of(context).modify_name),
                 content: SizedBox.expand(
                     child: ListView(
                   children: <Widget>[
                     TextFormField(
                       controller: newNameController,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
-                        labelText: '请输入新的名称',
-                        helperText: '名称',
+                        labelText: OpenIoTHubLocalizations.of(context).please_input_new_name,
+                        helperText: OpenIoTHubLocalizations.of(context).name,
                       ),
                     )
                   ],
                 )),
                 actions: <Widget>[
                   TextButton(
-                    child: const Text("取消"),
+                    child: Text(OpenIoTHubLocalizations.of(context).cancel),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: const Text("修改"),
+                    child: Text(OpenIoTHubLocalizations.of(context).modify),
                     onPressed: () async {
                       //修改服务器上的
                       GatewayInfo gatewayInfo = GatewayInfo();

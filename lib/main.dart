@@ -9,6 +9,8 @@ import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub/pages/homePage/all/homePage.dart';
 import 'package:openiothub/pages/homePage/pc/pcHomePage.dart';
 import 'package:openiothub/pages/splashPage/splashPage.dart';
+import 'package:openiothub_common_pages/openiothub_common_pages.dart';
+import 'package:openiothub_plugin/openiothub_plugin.dart';
 import 'package:provider/provider.dart';
 import 'package:oktoast/oktoast.dart';
 
@@ -40,6 +42,8 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             localizationsDelegates: const [
               OpenIoTHubLocalizations.delegate,
+              OpenIoTHubCommonLocalizations.delegate,
+              OpenIoTHubPluginLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate
@@ -66,7 +70,7 @@ class PcApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return OKToast(
         child:fluent_ui.FluentApp(
-      title: '云亿连',
+      title: OpenIoTHubCommonLocalizations.of(context).app_title,
       theme: fluent_ui.FluentThemeData(
           accentColor: fluent_ui.Colors.orange
       ),

@@ -19,6 +19,8 @@ import 'package:tdesign_flutter/tdesign_flutter.dart';
 import '../commonPages/scanQR.dart';
 import './mDNSServiceListPage.dart';
 
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
+
 class GatewayListPage extends StatefulWidget {
   const GatewayListPage({required Key key, required this.title})
       : super(key: key);
@@ -74,12 +76,12 @@ class _GatewayListPageState extends State<GatewayListPage> {
           subtitle: pair.statusToClient ||
                   pair.statusP2PAsClient ||
                   pair.statusP2PAsServer
-              ? const Text(
-                  "在线",
+              ? Text(
+                  OpenIoTHubLocalizations.of(context).online,
                   style: TextStyle(color: Colors.green),
                 )
-              : const Text(
-                  "离线",
+              : Text(
+                  OpenIoTHubLocalizations.of(context).offline,
                   style: TextStyle(color: Colors.grey),
                 ),
           trailing: Constants.rightArrowIcon,
@@ -121,7 +123,7 @@ class _GatewayListPageState extends State<GatewayListPage> {
                     : Center(
                         child: Image.asset('assets/images/empty_list.png'),
                       ),
-                const Text("请使用右上角放大镜查找你在本局域网安装的网关"),
+                Text(OpenIoTHubLocalizations.of(context).please_use_the_magnifying_glass_in_the_upper_right_corner),
               ]),
       ),
     );
@@ -181,11 +183,11 @@ class _GatewayListPageState extends State<GatewayListPage> {
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
-                  title: const Text("删除结果："),
-                  content: SizedBox.expand(child: const Text("删除成功！")),
+                  title: Text(OpenIoTHubLocalizations.of(context).delete_result),
+                  content: SizedBox.expand(child: Text(OpenIoTHubLocalizations.of(context).delete_successful)),
                   actions: <Widget>[
                     TextButton(
-                      child: const Text("确认"),
+                      child: Text(OpenIoTHubLocalizations.of(context).confirm),
                       onPressed: () {
                         if (!context.mounted) return;
                         Navigator.of(context).pop();
@@ -200,18 +202,18 @@ class _GatewayListPageState extends State<GatewayListPage> {
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
-                  title: const Text("删除结果："),
-                  content: SizedBox.expand(child: Text("删除失败！$e")),
+                  title: Text(OpenIoTHubLocalizations.of(context).delete_result),
+                  content: SizedBox.expand(child: Text("${OpenIoTHubLocalizations.of(context).delete_failed}:$e")),
                   actions: <Widget>[
                     TextButton(
-                      child: const Text("取消"),
+                      child: Text(OpenIoTHubLocalizations.of(context).cancel),
                       onPressed: () {
                         if (!context.mounted) return;
                         Navigator.of(context).pop();
                       },
                     ),
                     TextButton(
-                      child: const Text("确认"),
+                      child: Text(OpenIoTHubLocalizations.of(context).confirm),
                       onPressed: () {
                         if (!context.mounted) return;
                         Navigator.of(context).pop();
@@ -325,29 +327,29 @@ class _GatewayListPageState extends State<GatewayListPage> {
               showDialog(
                   context: context,
                   builder: (_) => AlertDialog(
-                          title: const Text("摄像头扫码提示！"),
+                          title: Text(OpenIoTHubLocalizations.of(context).camera_scan_code_prompt),
                           scrollable: true,
                           content: SizedBox(
                               height: 120,
                               child: ListView(
-                                children: const <Widget>[
+                                children: <Widget>[
                                   Text(
-                                    "请注意，点击下方 确定 我们将请求摄像头权限进行扫码",
+                                    OpenIoTHubLocalizations.of(context).camera_scan_code_prompt_content,
                                     style: TextStyle(color: Colors.red),
                                   ),
                                 ],
                               )),
                           actions: <Widget>[
                             TextButton(
-                              child: const Text("取消",
+                              child: Text(OpenIoTHubLocalizations.of(context).cancel,
                                   style: TextStyle(color: Colors.grey)),
                               onPressed: () async {
                                 Navigator.of(context).pop();
                               },
                             ),
                             TextButton(
-                              child: const Text(
-                                "确定",
+                              child: Text(
+                                OpenIoTHubLocalizations.of(context).confirm,
                                 style: TextStyle(color: Colors.black),
                               ),
                               onPressed: () {
