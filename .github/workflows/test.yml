@@ -239,10 +239,12 @@ jobs:
           cat flathub_repo/com.iotserv.OpenIoTHubApp.yml
 
       - name: Build .flatpak
-        uses: bilelmoussaoui/flatpak-github-actions/flatpak-builder@v5
+        uses: bilelmoussaoui/flatpak-github-actions/flatpak-builder@v6
         with:
           bundle: OpenIoTHubApp.flatpak
           manifest-path: flathub_repo/com.iotserv.OpenIoTHubApp.yml
+          cache-key: flatpak-builder-${{ github.sha }}
+          upload-artifact: "false"
 
       - name: Upload .flatpak artifact to workflow
         uses: actions/upload-artifact@v4
