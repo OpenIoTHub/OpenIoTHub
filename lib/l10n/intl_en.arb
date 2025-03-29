@@ -31,9 +31,9 @@
   "notes": "Notes",
   "custom_remarks": "Custom remarks",
   "port_number": "Port number",
-  "the_port_number_of_this_machine": "The port number of this machine",
-  "map_to_the_port_number_of_this_mobile_phone": "Map to the port number of this mobile phone (if random, fill in 0)",
-  "this_phone_has_an_idle_port_number_of_1024_or_above": "This phone has an idle port number of 1024 or above",
+  "the_port_number_of_this_machine": "The remote port number",
+  "map_to_the_port_number_of_this_mobile_phone": "The local port number",
+  "this_phone_has_an_idle_port_number_of_1024_or_above": "0: random;1024 or above",
   "cancel": "Cancel",
   "add": "Add",
   "check_if_the_port_is_a_number": "Check if the port is a number",
@@ -50,8 +50,8 @@
   "tcp_port_list_title": "TCP Port List",
   "opening_method": "Opening method:",
   "my_tcp_port": "My TCP",
-  "the_port_number_that_the_remote_machine_needs_to_access": "The port number that the remote machine needs to access",
-  "domain_notes": "Please do not modify if it is not a website port; Do not want to map to the server, please do not modify",
+  "the_port_number_that_the_remote_machine_needs_to_access": "The remote machine port",
+  "domain_notes": "For http public only",
   "delete_tcp": "Delete TCP",
   "confirm_to_delete_this_tcp": "Are you sure to delete this TCP?",
   "tcp_port": "TCP Port",
@@ -135,5 +135,6 @@
   "add_device_to_opneiothub": "Add device to opneiothub",
   "are_you_sure_to_add_this_device_to_openiothub": "Are you sure to add this device to opneiothub?",
   "you_havent_logged_in_yet": "You haven't logged in yet! Please log in first and then add the device",
-  "add_successful": "Added successfully!"
+  "add_successful": "Added successfully!",
+  "please_add_host_first": "Please add host first"
 }

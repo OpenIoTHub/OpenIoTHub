@@ -133,7 +133,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
                       onPressed: () {
                         _addRemoteHostFromSession();
                       },
-                      child: const Text("请先添加主机"))
+                      child: Text(OpenIoTHubLocalizations.of(context).please_add_host_first))
                 ]),
               ),
       ),

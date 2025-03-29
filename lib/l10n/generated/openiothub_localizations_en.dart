@@ -105,16 +105,15 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
   String get port_number => 'Port number';
 
   @override
-  String get the_port_number_of_this_machine =>
-      'The port number of this machine';
+  String get the_port_number_of_this_machine => 'The remote port number';
 
   @override
   String get map_to_the_port_number_of_this_mobile_phone =>
-      'Map to the port number of this mobile phone (if random, fill in 0)';
+      'The local port number';
 
   @override
   String get this_phone_has_an_idle_port_number_of_1024_or_above =>
-      'This phone has an idle port number of 1024 or above';
+      '0: random;1024 or above';
 
   @override
   String get cancel => 'Cancel';
@@ -168,11 +167,10 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
 
   @override
   String get the_port_number_that_the_remote_machine_needs_to_access =>
-      'The port number that the remote machine needs to access';
+      'The remote machine port';
 
   @override
-  String get domain_notes =>
-      'Please do not modify if it is not a website port; Do not want to map to the server, please do not modify';
+  String get domain_notes => 'For http public only';
 
   @override
   String get delete_tcp => 'Delete TCP';
@@ -440,4 +438,7 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
 
   @override
   String get add_successful => 'Added successfully!';
+
+  @override
+  String get please_add_host_first => 'Please add host first';
 }

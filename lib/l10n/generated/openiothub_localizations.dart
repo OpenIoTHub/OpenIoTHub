@@ -925,6 +925,12 @@ abstract class OpenIoTHubLocalizations {
   /// In zh, this message translates to:
   /// **'添加成功!'**
   String get add_successful;
+
+  /// No description provided for @please_add_host_first.
+  ///
+  /// In zh, this message translates to:
+  /// **'请先添加主机'**
+  String get please_add_host_first;
 }
 
 class _OpenIoTHubLocalizationsDelegate

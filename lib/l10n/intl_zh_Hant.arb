@@ -135,5 +135,6 @@
   "add_device_to_opneiothub": "添加設備到雲億連",
   "are_you_sure_to_add_this_device_to_openiothub": "確認添加該設備到雲億連？",
   "you_havent_logged_in_yet": "您還沒有登錄!請先登錄再添加設備",
-  "add_successful": "添加成功!"
+  "add_successful": "添加成功!",
+  "please_add_host_first": "請先添加主機"
 }

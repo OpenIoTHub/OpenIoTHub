@@ -91,6 +91,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        // appBar: AppBar(title: Text(OpenIoTHubLocalizations.of(context).app_title),),
         key: _scaffoldKey,
         // drawer: DrawerUI(),
         body: _buildBody(_currentIndex),
