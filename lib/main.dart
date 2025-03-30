@@ -78,6 +78,8 @@ class PcApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       localizationsDelegates: const [
         OpenIoTHubLocalizations.delegate,
+        OpenIoTHubCommonLocalizations.delegate,
+        OpenIoTHubPluginLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
