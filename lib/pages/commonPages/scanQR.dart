@@ -313,7 +313,7 @@ class BarcodeOverlay extends CustomPainter {
     final cutoutPath = Path()..addPolygon(adjustedOffset, true);
 
     final backgroundPaint = Paint()
-      ..color = Colors.red.withOpacity(0.3)
+      ..color = Colors.red.withAlpha((255.0 * 0.3).round())
       ..style = PaintingStyle.fill
       ..blendMode = BlendMode.dstOut;
 
