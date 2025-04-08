@@ -441,4 +441,7 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
 
   @override
   String get please_add_host_first => 'Please add host first';
+
+  @override
+  String get no_more_prompts_next_time => 'No more prompts next time:';
 }

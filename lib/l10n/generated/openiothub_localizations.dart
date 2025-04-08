@@ -931,6 +931,12 @@ abstract class OpenIoTHubLocalizations {
   /// In zh, this message translates to:
   /// **'请先添加主机'**
   String get please_add_host_first;
+
+  /// No description provided for @no_more_prompts_next_time.
+  ///
+  /// In zh, this message translates to:
+  /// **'下次不再提示：'**
+  String get no_more_prompts_next_time;
 }
 
 class _OpenIoTHubLocalizationsDelegate

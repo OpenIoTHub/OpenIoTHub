@@ -135,7 +135,8 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
                       onPressed: () {
                         _addRemoteHostFromSession();
                       },
-                      child: Text(OpenIoTHubLocalizations.of(context).please_add_host_first))
+                      child: Text(OpenIoTHubLocalizations.of(context)
+                          .please_add_host_first))
                 ]),
               ),
       ),

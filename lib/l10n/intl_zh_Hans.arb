@@ -136,5 +136,6 @@
   "are_you_sure_to_add_this_device_to_openiothub": "确认添加该设备到云亿连？",
   "you_havent_logged_in_yet": "您还没有登录!请先登录再添加设备",
   "add_successful": "添加成功!",
-  "please_add_host_first": "请先添加主机"
+  "please_add_host_first": "请先添加主机",
+  "no_more_prompts_next_time": "下次不再提示："
 }

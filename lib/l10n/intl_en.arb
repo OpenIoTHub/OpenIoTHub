@@ -136,5 +136,6 @@
   "are_you_sure_to_add_this_device_to_openiothub": "Are you sure to add this device to opneiothub?",
   "you_havent_logged_in_yet": "You haven't logged in yet! Please log in first and then add the device",
   "add_successful": "Added successfully!",
-  "please_add_host_first": "Please add host first"
+  "please_add_host_first": "Please add host first",
+  "no_more_prompts_next_time": "No more prompts next time:"
 }
