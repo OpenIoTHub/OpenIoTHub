@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -58,13 +59,16 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
       (pair) {
         var listItemContent = ListTile(
           leading: TDAvatar(
-            size: TDAvatarSize.large,
+            size: TDAvatarSize.medium,
             type: TDAvatarType.customText,
             text: pair.description[0],
             shape: TDAvatarShape.square,
-            backgroundColor: Provider.of<CustomTheme>(context).isLightTheme()
-                ? CustomThemes.light.iconTheme.color
-                : CustomThemes.dark.iconTheme.color,
+            backgroundColor: Color.fromRGBO(
+              Random().nextInt(256), // 随机生成0到255之间的整数
+              Random().nextInt(256), // 随机生成0到255之间的整数
+              Random().nextInt(256), // 随机生成0到255之间的整数
+              1, // 不透明度，1表示完全不透明
+            ),
           ),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -93,7 +97,10 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
         return tiles.elementAt(index);
       },
       separatorBuilder: (context, index) {
-        return const TDDivider();
+        return Container(
+          padding: EdgeInsets.only(left: 70), // 添加左侧缩进
+          child: TDDivider(),
+        );
       },
     );
     return Scaffold(
@@ -294,7 +301,10 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
           return tiles.elementAt(index);
         },
         separatorBuilder: (context, index) {
-          return const TDDivider();
+          return Container(
+            padding: EdgeInsets.only(left: 50), // 添加左侧缩进
+            child: TDDivider(),
+          );
         },
       );
       showDialog(
