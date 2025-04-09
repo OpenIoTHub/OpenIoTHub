@@ -3,7 +3,6 @@
   "strings" : {
     "CFBundleDisplayName" : {
       "comment" : "InfoPlist.strings\n  Runner\n\n  Created by iotserv on 2025/3/29.",
-      "extractionState" : "migrated",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -27,6 +26,30 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "雲億連"
+          }
+        }
+      }
+    },
+    "CFBundleName" : {
+      "comment" : "Bundle name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "云亿连"
+          }
+        }
+      }
+    },
+    "NSHumanReadableCopyright" : {
+      "comment" : "Copyright (human-readable)",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copyright © 2023 com.iotserv. All rights reserved."
           }
         }
       }

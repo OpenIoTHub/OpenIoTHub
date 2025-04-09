@@ -20,7 +20,7 @@ List<Widget>? build_actions(BuildContext context) {
       value: "find_local_gateway",
     ),
   ];
-  if (true || Platform.isAndroid || Platform.isIOS) {
+  if (Platform.isAndroid || Platform.isIOS) {
     popupMenuEntrys.addAll(<PopupMenuEntry<String>>[
       const PopupMenuDivider(
         height: 0.2,

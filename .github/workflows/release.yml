@@ -40,6 +40,14 @@ jobs:
           files: |
             ./build/app/outputs/flutter-apk/app-release.apk
           body_path: ./.github/doc/DownloadDescription.md
+      - run: flutter build appbundle --release
+      - name: Release AAB
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            ./build/app/outputs/bundle/release/app-release.aab
+          body_path: ./.github/doc/DownloadDescription.md
 
   ios:
     name: iOS
