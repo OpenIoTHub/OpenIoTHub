@@ -17,6 +17,8 @@ import 'package:url_launcher/url_launcher_string.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 
+import '../../util/GetParameters.dart';
+
 // 网关下面的mdns服务
 class MDNSServiceListPage extends StatefulWidget {
   MDNSServiceListPage({required Key key, required this.sessionConfig})
@@ -48,13 +50,13 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
       (pair) {
         var listItemContent = ListTile(
           leading: Icon(Icons.devices,
-              color: Provider.of<CustomTheme>(context).isLightTheme()
-                  ? CustomThemes.light.primaryColorLight
-                  : CustomThemes.dark.primaryColorDark),
+              color: Colors.green),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Text(pair.description, style: Constants.titleTextStyle),
+              Text(
+                  "${pair.description.substring(0, pair.description.length > getTitleCharLens() ? getTitleCharLens() : pair.description.length)}${pair.description.length > getTitleCharLens() ? "..." : ""}",
+                  style: Constants.titleTextStyle),
             ],
           ),
           trailing: Constants.rightArrowIcon,

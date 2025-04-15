@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
@@ -9,6 +11,7 @@ import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:openiothub_plugin/plugins/openWithChoice/OpenWithChoice.dart';
 
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
+import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 class TcpPortListPage extends StatefulWidget {
   TcpPortListPage({required Key key, required this.device}) : super(key: key);
@@ -33,22 +36,21 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
   Widget build(BuildContext context) {
     final tiles = _ServiceList.map(
       (pair) {
-        var listItemContent = Padding(
-          padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
-          child: Row(
-            children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
-                child: Icon(Icons.devices),
-              ),
-              Expanded(
-                  child: Text(
-                "${pair.description}(${pair.remotePort})",
-                style: Constants.titleTextStyle,
-              )),
-              Constants.rightArrowIcon
-            ],
+        var listItemContent = ListTile(
+          leading: TDAvatar(
+            size: TDAvatarSize.medium,
+            type: TDAvatarType.customText,
+            text: (pair.name.isEmpty?pair.description:pair.name)[0],
+            shape: TDAvatarShape.square,
+            backgroundColor: pair.remotePortStatus?Colors.green:Colors.deepOrange,
           ),
+          title: Text(pair.name.isEmpty?pair.description:pair.name),
+          subtitle: Text(
+            "${pair.remotePort}:${pair.localProt}",
+            style: Constants.subTitleTextStyle,
+          ),
+          trailing: Constants.rightArrowIcon,
+          contentPadding: const EdgeInsets.fromLTRB(16, 0.0, 16, 0.0),
         );
         return InkWell(
           onTap: () {
@@ -104,6 +106,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
         "${OpenIoTHubLocalizations.of(context).description}:${config.description}");
     result
         .add("${OpenIoTHubLocalizations.of(context).domain}:${config.domain}");
+    // TODO
     result.add(
         "${OpenIoTHubLocalizations.of(context).forwarding_connection_status}:${config.remotePortStatus ? OpenIoTHubLocalizations.of(context).online : OpenIoTHubLocalizations.of(context).offline}");
     await Navigator.of(context).push(

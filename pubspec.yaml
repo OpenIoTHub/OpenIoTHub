@@ -3,7 +3,7 @@ description: A IoT Device Manager.
 homepage: https://github.com/OpenIoTHub
 publish_to: 'none'
 
-version: 1.3.74+410
+version: 1.3.75+412
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -55,7 +55,7 @@ dependencies:
   #  modules:
   #    git: https://github.com/OpenIoTHub/modules
   openiothub_constants: ^1.0.0
-  openiothub_plugin: ^1.0.2+4
+  openiothub_plugin: ^1.0.2+20
   openiothub_api: ^1.0.5+3
   openiothub_common_pages: ^1.0.5+36
 
@@ -83,7 +83,7 @@ dependencies:
   flutter_nsd: any
   desktop_window: ^0.4.0
 #  tencent_kit: ^6.0.1
-  fluent_ui: ^4.9.0
+#  fluent_ui: ^4.9.0
   tdesign_flutter: ^0.1.6
   go_router: ^14.2.2
   flutter_native_splash: ^2.4.1

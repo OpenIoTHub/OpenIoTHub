@@ -1,28 +1,19 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-
-// import 'package:oktoast/oktoast.dart';
-import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub/util/ThemeUtils.dart';
+import 'package:openiothub/widgets/BuildGlobalActions.dart';
 import 'package:openiothub_api/api/OpenIoTHub/SessionApi.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_common_pages/commPages/findmDNSClientList.dart';
-import 'package:openiothub_common_pages/wifiConfig/airkiss.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
-import 'package:provider/provider.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
-import '../commonPages/scanQR.dart';
 import './mDNSServiceListPage.dart';
-
-import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub/widgets/BuildGlobalActions.dart';
 
 class GatewayListPage extends StatefulWidget {
   const GatewayListPage({required Key key, required this.title})
@@ -66,30 +57,37 @@ class _GatewayListPageState extends State<GatewayListPage> {
             text: pair.name[0],
             shape: TDAvatarShape.square,
             backgroundColor: Color.fromRGBO(
-              Random().nextInt(256), // 随机生成0到255之间的整数
-              Random().nextInt(256), // 随机生成0到255之间的整数
-              Random().nextInt(256), // 随机生成0到255之间的整数
+              Random().nextInt(156) + 50, // 随机生成0到255之间的整数
+              Random().nextInt(156) + 50, // 随机生成0到255之间的整数
+              Random().nextInt(156) + 50, // 随机生成0到255之间的整数
               1, // 不透明度，1表示完全不透明
             ),
           ),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Text("${pair.name}(${pair.description})",
+              Text(
+                  "${pair.name.substring(0, pair.name.length > 20 ? 20 : pair.name.length)}${pair.name.length > 20 ? "..." : ""}(${pair.description.substring(0, pair.description.length > 10 ? 10 : pair.description.length)}${pair.description.length > 10 ? "..." : ""})",
                   style: Constants.titleTextStyle),
             ],
           ),
           subtitle: pair.statusToClient ||
                   pair.statusP2PAsClient ||
                   pair.statusP2PAsServer
-              ? Text(
-                  OpenIoTHubLocalizations.of(context).online,
-                  style: TextStyle(color: Colors.green),
-                )
-              : Text(
-                  OpenIoTHubLocalizations.of(context).offline,
-                  style: TextStyle(color: Colors.grey),
-                ),
+              ? TDTag(
+                    OpenIoTHubLocalizations.of(context).online,
+                    theme: TDTagTheme.success,
+                    // isOutline: true,
+                    isLight: true,
+                    fixedWidth: 100,
+                  )
+              : TDTag(
+                    OpenIoTHubLocalizations.of(context).offline,
+                    theme: TDTagTheme.danger,
+                    // isOutline: true,
+                    isLight: true,
+                    fixedWidth: 100,
+                  ),
           trailing: Constants.rightArrowIcon,
         );
         return InkWell(
@@ -101,7 +99,7 @@ class _GatewayListPageState extends State<GatewayListPage> {
       },
     );
     final divided = ListView.separated(
-      padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
+      // padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
       itemCount: tiles.length,
       itemBuilder: (context, index) {
         return tiles.elementAt(index);

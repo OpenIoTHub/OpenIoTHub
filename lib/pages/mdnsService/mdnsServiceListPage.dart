@@ -112,9 +112,9 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
             text: pair.info["name"]![0],
             shape: TDAvatarShape.square,
             backgroundColor: Color.fromRGBO(
-              Random().nextInt(256), // 随机生成0到255之间的整数
-              Random().nextInt(256), // 随机生成0到255之间的整数
-              Random().nextInt(256), // 随机生成0到255之间的整数
+              Random().nextInt(156)+50, // 随机生成0到255之间的整数
+              Random().nextInt(156)+50, // 随机生成0到255之间的整数
+              Random().nextInt(156)+50, // 随机生成0到255之间的整数
               1, // 不透明度，1表示完全不透明
             ),
           ),
