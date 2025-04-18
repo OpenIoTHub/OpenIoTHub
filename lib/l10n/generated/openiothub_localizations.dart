@@ -628,7 +628,7 @@ abstract class OpenIoTHubLocalizations {
   /// No description provided for @please_scan_the_qr_code.
   ///
   /// In zh, this message translates to:
-  /// **'请扫码二维码'**
+  /// **'请扫码云亿连网关提供的二维码'**
   String get please_scan_the_qr_code;
 
   /// No description provided for @scan_the_qr_code.

@@ -1,3 +1,5 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
 import 'openiothub_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -278,7 +280,8 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
   String get confirm_to_delete_this_udp => 'Are you sure to delete this UDP?';
 
   @override
-  String get please_scan_the_qr_code => 'Please scan the QR code';
+  String get please_scan_the_qr_code =>
+      'Please scan the OpenIoTHub gateway QR code';
 
   @override
   String get scan_the_qr_code => 'Scan QR code';

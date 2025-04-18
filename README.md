@@ -3,21 +3,22 @@
 
 [README](README.md) | [中文文档](README_zh.md)
 
-[![Get it from the App Store](./badge-download-on-the-app-store.svg)](https://apps.apple.com/cn/app/云易连/id1501554327)
+[![Get it from the App Store](.github/assets/badge-download-on-the-app-store.svg)](https://apps.apple.com/cn/app/id1501554327)
+<a target="_blank" href="https://play.google.com/store/apps/details?id=com.iotserv.openiothub"><img border="0" src=".github/assets/google-play.png" alt="Get it from the Google Play" title="Google Play" width="150" height="75"></a>
 
 Tencent QQ group: 251227638 <a target="_blank" href="https://jq.qq.com/?_wv=1027&k=1K3Dlmkm"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="OpenIoTHub群" title="OpenIoTHub群"></a>
-
+∂∂
 [![Tencent QQ group](./qq-group-qr.jpg)](https://jq.qq.com/?_wv=1027&k=1K3Dlmkm)
 
 #### What is OpenIoTHub
-💖A free IoT platform and private cloud platform
+💖A free IoT platform and private cloud platform, help you access remote services and IoT Devices.
 
 #### Download OpenIoTHub App：
   * Android,Windows,Linux,Darwin version：https://github.com/OpenIoTHub/OpenIoTHub/releases
-  * iOS version：https://apps.apple.com/cn/app/%E4%BA%91%E6%98%93%E8%BF%9E/id1501554327
+  * iOS version：https://apps.apple.com/cn/app/id1501554327
 #### OpenIoTHub Gateway Download:
   * Windows,Linux,Darwin version：https://github.com/OpenIoTHub/gateway-go/releases
-  * Android version：https://github.com/OpenIoTHub/GateWay/releases
+  * Android version：https://github.com/OpenIoTHub/OpenIoTHub/releases
 #### OpenIoTHub Server Download（high level, common user not necessary）:
 > #### self hosted server for OpenIoTHub（high level）：
 > * https://github.com/OpenIoTHub/server-go/releases

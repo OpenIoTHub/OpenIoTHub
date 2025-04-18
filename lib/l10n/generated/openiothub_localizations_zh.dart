@@ -1,3 +1,5 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
 import 'openiothub_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -272,7 +274,7 @@ class OpenIoTHubLocalizationsZh extends OpenIoTHubLocalizations {
   String get confirm_to_delete_this_udp => '确认删除此UDP?';
 
   @override
-  String get please_scan_the_qr_code => '请扫码二维码';
+  String get please_scan_the_qr_code => '请扫码云亿连网关提供的二维码';
 
   @override
   String get scan_the_qr_code => '扫码二维码';
@@ -704,7 +706,7 @@ class OpenIoTHubLocalizationsZhCn extends OpenIoTHubLocalizationsZh {
   String get confirm_to_delete_this_udp => '确认删除此UDP?';
 
   @override
-  String get please_scan_the_qr_code => '请扫码二维码';
+  String get please_scan_the_qr_code => '请扫码云亿连网关提供的二维码';
 
   @override
   String get scan_the_qr_code => '扫码二维码';
@@ -1136,7 +1138,7 @@ class OpenIoTHubLocalizationsZhHans extends OpenIoTHubLocalizationsZh {
   String get confirm_to_delete_this_udp => '确认删除此UDP?';
 
   @override
-  String get please_scan_the_qr_code => '请扫码二维码';
+  String get please_scan_the_qr_code => '请扫码云亿连网关提供的二维码';
 
   @override
   String get scan_the_qr_code => '扫码二维码';
@@ -1568,7 +1570,7 @@ class OpenIoTHubLocalizationsZhHant extends OpenIoTHubLocalizationsZh {
   String get confirm_to_delete_this_udp => '確認刪除此UDP?';
 
   @override
-  String get please_scan_the_qr_code => '請掃碼二維碼';
+  String get please_scan_the_qr_code => '請掃碼雲億連網關提供的二維碼';
 
   @override
   String get scan_the_qr_code => '掃碼二維碼';
@@ -2000,7 +2002,7 @@ class OpenIoTHubLocalizationsZhTw extends OpenIoTHubLocalizationsZh {
   String get confirm_to_delete_this_udp => '確認刪除此UDP?';
 
   @override
-  String get please_scan_the_qr_code => '請掃碼二維碼';
+  String get please_scan_the_qr_code => '請掃碼雲億連網關提供的二維碼';
 
   @override
   String get scan_the_qr_code => '掃碼二維碼';
