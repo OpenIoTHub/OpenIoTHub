@@ -945,10 +945,10 @@ packages:
     dependency: "direct main"
     description:
       name: mobile_scanner
-      sha256: "9cb9e371ee9b5b548714f9ab5fd33b530d799745c83d5729ecd1e8ab2935dbd1"
+      sha256: c146c012aa00bcf639fa9f00572b1beb3583675c872fc6048544438ef1159453
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "6.0.7"
+    version: "6.0.8"
   mqtt5_client:
     dependency: transitive
     description:
@@ -1025,10 +1025,10 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_api
-      sha256: ed4267ea844d180850bf830a729bcfc13929b8b2a0d9d73c0741ad8426c791c2
+      sha256: "44f6b434c2c8a28b129ea901a4a2fa57cd8bd46b8c8c037c7bb74e175e7f619f"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.5+6"
+    version: "1.0.5+7"
   openiothub_common_pages:
     dependency: "direct main"
     description:
