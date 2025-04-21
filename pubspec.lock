@@ -53,10 +53,10 @@ packages:
     dependency: transitive
     description:
       name: asn1lib
-      sha256: e02d018628c870ef2d7f03e33f9ad179d89ff6ec52ca6c56bcb80bcef979867f
+      sha256: e8953f3698626f6f40c32da22c3348b2c6383e0db224402c53c8b8f3215b1e85
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.6.2"
+    version: "1.6.3"
   async:
     dependency: transitive
     description:
@@ -73,6 +73,54 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.0.1"
+  bonsoir:
+    dependency: "direct main"
+    description:
+      name: bonsoir
+      sha256: "2e2cf3be580deccad9a48dcaddddf90de092e74b7de2015ef58fb24e11d66496"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "5.1.11"
+  bonsoir_android:
+    dependency: transitive
+    description:
+      name: bonsoir_android
+      sha256: "9a65b6e50c5718c3f1a7ed6ff57ab9ed8ae990ff9c36d2b1ab3d1b90f28f7d1b"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "5.1.6"
+  bonsoir_darwin:
+    dependency: transitive
+    description:
+      name: bonsoir_darwin
+      sha256: "2d25c70f0d09260be1c2ab583b80dd89cbbfd59997579dadf789c5af00c7b2e4"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "5.1.3"
+  bonsoir_linux:
+    dependency: transitive
+    description:
+      name: bonsoir_linux
+      sha256: f2639aded6e15943a9822de98a663a1056f37cbfd0a74d72c9eaa941965945c2
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "5.1.3"
+  bonsoir_platform_interface:
+    dependency: transitive
+    description:
+      name: bonsoir_platform_interface
+      sha256: "08bb8b35d0198168b3bce87dbc718e4e510336cff1d97e43762e030c01636d45"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "5.1.3"
+  bonsoir_windows:
+    dependency: transitive
+    description:
+      name: bonsoir_windows
+      sha256: d4a0ca479d4f3679487a61f3174fb9fe1651e323c778b02dfa630490366be65d
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "5.1.5"
   boolean_selector:
     dependency: transitive
     description:
@@ -515,22 +563,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.4.6"
-  flutter_nsd:
-    dependency: "direct main"
-    description:
-      name: flutter_nsd
-      sha256: fffb27a4b9103b97ef9a97d97c7439ba74b2ac46c1f6d4e948c6494fe53e8cae
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.5.0"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
       name: flutter_plugin_android_lifecycle
-      sha256: "5a1e6fb2c0561958d7e4c33574674bda7b77caaca7a33b758876956f2902eea3"
+      sha256: f948e346c12f8d5480d2825e03de228d0eb8c3a737e4cdaa122267b89c022b5e
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.0.27"
+    version: "2.0.28"
   flutter_seekbar:
     dependency: transitive
     description:
@@ -745,10 +785,10 @@ packages:
     dependency: transitive
     description:
       name: image_picker_android
-      sha256: "8bd392ba8b0c8957a157ae0dc9fcf48c58e6c20908d5880aea1d79734df090e9"
+      sha256: "317a5d961cec5b34e777b9252393f2afbd23084aa6e60fcf601dcf6341b9ebeb"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.8.12+22"
+    version: "0.8.12+23"
   image_picker_for_web:
     dependency: transitive
     description:
@@ -945,10 +985,10 @@ packages:
     dependency: "direct main"
     description:
       name: mobile_scanner
-      sha256: c146c012aa00bcf639fa9f00572b1beb3583675c872fc6048544438ef1159453
+      sha256: f3091326f5cb2f54258fee7e07f0211449bfa26f8e1cc4f3ae68e6f4096cce2f
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "6.0.8"
+    version: "6.0.9"
   mqtt5_client:
     dependency: transitive
     description:
@@ -1033,10 +1073,10 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_common_pages
-      sha256: "25d51bb59b658a257069d71d0aaea4dba42a7dd653780dc2fd64ee0639690c46"
+      sha256: "6bbab829cbaa652c556ee612eb53128e4150bb2dd421272a6d6d3ba045fde8d3"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.5+67"
+    version: "1.0.5+71"
   openiothub_constants:
     dependency: "direct main"
     description:
@@ -1129,10 +1169,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_android
-      sha256: "0ca7359dad67fd7063cb2892ab0c0737b2daafd807cf1acecd62374c8fae6c12"
+      sha256: d0d310befe2c8ab9e7f393288ccbb11b60c019c6b5afc21973eeee4dda2b35e9
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.2.16"
+    version: "2.2.17"
   path_provider_foundation:
     dependency: transitive
     description:
@@ -1353,10 +1393,10 @@ packages:
     dependency: transitive
     description:
       name: shared_preferences_android
-      sha256: c2c8c46297b5d6a80bed7741ec1f2759742c77d272f1a1698176ae828f8e1a18
+      sha256: "20cbd561f743a342c76c151d6ddb93a9ce6005751e7aa458baad3858bfbfb6ac"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.4.9"
+    version: "2.4.10"
   shared_preferences_foundation:
     dependency: transitive
     description:
@@ -1590,10 +1630,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_android
-      sha256: "1d0eae19bd7606ef60fe69ef3b312a437a16549476c42321d5dc1506c9ca3bf4"
+      sha256: "8582d7f6fe14d2652b4c45c9b6c14c0b678c2af2d083a11b604caeba51930d79"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "6.3.15"
+    version: "6.3.16"
   url_launcher_ios:
     dependency: transitive
     description:
@@ -1734,10 +1774,10 @@ packages:
     dependency: transitive
     description:
       name: webview_flutter_android
-      sha256: "3315f1306eb22f98c48fe203fb8a448fb23f9e49d55a4da6e17ab7d795774166"
+      sha256: "5c3b6f992d123084903ec091b84f021c413a92a9af49038e4564a1b26c8452cf"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "4.4.0"
+    version: "4.4.1"
   webview_flutter_platform_interface:
     dependency: transitive
     description:

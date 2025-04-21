@@ -80,13 +80,13 @@ dependencies:
 
   intl: '>=0.19.0 <= 1.0.0'
   jaguar: any
-  flutter_nsd: any
   desktop_window: ^0.4.0
 #  tencent_kit: ^6.0.1
 #  fluent_ui: ^4.9.0
   tdesign_flutter: ^0.1.6
   go_router: ^15.0.0
   flutter_native_splash: ^2.4.1
+  bonsoir: ^5.1.11
 
 dev_dependencies:
   flutter_test:

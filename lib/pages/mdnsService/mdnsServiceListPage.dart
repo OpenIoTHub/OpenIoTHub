@@ -5,7 +5,6 @@ import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_nsd/flutter_nsd.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 
@@ -28,6 +27,7 @@ import 'package:provider/provider.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import 'package:openiothub/widgets/BuildGlobalActions.dart';
+import 'package:bonsoir/bonsoir.dart';
 
 class MdnsServiceListPage extends StatefulWidget {
   const MdnsServiceListPage({required Key key, required this.title})
@@ -44,7 +44,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
   final Map<String, PortService> _IoTDeviceMap = <String, PortService>{};
   late Timer _timerPeriodLocal;
   late Timer _timerPeriodRemote;
-  final flutterNsd = FlutterNsd();
+  final Map<String, BonsoirDiscovery> _bonsoirActions = {};
   bool initialStart = true;
   bool _scanning = false;
   final List<String> _supportedTypeList =
@@ -53,33 +53,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
   @override
   void initState() {
     super.initState();
-    flutterNsd.stream.listen(
-      (NsdServiceInfo oneMdnsService) {
-        setState(() {
-          PortService portService = PortService.create();
-          portService.ip = oneMdnsService.hostname!
-              .replaceAll(RegExp(r'local.local.'), "local.");
-          portService.port = oneMdnsService.port!;
-          portService.isLocal = true;
-          oneMdnsService.txt!.forEach((String key, Uint8List value) {
-            portService.info[key] = u8decodeer.convert(value);
-          });
-          print("print _portService:$portService");
-          addPortService(portService);
-        });
-      },
-      onError: (e) async {
-        if (e is NsdError) {
-          if (e.errorCode == NsdErrorCode.startDiscoveryFailed &&
-              initialStart) {
-          } else if (e.errorCode == NsdErrorCode.discoveryStopped &&
-              initialStart) {
-            initialStart = false;
-          }
-        }
-      },
-    );
-    refreshmDNSServicesFromeLocal();
+    getIoTDeviceFromLocal();
     Future.delayed(const Duration(milliseconds: 500)).then((value) {
       refreshmDNSServicesFromeRemote();
     });
@@ -88,10 +62,6 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     });
     Future.delayed(const Duration(milliseconds: 2000)).then((value) {
       refreshmDNSServicesFromeRemote();
-    });
-    _timerPeriodLocal =
-        Timer.periodic(const Duration(seconds: 15), (Timer timer) {
-      refreshmDNSServicesFromeLocal();
     });
     _timerPeriodRemote =
         Timer.periodic(const Duration(seconds: 10), (Timer timer) {
@@ -158,7 +128,6 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          await refreshmDNSServicesFromeLocal();
           await refreshmDNSServicesFromeRemote();
           return;
         },
@@ -206,7 +175,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     _timerPeriodLocal.cancel();
     _timerPeriodRemote.cancel();
     _IoTDeviceMap.clear();
-    stopDiscovery();
+    stopAllDiscovery();
     super.dispose();
   }
 
@@ -257,10 +226,6 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
 //获取所有的设备列表（本地网络和远程网络）
 
 //刷新设备列表
-  Future refreshmDNSServicesFromeLocal() async {
-    getIoTDeviceFromLocal();
-  }
-
   //刷新设备列表
   Future refreshmDNSServicesFromeRemote() async {
     if (await userSignedIn()) {
@@ -278,6 +243,35 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       print('Caught error: $e');
     }
   }
+
+  void onEventOccurred(BonsoirDiscoveryEvent event) {
+    if (event.service == null) {
+      return;
+    }
+
+    BonsoirService service = event.service!;
+    if (event.type == BonsoirDiscoveryEventType.discoveryServiceFound) {
+      // services.add(service);
+      service.resolve(_bonsoirActions[service.type]!.serviceResolver);
+    } else if (event.type == BonsoirDiscoveryEventType.discoveryServiceResolved) {
+      // services.removeWhere((foundService) => foundService.name == service.name);
+      // services.add(service);
+      setState(() {
+        PortService portService = PortService.create();
+        portService.ip = (service as ResolvedBonsoirService).host!.replaceAll(RegExp(r'.local.'), ".local");
+        portService.port = service.port;
+        portService.isLocal = true;
+        service.attributes.forEach((String key, value) {
+          portService.info[key] =value;
+        });
+        print("print _portService:$portService");
+        addPortService(portService);
+      });
+    } else if (event.type == BonsoirDiscoveryEventType.discoveryServiceLost) {
+      // services.removeWhere((foundService) => foundService.name == service.name);
+    }
+  }
+
 
 //添加设备
   Future<void> addPortService(PortService portService) async {
@@ -314,24 +308,31 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
   }
 
   Future getIoTDeviceFromLocal() async {
+    // if  (_scanning) {
+    //   return;
+    // }
     //优先iotdevice
     for (int i = 0; i < _supportedTypeList.length; i++) {
-      await getIoTDeviceFromLocalByType(_supportedTypeList[i]);
-      await Future.delayed(const Duration(seconds: 1));
-      await stopDiscovery();
+      String _type = _supportedTypeList[i];
+      BonsoirDiscovery action = BonsoirDiscovery(type: _type);
+      await action.ready;
+      _bonsoirActions[_type] = action;
+      action.eventStream?.listen(onEventOccurred);
+      await action.start();
     }
+    // _scanning = true;
   }
 
-  Future getIoTDeviceFromLocalByType(String serviceType) async {
-    if (_scanning) return;
-    _scanning = true;
-    await flutterNsd.discoverServices("$serviceType.");
+  Future<void> stopAllDiscovery() async {
+    for (BonsoirActionHandler action in _bonsoirActions.values) {
+      action.stop();
+    }
+    _bonsoirActions.clear();
   }
 
-  Future<void> stopDiscovery() async {
-    if (!_scanning) return;
-    _scanning = false;
-    await flutterNsd.stopDiscovery();
+  Future<void> stopDiscovery(String _type) async {
+    await _bonsoirActions[_type]?.stop();
+    _bonsoirActions.remove(_type);
   }
 
   Future getIoTDeviceFromMqttServer() async {

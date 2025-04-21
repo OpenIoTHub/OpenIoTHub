@@ -48,3 +48,4 @@ app.*.map.json
 /macos/Podfile.lock
 /ios/Podfile.lock
 /android/*.apk
+/android/app/.cxx/
