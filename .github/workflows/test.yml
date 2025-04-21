@@ -128,8 +128,8 @@ jobs:
           channel: latest/stable
       - name: run snapcraft
         run: |
-#          snapcraft --use-lxd
           snapcraft
+
       - run: ls -a
       - uses: actions/upload-artifact@v4
         with:
