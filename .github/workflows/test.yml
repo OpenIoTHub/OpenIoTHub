@@ -128,9 +128,8 @@ jobs:
           channel: latest/stable
       - name: run snapcraft
         run: |
-          flutter pub add flutter_lints
-          flutter pub upgrade
-          snapcraft --use-lxd
+#          snapcraft --use-lxd
+          snapcraft
       - run: ls -a
       - uses: actions/upload-artifact@v4
         with:
