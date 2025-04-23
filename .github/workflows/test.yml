@@ -123,12 +123,12 @@ jobs:
           sudo snap install snapcraft --classic
       - run: hash -r
       - name: Setup LXD
-        uses: canonical/setup-lxd@main
+        uses: canonical/setup-lxd@v0.1.2
         with:
           channel: latest/stable
       - name: run snapcraft
         run: |
-          snapcraft
+          snapcraft --use-lxd
 
       - run: ls -a
       - uses: actions/upload-artifact@v4
