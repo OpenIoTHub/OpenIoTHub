@@ -22,6 +22,19 @@
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>NSLocalNetworkUsageDescription</key>
+    <string>Use Bonsoir to find services and devices locally.</string>
+    <key>NSBonjourServices</key>
+    <array>
+        <string>_iotdevice._tcp</string>
+        <string>_openiothub-gateway._tcp</string>
+        <string>_http._tcp</string>
+        <string>_CGI._tcp</string>
+        <string>_home-assistant._tcp</string>
+        <string>_casaos._tcp</string>
+        <string>_zimaos._tcp</string>
+        <string>_rfb._tcp</string>
+    </array>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
