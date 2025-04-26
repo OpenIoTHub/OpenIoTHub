@@ -69,11 +69,10 @@ List<Widget>? build_actions(BuildContext context) {
           case 'scan_QR':
             SharedPreferences prefs = await SharedPreferences.getInstance();
             if (prefs.containsKey("scan_QR_Dialog") && prefs.getBool("scan_QR_Dialog")!) {
-              Navigator.of(context).pop();
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) {
-                    return const ScanQRPage();
+                    return ScanQRPage(key: UniqueKey(),);
                   },
                 ),
               );
@@ -111,11 +110,10 @@ List<Widget>? build_actions(BuildContext context) {
                               ),
                               onPressed: () {
                                 prefs.setBool("scan_QR_Dialog", true);
-                                Navigator.of(context).pop();
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
                                     builder: (context) {
-                                      return const ScanQRPage();
+                                      return ScanQRPage(key: UniqueKey(),);
                                     },
                                   ),
                                 );

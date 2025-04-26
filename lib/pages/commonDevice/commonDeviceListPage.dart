@@ -1,26 +1,19 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub/util/ThemeUtils.dart';
+import 'package:openiothub/widgets/BuildGlobalActions.dart';
 import 'package:openiothub_api/openiothub_api.dart';
-import 'package:openiothub_common_pages/commPages/findmDNSClientList.dart';
-import 'package:openiothub_common_pages/wifiConfig/airkiss.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
-import 'package:provider/provider.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
-import '../commonPages/scanQR.dart';
-import './commonDeviceServiceTypesList.dart';
-
-import 'package:openiothub/widgets/BuildGlobalActions.dart';
+import 'services/commonDeviceServiceTypesList.dart';
 
 class CommonDeviceListPage extends StatefulWidget {
   const CommonDeviceListPage({required Key key, required this.title})
@@ -64,9 +57,9 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
             text: pair.description[0],
             shape: TDAvatarShape.square,
             backgroundColor: Color.fromRGBO(
-              Random().nextInt(156)+50, // 随机生成0到255之间的整数
-              Random().nextInt(156)+50, // 随机生成0到255之间的整数
-              Random().nextInt(156)+50, // 随机生成0到255之间的整数
+              Random().nextInt(156) + 50, // 随机生成0到255之间的整数
+              Random().nextInt(156) + 50, // 随机生成0到255之间的整数
+              Random().nextInt(156) + 50, // 随机生成0到255之间的整数
               1, // 不透明度，1表示完全不透明
             ),
           ),
