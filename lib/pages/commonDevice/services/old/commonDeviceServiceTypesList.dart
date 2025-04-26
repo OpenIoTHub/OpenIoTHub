@@ -3,23 +3,22 @@ import 'dart:async' as DeviceServiceTypesList;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:oktoast/oktoast.dart';
-import 'package:openiothub/pages/commonDevice/services/httpPortListPage.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub_api/api/OpenIoTHub/CommonDeviceApi.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
-import 'ftpPortListPage.dart';
+import './ftpPortListPage.dart';
+import './udpPortListPage.dart';
+import 'httpPortListPage.dart';
 import 'tcpPortListPage.dart';
-import 'udpPortListPage.dart';
-
-import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 
 class CommonDeviceServiceTypesList extends StatefulWidget {
   CommonDeviceServiceTypesList({required Key key, required this.device})
       : super(key: key);
 
-  Device device;
+  final Device device;
 
   @override
   _CommonDeviceServiceTypesListState createState() =>

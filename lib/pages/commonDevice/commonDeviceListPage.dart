@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
+import 'package:openiothub/pages/commonDevice/services/old/commonDeviceServiceTypesList.dart';
 import 'package:openiothub/util/ThemeUtils.dart';
 import 'package:openiothub/widgets/BuildGlobalActions.dart';
 import 'package:openiothub_api/openiothub_api.dart';
@@ -12,8 +13,6 @@ import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
-
-import 'services/commonDeviceServiceTypesList.dart';
 
 class CommonDeviceListPage extends StatefulWidget {
   const CommonDeviceListPage({required Key key, required this.title})

@@ -1,46 +1,33 @@
-import 'dart:async';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:openiothub_api/api/Server/HttpManager.dart';
-import 'package:openiothub_constants/constants/Constants.dart';
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart' as openiothub;
-import 'package:openiothub_grpc_api/proto/server/server.pb.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:url_launcher/url_launcher_string.dart';
+import 'package:openiothub_api/api/OpenIoTHub/CommonDeviceApi.dart';
+import 'package:openiothub_constants/constants/Constants.dart';
+import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
+import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 
-class HttpPortListPage extends StatefulWidget {
-  HttpPortListPage({required Key key, required this.device}) : super(key: key);
+class UdpPortListPage extends StatefulWidget {
+  UdpPortListPage({required Key key, required this.device}) : super(key: key);
 
-  openiothub.Device device;
+  Device device;
 
   @override
-  _HttpPortListPageState createState() => _HttpPortListPageState();
+  _UdpPortListPageState createState() => _UdpPortListPageState();
 }
 
-class _HttpPortListPageState extends State<HttpPortListPage> {
+class _UdpPortListPageState extends State<UdpPortListPage> {
   static const double IMAGE_ICON_WIDTH = 30.0;
-  List<HTTPConfig> _HttpList = [];
-  late Timer _timerPeriod;
+  List<PortConfig> _ServiceList = [];
 
   @override
   void initState() {
     super.initState();
-    refreshmHttpList();
-    _timerPeriod = Timer.periodic(const Duration(seconds: 3), (Timer timer) {
-      refreshmHttpList();
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _timerPeriod.cancel();
+    refreshmUDPList();
   }
 
   @override
   Widget build(BuildContext context) {
-    final tiles = _HttpList.map(
+    final tiles = _ServiceList.map(
       (pair) {
         var listItemContent = Padding(
           padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
@@ -74,7 +61,7 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
     ).toList();
     return Scaffold(
       appBar: AppBar(
-        title: Text(OpenIoTHubLocalizations.of(context).http_port_list_title),
+        title: Text(OpenIoTHubLocalizations.of(context).udp_port_list_title),
         actions: <Widget>[
           IconButton(
               icon: const Icon(
@@ -83,7 +70,7 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
               ),
               onPressed: () {
                 //刷新端口列表
-                refreshmHttpList();
+                refreshmUDPList();
               }),
           IconButton(
               icon: const Icon(
@@ -91,9 +78,9 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
                 // color: Colors.white,
               ),
               onPressed: () {
-//                TODO 添加Http端口
-                _addHttp(widget.device).then((v) {
-                  refreshmHttpList();
+//                TODO 添加UDP端口
+                _addUDP(widget.device).then((v) {
+                  refreshmUDPList();
                 });
               }),
         ],
@@ -102,12 +89,13 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
     );
   }
 
-  void _pushDetail(HTTPConfig config) async {
+  void _pushDetail(PortConfig config) async {
     final List result = [];
+    result.add("UUID:${config.uuid}");
     result.add(
         "${OpenIoTHubLocalizations.of(context).remote_port}:${config.remotePort}");
-    result
-        .add("${OpenIoTHubLocalizations.of(context).domain}:${config.domain}");
+    result.add(
+        "${OpenIoTHubLocalizations.of(context).local_port}:${config.localProt}");
     result.add(
         "${OpenIoTHubLocalizations.of(context).description}:${config.description}");
     result.add(
@@ -141,17 +129,17 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
                       ),
                       onPressed: () {
                         //TODO 删除
-                        _deleteCurrentHttp(config);
+                        _deleteCurrentUDP(config);
                       }),
-                  IconButton(
-                      icon: const Icon(
-                        Icons.open_in_browser,
-                        // color: Colors.white,
-                      ),
-                      onPressed: () async {
-                        //TODO 使用某种方式打开此端口，检查这个软件是否已经安装
-                        _launchURL("http://${config.domain}");
-                      }),
+//                IconButton(
+//                  icon: Icon(
+//                    Icons.open_in_browser,
+//                    color: Colors.white,
+//                  ),
+//                  onPressed: () {
+//    //                TODO 使用某种方式打开此端口
+//                    _launchURL("http://127.0.0.1:${config.localProt}");
+//                  }),
                 ]),
             body: ListView(children: divided),
           );
@@ -160,11 +148,11 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
     );
   }
 
-  Future refreshmHttpList() async {
+  Future refreshmUDPList() async {
     try {
-      HttpManager.GetAllHTTP(widget.device).then((v) {
+      CommonDeviceApi.getAllUDP(widget.device).then((v) {
         setState(() {
-          _HttpList = v.hTTPConfigs;
+          _ServiceList = v.portConfigs;
         });
       });
     } catch (e) {
@@ -172,18 +160,18 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
     }
   }
 
-  Future _addHttp(openiothub.Device device) async {
+  Future _addUDP(Device device) async {
     TextEditingController descriptionController =
-        TextEditingController.fromValue(const TextEditingValue(text: "Http"));
-    TextEditingController domainController = TextEditingController.fromValue(
-        const TextEditingValue(text: "example.com"));
-    TextEditingController portController =
-        TextEditingController.fromValue(const TextEditingValue(text: "80"));
+        TextEditingController.fromValue(TextEditingValue(
+            text: OpenIoTHubLocalizations.of(context).my_udp_port));
+    TextEditingController remotePortController =
+        TextEditingController.fromValue(const TextEditingValue(text: ""));
+    TextEditingController localPortController =
+        TextEditingController.fromValue(const TextEditingValue(text: ""));
     return showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: Text(
-                    OpenIoTHubLocalizations.of(context).add_port_domain_name),
+                title: Text(OpenIoTHubLocalizations.of(context).add_port),
                 content: SizedBox.expand(
                     child: ListView(
                   children: <Widget>[
@@ -191,30 +179,32 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
                       controller: descriptionController,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
-                        labelText: OpenIoTHubLocalizations.of(context).notes,
+                        labelText:
+                            OpenIoTHubLocalizations.of(context).description,
                         helperText:
                             OpenIoTHubLocalizations.of(context).custom_remarks,
                       ),
                     ),
                     TextFormField(
-                      controller: domainController,
+                      controller: remotePortController,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
-                        labelText: OpenIoTHubLocalizations.of(context).domain,
-                        helperText: OpenIoTHubLocalizations.of(context)
-                            .configure_the_domain_name_for_this_port,
+                        labelText: OpenIoTHubLocalizations.of(context)
+                            .the_port_number_that_the_remote_machine_needs_to_access,
+                        helperText:
+                            OpenIoTHubLocalizations.of(context).remote_port,
                       ),
                     ),
                     TextFormField(
-                      controller: portController,
+                      controller: localPortController,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
-                        labelText:
-                            OpenIoTHubLocalizations.of(context).remote_port,
+                        labelText: OpenIoTHubLocalizations.of(context)
+                            .map_to_the_port_number_of_this_mobile_phone,
                         helperText: OpenIoTHubLocalizations.of(context)
-                            .ports_that_need_to_be_mapped,
+                            .this_phone_has_an_idle_port_number_of_1024_or_above,
                       ),
-                    )
+                    ),
                   ],
                 )),
                 actions: <Widget>[
@@ -227,13 +217,22 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
                   TextButton(
                     child: Text(OpenIoTHubLocalizations.of(context).add),
                     onPressed: () {
-                      HTTPConfig HttpConfig = HTTPConfig();
-                      HttpConfig.runId = device.runId;
-                      HttpConfig.description = descriptionController.text;
-                      HttpConfig.remoteIP = device.addr;
-                      HttpConfig.remotePort = int.parse(portController.text);
-                      HttpConfig.domain = domainController.text;
-                      HttpManager.CreateOneHTTP(HttpConfig).then((restlt) {
+                      var UDPConfig = PortConfig();
+                      UDPConfig.device = device;
+                      UDPConfig.description = descriptionController.text;
+                      try {
+                        UDPConfig.remotePort =
+                            int.parse(remotePortController.text);
+                        UDPConfig.localProt =
+                            int.parse(localPortController.text);
+                      } catch (e) {
+                        showToast(
+                            "${OpenIoTHubLocalizations.of(context).check_if_the_port_is_a_number}:$e");
+                        return;
+                      }
+                      UDPConfig.networkProtocol = "udp";
+                      UDPConfig.applicationProtocol = "unknown";
+                      CommonDeviceApi.createOneUDP(UDPConfig).then((restlt) {
                         Navigator.of(context).pop();
                       });
                     },
@@ -241,15 +240,14 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
                 ]));
   }
 
-  Future _deleteCurrentHttp(HTTPConfig config) async {
+  Future _deleteCurrentUDP(PortConfig config) async {
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title:
-                    Text(OpenIoTHubLocalizations.of(context).delete_this_http),
+                title: Text(OpenIoTHubLocalizations.of(context).delete_udp),
                 content: SizedBox.expand(
                     child: Text(OpenIoTHubLocalizations.of(context)
-                        .are_you_sure_to_delete_this_http)),
+                        .confirm_to_delete_this_udp)),
                 actions: <Widget>[
                   TextButton(
                     child: Text(OpenIoTHubLocalizations.of(context).cancel),
@@ -260,7 +258,7 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
                   TextButton(
                     child: Text(OpenIoTHubLocalizations.of(context).delete),
                     onPressed: () {
-                      HttpManager.DeleteOneHTTP(config).then((result) {
+                      CommonDeviceApi.deleteOneUDP(config).then((result) {
                         Navigator.of(context).pop();
                       });
                     },
@@ -268,17 +266,7 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
                 ])).then((v) {
       Navigator.of(context).pop();
     }).then((v) {
-      refreshmHttpList();
+      refreshmUDPList();
     });
-  }
-
-  _launchURL(String url) async {
-    if (await canLaunchUrlString(url)) {
-      await launchUrlString(url);
-    } else {
-      if (kDebugMode) {
-        print('Could not launch $url');
-      }
-    }
   }
 }
