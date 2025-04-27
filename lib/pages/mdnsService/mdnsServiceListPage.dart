@@ -1,16 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 import 'dart:math';
-import 'dart:typed_data';
 
+import 'package:bonsoir/bonsoir.dart';
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-
-import 'package:openiothub/model/custom_theme.dart';
-
 import 'package:openiothub/util/ThemeUtils.dart';
+import 'package:openiothub/widgets/BuildGlobalActions.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_common_pages/wifiConfig/airkiss.dart';
 import 'package:openiothub_constants/openiothub_constants.dart';
@@ -19,15 +16,9 @@ import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:openiothub_plugin/plugins/mdnsService/commWidgets/info.dart';
 import 'package:openiothub_plugin/plugins/mdnsService/mdnsType2ModelMap.dart';
-
 //统一导入全部设备类型
 import 'package:openiothub_plugin/plugins/mdnsService/modelsMap.dart';
-import 'package:protobuf/protobuf.dart';
-import 'package:provider/provider.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
-
-import 'package:openiothub/widgets/BuildGlobalActions.dart';
-import 'package:bonsoir/bonsoir.dart';
 
 class MdnsServiceListPage extends StatefulWidget {
   const MdnsServiceListPage({required Key key, required this.title})
@@ -82,9 +73,9 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
             text: pair.info["name"]![0],
             shape: TDAvatarShape.square,
             backgroundColor: Color.fromRGBO(
-              Random().nextInt(156)+50, // 随机生成0到255之间的整数
-              Random().nextInt(156)+50, // 随机生成0到255之间的整数
-              Random().nextInt(156)+50, // 随机生成0到255之间的整数
+              Random().nextInt(156) + 50, // 随机生成0到255之间的整数
+              Random().nextInt(156) + 50, // 随机生成0到255之间的整数
+              Random().nextInt(156) + 50, // 随机生成0到255之间的整数
               1, // 不透明度，1表示完全不透明
             ),
           ),
@@ -253,25 +244,52 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     if (event.type == BonsoirDiscoveryEventType.discoveryServiceFound) {
       // services.add(service);
       service.resolve(_bonsoirActions[service.type]!.serviceResolver);
-    } else if (event.type == BonsoirDiscoveryEventType.discoveryServiceResolved) {
+    } else if (event.type ==
+        BonsoirDiscoveryEventType.discoveryServiceResolved) {
       // services.removeWhere((foundService) => foundService.name == service.name);
       // services.add(service);
       setState(() {
-        PortService portService = PortService.create();
-        portService.ip = (service as ResolvedBonsoirService).host!.replaceAll(RegExp(r'.local.'), ".local");
-        portService.port = service.port;
-        portService.isLocal = true;
-        service.attributes.forEach((String key, value) {
-          portService.info[key] =value;
-        });
-        print("print _portService:$portService");
-        addPortService(portService);
+        if (MDNS2ModelsMap.modelsMap.containsKey(service.type)) {
+          PortService portService =
+              MDNS2ModelsMap.modelsMap[service.type]!.deepCopy();
+          service.attributes.forEach((String key, value) {
+            portService.info[key] = value;
+          });
+          portService.ip = (service as ResolvedBonsoirService)
+              .host!
+              .replaceAll(RegExp(r'.local.local.'), ".local")
+              .replaceAll(RegExp(r'.local.'), ".local");
+          portService.port = service.port;
+          portService.isLocal = true;
+          if (portService.info.containsKey("id") &&
+              portService.info["id"] == "" &&
+              portService.info.containsKey("mac") &&
+              portService.info["mac"] != "") {
+            portService.info["id"] = portService.info["mac"]!;
+          } else {
+            portService.info["id"] =
+                "${portService.ip}:${portService.port}@local";
+          }
+          addPortService(portService);
+        } else {
+          PortService portService = PortService.create();
+          portService.ip = (service as ResolvedBonsoirService)
+              .host!
+              .replaceAll(RegExp(r'.local.local.'), ".local")
+              .replaceAll(RegExp(r'.local.'), ".local");
+          portService.port = service.port;
+          portService.isLocal = true;
+          service.attributes.forEach((String key, value) {
+            portService.info[key] = value;
+          });
+          print("print _portService:$portService");
+          addPortService(portService);
+        }
       });
     } else if (event.type == BonsoirDiscoveryEventType.discoveryServiceLost) {
       // services.removeWhere((foundService) => foundService.name == service.name);
     }
   }
-
 
 //添加设备
   Future<void> addPortService(PortService portService) async {
@@ -319,6 +337,8 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       _bonsoirActions[_type] = action;
       action.eventStream?.listen(onEventOccurred);
       await action.start();
+      print("===start $_type");
+      Future.delayed(const Duration(milliseconds: 500));
     }
     // _scanning = true;
   }
@@ -385,7 +405,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
                   portService.info["id"] = portService.info["mac"]!;
                 } else {
                   portService.info["id"] =
-                      "${portConfig.device.addr}:${portService.port}@local";
+                      "${portConfig.device.addr}:${portConfig.remotePort}@local";
                 }
                 addPortService(portService);
               } else {
