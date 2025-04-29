@@ -5,7 +5,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub/pages/commonDevice/services/old/commonDeviceServiceTypesList.dart';
+import 'package:openiothub/pages/commonDevice/services/services.dart';
+// import 'package:openiothub/pages/commonDevice/services/old/commonDeviceServiceTypesList.dart';
 import 'package:openiothub/util/ThemeUtils.dart';
 import 'package:openiothub/widgets/BuildGlobalActions.dart';
 import 'package:openiothub_api/openiothub_api.dart';
@@ -209,7 +210,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
       MaterialPageRoute(
         builder: (context) {
           // 写成独立的组件，支持刷新
-          return CommonDeviceServiceTypesList(
+          return ServicesListPage(
             device: device,
             key: UniqueKey(),
           );

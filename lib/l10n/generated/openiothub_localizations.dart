@@ -937,6 +937,18 @@ abstract class OpenIoTHubLocalizations {
   /// In zh, this message translates to:
   /// **'下次不再提示：'**
   String get no_more_prompts_next_time;
+
+  /// No description provided for @network_protocol.
+  ///
+  /// In zh, this message translates to:
+  /// **'网络协议'**
+  String get network_protocol;
+
+  /// No description provided for @application_protocol.
+  ///
+  /// In zh, this message translates to:
+  /// **'应用协议'**
+  String get application_protocol;
 }
 
 class _OpenIoTHubLocalizationsDelegate

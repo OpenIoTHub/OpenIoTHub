@@ -137,5 +137,7 @@
   "you_havent_logged_in_yet": "您還沒有登錄!請先登錄再添加設備",
   "add_successful": "添加成功!",
   "please_add_host_first": "請先添加主機",
-  "no_more_prompts_next_time": "下次不再提示："
+  "no_more_prompts_next_time": "下次不再提示：",
+  "network_protocol": "網絡協議",
+  "application_protocol": "應用協議"
 }

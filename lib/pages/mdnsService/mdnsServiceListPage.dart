@@ -37,7 +37,6 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
   late Timer _timerPeriodRemote;
   final Map<String, BonsoirDiscovery> _bonsoirActions = {};
   bool initialStart = true;
-  bool _scanning = false;
   final List<String> _supportedTypeList =
       MDNS2ModelsMap.getAllmDnsServiceType();
 

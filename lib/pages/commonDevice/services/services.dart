@@ -11,6 +11,8 @@ import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_plugin/plugins/openWithChoice/OpenWithChoice.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
+import 'createService.dart';
+
 class ServicesListPage extends StatefulWidget {
   ServicesListPage({required Key key, required this.device}) : super(key: key);
 
@@ -26,6 +28,7 @@ class _ServicesListPageState extends State<ServicesListPage> {
   @override
   void initState() {
     super.initState();
+    refreshPortConfigList();
   }
 
   @override
@@ -43,16 +46,39 @@ class _ServicesListPageState extends State<ServicesListPage> {
           ),
           title: Text(pair.name.isEmpty ? pair.description : pair.name),
           subtitle: Text(
-            "${pair.remotePort}:${pair.localProt}",
+            "${pair.networkProtocol} ${pair.remotePort}:${pair.localProt}",
             style: Constants.subTitleTextStyle,
           ),
-          trailing: Constants.rightArrowIcon,
+          trailing: TDButton(
+              // text: 'More',
+              icon: Icons.more_horiz,
+              size: TDButtonSize.small,
+              type: TDButtonType.outline,
+              shape: TDButtonShape.rectangle,
+              theme: TDButtonTheme.light,
+              onTap: () {
+                _pushPortConfigDetail(pair);
+              }),
           contentPadding: const EdgeInsets.fromLTRB(16, 0.0, 16, 0.0),
         );
         return InkWell(
           onTap: () {
-            //打开此端口的详情
-            _pushTcpDetail(pair);
+            //选择打开方式
+            showDialog(
+                context: context,
+                builder: (_) => AlertDialog(
+                        title: Text(
+                            OpenIoTHubLocalizations.of(context).opening_method),
+                        content: SizedBox.expand(child: OpenWithChoice(pair)),
+                        actions: <Widget>[
+                          TextButton(
+                            child: Text(
+                                OpenIoTHubLocalizations.of(context).cancel),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ]));
           },
           child: listItemContent,
         );
@@ -91,8 +117,8 @@ class _ServicesListPageState extends State<ServicesListPage> {
                   ),
                   onPressed: () {
                     // 添加TCP、UDP、Http端口
-                    _addTCP(widget.device).then((v) {
-                      refreshmTcpList();
+                    _addOnePortConfig(widget.device).then((v) {
+                      refreshPortConfigList();
                     });
                   }),
 //            TODO 设备的详情
@@ -106,7 +132,12 @@ class _ServicesListPageState extends State<ServicesListPage> {
                     _pushDetail();
                   }),
             ]),
-        body: Text(""));
+        body: RefreshIndicator(
+            onRefresh: () async {
+              await refreshPortConfigList();
+              return;
+            },
+            child: ListView(children: divided)));
   }
 
   Future _deleteCurrentDevice() async {
@@ -266,7 +297,7 @@ class _ServicesListPageState extends State<ServicesListPage> {
     );
   }
 
-  void _pushTcpDetail(PortConfig config) async {
+  void _pushPortConfigDetail(PortConfig config) async {
     final List result = [];
     result.add("UUID:${config.uuid}");
     result.add(
@@ -277,88 +308,38 @@ class _ServicesListPageState extends State<ServicesListPage> {
         "${OpenIoTHubLocalizations.of(context).description}:${config.description}");
     result
         .add("${OpenIoTHubLocalizations.of(context).domain}:${config.domain}");
+    result.add(
+        "${OpenIoTHubLocalizations.of(context).network_protocol}:${config.networkProtocol}");
+    result.add(
+        "${OpenIoTHubLocalizations.of(context).application_protocol}:${config.applicationProtocol}");
     // TODO
     result.add(
         "${OpenIoTHubLocalizations.of(context).forwarding_connection_status}:${config.remotePortStatus ? OpenIoTHubLocalizations.of(context).online : OpenIoTHubLocalizations.of(context).offline}");
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
-          final tiles = result.map(
-            (pair) {
-              return ListTile(
-                title: Text(
-                  pair,
-                  style: Constants.titleTextStyle,
-                ),
-              );
-            },
-          );
-          final divided = ListTile.divideTiles(
-            context: context,
-            tiles: tiles,
-          ).toList();
-
-          return Scaffold(
-            appBar: AppBar(
-                title: Text(OpenIoTHubLocalizations.of(context).port_details),
-                actions: <Widget>[
-                  IconButton(
-                      icon: const Icon(
-                        Icons.delete,
-                        color: Colors.red,
-                      ),
-                      onPressed: () {
-                        //删除
-                        _deleteCurrentTCP(config);
-                      }),
-                  IconButton(
-                      icon: const Icon(
-                        Icons.open_in_browser,
-                        // color: Colors.white,
-                      ),
-                      onPressed: () {
-                        //                TODO 使用某种方式打开此端口，检查这个软件是否已经安装
-//                    _launchURL("http://127.0.0.1:${config.localProt}");
-                        showDialog(
-                            context: context,
-                            builder: (_) => AlertDialog(
-                                    title: Text(
-                                        OpenIoTHubLocalizations.of(context)
-                                            .opening_method),
-                                    content: SizedBox.expand(
-                                        child: OpenWithChoice(config)),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        child: Text(
-                                            OpenIoTHubLocalizations.of(context)
-                                                .cancel),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                      TextButton(
-                                        child: Text(
-                                            OpenIoTHubLocalizations.of(context)
-                                                .add),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      )
-                                    ]));
-                      }),
-                ]),
-            body: ListView(children: divided),
-          );
+          return CreateServiceWidget(device: widget.device,);
         },
       ),
     );
   }
 
-  Future refreshmTcpList() async {
+  Future refreshPortConfigList() async {
     try {
+      _ServiceList.clear();
       CommonDeviceApi.getAllTCP(widget.device).then((v) {
         setState(() {
           _ServiceList = v.portConfigs;
+        });
+      });
+      CommonDeviceApi.getAllUDP(widget.device).then((v) {
+        setState(() {
+          _ServiceList.addAll(v.portConfigs);
+        });
+      });
+      CommonDeviceApi.getAllFTP(widget.device).then((v) {
+        setState(() {
+          _ServiceList.addAll(v.portConfigs);
         });
       });
     } catch (e) {
@@ -368,103 +349,13 @@ class _ServicesListPageState extends State<ServicesListPage> {
     }
   }
 
-  Future _addTCP(Device device) async {
-    TextEditingController descriptionController =
-        TextEditingController.fromValue(TextEditingValue(
-            text: OpenIoTHubLocalizations.of(context).my_tcp_port));
-    TextEditingController remotePortController =
-        TextEditingController.fromValue(const TextEditingValue(text: "80"));
-    TextEditingController localPortController =
-        TextEditingController.fromValue(const TextEditingValue(text: "0"));
-    TextEditingController domainController = TextEditingController.fromValue(
-        const TextEditingValue(text: "www.example.com"));
+  Future _addOnePortConfig(device) async {
     return showDialog(
         context: context,
-        builder: (_) => AlertDialog(
-                title: Text(OpenIoTHubLocalizations.of(context).add_port),
-                content: SizedBox.expand(
-                    child: ListView(
-                  children: <Widget>[
-                    TextFormField(
-                      controller: descriptionController,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
-                        labelText:
-                            OpenIoTHubLocalizations.of(context).description,
-                        helperText:
-                            OpenIoTHubLocalizations.of(context).custom_remarks,
-                      ),
-                    ),
-                    TextFormField(
-                      controller: remotePortController,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
-                        labelText: OpenIoTHubLocalizations.of(context)
-                            .the_port_number_that_the_remote_machine_needs_to_access,
-                        helperText:
-                            OpenIoTHubLocalizations.of(context).remote_port,
-                      ),
-                    ),
-                    TextFormField(
-                      controller: localPortController,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
-                        labelText: OpenIoTHubLocalizations.of(context)
-                            .map_to_the_port_number_of_this_mobile_phone,
-                        helperText: OpenIoTHubLocalizations.of(context)
-                            .this_phone_has_an_idle_port_number_of_1024_or_above,
-                      ),
-                    ),
-                    TextFormField(
-                      controller: domainController,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
-                        labelText: OpenIoTHubLocalizations.of(context).domain,
-                        helperText:
-                            OpenIoTHubLocalizations.of(context).domain_notes,
-                      ),
-                    ),
-                  ],
-                )),
-                actions: <Widget>[
-                  TextButton(
-                    child: Text(OpenIoTHubLocalizations.of(context).cancel),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                  TextButton(
-                    child: Text(OpenIoTHubLocalizations.of(context).add),
-                    onPressed: () {
-                      var tcpConfig = PortConfig();
-                      tcpConfig.device = device;
-                      tcpConfig.description = descriptionController.text;
-                      try {
-                        tcpConfig.remotePort =
-                            int.parse(remotePortController.text);
-                        tcpConfig.localProt =
-                            int.parse(localPortController.text);
-                      } catch (e) {
-                        showToast(
-                            "${OpenIoTHubLocalizations.of(context).check_if_the_port_is_a_number}:$e");
-                        return;
-                      }
-                      tcpConfig.networkProtocol = "tcp";
-                      if (domainController.text != "www.example.com") {
-                        tcpConfig.domain = domainController.text;
-                        tcpConfig.applicationProtocol = "http";
-                      } else {
-                        tcpConfig.applicationProtocol = "unknown";
-                      }
-                      CommonDeviceApi.createOneTCP(tcpConfig).then((restlt) {
-                        Navigator.of(context).pop();
-                      });
-                    },
-                  )
-                ]));
+        builder: (con) => CreateServiceWidget(device: device,));
   }
 
-  Future _deleteCurrentTCP(PortConfig config) async {
+  Future _deleteOnePortConfig(PortConfig config) async {
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
@@ -490,7 +381,7 @@ class _ServicesListPageState extends State<ServicesListPage> {
                 ])).then((v) {
       Navigator.of(context).pop();
     }).then((v) {
-      refreshmTcpList();
+      refreshPortConfigList();
     });
   }
 }

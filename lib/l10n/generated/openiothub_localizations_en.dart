@@ -445,4 +445,10 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
 
   @override
   String get no_more_prompts_next_time => 'No more prompts next time:';
+
+  @override
+  String get network_protocol => 'Network protocol';
+
+  @override
+  String get application_protocol => 'Application protocol';
 }

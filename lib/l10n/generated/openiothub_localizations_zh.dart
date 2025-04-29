@@ -434,6 +434,12 @@ class OpenIoTHubLocalizationsZh extends OpenIoTHubLocalizations {
 
   @override
   String get no_more_prompts_next_time => '下次不再提示：';
+
+  @override
+  String get network_protocol => '网络协议';
+
+  @override
+  String get application_protocol => '应用协议';
 }
 
 /// The translations for Chinese, as used in China (`zh_CN`).
@@ -866,6 +872,12 @@ class OpenIoTHubLocalizationsZhCn extends OpenIoTHubLocalizationsZh {
 
   @override
   String get no_more_prompts_next_time => '下次不再提示：';
+
+  @override
+  String get network_protocol => '网络协议';
+
+  @override
+  String get application_protocol => '应用协议';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hans`).
@@ -1298,6 +1310,12 @@ class OpenIoTHubLocalizationsZhHans extends OpenIoTHubLocalizationsZh {
 
   @override
   String get no_more_prompts_next_time => '下次不再提示：';
+
+  @override
+  String get network_protocol => '网络协议';
+
+  @override
+  String get application_protocol => '应用协议';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -1730,6 +1748,12 @@ class OpenIoTHubLocalizationsZhHant extends OpenIoTHubLocalizationsZh {
 
   @override
   String get no_more_prompts_next_time => '下次不再提示：';
+
+  @override
+  String get network_protocol => '網絡協議';
+
+  @override
+  String get application_protocol => '應用協議';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -2162,4 +2186,10 @@ class OpenIoTHubLocalizationsZhTw extends OpenIoTHubLocalizationsZh {
 
   @override
   String get no_more_prompts_next_time => '下次不再提示：';
+
+  @override
+  String get network_protocol => '網絡協議';
+
+  @override
+  String get application_protocol => '應用協議';
 }
