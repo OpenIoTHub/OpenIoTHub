@@ -1,3 +1,4 @@
+import 'package:openiothub_constants/constants/SharedPreferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../configs/consts.dart';
@@ -8,4 +9,9 @@ Future<bool> agreedPrivacyPolicy() async {
       ? prefs.getBool(Agreed_Privacy_Policy)!
       : false;
   return agreed;
+}
+
+Future<bool> userSignedIn() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.containsKey(SharedPreferencesKey.USER_TOKEN_KEY);
 }

@@ -13,11 +13,12 @@ import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:openiothub_plugin/plugins/mdnsService/commWidgets/mDNSInfo.dart';
 import 'package:provider/provider.dart';
+import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 
-import '../../util/GetParameters.dart';
+import 'package:openiothub/util/GetParameters.dart';
 
 // 网关下面的mdns服务
 class MDNSServiceListPage extends StatefulWidget {
@@ -58,6 +59,13 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                   "${pair.description.substring(0, pair.description.length > getTitleCharLens() ? getTitleCharLens() : pair.description.length)}${pair.description.length > getTitleCharLens() ? "..." : ""}",
                   style: Constants.titleTextStyle),
             ],
+          ),
+          subtitle: TDTag(
+            "${pair.device.addr}:${pair.remotePort}",
+            theme: TDTagTheme.success,
+            // isOutline: true,
+            isLight: true,
+            fixedWidth: 10,
           ),
           trailing: Constants.rightArrowIcon,
         );
@@ -126,6 +134,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
       appBar: AppBar(
         title: Text(OpenIoTHubLocalizations.of(context).mdns_service_list),
         actions: <Widget>[
+          // TODO 通过_device-info._tcp发现设备
           //重新命名
           IconButton(
               icon: const Icon(

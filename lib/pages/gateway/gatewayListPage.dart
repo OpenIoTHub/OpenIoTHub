@@ -7,7 +7,7 @@ import 'package:openiothub/util/ThemeUtils.dart';
 import 'package:openiothub/widgets/BuildGlobalActions.dart';
 import 'package:openiothub_api/api/OpenIoTHub/SessionApi.dart';
 import 'package:openiothub_api/openiothub_api.dart';
-import 'package:openiothub_common_pages/commPages/findmDNSClientList.dart';
+import 'package:openiothub_common_pages/commPages/findGatewayGoList.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
@@ -162,7 +162,7 @@ class _GatewayListPageState extends State<GatewayListPage> {
       MaterialPageRoute(
         builder: (context) {
           // 写成独立的组件，支持刷新
-          return FindmDNSClientListPage(
+          return FindGatewayGoListPage(
             key: UniqueKey(),
           );
         },

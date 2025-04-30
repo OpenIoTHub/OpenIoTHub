@@ -167,13 +167,18 @@ class _ProfilePageState extends State<ProfilePage> {
             title: Text(OpenIoTHubLocalizations.of(context).profile_servers),
             leading: Icon(TDIcons.server, color: Colors.orange),
             trailing: const Icon(Icons.arrow_right),
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ServerPages(
-                        title:
-                            OpenIoTHubLocalizations.of(context).profile_servers,
-                        key: UniqueKey(),
-                      )));
+            onTap: () async {
+              if (await userSignedIn()) {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => ServerPages(
+                      title:
+                      OpenIoTHubLocalizations.of(context).profile_servers,
+                      key: UniqueKey(),
+                    )));
+              }else{
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => LoginPage()));
+              }
             }),
         ListTile(
             //第一个功能项

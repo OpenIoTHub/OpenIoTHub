@@ -80,7 +80,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
           ),
           title: Text(pair.info["name"]!, style: Constants.titleTextStyle),
           subtitle: Text(
-            pair.info["model"]!,
+            "${pair.info["model"]!}@${pair.isLocal?"local":"remote"}",
             style: Constants.subTitleTextStyle,
           ),
           trailing: Constants.rightArrowIcon,
@@ -261,8 +261,9 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
           portService.port = service.port;
           portService.isLocal = true;
           if (portService.info.containsKey("id") &&
-              portService.info["id"] == "" &&
-              portService.info.containsKey("mac") &&
+              portService.info["id"] != "" ) {
+            // 有id
+          } else if(portService.info.containsKey("mac") &&
               portService.info["mac"] != "") {
             portService.info["id"] = portService.info["mac"]!;
           } else {
@@ -398,13 +399,14 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
                 portService.port = portConfig.localProt;
                 portService.isLocal = false;
                 if (portService.info.containsKey("id") &&
-                    portService.info["id"] == "" &&
-                    portService.info.containsKey("mac") &&
-                    portService.info["mac"] != "") {
+                    portService.info["id"] != "") {
+                  // 有id
+                }else if(portService.info.containsKey("mac") &&
+                    portService.info["mac"] != ""){
                   portService.info["id"] = portService.info["mac"]!;
                 } else {
                   portService.info["id"] =
-                      "${portConfig.device.addr}:${portConfig.remotePort}@local";
+                      "${portConfig.device.addr}:${portConfig.remotePort}@${sessionConfig.runId}";
                 }
                 addPortService(portService);
               } else {

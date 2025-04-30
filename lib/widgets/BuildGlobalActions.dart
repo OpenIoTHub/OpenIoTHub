@@ -1,15 +1,13 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub_common_pages/commPages/findmDNSClientList.dart';
-import 'package:openiothub_common_pages/wifiConfig/airkiss.dart';
-import 'package:openiothub_constants/constants/SharedPreferences.dart';
+import 'package:openiothub/pages/commonPages/scanQR.dart';
+import 'package:openiothub_common_pages/openiothub_common_pages.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
-import 'package:openiothub/pages/commonPages/scanQR.dart';
+import '../util/check/check.dart';
 
 List<Widget>? build_actions(BuildContext context) {
   var popupMenuEntrys = <PopupMenuEntry<String>>[
@@ -68,11 +66,14 @@ List<Widget>? build_actions(BuildContext context) {
             break;
           case 'scan_QR':
             SharedPreferences prefs = await SharedPreferences.getInstance();
-            if (prefs.containsKey("scan_QR_Dialog") && prefs.getBool("scan_QR_Dialog")!) {
+            if (prefs.containsKey("scan_QR_Dialog") &&
+                prefs.getBool("scan_QR_Dialog")!) {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) {
-                    return ScanQRPage(key: UniqueKey(),);
+                    return ScanQRPage(
+                      key: UniqueKey(),
+                    );
                   },
                 ),
               );
@@ -108,15 +109,22 @@ List<Widget>? build_actions(BuildContext context) {
                                 OpenIoTHubLocalizations.of(context).confirm,
                                 style: TextStyle(color: Colors.black),
                               ),
-                              onPressed: () {
+                              onPressed: () async {
                                 prefs.setBool("scan_QR_Dialog", true);
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return ScanQRPage(key: UniqueKey(),);
-                                    },
-                                  ),
-                                );
+                                if (await userSignedIn()) {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return ScanQRPage(
+                                          key: UniqueKey(),
+                                        );
+                                      },
+                                    ),
+                                  );
+                                } else {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => LoginPage()));
+                                }
                               },
                             ),
                           ]));
@@ -127,7 +135,7 @@ List<Widget>? build_actions(BuildContext context) {
               MaterialPageRoute(
                 builder: (context) {
                   // 写成独立的组件，支持刷新
-                  return FindmDNSClientListPage(
+                  return FindGatewayGoListPage(
                     key: UniqueKey(),
                   );
                 },

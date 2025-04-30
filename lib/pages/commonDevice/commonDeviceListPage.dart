@@ -144,6 +144,11 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
   }
 
   Future _addDevice(SessionConfig config) async {
+    // TODO 从网关所有mdns出现的ip主机推荐主机地址
+    TextEditingController nameController =
+    TextEditingController.fromValue(TextEditingValue(
+        text:
+        OpenIoTHubLocalizations.of(context).internal_network_devices));
     TextEditingController descriptionController =
         TextEditingController.fromValue(TextEditingValue(
             text:
@@ -157,6 +162,16 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
                 content: SizedBox.expand(
                     child: ListView(
                   children: <Widget>[
+                    TextFormField(
+                      controller: nameController,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(10.0),
+                        labelText:
+                        OpenIoTHubLocalizations.of(context).name,
+                        helperText:
+                        OpenIoTHubLocalizations.of(context).custom_remarks,
+                      ),
+                    ),
                     TextFormField(
                       controller: descriptionController,
                       decoration: InputDecoration(
@@ -192,6 +207,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
                       var device = Device();
                       device.runId = config.runId;
                       device.uuid = getOneUUID();
+                      device.name = nameController.text;
                       device.description = descriptionController.text;
                       device.addr = remoteIpController.text;
                       createOneCommonDevice(device).then((v) {

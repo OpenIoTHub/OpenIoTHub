@@ -60,28 +60,26 @@ class _ServicesListPageState extends State<ServicesListPage> {
                 _pushPortConfigDetail(pair);
               }),
           contentPadding: const EdgeInsets.fromLTRB(16, 0.0, 16, 0.0),
-        );
-        return InkWell(
           onTap: () {
             //选择打开方式
             showDialog(
                 context: context,
                 builder: (_) => AlertDialog(
-                        title: Text(
-                            OpenIoTHubLocalizations.of(context).opening_method),
-                        content: SizedBox.expand(child: OpenWithChoice(pair)),
-                        actions: <Widget>[
-                          TextButton(
-                            child: Text(
-                                OpenIoTHubLocalizations.of(context).cancel),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        ]));
+                    title: Text(
+                        OpenIoTHubLocalizations.of(context).opening_method),
+                    content: SizedBox.expand(child: OpenWithChoice(pair)),
+                    actions: <Widget>[
+                      TextButton(
+                        child: Text(
+                            OpenIoTHubLocalizations.of(context).cancel),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ]));
           },
-          child: listItemContent,
         );
+        return InkWell(child: listItemContent,);
       },
     );
     final divided = ListTile.divideTiles(
@@ -318,7 +316,29 @@ class _ServicesListPageState extends State<ServicesListPage> {
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
-          return CreateServiceWidget(device: widget.device,);
+          final tiles = result.map(
+                (pair) {
+              return ListTile(
+                title: Text(
+                  pair,
+                  style: Constants.titleTextStyle,
+                ),
+              );
+            },
+          );
+          final divided = ListTile.divideTiles(
+            context: context,
+            tiles: tiles,
+          ).toList();
+
+          return Scaffold(
+            appBar: AppBar(
+                title: Text(OpenIoTHubLocalizations.of(context).port_details),
+                actions: <Widget>[
+
+                ]),
+            body: ListView(children: divided),
+          );
         },
       ),
     );
