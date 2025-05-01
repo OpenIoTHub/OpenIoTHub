@@ -195,7 +195,7 @@ class _CreateServiceWidgetState extends State<CreateServiceWidget> {
               }
               tcpConfig.networkProtocol = _selected_network_option!;
               tcpConfig.applicationProtocol = _selected_application_option!;
-              if (domainController.text != "www.example.com"&&domainController.text.isEmpty) {
+              if (domainController.text != "www.example.com"&&!domainController.text.isEmpty) {
                 tcpConfig.domain = domainController.text;
                 tcpConfig.applicationProtocol = "http";
               } else {

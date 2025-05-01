@@ -50,7 +50,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
     final tiles = _ServiceList.map(
       (pair) {
         var listItemContent = ListTile(
-          leading: Icon(Icons.devices,
+          leading: Icon(TDIcons.earth,
               color: Colors.green),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -210,6 +210,8 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
     final List result = [];
     result.add(
         "ID(${OpenIoTHubLocalizations.of(context).after_simplification}):${config.runId.substring(24)}");
+    result.add(
+        "${OpenIoTHubLocalizations.of(context).name}:${config.name}");
     result.add(
         "${OpenIoTHubLocalizations.of(context).description}:${config.description}");
     result.add(

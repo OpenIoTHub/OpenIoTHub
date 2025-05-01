@@ -5,13 +5,16 @@ import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/pages/commonPages/scanned_barcode_label.dart';
 import 'package:openiothub/pages/commonPages/scanner_error_widget.dart';
 import 'package:openiothub_api/api/IoTManager/GatewayManager.dart';
+import 'package:openiothub_api/api/OpenIoTHub/CommonDeviceApi.dart';
 import 'package:openiothub_api/api/OpenIoTHub/SessionApi.dart';
+import 'package:openiothub_api/utils/uuid.dart';
 import 'package:openiothub_grpc_api/google/protobuf/wrappers.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/common.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/gatewayManager.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
+import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 class ScanQRPage extends StatefulWidget {
   const ScanQRPage({super.key});
@@ -133,8 +136,81 @@ class _ScanQRPageState extends State<ScanQRPage> {
                           controller.stop();
                           String id = uri.queryParameters["id"]!;
                           String? host = uri.queryParameters["host"];
-
-                          _addToMyAccount(id, host);
+                          TextEditingController nameController =
+                          TextEditingController.fromValue(
+                              TextEditingValue(text: "Gateway-${DateTime.now().minute}"));
+                          TextEditingController descriptionController =
+                          TextEditingController.fromValue(
+                              TextEditingValue(text: "Gateway-${DateTime.now()}"));
+                          // TODO 配置网关信息
+                          // 确认添加
+                          showGeneralDialog(
+                            context: context,
+                            pageBuilder: (BuildContext buildContext,
+                                Animation<double> animation,
+                                Animation<double> secondaryAnimation) {
+                              return TDAlertDialog(
+                                title: OpenIoTHubLocalizations.of(context)
+                                    .confirm_add_gateway,
+                                contentWidget: Column(children: <Widget>[
+                                  TDInput(
+                                    leftLabel:
+                                    OpenIoTHubLocalizations.of(context).name,
+                                    leftLabelSpace: 0,
+                                    hintText: "",
+                                    backgroundColor: Colors.white,
+                                    textAlign: TextAlign.left,
+                                    showBottomDivider: true,
+                                    controller: nameController,
+                                    inputType: TextInputType.text,
+                                    maxLines: 1,
+                                    needClear: true,
+                                  ),
+                                  TDInput(
+                                    leftLabel: OpenIoTHubLocalizations.of(context)
+                                        .description,
+                                    leftLabelSpace: 0,
+                                    hintText: "",
+                                    backgroundColor: Colors.white,
+                                    textAlign: TextAlign.left,
+                                    showBottomDivider: true,
+                                    controller: descriptionController,
+                                    inputType: TextInputType.text,
+                                    maxLines: 1,
+                                    needClear: true,
+                                  )
+                                  // 是否自动添加网关主机
+                                ]),
+                                titleColor: Colors.black,
+                                contentColor: Colors.redAccent,
+                                // backgroundColor: AppTheme.blockBgColor,
+                                leftBtn: TDDialogButtonOptions(
+                                  title: OpenIoTHubLocalizations.of(context).cancel,
+                                  // titleColor: AppTheme.color999,
+                                  style: TDButtonStyle(
+                                    backgroundColor: Colors.grey,
+                                  ),
+                                  action: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                rightBtn: TDDialogButtonOptions(
+                                  title: OpenIoTHubLocalizations.of(context).ok,
+                                  style: TDButtonStyle(
+                                    backgroundColor: Colors.blue,
+                                  ),
+                                  action: () {
+                                    Navigator.of(context).pop();
+                                    _addToMyAccount(
+                                        id,
+                                        host,
+                                        nameController.text,
+                                        descriptionController.text);
+                                  },
+                                ),
+                              );
+                            },
+                          );
                         } else {
                           showToast(
                               "${OpenIoTHubLocalizations.of(context).unsupported_qr_code}，path: ${uri.path},parameters:${uri.queryParameters}");
@@ -177,7 +253,7 @@ class _ScanQRPageState extends State<ScanQRPage> {
   }
 
   //已经确认过可以添加，添加到我的账号
-  void _addToMyAccount(String gatewayId, String? host) async {
+  void _addToMyAccount(String gatewayId, String? host, name, description) async {
     try {
       // TODO 可以搞一个确认步骤，确认后添加
       // 使用扫描的Gateway ID构建一个GatewayInfo用于服务器添加
@@ -185,8 +261,9 @@ class _ScanQRPageState extends State<ScanQRPage> {
           gatewayUuid: gatewayId,
           // 服务器的UUID变主机地址，或者都可以
           serverUuid: host,
-          name: "Gateway-${DateTime.now().minute}",
-          description: "Gateway-${DateTime.now()}");
+          name: name,
+          description: description
+      );
       OperationResponse operationResponse =
           await GatewayManager.AddGateway(gatewayInfo);
       //将网关映射到本机
@@ -196,8 +273,28 @@ class _ScanQRPageState extends State<ScanQRPage> {
             await GatewayManager.GetOpenIoTHubJwtByGatewayUuid(gatewayId);
         await _addToMySessionList(
             openIoTHubJwt.value,
-            "Gateway-${DateTime.now()}",
-            "Gateway-${DateTime.now()} form scan QR code");
+            name,
+            description);
+        // TODO 自动添加主机和端口
+        //自动 添加网关主机
+        var device = Device();
+        device.runId = gatewayId;
+        device.uuid = getOneUUID();
+        device.name = name;
+        device.description = description;
+        device.addr = "127.0.0.1";
+        await CommonDeviceApi.createOneDevice(device);
+        //自动 添加网关界面端口
+        var tcpConfig = PortConfig();
+        tcpConfig.device = device;
+        tcpConfig.name = "$name Gateway";
+        tcpConfig.description = "$description Gateway";
+        tcpConfig.remotePort = 34323;
+        tcpConfig.localProt = 0;
+        tcpConfig.networkProtocol = "tcp";
+        // tcpConfig.applicationProtocol = "unknown";
+        tcpConfig.applicationProtocol = "http";
+        await CommonDeviceApi.createOneTCP(tcpConfig);
       } else {
         showToast(
             "${OpenIoTHubLocalizations.of(context).adding_gateway_to_my_account_failed}:${operationResponse.msg}");

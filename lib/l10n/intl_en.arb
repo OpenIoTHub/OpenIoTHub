@@ -139,5 +139,7 @@
   "please_add_host_first": "Please add host first",
   "no_more_prompts_next_time": "No more prompts next time:",
   "network_protocol": "Network protocol",
-  "application_protocol": "Application protocol"
+  "application_protocol": "Application protocol",
+  "confirm_add_gateway": "Are you sure to add a gateway?",
+  "ok": "OK"
 }

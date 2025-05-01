@@ -257,6 +257,8 @@ class _ServicesListPageState extends State<ServicesListPage> {
     result.add(
         "${OpenIoTHubLocalizations.of(context).gateway_id}:${widget.device.runId.substring(24)}");
     result.add(
+        "${OpenIoTHubLocalizations.of(context).name}:${widget.device.name}");
+    result.add(
         "${OpenIoTHubLocalizations.of(context).description}:${widget.device.description}");
     result.add(
         "${OpenIoTHubLocalizations.of(context).addr}:${widget.device.addr}");
@@ -303,6 +305,8 @@ class _ServicesListPageState extends State<ServicesListPage> {
     result.add(
         "${OpenIoTHubLocalizations.of(context).local_port}:${config.localProt}");
     result.add(
+        "${OpenIoTHubLocalizations.of(context).name}:${config.name}");
+    result.add(
         "${OpenIoTHubLocalizations.of(context).description}:${config.description}");
     result
         .add("${OpenIoTHubLocalizations.of(context).domain}:${config.domain}");
@@ -335,7 +339,15 @@ class _ServicesListPageState extends State<ServicesListPage> {
             appBar: AppBar(
                 title: Text(OpenIoTHubLocalizations.of(context).port_details),
                 actions: <Widget>[
-
+                  IconButton(
+                      icon: const Icon(
+                        Icons.delete,
+                        color: Colors.red,
+                      ),
+                      onPressed: () {
+                        //删除
+                        _deleteOnePortConfig(config);
+                      }),
                 ]),
             body: ListView(children: divided),
           );

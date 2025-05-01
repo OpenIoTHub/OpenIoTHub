@@ -440,6 +440,12 @@ class OpenIoTHubLocalizationsZh extends OpenIoTHubLocalizations {
 
   @override
   String get application_protocol => '应用协议';
+
+  @override
+  String get confirm_add_gateway => '确认添加次网关到账户？';
+
+  @override
+  String get ok => '确定';
 }
 
 /// The translations for Chinese, as used in China (`zh_CN`).
@@ -878,6 +884,12 @@ class OpenIoTHubLocalizationsZhCn extends OpenIoTHubLocalizationsZh {
 
   @override
   String get application_protocol => '应用协议';
+
+  @override
+  String get confirm_add_gateway => '确认添加次网关到账户？';
+
+  @override
+  String get ok => '确定';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hans`).
@@ -1316,6 +1328,12 @@ class OpenIoTHubLocalizationsZhHans extends OpenIoTHubLocalizationsZh {
 
   @override
   String get application_protocol => '应用协议';
+
+  @override
+  String get confirm_add_gateway => '确认添加次网关到账户？';
+
+  @override
+  String get ok => '确定';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -1754,6 +1772,12 @@ class OpenIoTHubLocalizationsZhHant extends OpenIoTHubLocalizationsZh {
 
   @override
   String get application_protocol => '應用協議';
+
+  @override
+  String get confirm_add_gateway => '確認添加網關到本賬號？';
+
+  @override
+  String get ok => '確定';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -2192,4 +2216,10 @@ class OpenIoTHubLocalizationsZhTw extends OpenIoTHubLocalizationsZh {
 
   @override
   String get application_protocol => '應用協議';
+
+  @override
+  String get confirm_add_gateway => '確認添加網關到本賬號？';
+
+  @override
+  String get ok => '確定';
 }

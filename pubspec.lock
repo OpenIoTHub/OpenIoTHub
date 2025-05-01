@@ -1161,18 +1161,18 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_api
-      sha256: "44f6b434c2c8a28b129ea901a4a2fa57cd8bd46b8c8c037c7bb74e175e7f619f"
+      sha256: ee3b3c886240331b48510f5a0ba3dc340d39edd734b54f435e98af610da76672
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.5+7"
+    version: "1.0.5+8"
   openiothub_common_pages:
     dependency: "direct main"
     description:
       name: openiothub_common_pages
-      sha256: e748519859940a7e19b6f6a10ad20bdf4534834b33bd8c2934fabf105ac7e246
+      sha256: "0778b159f75fff215218aac14d8366684bbb22e1e563f09b8e58d5c93e1e57bf"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.5+76"
+    version: "1.0.5+78"
   openiothub_constants:
     dependency: "direct main"
     description:

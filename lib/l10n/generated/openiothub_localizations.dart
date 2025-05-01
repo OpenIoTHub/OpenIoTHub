@@ -949,6 +949,18 @@ abstract class OpenIoTHubLocalizations {
   /// In zh, this message translates to:
   /// **'应用协议'**
   String get application_protocol;
+
+  /// No description provided for @confirm_add_gateway.
+  ///
+  /// In zh, this message translates to:
+  /// **'确认添加次网关到账户？'**
+  String get confirm_add_gateway;
+
+  /// No description provided for @ok.
+  ///
+  /// In zh, this message translates to:
+  /// **'确定'**
+  String get ok;
 }
 
 class _OpenIoTHubLocalizationsDelegate

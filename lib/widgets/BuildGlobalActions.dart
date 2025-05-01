@@ -68,15 +68,20 @@ List<Widget>? build_actions(BuildContext context) {
             SharedPreferences prefs = await SharedPreferences.getInstance();
             if (prefs.containsKey("scan_QR_Dialog") &&
                 prefs.getBool("scan_QR_Dialog")!) {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) {
-                    return ScanQRPage(
-                      key: UniqueKey(),
-                    );
-                  },
-                ),
-              );
+              if (await userSignedIn()) {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return ScanQRPage(
+                        key: UniqueKey(),
+                      );
+                    },
+                  ),
+                );
+              }else{
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => LoginPage()));
+              }
             } else {
               showDialog(
                   context: context,

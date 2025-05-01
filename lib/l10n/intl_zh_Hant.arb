@@ -139,5 +139,7 @@
   "please_add_host_first": "請先添加主機",
   "no_more_prompts_next_time": "下次不再提示：",
   "network_protocol": "網絡協議",
-  "application_protocol": "應用協議"
+  "application_protocol": "應用協議",
+  "confirm_add_gateway": "確認添加網關到本賬號？",
+  "ok": "確定"
 }

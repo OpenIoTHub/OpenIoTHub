@@ -451,4 +451,10 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
 
   @override
   String get application_protocol => 'Application protocol';
+
+  @override
+  String get confirm_add_gateway => 'Are you sure to add a gateway?';
+
+  @override
+  String get ok => 'OK';
 }

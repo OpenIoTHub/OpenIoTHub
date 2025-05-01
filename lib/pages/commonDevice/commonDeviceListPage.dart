@@ -54,7 +54,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
           leading: TDAvatar(
             size: TDAvatarSize.medium,
             type: TDAvatarType.customText,
-            text: pair.description[0],
+            text: pair.name.isEmpty?pair.description[0]:pair.name[0],
             shape: TDAvatarShape.square,
             backgroundColor: Color.fromRGBO(
               Random().nextInt(156) + 50, // 随机生成0到255之间的整数
@@ -66,7 +66,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Text(pair.description, style: Constants.titleTextStyle),
+              Text(pair.name.isEmpty?pair.description:pair.name, style: Constants.titleTextStyle),
             ],
           ),
           subtitle: Text(
