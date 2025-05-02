@@ -77,7 +77,7 @@ class _AddHostWidgetState extends State<AddHostWidget> {
                       child: Text(sessionConfig.name),
                     );
                   }).toList(),
-                  decoration: InputDecoration(labelText: 'Choose an network'),
+                  decoration: InputDecoration(labelText: OpenIoTHubLocalizations.of(context).choose_an_network),
                 ),
                 TextFormField(
                   controller: nameController,
@@ -106,7 +106,7 @@ class _AddHostWidgetState extends State<AddHostWidget> {
                   },
                   items: buildMenuItems(_HostAddrMap),
                   decoration:
-                      InputDecoration(labelText: 'Choose an host address'),
+                      InputDecoration(labelText: OpenIoTHubLocalizations.of(context).choose_an_host_address),
                 ),
                 TextFormField(
                   // TODO 从可选项中选择主机地址，也可以进行填写
@@ -190,7 +190,7 @@ class _AddHostWidgetState extends State<AddHostWidget> {
       setState(() {
         setState(() {
           _HostAddrMap.clear();
-          _HostAddrMap.addAll({"": "下面填写", "127.0.0.1": "localhost"});
+          _HostAddrMap.addAll({"": OpenIoTHubLocalizations.of(context).fill_in_below, "127.0.0.1": "localhost"});
         });
         v.portConfigs.forEach((PortConfig portConfig) {
           if (!_HostAddrMap.containsKey(portConfig.device.addr)) {

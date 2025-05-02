@@ -52,7 +52,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
       (pair) {
         var listItemContent = ListTile(
           leading: Icon(TDIcons.earth,
-              color: Colors.green),
+              color: Colors.green, size: 50,),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
