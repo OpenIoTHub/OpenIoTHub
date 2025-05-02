@@ -446,6 +446,15 @@ class OpenIoTHubLocalizationsZh extends OpenIoTHubLocalizations {
 
   @override
   String get ok => '确定';
+
+  @override
+  String get choose_an_network => '选择一个远程网络';
+
+  @override
+  String get choose_an_host_address => '选择一个远程主机地址';
+
+  @override
+  String get fill_in_below => '不选择，下面填写';
 }
 
 /// The translations for Chinese, as used in China (`zh_CN`).
@@ -890,6 +899,15 @@ class OpenIoTHubLocalizationsZhCn extends OpenIoTHubLocalizationsZh {
 
   @override
   String get ok => '确定';
+
+  @override
+  String get choose_an_network => '选择一个远程网络';
+
+  @override
+  String get choose_an_host_address => '选择一个远程主机地址';
+
+  @override
+  String get fill_in_below => '不选择，下面填写';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hans`).
@@ -1334,6 +1352,15 @@ class OpenIoTHubLocalizationsZhHans extends OpenIoTHubLocalizationsZh {
 
   @override
   String get ok => '确定';
+
+  @override
+  String get choose_an_network => '选择一个远程网络';
+
+  @override
+  String get choose_an_host_address => '选择一个远程主机地址';
+
+  @override
+  String get fill_in_below => '不选择，下面填写';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -1778,6 +1805,15 @@ class OpenIoTHubLocalizationsZhHant extends OpenIoTHubLocalizationsZh {
 
   @override
   String get ok => '確定';
+
+  @override
+  String get choose_an_network => '選擇一個遠程網絡';
+
+  @override
+  String get choose_an_host_address => '選擇一個遠程主機地址';
+
+  @override
+  String get fill_in_below => '不選擇，下面填寫';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -2222,4 +2258,13 @@ class OpenIoTHubLocalizationsZhTw extends OpenIoTHubLocalizationsZh {
 
   @override
   String get ok => '確定';
+
+  @override
+  String get choose_an_network => '選擇一個遠程網絡';
+
+  @override
+  String get choose_an_host_address => '選擇一個遠程主機地址';
+
+  @override
+  String get fill_in_below => '不選擇，下面填寫';
 }

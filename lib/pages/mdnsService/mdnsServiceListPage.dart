@@ -20,6 +20,8 @@ import 'package:openiothub_plugin/plugins/mdnsService/mdnsType2ModelMap.dart';
 import 'package:openiothub_plugin/plugins/mdnsService/modelsMap.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
+import '../../widgets/toast.dart';
+
 class MdnsServiceListPage extends StatefulWidget {
   const MdnsServiceListPage({required Key key, required this.title})
       : super(key: key);
@@ -310,7 +312,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     try {
       value = await CnameManager.GetCname(id);
     } catch (e) {
-      showToast(e.toString());
+      show_failed(e.toString(), context);
     }
     if (value != "") {
       portService.info["name"] = value;

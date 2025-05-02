@@ -457,4 +457,13 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
 
   @override
   String get ok => 'OK';
+
+  @override
+  String get choose_an_network => 'Choose an remote network';
+
+  @override
+  String get choose_an_host_address => 'Choose an host address';
+
+  @override
+  String get fill_in_below => 'Fill in below';
 }

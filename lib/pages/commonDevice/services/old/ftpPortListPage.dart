@@ -8,6 +8,8 @@ import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import '../../../../widgets/toast.dart';
+
 class FtpPortListPage extends StatefulWidget {
   FtpPortListPage({required Key key, required this.device}) : super(key: key);
 
@@ -226,8 +228,8 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
                         FTPConfig.localProt =
                             int.parse(localPortController.text);
                       } catch (e) {
-                        showToast(
-                            "${OpenIoTHubLocalizations.of(context).check_if_the_port_is_a_number}:$e");
+                        show_failed(
+                            "${OpenIoTHubLocalizations.of(context).check_if_the_port_is_a_number}:$e",context);
                         return;
                       }
                       FTPConfig.networkProtocol = "tcp";

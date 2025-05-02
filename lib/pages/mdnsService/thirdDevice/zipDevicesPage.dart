@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/model/custom_theme.dart';
+import 'package:openiothub/widgets/toast.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_common_pages/user/LoginPage.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
@@ -109,7 +110,7 @@ class _ZipDevicesPageState extends State<ZipDevicesPage> {
     //  检查用户是否已经登录，如果没有登录则跳转到登录界面
     bool userSignedIned = await userSignedIn();
     if (!userSignedIned) {
-      showToast(OpenIoTHubLocalizations.of(context).you_havent_logged_in_yet);
+      show_failed(OpenIoTHubLocalizations.of(context).you_havent_logged_in_yet, context);
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => LoginPage()));
     }
@@ -125,7 +126,7 @@ class _ZipDevicesPageState extends State<ZipDevicesPage> {
     //  将生成的账号配置到设备
     await zipLocalDevice.configMqttServer(mqttInfo);
     //  提示配置结果
-    showToast(OpenIoTHubLocalizations.of(context).add_successful);
+    show_success(OpenIoTHubLocalizations.of(context).add_successful, context);
     return;
   }
 }

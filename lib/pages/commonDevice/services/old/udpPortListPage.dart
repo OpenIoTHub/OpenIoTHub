@@ -6,6 +6,8 @@ import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 
+import '../../../../widgets/toast.dart';
+
 class UdpPortListPage extends StatefulWidget {
   UdpPortListPage({required Key key, required this.device}) : super(key: key);
 
@@ -226,8 +228,8 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
                         UDPConfig.localProt =
                             int.parse(localPortController.text);
                       } catch (e) {
-                        showToast(
-                            "${OpenIoTHubLocalizations.of(context).check_if_the_port_is_a_number}:$e");
+                        show_failed(
+                            "${OpenIoTHubLocalizations.of(context).check_if_the_port_is_a_number}:$e",context);
                         return;
                       }
                       UDPConfig.networkProtocol = "udp";

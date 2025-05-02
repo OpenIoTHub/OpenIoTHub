@@ -3,12 +3,13 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/pages/commonDevice/services/services.dart';
+import 'package:openiothub/pages/commonDevice/widgets/AddHost.dart';
 // import 'package:openiothub/pages/commonDevice/services/old/commonDeviceServiceTypesList.dart';
 import 'package:openiothub/util/ThemeUtils.dart';
 import 'package:openiothub/widgets/BuildGlobalActions.dart';
+import 'package:openiothub/widgets/toast.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
@@ -33,7 +34,9 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
   @override
   void initState() {
     super.initState();
-    getAllCommonDevice();
+    getAllSession().then((_) {
+      getAllCommonDevice();
+    });
     _timerPeriod = Timer.periodic(const Duration(seconds: 15), (Timer timer) {
       getAllCommonDevice();
     });
@@ -50,11 +53,18 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
   Widget build(BuildContext context) {
     final tiles = _CommonDeviceList.map(
       (pair) {
+        // 获取所在网络的名称
+        String gatewayName = pair.runId.substring(24);
+        for (var sessionConfig in _SessionList) {
+          if (sessionConfig.runId == pair.runId) {
+            gatewayName = sessionConfig.name;
+          }
+        }
         var listItemContent = ListTile(
           leading: TDAvatar(
             size: TDAvatarSize.medium,
             type: TDAvatarType.customText,
-            text: pair.name.isEmpty?pair.description[0]:pair.name[0],
+            text: pair.name.isEmpty ? pair.description[0] : pair.name[0],
             shape: TDAvatarShape.square,
             backgroundColor: Color.fromRGBO(
               Random().nextInt(156) + 50, // 随机生成0到255之间的整数
@@ -66,11 +76,13 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Text(pair.name.isEmpty?pair.description:pair.name, style: Constants.titleTextStyle),
+              Text(pair.name.isEmpty ? pair.description : pair.name,
+                  style: Constants.titleTextStyle),
             ],
           ),
           subtitle: Text(
-            "${pair.addr}@${pair.runId.substring(24)}",
+            // TODO 显示所在网络的名称
+            "${pair.addr}@${gatewayName!.substring(0, gatewayName!.length > 20 ? 20 : gatewayName!.length)}",
             style: Constants.subTitleTextStyle,
           ),
           trailing: Constants.rightArrowIcon,
@@ -143,83 +155,6 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
     );
   }
 
-  Future _addDevice(SessionConfig config) async {
-    // TODO 从网关所有mdns出现的ip主机推荐主机地址
-    TextEditingController nameController =
-    TextEditingController.fromValue(TextEditingValue(
-        text:
-        OpenIoTHubLocalizations.of(context).internal_network_devices));
-    TextEditingController descriptionController =
-        TextEditingController.fromValue(TextEditingValue(
-            text:
-                OpenIoTHubLocalizations.of(context).internal_network_devices));
-    TextEditingController remoteIpController = TextEditingController.fromValue(
-        const TextEditingValue(text: "127.0.0.1"));
-    return showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-                title: Text(OpenIoTHubLocalizations.of(context).add_device),
-                content: SizedBox.expand(
-                    child: ListView(
-                  children: <Widget>[
-                    TextFormField(
-                      controller: nameController,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
-                        labelText:
-                        OpenIoTHubLocalizations.of(context).name,
-                        helperText:
-                        OpenIoTHubLocalizations.of(context).custom_remarks,
-                      ),
-                    ),
-                    TextFormField(
-                      controller: descriptionController,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
-                        labelText:
-                            OpenIoTHubLocalizations.of(context).description,
-                        helperText:
-                            OpenIoTHubLocalizations.of(context).custom_remarks,
-                      ),
-                    ),
-                    TextFormField(
-                      controller: remoteIpController,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
-                        labelText: OpenIoTHubLocalizations.of(context)
-                            .ip_address_of_remote_intranet,
-                        helperText: OpenIoTHubLocalizations.of(context)
-                            .ip_address_of_internal_network_devices,
-                      ),
-                    ),
-                  ],
-                )),
-                actions: <Widget>[
-                  TextButton(
-                    child: Text(OpenIoTHubLocalizations.of(context).cancel),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                  TextButton(
-                    child: Text(OpenIoTHubLocalizations.of(context).add),
-                    onPressed: () {
-                      var device = Device();
-                      device.runId = config.runId;
-                      device.uuid = getOneUUID();
-                      device.name = nameController.text;
-                      device.description = descriptionController.text;
-                      device.addr = remoteIpController.text;
-                      createOneCommonDevice(device).then((v) {
-                        getAllCommonDevice().then((v) {
-                          Navigator.of(context).pop();
-                        });
-                      });
-                    },
-                  )
-                ]));
-  }
-
   void _pushDeviceServiceTypes(Device device) async {
     // 查看设备下的服务 CommonDeviceServiceTypesList
     Navigator.of(context).push(
@@ -247,7 +182,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
         _SessionList = response.sessionConfigs;
       });
     } catch (e) {
-      showToast("getAllSession：$e");
+      show_failed("getAllSession：$e", context);
     }
   }
 
@@ -255,8 +190,9 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
     try {
       await CommonDeviceApi.createOneDevice(device);
     } catch (e) {
-      showToast(
-          "${OpenIoTHubLocalizations.of(context).create_device_failed}：$e");
+      show_failed(
+          "${OpenIoTHubLocalizations.of(context).create_device_failed}：$e",
+          context);
     }
   }
 
@@ -277,63 +213,13 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
   }
 
   void _addRemoteHostFromSession() {
-    getAllSession().then((v) {
-      final tiles = _SessionList.map(
-        (pair) {
-          var listItemContent = Padding(
-            padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
-            child: Row(
-              children: <Widget>[
-                const Icon(Icons.cloud_done),
-                Expanded(
-                    child: Text(
-                  "${pair.name}(${pair.description})",
-                  style: Constants.titleTextStyle,
-                )),
-                Constants.rightArrowIcon
-              ],
-            ),
-          );
-          return InkWell(
-            onTap: () {
-              _addDevice(pair).then((v) {
-                Navigator.of(context).pop();
-              });
-            },
-            child: listItemContent,
-          );
-        },
-      );
-      final divided = ListView.separated(
-        itemCount: tiles.length,
-        itemBuilder: (context, index) {
-          return tiles.elementAt(index);
-        },
-        separatorBuilder: (context, index) {
-          return Container(
-            padding: EdgeInsets.only(left: 50), // 添加左侧缩进
-            child: TDDivider(),
-          );
-        },
-      );
+    // 在一个界面里面选择网络
       showDialog(
           context: context,
-          builder: (_) => AlertDialog(
-                  title: Text(OpenIoTHubLocalizations.of(context)
-                      .select_the_network_where_the_remote_host_is_located),
-                  content: SizedBox.expand(child: divided),
-                  actions: <Widget>[
-                    TextButton(
-                      child: Text(OpenIoTHubLocalizations.of(context).cancel),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    )
-                  ])).then((v) {
+          builder: (_) => AddHostWidget()).then((v) {
         getAllCommonDevice().then((v) {
           setState(() {});
         });
       });
-    });
   }
 }

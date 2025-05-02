@@ -961,6 +961,24 @@ abstract class OpenIoTHubLocalizations {
   /// In zh, this message translates to:
   /// **'确定'**
   String get ok;
+
+  /// No description provided for @choose_an_network.
+  ///
+  /// In zh, this message translates to:
+  /// **'选择一个远程网络'**
+  String get choose_an_network;
+
+  /// No description provided for @choose_an_host_address.
+  ///
+  /// In zh, this message translates to:
+  /// **'选择一个远程主机地址'**
+  String get choose_an_host_address;
+
+  /// No description provided for @fill_in_below.
+  ///
+  /// In zh, this message translates to:
+  /// **'不选择，下面填写'**
+  String get fill_in_below;
 }
 
 class _OpenIoTHubLocalizationsDelegate

@@ -141,5 +141,8 @@
   "network_protocol": "網絡協議",
   "application_protocol": "應用協議",
   "confirm_add_gateway": "確認添加網關到本賬號？",
-  "ok": "確定"
+  "ok": "確定",
+  "choose_an_network": "選擇一個遠程網絡",
+  "choose_an_host_address":"選擇一個遠程主機地址",
+  "fill_in_below": "不選擇，下面填寫"
 }

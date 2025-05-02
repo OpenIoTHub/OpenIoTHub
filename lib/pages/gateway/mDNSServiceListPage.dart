@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/model/custom_theme.dart';
+import 'package:openiothub/widgets/toast.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_constants/constants/Config.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
@@ -232,8 +233,8 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                 ),
                 onLongPress: () {
                   Clipboard.setData(ClipboardData(text: pair));
-                  showToast(
-                      OpenIoTHubLocalizations.of(context).copy_successful);
+                  show_success(
+                      OpenIoTHubLocalizations.of(context).copy_successful,context);
                 },
               );
             },
@@ -249,8 +250,8 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                         config.runId);
                 String gatewayJwt = gatewayJwtValue.value;
                 Clipboard.setData(ClipboardData(text: gatewayJwt));
-                showToast(
-                    OpenIoTHubLocalizations.of(context).gateway_config_notes1);
+                show_success(
+                    OpenIoTHubLocalizations.of(context).gateway_config_notes1, context);
               },
               child: Text(
                   OpenIoTHubLocalizations.of(context).gateway_config_notes2)));
@@ -270,8 +271,8 @@ loginwithtokenmap:
   $uuid: $gatewayJwt
 ''';
                 Clipboard.setData(ClipboardData(text: data));
-                showToast(
-                    OpenIoTHubLocalizations.of(context).gateway_config_notes3);
+                show_success(
+                    OpenIoTHubLocalizations.of(context).gateway_config_notes3, context);
               },
               child: Text(
                   OpenIoTHubLocalizations.of(context).gateway_config_notes4)));
@@ -292,16 +293,16 @@ loginwithtokenmap:
     try {
       SessionApi.deleteRemoteGatewayConfig(config);
     } catch (e) {
-      showToast(
-          "${OpenIoTHubLocalizations.of(context).failed_to_delete_the_configuration_of_the_remote_gateway}:$e");
+      show_failed(
+          "${OpenIoTHubLocalizations.of(context).failed_to_delete_the_configuration_of_the_remote_gateway}:$e", context);
     }
     try {
       SessionApi.deleteOneSession(config);
     } catch (e) {
-      showToast(
-          "${OpenIoTHubLocalizations.of(context).failed_to_delete_mapping_for_local_gateway}:$e");
+      show_failed(
+          "${OpenIoTHubLocalizations.of(context).failed_to_delete_mapping_for_local_gateway}:$e",context);
     }
-    showToast(OpenIoTHubLocalizations.of(context).successfully_deleted_gateway);
+    show_success(OpenIoTHubLocalizations.of(context).successfully_deleted_gateway, context);
     Navigator.of(context).pop();
   }
 

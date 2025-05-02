@@ -141,5 +141,8 @@
   "network_protocol": "网络协议",
   "application_protocol": "应用协议",
   "confirm_add_gateway": "确认添加次网关到账户？",
-  "ok": "确定"
+  "ok": "确定",
+  "choose_an_network": "选择一个远程网络",
+  "choose_an_host_address":"选择一个远程主机地址",
+  "fill_in_below": "不选择，下面填写"
 }

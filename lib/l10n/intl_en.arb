@@ -141,5 +141,8 @@
   "network_protocol": "Network protocol",
   "application_protocol": "Application protocol",
   "confirm_add_gateway": "Are you sure to add a gateway?",
-  "ok": "OK"
+  "ok": "OK",
+  "choose_an_network": "Choose an remote network",
+  "choose_an_host_address":"Choose an host address",
+  "fill_in_below": "Fill in below"
 }

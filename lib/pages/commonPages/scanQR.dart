@@ -16,6 +16,8 @@ import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
+import '../../widgets/toast.dart';
+
 class ScanQRPage extends StatefulWidget {
   const ScanQRPage({super.key});
 
@@ -212,19 +214,19 @@ class _ScanQRPageState extends State<ScanQRPage> {
                             },
                           );
                         } else {
-                          showToast(
-                              "${OpenIoTHubLocalizations.of(context).unsupported_qr_code}，path: ${uri.path},parameters:${uri.queryParameters}");
+                          show_failed(
+                              "${OpenIoTHubLocalizations.of(context).unsupported_qr_code}，path: ${uri.path},parameters:${uri.queryParameters}",context);
                         }
                         break;
                       default:
-                        showToast(OpenIoTHubLocalizations.of(context)
-                            .unsupported_uri_path);
+                        show_failed(OpenIoTHubLocalizations.of(context)
+                            .unsupported_uri_path, context);
                         break;
                     }
                     break;
                   default:
-                    showToast(OpenIoTHubLocalizations.of(context)
-                        .unsupported_qr_code);
+                    show_failed(OpenIoTHubLocalizations.of(context)
+                        .unsupported_qr_code, context);
                 }
               }
             },
@@ -296,12 +298,12 @@ class _ScanQRPageState extends State<ScanQRPage> {
         tcpConfig.applicationProtocol = "http";
         await CommonDeviceApi.createOneTCP(tcpConfig);
       } else {
-        showToast(
-            "${OpenIoTHubLocalizations.of(context).adding_gateway_to_my_account_failed}:${operationResponse.msg}");
+        show_failed(
+            "${OpenIoTHubLocalizations.of(context).adding_gateway_to_my_account_failed}:${operationResponse.msg}",context);
       }
     } catch (exception) {
-      showToast(
-          "${OpenIoTHubLocalizations.of(context).add_gateway_failed}：${exception}");
+      show_failed(
+          "${OpenIoTHubLocalizations.of(context).add_gateway_failed}：${exception}", context);
     }
   }
 
@@ -312,10 +314,10 @@ class _ScanQRPageState extends State<ScanQRPage> {
     config.description = description;
     try {
       await SessionApi.createOneSession(config);
-      showToast(OpenIoTHubLocalizations.of(context).add_gateway_successful);
+      show_success(OpenIoTHubLocalizations.of(context).add_gateway_successful,context);
     } catch (exception) {
-      showToast(
-          "${OpenIoTHubLocalizations.of(context).login_failed}：${exception}");
+      show_failed(
+          "${OpenIoTHubLocalizations.of(context).login_failed}：${exception}", context);
     }
   }
 }

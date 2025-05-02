@@ -10,6 +10,8 @@ import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:openiothub_plugin/plugins/openWithChoice/OpenWithChoice.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
+import '../../../../widgets/toast.dart';
+
 class TcpPortListPage extends StatefulWidget {
   TcpPortListPage({required Key key, required this.device}) : super(key: key);
 
@@ -272,8 +274,8 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                         tcpConfig.localProt =
                             int.parse(localPortController.text);
                       } catch (e) {
-                        showToast(
-                            "${OpenIoTHubLocalizations.of(context).check_if_the_port_is_a_number}:$e");
+                        show_failed(
+                            "${OpenIoTHubLocalizations.of(context).check_if_the_port_is_a_number}:$e",context);
                         return;
                       }
                       tcpConfig.networkProtocol = "tcp";

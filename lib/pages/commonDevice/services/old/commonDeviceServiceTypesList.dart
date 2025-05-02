@@ -9,6 +9,7 @@ import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
+import '../../../../widgets/toast.dart';
 import './ftpPortListPage.dart';
 import './udpPortListPage.dart';
 import 'httpPortListPage.dart';
@@ -346,8 +347,8 @@ class _CommonDeviceServiceTypesListState
                 ),
                 onLongPress: () {
                   Clipboard.setData(ClipboardData(text: pair));
-                  showToast(
-                      OpenIoTHubLocalizations.of(context).copy_successful);
+                  show_success(
+                      OpenIoTHubLocalizations.of(context).copy_successful,context);
                 },
               );
             },

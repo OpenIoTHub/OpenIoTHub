@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
 
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
+import 'package:openiothub/widgets/toast.dart';
 import 'package:openiothub_api/api/OpenIoTHub/CommonDeviceApi.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 
@@ -189,8 +190,8 @@ class _CreateServiceWidgetState extends State<CreateServiceWidget> {
                 tcpConfig.localProt =
                     int.parse(localPortController.text);
               } catch (e) {
-                showToast(
-                    "${OpenIoTHubLocalizations.of(context).check_if_the_port_is_a_number}:$e");
+                show_failed(
+                    "${OpenIoTHubLocalizations.of(context).check_if_the_port_is_a_number}:$e",context);
                 return;
               }
               tcpConfig.networkProtocol = _selected_network_option!;
