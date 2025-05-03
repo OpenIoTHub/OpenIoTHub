@@ -274,7 +274,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
             portServiceInfo.info!["id"] =
                 "${portServiceInfo.addr}:${portServiceInfo.port}@local";
           }
-          addPortService(portServiceInfo);
+          addPortServiceInfo(portServiceInfo);
         } else {
           PortServiceInfo portServiceInfo = PortServiceInfo("", 80, true);
           portServiceInfo.addr = (service as ResolvedBonsoirService)
@@ -288,7 +288,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
             portServiceInfo.info![key] = value;
           });
           print("print _portServiceInfo:$portServiceInfo");
-          addPortService(portServiceInfo);
+          addPortServiceInfo(portServiceInfo);
         }
       });
     } else if (event.type == BonsoirDiscoveryEventType.discoveryServiceLost) {
@@ -297,7 +297,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
   }
 
 //添加设备
-  Future<void> addPortService(PortServiceInfo portServiceInfo) async {
+  Future<void> addPortServiceInfo(PortServiceInfo portServiceInfo) async {
     if (!portServiceInfo.info!.containsKey("name") ||
         portServiceInfo.info!["name"] == null ||
         portServiceInfo.info!["name"] == "") {
@@ -381,7 +381,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       portServiceInfo.info!["client-id"] = mqttDeviceInfo.mqttInfo.mqttClientId;
       portServiceInfo.info!["tls"] = mqttDeviceInfo.mqttInfo.sSLorTLS.toString();
       portServiceInfo.info!["enable_delete"] = true.toString();
-      addPortService(portServiceInfo);
+      addPortServiceInfo(portServiceInfo);
     }
   }
 
@@ -414,9 +414,9 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
                       "${portConfig.device.addr}:${portConfig.remotePort}@${sessionConfig.runId}";
                 }
                 // 添加远程主机的真实地址，用于类似于casaos登录后的再次动态创建映射
-                addPortService(portServiceInfo);
+                addPortServiceInfo(portServiceInfo);
               } else {
-                addPortService(portService2PortServiceInfo(portConfig.mDNSInfo));
+                addPortServiceInfo(portService2PortServiceInfo(portConfig.mDNSInfo));
               }
             }
           });
