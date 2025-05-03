@@ -14,10 +14,12 @@ import 'package:openiothub_constants/openiothub_constants.dart';
 import 'package:openiothub_grpc_api/proto/manager/mqttDeviceManager.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
+import 'package:openiothub_plugin/models/PortServiceInfo.dart';
 import 'package:openiothub_plugin/plugins/mdnsService/commWidgets/info.dart';
 import 'package:openiothub_plugin/plugins/mdnsService/mdnsType2ModelMap.dart';
 //统一导入全部设备类型
 import 'package:openiothub_plugin/plugins/mdnsService/modelsMap.dart';
+import 'package:openiothub_plugin/utils/portConfig2portService.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import '../../widgets/toast.dart';
@@ -34,7 +36,7 @@ class MdnsServiceListPage extends StatefulWidget {
 
 class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
   Utf8Decoder u8decodeer = const Utf8Decoder();
-  final Map<String, PortService> _IoTDeviceMap = <String, PortService>{};
+  final Map<String, PortServiceInfo> _IoTDeviceMap = <String, PortServiceInfo>{};
   late Timer _timerPeriodLocal;
   late Timer _timerPeriodRemote;
   final Map<String, BonsoirDiscovery> _bonsoirActions = {};
@@ -66,12 +68,12 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
   Widget build(BuildContext context) {
     print("_IoTDeviceMap:$_IoTDeviceMap");
     final tiles = _IoTDeviceMap.values.map(
-      (PortService pair) {
+      (PortServiceInfo pair) {
         var listItemContent = ListTile(
           leading: TDAvatar(
             size: TDAvatarSize.medium,
             type: TDAvatarType.customText,
-            text: pair.info["name"]![0],
+            text: pair.info!["name"]![0],
             shape: TDAvatarShape.square,
             backgroundColor: Color.fromRGBO(
               Random().nextInt(156) + 50, // 随机生成0到255之间的整数
@@ -80,9 +82,9 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
               1, // 不透明度，1表示完全不透明
             ),
           ),
-          title: Text(pair.info["name"]!, style: Constants.titleTextStyle),
+          title: Text(pair.info!["name"]!, style: Constants.titleTextStyle),
           subtitle: Text(
-            "${pair.info["model"]!}@${pair.isLocal?"local":"remote"}",
+            "${pair.info!["model"]!}@${pair.isLocal?"local":"remote"}",
             style: Constants.subTitleTextStyle,
           ),
           trailing: Constants.rightArrowIcon,
@@ -172,10 +174,10 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
   }
 
 //显示是设备的UI展示或者操作界面
-  void _pushDeviceServiceTypes(PortService device) async {
+  void _pushDeviceServiceTypes(PortServiceInfo device) async {
     // 查看设备的UI，1.native，2.web
     // 写成独立的组件，支持刷新
-    String? model = device.info["model"];
+    String? model = device.info!["model"];
 
     if (ModelsMap.modelsMap.containsKey(model)) {
       await Navigator.of(context).push(
@@ -251,41 +253,42 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       // services.add(service);
       setState(() {
         if (MDNS2ModelsMap.modelsMap.containsKey(service.type)) {
-          PortService portService =
-              MDNS2ModelsMap.modelsMap[service.type]!.deepCopy();
+          PortServiceInfo portServiceInfo =
+              MDNS2ModelsMap.modelsMap[service.type]!.copyWith();
           service.attributes.forEach((String key, value) {
-            portService.info[key] = value;
+            portServiceInfo.info![key] = value;
           });
-          portService.ip = (service as ResolvedBonsoirService)
+          portServiceInfo.addr = (service as ResolvedBonsoirService)
               .host!
               .replaceAll(RegExp(r'.local.local.'), ".local")
               .replaceAll(RegExp(r'.local.'), ".local");
-          portService.port = service.port;
-          portService.isLocal = true;
-          if (portService.info.containsKey("id") &&
-              portService.info["id"] != "" ) {
+          portServiceInfo.port = service.port;
+          portServiceInfo.isLocal = true;
+          if (portServiceInfo.info!.containsKey("id") &&
+              portServiceInfo.info!["id"] != "" ) {
             // 有id
-          } else if(portService.info.containsKey("mac") &&
-              portService.info["mac"] != "") {
-            portService.info["id"] = portService.info["mac"]!;
+          } else if(portServiceInfo.info!.containsKey("mac") &&
+              portServiceInfo.info!["mac"] != "") {
+            portServiceInfo.info!["id"] = portServiceInfo.info!["mac"]!;
           } else {
-            portService.info["id"] =
-                "${portService.ip}:${portService.port}@local";
+            portServiceInfo.info!["id"] =
+                "${portServiceInfo.addr}:${portServiceInfo.port}@local";
           }
-          addPortService(portService);
+          addPortService(portServiceInfo);
         } else {
-          PortService portService = PortService.create();
-          portService.ip = (service as ResolvedBonsoirService)
+          PortServiceInfo portServiceInfo = PortServiceInfo("", 80, true);
+          portServiceInfo.addr = (service as ResolvedBonsoirService)
               .host!
               .replaceAll(RegExp(r'.local.local.'), ".local")
               .replaceAll(RegExp(r'.local.'), ".local");
-          portService.port = service.port;
-          portService.isLocal = true;
+          portServiceInfo.port = service.port;
+          portServiceInfo.isLocal = true;
+          portServiceInfo.info = Map();
           service.attributes.forEach((String key, value) {
-            portService.info[key] = value;
+            portServiceInfo.info![key] = value;
           });
-          print("print _portService:$portService");
-          addPortService(portService);
+          print("print _portServiceInfo:$portServiceInfo");
+          addPortService(portServiceInfo);
         }
       });
     } else if (event.type == BonsoirDiscoveryEventType.discoveryServiceLost) {
@@ -294,17 +297,17 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
   }
 
 //添加设备
-  Future<void> addPortService(PortService portService) async {
-    if (!portService.info.containsKey("name") ||
-        portService.info["name"] == null ||
-        portService.info["name"] == "") {
+  Future<void> addPortService(PortServiceInfo portServiceInfo) async {
+    if (!portServiceInfo.info!.containsKey("name") ||
+        portServiceInfo.info!["name"] == null ||
+        portServiceInfo.info!["name"] == "") {
       return;
     }
-    print("addPortService:${portService.info}");
-    if (!portService.info.containsKey("id")) {
+    print("addPortServiceInfo:${portServiceInfo.info!}");
+    if (!portServiceInfo.info!.containsKey("id")) {
       return;
     }
-    String? id = portService.info["id"];
+    String? id = portServiceInfo.info!["id"];
     if (id == null || id.isEmpty) {
       return;
     }
@@ -315,14 +318,14 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       show_failed(e.toString(), context);
     }
     if (value != "") {
-      portService.info["name"] = value;
+      portServiceInfo.info!["name"] = value;
     }
     if (!_IoTDeviceMap.containsKey(id) ||
         (_IoTDeviceMap.containsKey(id) &&
             !_IoTDeviceMap[id]!.isLocal &&
-            portService.isLocal)) {
+            portServiceInfo.isLocal)) {
       setState(() {
-        _IoTDeviceMap[id] = portService;
+        _IoTDeviceMap[id] = portServiceInfo;
       });
     }
   }
@@ -361,24 +364,24 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     MqttDeviceInfoList mqttDeviceInfoList =
         await MqttDeviceManager.GetAllMqttDevice();
     for (var mqttDeviceInfo in mqttDeviceInfoList.mqttDeviceInfoList) {
-      PortService portService = PortService();
+      PortServiceInfo portServiceInfo = PortServiceInfo("", 80, false);
       //  TODO
-      portService.ip = mqttDeviceInfo.mqttInfo.mqttServerHost;
-      portService.port = mqttDeviceInfo.mqttInfo.mqttServerPort;
-      portService.isLocal = false;
-      portService.info["name"] = mqttDeviceInfo.deviceDefaultName != ""
+      portServiceInfo.addr = mqttDeviceInfo.mqttInfo.mqttServerHost;
+      portServiceInfo.port = mqttDeviceInfo.mqttInfo.mqttServerPort;
+      portServiceInfo.isLocal = false;
+      portServiceInfo.info!["name"] = mqttDeviceInfo.deviceDefaultName != ""
           ? mqttDeviceInfo.deviceDefaultName
           : mqttDeviceInfo.deviceModel;
-      portService.info["id"] = mqttDeviceInfo.deviceId;
-      portService.info["mac"] = mqttDeviceInfo.deviceId;
-      portService.info["model"] = mqttDeviceInfo.deviceModel;
-      portService.info["username"] = mqttDeviceInfo.mqttInfo.mqttClientUserName;
-      portService.info["password"] =
+      portServiceInfo.info!["id"] = mqttDeviceInfo.deviceId;
+      portServiceInfo.info!["mac"] = mqttDeviceInfo.deviceId;
+      portServiceInfo.info!["model"] = mqttDeviceInfo.deviceModel;
+      portServiceInfo.info!["username"] = mqttDeviceInfo.mqttInfo.mqttClientUserName;
+      portServiceInfo.info!["password"] =
           mqttDeviceInfo.mqttInfo.mqttClientUserPassword;
-      portService.info["client-id"] = mqttDeviceInfo.mqttInfo.mqttClientId;
-      portService.info["tls"] = mqttDeviceInfo.mqttInfo.sSLorTLS.toString();
-      portService.info["enable_delete"] = true.toString();
-      addPortService(portService);
+      portServiceInfo.info!["client-id"] = mqttDeviceInfo.mqttInfo.mqttClientId;
+      portServiceInfo.info!["tls"] = mqttDeviceInfo.mqttInfo.sSLorTLS.toString();
+      portServiceInfo.info!["enable_delete"] = true.toString();
+      addPortService(portServiceInfo);
     }
   }
 
@@ -390,29 +393,30 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
         for (var sessionConfig in sessionConfigList) {
           SessionApi.getAllTCP(sessionConfig).then((t) {
             for (var portConfig in t.portConfigs) {
-              PortService? portService;
+              PortServiceInfo? portServiceInfo;
               if (MDNS2ModelsMap.modelsMap
                   .containsKey(portConfig.mDNSInfo.info["service"])) {
-                portService = MDNS2ModelsMap
+                portServiceInfo = MDNS2ModelsMap
                     .modelsMap[portConfig.mDNSInfo.info["service"]]!
-                    .deepCopy();
-                portService.info.addAll(portConfig.mDNSInfo.info);
-                portService.ip = "127.0.0.1";
-                portService.port = portConfig.localProt;
-                portService.isLocal = false;
-                if (portService.info.containsKey("id") &&
-                    portService.info["id"] != "") {
+                    .copyWith();
+                portServiceInfo.info!.addAll(portConfig.mDNSInfo.info);
+                portServiceInfo.addr = "127.0.0.1";
+                portServiceInfo.port = portConfig.localProt;
+                portServiceInfo.isLocal = false;
+                if (portServiceInfo.info!.containsKey("id") &&
+                    portServiceInfo.info!["id"] != "") {
                   // 有id
-                }else if(portService.info.containsKey("mac") &&
-                    portService.info["mac"] != ""){
-                  portService.info["id"] = portService.info["mac"]!;
+                }else if(portServiceInfo.info!.containsKey("mac") &&
+                    portServiceInfo.info!["mac"] != ""){
+                  portServiceInfo.info!["id"] = portServiceInfo.info!["mac"]!;
                 } else {
-                  portService.info["id"] =
+                  portServiceInfo.info!["id"] =
                       "${portConfig.device.addr}:${portConfig.remotePort}@${sessionConfig.runId}";
                 }
-                addPortService(portService);
+                // 添加远程主机的真实地址，用于类似于casaos登录后的再次动态创建映射
+                addPortService(portServiceInfo);
               } else {
-                addPortService(portConfig.mDNSInfo);
+                addPortService(portService2PortServiceInfo(portConfig.mDNSInfo));
               }
             }
           });

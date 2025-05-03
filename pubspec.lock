@@ -1089,10 +1089,10 @@ packages:
     dependency: transitive
     description:
       name: mqtt5_client
-      sha256: "9e15d1cd888035bcd5b204325c6678b32858ea3fc94bc1e41d5aa99d3a43f49f"
+      sha256: "11ef1bd8c75fd02152ace063e882797f6dacb820538842018e7845b23480a09c"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "4.11.0"
+    version: "4.12.0"
   msix:
     dependency: "direct main"
     description:
@@ -1169,10 +1169,10 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_common_pages
-      sha256: e069b1a93205ce5039987a99a269f83c4be970f088e5271024f228f97ea65872
+      sha256: "29320018d0bd62fbe7b1acd5d646ff8a1d9274eef88f5718387d0f8af351d1ac"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.5+79"
+    version: "1.0.5+80"
   openiothub_constants:
     dependency: "direct main"
     description:
@@ -1201,10 +1201,10 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_plugin
-      sha256: c0b1091b28a39ca70e0c43bbc004a43f319ce63d93cb9cead261cd07c1ebefdb
+      sha256: af0ae038ed73177f7a641305d0be217255a5c0fe17c3baa3590754e3a8e7f572
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.2+48"
+    version: "1.0.2+54"
   package_config:
     dependency: transitive
     description:
