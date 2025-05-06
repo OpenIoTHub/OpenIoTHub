@@ -361,14 +361,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.0.1"
-  dartssh2_plus:
+  dartssh2:
     dependency: transitive
     description:
-      name: dartssh2_plus
-      sha256: "6e1405e0d49705e5951dec512559baec8630779c97fcdc18556925809fa111b7"
+      name: dartssh2
+      sha256: "126cc9cd3e56beebedef61407d1a1c92c84a6901e4c99b3d8deff647aeb8967d"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.0.0"
+    version: "2.12.0"
   dartx:
     dependency: transitive
     description:
@@ -720,6 +720,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_unionad:
+    dependency: "direct main"
+    description:
+      name: flutter_unionad
+      sha256: c6f78b19ec0577aab513214518e5f4feab70ebf37726f709a9d2e25a3c27f8e8
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.1.6"
   flutter_vlc_player:
     dependency: transitive
     description:
@@ -825,10 +833,10 @@ packages:
     dependency: "direct main"
     description:
       name: http
-      sha256: fe7ab022b76f3034adc518fb6ea04a82387620e19977665ea18d30a1cf43442f
+      sha256: "2c11f3f94c687ee9bad77c171151672986360b2b001d109814ee7140b2cf261b"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.3.0"
+    version: "1.4.0"
   http2:
     dependency: transitive
     description:
@@ -1169,10 +1177,10 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_common_pages
-      sha256: "29320018d0bd62fbe7b1acd5d646ff8a1d9274eef88f5718387d0f8af351d1ac"
+      sha256: "757655da70fd4164c40113a5d3e39e97113ac8d9f45d44deff0d60b465f7ea44"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.5+80"
+    version: "1.0.5+81"
   openiothub_constants:
     dependency: "direct main"
     description:
@@ -1201,10 +1209,10 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_plugin
-      sha256: af0ae038ed73177f7a641305d0be217255a5c0fe17c3baa3590754e3a8e7f572
+      sha256: "8306c6ef2d2805379a88ea14b06b483c264396733cdc0d0ef9f234978adbf1c1"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.2+54"
+    version: "1.0.2+59"
   package_config:
     dependency: transitive
     description:
@@ -1894,10 +1902,10 @@ packages:
     dependency: transitive
     description:
       name: web_socket
-      sha256: bfe6f435f6ec49cb6c01da1e275ae4228719e59a6b067048c51e72d9d63bcc4b
+      sha256: "34d64019aa8e36bf9842ac014bb5d2f5586ca73df5e4d9bf5c936975cae6982c"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.0"
+    version: "1.0.1"
   web_socket_channel:
     dependency: transitive
     description:

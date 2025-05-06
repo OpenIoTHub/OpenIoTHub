@@ -87,6 +87,8 @@ dependencies:
   go_router: ^15.0.0
   flutter_native_splash: ^2.4.1
   bonsoir: ^5.1.11
+#  穿山甲广告 https://www.csjplatform.com/
+  flutter_unionad: ^2.1.6
 
 dev_dependencies:
   flutter_test:
