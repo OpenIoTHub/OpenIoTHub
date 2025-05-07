@@ -37,7 +37,25 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
+            "value" : "OpenIoThub"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
             "value" : "云亿连"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "雲億連"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "雲億連"
           }
         }
       }

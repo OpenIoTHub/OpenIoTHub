@@ -39,9 +39,9 @@ class MyApp extends StatelessWidget {
     return OKToast(
         child: MaterialApp(
             // 华为需要
-            title: "云亿连",
+            // title: "云亿连",
             // title: OpenIoTHubLocalizations.of(context).app_title,
-            // title: "OpenIoTHub",
+            title: "OpenIoTHub",
             theme: CustomThemes.light,
             darkTheme: CustomThemes.dark,
             debugShowCheckedModeBanner: false,
