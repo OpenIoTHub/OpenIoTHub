@@ -720,14 +720,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_unionad:
-    dependency: "direct main"
-    description:
-      name: flutter_unionad
-      sha256: c6f78b19ec0577aab513214518e5f4feab70ebf37726f709a9d2e25a3c27f8e8
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.1.6"
   flutter_vlc_player:
     dependency: transitive
     description:

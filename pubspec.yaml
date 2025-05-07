@@ -88,14 +88,14 @@ dependencies:
   flutter_native_splash: ^2.4.1
   bonsoir: ^5.1.11
 #  穿山甲广告 https://www.csjplatform.com/
-  flutter_unionad: ^2.1.6
+#  flutter_unionad: ^2.1.6
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
   # flutter pub run flutter_launcher_icons
-  flutter_launcher_icons: ^0.14.1
+  flutter_launcher_icons: ^0.14.3
 #  flutter_distributor: ^0.4.5
   intl_utils: ^2.8.3
   build_runner:
@@ -185,12 +185,17 @@ tencent_kit:
   app_id: 1111913707
   universal_link: https://iothub.cloud/qq_conn/1111913707
 flutter_launcher_icons:
-  android: false
-  ios: false
-  image_path: "assets/images/logos/openiothub_logo_1024x1024.png"
+  android: true
+  adaptive_icon_foreground_inset: 21
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/icon/icon.png"
+  ios: true
+  image_path: "assets/icon/icon.png"
   min_sdk_android: 21 # android min sdk min:16, default 21
   windows:
     generate: true
     icon_size: 256 # min:48, max:256, default: 48
+    image_path: "assets/icon/icon.png"
   macos:
     generate: true
+    image_path: "assets/icon/icon.png"
