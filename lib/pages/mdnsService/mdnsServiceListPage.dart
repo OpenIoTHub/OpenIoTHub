@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:bonsoir/bonsoir.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_unionad/flutter_unionad.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/util/ThemeUtils.dart';
@@ -100,9 +101,12 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     );
     final divided = ListView.separated(
       padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-      itemCount: tiles.length,
+      itemCount: tiles.length+1,
       itemBuilder: (context, index) {
-        return tiles.elementAt(index);
+        if (index == 0) {
+          return _buildBanner();
+        }
+        return tiles.elementAt(index-1);
       },
       separatorBuilder: (context, index) {
         return Container(
@@ -298,7 +302,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
 
 //添加设备
   Future<void> addPortServiceInfo(PortServiceInfo portServiceInfo) async {
-    if (!portServiceInfo.info!.containsKey("name") ||
+    if (portServiceInfo.info != null && !portServiceInfo.info!.containsKey("name") ||
         portServiceInfo.info!["name"] == null ||
         portServiceInfo.info!["name"] == "") {
       return;
@@ -369,18 +373,20 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       portServiceInfo.addr = mqttDeviceInfo.mqttInfo.mqttServerHost;
       portServiceInfo.port = mqttDeviceInfo.mqttInfo.mqttServerPort;
       portServiceInfo.isLocal = false;
-      portServiceInfo.info!["name"] = mqttDeviceInfo.deviceDefaultName != ""
-          ? mqttDeviceInfo.deviceDefaultName
-          : mqttDeviceInfo.deviceModel;
-      portServiceInfo.info!["id"] = mqttDeviceInfo.deviceId;
-      portServiceInfo.info!["mac"] = mqttDeviceInfo.deviceId;
-      portServiceInfo.info!["model"] = mqttDeviceInfo.deviceModel;
-      portServiceInfo.info!["username"] = mqttDeviceInfo.mqttInfo.mqttClientUserName;
-      portServiceInfo.info!["password"] =
-          mqttDeviceInfo.mqttInfo.mqttClientUserPassword;
-      portServiceInfo.info!["client-id"] = mqttDeviceInfo.mqttInfo.mqttClientId;
-      portServiceInfo.info!["tls"] = mqttDeviceInfo.mqttInfo.sSLorTLS.toString();
-      portServiceInfo.info!["enable_delete"] = true.toString();
+      if (portServiceInfo.info != null) {
+        portServiceInfo.info!["name"] = mqttDeviceInfo.deviceDefaultName != ""
+            ? mqttDeviceInfo.deviceDefaultName
+            : mqttDeviceInfo.deviceModel;
+        portServiceInfo.info!["id"] = mqttDeviceInfo.deviceId;
+        portServiceInfo.info!["mac"] = mqttDeviceInfo.deviceId;
+        portServiceInfo.info!["model"] = mqttDeviceInfo.deviceModel;
+        portServiceInfo.info!["username"] = mqttDeviceInfo.mqttInfo.mqttClientUserName;
+        portServiceInfo.info!["password"] =
+            mqttDeviceInfo.mqttInfo.mqttClientUserPassword;
+        portServiceInfo.info!["client-id"] = mqttDeviceInfo.mqttInfo.mqttClientId;
+        portServiceInfo.info!["tls"] = mqttDeviceInfo.mqttInfo.sSLorTLS.toString();
+        portServiceInfo.info!["enable_delete"] = true.toString();
+      }
       addPortServiceInfo(portServiceInfo);
     }
   }
@@ -440,6 +446,30 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
                     )
                   ]));
     }
+  }
+
+  Widget _buildBanner(){
+    return FlutterUnionad.bannerAdView(
+      androidCodeId: "103478260",
+      iosCodeId: "103477981",
+      expressViewWidth: 600,
+      expressViewHeight: 75,
+      //广告事件回调 选填
+      callBack: FlutterUnionadBannerCallBack(
+        onShow: () {
+          print("banner广告加载完成");
+        },
+        onDislike: (message) {
+          print("banner不感兴趣 $message");
+        },
+        onFail: (error) {
+          print("banner广告加载失败 $error");
+        },
+        onClick: () {
+          print("banner广告点击");
+        },
+      ),
+    );
   }
 }
 

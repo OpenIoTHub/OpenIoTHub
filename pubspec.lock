@@ -813,14 +813,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.0.4"
-  gtads:
-    dependency: "direct main"
-    description:
-      name: gtads
-      sha256: "26b564e5ad525fb9ef13fd4a945d92bc699d75aa64f095723ad88a597d962923"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.5.0"
   hashcodes:
     dependency: transitive
     description:

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_unionad/flutter_unionad.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/pages/user/tools/toolsTypePage.dart';
 import 'package:openiothub_api/openiothub_api.dart';
@@ -58,6 +59,9 @@ class _ProfilePageState extends State<ProfilePage> {
             if (index == 0) {
               return _buildHeader();
             }
+            if (index == _listTiles.length+1) {
+              return _buildBanner();
+            }
             index -= 1;
             return _buildListTile(index);
           },
@@ -67,7 +71,7 @@ class _ProfilePageState extends State<ProfilePage> {
               child: TDDivider(),
             );
           },
-          itemCount: _listTiles == null ? 1 : _listTiles.length + 1,
+          itemCount: _listTiles.length + 2,
         ));
   }
 
@@ -305,5 +309,29 @@ class _ProfilePageState extends State<ProfilePage> {
         usermobile = "";
       });
     }
+  }
+
+  _buildBanner() {
+    return FlutterUnionad.bannerAdView(
+      androidCodeId: "103478259",
+      iosCodeId: "103475998",
+      expressViewWidth: 600,
+      expressViewHeight: 150,
+      //广告事件回调 选填
+      callBack: FlutterUnionadBannerCallBack(
+        onShow: () {
+          print("banner广告加载完成");
+        },
+        onDislike: (message) {
+          print("banner不感兴趣 $message");
+        },
+        onFail: (error) {
+          print("banner广告加载失败 $error");
+        },
+        onClick: () {
+          print("banner广告点击");
+        },
+      ),
+    );
   }
 }

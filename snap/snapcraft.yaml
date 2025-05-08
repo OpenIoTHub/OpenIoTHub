@@ -26,4 +26,4 @@ parts:
   openiothub:
     source: .
     plugin: flutter
-    flutter-target: lib/main.dart
+    flutter-target: lib/ad_page.dart

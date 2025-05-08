@@ -28,7 +28,8 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.iotserv.openiothub"
-    compileSdk = flutter.compileSdkVersion
+//    compileSdk = flutter.compileSdkVersion
+    compileSdk = 35
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -52,7 +53,7 @@ android {
 //        minSdk = flutter.minSdkVersion
         minSdk = 24
 //        targetSdk = flutter.targetSdkVersion
-        targetSdk = 34
+        targetSdk = 35
         versionCode = flutter.versionCode
         versionName = flutter.versionName
 //        consumerProguardFiles 'proguard-rules.pro'
@@ -71,13 +72,27 @@ android {
         }
     }
 
+    // https://blog.csdn.net/li5685918/article/details/50684442
     buildTypes {
         debug {
-            // 为了不和 release 版本冲突
-            applicationIdSuffix ".debug"
+            //Zip代码压缩优化
+            zipAlignEnabled false
+            //移除无用资源
+            shrinkResources false
+            //debugs使用release签名
+            signingConfig signingConfigs.release
+//            applicationIdSuffix ".debug"
         }
         release {
             signingConfig signingConfigs.release
+            //启用混淆配置
+            minifyEnabled false
+            //Zip代码压缩优化
+            zipAlignEnabled false
+            //移除无用资源
+            shrinkResources false
+            //加载默认混淆文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }

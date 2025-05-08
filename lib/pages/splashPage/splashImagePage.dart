@@ -5,14 +5,14 @@ import 'package:flutter/services.dart';
 import 'package:openiothub/pages/homePage/all/homePage.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 
-class SplashPage extends StatefulWidget {
-  const SplashPage({super.key});
+class SplashImagePage extends StatefulWidget {
+  const SplashImagePage({super.key});
 
   @override
-  State<StatefulWidget> createState() => LaunchState();
+  State<StatefulWidget> createState() => SplashImageState();
 }
 
-class LaunchState extends State<SplashPage> {
+class SplashImageState extends State<SplashImagePage> {
   final String launchImage = "assets/images/splash/1.jpg";
   int _countdown = 1;
   late Timer _countdownTimer;
