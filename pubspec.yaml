@@ -88,7 +88,8 @@ dependencies:
   flutter_native_splash: ^2.4.1
   bonsoir: ^5.1.11
 #  穿山甲广告 https://www.csjplatform.com/
-#  flutter_unionad: ^2.1.6
+  flutter_unionad: ^2.1.7
+  gtads: ^1.5.0
 
 dev_dependencies:
   flutter_test:

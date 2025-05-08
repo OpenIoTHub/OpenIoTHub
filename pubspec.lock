@@ -29,10 +29,10 @@ packages:
     dependency: transitive
     description:
       name: analyzer
-      sha256: "13c1e6c6fd460522ea840abec3f677cc226f5fec7872c04ad7b425517ccf54f7"
+      sha256: "904ae5bb474d32c38fb9482e2d925d5454cda04ddd0e55d2e6826bc72f6ba8c0"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "7.4.4"
+    version: "7.4.5"
   animations:
     dependency: transitive
     description:
@@ -720,6 +720,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_unionad:
+    dependency: "direct main"
+    description:
+      name: flutter_unionad
+      sha256: b6b3e05d581e9850a3f67e6c3ec6baddec31933d0c0d4e95d126e38aca0c05a5
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.1.7"
   flutter_vlc_player:
     dependency: transitive
     description:
@@ -805,6 +813,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.0.4"
+  gtads:
+    dependency: "direct main"
+    description:
+      name: gtads
+      sha256: "26b564e5ad525fb9ef13fd4a945d92bc699d75aa64f095723ad88a597d962923"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.5.0"
   hashcodes:
     dependency: transitive
     description:
@@ -1838,10 +1854,10 @@ packages:
     dependency: transitive
     description:
       name: video_player_android
-      sha256: ae7d4f1b41e3ac6d24dd9b9d5d6831b52d74a61bdd90a7a6262a33d8bb97c29a
+      sha256: "1f4e8e0e02403452d699ef7cf73fe9936fac8f6f0605303d111d71acb375d1bc"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.8.2"
+    version: "2.8.3"
   video_player_avfoundation:
     dependency: transitive
     description:

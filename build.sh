@@ -7,3 +7,4 @@ pod update
 #
 flutter pub upgrade --major-versions
 flutter gen-l10n
+dart run flutter_launcher_icons
