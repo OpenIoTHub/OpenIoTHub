@@ -6,6 +6,9 @@ import 'package:flutter_unionad/flutter_unionad.dart';
 import 'package:openiothub/pages/homePage/all/homePage.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/pages/splashPage/widgets/splash_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../configs/consts.dart';
 
 class SplashAdPage extends StatefulWidget {
   const SplashAdPage({super.key});
@@ -213,6 +216,10 @@ class SplashAdPageState extends State<SplashAdPage> {
 
   //注册
   void _initRegister() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if(!prefs.containsKey(Agreed_Privacy_Policy) || !(await prefs.getBool(Agreed_Privacy_Policy)!)){
+      return;
+    }
     _init = await FlutterUnionad.register(
       //穿山甲广告 Android appid 必填
         androidAppId: "5695020",
