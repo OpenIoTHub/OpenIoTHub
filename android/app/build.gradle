@@ -86,11 +86,11 @@ android {
         release {
             signingConfig signingConfigs.release
             //启用混淆配置
-            minifyEnabled false
+            minifyEnabled true
             //Zip代码压缩优化
-            zipAlignEnabled false
+            zipAlignEnabled true
             //移除无用资源
-            shrinkResources false
+            shrinkResources true
             //加载默认混淆文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

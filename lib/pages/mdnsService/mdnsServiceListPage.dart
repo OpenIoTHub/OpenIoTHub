@@ -23,6 +23,7 @@ import 'package:openiothub_plugin/plugins/mdnsService/modelsMap.dart';
 import 'package:openiothub_plugin/utils/portConfig2portService.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
+import '../../widgets/ads/banner.dart';
 import '../../widgets/toast.dart';
 
 class MdnsServiceListPage extends StatefulWidget {
@@ -38,7 +39,6 @@ class MdnsServiceListPage extends StatefulWidget {
 class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
   Utf8Decoder u8decodeer = const Utf8Decoder();
   final Map<String, PortServiceInfo> _IoTDeviceMap = <String, PortServiceInfo>{};
-  late Timer _timerPeriodLocal;
   late Timer _timerPeriodRemote;
   final Map<String, BonsoirDiscovery> _bonsoirActions = {};
   bool initialStart = true;
@@ -104,7 +104,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       itemCount: tiles.length+1,
       itemBuilder: (context, index) {
         if (index == 0) {
-          return _buildBanner();
+          return build30075Banner();
         }
         return tiles.elementAt(index-1);
       },
@@ -170,7 +170,6 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
 
   @override
   void dispose() {
-    _timerPeriodLocal.cancel();
     _timerPeriodRemote.cancel();
     _IoTDeviceMap.clear();
     stopAllDiscovery();
@@ -250,7 +249,12 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     BonsoirService service = event.service!;
     if (event.type == BonsoirDiscoveryEventType.discoveryServiceFound) {
       // services.add(service);
-      service.resolve(_bonsoirActions[service.type]!.serviceResolver);
+      if (_bonsoirActions.containsKey(service.type)) {
+        service.resolve(_bonsoirActions[service.type]!.serviceResolver);
+      }else{
+        print("_bonsoirActions 不存在 ${service.type} 服务");
+      }
+
     } else if (event.type ==
         BonsoirDiscoveryEventType.discoveryServiceResolved) {
       // services.removeWhere((foundService) => foundService.name == service.name);
@@ -259,9 +263,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
         if (MDNS2ModelsMap.modelsMap.containsKey(service.type)) {
           PortServiceInfo portServiceInfo =
               MDNS2ModelsMap.modelsMap[service.type]!.copyWith();
-          service.attributes.forEach((String key, value) {
-            portServiceInfo.info![key] = value;
-          });
+          portServiceInfo.info!.addAll(service.attributes);
           portServiceInfo.addr = (service as ResolvedBonsoirService)
               .host!
               .replaceAll(RegExp(r'.local.local.'), ".local")
@@ -302,7 +304,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
 
 //添加设备
   Future<void> addPortServiceInfo(PortServiceInfo portServiceInfo) async {
-    if (portServiceInfo.info != null && !portServiceInfo.info!.containsKey("name") ||
+    if (portServiceInfo.info == null || !portServiceInfo.info!.containsKey("name") ||
         portServiceInfo.info!["name"] == null ||
         portServiceInfo.info!["name"] == "") {
       return;
@@ -446,30 +448,6 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
                     )
                   ]));
     }
-  }
-
-  Widget _buildBanner(){
-    return FlutterUnionad.bannerAdView(
-      androidCodeId: "103478260",
-      iosCodeId: "103477981",
-      expressViewWidth: 600,
-      expressViewHeight: 75,
-      //广告事件回调 选填
-      callBack: FlutterUnionadBannerCallBack(
-        onShow: () {
-          print("banner广告加载完成");
-        },
-        onDislike: (message) {
-          print("banner不感兴趣 $message");
-        },
-        onFail: (error) {
-          print("banner广告加载失败 $error");
-        },
-        onClick: () {
-          print("banner广告点击");
-        },
-      ),
-    );
   }
 }
 

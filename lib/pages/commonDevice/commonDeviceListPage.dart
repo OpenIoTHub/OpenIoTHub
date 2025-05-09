@@ -16,6 +16,8 @@ import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
+import '../../widgets/ads/banner.dart';
+
 class CommonDeviceListPage extends StatefulWidget {
   const CommonDeviceListPage({required Key key, required this.title})
       : super(key: key);
@@ -97,9 +99,12 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
     );
     final divided = ListView.separated(
       padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-      itemCount: tiles.length,
+      itemCount: tiles.length+1,
       itemBuilder: (context, index) {
-        return tiles.elementAt(index);
+        if (index == 0) {
+          return build30075Banner();
+        }
+        return tiles.elementAt(index-1);
       },
       separatorBuilder: (context, index) {
         return Container(
