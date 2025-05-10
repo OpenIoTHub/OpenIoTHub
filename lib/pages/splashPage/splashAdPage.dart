@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,7 +20,7 @@ class SplashAdPage extends StatefulWidget {
 
 class SplashAdPageState extends State<SplashAdPage> {
   final String launchImage = "assets/images/splash/1.jpg";
-  int _countdown = 1;
+  int _countdown = 2;
   late Timer _countdownTimer;
 
   bool? _init;
@@ -217,7 +218,8 @@ class SplashAdPageState extends State<SplashAdPage> {
   //注册
   void _initRegister() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if(!prefs.containsKey(Agreed_Privacy_Policy) || !(await prefs.getBool(Agreed_Privacy_Policy)!)){
+    // 在安卓上只有用户同意隐私政策之后才会初始化广告
+    if(Platform.isAndroid && (!prefs.containsKey(Agreed_Privacy_Policy) || !(prefs.getBool(Agreed_Privacy_Policy)!))){
       return;
     }
     _init = await FlutterUnionad.register(

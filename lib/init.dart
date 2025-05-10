@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jaguar/jaguar.dart';
 import 'package:jaguar_flutter_asset/jaguar_flutter_asset.dart';
-import 'package:openiothub/util/check/check.dart';
+import 'package:openiothub/util/check/check.dart' as check;
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_constants/openiothub_constants.dart';
 import 'package:openiothub_grpc_api/google/protobuf/wrappers.pb.dart';
@@ -43,7 +43,7 @@ Future<void> initHttpAssets() async {
 }
 
 Future<void> initWechat() async {
-  bool agreed = await agreedPrivacyPolicy();
+  bool agreed = await check.agreedPrivacyPolicy();
   // 如果同意了隐私政策或者不是安卓平台则初始化wechat_kit
   if (agreed || Platform.isIOS) {
     WechatKitPlatform.instance.registerApp(
@@ -76,6 +76,9 @@ Future<void> initSystemUi() async {
 }
 
 Future<void> loadConfig() async {
+  if (!(await check.userSignedIn())) {
+    return;
+  }
   // Future.delayed(const Duration(milliseconds: 500), () {
   //   UtilApi.SyncConfigWithToken().then((OpenIoTHubOperationResponse rsp) {
   //     // showToast( rsp.msg);

@@ -777,10 +777,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: "2b9ba6d4c247457c35a6622f1dee6aab6694a4e15237ff7c32320345044112b6"
+      sha256: "0b1e06223bee260dee31a171fb1153e306907563a0b0225e8c1733211911429a"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "15.1.1"
+    version: "15.1.2"
   google_identity_services_web:
     dependency: transitive
     description:
@@ -1169,10 +1169,10 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_api
-      sha256: ee3b3c886240331b48510f5a0ba3dc340d39edd734b54f435e98af610da76672
+      sha256: "609ac98259d934b6a186a3d7d36603723c4546dcccb7743f8e38fa6f68486e5f"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.5+8"
+    version: "1.0.5+9"
   openiothub_common_pages:
     dependency: "direct main"
     description:
@@ -1958,10 +1958,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: dc6ecaa00a7c708e5b4d10ee7bec8c270e9276dfcab1783f57e9962d7884305f
+      sha256: "329edf97fdd893e0f1e3b9e88d6a0e627128cc17cc316a8d67fda8f1451178ba"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "5.12.0"
+    version: "5.13.0"
   xdg_directories:
     dependency: transitive
     description:

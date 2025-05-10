@@ -299,7 +299,7 @@ class OpenIoTHubLocalizationsZh extends OpenIoTHubLocalizations {
 
   @override
   String get please_use_the_magnifying_glass_in_the_upper_right_corner =>
-      '请使用右上角放大镜查找你在本局域网安装的网关';
+      '请使用右上角发现网关或者通过扫描二维码添加网关';
 
   @override
   String get delete_result => '删除结果';
@@ -752,7 +752,7 @@ class OpenIoTHubLocalizationsZhCn extends OpenIoTHubLocalizationsZh {
 
   @override
   String get please_use_the_magnifying_glass_in_the_upper_right_corner =>
-      '请使用右上角放大镜查找你在本局域网安装的网关';
+      '请使用右上角发现网关或者通过扫描二维码添加网关';
 
   @override
   String get delete_result => '删除结果';
@@ -1205,7 +1205,7 @@ class OpenIoTHubLocalizationsZhHans extends OpenIoTHubLocalizationsZh {
 
   @override
   String get please_use_the_magnifying_glass_in_the_upper_right_corner =>
-      '请使用右上角放大镜查找你在本局域网安装的网关';
+      '请使用右上角发现网关或者通过扫描二维码添加网关';
 
   @override
   String get delete_result => '删除结果';
@@ -1658,7 +1658,7 @@ class OpenIoTHubLocalizationsZhHant extends OpenIoTHubLocalizationsZh {
 
   @override
   String get please_use_the_magnifying_glass_in_the_upper_right_corner =>
-      '請使用右上角放大鏡查找你在本局域網安裝的網關';
+      '請使用右上角發現閘道或者通過掃描二維碼添加閘道';
 
   @override
   String get delete_result => '刪除結果';
@@ -2111,7 +2111,7 @@ class OpenIoTHubLocalizationsZhTw extends OpenIoTHubLocalizationsZh {
 
   @override
   String get please_use_the_magnifying_glass_in_the_upper_right_corner =>
-      '請使用右上角放大鏡查找你在本局域網安裝的網關';
+      '請使用右上角發現閘道或者通過掃描二維碼添加閘道';
 
   @override
   String get delete_result => '刪除結果';

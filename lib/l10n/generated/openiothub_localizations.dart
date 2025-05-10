@@ -676,7 +676,7 @@ abstract class OpenIoTHubLocalizations {
   /// No description provided for @please_use_the_magnifying_glass_in_the_upper_right_corner.
   ///
   /// In zh, this message translates to:
-  /// **'请使用右上角放大镜查找你在本局域网安装的网关'**
+  /// **'请使用右上角发现网关或者通过扫描二维码添加网关'**
   String get please_use_the_magnifying_glass_in_the_upper_right_corner;
 
   /// No description provided for @delete_result.

@@ -52,14 +52,11 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     Future.delayed(const Duration(milliseconds: 500)).then((value) {
       refreshmDNSServicesFromeRemote();
     });
-    Future.delayed(const Duration(milliseconds: 1000)).then((value) {
-      refreshmDNSServicesFromeRemote();
-    });
     Future.delayed(const Duration(milliseconds: 2000)).then((value) {
       refreshmDNSServicesFromeRemote();
     });
     _timerPeriodRemote =
-        Timer.periodic(const Duration(seconds: 10), (Timer timer) {
+        Timer.periodic(const Duration(seconds: 5), (Timer timer) {
       refreshmDNSServicesFromeRemote();
     });
     print("init iot devie List");
@@ -203,8 +200,6 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
         ),
       );
     }
-//    await _IoTDeviceMap.clear();
-    getIoTDeviceFromRemote();
   }
 
 //获取所有的网络列表
@@ -227,17 +222,17 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
   Future refreshmDNSServicesFromeRemote() async {
     if (await userSignedIn()) {
       getIoTDeviceFromMqttServer();
-    }
-    try {
-      getAllSession().then((s) {
-        for (var sc in s) {
-          SessionApi.refreshmDNSServices(sc);
-        }
-      }).then((_) async {
-        getIoTDeviceFromRemote();
-      });
-    } catch (e) {
-      print('Caught error: $e');
+      try {
+        getAllSession().then((s) {
+          for (var sc in s) {
+            SessionApi.refreshmDNSServices(sc);
+          }
+        }).then((_) async {
+          getIoTDeviceFromRemote();
+        });
+      } catch (e) {
+        print('Caught error: $e');
+      }
     }
   }
 
@@ -319,7 +314,9 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     }
     String value = "";
     try {
-      value = await CnameManager.GetCname(id);
+      if (await userSignedIn()) {
+        value = await CnameManager.GetCname(id);
+      }
     } catch (e) {
       show_failed(e.toString(), context);
     }

@@ -117,5 +117,22 @@
 	</array>
 	<key>io.flutter.embedded_views_preview</key>
     <true/>
+    <key>NSUserTrackingUsageDescription</key>
+    <string>This identifier will be used to deliver personalized ads to you.</string>
+    <key>SKAdNetworkItems</key>
+    <array>
+        <dict>
+            <key>SKAdNetworkIdentifier</key>
+            <string>238da6jt44.skadnetwork</string>
+        </dict>
+        <dict>
+            <key>SKAdNetworkIdentifier</key>
+            <string>22mmun2rn5.skadnetwork</string>
+        </dict>
+        <dict>
+            <key>SKAdNetworkIdentifier</key>
+            <string>cstr6suwn9.skadnetwork</string>
+        </dict>
+    </array>
 </dict>
 </plist>

@@ -13,5 +13,10 @@ Future<bool> agreedPrivacyPolicy() async {
 
 Future<bool> userSignedIn() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  return prefs.containsKey(SharedPreferencesKey.USER_TOKEN_KEY);
+  if (prefs.containsKey(SharedPreferencesKey.USER_TOKEN_KEY) &&
+      prefs.getString(SharedPreferencesKey.USER_TOKEN_KEY) != null &&
+      prefs.getString(SharedPreferencesKey.USER_TOKEN_KEY)!.isNotEmpty){
+    return true;
+  }
+  return false;
 }

@@ -307,7 +307,7 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
 
   @override
   String get please_use_the_magnifying_glass_in_the_upper_right_corner =>
-      'Please use the magnifying glass in the upper right corner to locate the gateway you have installed on this local area network';
+      'Please use the top right corner to discover the gateway or add the gateway by scanning the QR code';
 
   @override
   String get delete_result => 'Delete result';
