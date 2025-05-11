@@ -4,8 +4,6 @@ import 'dart:math';
 
 import 'package:bonsoir/bonsoir.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_unionad/flutter_unionad.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/util/ThemeUtils.dart';
 import 'package:openiothub/widgets/BuildGlobalActions.dart';
@@ -23,7 +21,6 @@ import 'package:openiothub_plugin/plugins/mdnsService/modelsMap.dart';
 import 'package:openiothub_plugin/utils/portConfig2portService.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
-import '../../widgets/ads/banner.dart';
 import '../../widgets/toast.dart';
 
 class MdnsServiceListPage extends StatefulWidget {
@@ -101,7 +98,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       itemCount: tiles.length+1,
       itemBuilder: (context, index) {
         if (index == 0) {
-          return build30075Banner();
+          return Container();
         }
         return tiles.elementAt(index-1);
       },

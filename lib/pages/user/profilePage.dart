@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_unionad/flutter_unionad.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/pages/user/tools/toolsTypePage.dart';
 import 'package:openiothub_api/openiothub_api.dart';
@@ -16,7 +15,6 @@ import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../model/custom_theme.dart';
-import '../../widgets/ads/banner.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -61,7 +59,7 @@ class _ProfilePageState extends State<ProfilePage> {
               return _buildHeader();
             }
             if (index == _listTiles.length+1) {
-              return build300150Banner();
+              return Container();
             }
             index -= 1;
             return _buildListTile(index);
