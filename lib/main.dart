@@ -7,10 +7,7 @@ import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/init.dart';
 import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub/pages/homePage/all/homePage.dart';
-import 'package:openiothub/pages/splashPage/adPage/ad_page.dart';
 import 'package:openiothub/pages/splashPage/splashAdPage.dart';
-// import 'package:openiothub/pages/homePage/pc/pcHomePage.dart';
-import 'package:openiothub/pages/splashPage/splashImagePage.dart';
 import 'package:openiothub_common_pages/openiothub_common_pages.dart';
 import 'package:openiothub_plugin/openiothub_plugin.dart';
 import 'package:provider/provider.dart';
@@ -65,7 +62,8 @@ class MyApp extends StatelessWidget {
                 : MyHomePage(
                     key: UniqueKey(),
                     title: '',
-                  )));
+                  )
+          ));
   }
 }
 

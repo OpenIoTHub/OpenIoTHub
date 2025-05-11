@@ -7,6 +7,7 @@ import 'package:openiothub_common_pages/openiothub_common_pages.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
+import '../pages/guide/guidePage.dart';
 import '../util/check/check.dart';
 
 List<Widget>? build_actions(BuildContext context) {
@@ -40,6 +41,17 @@ List<Widget>? build_actions(BuildContext context) {
       ),
     ]);
   }
+  popupMenuEntrys.addAll(<PopupMenuEntry<String>>[
+    const PopupMenuDivider(
+      height: 0.2,
+    ),
+    PopupMenuItem(
+      //child: _buildPopupMenuItem(Icons.camera_alt, '扫一扫'),
+      child: _buildPopupMenuItem(
+          TDIcons.info_circle, OpenIoTHubLocalizations.of(context).user_guide),
+      value: "user_guide",
+    ),
+  ]);
   return <Widget>[
     PopupMenuButton(
       tooltip: "",
@@ -143,6 +155,16 @@ List<Widget>? build_actions(BuildContext context) {
                   return FindGatewayGoListPage(
                     key: UniqueKey(),
                   );
+                },
+              ),
+            );
+            break;
+          case 'user_guide':
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  // 写成独立的组件，支持刷新
+                  return GuidePage();
                 },
               ),
             );

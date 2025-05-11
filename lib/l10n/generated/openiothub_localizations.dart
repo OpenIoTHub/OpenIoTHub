@@ -979,6 +979,102 @@ abstract class OpenIoTHubLocalizations {
   /// In zh, this message translates to:
   /// **'不选择，下面填写'**
   String get fill_in_below;
+
+  /// No description provided for @user_guide.
+  ///
+  /// In zh, this message translates to:
+  /// **'新手引导'**
+  String get user_guide;
+
+  /// No description provided for @register_login.
+  ///
+  /// In zh, this message translates to:
+  /// **'注册登录'**
+  String get register_login;
+
+  /// No description provided for @register_login_content.
+  ///
+  /// In zh, this message translates to:
+  /// **'点击下方按钮开始注册登录'**
+  String get register_login_content;
+
+  /// No description provided for @add_gateway.
+  ///
+  /// In zh, this message translates to:
+  /// **'添加网关'**
+  String get add_gateway;
+
+  /// No description provided for @add_gateway_content.
+  ///
+  /// In zh, this message translates to:
+  /// **'从下方两个按钮任选其一选择扫码添加网关还是局域网发现添加网关'**
+  String get add_gateway_content;
+
+  /// No description provided for @add_host.
+  ///
+  /// In zh, this message translates to:
+  /// **'添加主机'**
+  String get add_host;
+
+  /// No description provided for @add_host_content.
+  ///
+  /// In zh, this message translates to:
+  /// **'点击下方按钮跳转到主机列表页面点击右下角按钮开始添加远程主机'**
+  String get add_host_content;
+
+  /// No description provided for @add_ports.
+  ///
+  /// In zh, this message translates to:
+  /// **'添加端口'**
+  String get add_ports;
+
+  /// No description provided for @add_ports_content.
+  ///
+  /// In zh, this message translates to:
+  /// **'点击下方按钮跳转到主机列表页面点击需要添加端口的主机，在主机上添加端口'**
+  String get add_ports_content;
+
+  /// No description provided for @access_ports.
+  ///
+  /// In zh, this message translates to:
+  /// **'访问端口'**
+  String get access_ports;
+
+  /// No description provided for @access_ports_content.
+  ///
+  /// In zh, this message translates to:
+  /// **'点击下方按钮跳转到主机列表页面，点击主机进入端口列表页面，点击任意端口访问远程端口(可能需要选择访问方式)'**
+  String get access_ports_content;
+
+  /// No description provided for @last_step.
+  ///
+  /// In zh, this message translates to:
+  /// **'上一步'**
+  String get last_step;
+
+  /// No description provided for @next_step.
+  ///
+  /// In zh, this message translates to:
+  /// **'下一步'**
+  String get next_step;
+
+  /// No description provided for @skip_this_guide.
+  ///
+  /// In zh, this message translates to:
+  /// **'跳过本指导'**
+  String get skip_this_guide;
+
+  /// No description provided for @open_the_port.
+  ///
+  /// In zh, this message translates to:
+  /// **'打开端口'**
+  String get open_the_port;
+
+  /// No description provided for @add_port_button.
+  ///
+  /// In zh, this message translates to:
+  /// **'添加端口'**
+  String get add_port_button;
 }
 
 class _OpenIoTHubLocalizationsDelegate

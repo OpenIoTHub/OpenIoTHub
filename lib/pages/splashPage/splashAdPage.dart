@@ -7,6 +7,7 @@ import 'package:flutter_unionad/flutter_unionad.dart';
 import 'package:openiothub/pages/homePage/all/homePage.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/pages/splashPage/widgets/splash_page.dart';
+import 'package:openiothub/widgets/toast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../configs/consts.dart';

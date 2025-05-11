@@ -144,5 +144,21 @@
   "ok": "確定",
   "choose_an_network": "選擇一個遠程網絡",
   "choose_an_host_address":"選擇一個遠程主機地址",
-  "fill_in_below": "不選擇，下面填寫"
+  "fill_in_below": "不選擇，下面填寫",
+  "user_guide": "新手引導",
+  "register_login": "註冊登錄",
+  "register_login_content": "註冊登錄",
+  "add_gateway": "添加網關",
+  "add_gateway_content": "從下方兩個按鈕任選其一選擇掃碼添加網關還是局域網發現添加網關",
+  "add_host": "添加主機",
+  "add_host_content": "點擊下方按鈕跳轉到主機列表頁面點擊右下角按鈕開始添加遠程主機",
+  "add_ports": "添加端口",
+  "add_ports_content": "點擊下方按鈕跳轉到主機列表頁面點擊需要添加端口的主機，在主機上添加端口",
+  "access_ports": "訪問端口",
+  "access_ports_content": "點擊下方按鈕跳轉到主機列表頁面，點擊主機進入端口列表頁面，點擊任意端口訪問遠程端口(可能需要選擇訪問方式)",
+  "last_step": "上一步",
+  "next_step": "下一步",
+  "skip_this_guide": "跳过本指导",
+  "open_the_port": "打開端口",
+  "add_port_button": "添加端口"
 }
