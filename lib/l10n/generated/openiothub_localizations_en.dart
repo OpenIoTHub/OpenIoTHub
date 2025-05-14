@@ -21,7 +21,7 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
   String get tab_host => 'Host';
 
   @override
-  String get tab_user => 'User';
+  String get tab_user => 'Me';
 
   @override
   String get profile_not_logged_in => 'Not logged in';
@@ -471,39 +471,39 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
   String get user_guide => 'User Guide';
 
   @override
-  String get register_login => 'Register&Login';
+  String get register_login => 'Login';
 
   @override
   String get register_login_content =>
       'Click the button below, register and login your account';
 
   @override
-  String get add_gateway => 'Add Gateway';
+  String get add_gateway => 'Gateway';
 
   @override
   String get add_gateway_content =>
       'Select either scanning the QR code to add a gateway or discovering it via LAN from the two buttons below';
 
   @override
-  String get add_host => 'Add Host';
+  String get add_host => 'Host';
 
   @override
   String get add_host_content =>
-      'Click the button below to navigate to the host list page, then tap the button in the lower-right corner to begin adding a remote host';
+      'Click the button below to navigate to the host list page, \nthen tap the button in the lower-right corner to begin adding a remote host';
 
   @override
-  String get add_ports => 'Add Ports';
+  String get add_ports => 'Ports';
 
   @override
   String get add_ports_content =>
-      'Click the button below to navigate to the host list page, select the host where you want to add ports, and configure the ports on that host';
+      'Click the button below to navigate to the host list page, \nselect the host where you want to add ports, and configure the ports on that host';
 
   @override
-  String get access_ports => 'Access Ports';
+  String get access_ports => 'Access';
 
   @override
   String get access_ports_content =>
-      'Click the button below to navigate to the host list page, select a host to enter its port list, then click any port to access the remote port (you may need to choose an access method)';
+      'Click the button below to navigate to the host list page, \nselect a host to enter its port list, \nthen click any port to access the remote port (you may need to choose an access method)';
 
   @override
   String get last_step => 'Last Step';

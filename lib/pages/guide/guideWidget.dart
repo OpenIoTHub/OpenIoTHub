@@ -5,7 +5,6 @@ import 'package:openiothub_common_pages/user/LoginPage.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import '../../l10n/generated/openiothub_localizations.dart';
-import '../../util/ThemeUtils.dart';
 import '../commonDevice/commonDeviceListPage.dart';
 
 class GuideWidget extends StatefulWidget {
@@ -102,7 +101,7 @@ class _GuideWidgetState extends State<GuideWidget> {
                     Navigator.of(context).pop();
                   },
                   child: Text(
-                      OpenIoTHubLocalizations.of(context).skip_this_guide)),
+                      OpenIoTHubLocalizations.of(context).skip_this_guide, style: TextStyle(color: Colors.grey, fontSize: 8),)),
             )
           ],
         ));
@@ -128,7 +127,7 @@ class _GuideWidgetState extends State<GuideWidget> {
   Widget _buildRegisterLoginGuide() {
     return Column(children: [
       Center(
-        child: Text(OpenIoTHubLocalizations.of(context).register_login_content),
+        child: Text(OpenIoTHubLocalizations.of(context).register_login_content, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
       ),
       Padding(
         padding: EdgeInsets.only(top: 16),
@@ -149,18 +148,18 @@ class _GuideWidgetState extends State<GuideWidget> {
 
   Widget _buildGatewayGuide() {
     return Column(children: [
-      ThemeUtils.isDarkMode(context)
-          ? Center(
-              child: Image.asset('assets/images/empty_list_black.png'),
-            )
-          : Center(
-              child: Image.asset('assets/images/empty_list.png'),
-            ),
+      // ThemeUtils.isDarkMode(context)
+      //     ? Center(
+      //         child: Image.asset('assets/images/empty_list_black.png'),
+      //       )
+      //     : Center(
+      //         child: Image.asset('assets/images/empty_list.png'),
+      //       ),
       Padding(
           padding: EdgeInsets.only(top: 16),
           child: Center(
             child:
-                Text(OpenIoTHubLocalizations.of(context).add_gateway_content),
+                Text(OpenIoTHubLocalizations.of(context).add_gateway_content, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
           )),
       Padding(
           padding: EdgeInsets.only(top: 16),
@@ -197,17 +196,17 @@ class _GuideWidgetState extends State<GuideWidget> {
 
   Widget _buildHostGuide() {
     return Column(children: [
-      ThemeUtils.isDarkMode(context)
-          ? Center(
-              child: Image.asset('assets/images/empty_list_black.png'),
-            )
-          : Center(
-              child: Image.asset('assets/images/empty_list.png'),
-            ),
+      // ThemeUtils.isDarkMode(context)
+      //     ? Center(
+      //         child: Image.asset('assets/images/empty_list_black.png'),
+      //       )
+      //     : Center(
+      //         child: Image.asset('assets/images/empty_list.png'),
+      //       ),
       Padding(
           padding: EdgeInsets.only(top: 16),
           child: Center(
-            child: Text(OpenIoTHubLocalizations.of(context).add_host_content),
+            child: Text(OpenIoTHubLocalizations.of(context).add_host_content, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
           )),
       Padding(
           padding: EdgeInsets.only(top: 16),
@@ -230,17 +229,17 @@ class _GuideWidgetState extends State<GuideWidget> {
 
   Widget _buildPortGuide() {
     return Column(children: [
-      ThemeUtils.isDarkMode(context)
-          ? Center(
-              child: Image.asset('assets/images/empty_list_black.png'),
-            )
-          : Center(
-              child: Image.asset('assets/images/empty_list.png'),
-            ),
+      // ThemeUtils.isDarkMode(context)
+      //     ? Center(
+      //         child: Image.asset('assets/images/empty_list_black.png'),
+      //       )
+      //     : Center(
+      //         child: Image.asset('assets/images/empty_list.png'),
+      //       ),
       Padding(
           padding: EdgeInsets.only(top: 16),
           child: Center(
-            child: Text(OpenIoTHubLocalizations.of(context).add_ports_content),
+            child: Text(OpenIoTHubLocalizations.of(context).add_ports_content, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
           )),
       Padding(
           padding: EdgeInsets.only(top: 16),
@@ -263,18 +262,18 @@ class _GuideWidgetState extends State<GuideWidget> {
 
   Widget _buildOpenPortGuide() {
     return Column(children: [
-      ThemeUtils.isDarkMode(context)
-          ? Center(
-              child: Image.asset('assets/images/empty_list_black.png'),
-            )
-          : Center(
-              child: Image.asset('assets/images/empty_list.png'),
-            ),
+      // ThemeUtils.isDarkMode(context)
+      //     ? Center(
+      //         child: Image.asset('assets/images/empty_list_black.png'),
+      //       )
+      //     : Center(
+      //         child: Image.asset('assets/images/empty_list.png'),
+      //       ),
       Padding(
           padding: EdgeInsets.only(top: 16),
           child: Center(
             child:
-                Text(OpenIoTHubLocalizations.of(context).access_ports_content),
+                Text(OpenIoTHubLocalizations.of(context).access_ports_content, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
           )),
       Padding(
           padding: EdgeInsets.only(top: 16),

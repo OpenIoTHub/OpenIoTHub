@@ -1177,10 +1177,10 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_common_pages
-      sha256: "757655da70fd4164c40113a5d3e39e97113ac8d9f45d44deff0d60b465f7ea44"
+      sha256: "732aef074b93e9ea72c43c2148f1c2f3d529433715a6a84955a81161d144a1e9"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.5+81"
+    version: "1.0.5+82"
   openiothub_constants:
     dependency: "direct main"
     description:
@@ -1562,6 +1562,30 @@ packages:
     description:
       name: shelf_web_socket
       sha256: "3632775c8e90d6c9712f883e633716432a27758216dfb61bd86a8321c0580925"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.0.0"
+  sign_in_with_apple:
+    dependency: transitive
+    description:
+      name: sign_in_with_apple
+      sha256: "8bd875c8e8748272749eb6d25b896f768e7e9d60988446d543fe85a37a2392b8"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "7.0.1"
+  sign_in_with_apple_platform_interface:
+    dependency: transitive
+    description:
+      name: sign_in_with_apple_platform_interface
+      sha256: "981bca52cf3bb9c3ad7ef44aace2d543e5c468bb713fd8dda4275ff76dfa6659"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.0"
+  sign_in_with_apple_web:
+    dependency: transitive
+    description:
+      name: sign_in_with_apple_web
+      sha256: f316400827f52cafcf50d00e1a2e8a0abc534ca1264e856a81c5f06bd5b10fed
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.0.0"

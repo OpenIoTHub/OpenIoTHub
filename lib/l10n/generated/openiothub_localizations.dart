@@ -130,7 +130,7 @@ abstract class OpenIoTHubLocalizations {
   /// No description provided for @tab_user.
   ///
   /// In zh, this message translates to:
-  /// **'用户'**
+  /// **'我'**
   String get tab_user;
 
   /// No description provided for @profile_not_logged_in.
@@ -1019,7 +1019,7 @@ abstract class OpenIoTHubLocalizations {
   /// No description provided for @add_host_content.
   ///
   /// In zh, this message translates to:
-  /// **'点击下方按钮跳转到主机列表页面点击右下角按钮开始添加远程主机'**
+  /// **'点击下方按钮跳转到主机列表页面，\n点击右下角按钮开始添加远程主机'**
   String get add_host_content;
 
   /// No description provided for @add_ports.
@@ -1031,7 +1031,7 @@ abstract class OpenIoTHubLocalizations {
   /// No description provided for @add_ports_content.
   ///
   /// In zh, this message translates to:
-  /// **'点击下方按钮跳转到主机列表页面点击需要添加端口的主机，在主机上添加端口'**
+  /// **'点击下方按钮跳转到主机列表页面，\n点击需要添加端口的主机，在主机上添加端口'**
   String get add_ports_content;
 
   /// No description provided for @access_ports.
@@ -1043,7 +1043,7 @@ abstract class OpenIoTHubLocalizations {
   /// No description provided for @access_ports_content.
   ///
   /// In zh, this message translates to:
-  /// **'点击下方按钮跳转到主机列表页面，点击主机进入端口列表页面，点击任意端口访问远程端口(可能需要选择访问方式)'**
+  /// **'点击下方按钮跳转到主机列表页面，\n点击主机进入端口列表页面，\n点击任意端口访问远程端口(可能需要选择访问方式)'**
   String get access_ports_content;
 
   /// No description provided for @last_step.

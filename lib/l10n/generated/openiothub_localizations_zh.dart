@@ -21,7 +21,7 @@ class OpenIoTHubLocalizationsZh extends OpenIoTHubLocalizations {
   String get tab_host => '主机';
 
   @override
-  String get tab_user => '用户';
+  String get tab_user => '我';
 
   @override
   String get profile_not_logged_in => '未登录';
@@ -475,20 +475,20 @@ class OpenIoTHubLocalizationsZh extends OpenIoTHubLocalizations {
   String get add_host => '添加主机';
 
   @override
-  String get add_host_content => '点击下方按钮跳转到主机列表页面点击右下角按钮开始添加远程主机';
+  String get add_host_content => '点击下方按钮跳转到主机列表页面，\n点击右下角按钮开始添加远程主机';
 
   @override
   String get add_ports => '添加端口';
 
   @override
-  String get add_ports_content => '点击下方按钮跳转到主机列表页面点击需要添加端口的主机，在主机上添加端口';
+  String get add_ports_content => '点击下方按钮跳转到主机列表页面，\n点击需要添加端口的主机，在主机上添加端口';
 
   @override
   String get access_ports => '访问端口';
 
   @override
   String get access_ports_content =>
-      '点击下方按钮跳转到主机列表页面，点击主机进入端口列表页面，点击任意端口访问远程端口(可能需要选择访问方式)';
+      '点击下方按钮跳转到主机列表页面，\n点击主机进入端口列表页面，\n点击任意端口访问远程端口(可能需要选择访问方式)';
 
   @override
   String get last_step => '上一步';
@@ -523,7 +523,7 @@ class OpenIoTHubLocalizationsZhCn extends OpenIoTHubLocalizationsZh {
   String get tab_host => '主机';
 
   @override
-  String get tab_user => '用户';
+  String get tab_user => '我';
 
   @override
   String get profile_not_logged_in => '未登录';
@@ -971,26 +971,26 @@ class OpenIoTHubLocalizationsZhCn extends OpenIoTHubLocalizationsZh {
   String get add_gateway => '添加网关';
 
   @override
-  String get add_gateway_content => '从下方两个按钮任选其一选择扫码添加网关还是局域网发现添加网关';
+  String get add_gateway_content => '从下方两个按钮任选其一选择 扫码添加网关 还是 局域网发现 添加网关';
 
   @override
   String get add_host => '添加主机';
 
   @override
-  String get add_host_content => '点击下方按钮跳转到主机列表页面点击右下角按钮开始添加远程主机';
+  String get add_host_content => '点击下方按钮跳转到主机列表页面，\n点击右下角按钮开始添加远程主机';
 
   @override
   String get add_ports => '添加端口';
 
   @override
-  String get add_ports_content => '点击下方按钮跳转到主机列表页面点击需要添加端口的主机，在主机上添加端口';
+  String get add_ports_content => '点击下方按钮跳转到主机列表页面，\n点击需要添加端口的主机，在主机上添加端口';
 
   @override
   String get access_ports => '访问端口';
 
   @override
   String get access_ports_content =>
-      '点击下方按钮跳转到主机列表页面，点击主机进入端口列表页面，点击任意端口访问远程端口(可能需要选择访问方式)';
+      '点击下方按钮跳转到主机列表页面，\n点击主机进入端口列表页面，\n点击任意端口访问远程端口(可能需要选择访问方式)';
 
   @override
   String get last_step => '上一步';
@@ -1025,7 +1025,7 @@ class OpenIoTHubLocalizationsZhHans extends OpenIoTHubLocalizationsZh {
   String get tab_host => '主机';
 
   @override
-  String get tab_user => '用户';
+  String get tab_user => '我';
 
   @override
   String get profile_not_logged_in => '未登录';
@@ -1473,26 +1473,26 @@ class OpenIoTHubLocalizationsZhHans extends OpenIoTHubLocalizationsZh {
   String get add_gateway => '添加网关';
 
   @override
-  String get add_gateway_content => '从下方两个按钮任选其一选择扫码添加网关还是局域网发现添加网关';
+  String get add_gateway_content => '从下方两个按钮任选其一选择 扫码添加网关 还是 局域网发现 添加网关';
 
   @override
   String get add_host => '添加主机';
 
   @override
-  String get add_host_content => '点击下方按钮跳转到主机列表页面点击右下角按钮开始添加远程主机';
+  String get add_host_content => '点击下方按钮跳转到主机列表页面，\n点击右下角按钮开始添加远程主机';
 
   @override
   String get add_ports => '添加端口';
 
   @override
-  String get add_ports_content => '点击下方按钮跳转到主机列表页面点击需要添加端口的主机，在主机上添加端口';
+  String get add_ports_content => '点击下方按钮跳转到主机列表页面，\n点击需要添加端口的主机，在主机上添加端口';
 
   @override
   String get access_ports => '访问端口';
 
   @override
   String get access_ports_content =>
-      '点击下方按钮跳转到主机列表页面，点击主机进入端口列表页面，点击任意端口访问远程端口(可能需要选择访问方式)';
+      '点击下方按钮跳转到主机列表页面，\n点击主机进入端口列表页面，\n点击任意端口访问远程端口(可能需要选择访问方式)';
 
   @override
   String get last_step => '上一步';
@@ -1527,7 +1527,7 @@ class OpenIoTHubLocalizationsZhHant extends OpenIoTHubLocalizationsZh {
   String get tab_host => '主機';
 
   @override
-  String get tab_user => '用戶';
+  String get tab_user => '我';
 
   @override
   String get profile_not_logged_in => '未登錄';
@@ -1975,26 +1975,26 @@ class OpenIoTHubLocalizationsZhHant extends OpenIoTHubLocalizationsZh {
   String get add_gateway => '添加網關';
 
   @override
-  String get add_gateway_content => '從下方兩個按鈕任選其一選擇掃碼添加網關還是局域網發現添加網關';
+  String get add_gateway_content => '從下方兩個按鈕任選其一選擇 掃碼添加網關 還是 局域網發現 添加網關';
 
   @override
   String get add_host => '添加主機';
 
   @override
-  String get add_host_content => '點擊下方按鈕跳轉到主機列表頁面點擊右下角按鈕開始添加遠程主機';
+  String get add_host_content => '點擊下方按鈕跳轉到主機列表頁面，\n點擊右下角按鈕開始添加遠程主機';
 
   @override
   String get add_ports => '添加端口';
 
   @override
-  String get add_ports_content => '點擊下方按鈕跳轉到主機列表頁面點擊需要添加端口的主機，在主機上添加端口';
+  String get add_ports_content => '點擊下方按鈕跳轉到主機列表頁面，\n點擊需要添加端口的主機，在主機上添加端口';
 
   @override
   String get access_ports => '訪問端口';
 
   @override
   String get access_ports_content =>
-      '點擊下方按鈕跳轉到主機列表頁面，點擊主機進入端口列表頁面，點擊任意端口訪問遠程端口(可能需要選擇訪問方式)';
+      '點擊下方按鈕跳轉到主機列表頁面，\n點擊主機進入端口列表頁面，\n點擊任意端口訪問遠程端口(可能需要選擇訪問方式)';
 
   @override
   String get last_step => '上一步';
@@ -2029,7 +2029,7 @@ class OpenIoTHubLocalizationsZhTw extends OpenIoTHubLocalizationsZh {
   String get tab_host => '主機';
 
   @override
-  String get tab_user => '用戶';
+  String get tab_user => '我';
 
   @override
   String get profile_not_logged_in => '未登錄';
@@ -2477,26 +2477,26 @@ class OpenIoTHubLocalizationsZhTw extends OpenIoTHubLocalizationsZh {
   String get add_gateway => '添加網關';
 
   @override
-  String get add_gateway_content => '從下方兩個按鈕任選其一選擇掃碼添加網關還是局域網發現添加網關';
+  String get add_gateway_content => '從下方兩個按鈕任選其一選擇 掃碼添加網關 還是 局域網發現 添加網關';
 
   @override
   String get add_host => '添加主機';
 
   @override
-  String get add_host_content => '點擊下方按鈕跳轉到主機列表頁面點擊右下角按鈕開始添加遠程主機';
+  String get add_host_content => '點擊下方按鈕跳轉到主機列表頁面，\n點擊右下角按鈕開始添加遠程主機';
 
   @override
   String get add_ports => '添加端口';
 
   @override
-  String get add_ports_content => '點擊下方按鈕跳轉到主機列表頁面點擊需要添加端口的主機，在主機上添加端口';
+  String get add_ports_content => '點擊下方按鈕跳轉到主機列表頁面，\n點擊需要添加端口的主機，在主機上添加端口';
 
   @override
   String get access_ports => '訪問端口';
 
   @override
   String get access_ports_content =>
-      '點擊下方按鈕跳轉到主機列表頁面，點擊主機進入端口列表頁面，點擊任意端口訪問遠程端口(可能需要選擇訪問方式)';
+      '點擊下方按鈕跳轉到主機列表頁面，\n點擊主機進入端口列表頁面，\n點擊任意端口訪問遠程端口(可能需要選擇訪問方式)';
 
   @override
   String get last_step => '上一步';
