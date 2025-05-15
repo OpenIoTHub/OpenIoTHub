@@ -1075,6 +1075,12 @@ abstract class OpenIoTHubLocalizations {
   /// In zh, this message translates to:
   /// **'添加端口'**
   String get add_port_button;
+
+  /// No description provided for @open_gateway_guide.
+  ///
+  /// In zh, this message translates to:
+  /// **'打开网关软件主页'**
+  String get open_gateway_guide;
 }
 
 class _OpenIoTHubLocalizationsDelegate

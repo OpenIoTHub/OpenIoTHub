@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:openiothub/pages/commonPages/scanQR.dart';
 import 'package:openiothub_common_pages/commPages/findGatewayGoList.dart';
+import 'package:openiothub_common_pages/openiothub_common_pages.dart';
 import 'package:openiothub_common_pages/user/LoginPage.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
@@ -101,7 +102,9 @@ class _GuideWidgetState extends State<GuideWidget> {
                     Navigator.of(context).pop();
                   },
                   child: Text(
-                      OpenIoTHubLocalizations.of(context).skip_this_guide, style: TextStyle(color: Colors.grey, fontSize: 8),)),
+                    OpenIoTHubLocalizations.of(context).skip_this_guide,
+                    style: TextStyle(color: Colors.grey, fontSize: 8),
+                  )),
             )
           ],
         ));
@@ -127,7 +130,10 @@ class _GuideWidgetState extends State<GuideWidget> {
   Widget _buildRegisterLoginGuide() {
     return Column(children: [
       Center(
-        child: Text(OpenIoTHubLocalizations.of(context).register_login_content, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+        child: Text(
+          OpenIoTHubLocalizations.of(context).register_login_content,
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
       ),
       Padding(
         padding: EdgeInsets.only(top: 16),
@@ -158,8 +164,22 @@ class _GuideWidgetState extends State<GuideWidget> {
       Padding(
           padding: EdgeInsets.only(top: 16),
           child: Center(
-            child:
-                Text(OpenIoTHubLocalizations.of(context).add_gateway_content, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+            child: Text(
+              OpenIoTHubLocalizations.of(context).add_gateway_content,
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+          )),
+      Padding(
+          padding: EdgeInsets.only(top: 16),
+          child: Center(
+            child: TextButton(
+              onPressed: () {
+                launchURL("https://github.com/OpenIoTHub/gateway-go");
+              },
+              child: Text(
+                  OpenIoTHubLocalizations.of(context).open_gateway_guide,
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            ),
           )),
       Padding(
           padding: EdgeInsets.only(top: 16),
@@ -206,7 +226,10 @@ class _GuideWidgetState extends State<GuideWidget> {
       Padding(
           padding: EdgeInsets.only(top: 16),
           child: Center(
-            child: Text(OpenIoTHubLocalizations.of(context).add_host_content, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+            child: Text(
+              OpenIoTHubLocalizations.of(context).add_host_content,
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
           )),
       Padding(
           padding: EdgeInsets.only(top: 16),
@@ -239,7 +262,10 @@ class _GuideWidgetState extends State<GuideWidget> {
       Padding(
           padding: EdgeInsets.only(top: 16),
           child: Center(
-            child: Text(OpenIoTHubLocalizations.of(context).add_ports_content, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+            child: Text(
+              OpenIoTHubLocalizations.of(context).add_ports_content,
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
           )),
       Padding(
           padding: EdgeInsets.only(top: 16),
@@ -272,8 +298,10 @@ class _GuideWidgetState extends State<GuideWidget> {
       Padding(
           padding: EdgeInsets.only(top: 16),
           child: Center(
-            child:
-                Text(OpenIoTHubLocalizations.of(context).access_ports_content, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+            child: Text(
+              OpenIoTHubLocalizations.of(context).access_ports_content,
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
           )),
       Padding(
           padding: EdgeInsets.only(top: 16),

@@ -519,4 +519,7 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
 
   @override
   String get add_port_button => 'Add Port';
+
+  @override
+  String get open_gateway_guide => 'Open the OpenIoTHub gateway home page';
 }

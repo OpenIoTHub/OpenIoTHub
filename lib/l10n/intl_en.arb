@@ -160,5 +160,6 @@
   "next_step": "Next Step",
   "skip_this_guide": "Skip This Guide",
   "open_the_port": "Open The Port",
-  "add_port_button": "Add Port"
+  "add_port_button": "Add Port",
+  "open_gateway_guide": "Open the OpenIoTHub gateway home page"
 }
