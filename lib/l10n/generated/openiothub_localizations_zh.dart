@@ -21,7 +21,7 @@ class OpenIoTHubLocalizationsZh extends OpenIoTHubLocalizations {
   String get tab_host => '主机';
 
   @override
-  String get tab_user => '用户';
+  String get tab_user => '我';
 
   @override
   String get profile_not_logged_in => '未登录';
@@ -455,6 +455,58 @@ class OpenIoTHubLocalizationsZh extends OpenIoTHubLocalizations {
 
   @override
   String get fill_in_below => '不选择，下面填写';
+
+  @override
+  String get user_guide => '新手引导';
+
+  @override
+  String get register_login => '注册登录';
+
+  @override
+  String get register_login_content => '点击下方按钮开始注册登录';
+
+  @override
+  String get add_gateway => '添加网关';
+
+  @override
+  String get add_gateway_content => '从下方两个按钮任选其一选择扫码添加网关还是局域网发现添加网关';
+
+  @override
+  String get add_host => '添加主机';
+
+  @override
+  String get add_host_content => '点击下方按钮跳转到主机列表页面，\n点击右下角按钮开始添加远程主机';
+
+  @override
+  String get add_ports => '添加端口';
+
+  @override
+  String get add_ports_content => '点击下方按钮跳转到主机列表页面，\n点击需要添加端口的主机，在主机上添加端口';
+
+  @override
+  String get access_ports => '访问端口';
+
+  @override
+  String get access_ports_content =>
+      '点击下方按钮跳转到主机列表页面，\n点击主机进入端口列表页面，\n点击任意端口访问远程端口(可能需要选择访问方式)';
+
+  @override
+  String get last_step => '上一步';
+
+  @override
+  String get next_step => '下一步';
+
+  @override
+  String get skip_this_guide => '跳过本指导';
+
+  @override
+  String get open_the_port => '打开端口';
+
+  @override
+  String get add_port_button => '添加端口';
+
+  @override
+  String get open_gateway_guide => '打开网关软件主页';
 }
 
 /// The translations for Chinese, as used in China (`zh_CN`).
@@ -474,7 +526,7 @@ class OpenIoTHubLocalizationsZhCn extends OpenIoTHubLocalizationsZh {
   String get tab_host => '主机';
 
   @override
-  String get tab_user => '用户';
+  String get tab_user => '我';
 
   @override
   String get profile_not_logged_in => '未登录';
@@ -908,6 +960,58 @@ class OpenIoTHubLocalizationsZhCn extends OpenIoTHubLocalizationsZh {
 
   @override
   String get fill_in_below => '不选择，下面填写';
+
+  @override
+  String get user_guide => '新手引导';
+
+  @override
+  String get register_login => '注册登录';
+
+  @override
+  String get register_login_content => '点击下方按钮开始注册登录';
+
+  @override
+  String get add_gateway => '添加网关';
+
+  @override
+  String get add_gateway_content => '从下方两个按钮任选其一选择 扫码添加网关 还是 局域网发现 添加网关';
+
+  @override
+  String get add_host => '添加主机';
+
+  @override
+  String get add_host_content => '点击下方按钮跳转到主机列表页面，\n点击右下角按钮开始添加远程主机';
+
+  @override
+  String get add_ports => '添加端口';
+
+  @override
+  String get add_ports_content => '点击下方按钮跳转到主机列表页面，\n点击需要添加端口的主机，在主机上添加端口';
+
+  @override
+  String get access_ports => '访问端口';
+
+  @override
+  String get access_ports_content =>
+      '点击下方按钮跳转到主机列表页面，\n点击主机进入端口列表页面，\n点击任意端口访问远程端口(可能需要选择访问方式)';
+
+  @override
+  String get last_step => '上一步';
+
+  @override
+  String get next_step => '下一步';
+
+  @override
+  String get skip_this_guide => '跳过本指导';
+
+  @override
+  String get open_the_port => '打开端口';
+
+  @override
+  String get add_port_button => '添加端口';
+
+  @override
+  String get open_gateway_guide => '打开网关软件主页';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hans`).
@@ -927,7 +1031,7 @@ class OpenIoTHubLocalizationsZhHans extends OpenIoTHubLocalizationsZh {
   String get tab_host => '主机';
 
   @override
-  String get tab_user => '用户';
+  String get tab_user => '我';
 
   @override
   String get profile_not_logged_in => '未登录';
@@ -1361,6 +1465,58 @@ class OpenIoTHubLocalizationsZhHans extends OpenIoTHubLocalizationsZh {
 
   @override
   String get fill_in_below => '不选择，下面填写';
+
+  @override
+  String get user_guide => '新手引导';
+
+  @override
+  String get register_login => '注册登录';
+
+  @override
+  String get register_login_content => '点击下方按钮开始注册登录';
+
+  @override
+  String get add_gateway => '添加网关';
+
+  @override
+  String get add_gateway_content => '从下方两个按钮任选其一选择 扫码添加网关 还是 局域网发现 添加网关';
+
+  @override
+  String get add_host => '添加主机';
+
+  @override
+  String get add_host_content => '点击下方按钮跳转到主机列表页面，\n点击右下角按钮开始添加远程主机';
+
+  @override
+  String get add_ports => '添加端口';
+
+  @override
+  String get add_ports_content => '点击下方按钮跳转到主机列表页面，\n点击需要添加端口的主机，在主机上添加端口';
+
+  @override
+  String get access_ports => '访问端口';
+
+  @override
+  String get access_ports_content =>
+      '点击下方按钮跳转到主机列表页面，\n点击主机进入端口列表页面，\n点击任意端口访问远程端口(可能需要选择访问方式)';
+
+  @override
+  String get last_step => '上一步';
+
+  @override
+  String get next_step => '下一步';
+
+  @override
+  String get skip_this_guide => '跳过本指导';
+
+  @override
+  String get open_the_port => '打开端口';
+
+  @override
+  String get add_port_button => '添加端口';
+
+  @override
+  String get open_gateway_guide => '打开网关软件主页';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -1380,7 +1536,7 @@ class OpenIoTHubLocalizationsZhHant extends OpenIoTHubLocalizationsZh {
   String get tab_host => '主機';
 
   @override
-  String get tab_user => '用戶';
+  String get tab_user => '我';
 
   @override
   String get profile_not_logged_in => '未登錄';
@@ -1814,6 +1970,58 @@ class OpenIoTHubLocalizationsZhHant extends OpenIoTHubLocalizationsZh {
 
   @override
   String get fill_in_below => '不選擇，下面填寫';
+
+  @override
+  String get user_guide => '新手引導';
+
+  @override
+  String get register_login => '註冊登錄';
+
+  @override
+  String get register_login_content => '註冊登錄';
+
+  @override
+  String get add_gateway => '添加網關';
+
+  @override
+  String get add_gateway_content => '從下方兩個按鈕任選其一選擇 掃碼添加網關 還是 局域網發現 添加網關';
+
+  @override
+  String get add_host => '添加主機';
+
+  @override
+  String get add_host_content => '點擊下方按鈕跳轉到主機列表頁面，\n點擊右下角按鈕開始添加遠程主機';
+
+  @override
+  String get add_ports => '添加端口';
+
+  @override
+  String get add_ports_content => '點擊下方按鈕跳轉到主機列表頁面，\n點擊需要添加端口的主機，在主機上添加端口';
+
+  @override
+  String get access_ports => '訪問端口';
+
+  @override
+  String get access_ports_content =>
+      '點擊下方按鈕跳轉到主機列表頁面，\n點擊主機進入端口列表頁面，\n點擊任意端口訪問遠程端口(可能需要選擇訪問方式)';
+
+  @override
+  String get last_step => '上一步';
+
+  @override
+  String get next_step => '下一步';
+
+  @override
+  String get skip_this_guide => '跳过本指导';
+
+  @override
+  String get open_the_port => '打開端口';
+
+  @override
+  String get add_port_button => '添加端口';
+
+  @override
+  String get open_gateway_guide => '打開雲億連網關軟件主頁';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -1833,7 +2041,7 @@ class OpenIoTHubLocalizationsZhTw extends OpenIoTHubLocalizationsZh {
   String get tab_host => '主機';
 
   @override
-  String get tab_user => '用戶';
+  String get tab_user => '我';
 
   @override
   String get profile_not_logged_in => '未登錄';
@@ -2267,4 +2475,56 @@ class OpenIoTHubLocalizationsZhTw extends OpenIoTHubLocalizationsZh {
 
   @override
   String get fill_in_below => '不選擇，下面填寫';
+
+  @override
+  String get user_guide => '新手引導';
+
+  @override
+  String get register_login => '註冊登錄';
+
+  @override
+  String get register_login_content => '註冊登錄';
+
+  @override
+  String get add_gateway => '添加網關';
+
+  @override
+  String get add_gateway_content => '從下方兩個按鈕任選其一選擇 掃碼添加網關 還是 局域網發現 添加網關';
+
+  @override
+  String get add_host => '添加主機';
+
+  @override
+  String get add_host_content => '點擊下方按鈕跳轉到主機列表頁面，\n點擊右下角按鈕開始添加遠程主機';
+
+  @override
+  String get add_ports => '添加端口';
+
+  @override
+  String get add_ports_content => '點擊下方按鈕跳轉到主機列表頁面，\n點擊需要添加端口的主機，在主機上添加端口';
+
+  @override
+  String get access_ports => '訪問端口';
+
+  @override
+  String get access_ports_content =>
+      '點擊下方按鈕跳轉到主機列表頁面，\n點擊主機進入端口列表頁面，\n點擊任意端口訪問遠程端口(可能需要選擇訪問方式)';
+
+  @override
+  String get last_step => '上一步';
+
+  @override
+  String get next_step => '下一步';
+
+  @override
+  String get skip_this_guide => '跳過本指導';
+
+  @override
+  String get open_the_port => '打開端口';
+
+  @override
+  String get add_port_button => '添加端口';
+
+  @override
+  String get open_gateway_guide => '打開雲億連網關軟件主頁';
 }

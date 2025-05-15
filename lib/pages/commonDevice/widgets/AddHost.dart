@@ -59,7 +59,8 @@ class _AddHostWidgetState extends State<AddHostWidget> {
     return AlertDialog(
         title: Text(OpenIoTHubLocalizations.of(context).add_device),
         content: SizedBox(
-            width: 300,
+            width: 250,
+            height: 400,
             child: ListView(
               children: <Widget>[
                 DropdownButtonFormField<String>(
@@ -155,7 +156,9 @@ class _AddHostWidgetState extends State<AddHostWidget> {
       menuItems.add(DropdownMenuItem<String>(
         value: addr, // 下拉菜单项的值，可以是任何对象，通常用于标识选择
         child: Text(
-            "$addr(${name.contains(RegExp("@")) ? name.split("@").last.substring(0, name.length > 15 ? 15 : name.length) : name.substring(0, name.length > 15 ? 15 : name.length)}...)"), // 显示给用户的文本
+            "$addr(${name.contains(RegExp("@")) ?
+            name.split("@").last.substring(0, name.split("@").last.length > 15 ? 15 : name.split("@").last.length)
+                : name.substring(0, name.length > 15 ? 15 : name.length)}...)"), // 显示给用户的文本
       ));
     });
     return menuItems;
