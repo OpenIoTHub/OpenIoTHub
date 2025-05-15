@@ -1201,10 +1201,10 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_plugin
-      sha256: "8306c6ef2d2805379a88ea14b06b483c264396733cdc0d0ef9f234978adbf1c1"
+      sha256: "618280c253e10e059f0692b1f7eed2e0acea58ada4934632c47ab7c6d791c4dc"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.0.2+59"
+    version: "1.0.2+61"
   package_config:
     dependency: transitive
     description:
@@ -1942,26 +1942,26 @@ packages:
     dependency: transitive
     description:
       name: webview_flutter_android
-      sha256: "6b0eae02b7604954b80ee9a29507ac38f5de74b712faa6fee33abc1cdedc1b21"
+      sha256: be6fa6acf69db65a9feedd9f16ead99668e9d5ea1f9b8d85286cba8da8d12e29
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "4.4.2"
+    version: "4.5.0"
   webview_flutter_platform_interface:
     dependency: transitive
     description:
       name: webview_flutter_platform_interface
-      sha256: "18b1640839cf6546784a524c72aded5b6e86b23e7167dc2311cc96f7658b64bd"
+      sha256: e54a2a435144af4e008bea140c06913eeb3f25db421c2ceaa932f314a45d79b9
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.11.0"
+    version: "2.12.0"
   webview_flutter_wkwebview:
     dependency: transitive
     description:
       name: webview_flutter_wkwebview
-      sha256: c9f9be526fa0d3347374ceaa05c4b3acb85f4f112abd62f7d74b7d301fa515ff
+      sha256: "6af7d1908c9c89311c2dffcc2c9b51b88a6f055ba16fa0aa8a04cbb1c3afc9ce"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.20.0"
+    version: "3.21.0"
   wechat_kit:
     dependency: "direct main"
     description:
