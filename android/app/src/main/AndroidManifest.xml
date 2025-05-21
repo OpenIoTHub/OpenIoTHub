@@ -19,7 +19,8 @@
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher"
         android:excludeFromRecents="false"
-        tools:replace="android:label">
+        android:allowBackup="true"
+        tools:replace="android:allowBackup,android:label">
         <activity
             android:name=".MainActivity"
             android:exported="true"

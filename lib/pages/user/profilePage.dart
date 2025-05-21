@@ -16,7 +16,7 @@ import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../model/custom_theme.dart';
-import '../../widgets/ads/banner.dart';
+import '../../widgets/ads/banner_ylh_test.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -61,7 +61,7 @@ class _ProfilePageState extends State<ProfilePage> {
               return _buildHeader();
             }
             if (index == _listTiles.length+1) {
-              return build300150Banner();
+              return buildYLHBanner();
             }
             index -= 1;
             return _buildListTile(index);

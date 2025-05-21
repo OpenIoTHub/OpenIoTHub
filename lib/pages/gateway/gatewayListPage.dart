@@ -13,7 +13,7 @@ import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
-import '../../widgets/ads/banner.dart';
+import '../../widgets/ads/banner_gtads.dart';
 import './mDNSServiceListPage.dart';
 
 class GatewayListPage extends StatefulWidget {

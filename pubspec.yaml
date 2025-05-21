@@ -23,7 +23,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.5
   #  golang的后台服务
-  openiothub_mobile_service: ^0.0.8+3
+  openiothub_mobile_service: ^0.0.10
   http: ^1.1.0
   #  grpc
   #  grpc: ^4.0.0
@@ -89,7 +89,19 @@ dependencies:
   bonsoir: ^5.1.11
 #  穿山甲广告 https://www.csjplatform.com/
   flutter_unionad: ^2.1.7
-#  gtads: ^1.5.0
+  gtads: ^1.5.0
+#  #字节穿山甲广告
+  gtads_csj: ^1.5.0
+#  #腾讯优量汇广告
+  gtads_ylh: ^1.5.0
+#  #优量汇广告
+#  gtads_sigmob: ^1.5.0
+#  #百度百青藤广告
+#  gtads_bqt: ^1.5.0
+##  快手
+#  gtads_ks: ^1.5.0
+##  singmobi
+#  gtads_sigmob: ^1.5.0
 
 dev_dependencies:
   flutter_test:
