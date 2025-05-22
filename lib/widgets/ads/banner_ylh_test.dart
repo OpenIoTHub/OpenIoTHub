@@ -8,7 +8,9 @@ Widget buildYLHBanner(){
    FlutterTencentAdBiddingController();
   return FlutterTencentad.bannerAdView(
     //android广告id
+    // test
     androidId: "6116673505394495",
+    // androidId: "5136583337110550",
     //ios广告id
     iosId: "4126763933603341",
     //广告宽 单位dp

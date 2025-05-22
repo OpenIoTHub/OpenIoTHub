@@ -24,6 +24,8 @@ import 'package:openiothub_plugin/utils/portConfig2portService.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 // import '../../widgets/ads/banner_gtads.dart';
+import '../../widgets/ads/banner_gtads.dart';
+// import '../../widgets/ads/banner_ylh.dart';
 import '../../widgets/ads/banner_ylh_test.dart';
 import '../../widgets/toast.dart';
 
@@ -102,7 +104,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       itemCount: tiles.length+1,
       itemBuilder: (context, index) {
         if (index == 0) {
-          return buildYLHBanner();
+          return build30075Banner();
         }
         return tiles.elementAt(index-1);
       },

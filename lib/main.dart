@@ -14,6 +14,8 @@ import 'package:provider/provider.dart';
 import 'package:oktoast/oktoast.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  init();
   runApp(
     MultiProvider(
       providers: [
@@ -26,7 +28,6 @@ void main() {
     ),
     // MyApp()
   );
-  init();
 }
 
 class MyApp extends StatelessWidget {

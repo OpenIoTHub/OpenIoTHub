@@ -30,7 +30,7 @@ class _SplashPageState extends State<SplashPage> {
               //GTAdsModel.PRIORITY时 当前广告位的优先级数值越大越优先加载（当加载失败后从剩余广告中按数值大小依次重试）
               //GTAdsModel.RANDOM时 当前广告位出现的概率必须大于0,如果小于0则不会加载该广告,数值越大出现的概率越高（当加载失败后从剩余广告中重新随机加载）
               GTAdsCode(alias: "csj", probability: 5,androidId: "103477524",iosId: "103476284"),
-              GTAdsCode(alias: "ylh", probability: 4,androidId: "3196566963809258",iosId: "4106962923009357"),
+              GTAdsCode(alias: "ylh", probability: 6,androidId: "3196566963809258",iosId: "4106962923009357"),
             ],
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
@@ -38,7 +38,7 @@ class _SplashPageState extends State<SplashPage> {
             timeout: 2,
             //广告加载模式 [GTAdsModel.PRIORITY]优先级模式 [GTAdsModel.RANDOM]随机模式
             //默认随机模式
-            model: GTAdsModel.RANDOM,
+            model: GTAdsModel.PRIORITY,
             callBack: GTAdsCallBack(
               onShow: (code) {
                 print("开屏显示 ${code.toJson()}");
