@@ -26,7 +26,11 @@ List<Map<String, bool>>? initList;
 
 Future<void> init() async {
   initBackgroundService();
-  await initAD();
+  try{
+    await initAD();
+  }catch (e) {
+    print(e);
+  }
   initHttpAssets();
   initWechat();
   initQQ();
