@@ -16,6 +16,7 @@ import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../model/custom_theme.dart';
+import '../../widgets/ads/banner_gtads.dart';
 import '../../widgets/ads/banner_ylh.dart';
 // import '../../widgets/ads/banner_ylh_test.dart';
 
@@ -64,6 +65,9 @@ class _ProfilePageState extends State<ProfilePage> {
             if (index == _listTiles.length+1) {
               return buildYLHBanner();
             }
+            if (index == _listTiles.length+2) {
+              return build30075Banner();
+            }
             index -= 1;
             return _buildListTile(index);
           },
@@ -73,7 +77,7 @@ class _ProfilePageState extends State<ProfilePage> {
               child: TDDivider(),
             );
           },
-          itemCount: _listTiles.length + 2,
+          itemCount: _listTiles.length + 3,
         ));
   }
 

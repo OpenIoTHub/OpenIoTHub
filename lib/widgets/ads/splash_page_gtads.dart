@@ -38,7 +38,7 @@ class _SplashPageState extends State<SplashPage> {
             timeout: 2,
             //广告加载模式 [GTAdsModel.PRIORITY]优先级模式 [GTAdsModel.RANDOM]随机模式
             //默认随机模式
-            model: GTAdsModel.PRIORITY,
+            model: GTAdsModel.RANDOM,
             callBack: GTAdsCallBack(
               onShow: (code) {
                 print("开屏显示 ${code.toJson()}");
