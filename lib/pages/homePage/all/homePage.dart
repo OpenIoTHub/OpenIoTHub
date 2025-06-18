@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/pages/mdnsService/mdnsServiceListPage.dart';
 import 'package:openiothub/pages/user/profilePage.dart';
+import 'package:openiothub/widgets/toast.dart';
+import 'package:openiothub_api/api/OpenIoTHub/Utils.dart';
 import 'package:openiothub_api/utils/check.dart';
 import 'package:openiothub_common_pages/commPages/feedback.dart';
 import 'package:openiothub_common_pages/gateway/GatewayQrPage.dart';
@@ -47,9 +49,16 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         // }
         break;
       case AppLifecycleState.resumed: //从后台切换前台，界面可见
-        // showToast( "程序状态：${state.toString()}");
+        // show_info( "程序状态：${state.toString()}", context);
         if (_timer != null) {
           _timer!.cancel();
+        }
+        // TODO 检测存活
+        try {
+          UtilApi.Ping();
+        }catch (e){
+          initBackgroundService();
+          setState(() {});
         }
         break;
       case AppLifecycleState.paused: // 界面不可见，后台

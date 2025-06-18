@@ -12,10 +12,15 @@ import 'package:openiothub_common_pages/openiothub_common_pages.dart';
 import 'package:openiothub_plugin/openiothub_plugin.dart';
 import 'package:provider/provider.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:window_manager/window_manager.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   init();
+  if (Platform.isMacOS || Platform.isWindows || Platform.isLinux) {
+    await windowManager.ensureInitialized();
+    windowManager.addListener(MyWindowListener());
+  }
   runApp(
     MultiProvider(
       providers: [
@@ -99,3 +104,18 @@ class MyApp extends StatelessWidget {
 //     ));
 //   }
 // }
+
+class MyWindowListener extends WindowListener {
+  @override
+  void onWindowClose() {
+    // 处理窗口关闭事件
+    print("onWindowClose");
+    exit(0);
+  }
+
+  @override
+  void onWindowMaximize() {
+    // 处理窗口最大化事件
+    print("onWindowMaximize");
+  }
+}

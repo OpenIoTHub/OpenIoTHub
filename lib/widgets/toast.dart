@@ -29,3 +29,17 @@ show_failed(String msg, BuildContext context) {
     },
   );
 }
+
+show_info(String msg, BuildContext context) {
+  TDMessage.showMessage(
+    context: context,
+    content: msg,
+    visible: true,
+    icon: false,
+    theme: MessageTheme.info,
+    duration: 3000,
+    onDurationEnd: () {
+      print('message end');
+    },
+  );
+}

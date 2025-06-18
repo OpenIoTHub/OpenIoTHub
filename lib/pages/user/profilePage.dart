@@ -63,10 +63,10 @@ class _ProfilePageState extends State<ProfilePage> {
               return _buildHeader();
             }
             if (index == _listTiles.length+1) {
-              return buildYLHBanner();
+              return build30075Banner();
             }
             if (index == _listTiles.length+2) {
-              return build30075Banner();
+              return buildYLHBanner();
             }
             index -= 1;
             return _buildListTile(index);
@@ -77,6 +77,7 @@ class _ProfilePageState extends State<ProfilePage> {
               child: TDDivider(),
             );
           },
+          // 额外添加头像和广告位
           itemCount: _listTiles.length + 3,
         ));
   }
