@@ -56,6 +56,10 @@ class _AddHostWidgetState extends State<AddHostWidget> {
       });
     }
 
+    if (selectedRunIdDropdownValue.isEmpty && _SessionList.isNotEmpty) {
+      selectedRunIdDropdownValue = _SessionList.first.runId;
+    }
+
     return AlertDialog(
         title: Text(OpenIoTHubLocalizations.of(context).add_device),
         content: SizedBox(
