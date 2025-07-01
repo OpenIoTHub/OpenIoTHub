@@ -19,8 +19,8 @@ class SplashImageState extends State<SplashImagePage> {
 
   @override
   void initState() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: [SystemUiOverlay.top]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive,
+        overlays: []);
     super.initState();
     _startRecordTime();
     print('初始化启动页面');
@@ -28,6 +28,8 @@ class SplashImageState extends State<SplashImagePage> {
 
   @override
   void dispose() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
     super.dispose();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: SystemUiOverlay.values);
