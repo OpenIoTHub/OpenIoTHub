@@ -208,8 +208,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev libx11-dev pkg-config cmake ninja-build libblkid-dev
 
-      - name: Setup Flutter
+      - name: Set up Flutter
         uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: 3.29.3
 
       - name: Build Flutter linux version
         working-directory: ${{ github.workspace }}
