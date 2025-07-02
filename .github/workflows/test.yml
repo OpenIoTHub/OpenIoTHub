@@ -122,6 +122,8 @@ jobs:
         run: |
           sudo snap install snapcraft --classic
       - run: hash -r
+      # https://github.com/CircleCI-Public/flutter-orb/issues/52
+      - run: flutter clean
       - name: Setup LXD
         uses: canonical/setup-lxd@main
         with:
