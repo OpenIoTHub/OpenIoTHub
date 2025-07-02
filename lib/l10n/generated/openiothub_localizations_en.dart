@@ -389,7 +389,8 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
   String get feedback_channels => 'Feedback Channels';
 
   @override
-  String get if_you_do_not_agree_with_the_privacy_policy_please_click_to_exit_the_application =>
+  String
+  get if_you_do_not_agree_with_the_privacy_policy_please_click_to_exit_the_application =>
       'If you do not agree with the Privacy Policy, please click to exit the application';
 
   @override

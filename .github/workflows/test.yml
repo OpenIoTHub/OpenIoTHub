@@ -123,7 +123,7 @@ jobs:
           sudo snap install snapcraft --classic
       - run: hash -r
       - name: Setup LXD
-        uses: canonical/setup-lxd@v0.1.2
+        uses: canonical/setup-lxd@main
         with:
           channel: latest/stable
       - name: run snapcraft
@@ -150,7 +150,7 @@ jobs:
       - run: flutter pub get
       - run: flutter build macos --debug
       - run: mkdir -p build/dmg
-      - run: cp -R build/macos/Build/Products/Debug/云亿连.app build/dmg/云亿连.app
+      - run: cp -R build/macos/Build/Products/Debug/OpenIoTHub.app build/dmg/OpenIoTHub.app
       - run: ln -s /Applications  build/dmg
       - run: ls build/dmg
       # https://github.com/create-dmg/create-dmg.git

@@ -381,8 +381,8 @@ class OpenIoTHubLocalizationsZh extends OpenIoTHubLocalizations {
 
   @override
   String
-      get if_you_do_not_agree_with_the_privacy_policy_please_click_to_exit_the_application =>
-          '如果不同意《隐私政策》请点击 退出应用';
+  get if_you_do_not_agree_with_the_privacy_policy_please_click_to_exit_the_application =>
+      '如果不同意《隐私政策》请点击 退出应用';
 
   @override
   String get exit_the_application => '退出应用';
@@ -886,8 +886,8 @@ class OpenIoTHubLocalizationsZhCn extends OpenIoTHubLocalizationsZh {
 
   @override
   String
-      get if_you_do_not_agree_with_the_privacy_policy_please_click_to_exit_the_application =>
-          '如果不同意《隐私政策》请点击 退出应用';
+  get if_you_do_not_agree_with_the_privacy_policy_please_click_to_exit_the_application =>
+      '如果不同意《隐私政策》请点击 退出应用';
 
   @override
   String get exit_the_application => '退出应用';
@@ -1391,8 +1391,8 @@ class OpenIoTHubLocalizationsZhHans extends OpenIoTHubLocalizationsZh {
 
   @override
   String
-      get if_you_do_not_agree_with_the_privacy_policy_please_click_to_exit_the_application =>
-          '如果不同意《隐私政策》请点击 退出应用';
+  get if_you_do_not_agree_with_the_privacy_policy_please_click_to_exit_the_application =>
+      '如果不同意《隐私政策》请点击 退出应用';
 
   @override
   String get exit_the_application => '退出应用';
@@ -1896,8 +1896,8 @@ class OpenIoTHubLocalizationsZhHant extends OpenIoTHubLocalizationsZh {
 
   @override
   String
-      get if_you_do_not_agree_with_the_privacy_policy_please_click_to_exit_the_application =>
-          '如果不同意《隱私政策》請點擊 退出應用';
+  get if_you_do_not_agree_with_the_privacy_policy_please_click_to_exit_the_application =>
+      '如果不同意《隱私政策》請點擊 退出應用';
 
   @override
   String get exit_the_application => '退出應用';
@@ -2401,8 +2401,8 @@ class OpenIoTHubLocalizationsZhTw extends OpenIoTHubLocalizationsZh {
 
   @override
   String
-      get if_you_do_not_agree_with_the_privacy_policy_please_click_to_exit_the_application =>
-          '如果不同意《隱私政策》請點擊 退出應用';
+  get if_you_do_not_agree_with_the_privacy_policy_please_click_to_exit_the_application =>
+      '如果不同意《隱私政策》請點擊 退出應用';
 
   @override
   String get exit_the_application => '退出應用';

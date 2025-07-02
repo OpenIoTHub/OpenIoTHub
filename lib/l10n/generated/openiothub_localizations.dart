@@ -63,13 +63,15 @@ import 'openiothub_localizations_zh.dart';
 /// property.
 abstract class OpenIoTHubLocalizations {
   OpenIoTHubLocalizations(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
   static OpenIoTHubLocalizations of(BuildContext context) {
     return Localizations.of<OpenIoTHubLocalizations>(
-        context, OpenIoTHubLocalizations)!;
+      context,
+      OpenIoTHubLocalizations,
+    )!;
   }
 
   static const LocalizationsDelegate<OpenIoTHubLocalizations> delegate =
@@ -87,11 +89,11 @@ abstract class OpenIoTHubLocalizations {
   /// of delegates is preferred or required.
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
@@ -100,7 +102,7 @@ abstract class OpenIoTHubLocalizations {
     Locale('zh', 'CN'),
     Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
     Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
-    Locale('zh', 'TW')
+    Locale('zh', 'TW'),
   ];
 
   /// No description provided for @app_title.
@@ -834,7 +836,7 @@ abstract class OpenIoTHubLocalizations {
   /// In zh, this message translates to:
   /// **'如果不同意《隐私政策》请点击 退出应用'**
   String
-      get if_you_do_not_agree_with_the_privacy_policy_please_click_to_exit_the_application;
+  get if_you_do_not_agree_with_the_privacy_policy_please_click_to_exit_the_application;
 
   /// No description provided for @exit_the_application.
   ///
@@ -1090,7 +1092,8 @@ class _OpenIoTHubLocalizationsDelegate
   @override
   Future<OpenIoTHubLocalizations> load(Locale locale) {
     return SynchronousFuture<OpenIoTHubLocalizations>(
-        lookupOpenIoTHubLocalizations(locale));
+      lookupOpenIoTHubLocalizations(locale),
+    );
   }
 
   @override
@@ -1139,8 +1142,9 @@ OpenIoTHubLocalizations lookupOpenIoTHubLocalizations(Locale locale) {
   }
 
   throw FlutterError(
-      'OpenIoTHubLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'OpenIoTHubLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.',
+  );
 }
