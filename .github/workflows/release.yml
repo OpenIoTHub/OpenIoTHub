@@ -266,6 +266,8 @@ jobs:
         with:
           bundle: OpenIoTHubApp.flatpak
           manifest-path: flathub_repo/com.iotserv.OpenIoTHubApp.yml
+          cache-key: flatpak-builder-${{ github.sha }}
+          upload-artifact: false
 
       - name: Upload .flatpak artifact to workflow
         uses: actions/upload-artifact@v4

@@ -95,6 +95,7 @@ dependencies:
 #  #腾讯优量汇广告
   gtads_ylh: ^1.5.0
   window_manager: ^0.5.0
+  flutter_foreground_task: ^9.1.0
 #  #优量汇广告
 #  gtads_sigmob: ^1.5.0
 #  #百度百青藤广告
