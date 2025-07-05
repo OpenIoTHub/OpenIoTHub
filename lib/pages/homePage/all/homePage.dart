@@ -16,6 +16,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import '../../../configs/consts.dart';
+import '../../../configs/var.dart';
 import '../../../init.dart';
 import '../../../widgets/ads/splash_page_gtads.dart';
 import '../../commonDevice/commonDeviceListPage.dart';
@@ -50,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
           initBackgroundService();
           setState(() {});
         }
-        if (initList != null) {
+        if (initList != null && needShowSplash) {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
             return SplashPage();
           }));

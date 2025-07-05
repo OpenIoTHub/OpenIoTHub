@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gtads/gtads.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/widgets/toast.dart';
@@ -12,6 +13,7 @@ import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_plugin/plugins/openWithChoice/OpenWithChoice.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
+import '../../../configs/var.dart';
 import 'createService.dart';
 
 class ServicesListPage extends StatefulWidget {
@@ -34,136 +36,144 @@ class _ServicesListPageState extends State<ServicesListPage> {
 
   @override
   Widget build(BuildContext context) {
-    final tiles = _ServiceList.map(
-      (pair) {
-        var listItemContent = ListTile(
-          leading: TDAvatar(
-            size: TDAvatarSize.medium,
-            type: TDAvatarType.customText,
-            text: (pair.name.isEmpty ? pair.description : pair.name)[0],
-            shape: TDAvatarShape.square,
-            backgroundColor:
-                pair.remotePortStatus ? Colors.green : Colors.deepOrange,
-          ),
-          title: Text(pair.name.isEmpty ? pair.description : pair.name),
-          subtitle: Text(
-            "${pair.networkProtocol} ${pair.remotePort}:${pair.localProt}",
-            style: Constants.subTitleTextStyle,
-          ),
-          trailing: TDButton(
-              // text: 'More',
-              icon: Icons.more_horiz,
-              size: TDButtonSize.small,
-              type: TDButtonType.outline,
-              shape: TDButtonShape.rectangle,
-              theme: TDButtonTheme.light,
-              onTap: () {
-                _pushPortConfigDetail(pair);
-              }),
-          contentPadding: const EdgeInsets.fromLTRB(16, 0.0, 16, 0.0),
+    final tiles = _ServiceList.map((pair) {
+      var listItemContent = ListTile(
+        leading: TDAvatar(
+          size: TDAvatarSize.medium,
+          type: TDAvatarType.customText,
+          text: (pair.name.isEmpty ? pair.description : pair.name)[0],
+          shape: TDAvatarShape.square,
+          backgroundColor:
+              pair.remotePortStatus ? Colors.green : Colors.deepOrange,
+        ),
+        title: Text(pair.name.isEmpty ? pair.description : pair.name),
+        subtitle: Text(
+          "${pair.networkProtocol} ${pair.remotePort}:${pair.localProt}",
+          style: Constants.subTitleTextStyle,
+        ),
+        trailing: TDButton(
+          // text: 'More',
+          icon: Icons.more_horiz,
+          size: TDButtonSize.small,
+          type: TDButtonType.outline,
+          shape: TDButtonShape.rectangle,
+          theme: TDButtonTheme.light,
           onTap: () {
-            //选择打开方式
-            showDialog(
-                context: context,
-                builder: (_) => AlertDialog(
-                    title: Text(
-                        OpenIoTHubLocalizations.of(context).opening_method),
-                    content: SizedBox.expand(child: OpenWithChoice(pair)),
-                    actions: <Widget>[
-                      TextButton(
-                        child: Text(
-                            OpenIoTHubLocalizations.of(context).cancel),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    ]));
+            _pushPortConfigDetail(pair);
           },
-        );
-        return InkWell(child: listItemContent,);
-      },
-    );
-    final divided = ListTile.divideTiles(
-      context: context,
-      tiles: tiles,
-    ).toList();
+        ),
+        contentPadding: const EdgeInsets.fromLTRB(16, 0.0, 16, 0.0),
+        onTap: () {
+          //选择打开方式
+          showDialog(
+            context: context,
+            builder:
+                (_) => AlertDialog(
+                  title: Text(
+                    OpenIoTHubLocalizations.of(context).opening_method,
+                  ),
+                  content: SizedBox.expand(child: OpenWithChoice(pair)),
+                  actions: <Widget>[
+                    TextButton(
+                      child: Text(OpenIoTHubLocalizations.of(context).cancel),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                ),
+          );
+        },
+      );
+      return InkWell(child: listItemContent);
+    });
+    final divided =
+        ListTile.divideTiles(context: context, tiles: tiles).toList();
     return Scaffold(
-        appBar: AppBar(
-            title: Text(OpenIoTHubLocalizations.of(context).service),
-            actions: <Widget>[
-              IconButton(
-                  icon: const Icon(
-                    Icons.delete,
-                    color: Colors.red,
-                  ),
-                  onPressed: () {
-                    //TODO 删除小米网关设备
-                    _deleteCurrentDevice();
-                  }),
-              IconButton(
-                  icon: const Icon(
-                    Icons.power_settings_new,
-                    // color: Colors.white,
-                  ),
-                  onPressed: () {
-                    //网络唤醒
-                    _wakeOnLAN();
-                  }),
-              IconButton(
-                  icon: const Icon(
-                    Icons.add_circle,
-                    // color: Colors.white,
-                  ),
-                  onPressed: () {
-                    // 添加TCP、UDP、Http端口
-                    _addOnePortConfig(widget.device).then((v) {
-                      refreshPortConfigList();
-                    });
-                  }),
-//            TODO 设备的详情
-              IconButton(
-                  icon: const Icon(
-                    Icons.info,
-                    // color: Colors.white,
-                  ),
-                  onPressed: () {
-                    //网络唤醒
-                    _pushDetail();
-                  }),
-            ]),
-        body: RefreshIndicator(
-            onRefresh: () async {
-              await refreshPortConfigList();
-              return;
+      appBar: AppBar(
+        title: Text(OpenIoTHubLocalizations.of(context).service),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.delete, color: Colors.red),
+            onPressed: () {
+              //TODO 删除小米网关设备
+              _deleteCurrentDevice();
             },
-            child: ListView(children: divided)));
+          ),
+          IconButton(
+            icon: const Icon(
+              Icons.power_settings_new,
+              // color: Colors.white,
+            ),
+            onPressed: () {
+              //网络唤醒
+              _wakeOnLAN();
+            },
+          ),
+          IconButton(
+            icon: const Icon(
+              Icons.add_circle,
+              // color: Colors.white,
+            ),
+            onPressed: () {
+              // 添加TCP、UDP、Http端口
+              _addOnePortConfig(widget.device).then((v) {
+                refreshPortConfigList();
+              });
+            },
+          ),
+          //            TODO 设备的详情
+          IconButton(
+            icon: const Icon(
+              Icons.info,
+              // color: Colors.white,
+            ),
+            onPressed: () {
+              //网络唤醒
+              _pushDetail();
+            },
+          ),
+        ],
+      ),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await refreshPortConfigList();
+          return;
+        },
+        child: ListView(children: divided),
+      ),
+    );
   }
 
   Future _deleteCurrentDevice() async {
     showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-                title: Text(OpenIoTHubLocalizations.of(context).delete_device),
-                content: SizedBox.expand(
-                    child: Text(OpenIoTHubLocalizations.of(context)
-                        .confirm_delete_device)),
-                actions: <Widget>[
-                  TextButton(
-                    child: Text(OpenIoTHubLocalizations.of(context).cancel),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                  TextButton(
-                    child: Text(OpenIoTHubLocalizations.of(context).delete),
-                    onPressed: () {
-                      CommonDeviceApi.deleteOneDevice(widget.device)
-                          .then((result) {
-                        Navigator.of(context).pop();
-                      });
-                    },
-                  )
-                ])).then((v) {
+      context: context,
+      builder:
+          (_) => AlertDialog(
+            title: Text(OpenIoTHubLocalizations.of(context).delete_device),
+            content: SizedBox.expand(
+              child: Text(
+                OpenIoTHubLocalizations.of(context).confirm_delete_device,
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text(OpenIoTHubLocalizations.of(context).cancel),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: Text(OpenIoTHubLocalizations.of(context).delete),
+                onPressed: () {
+                  CommonDeviceApi.deleteOneDevice(widget.device).then((result) {
+                    Navigator.of(context).pop();
+                  });
+                },
+              ),
+            ],
+          ),
+    ).then((v) {
       Navigator.of(context).pop();
     });
   }
@@ -173,119 +183,134 @@ class _ServicesListPageState extends State<ServicesListPage> {
       return _setMacAddr();
     }
     return showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-                title: Text(OpenIoTHubLocalizations.of(context).wake_up_device),
-                content: SizedBox.expand(
-                    child: Text(OpenIoTHubLocalizations.of(context)
-                        .wake_up_device_notes1)),
-                actions: <Widget>[
-                  TextButton(
-                    child: Text(OpenIoTHubLocalizations.of(context).cancel),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                  TextButton(
-                    child: Text(OpenIoTHubLocalizations.of(context)
-                        .reset_physical_address),
-                    onPressed: () {
-                      _setMacAddr().then((_) {
-                        Navigator.of(context).pop();
-                      });
-                    },
-                  ),
-                  TextButton(
-                    child: Text(
-                        OpenIoTHubLocalizations.of(context).wake_up_device),
-                    onPressed: () {
-                      CommonDeviceApi.wakeOnLAN(widget.device).then((_) {
-                        Navigator.of(context).pop();
-                      });
-                    },
-                  )
-                ]));
+      context: context,
+      builder:
+          (_) => AlertDialog(
+            title: Text(OpenIoTHubLocalizations.of(context).wake_up_device),
+            content: SizedBox.expand(
+              child: Text(
+                OpenIoTHubLocalizations.of(context).wake_up_device_notes1,
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text(OpenIoTHubLocalizations.of(context).cancel),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: Text(
+                  OpenIoTHubLocalizations.of(context).reset_physical_address,
+                ),
+                onPressed: () {
+                  _setMacAddr().then((_) {
+                    Navigator.of(context).pop();
+                  });
+                },
+              ),
+              TextButton(
+                child: Text(OpenIoTHubLocalizations.of(context).wake_up_device),
+                onPressed: () {
+                  CommonDeviceApi.wakeOnLAN(widget.device).then((_) {
+                    Navigator.of(context).pop();
+                  });
+                },
+              ),
+            ],
+          ),
+    );
   }
 
   Future _setMacAddr() async {
     TextEditingController macController = TextEditingController.fromValue(
-        const TextEditingValue(text: "54-07-2F-BB-BB-2F"));
+      const TextEditingValue(text: "54-07-2F-BB-BB-2F"),
+    );
     return showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-                title: Text(
-                    OpenIoTHubLocalizations.of(context).set_physical_address),
-                content: SizedBox.expand(
-                    child: ListView(
-                  children: <Widget>[
-                    TextFormField(
-                      controller: macController,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
-                        labelText: OpenIoTHubLocalizations.of(context)
-                            .physical_address,
-                        helperText: OpenIoTHubLocalizations.of(context)
-                            .the_physical_address_of_the_machine,
-                      ),
+      context: context,
+      builder:
+          (_) => AlertDialog(
+            title: Text(
+              OpenIoTHubLocalizations.of(context).set_physical_address,
+            ),
+            content: SizedBox.expand(
+              child: ListView(
+                children: <Widget>[
+                  TextFormField(
+                    controller: macController,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(10.0),
+                      labelText:
+                          OpenIoTHubLocalizations.of(context).physical_address,
+                      helperText:
+                          OpenIoTHubLocalizations.of(
+                            context,
+                          ).the_physical_address_of_the_machine,
                     ),
-                  ],
-                )),
-                actions: <Widget>[
-                  TextButton(
-                    child: Text(OpenIoTHubLocalizations.of(context).cancel),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
                   ),
-                  TextButton(
-                    child: Text(OpenIoTHubLocalizations.of(context).set),
-                    onPressed: () {
-                      var device = widget.device;
-                      device.mac = macController.text;
-                      CommonDeviceApi.setDeviceMac(device).then((_) {
-                        Navigator.of(context).pop();
-                      });
-                    },
-                  )
-                ]));
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text(OpenIoTHubLocalizations.of(context).cancel),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: Text(OpenIoTHubLocalizations.of(context).set),
+                onPressed: () {
+                  var device = widget.device;
+                  device.mac = macController.text;
+                  CommonDeviceApi.setDeviceMac(device).then((_) {
+                    Navigator.of(context).pop();
+                  });
+                },
+              ),
+            ],
+          ),
+    );
   }
 
   void _pushDetail() async {
-//:TODO    这里显示内网的服务，socks5等，右上角详情才展示详细信息
+    //:TODO    这里显示内网的服务，socks5等，右上角详情才展示详细信息
     final List result = [];
     result.add(
-        "${OpenIoTHubLocalizations.of(context).device_id}:${widget.device.uuid.substring(24)}");
+      "${OpenIoTHubLocalizations.of(context).device_id}:${widget.device.uuid.substring(24)}",
+    );
     result.add(
-        "${OpenIoTHubLocalizations.of(context).gateway_id}:${widget.device.runId.substring(24)}");
+      "${OpenIoTHubLocalizations.of(context).gateway_id}:${widget.device.runId.substring(24)}",
+    );
     result.add(
-        "${OpenIoTHubLocalizations.of(context).name}:${widget.device.name}");
+      "${OpenIoTHubLocalizations.of(context).name}:${widget.device.name}",
+    );
     result.add(
-        "${OpenIoTHubLocalizations.of(context).description}:${widget.device.description}");
+      "${OpenIoTHubLocalizations.of(context).description}:${widget.device.description}",
+    );
     result.add(
-        "${OpenIoTHubLocalizations.of(context).addr}:${widget.device.addr}");
+      "${OpenIoTHubLocalizations.of(context).addr}:${widget.device.addr}",
+    );
     result.add(
-        "${OpenIoTHubLocalizations.of(context).physical_address}:${widget.device.mac}");
+      "${OpenIoTHubLocalizations.of(context).physical_address}:${widget.device.mac}",
+    );
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
-          final tiles = result.map(
-            (pair) {
-              return ListTile(
-                title: Text(
-                  pair,
-                ),
-                onLongPress: () {
-                  Clipboard.setData(ClipboardData(text: pair));
-                  show_success(
-                      OpenIoTHubLocalizations.of(context).copy_successful, context);
-                },
-              );
-            },
-          );
-          final divided = ListTile.divideTiles(
-            context: context,
-            tiles: tiles,
-          ).toList();
+          final tiles = result.map((pair) {
+            return ListTile(
+              title: Text(pair),
+              onLongPress: () {
+                Clipboard.setData(ClipboardData(text: pair));
+                show_success(
+                  OpenIoTHubLocalizations.of(context).copy_successful,
+                  context,
+                );
+              },
+            );
+          });
+          final divided =
+              ListTile.divideTiles(context: context, tiles: tiles).toList();
 
           return Scaffold(
             appBar: AppBar(
@@ -302,54 +327,50 @@ class _ServicesListPageState extends State<ServicesListPage> {
     final List result = [];
     result.add("UUID:${config.uuid}");
     result.add(
-        "${OpenIoTHubLocalizations.of(context).remote_port}:${config.remotePort}");
+      "${OpenIoTHubLocalizations.of(context).remote_port}:${config.remotePort}",
+    );
     result.add(
-        "${OpenIoTHubLocalizations.of(context).local_port}:${config.localProt}");
+      "${OpenIoTHubLocalizations.of(context).local_port}:${config.localProt}",
+    );
+    result.add("${OpenIoTHubLocalizations.of(context).name}:${config.name}");
     result.add(
-        "${OpenIoTHubLocalizations.of(context).name}:${config.name}");
+      "${OpenIoTHubLocalizations.of(context).description}:${config.description}",
+    );
     result.add(
-        "${OpenIoTHubLocalizations.of(context).description}:${config.description}");
-    result
-        .add("${OpenIoTHubLocalizations.of(context).domain}:${config.domain}");
+      "${OpenIoTHubLocalizations.of(context).domain}:${config.domain}",
+    );
     result.add(
-        "${OpenIoTHubLocalizations.of(context).network_protocol}:${config.networkProtocol}");
+      "${OpenIoTHubLocalizations.of(context).network_protocol}:${config.networkProtocol}",
+    );
     result.add(
-        "${OpenIoTHubLocalizations.of(context).application_protocol}:${config.applicationProtocol}");
+      "${OpenIoTHubLocalizations.of(context).application_protocol}:${config.applicationProtocol}",
+    );
     // TODO
     result.add(
-        "${OpenIoTHubLocalizations.of(context).forwarding_connection_status}:${config.remotePortStatus ? OpenIoTHubLocalizations.of(context).online : OpenIoTHubLocalizations.of(context).offline}");
+      "${OpenIoTHubLocalizations.of(context).forwarding_connection_status}:${config.remotePortStatus ? OpenIoTHubLocalizations.of(context).online : OpenIoTHubLocalizations.of(context).offline}",
+    );
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
-          final tiles = result.map(
-                (pair) {
-              return ListTile(
-                title: Text(
-                  pair,
-                  style: Constants.titleTextStyle,
-                ),
-              );
-            },
-          );
-          final divided = ListTile.divideTiles(
-            context: context,
-            tiles: tiles,
-          ).toList();
+          final tiles = result.map((pair) {
+            return ListTile(title: Text(pair, style: Constants.titleTextStyle));
+          });
+          final divided =
+              ListTile.divideTiles(context: context, tiles: tiles).toList();
 
           return Scaffold(
             appBar: AppBar(
-                title: Text(OpenIoTHubLocalizations.of(context).port_details),
-                actions: <Widget>[
-                  IconButton(
-                      icon: const Icon(
-                        Icons.delete,
-                        color: Colors.red,
-                      ),
-                      onPressed: () {
-                        //删除
-                        _deleteOnePortConfig(config);
-                      }),
-                ]),
+              title: Text(OpenIoTHubLocalizations.of(context).port_details),
+              actions: <Widget>[
+                IconButton(
+                  icon: const Icon(Icons.delete, color: Colors.red),
+                  onPressed: () {
+                    //删除
+                    _deleteOnePortConfig(config);
+                  },
+                ),
+              ],
+            ),
             body: ListView(children: divided),
           );
         },
@@ -383,19 +404,97 @@ class _ServicesListPageState extends State<ServicesListPage> {
   }
 
   Future _addOnePortConfig(device) async {
-    return showDialog(
-        context: context,
-        builder: (con) => CreateServiceWidget(device: device,));
+    // 禁止开屏广告防止需要看两种广告
+    needShowSplash = false;
+    // TODO 添加端口到一定次数之后才会展示视频激励广告，防止影响新用户体验
+    if (true) {
+      await GTAds.rewardAd(
+        //需要的广告位数组
+        codes: [
+          GTAdsCode(
+            alias: "csj",
+            probability: 5,
+            androidId: "103545374",
+            iosId: "103546155",
+          ),
+          GTAdsCode(
+            alias: "ylh",
+            probability: 6,
+            androidId: "1178620309701965",
+            iosId: "1178620309701965",
+          ),
+        ],
+        //奖励名称
+        rewardName: "100金币",
+        //奖励数量
+        rewardAmount: 100,
+        //用户id
+        userId: "user100",
+        //扩展参数
+        customData: "123",
+        //超时时间 当广告失败后会依次重试其他广告 直至所有广告均加载失败 设置超时时间可提前取消
+        timeout: 5,
+        //广告加载模式 [GTAdsModel.RANDOM]优先级模式 [GTAdsModel.RANDOM]随机模式
+        //默认随机模式
+        model: GTAdsModel.RANDOM,
+        callBack: GTAdsCallBack(
+          onShow: (code) {
+            print("激励广告显示 ${code.toJson()}");
+          },
+          onFail: (code, message) {
+            print("激励广告失败 ${code!.toJson()} $message");
+          },
+          onClick: (code) {
+            print("激励广告点击 ${code.toJson()}");
+          },
+          onClose: (code) {
+            print("激励广告关闭 ${code.toJson()}");
+          },
+          onVerify: (code, verify, transId, rewardName, rewardAmount) {
+            print(
+              "激励广告关闭 ${code
+                  .toJson()} $verify $transId $rewardName $rewardAmount",
+            );
+            // _showCreateServiceWidget(device);
+            return;
+          },
+          onExpand: (code, param) {
+            print("激励广告自定义参数 ${code.toJson()} $param");
+          },
+          onTimeout: () {
+            print("激励广告加载超时");
+          },
+          onEnd: () {
+            print("激励广告所有广告位都加载失败");
+          },
+        ),
+      );
+    }
+    await _showCreateServiceWidget(device);
+    // 恢复开屏广告显示
+    needShowSplash = true;
+  }
+
+  Future _showCreateServiceWidget(Device device) async {
+    await showDialog(
+      context: context,
+      builder: (con) => CreateServiceWidget(device: device),
+    );
   }
 
   Future _deleteOnePortConfig(PortConfig config) async {
     showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
+          context: context,
+          builder:
+              (_) => AlertDialog(
                 title: Text(OpenIoTHubLocalizations.of(context).delete_tcp),
                 content: SizedBox.expand(
-                    child: Text(OpenIoTHubLocalizations.of(context)
-                        .confirm_to_delete_this_tcp)),
+                  child: Text(
+                    OpenIoTHubLocalizations.of(
+                      context,
+                    ).confirm_to_delete_this_tcp,
+                  ),
+                ),
                 actions: <Widget>[
                   TextButton(
                     child: Text(OpenIoTHubLocalizations.of(context).cancel),
@@ -410,12 +509,16 @@ class _ServicesListPageState extends State<ServicesListPage> {
                         Navigator.of(context).pop();
                       });
                     },
-                  )
-                ])).then((v) {
-      Navigator.of(context).pop();
-    }).then((v) {
-      refreshPortConfigList();
-    });
+                  ),
+                ],
+              ),
+        )
+        .then((v) {
+          Navigator.of(context).pop();
+        })
+        .then((v) {
+          refreshPortConfigList();
+        });
   }
 }
 
