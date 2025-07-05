@@ -1,17 +1,9 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_unionad/flutter_unionad.dart';
 import 'package:openiothub/pages/homePage/all/homePage.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub/widgets/ads/splash_page_gtads.dart';
-import 'package:openiothub/widgets/toast.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../configs/consts.dart';
-import '../../init.dart';
 
 class SplashAdPage extends StatefulWidget {
   const SplashAdPage({super.key});
@@ -45,7 +37,7 @@ class SplashAdPageState extends State<SplashAdPage> {
   }
 
   void _startRecordTime() {
-    _countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+    _countdownTimer = Timer.periodic(const Duration(milliseconds: 200), (timer) {
       setState(() {
         if (_countdown <= 1) {
 //          Navigator.of(context).pushNamed("/demo1");
@@ -69,14 +61,14 @@ class SplashAdPageState extends State<SplashAdPage> {
   @override
   Widget build(BuildContext context) {
     // TODO 等待加载完成就切换到列表页或者等到超时；加载网络图片或者广告
-    if (initList != null) {
-      if (_countdownTimer.isActive){
-        _countdownTimer.cancel();
-      }
-      print("initList != null");
-      print(initList.toString());
-      return SplashPage();
-    }
+    // if (initList != null) {
+    //   if (_countdownTimer.isActive){
+    //     _countdownTimer.cancel();
+    //   }
+    //   print("initList != null");
+    //   print(initList.toString());
+    //   return SplashPage();
+    // }
     return Scaffold(
       extendBody: true, //底部NavigationBar透明
       extendBodyBehindAppBar: true, //顶部Bar透明

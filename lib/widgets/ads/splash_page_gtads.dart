@@ -49,42 +49,18 @@ class _SplashPageState extends State<SplashPage> {
               onFail: (code, message) {
                 print("开屏错误 ${code?.toJson()} $message");
                 Navigator.pop(context);
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                  return MyHomePage(
-                    key: UniqueKey(),
-                    title: '',
-                  );
-                }));
               },
               onClose: (code) {
                 print("开屏关闭 ${code.toJson()}");
                 Navigator.pop(context);
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                  return MyHomePage(
-                    key: UniqueKey(),
-                    title: '',
-                  );
-                }));
               },
               onTimeout: () {
                 print("开屏加载超时");
                 Navigator.pop(context);
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                  return MyHomePage(
-                    key: UniqueKey(),
-                    title: '',
-                  );
-                }));
               },
               onEnd: () {
                 print("开屏所有广告位都加载失败");
                 Navigator.pop(context);
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                  return MyHomePage(
-                    key: UniqueKey(),
-                    title: '',
-                  );
-                }));
               },
             ),
           );

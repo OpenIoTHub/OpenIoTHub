@@ -17,6 +17,7 @@ import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import '../../../configs/consts.dart';
 import '../../../init.dart';
+import '../../../widgets/ads/splash_page_gtads.dart';
 import '../../commonDevice/commonDeviceListPage.dart';
 import '../../gateway/gatewayListPage.dart';
 
@@ -31,7 +32,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   final Color _activeColor = Colors.orange;
   int _currentIndex = 0;
-  Timer? _timer;
   SharedPreferences? prefs;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -40,19 +40,9 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {
       case AppLifecycleState.inactive: // 处于这种状态的应用程序应该假设它们可能在任何时候暂停。
-        // showToast( "程序状态：${state.toString()}");
-        // if (Platform.isIOS) {
-        //   // _timer = Timer.periodic(Duration(seconds: 10), (timer) {
-        //   //   exit(0);
-        //   // });
-        //   exit(0);
-        // }
         break;
       case AppLifecycleState.resumed: //从后台切换前台，界面可见
         // show_info( "程序状态：${state.toString()}", context);
-        if (_timer != null) {
-          _timer!.cancel();
-        }
         // TODO 检测存活
         try {
           UtilApi.Ping();
@@ -60,15 +50,14 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
           initBackgroundService();
           setState(() {});
         }
+        if (initList != null) {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+            return SplashPage();
+          }));
+        }
         break;
       case AppLifecycleState.paused: // 界面不可见，后台
         // showToast( "程序状态：${state.toString()}");
-        if (Platform.isIOS) {
-          // _timer = Timer.periodic(Duration(seconds: 10), (timer) {
-          //   exit(0);
-          // });
-          // exit(0);
-        }
         break;
       case AppLifecycleState.detached: // APP结束时调用
         // showToast( "程序状态：${state.toString()}");
@@ -89,6 +78,11 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
       timer.cancel();
       _show_read_privacy_policy();
     });
+    if (initList != null) {
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+        return SplashPage();
+      }));
+    }
   }
 
   @override

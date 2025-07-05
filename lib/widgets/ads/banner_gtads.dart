@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_unionad/flutter_unionad.dart';
 import 'package:gtads/gtads.dart';
@@ -45,18 +47,19 @@ Widget build300150Banner() {
   return GTAdsBannerWidget(
     //需要的广告位数组
       codes: [
-        GTAdsCode(alias: "csj", probability: 6,androidId: "103478259",iosId: "103475998"),
+        Platform.isAndroid?GTAdsCode(alias: "csj", probability: 6,androidId: "103478259",iosId: "103475998"):
+        GTAdsCode(alias: "csj", probability: 6,androidId: "103478260",iosId: "103477981"),
         GTAdsCode(alias: "ylh", probability: 5,androidId: "9116265903000255",iosId: "3166463913402394"),
       ],
       //宽
       width: 600,
       //高
-      height: 150,
+      height: Platform.isAndroid?150:75,
       //超时时间 当广告失败后会依次重试其他广告 直至所有广告均加载失败 设置超时时间可提前取消
-      timeout: 15,
+      timeout: 3,
       //广告加载模式 [GTAdsModel.RANDOM]优先级模式 [GTAdsModel.RANDOM]随机模式
       //默认随机模式
-      model: GTAdsModel.PRIORITY,
+      model: GTAdsModel.RANDOM,
       //回调
       callBack: GTAdsCallBack(
         onShow: (code) {
