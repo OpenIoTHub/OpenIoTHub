@@ -5,10 +5,10 @@ packages:
     dependency: transitive
     description:
       name: _fe_analyzer_shared
-      sha256: e55636ed79578b9abca5fecf9437947798f5ef7456308b5cb85720b793eac92f
+      sha256: da0d9209ca76bde579f2da330aeb9df62b6319c834fa7baae052021b0462401f
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "82.0.0"
+    version: "85.0.0"
   after_layout:
     dependency: transitive
     description:
@@ -29,10 +29,10 @@ packages:
     dependency: transitive
     description:
       name: analyzer
-      sha256: "904ae5bb474d32c38fb9482e2d925d5454cda04ddd0e55d2e6826bc72f6ba8c0"
+      sha256: "01949bf52ad33f0e0f74f881fbaac4f348c556531951d92c8d16f1262aa19ff8"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "7.4.5"
+    version: "7.5.4"
   animations:
     dependency: transitive
     description:
@@ -69,10 +69,10 @@ packages:
     dependency: transitive
     description:
       name: asn1lib
-      sha256: "0511d6be23b007e95105ae023db599aea731df604608978dada7f9faf2637623"
+      sha256: "9a8f69025044eb466b9b60ef3bc3ac99b4dc6c158ae9c56d25eeccf5bc56d024"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.6.4"
+    version: "1.6.5"
   async:
     dependency: transitive
     description:
@@ -1208,26 +1208,23 @@ packages:
   openiothub_api:
     dependency: "direct main"
     description:
-      name: openiothub_api
-      sha256: "609ac98259d934b6a186a3d7d36603723c4546dcccb7743f8e38fa6f68486e5f"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
+      path: "packages/openiothub_api"
+      relative: true
+    source: path
     version: "1.0.5+9"
   openiothub_common_pages:
     dependency: "direct main"
     description:
-      name: openiothub_common_pages
-      sha256: "732aef074b93e9ea72c43c2148f1c2f3d529433715a6a84955a81161d144a1e9"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.0.5+82"
+      path: "packages/openiothub_common_pages"
+      relative: true
+    source: path
+    version: "1.0.5+83"
   openiothub_constants:
     dependency: "direct main"
     description:
-      name: openiothub_constants
-      sha256: "46562740207dd8b69d2212fc5001c6f2328a4915289012764c34443c1be27548"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
+      path: "packages/openiothub_constants"
+      relative: true
+    source: path
     version: "1.0.2+3"
   openiothub_grpc_api:
     dependency: "direct main"
@@ -1240,19 +1237,17 @@ packages:
   openiothub_mobile_service:
     dependency: "direct main"
     description:
-      name: openiothub_mobile_service
-      sha256: f8f96bb700f9e9cae4ed3dbedcfbe7293d16d496a44f2ade65bba5d4a82264cc
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.0.11"
+      path: "packages/openiothub_mobile_service"
+      relative: true
+    source: path
+    version: "0.0.10"
   openiothub_plugin:
     dependency: "direct main"
     description:
-      name: openiothub_plugin
-      sha256: "618280c253e10e059f0692b1f7eed2e0acea58ada4934632c47ab7c6d791c4dc"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.0.2+61"
+      path: "packages/openiothub_plugin"
+      relative: true
+    source: path
+    version: "1.0.2+62"
   package_config:
     dependency: transitive
     description:
@@ -1465,10 +1460,10 @@ packages:
     dependency: transitive
     description:
       name: posix
-      sha256: f0d7856b6ca1887cfa6d1d394056a296ae33489db914e365e2044fdada449e62
+      sha256: "6323a5b0fa688b6a010df4905a56b00181479e6d10534cecfecede2aa55add61"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "6.0.2"
+    version: "6.0.3"
   protobuf:
     dependency: transitive
     description:
@@ -1958,18 +1953,18 @@ packages:
     dependency: transitive
     description:
       name: video_player_avfoundation
-      sha256: "9ee764e5cd2fc1e10911ae8ad588e1a19db3b6aa9a6eb53c127c42d3a3c3f22f"
+      sha256: "0d47db6cbf72db61d86369219efd35c7f9d93515e1319da941ece81b1f21c49c"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.7.1"
+    version: "2.7.2"
   video_player_platform_interface:
     dependency: transitive
     description:
       name: video_player_platform_interface
-      sha256: df534476c341ab2c6a835078066fc681b8265048addd853a1e3c78740316a844
+      sha256: cf2a1d29a284db648fd66cbd18aacc157f9862d77d2cc790f6f9678a46c1db5a
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "6.3.0"
+    version: "6.4.0"
   video_player_web:
     dependency: transitive
     description:

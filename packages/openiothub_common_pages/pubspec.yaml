@@ -1,0 +1,79 @@
+name: openiothub_common_pages
+description: openiothub_common_pages
+version: 1.0.5+83
+homepage: https://github.com/OpenIoTHub
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.19.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: '>=0.19.0 <= 1.0.0'
+  package_info_plus: ^8.0.0
+  openiothub_constants: ^1.0.0
+  openiothub_api: ^1.0.2+1
+  openiothub_grpc_api: ^1.0.2+1
+  openiothub_plugin: ^1.0.2
+#  iot_manager_grpc_api: ^1.0.0
+  #  配网start
+  #  esp配网
+  #  smartconfig: ^0.0.1
+  #  w60x的OneShot配网
+#  flutter_oneshot: ^0.0.1
+#  # 庆科easylink
+#  flutter_easylink: ^0.0.1
+#  ## 汉枫smartlink
+#  flutter_smartlink: ^0.0.1
+  # AirKiss
+  airkiss_dart: ^1.0.0
+  #  获取wifi名和bssid
+#  wifi_info_flutter: ^2.0.2
+  network_info_plus: ^6.1.1
+  #  获取当前网络的连接状态
+#  connectivity: ^3.0.6
+  #  动态请求权限，定位，存储等
+  permission_handler: ^11.3.1
+  #  配网end
+#  fluttertoast: ^8.0.8
+  shared_preferences: ^2.1.1
+#  fluwx: ^2.4.1
+  wechat_kit: ^6.0.1
+  image: ^4.0.9
+#  flutter_cache_manager: ^2.0.0-nullsafety.1
+  url_launcher: ^6.1.11
+#  multicast_dns: ^0.3.2+3
+#  flutter_nsd: ^1.4.0
+  oktoast: ^3.3.2+1
+  qr_flutter: ^4.1.0
+  webview_flutter: ^4.8.0
+#  tencent_kit: ^6.0.1
+  tdesign_flutter: ^0.1.6
+  dio: ^5.5.0+1
+  bonsoir: ^5.1.11
+  sign_in_with_apple: ^7.0.1
+#  nsd: ^2.3.1
+
+dev_dependencies:
+  intl_utils: ^2.8.3
+  build_runner:
+  flutter_gen_runner:
+  flutter_test:
+    sdk: flutter
+
+flutter_gen:
+  assets:
+    - lib/l10n/*.arb
+
+flutter:
+  uses-material-design: true
+  generate: true
+  assets:
+   - assets/images/
+   - assets/images/feedback/
+
+#flutter_intl:
+#  enabled: true
