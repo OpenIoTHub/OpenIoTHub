@@ -1,3 +1,11 @@
+## [1.0.5+11]
+
+* new release
+
+## [1.0.5+10]
+
+* new release
+
 ## [1.0.5+9]
 
 * getJWT

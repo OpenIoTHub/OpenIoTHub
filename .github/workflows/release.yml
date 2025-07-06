@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - '*'
+      - 'v*'
 
 permissions:
   contents: write
@@ -14,6 +14,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: robinraju/release-downloader@v1
+        with:
+          repository: 'OpenIoTHub/OpenIoTHubService'
+          latest: true
+          fileName: 'mobile.aar'
+          out-file-path: 'packages/openiothub_mobile_service/android/libs'
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
       - name: Init Signature
         run: |
           cd android
@@ -60,6 +67,18 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: robinraju/release-downloader@v1
+        with:
+          repository: 'OpenIoTHub/OpenIoTHubService'
+          latest: true
+          fileName: 'OpenIoTHubMobile.xcframework.zip'
+          out-file-path: 'packages/openiothub_mobile_service/darwin'
+          extract: true
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
+      - run: |
+          ls packages/openiothub_mobile_service/darwin
+          rm packages/openiothub_mobile_service/darwin/OpenIoTHubMobile.xcframework.zip
+          ls packages/openiothub_mobile_service/darwin
       - name: Set up Dart
         uses: dart-lang/setup-dart@v1
         with:
@@ -88,6 +107,14 @@ jobs:
       SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_TOKEN }}
     steps:
       - uses: actions/checkout@v4
+      - uses: robinraju/release-downloader@v1
+        with:
+          repository: 'OpenIoTHub/OpenIoTHubService'
+          latest: true
+          fileName: 'libmobile_amd64.so'
+          out-file-path: 'packages/openiothub_mobile_service/linux/libs'
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
+      - run: mv packages/openiothub_mobile_service/linux/libs/libmobile_amd64.so packages/openiothub_mobile_service/linux/libs/libmobile.so
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
@@ -152,6 +179,18 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: robinraju/release-downloader@v1
+        with:
+          repository: 'OpenIoTHub/OpenIoTHubService'
+          latest: true
+          fileName: 'OpenIoTHubMobile.xcframework.zip'
+          out-file-path: 'packages/openiothub_mobile_service/darwin'
+          extract: true
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
+      - run: |
+          ls packages/openiothub_mobile_service/darwin
+          rm packages/openiothub_mobile_service/darwin/OpenIoTHubMobile.xcframework.zip
+          ls packages/openiothub_mobile_service/darwin
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
@@ -179,6 +218,14 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: robinraju/release-downloader@v1
+        with:
+          repository: 'OpenIoTHub/OpenIoTHubService'
+          latest: true
+          fileName: 'mobile_amd64.dll'
+          out-file-path: 'packages/openiothub_mobile_service/windows/libs'
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
+      - run: Rename-Item -Path "packages/openiothub_mobile_service/windows/libs/mobile_amd64.dll" -NewName "mobile.dll"
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
@@ -221,7 +268,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
+      - uses: robinraju/release-downloader@v1
+        with:
+          repository: 'OpenIoTHub/OpenIoTHubService'
+          latest: true
+          fileName: 'libmobile_amd64.so'
+          out-file-path: 'packages/openiothub_mobile_service/linux/libs'
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
+      - run: mv packages/openiothub_mobile_service/linux/libs/libmobile_amd64.so packages/openiothub_mobile_service/linux/libs/libmobile.so
       - name: Install Flutter dependencies
         run: |
           sudo apt-get update
