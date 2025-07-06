@@ -1,7 +1,8 @@
 # OpenIoTHUb
-[![Build Status](https://travis-ci.com/OpenIoTHub/OpenIoTHub.svg?branch=master)](https://travis-ci.com/OpenIoTHub/OpenIoTHub)
 
 [README](README.md) | [中文文档](README_zh.md)
+
+[Download from releases](https://github.com/OpenIoTHub/OpenIoTHub/releases) with tag like <u>*.\*.\*+\*</u>
 
 [![Get it from the App Store](.github/assets/badge-download-on-the-app-store.svg)](https://apps.apple.com/cn/app/id1501554327)
 <a target="_blank" href="https://play.google.com/store/apps/details?id=com.iotserv.openiothub"><img border="0" src=".github/assets/google-play.png" alt="Get it from the Google Play" title="Google Play" width="150" height="75"></a>

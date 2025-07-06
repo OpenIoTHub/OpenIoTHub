@@ -60,6 +60,7 @@ jobs:
         with:
           files: |
             ./build/app/outputs/bundle/release/app-release.aab
+            packages/openiothub_mobile_service/android/libs/mobile.aar
           body_path: ./.github/doc/DownloadDescription.md
 
   ios:
@@ -77,7 +78,7 @@ jobs:
           token: ${{ secrets.MY_GITHUB_TOKEN }}
       - run: |
           ls packages/openiothub_mobile_service/darwin
-          rm packages/openiothub_mobile_service/darwin/OpenIoTHubMobile.xcframework.zip
+          # rm packages/openiothub_mobile_service/darwin/OpenIoTHubMobile.xcframework.zip
           ls packages/openiothub_mobile_service/darwin
       - name: Set up Dart
         uses: dart-lang/setup-dart@v1
@@ -98,6 +99,7 @@ jobs:
         with:
           files: |
             ios-release.zip
+            packages/openiothub_mobile_service/darwin/OpenIoTHubMobile.xcframework.zip
           body_path: ./.github/doc/DownloadDescription.md
 
   linux:
@@ -133,6 +135,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
+            packages/openiothub_mobile_service/linux/libs/libmobile.so
             linux-release.zip
           body_path: ./.github/doc/DownloadDescription.md
       - name: Install flutter_distributor
@@ -240,6 +243,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
+            packages/openiothub_mobile_service/windows/libs/mobile.dll
             windows-release.zip
           body_path: ./.github/doc/DownloadDescription.md
       - run: dart run msix:create

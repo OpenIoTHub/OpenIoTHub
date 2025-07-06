@@ -6,7 +6,7 @@ on:
 
 jobs:
   publish:
-    name: Publish on pub.dev
+    name: Publish openiothub_api on pub.dev
     runs-on: ubuntu-latest
 
     permissions:
