@@ -72,9 +72,9 @@ jobs:
           extract: true
           token: ${{ secrets.MY_GITHUB_TOKEN }}
       - run: |
-          ls darwin
-          rm darwin/OpenIoTHubMobile.xcframework.zip
-          ls darwin
+          ls packages/openiothub_mobile_service/darwin
+          rm packages/openiothub_mobile_service/darwin/OpenIoTHubMobile.xcframework.zip
+          ls packages/openiothub_mobile_service/darwin
       - name: Set up Dart
         uses: dart-lang/setup-dart@v1
         with:
@@ -185,9 +185,9 @@ jobs:
           extract: true
           token: ${{ secrets.MY_GITHUB_TOKEN }}
       - run: |
-          ls darwin
-          rm darwin/OpenIoTHubMobile.xcframework.zip
-          ls darwin
+          ls packages/openiothub_mobile_service/darwin
+          rm packages/openiothub_mobile_service/darwin/OpenIoTHubMobile.xcframework.zip
+          ls packages/openiothub_mobile_service/darwin
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
