@@ -47,8 +47,10 @@ Widget build300150Banner() {
   return GTAdsBannerWidget(
     //需要的广告位数组
       codes: [
-        Platform.isAndroid?GTAdsCode(alias: "csj", probability: 6,androidId: "103478259",iosId: "103475998"):
+        Platform.isAndroid?
+        GTAdsCode(alias: "csj", probability: 6,androidId: "103478259",iosId: "103475998"):
         GTAdsCode(alias: "csj", probability: 6,androidId: "103478260",iosId: "103477981"),
+        // GTAdsCode(alias: "csj", probability: 6,androidId: "103478259",iosId: "103475998"),
         GTAdsCode(alias: "ylh", probability: 5,androidId: "9116265903000255",iosId: "3166463913402394"),
       ],
       //宽

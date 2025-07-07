@@ -39,30 +39,6 @@ Future<void> init() async {
   // setWindowSize();
 }
 
-// @pragma('vm:entry-point') // Mandatory if the App is obfuscated or using Flutter 3.1+
-// void callbackDispatcher() {
-//   Workmanager().executeTask((task, inputData) async {
-//     print("Native called background task: $task"); //simpleTask will be emitted here.
-//     openiothub_mobile_service.run();
-//     // while (true) {
-//     //   Future.delayed(Duration(seconds: 2000000), () {
-//     //     print('2秒后执行');
-//     //   });
-//     // }
-//     await Future<void>.delayed(Duration(seconds: 60*20));
-//     print("Native called background task: $task end");
-//     return Future.value(true);
-//   });
-// }
-//
-// Future<void> initBackgroundService2() async {
-//   Workmanager().initialize(
-//       callbackDispatcher, // The top level function, aka callbackDispatcher
-//       isInDebugMode: true // If enabled it will post a notification whenever the task is running. Handy for debugging tasks
-//   );
-//   Workmanager().registerOneOffTask("task-identifier", "simpleTask");
-// }
-
 void run(dynamic) {
   openiothub_mobile_service.run();
 }

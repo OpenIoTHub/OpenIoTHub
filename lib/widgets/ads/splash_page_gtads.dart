@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_unionad/flutter_unionad.dart';
 import 'package:gtads/gtads.dart';
 
+import '../../configs/var.dart';
 import '../../pages/homePage/all/homePage.dart';
 
 /// 描述：开屏广告页
@@ -20,6 +23,10 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
+    if (Platform.isIOS) {
+      // 为了防止腾讯开屏广告启动之后算一次返回再展现一次广告，穿山甲没有这样的问题
+      needShowSplash = false;
+    }
   }
 
   @override

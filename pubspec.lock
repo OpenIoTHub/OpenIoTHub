@@ -1211,7 +1211,7 @@ packages:
       path: "packages/openiothub_api"
       relative: true
     source: path
-    version: "1.0.5+9"
+    version: "1.0.5+11"
   openiothub_common_pages:
     dependency: "direct main"
     description:

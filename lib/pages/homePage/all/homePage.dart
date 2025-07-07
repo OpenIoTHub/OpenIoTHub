@@ -48,6 +48,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         try {
           UtilApi.Ping();
         }catch (e){
+          show_failed(e.toString(), context);
           initBackgroundService();
           setState(() {});
         }
@@ -56,6 +57,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
             return SplashPage();
           }));
         }
+        needShowSplash =true;
         break;
       case AppLifecycleState.paused: // 界面不可见，后台
         // showToast( "程序状态：${state.toString()}");
