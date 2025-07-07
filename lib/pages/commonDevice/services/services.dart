@@ -11,6 +11,7 @@ import 'package:openiothub_api/api/OpenIoTHub/CommonDeviceApi.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_plugin/plugins/openWithChoice/OpenWithChoice.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import '../../../configs/var.dart';
@@ -404,10 +405,13 @@ class _ServicesListPageState extends State<ServicesListPage> {
   }
 
   Future _addOnePortConfig(device) async {
+    // 只有超过指定添加次数才会显示激励广告
+    // 添加端口到一定次数之后才会展示视频激励广告，防止影响新用户体验
+    const JILI_AD= "JILI_AD";
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     // 禁止开屏广告防止需要看两种广告
     needShowSplash = false;
-    // TODO 添加端口到一定次数之后才会展示视频激励广告，防止影响新用户体验
-    if (true) {
+    if (prefs.containsKey(JILI_AD)&&prefs.getInt(JILI_AD)!>5) {
       await GTAds.rewardAd(
         //需要的广告位数组
         codes: [
@@ -473,6 +477,12 @@ class _ServicesListPageState extends State<ServicesListPage> {
     await _showCreateServiceWidget(device);
     // 恢复开屏广告显示
     needShowSplash = true;
+    if (prefs.containsKey(JILI_AD)) {
+      int old = prefs.getInt(JILI_AD)!;
+      prefs.setInt(JILI_AD, old+1);
+    }else{
+      prefs.setInt(JILI_AD, 1);
+    }
   }
 
   Future _showCreateServiceWidget(Device device) async {
