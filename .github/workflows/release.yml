@@ -326,7 +326,7 @@ jobs:
           name: OpenIoTHubApp-Archive
 
       - name: Build .flatpak
-        uses: bilelmoussaoui/flatpak-github-actions/flatpak-builder@v5
+        uses: bilelmoussaoui/flatpak-github-actions/flatpak-builder@v6
         with:
           bundle: OpenIoTHubApp.flatpak
           manifest-path: flathub_repo/com.iotserv.OpenIoTHubApp.yml
