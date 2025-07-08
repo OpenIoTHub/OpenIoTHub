@@ -25,6 +25,7 @@ import 'package:openiothub_plugin/utils/portConfig2portService.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 // import '../../widgets/ads/banner_gtads.dart';
+import '../../configs/var.dart';
 import '../../widgets/ads/banner_gtads.dart';
 
 // import '../../widgets/ads/banner_ylh.dart';
@@ -195,6 +196,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     // 写成独立的组件，支持刷新
     String? model = device.info!["model"];
 
+    needShowSplash = false;
     if (ModelsMap.modelsMap.containsKey(model)) {
       await Navigator.of(context).push(
         MaterialPageRoute(
@@ -213,6 +215,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
         ),
       );
     }
+    needShowSplash = true;
   }
 
   //获取所有的网络列表
