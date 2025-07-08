@@ -9,6 +9,12 @@ class PortServiceInfo {
   PortServiceInfo(this.addr, this.port, this.isLocal, {this.runId, this.realAddr, this.data, this.info});
 
   PortServiceInfo copyWith({String? addr, int? port, bool? isLocal, String? runId, String? realAddr, dynamic data, Map<String, String>? info}) {
+    Map<String, String> myinfo ={};
+    if(info != null){
+      myinfo.addAll(info);
+    }else if (this.info != null){
+      myinfo.addAll(this.info!);
+    }
     return PortServiceInfo(
       addr ?? this.addr,
       port ?? this.port,
@@ -16,7 +22,7 @@ class PortServiceInfo {
       runId: runId ?? this.runId,
       realAddr: realAddr ?? this.realAddr,
       data: data ?? this.data,
-      info: info ?? this.info,
+      info: myinfo,
     );
   }
 }

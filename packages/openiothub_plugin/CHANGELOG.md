@@ -1,3 +1,7 @@
+## [1.0.2+63]
+
+* PortServiceInfo.dart copyWith
+
 ## [1.0.2+62]
 
 * tDesign

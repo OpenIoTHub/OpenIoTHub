@@ -29,10 +29,10 @@ packages:
     dependency: transitive
     description:
       name: analyzer
-      sha256: "01949bf52ad33f0e0f74f881fbaac4f348c556531951d92c8d16f1262aa19ff8"
+      sha256: d10f9c2bf877706e39e9cc94d89ba28c7084f6e3529b4a2a96bb474fd0323647
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "7.5.4"
+    version: "7.5.5"
   animations:
     dependency: transitive
     description:
@@ -1001,10 +1001,10 @@ packages:
     dependency: "direct dev"
     description:
       name: intl_utils
-      sha256: "3b2655259dbebd26e3b1466d0839f389dc59a275337e1b760ac645bc7814d2d3"
+      sha256: da67ac187b521445d745f7c68e7254c2090f6c3c9081c93cd515480af9e59569
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.8.10"
+    version: "2.8.11"
   io:
     dependency: transitive
     description:
@@ -1247,7 +1247,7 @@ packages:
       path: "packages/openiothub_plugin"
       relative: true
     source: path
-    version: "1.0.2+62"
+    version: "1.0.2+63"
   package_config:
     dependency: transitive
     description:
