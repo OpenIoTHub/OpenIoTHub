@@ -23,10 +23,6 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    if (Platform.isIOS || Platform.isAndroid) {
-      // 为了防止腾讯开屏广告启动之后算一次返回再展现一次广告，穿山甲没有这样的问题
-      needShowSplash = false;
-    }
   }
 
   @override

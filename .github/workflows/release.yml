@@ -162,19 +162,21 @@ jobs:
             dist/**/**/*.rpm
             dist/**/**/*.AppImage
           body_path: ./.github/doc/DownloadDescription.md
-      - run: rm -rf ./build
-      - name: Install snapcraft
-        run: |
-          sudo snap install snapcraft --classic
-      - run: hash -r
-      - name: Setup LXD
-        uses: canonical/setup-lxd@main
-        with:
-          channel: latest/stable
-      - name: run snapcraft
-        run: |
-          snapcraft --use-lxd
-      - run: snapcraft upload --release=stable *.snap
+#      - run: rm -rf ./build
+#      - name: Install snapcraft
+#        run: |
+#          sudo snap install snapcraft --classic
+#      - run: hash -r
+#      - name: Setup LXD
+#        uses: canonical/setup-lxd@main
+#        with:
+#          channel: latest/stable
+#      - name: run snapcraft
+#        run: |
+#          dart pub global activate flutter_lints 5.0.0
+#          snapcraft --use-lxd
+#          snapcraft
+#      - run: snapcraft upload --release=stable *.snap
 
   #
   macos:

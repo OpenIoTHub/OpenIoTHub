@@ -53,6 +53,10 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
           setState(() {});
         }
         if (initList != null && needShowSplash) {
+          if (Platform.isIOS) {
+            // 为了防止腾讯开屏广告启动之后算一次返回再展现一次广告，穿山甲没有这样的问题
+            needShowSplash = false;
+          }
           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
             return SplashPage();
           }));
@@ -80,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
       timer.cancel();
       _show_read_privacy_policy();
     });
-    if (initList != null) {
+    if (initList != null && needShowSplash) {
       Navigator.of(context).push(MaterialPageRoute(builder: (context) {
         return SplashPage();
       }));

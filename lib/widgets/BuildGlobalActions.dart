@@ -129,6 +129,7 @@ List<Widget>? build_actions(BuildContext context) {
                               onPressed: () async {
                                 prefs.setBool("scan_QR_Dialog", true);
                                 if (await userSignedIn()) {
+                                  Navigator.of(context).pop();
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
                                       builder: (context) {
@@ -139,6 +140,7 @@ List<Widget>? build_actions(BuildContext context) {
                                     ),
                                   );
                                 } else {
+                                  Navigator.of(context).pop();
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => LoginPage()));
                                 }
