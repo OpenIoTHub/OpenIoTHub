@@ -15,6 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import '../../../configs/var.dart';
+import '../../../init.dart';
 import 'createService.dart';
 
 class ServicesListPage extends StatefulWidget {
@@ -411,7 +412,7 @@ class _ServicesListPageState extends State<ServicesListPage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     // 禁止开屏广告防止需要看两种广告
     needShowSplash = false;
-    if (prefs.containsKey(JILI_AD)&&prefs.getInt(JILI_AD)!>5) {
+    if (prefs.containsKey(JILI_AD)&&prefs.getInt(JILI_AD)!>5&&initList != null) {
       await GTAds.rewardAd(
         //需要的广告位数组
         codes: [
