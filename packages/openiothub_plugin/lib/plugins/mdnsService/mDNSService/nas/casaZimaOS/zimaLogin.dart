@@ -15,7 +15,7 @@ class ZimaLoginPage extends StatefulWidget {
   ZimaLoginPage({required Key key, required this.device})
       : super(key: key);
 
-  static final String modelName = "com.zimaspace.casaos.webpage.v1";
+  static final String modelName = "com.zimaspace.zimaos.webpage.v1";
 
   // 两种不同形式的端口信息，适配自动发现和手动添加的服务
   // 自动发现的服务
