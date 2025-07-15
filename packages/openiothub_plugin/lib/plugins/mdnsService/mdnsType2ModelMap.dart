@@ -2,6 +2,8 @@ import 'package:openiothub_constants/openiothub_constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:openiothub_plugin/openiothub_plugin.dart';
+import 'package:openiothub_plugin/plugins/mdnsService/mDNSService/nas/casaZimaOS/casaosLogin.dart';
+import 'package:openiothub_plugin/plugins/mdnsService/mDNSService/nas/casaZimaOS/zimaLogin.dart';
 
 import '../../models/PortServiceInfo.dart';
 import './components.dart';
@@ -50,8 +52,10 @@ class MDNS2ModelsMap {
     // TODO
     "_ssh._tcp":
     getPortServiceByNameModel("SSH", SSHNativePage.modelName),
-    "_casaos._tcp": getPortServiceByNameModel("casaos", WebPage.modelName),
-    "_zimaos._tcp": getPortServiceByNameModel("zimaos", WebPage.modelName),
+    // "_casaos._tcp": getPortServiceByNameModel("casaos", WebPage.modelName),
+    "_casaos._tcp": getPortServiceByNameModel("casaos", CasaLoginPage.modelName),
+    // "_zimaos._tcp": getPortServiceByNameModel("zimaos", WebPage.modelName),
+    "_zimaos._tcp": getPortServiceByNameModel("zimaos", ZimaLoginPage.modelName),
     // UPS
     // "_nut._tcp":
     // getPortServiceByNameModel("SSH", SSHWebPage.modelName),

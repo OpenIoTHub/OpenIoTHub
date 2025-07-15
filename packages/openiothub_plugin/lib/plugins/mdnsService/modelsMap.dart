@@ -4,6 +4,8 @@ import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 
 import '../../models/PortServiceInfo.dart';
 import './components.dart';
+import 'mDNSService/nas/casaZimaOS/casaosLogin.dart';
+import 'mDNSService/nas/casaZimaOS/zimaLogin.dart';
 import 'mDNSService/ssh/SSHPage.dart';
 
 //TODO：为每一个模型添加图标信息
@@ -154,6 +156,18 @@ class ModelsMap {
     },
     SSHNativePage.modelName: (PortServiceInfo device) {
       return SSHNativePage(
+        device: device,
+        key: UniqueKey(),
+      );
+    },
+    CasaLoginPage.modelName: (PortServiceInfo device) {
+      return CasaLoginPage(
+        device: device,
+        key: UniqueKey(),
+      );
+    },
+    ZimaLoginPage.modelName: (PortServiceInfo device) {
+      return ZimaLoginPage(
         device: device,
         key: UniqueKey(),
       );
