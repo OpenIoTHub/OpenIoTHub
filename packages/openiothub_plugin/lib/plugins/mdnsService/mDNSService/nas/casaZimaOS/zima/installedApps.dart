@@ -181,7 +181,7 @@ class _InstalledAppsPageState extends State<InstalledAppsPage> {
         ),
         body: RefreshIndicator(
             onRefresh: () async {
-              await _initListTiles();
+              await _initRemoteListTiles();
               return;
             },
             child: ListView.separated(
@@ -217,6 +217,15 @@ class _InstalledAppsPageState extends State<InstalledAppsPage> {
   }
 
   Future<void> _initListTiles() async {
+    if (widget.portService.isLocal) {
+      _initLANRemoteListTiles();
+    }else{
+      _initRemoteListTiles();
+    }
+  }
+
+  // 如果在局域网则使用本方法列出已安装应用列表
+  Future<void> _initLANRemoteListTiles() async {
     // 排序
     _listTiles.clear();
     //从API获取已安装应用列表
@@ -227,7 +236,125 @@ class _InstalledAppsPageState extends State<InstalledAppsPage> {
     final response = await dio.getUri(Uri.parse(reqUri));
     response.data["data"]
         .sort((a, b) => a["name"].toString().compareTo(b["name"].toString()));
-    // TODO 使用远程网络ID和远程端口临时映射远程端口到本机
+
+    response.data["data"].forEach((appInfo) {
+      var remotePort = int.parse(appInfo["port"]);
+      setState(() {
+        _listTiles.add(ListTile(
+          //第一个功能项
+          title: Text(appInfo["name"]),
+          // subtitle: Text(appInfo["status"], style: TextStyle(),),
+          subtitle: TDTag(
+            appInfo["status"],
+            theme: appInfo["status"] == "running"
+                ? TDTagTheme.success
+                : TDTagTheme.danger,
+            // isOutline: true,
+            isLight: true,
+          ),
+          leading: _sizedContainer(
+            CachedNetworkImage(
+              progressIndicatorBuilder: (context, url, progress) =>
+                  Center(
+                    child: CircularProgressIndicator(
+                      value: progress.progress,
+                    ),
+                  ),
+              imageUrl: appInfo["icon"] != null
+                  ? appInfo["icon"]
+                  : "https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Gateway-go/icon.png",
+            ),
+          ),
+          trailing: TDButton(
+            // text: 'More',
+            icon: Icons.more_horiz,
+            size: TDButtonSize.small,
+            type: TDButtonType.outline,
+            shape: TDButtonShape.rectangle,
+            theme: TDButtonTheme.light,
+            onTap: () {
+              TDActionSheet(context,
+                  visible: true,
+                  description: appInfo["name"],
+                  items: [
+                    TDActionSheetItem(
+                      label: 'Start',
+                      icon: Icon(
+                        Icons.start,
+                        color: Colors.green,
+                      ),
+                    ),
+                    TDActionSheetItem(
+                      label: 'Upgrade',
+                      icon: Icon(
+                        Icons.upgrade,
+                        color: Colors.red,
+                      ),
+                    ),
+                    TDActionSheetItem(
+                      label: 'Delete',
+                      icon: Icon(
+                        Icons.delete_forever,
+                        color: Colors.red,
+                      ),
+                    ),
+                    TDActionSheetItem(
+                      label: 'Stop',
+                      icon: Icon(
+                        Icons.settings_power,
+                        color: Colors.red,
+                      ),
+                    ),
+                    TDActionSheetItem(
+                      label: 'Restart',
+                      icon: Icon(
+                        Icons.refresh,
+                        color: Colors.orange,
+                      ),
+                    ),
+                  ], onSelected: (TDActionSheetItem item, int index) {
+                    switch (index) {
+                      case 0:
+                      // 确认操作
+                        _changeAppStatus(appInfo["name"], "start");
+                        break;
+                      case 1:
+                        _upgradeApp(appInfo["name"]);
+                        break;
+                      case 2:
+                        _removeApp(appInfo["name"], false);
+                        break;
+                      case 3:
+                        _changeAppStatus(appInfo["name"], "stop");
+                        break;
+                      case 4:
+                        _changeAppStatus(appInfo["name"], "restart");
+                        break;
+                    }
+                  });
+            },
+          ),
+          onTap: () {
+            _openWithWebBrowser(widget.portService.addr, remotePort);
+          },
+        ));
+      });
+    }
+    );
+  }
+
+  Future<void> _initRemoteListTiles() async {
+    // 排序
+    _listTiles.clear();
+    //从API获取已安装应用列表
+    final dio = Dio(BaseOptions(baseUrl: baseUrl, headers: {
+      "Authorization": widget.data["data"]["token"]["access_token"]
+    }));
+    String reqUri = "/v2/app_management/web/appgrid";
+    final response = await dio.getUri(Uri.parse(reqUri));
+    response.data["data"]
+        .sort((a, b) => a["name"].toString().compareTo(b["name"].toString()));
+    // 如果是局域网内则不映射，如果是远程则使用远程网络ID和远程端口临时映射远程端口到本机
     PortList portList = PortList();
     response.data["data"].forEach((appInfo) {
       // print("remoteHost: ${widget.portConfig.device.addr},remotePort: ${appInfo["port"]}");

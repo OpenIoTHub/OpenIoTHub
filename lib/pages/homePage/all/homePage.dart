@@ -45,13 +45,12 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
       case AppLifecycleState.resumed: //从后台切换前台，界面可见
         // show_info( "程序状态：${state.toString()}", context);
         // TODO 检测存活
-        try {
-          UtilApi.Ping();
-        }catch (e){
-          show_failed(e.toString(), context);
-          initBackgroundService();
-          setState(() {});
-        }
+        UtilApi.Ping().then((String ret){
+          if (ret != "ok"){
+            init();
+            setState(() {});
+          }
+        });
         if (initList != null && needShowSplash) {
           if (Platform.isIOS) {
             // 为了防止腾讯开屏广告启动之后算一次返回再展现一次广告，穿山甲没有这样的问题

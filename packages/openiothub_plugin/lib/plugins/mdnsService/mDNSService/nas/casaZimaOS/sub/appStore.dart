@@ -84,9 +84,10 @@ class _AppStorePageState extends State<AppStorePage> {
         }));
     String reqUri = "/v2/app_management/apps";
     final response = await dio.getUri(Uri.parse(reqUri));
-    response.data["data"]["list"].forEach((appName, appInfo) {
+    response.data["data"]["list"].forEach((appInfo) {
       // TODO 使用远程网络ID和远程端口临时映射远程端口到本机
       // TODO 获取当前服务映射到本机的端口号
+      var appName = appInfo["main"];
       setState(() {
         _listTiles.add(ListTile(
             //第一个功能项
@@ -175,4 +176,6 @@ class _AppStorePageState extends State<AppStorePage> {
     final response = await dio.postUri(Uri.parse(reqUri), data: compose);
     // showToast(response.data);
   }
+
+
 }

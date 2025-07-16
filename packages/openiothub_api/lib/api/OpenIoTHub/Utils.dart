@@ -8,12 +8,18 @@ import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UtilApi {
-  static Future<void> Ping() async {
-    final channel = await Channel.getOpenIoTHubChannel();
-    final stub = UtilsClient(channel, options: CallOptions(timeout: Duration(seconds: 3)));
-    Empty empty = Empty();
-    await stub.ping(empty);
-    channel.shutdown();
+  static Future<String> Ping() async {
+    String ret = "ok";
+    try {
+      final channel = await Channel.getOpenIoTHubChannel();
+      final stub = UtilsClient(channel, options: CallOptions(timeout: Duration(seconds: 3)));
+      Empty empty = Empty();
+      await stub.ping(empty);
+      channel.shutdown();
+    }catch (e){
+      ret = "failed";
+    }
+    return ret;
   }
 
   static Future<OpenIoTHubOperationResponse> SyncConfigWithToken() async {

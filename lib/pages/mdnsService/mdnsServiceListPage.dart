@@ -444,6 +444,8 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
                     portConfig.mDNSInfo.info["name"]!.toString();
               }
               // 添加远程主机的真实地址，用于类似于casaos登录后的再次动态创建映射
+              portServiceInfo.runId = sessionConfig.runId;
+              portServiceInfo.realAddr = portConfig.device.addr;
               await addPortServiceInfo(portServiceInfo);
             } else {
               await addPortServiceInfo(

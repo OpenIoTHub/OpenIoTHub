@@ -1,6 +1,6 @@
 name: openiothub_api
 description: openiothub_api
-version: 1.0.5+11
+version: 1.0.5+12
 homepage: https://github.com/OpenIoTHub
 repository: https://github.com/OpenIoTHub/openiothub_api
 

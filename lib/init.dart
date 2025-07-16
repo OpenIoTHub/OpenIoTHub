@@ -50,12 +50,14 @@ Future<void> initBackgroundService() async {
 }
 
 Future<void> initHttpAssets() async {
-  final server =
-      Jaguar(address: Config.webStaticIp, port: Config.webStaticPort);
-  server.addRoute(serveFlutterAssets());
-  server.serve(logRequests: true).then((v) {
-    server.log.onRecord.listen((r) => debugPrint("==serve-log：$r"));
-  });
+  try{
+    final server =
+    Jaguar(address: Config.webStaticIp, port: Config.webStaticPort);
+    server.addRoute(serveFlutterAssets());
+    server.serve(logRequests: true).then((v) {
+      server.log.onRecord.listen((r) => debugPrint("==serve-log：$r"));
+    });
+  }catch (e) {}
 }
 
 Future<void> initWechat() async {
