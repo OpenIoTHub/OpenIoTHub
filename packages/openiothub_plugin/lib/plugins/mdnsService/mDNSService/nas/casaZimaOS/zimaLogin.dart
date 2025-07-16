@@ -2,6 +2,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:openiothub_plugin/openiothub_plugin.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import '../../../../../models/PortServiceInfo.dart';
 import 'zima/installedApps.dart';
 import 'package:openiothub_plugin/utils/toast.dart';
@@ -46,6 +47,16 @@ class _ZimaLoginPageState extends State<ZimaLoginPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text("Zima OS Login"),
+          actions:<Widget>[
+            IconButton(
+                icon: Icon(
+                  Icons.open_in_browser,
+                  color: Colors.teal,
+                ),
+                onPressed: () {
+                  _launchURL("http://${widget.device.addr}:${widget.device.port}");
+                }),
+          ],
         ),
         body: Center(
           child: Container(
@@ -166,5 +177,13 @@ class _ZimaLoginPageState extends State<ZimaLoginPage> {
     //         }
     //     }
     // }
+  }
+
+  _launchURL(String url) async {
+    if (await canLaunchUrlString(url)) {
+      await launchUrlString(url);
+    } else {
+      print('Could not launch $url');
+    }
   }
 }
