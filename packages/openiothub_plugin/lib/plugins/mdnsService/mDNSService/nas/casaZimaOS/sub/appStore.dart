@@ -181,6 +181,4 @@ class _AppStorePageState extends State<AppStorePage> {
     final response = await dio.postUri(Uri.parse(reqUri), data: compose);
     // showToast(response.data);
   }
-
-
 }
