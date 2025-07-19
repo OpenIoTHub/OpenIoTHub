@@ -6,6 +6,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import 'package:openiothub_common_pages/openiothub_common_pages.dart';
+import 'package:openiothub/configs/consts.dart';
+import 'package:openiothub/service/internal_plugin_service.dart';
+import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 
 class SettingsPage extends StatefulWidget {
   SettingsPage({
@@ -72,10 +75,25 @@ class _SettingsPageState extends State<SettingsPage> {
         trailing: Switch(
           onChanged: (bool newValue) async {
             SharedPreferences prefs = await SharedPreferences.getInstance();
-            await prefs.setBool("foreground", newValue);
+            await prefs.setBool(FORGE_ROUND_TASK_ENABLE, newValue);
             setState(() {
               foreground = newValue;
             });
+            if (newValue) {
+              // _requestPlatformPermissions();
+              try{
+                InternalPluginService.instance.init();
+                InternalPluginService.instance.start();
+              } catch (e) {
+                print(e);
+              }
+            }else{
+              try{
+                InternalPluginService.instance.stop();
+              } catch (e) {
+                print(e);
+              }
+            }
           },
           value: foreground,
           activeColor: Colors.green,
@@ -99,18 +117,49 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   void initState() {
-    _initConfig();
     super.initState();
+    _getForgeServiceStatus();
   }
 
-  Future<void> _initConfig() async {
+  Future _getForgeServiceStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (await prefs.containsKey("foreground")) {
-      setState(() async {
-        foreground = (await prefs.getBool("foreground"))!;
+    bool? FORGE_ROUND = await prefs.getBool(FORGE_ROUND_TASK_ENABLE);
+    if (FORGE_ROUND != null && FORGE_ROUND) {
+      setState(() {
+        foreground = true;
       });
-    } else {
-      prefs.setBool("foreground", false);
+    }
+  }
+
+  Future<void> _requestPlatformPermissions() async {
+    // Android 13+, you need to allow notification permission to display foreground service notification.
+    //
+    // iOS: If you need notification, ask for permission.
+    final NotificationPermission notificationPermission =
+    await FlutterForegroundTask.checkNotificationPermission();
+    if (notificationPermission != NotificationPermission.granted) {
+      await FlutterForegroundTask.requestNotificationPermission();
+    }
+
+    if (Platform.isAndroid) {
+      // Android 12+, there are restrictions on starting a foreground service.
+      //
+      // To restart the service on device reboot or unexpected problem, you need to allow below permission.
+      if (!await FlutterForegroundTask.isIgnoringBatteryOptimizations) {
+        // This function requires `android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS` permission.
+        await FlutterForegroundTask.requestIgnoreBatteryOptimization();
+      }
+
+      // Use this utility only if you provide services that require long-term survival,
+      // such as exact alarm service, healthcare service, or Bluetooth communication.
+      //
+      // This utility requires the "android.permission.SCHEDULE_EXACT_ALARM" permission.
+      // Using this permission may make app distribution difficult due to Google policy.
+      if (!await FlutterForegroundTask.canScheduleExactAlarms) {
+        // When you call this function, will be gone to the settings page.
+        // So you need to explain to the user why set it.
+        await FlutterForegroundTask.openAlarmsAndRemindersSettings();
+      }
     }
   }
 }

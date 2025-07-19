@@ -13,13 +13,24 @@ import 'package:openiothub_common_pages/openiothub_common_pages.dart';
 import 'package:openiothub_plugin/openiothub_plugin.dart';
 import 'package:provider/provider.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
+
+import 'configs/consts.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  if (Platform.isAndroid) {
-    InternalPluginService.instance.init();
-    InternalPluginService.instance.start();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool? FORGE_ROUND = await prefs.getBool(FORGE_ROUND_TASK_ENABLE);
+  try {
+    if (Platform.isAndroid && FORGE_ROUND != null && FORGE_ROUND) {
+      InternalPluginService.instance.init();
+      InternalPluginService.instance.start();
+    } else {
+      InternalPluginService.instance.stop();
+    }
+  }catch (e) {
+    print(e);
   }
   init();
   if (Platform.isMacOS || Platform.isWindows || Platform.isLinux) {
