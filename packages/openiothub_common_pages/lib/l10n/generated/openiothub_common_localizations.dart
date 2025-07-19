@@ -856,7 +856,7 @@ abstract class OpenIoTHubCommonLocalizations {
   /// No description provided for @activate_front_desk_service.
   ///
   /// In en, this message translates to:
-  /// **'Activate front desk service'**
+  /// **'Android background service keep alive'**
   String get activate_front_desk_service;
 
   /// No description provided for @my_server_description_example.

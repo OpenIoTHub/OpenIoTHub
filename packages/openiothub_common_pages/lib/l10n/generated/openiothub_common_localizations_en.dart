@@ -417,7 +417,8 @@ class OpenIoTHubCommonLocalizationsEn extends OpenIoTHubCommonLocalizations {
       'Please enter the iot_manager GRPC service address';
 
   @override
-  String get activate_front_desk_service => 'Activate front desk service';
+  String get activate_front_desk_service =>
+      'Android background service keep alive';
 
   @override
   String get my_server_description_example => 'My own server-go server';

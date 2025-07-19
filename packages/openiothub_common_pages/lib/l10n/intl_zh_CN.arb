@@ -135,7 +135,7 @@
   "input_grpc_service_port": "请输入grpc服务的端口",
   "iot_manager_addr": "iot-manager地址",
   "input_iot_manager_addr": "请输入iot-manager grpc服务地址",
-  "activate_front_desk_service": "开启前台服务",
+  "activate_front_desk_service": "开启前台服务(后台保活)",
 
   "my_server_description_example": "我自己的server-go服务器",
   "server_go_addr_example": "guonei.servers.iothub.cloud",

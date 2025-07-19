@@ -389,7 +389,7 @@ class OpenIoTHubCommonLocalizationsZh extends OpenIoTHubCommonLocalizations {
   String get input_iot_manager_addr => '请输入iot-manager grpc服务地址';
 
   @override
-  String get activate_front_desk_service => '开启前台服务';
+  String get activate_front_desk_service => '开启前台服务(后台保活)';
 
   @override
   String get my_server_description_example => '我自己的server-go服务器';
@@ -814,7 +814,7 @@ class OpenIoTHubCommonLocalizationsZhCn
   String get input_iot_manager_addr => '请输入iot-manager grpc服务地址';
 
   @override
-  String get activate_front_desk_service => '开启前台服务';
+  String get activate_front_desk_service => '开启前台服务(后台保活)';
 
   @override
   String get my_server_description_example => '我自己的server-go服务器';
@@ -1239,7 +1239,7 @@ class OpenIoTHubCommonLocalizationsZhHans
   String get input_iot_manager_addr => '请输入iot-manager grpc服务地址';
 
   @override
-  String get activate_front_desk_service => '开启前台服务';
+  String get activate_front_desk_service => '开启前台服务(后台保活)';
 
   @override
   String get my_server_description_example => '我自己的server-go服务器';
@@ -1664,7 +1664,7 @@ class OpenIoTHubCommonLocalizationsZhHant
   String get input_iot_manager_addr => '請輸入iot-manager grpc服務地址';
 
   @override
-  String get activate_front_desk_service => '開啟前臺服務';
+  String get activate_front_desk_service => '開啟前臺服務(後台保活)';
 
   @override
   String get my_server_description_example => '我自己的server-go服務器';
@@ -2089,7 +2089,7 @@ class OpenIoTHubCommonLocalizationsZhTw
   String get input_iot_manager_addr => '請輸入iot-manager grpc服務地址';
 
   @override
-  String get activate_front_desk_service => '開啟前臺服務';
+  String get activate_front_desk_service => '開啟前臺服務(後台保活)';
 
   @override
   String get my_server_description_example => '我自己的server-go服務器';
