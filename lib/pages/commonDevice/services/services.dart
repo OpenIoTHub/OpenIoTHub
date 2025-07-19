@@ -424,7 +424,7 @@ class _ServicesListPageState extends State<ServicesListPage> {
           ),
           GTAdsCode(
             alias: "ylh",
-            probability: 6,
+            probability: 10,
             androidId: "1178620309701965",
             iosId: "1178620309701965",
           ),
@@ -441,7 +441,7 @@ class _ServicesListPageState extends State<ServicesListPage> {
         timeout: 5,
         //广告加载模式 [GTAdsModel.RANDOM]优先级模式 [GTAdsModel.RANDOM]随机模式
         //默认随机模式
-        model: GTAdsModel.RANDOM,
+        model: GTAdsModel.PRIORITY,
         callBack: GTAdsCallBack(
           onShow: (code) {
             print("激励广告显示 ${code.toJson()}");

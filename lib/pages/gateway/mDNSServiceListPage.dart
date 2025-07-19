@@ -220,7 +220,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
     result.add(
         "${OpenIoTHubLocalizations.of(context).forwarding_connection_status}:${config.statusToClient ? OpenIoTHubLocalizations.of(context).online : OpenIoTHubLocalizations.of(context).offline}");
     result.add(
-        "${OpenIoTHubLocalizations.of(context).p2p_connection_status}}:${config.statusP2PAsClient || config.statusP2PAsServer ? OpenIoTHubLocalizations.of(context).online : OpenIoTHubLocalizations.of(context).offline}");
+        "${OpenIoTHubLocalizations.of(context).p2p_connection_status}:${config.statusP2PAsClient || config.statusP2PAsServer ? OpenIoTHubLocalizations.of(context).online : OpenIoTHubLocalizations.of(context).offline}");
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
