@@ -93,7 +93,7 @@
   "adding_gateway_to_my_account_failed": "添加网关到我的账户失败",
   "add_gateway_failed": "添加网关失败",
   "add_gateway_successful": "添加网关成功！",
-  "login_failed": "登录失败",
+  "login_failed": "登录失败,请重新登录",
   "please_use_the_magnifying_glass_in_the_upper_right_corner": "请使用右上角发现网关或者通过扫描二维码添加网关",
   "delete_result": "删除结果",
   "delete_successful": "删除成功！",

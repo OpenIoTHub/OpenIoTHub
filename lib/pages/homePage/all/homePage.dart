@@ -76,6 +76,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
       _show_read_privacy_policy();
     });
     _showSplashAd();
+    _showUserLoginStatus();
   }
 
   @override
@@ -282,6 +283,12 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
       Navigator.of(context).push(MaterialPageRoute(builder: (context) {
         return SplashPage();
       }));
+    }
+  }
+
+  _showUserLoginStatus() async{
+    if (!(await userSignedIn())) {
+      show_failed(OpenIoTHubLocalizations.of(context).login_failed, context);
     }
   }
 }

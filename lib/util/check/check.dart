@@ -1,3 +1,4 @@
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:openiothub_constants/constants/SharedPreferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,6 +17,12 @@ Future<bool> userSignedIn() async {
   if (prefs.containsKey(SharedPreferencesKey.USER_TOKEN_KEY) &&
       prefs.getString(SharedPreferencesKey.USER_TOKEN_KEY) != null &&
       prefs.getString(SharedPreferencesKey.USER_TOKEN_KEY)!.isNotEmpty){
+    // 判断Token有没有过期，过期则删除Token
+    var jwt = prefs.getString(SharedPreferencesKey.USER_TOKEN_KEY)!;
+    if (JwtDecoder.isExpired(jwt)){
+      prefs.remove(SharedPreferencesKey.USER_TOKEN_KEY);
+      return false;
+    }
     return true;
   }
   return false;

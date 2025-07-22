@@ -295,7 +295,7 @@ class OpenIoTHubLocalizationsZh extends OpenIoTHubLocalizations {
   String get add_gateway_successful => '添加网关成功！';
 
   @override
-  String get login_failed => '登录失败';
+  String get login_failed => '登录失败,请重新登录';
 
   @override
   String get please_use_the_magnifying_glass_in_the_upper_right_corner =>
@@ -800,7 +800,7 @@ class OpenIoTHubLocalizationsZhCn extends OpenIoTHubLocalizationsZh {
   String get add_gateway_successful => '添加网关成功！';
 
   @override
-  String get login_failed => '登录失败';
+  String get login_failed => '登录失败,请重新登录';
 
   @override
   String get please_use_the_magnifying_glass_in_the_upper_right_corner =>
@@ -1305,7 +1305,7 @@ class OpenIoTHubLocalizationsZhHans extends OpenIoTHubLocalizationsZh {
   String get add_gateway_successful => '添加网关成功！';
 
   @override
-  String get login_failed => '登录失败';
+  String get login_failed => '登录失败,请重新登录';
 
   @override
   String get please_use_the_magnifying_glass_in_the_upper_right_corner =>
@@ -1810,7 +1810,7 @@ class OpenIoTHubLocalizationsZhHant extends OpenIoTHubLocalizationsZh {
   String get add_gateway_successful => '添加網關成功！';
 
   @override
-  String get login_failed => '登錄失敗';
+  String get login_failed => '登錄失敗,請重新登陸';
 
   @override
   String get please_use_the_magnifying_glass_in_the_upper_right_corner =>
@@ -2315,7 +2315,7 @@ class OpenIoTHubLocalizationsZhTw extends OpenIoTHubLocalizationsZh {
   String get add_gateway_successful => '添加網關成功！';
 
   @override
-  String get login_failed => '登錄失敗';
+  String get login_failed => '登錄失敗,請重新登陸';
 
   @override
   String get please_use_the_magnifying_glass_in_the_upper_right_corner =>

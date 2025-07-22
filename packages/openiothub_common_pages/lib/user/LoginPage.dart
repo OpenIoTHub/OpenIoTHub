@@ -51,9 +51,7 @@ class _State extends State<LoginPage> {
 
   @override
   void initState() {
-    if (_auth == null) {
-      _auth = WechatKitPlatform.instance.respStream().listen(_listenAuth);
-    }
+    _auth ??= WechatKitPlatform.instance.respStream().listen(_listenAuth);
     super.initState();
     _initList().then((value) => _checkWechat());
     _init_timer();
@@ -154,6 +152,7 @@ class _State extends State<LoginPage> {
         Padding(
           padding: const EdgeInsets.only(top: 20.0), // 设置顶部距离
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Checkbox(
                 value: _isChecked,
@@ -191,7 +190,6 @@ class _State extends State<LoginPage> {
                             )));
                   }),
             ],
-            mainAxisAlignment: MainAxisAlignment.center,
           ),
         )
       ];
@@ -283,7 +281,12 @@ class _State extends State<LoginPage> {
       Future.delayed(Duration(milliseconds: 500), () {
         UtilApi.SyncConfigWithToken();
       });
-      Navigator.of(context).pop();
+      if (Navigator.of(context).canPop()) {
+        Navigator.of(context).pop();
+      }
+      if (Navigator.of(context).canPop()) {
+        Navigator.of(context).pop();
+      }
     } else {
       show_failed(
           "${OpenIoTHubCommonLocalizations.of(context).login_failed}:code:${userLoginResponse.code},message:${userLoginResponse.msg}", context);

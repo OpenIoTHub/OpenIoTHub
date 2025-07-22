@@ -93,7 +93,7 @@
   "adding_gateway_to_my_account_failed": "添加網關到我的賬戶失敗",
   "add_gateway_failed": "添加網關失敗",
   "add_gateway_successful": "添加網關成功！",
-  "login_failed": "登錄失敗",
+  "login_failed": "登錄失敗,請重新登陸",
   "please_use_the_magnifying_glass_in_the_upper_right_corner": "請使用右上角發現閘道或者通過掃描二維碼添加閘道",
   "delete_result": "刪除結果",
   "delete_successful": "刪除成功！",

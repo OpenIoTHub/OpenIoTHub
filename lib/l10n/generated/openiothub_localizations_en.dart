@@ -303,7 +303,7 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
   String get add_gateway_successful => 'Successfully added gateway!';
 
   @override
-  String get login_failed => 'Login failed';
+  String get login_failed => 'Login failed, please try again!';
 
   @override
   String get please_use_the_magnifying_glass_in_the_upper_right_corner =>

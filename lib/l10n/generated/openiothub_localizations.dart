@@ -672,7 +672,7 @@ abstract class OpenIoTHubLocalizations {
   /// No description provided for @login_failed.
   ///
   /// In zh, this message translates to:
-  /// **'登录失败'**
+  /// **'登录失败,请重新登录'**
   String get login_failed;
 
   /// No description provided for @please_use_the_magnifying_glass_in_the_upper_right_corner.
