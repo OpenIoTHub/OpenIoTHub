@@ -33,7 +33,14 @@ class _ServicesListPageState extends State<ServicesListPage> {
   @override
   void initState() {
     super.initState();
+    needShowSplash = false;
     refreshPortConfigList();
+  }
+
+  @override
+  void dispose() {
+    needShowSplash = true;
+    super.dispose();
   }
 
   @override
@@ -411,7 +418,7 @@ class _ServicesListPageState extends State<ServicesListPage> {
     const JILI_AD= "JILI_AD";
     SharedPreferences prefs = await SharedPreferences.getInstance();
     // 禁止开屏广告防止需要看两种广告
-    needShowSplash = false;
+    // needShowSplash = false;
     if (prefs.containsKey(JILI_AD)&&prefs.getInt(JILI_AD)!>5&&initList != null) {
       await GTAds.rewardAd(
         //需要的广告位数组
@@ -445,15 +452,21 @@ class _ServicesListPageState extends State<ServicesListPage> {
         callBack: GTAdsCallBack(
           onShow: (code) {
             print("激励广告显示 ${code.toJson()}");
+            needShowSplash = false;
           },
           onFail: (code, message) {
             print("激励广告失败 ${code!.toJson()} $message");
+            needShowSplash = false;
+            _showCreateServiceWidget(device);
           },
           onClick: (code) {
             print("激励广告点击 ${code.toJson()}");
+            needShowSplash = false;
           },
           onClose: (code) {
             print("激励广告关闭 ${code.toJson()}");
+            needShowSplash = false;
+            _showCreateServiceWidget(device);
           },
           onVerify: (code, verify, transId, rewardName, rewardAmount) {
             print(
@@ -468,16 +481,20 @@ class _ServicesListPageState extends State<ServicesListPage> {
           },
           onTimeout: () {
             print("激励广告加载超时");
+            needShowSplash = false;
+            _showCreateServiceWidget(device);
           },
           onEnd: () {
             print("激励广告所有广告位都加载失败");
+            needShowSplash = false;
+            _showCreateServiceWidget(device);
           },
         ),
       );
     }
-    await _showCreateServiceWidget(device);
+    // await _showCreateServiceWidget(device);
     // 恢复开屏广告显示
-    needShowSplash = true;
+    // needShowSplash = true;
     if (prefs.containsKey(JILI_AD)) {
       int old = prefs.getInt(JILI_AD)!;
       prefs.setInt(JILI_AD, old+1);

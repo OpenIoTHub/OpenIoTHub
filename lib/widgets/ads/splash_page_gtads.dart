@@ -25,6 +25,11 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GTAdsSplashWidget(
             //需要的广告位组
