@@ -3,7 +3,7 @@ description: A IoT Device Manager.
 homepage: https://github.com/OpenIoTHub
 publish_to: 'none'
 
-version: 1.3.86+434
+version: 1.3.87+435
 
 environment:
   sdk: ">=3.7.2 <4.0.0"
