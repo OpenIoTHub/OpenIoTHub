@@ -142,7 +142,7 @@ jobs:
           path: dist/**/**/*.rpm
       - name: Build AppImage package
         run: |
-          wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
+          wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/13/obsolete-appimagetool-x86_64.AppImage"
           chmod +x appimagetool
           sudo mv appimagetool /usr/local/bin/
           flutter_distributor package --platform linux --targets appimage
