@@ -33,13 +33,13 @@ class _ServicesListPageState extends State<ServicesListPage> {
   @override
   void initState() {
     super.initState();
-    needShowSplash = false;
+    // needShowSplash = false;
     refreshPortConfigList();
   }
 
   @override
   void dispose() {
-    needShowSplash = true;
+    // needShowSplash = true;
     super.dispose();
   }
 
