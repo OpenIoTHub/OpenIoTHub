@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_unionad/flutter_unionad.dart';
 import 'package:gtads/gtads.dart';
 
 import '../../configs/var.dart';

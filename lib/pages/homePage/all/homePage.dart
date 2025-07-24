@@ -51,7 +51,11 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
             setState(() {});
           }
         });
-        _showSplashAd();
+        if (needShowSplash){
+          _showSplashAd();
+        }else{
+          needShowSplash = true;
+        }
         break;
       case AppLifecycleState.paused: // 界面不可见，后台
         // showToast( "程序状态：${state.toString()}");
