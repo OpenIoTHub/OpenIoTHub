@@ -1,6 +1,6 @@
 name: openiothub_plugin
 description: openiothub_plugin
-version: 1.0.2+65
+version: 1.0.2+66
 homepage: https://github.com/OpenIoTHub
 
 environment:

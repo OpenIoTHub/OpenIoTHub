@@ -84,61 +84,105 @@ class _AppStorePageState extends State<AppStorePage> {
         }));
     String reqUri = "/v2/app_management/apps";
     final response = await dio.getUri(Uri.parse(reqUri));
-    response.data["data"]["list"].forEach((key, appInfo) {
-      // TODO 使用远程网络ID和远程端口临时映射远程端口到本机
-      // TODO 获取当前服务映射到本机的端口号
-      var appName = "";
-      if ( key is int) {
-        appName = appInfo["main"];
-      }else{
-        appName = key;
-      }
-      setState(() {
-        _listTiles.add(ListTile(
+    var list = response.data["data"]["list"];
+    if (list is Map) {
+      list.forEach((appName, appInfo) {
+        // TODO 使用远程网络ID和远程端口临时映射远程端口到本机
+        // TODO 获取当前服务映射到本机的端口号
+        setState(() {
+          _listTiles.add(ListTile(
             //第一个功能项
-            title: Text(appName),
-            subtitle: Text(appInfo["category"], style: TextStyle(color: Colors.grey),),
-            leading: _sizedContainer(
-              CachedNetworkImage(
-                progressIndicatorBuilder: (context, url, progress) => Center(
-                  child: CircularProgressIndicator(
-                    value: progress.progress,
+              title: Text(appName),
+              subtitle: Text(appInfo["category"], style: TextStyle(color: Colors.grey),),
+              leading: _sizedContainer(
+                CachedNetworkImage(
+                  progressIndicatorBuilder: (context, url, progress) => Center(
+                    child: CircularProgressIndicator(
+                      value: progress.progress,
+                    ),
                   ),
+                  imageUrl: appInfo["icon"] ?? "${widget.baseUrl}/img/default.0a7cfbf2.svg",
                 ),
-                imageUrl: appInfo["icon"] == null
-                    ? "${widget.baseUrl}/img/default.0a7cfbf2.svg"
-                    : appInfo["icon"],
               ),
-            ),
-            // 根据有没有安装判断显示已安装按钮还是显示安装操作按钮
-            trailing: response.data["data"]["installed"].contains(appName)
-                ? TDButton(
-                    text: 'Installed',
-                    size: TDButtonSize.small,
-                    type: TDButtonType.fill,
-                    shape: TDButtonShape.rectangle,
-                    theme: TDButtonTheme.light,
-                    disabled: true,
-                    onTap: () {
-                      // TODO 安装
-                    },
-                  )
-                : TDButton(
-                    text: 'Install',
-                    size: TDButtonSize.small,
-                    type: TDButtonType.fill,
-                    shape: TDButtonShape.rectangle,
-                    theme: TDButtonTheme.primary,
-                    onTap: () {
-                      // TODO 安装
-                      _installApp(appName);
-                    },
-                  ),
-            onTap: () {
-              // TODO 判断有没有安装，没有就提示确认安装
-            }));
+              // 根据有没有安装判断显示已安装按钮还是显示安装操作按钮
+              trailing: response.data["data"]["installed"].contains(appName)
+                  ? TDButton(
+                text: 'Installed',
+                size: TDButtonSize.small,
+                type: TDButtonType.fill,
+                shape: TDButtonShape.rectangle,
+                theme: TDButtonTheme.light,
+                disabled: true,
+                onTap: () {
+                  // TODO 安装
+                },
+              )
+                  : TDButton(
+                text: 'Install',
+                size: TDButtonSize.small,
+                type: TDButtonType.fill,
+                shape: TDButtonShape.rectangle,
+                theme: TDButtonTheme.primary,
+                onTap: () {
+                  // TODO 安装
+                  _installApp(appName);
+                },
+              ),
+              onTap: () {
+                // TODO 判断有没有安装，没有就提示确认安装
+              }));
+        });
       });
-    });
+    }else if (list is List) {
+      list.forEach((appInfo) {
+        // TODO 使用远程网络ID和远程端口临时映射远程端口到本机
+        // TODO 获取当前服务映射到本机的端口号
+        var appName = appInfo["main"];
+        setState(() {
+          _listTiles.add(ListTile(
+            //第一个功能项
+              title: Text(appName),
+              subtitle: Text(appInfo["category"], style: TextStyle(color: Colors.grey),),
+              leading: _sizedContainer(
+                CachedNetworkImage(
+                  progressIndicatorBuilder: (context, url, progress) => Center(
+                    child: CircularProgressIndicator(
+                      value: progress.progress,
+                    ),
+                  ),
+                  imageUrl: appInfo["icon"] ?? "${widget.baseUrl}/img/default.0a7cfbf2.svg",
+                ),
+              ),
+              // 根据有没有安装判断显示已安装按钮还是显示安装操作按钮
+              trailing: response.data["data"]["installed"].contains(appName)
+                  ? TDButton(
+                text: 'Installed',
+                size: TDButtonSize.small,
+                type: TDButtonType.fill,
+                shape: TDButtonShape.rectangle,
+                theme: TDButtonTheme.light,
+                disabled: true,
+                onTap: () {
+                  // TODO 安装
+                },
+              )
+                  : TDButton(
+                text: 'Install',
+                size: TDButtonSize.small,
+                type: TDButtonType.fill,
+                shape: TDButtonShape.rectangle,
+                theme: TDButtonTheme.primary,
+                onTap: () {
+                  // TODO 安装
+                  _installApp(appName);
+                },
+              ),
+              onTap: () {
+                // TODO 判断有没有安装，没有就提示确认安装
+              }));
+        });
+      });
+    }
   }
 
   _installApp(String appName) async {

@@ -29,10 +29,10 @@ packages:
     dependency: transitive
     description:
       name: analyzer
-      sha256: b1ade5707ab7a90dfd519eaac78a7184341d19adb6096c68d499b59c7c6cf880
+      sha256: "974859dc0ff5f37bc4313244b3218c791810d03ab3470a579580279ba971a48d"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "7.7.0"
+    version: "7.7.1"
   animations:
     dependency: transitive
     description:
@@ -1255,7 +1255,7 @@ packages:
       path: "packages/openiothub_plugin"
       relative: true
     source: path
-    version: "1.0.2+65"
+    version: "1.0.2+66"
   package_config:
     dependency: transitive
     description:
@@ -1953,10 +1953,10 @@ packages:
     dependency: transitive
     description:
       name: video_player_android
-      sha256: "4a5135754a62dbc827a64a42ef1f8ed72c962e191c97e2d48744225c2b9ebb73"
+      sha256: "9d5af2d233ba69df803dcf2f31e66d9a4c6206f2d96178df06b09b0ec3056b39"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.8.7"
+    version: "2.8.9"
   video_player_avfoundation:
     dependency: transitive
     description:
