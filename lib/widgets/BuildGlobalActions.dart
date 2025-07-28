@@ -166,7 +166,7 @@ List<Widget>? build_actions(BuildContext context) {
               MaterialPageRoute(
                 builder: (context) {
                   // 写成独立的组件，支持刷新
-                  return GuidePage();
+                  return GuidePage(activeIndex: 0,);
                 },
               ),
             );

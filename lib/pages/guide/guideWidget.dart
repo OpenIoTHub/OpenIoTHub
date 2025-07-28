@@ -9,7 +9,9 @@ import '../../l10n/generated/openiothub_localizations.dart';
 import '../commonDevice/commonDeviceListPage.dart';
 
 class GuideWidget extends StatefulWidget {
-  const GuideWidget({super.key});
+  const GuideWidget({super.key, required this.activeIndex});
+
+  final int activeIndex;
 
   @override
   State<GuideWidget> createState() => _GuideWidgetState();
@@ -17,6 +19,12 @@ class GuideWidget extends StatefulWidget {
 
 class _GuideWidgetState extends State<GuideWidget> {
   int activeIndex = 0;
+
+  @override
+  void initState() {
+    activeIndex = widget.activeIndex;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

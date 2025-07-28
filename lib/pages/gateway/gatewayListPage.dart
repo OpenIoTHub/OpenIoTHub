@@ -18,6 +18,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../widgets/ads/banner_gtads.dart';
 import '../commonPages/scanQR.dart';
+import '../guide/guidePage.dart';
 import './mDNSServiceListPage.dart';
 
 class GatewayListPage extends StatefulWidget {
@@ -149,7 +150,15 @@ class _GatewayListPageState extends State<GatewayListPage> {
                         shape: WidgetStateProperty.all(const StadiumBorder()),
                       ),
                       onPressed: () {
-                        _scan_qr();
+                        Navigator.of(context)
+                            .push(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              // 写成独立的组件，支持刷新
+                              return GuidePage(activeIndex: 1,);
+                            },
+                          ),
+                        );
                       },
                       child: Text(
                         OpenIoTHubLocalizations.of(
