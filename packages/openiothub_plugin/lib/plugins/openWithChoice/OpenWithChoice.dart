@@ -147,6 +147,7 @@ class OpenWithChoice extends StatelessWidget {
               _launchURL("http://${Config.webgRpcIp}:${portConfig.localProt}");
               Navigator.of(ctx).pop();
             } else {
+              // TODO 更换内置Web浏览器，带广告
               WebViewController controller = WebViewController()
                 ..setJavaScriptMode(JavaScriptMode.unrestricted)
                 ..setBackgroundColor(const Color(0x00000000))

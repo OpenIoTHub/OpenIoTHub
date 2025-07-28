@@ -78,6 +78,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
               _launchURL("http://${Config.webgRpcIp}:${pair.localProt}");
               return;
             }
+            // TODO 更换内置Web浏览器
             WebViewController controller = WebViewController()
               ..setJavaScriptMode(JavaScriptMode.unrestricted)
               ..setBackgroundColor(const Color(0x00000000))
