@@ -17,8 +17,8 @@
 #### OpenIoTHub Gateway Download（Continuously running on the LAN to receive access requests）:
   * Windows,Linux,Darwin version：https://github.com/OpenIoTHub/gateway-go/releases
   * This App(OpenIoTHub) also has a **Built in** gateway provides QR code addition method
-#### OpenIoTHub Server Download（high level, common user not necessary）:
-> #### self hosted server for OpenIoTHub（high level）：
+###### OpenIoTHub Server Download（high level, common user not necessary）:
+> ##### self hosted server for OpenIoTHub（high level）：
 > * https://github.com/OpenIoTHub/server-go/releases
 > * The server should configure its own port and secret key. The gateway can use the self built server by using the information and public network address you have configured
 ---
