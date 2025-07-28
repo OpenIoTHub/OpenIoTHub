@@ -16,6 +16,7 @@ import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import '../../../configs/var.dart';
 import '../../../init.dart';
+import '../../../widgets/ads/banner_gtads.dart';
 import 'createService.dart';
 
 class ServicesListPage extends StatefulWidget {
@@ -96,8 +97,23 @@ class _ServicesListPageState extends State<ServicesListPage> {
       );
       return InkWell(child: listItemContent);
     });
-    final divided =
-        ListTile.divideTiles(context: context, tiles: tiles).toList();
+    // TODO 增加横幅广告
+    final divided = ListView.separated(
+      // padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
+      itemCount: tiles.length + 1,
+      itemBuilder: (context, index) {
+        if (index == 0) {
+          return build30075Banner();
+        }
+        return tiles.elementAt(index - 1);
+      },
+      separatorBuilder: (context, index) {
+        return Container(
+          padding: EdgeInsets.only(left: 70), // 添加左侧缩进
+          child: TDDivider(),
+        );
+      },
+    );
     return Scaffold(
       appBar: AppBar(
         title: Text(OpenIoTHubLocalizations.of(context).service),
@@ -149,7 +165,7 @@ class _ServicesListPageState extends State<ServicesListPage> {
           await refreshPortConfigList();
           return;
         },
-        child: ListView(children: divided),
+        child: divided,
       ),
     );
   }

@@ -21,6 +21,8 @@ import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 
 import 'package:openiothub/util/GetParameters.dart';
 
+import '../../widgets/ads/banner_gtads.dart';
+
 // 网关下面的mdns服务
 class MDNSServiceListPage extends StatefulWidget {
   MDNSServiceListPage({required Key key, required this.sessionConfig})
@@ -127,10 +129,23 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
         );
       },
     );
-    final divided = ListTile.divideTiles(
-      context: context,
-      tiles: tiles,
-    ).toList();
+    // TODO 增加横幅广告
+    final divided = ListView.separated(
+      // padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
+      itemCount: tiles.length + 1,
+      itemBuilder: (context, index) {
+        if (index == 0) {
+          return build30075Banner();
+        }
+        return tiles.elementAt(index - 1);
+      },
+      separatorBuilder: (context, index) {
+        return Container(
+          padding: EdgeInsets.only(left: 70), // 添加左侧缩进
+          child: TDDivider(),
+        );
+      },
+    );
     return Scaffold(
       appBar: AppBar(
         title: Text(OpenIoTHubLocalizations.of(context).mdns_service_list),
@@ -202,7 +217,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
               }),
         ],
       ),
-      body: ListView(children: divided),
+      body: divided,
     );
   }
 
