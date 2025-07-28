@@ -17,10 +17,11 @@ QQ群号: 251227638 <a target="_blank" href="https://jq.qq.com/?_wv=1027&k=1K3Dl
   * 其他版本：https://github.com/OpenIoTHub/OpenIoTHub/releases
   * iOS版本：https://apps.apple.com/cn/app/id1501554327
 #### 内网网关下载地址:
-  * 命令行版本：https://github.com/OpenIoTHub/gateway-go/releases
-  * UI版本：本APP内置，显示二维码
-#### 云亿连 服务器 下载（高阶, 一般用户用网关自动生成的配置文件中的服务器就够了）:
-> #### 自建转发服务器下载（高阶）：
+  * 内网网关持续运行在局域网，添加网关之后就可以访问网关所在网络所有网络服务
+  * 命令行版本下载：https://github.com/OpenIoTHub/gateway-go/releases
+  * UI版本：本APP内置，显示二维码，也可以被添加
+###### 云亿连 服务器 下载（高阶, 一般用户用网关自动生成的配置文件中的服务器就够了）:
+> ##### 自建转发服务器下载（高阶）：
 > * https://github.com/OpenIoTHub/server-go/releases
 > * 服务器请自行配置端口和秘钥，网关使用你配置的信息和公网地址就可以使用自建服务器
 ---

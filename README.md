@@ -14,8 +14,9 @@
 #### Download OpenIoTHub App：
   * Android,Windows,Linux,Darwin version：https://github.com/OpenIoTHub/OpenIoTHub/releases
   * iOS version：https://apps.apple.com/cn/app/id1501554327
-#### OpenIoTHub Gateway Download:
+#### OpenIoTHub Gateway Download（Continuously running on the LAN to receive access requests）:
   * Windows,Linux,Darwin version：https://github.com/OpenIoTHub/gateway-go/releases
+  * This App(OpenIoTHub) also has a **Built in** gateway provides QR code addition method
 #### OpenIoTHub Server Download（high level, common user not necessary）:
 > #### self hosted server for OpenIoTHub（high level）：
 > * https://github.com/OpenIoTHub/server-go/releases
@@ -35,7 +36,7 @@
 - [x] Support SSH terminals with direct access to Intranet
 - [x] Support file access via intranet SSH (upload and download)
 - [x] Support to open VNC desktop of Intranet machine directly
-- [x] Support calling mobile phone Rd client to open the desktop of Intranet windows
+- [x] Support calling mobile phone RDP client to open the desktop of Intranet windows
 - [x] Support mapping FTP protocol
 - [x] Network boot (WOL)
 - [ ] Directly back up the address book to the private cloud
