@@ -310,6 +310,12 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
       'Please use the top right corner to discover the gateway or add the gateway by scanning the QR code';
 
   @override
+  String get add_a_gateway => 'Add a remote gateway';
+
+  @override
+  String get install_gateway => 'Install a gateway for the local area network';
+
+  @override
   String get delete_result => 'Delete result';
 
   @override

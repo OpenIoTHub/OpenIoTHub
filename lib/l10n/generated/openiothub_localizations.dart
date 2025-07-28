@@ -681,6 +681,18 @@ abstract class OpenIoTHubLocalizations {
   /// **'请使用右上角发现网关或者通过扫描二维码添加网关'**
   String get please_use_the_magnifying_glass_in_the_upper_right_corner;
 
+  /// No description provided for @add_a_gateway.
+  ///
+  /// In zh, this message translates to:
+  /// **'添加一个远程网关'**
+  String get add_a_gateway;
+
+  /// No description provided for @install_gateway.
+  ///
+  /// In zh, this message translates to:
+  /// **'局域网安装网关'**
+  String get install_gateway;
+
   /// No description provided for @delete_result.
   ///
   /// In zh, this message translates to:

@@ -302,6 +302,12 @@ class OpenIoTHubLocalizationsZh extends OpenIoTHubLocalizations {
       '请使用右上角发现网关或者通过扫描二维码添加网关';
 
   @override
+  String get add_a_gateway => '添加一个远程网关';
+
+  @override
+  String get install_gateway => '局域网安装网关';
+
+  @override
   String get delete_result => '删除结果';
 
   @override
@@ -805,6 +811,12 @@ class OpenIoTHubLocalizationsZhCn extends OpenIoTHubLocalizationsZh {
   @override
   String get please_use_the_magnifying_glass_in_the_upper_right_corner =>
       '请使用右上角发现网关或者通过扫描二维码添加网关';
+
+  @override
+  String get add_a_gateway => '添加一个远程网关';
+
+  @override
+  String get install_gateway => '局域网安装网关';
 
   @override
   String get delete_result => '删除结果';
@@ -1312,6 +1324,12 @@ class OpenIoTHubLocalizationsZhHans extends OpenIoTHubLocalizationsZh {
       '请使用右上角发现网关或者通过扫描二维码添加网关';
 
   @override
+  String get add_a_gateway => '添加一个远程网关';
+
+  @override
+  String get install_gateway => '局域网安装网关';
+
+  @override
   String get delete_result => '删除结果';
 
   @override
@@ -1817,6 +1835,12 @@ class OpenIoTHubLocalizationsZhHant extends OpenIoTHubLocalizationsZh {
       '請使用右上角發現閘道或者通過掃描二維碼添加閘道';
 
   @override
+  String get add_a_gateway => '添加一個遠程網關';
+
+  @override
+  String get install_gateway => '局域網安裝網關';
+
+  @override
   String get delete_result => '刪除結果';
 
   @override
@@ -2320,6 +2344,12 @@ class OpenIoTHubLocalizationsZhTw extends OpenIoTHubLocalizationsZh {
   @override
   String get please_use_the_magnifying_glass_in_the_upper_right_corner =>
       '請使用右上角發現閘道或者通過掃描二維碼添加閘道';
+
+  @override
+  String get add_a_gateway => '添加一個遠程網關';
+
+  @override
+  String get install_gateway => '局域網安裝網關';
 
   @override
   String get delete_result => '刪除結果';

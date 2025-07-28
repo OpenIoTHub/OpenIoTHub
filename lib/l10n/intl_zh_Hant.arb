@@ -95,6 +95,8 @@
   "add_gateway_successful": "添加網關成功！",
   "login_failed": "登錄失敗,請重新登陸",
   "please_use_the_magnifying_glass_in_the_upper_right_corner": "請使用右上角發現閘道或者通過掃描二維碼添加閘道",
+  "add_a_gateway": "添加一個遠程網關",
+  "install_gateway": "局域網安裝網關",
   "delete_result": "刪除結果",
   "delete_successful": "刪除成功！",
   "delete_failed": "刪除失敗！",
