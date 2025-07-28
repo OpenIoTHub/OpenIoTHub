@@ -1,15 +1,12 @@
 # OpenIoTHUb
+### Remote access to your network services (behind a NAT or firewall) with p2p transport
 
 [README](README.md) | [中文文档](README_zh.md)
 
-[Download from releases](https://github.com/OpenIoTHub/OpenIoTHub/releases) with tag like <u>*.\*.\*+\*</u>
+[Download from releases](https://github.com/OpenIoTHub/OpenIoTHub/releases)
 
 [![Get it from the App Store](.github/assets/badge-download-on-the-app-store.svg)](https://apps.apple.com/cn/app/id1501554327)
 <a target="_blank" href="https://play.google.com/store/apps/details?id=com.iotserv.openiothub"><img border="0" src=".github/assets/google-play.png" alt="Get it from the Google Play" title="Google Play" width="150" height="75"></a>
-
-Tencent QQ group: 251227638 <a target="_blank" href="https://jq.qq.com/?_wv=1027&k=1K3Dlmkm"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="OpenIoTHub群" title="OpenIoTHub群"></a>
-∂∂
-[![Tencent QQ group](./qq-group-qr.jpg)](https://jq.qq.com/?_wv=1027&k=1K3Dlmkm)
 
 #### What is OpenIoTHub
 💖A free IoT platform and private cloud platform, help you access remote services and IoT Devices.
@@ -19,28 +16,30 @@ Tencent QQ group: 251227638 <a target="_blank" href="https://jq.qq.com/?_wv=1027
   * iOS version：https://apps.apple.com/cn/app/id1501554327
 #### OpenIoTHub Gateway Download:
   * Windows,Linux,Darwin version：https://github.com/OpenIoTHub/gateway-go/releases
-  * Android version：https://github.com/OpenIoTHub/OpenIoTHub/releases
 #### OpenIoTHub Server Download（high level, common user not necessary）:
 > #### self hosted server for OpenIoTHub（high level）：
 > * https://github.com/OpenIoTHub/server-go/releases
 > * The server should configure its own port and secret key. The gateway can use the self built server by using the information and public network address you have configured
 ---
 #### course：
-  * 简书：https://www.jianshu.com/u/b312a876d66e
+ * BiliBili：https://space.bilibili.com/1222749704
 ---
 #### supported features：
-- [x] 1.find [gateway](https://github.com/OpenIoTHub/gateway-go)
-- [x] 2.Support configuration saving, and load the old configuration directly before the next startup
-- [x] 3. Support direct opening of Intranet website port
-- [x] 4. Support offline download of aria2 using intranet directly
-- [x] 5. Support SSH terminals with direct access to Intranet
-- [x] 6. Support file access via intranet SSH (upload and download)
-- [x] 7. Support to open VNC desktop of Intranet machine directly
-- [x] 8. Support calling mobile phone Rd client to open the desktop of Intranet windows
-- [x] 9. Support mapping FTP protocol
-- [x] 10. Network boot (WOL)
-- [ ] 11. Directly back up the address book to the private cloud
-- [x] 12. Support the discovery and control of smart home devices ([IOT device]（ https://github.com/iotdevice/todo-list )
+- [x] Support ipv4 p2p
+- [x] Support ipv6 p2p
+- [x] scan [gateway](https://github.com/OpenIoTHub/gateway-go) QR add a gateway
+- [x] find [gateway](https://github.com/OpenIoTHub/gateway-go)
+- [x] Support configuration saving, and load the old configuration directly before the next startup
+- [x] Support direct opening of Intranet website port
+- [x] Support offline download of aria2 using intranet directly
+- [x] Support SSH terminals with direct access to Intranet
+- [x] Support file access via intranet SSH (upload and download)
+- [x] Support to open VNC desktop of Intranet machine directly
+- [x] Support calling mobile phone Rd client to open the desktop of Intranet windows
+- [x] Support mapping FTP protocol
+- [x] Network boot (WOL)
+- [ ] Directly back up the address book to the private cloud
+- [x] Support the discovery and control of smart home devices ([IOT device]（ https://github.com/iotdevice/todo-list )
 
 ---
 #### Development：

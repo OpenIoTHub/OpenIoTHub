@@ -25,11 +25,12 @@ QQ群号: 251227638 <a target="_blank" href="https://jq.qq.com/?_wv=1027&k=1K3Dl
 > * 服务器请自行配置端口和秘钥，网关使用你配置的信息和公网地址就可以使用自建服务器
 ---
 #### 教程：
-  * 简书：https://www.jianshu.com/u/b312a876d66e
+  * BiliBili：https://space.bilibili.com/1222749704
 ---
 #### 支持的功能：
 - [x] 支持ipv4 p2p
 - [x] 支持ipv6 p2p
+- [x] 扫描二维码添加一个 [网关](https://github.com/OpenIoTHub/gateway-go)
 - [x] 支持搜索网关
 - [x] 支持配置保存，下一次启动直接加载之前的旧配置
 - [x] 支持直接打开内网的网站端口
