@@ -155,8 +155,8 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Future _getAutoStartGatewayStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool? auto_start = prefs.getBool(START_GATEWAY_WHEN_APP_START);
-    if (auto_start == null && (auto_start != null && auto_start)) {
+    bool? autoStart = prefs.getBool(START_GATEWAY_WHEN_APP_START);
+    if (autoStart == null || autoStart) {
       setState(() {
         auto_start_gateway = true;
       });
