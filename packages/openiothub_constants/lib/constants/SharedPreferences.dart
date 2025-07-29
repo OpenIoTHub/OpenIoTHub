@@ -28,4 +28,12 @@ class SharedPreferencesKey {
 
   static final String Gateway_Jwt_KEY = "GATEWAY_JWT_KEY";
   static final String QR_Code_For_Mobile_Add_KEY = "QR_Code_For_Mobile_Add";
+
+  static final String Agreed_Privacy_Policy = "Agreed_Privacy_Policy";
+
+  static final String FORGE_ROUND_TASK_ENABLE = "foreg_round_task";
+
+  static final String START_GATEWAY_WHEN_APP_START = "START_GATEWAY_WHEN_APP_START";
+
+  static final String WAKE_LOCK = "WAKE_LOCK_ENABLED";
 }

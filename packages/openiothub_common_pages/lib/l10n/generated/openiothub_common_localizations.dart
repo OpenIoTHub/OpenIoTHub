@@ -865,6 +865,12 @@ abstract class OpenIoTHubCommonLocalizations {
   /// **'Auto start gateway when APP started'**
   String get auto_start_gateway;
 
+  /// No description provided for @wake_lock_enabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Wake lock enabled'**
+  String get wake_lock_enabled;
+
   /// No description provided for @my_server_description_example.
   ///
   /// In en, this message translates to:

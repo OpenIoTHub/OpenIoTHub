@@ -9,6 +9,7 @@ import 'package:openiothub_common_pages/openiothub_common_pages.dart';
 import 'package:openiothub/configs/consts.dart';
 import 'package:openiothub/service/internal_plugin_service.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 class SettingsPage extends StatefulWidget {
   SettingsPage({
@@ -24,6 +25,7 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   bool foreground = false;
   bool auto_start_gateway = false;
+  bool wakeLock = false;
 
 //  New
   final TextEditingController _grpcServiceHost =
@@ -76,7 +78,7 @@ class _SettingsPageState extends State<SettingsPage> {
         trailing: Switch(
           onChanged: (bool newValue) async {
             SharedPreferences prefs = await SharedPreferences.getInstance();
-            await prefs.setBool(FORGE_ROUND_TASK_ENABLE, newValue);
+            await prefs.setBool(SharedPreferencesKey.FORGE_ROUND_TASK_ENABLE, newValue);
             setState(() {
               foreground = newValue;
             });
@@ -111,12 +113,33 @@ class _SettingsPageState extends State<SettingsPage> {
         trailing: Switch(
           onChanged: (bool newValue) async {
             SharedPreferences prefs = await SharedPreferences.getInstance();
-            await prefs.setBool(START_GATEWAY_WHEN_APP_START, newValue);
+            await prefs.setBool(SharedPreferencesKey.START_GATEWAY_WHEN_APP_START, newValue);
             setState(() {
               auto_start_gateway = newValue;
             });
           },
           value: auto_start_gateway,
+          activeColor: Colors.green,
+          inactiveThumbColor: Colors.red,
+        ),
+      ));
+      listView.add(ListTile(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Text(OpenIoTHubCommonLocalizations.of(context).wake_lock_enabled, style: Constants.titleTextStyle),
+          ],
+        ),
+        trailing: Switch(
+          onChanged: (bool newValue) async {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            await prefs.setBool(SharedPreferencesKey.WAKE_LOCK, newValue);
+            setState(() {
+              wakeLock = newValue;
+            });
+            WakelockPlus.toggle(enable: newValue);
+          },
+          value: wakeLock,
           activeColor: Colors.green,
           inactiveThumbColor: Colors.red,
         ),
@@ -141,11 +164,12 @@ class _SettingsPageState extends State<SettingsPage> {
     super.initState();
     _getForgeServiceStatus();
     _getAutoStartGatewayStatus();
+    _getWakeLockStatus();
   }
 
   Future _getForgeServiceStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool? FORGE_ROUND = await prefs.getBool(FORGE_ROUND_TASK_ENABLE);
+    bool? FORGE_ROUND = await prefs.getBool(SharedPreferencesKey.FORGE_ROUND_TASK_ENABLE);
     if (FORGE_ROUND != null && FORGE_ROUND) {
       setState(() {
         foreground = true;
@@ -155,10 +179,20 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Future _getAutoStartGatewayStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool? autoStart = prefs.getBool(START_GATEWAY_WHEN_APP_START);
+    bool? autoStart = prefs.getBool(SharedPreferencesKey.START_GATEWAY_WHEN_APP_START);
     if (autoStart == null || autoStart) {
       setState(() {
         auto_start_gateway = true;
+      });
+    }
+  }
+
+  Future _getWakeLockStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool? WAKE_LOCK_ENABLED = await prefs.getBool(SharedPreferencesKey.WAKE_LOCK);
+    if (WAKE_LOCK_ENABLED != null && WAKE_LOCK_ENABLED) {
+      setState(() {
+        wakeLock = true;
       });
     }
   }

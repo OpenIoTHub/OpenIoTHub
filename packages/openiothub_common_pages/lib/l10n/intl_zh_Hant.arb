@@ -137,6 +137,7 @@
   "input_iot_manager_addr": "請輸入iot-manager grpc服務地址",
   "activate_front_desk_service": "開啟前臺服務(後台保活)",
   "auto_start_gateway": "當APP啟動時開啟內置網關",
+  "wake_lock_enabled": "開啟喚醒鎖(鎖屏保活)",
 
   "my_server_description_example": "我自己的server-go服務器",
   "server_go_addr_example": "guonei.servers.iothub.cloud",

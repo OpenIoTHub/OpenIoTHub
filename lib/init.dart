@@ -18,6 +18,7 @@ import 'package:openiothub_grpc_api/google/protobuf/wrappers.pb.dart';
 import 'package:openiothub_mobile_service/openiothub_mobile_service.dart'
     as openiothub_mobile_service;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:wechat_kit/wechat_kit.dart';
 // import 'package:workmanager/workmanager.dart';
 
@@ -28,6 +29,7 @@ List<Map<String, bool>>? initList;
 Future<void> init() async {
   initBackgroundService();
   initForegroundService();
+  initWakeLockService();
   try {
     await initAD();
   } catch (e) {
@@ -133,8 +135,8 @@ Future setWindowSize() async {
 Future initAD() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   if (Platform.isAndroid &&
-      (!prefs.containsKey(Agreed_Privacy_Policy) ||
-          !(prefs.getBool(Agreed_Privacy_Policy)!))) {
+      (!prefs.containsKey(SharedPreferencesKey.Agreed_Privacy_Policy) ||
+          !(prefs.getBool(SharedPreferencesKey.Agreed_Privacy_Policy)!))) {
     return;
   }
   //添加Provider列表
@@ -147,13 +149,16 @@ Future initAD() async {
 
 Future initForegroundService() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  bool? forgeRound = prefs.getBool(FORGE_ROUND_TASK_ENABLE);
+  bool? forgeRound = prefs.getBool(SharedPreferencesKey.FORGE_ROUND_TASK_ENABLE);
   try {
     if (Platform.isAndroid && forgeRound != null && forgeRound) {
       InternalPluginService.instance.init();
       InternalPluginService.instance.start();
+      // 唤醒锁
+      WakelockPlus.enable();
     } else {
       InternalPluginService.instance.stop();
+      WakelockPlus.disable();
     }
   } catch (e) {
     print(e);
@@ -162,7 +167,7 @@ Future initForegroundService() async {
 
 Future initGatewayService() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  bool? autoStartGateway = prefs.getBool(START_GATEWAY_WHEN_APP_START);
+  bool? autoStartGateway = prefs.getBool(SharedPreferencesKey.START_GATEWAY_WHEN_APP_START);
   try {
     if (autoStartGateway == null || autoStartGateway) {
       if (prefs.containsKey(SharedPreferencesKey.Gateway_Jwt_KEY) &&
@@ -174,6 +179,18 @@ Future initGatewayService() async {
           Config.gatewayGrpcPort,
         );
       }
+    }
+  } catch (e) {
+    print(e);
+  }
+}
+
+Future initWakeLockService() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool? wakeLockEnabled = prefs.getBool(SharedPreferencesKey.WAKE_LOCK);
+  try {
+    if (wakeLockEnabled != null) {
+      WakelockPlus.toggle(enable: wakeLockEnabled);
     }
   } catch (e) {
     print(e);

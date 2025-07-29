@@ -12,6 +12,7 @@ import 'package:openiothub_api/utils/check.dart';
 import 'package:openiothub_common_pages/commPages/feedback.dart';
 import 'package:openiothub_common_pages/gateway/GatewayQrPage.dart';
 import 'package:openiothub_common_pages/utils/goToUrl.dart';
+import 'package:openiothub_constants/constants/SharedPreferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
@@ -194,8 +195,8 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   void _show_read_privacy_policy() {
     // 如果没有登陆并且是PC平台则跳转到本地网关页面
     // 获取同意隐私政策状态
-    bool agreed = prefs!.getBool(Agreed_Privacy_Policy) != null
-        ? prefs!.getBool(Agreed_Privacy_Policy)!
+    bool agreed = prefs!.getBool(SharedPreferencesKey.Agreed_Privacy_Policy) != null
+        ? prefs!.getBool(SharedPreferencesKey.Agreed_Privacy_Policy)!
         : false;
     // showToast("msg:$agreed");
     if (Platform.isAndroid && !agreed) {
@@ -266,7 +267,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                       onTap: () async {
                         // 保存同意状态，之后不再提示,首次还会初始化微信SDK，以后直接由于有状态启动就初始化微信sdk
                         await prefs!
-                            .setBool(Agreed_Privacy_Policy, true)
+                            .setBool(SharedPreferencesKey.Agreed_Privacy_Policy, true)
                             .then((_) {
                           initWechat();
                           initQQ();

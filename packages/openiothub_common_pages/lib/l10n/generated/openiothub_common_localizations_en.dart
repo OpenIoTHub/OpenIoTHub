@@ -424,6 +424,9 @@ class OpenIoTHubCommonLocalizationsEn extends OpenIoTHubCommonLocalizations {
   String get auto_start_gateway => 'Auto start gateway when APP started';
 
   @override
+  String get wake_lock_enabled => 'Wake lock enabled';
+
+  @override
   String get my_server_description_example => 'My own server-go server';
 
   @override

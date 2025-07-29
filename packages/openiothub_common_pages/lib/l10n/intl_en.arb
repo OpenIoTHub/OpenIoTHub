@@ -137,6 +137,7 @@
   "input_iot_manager_addr": "Please enter the iot_manager GRPC service address",
   "activate_front_desk_service": "Android background service keep alive",
   "auto_start_gateway": "Auto start gateway when APP started",
+  "wake_lock_enabled": "Wake lock enabled",
 
   "my_server_description_example": "My own server-go server",
   "server_go_addr_example": "usa.servers.iothub.cloud",
