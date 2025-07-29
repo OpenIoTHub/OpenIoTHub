@@ -392,6 +392,9 @@ class OpenIoTHubCommonLocalizationsZh extends OpenIoTHubCommonLocalizations {
   String get activate_front_desk_service => '开启前台服务(后台保活)';
 
   @override
+  String get auto_start_gateway => '当APP启动时开启内置网关';
+
+  @override
   String get my_server_description_example => '我自己的server-go服务器';
 
   @override
@@ -815,6 +818,9 @@ class OpenIoTHubCommonLocalizationsZhCn
 
   @override
   String get activate_front_desk_service => '开启前台服务(后台保活)';
+
+  @override
+  String get auto_start_gateway => '当APP启动时开启内置网关';
 
   @override
   String get my_server_description_example => '我自己的server-go服务器';
@@ -1242,6 +1248,9 @@ class OpenIoTHubCommonLocalizationsZhHans
   String get activate_front_desk_service => '开启前台服务(后台保活)';
 
   @override
+  String get auto_start_gateway => '当APP启动时开启内置网关';
+
+  @override
   String get my_server_description_example => '我自己的server-go服务器';
 
   @override
@@ -1667,6 +1676,9 @@ class OpenIoTHubCommonLocalizationsZhHant
   String get activate_front_desk_service => '開啟前臺服務(後台保活)';
 
   @override
+  String get auto_start_gateway => '當APP啟動時開啟內置網關';
+
+  @override
   String get my_server_description_example => '我自己的server-go服務器';
 
   @override
@@ -2090,6 +2102,9 @@ class OpenIoTHubCommonLocalizationsZhTw
 
   @override
   String get activate_front_desk_service => '開啟前臺服務(後台保活)';
+
+  @override
+  String get auto_start_gateway => '當APP啟動時開啟內置網關';
 
   @override
   String get my_server_description_example => '我自己的server-go服務器';

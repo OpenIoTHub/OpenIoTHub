@@ -421,6 +421,9 @@ class OpenIoTHubCommonLocalizationsEn extends OpenIoTHubCommonLocalizations {
       'Android background service keep alive';
 
   @override
+  String get auto_start_gateway => 'Auto start gateway when APP started';
+
+  @override
   String get my_server_description_example => 'My own server-go server';
 
   @override

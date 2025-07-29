@@ -859,6 +859,12 @@ abstract class OpenIoTHubCommonLocalizations {
   /// **'Android background service keep alive'**
   String get activate_front_desk_service;
 
+  /// No description provided for @auto_start_gateway.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto start gateway when APP started'**
+  String get auto_start_gateway;
+
   /// No description provided for @my_server_description_example.
   ///
   /// In en, this message translates to:

@@ -23,6 +23,7 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   bool foreground = false;
+  bool auto_start_gateway = false;
 
 //  New
   final TextEditingController _grpcServiceHost =
@@ -100,6 +101,26 @@ class _SettingsPageState extends State<SettingsPage> {
           inactiveThumbColor: Colors.red,
         ),
       ));
+      listView.add(ListTile(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Text(OpenIoTHubCommonLocalizations.of(context).auto_start_gateway, style: Constants.titleTextStyle),
+          ],
+        ),
+        trailing: Switch(
+          onChanged: (bool newValue) async {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            await prefs.setBool(START_GATEWAY_WHEN_APP_START, newValue);
+            setState(() {
+              auto_start_gateway = newValue;
+            });
+          },
+          value: auto_start_gateway,
+          activeColor: Colors.green,
+          inactiveThumbColor: Colors.red,
+        ),
+      ));
     }
     return Scaffold(
         appBar: AppBar(
@@ -119,6 +140,7 @@ class _SettingsPageState extends State<SettingsPage> {
   void initState() {
     super.initState();
     _getForgeServiceStatus();
+    _getAutoStartGatewayStatus();
   }
 
   Future _getForgeServiceStatus() async {
@@ -127,6 +149,16 @@ class _SettingsPageState extends State<SettingsPage> {
     if (FORGE_ROUND != null && FORGE_ROUND) {
       setState(() {
         foreground = true;
+      });
+    }
+  }
+
+  Future _getAutoStartGatewayStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool? auto_start = prefs.getBool(START_GATEWAY_WHEN_APP_START);
+    if (auto_start == null && (auto_start != null && auto_start)) {
+      setState(() {
+        auto_start_gateway = true;
       });
     }
   }
