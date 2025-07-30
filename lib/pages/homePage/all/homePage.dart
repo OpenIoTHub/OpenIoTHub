@@ -81,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
       _show_read_privacy_policy();
     });
     _showSplashAd();
-    _showUserLoginStatus();
+    // _showUserLoginStatus();
   }
 
   @override
