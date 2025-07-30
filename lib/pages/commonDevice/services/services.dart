@@ -508,6 +508,8 @@ class _ServicesListPageState extends State<ServicesListPage> {
           },
         ),
       );
+    }else{
+      _showCreateServiceWidget(device);
     }
     // await _showCreateServiceWidget(device);
     // 恢复开屏广告显示
