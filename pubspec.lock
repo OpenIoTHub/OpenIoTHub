@@ -1953,18 +1953,18 @@ packages:
     dependency: transitive
     description:
       name: video_player_android
-      sha256: "9d5af2d233ba69df803dcf2f31e66d9a4c6206f2d96178df06b09b0ec3056b39"
+      sha256: "0fabf59eea728a6a887f29f2818eafbefb4b37c727dbb62dccef56c9287a692f"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.8.9"
+    version: "2.8.10"
   video_player_avfoundation:
     dependency: transitive
     description:
       name: video_player_avfoundation
-      sha256: "9fedd55023249f3a02738c195c906b4e530956191febf0838e37d0dac912f953"
+      sha256: d716c279c940b5b4625da6bae625e88540d4150a8f3390f961454245e9848675
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.8.0"
+    version: "2.8.1"
   video_player_platform_interface:
     dependency: transitive
     description:
