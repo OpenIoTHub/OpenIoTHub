@@ -12,9 +12,9 @@ Widget build30075Banner(){
         GTAdsCode(alias: "ylh", probability: 10,androidId: "5156668913307244",iosId: "4126763933603341"),
       ],
       //宽
-      width: 600,
+      width: 90*6.4,
       //高
-      height: 75,
+      height: 90,
       //超时时间 当广告失败后会依次重试其他广告 直至所有广告均加载失败 设置超时时间可提前取消
       timeout: 15,
       //广告加载模式 [GTAdsModel.RANDOM]优先级模式 [GTAdsModel.RANDOM]随机模式
@@ -47,16 +47,17 @@ Widget build300150Banner() {
   return GTAdsBannerWidget(
     //需要的广告位数组
       codes: [
-        Platform.isAndroid?
-        GTAdsCode(alias: "csj", probability: 3,androidId: "103478259",iosId: "103475998"):
-        GTAdsCode(alias: "csj", probability: 6,androidId: "103478260",iosId: "103477981"),
-        // GTAdsCode(alias: "csj", probability: 6,androidId: "103478259",iosId: "103475998"),
-        GTAdsCode(alias: "ylh", probability: 10,androidId: "9116265903000255",iosId: "3166463913402394"),
+        // 150高度
+        GTAdsCode(alias: "csj", probability: 3,androidId: "103478259",iosId: "103475998"),
+        // GTAdsCode(alias: "ylh", probability: 10,androidId: "9116265903000255",iosId: "3166463913402394"),
+        // 75高度
+        // GTAdsCode(alias: "csj", probability: 6,androidId: "103478260",iosId: "103477981"),
+        GTAdsCode(alias: "ylh", probability: 10,androidId: "5156668913307244",iosId: "4126763933603341"),
       ],
       //宽
       width: 600,
       //高
-      height: Platform.isAndroid?150:75,
+      height: 150,
       //超时时间 当广告失败后会依次重试其他广告 直至所有广告均加载失败 设置超时时间可提前取消
       timeout: 3,
       //广告加载模式 [GTAdsModel.RANDOM]优先级模式 [GTAdsModel.RANDOM]随机模式

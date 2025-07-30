@@ -17,6 +17,7 @@ import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../widgets/ads/banner_gtads.dart';
+import '../../widgets/ads/banner_ylh.dart';
 import '../commonPages/scanQR.dart';
 import '../guide/guidePage.dart';
 import './mDNSServiceListPage.dart';
@@ -109,7 +110,7 @@ class _GatewayListPageState extends State<GatewayListPage> {
       itemCount: tiles.length + 1,
       itemBuilder: (context, index) {
         if (index == 0) {
-          return build30075Banner();
+          return buildYLHBanner();
         }
         return tiles.elementAt(index - 1);
       },

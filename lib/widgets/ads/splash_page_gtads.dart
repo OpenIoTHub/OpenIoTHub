@@ -42,7 +42,7 @@ class _SplashPageState extends State<SplashPage> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             //超时时间 当广告失败后会依次重试其他广告 直至所有广告均加载失败 设置超时时间可提前取消
-            timeout: 2,
+            timeout: 3,
             //广告加载模式 [GTAdsModel.PRIORITY]优先级模式 [GTAdsModel.RANDOM]随机模式
             //默认随机模式
             model: GTAdsModel.PRIORITY,

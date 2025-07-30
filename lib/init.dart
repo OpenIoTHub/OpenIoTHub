@@ -141,8 +141,8 @@ Future initAD() async {
   }
   //添加Provider列表
   GTAds.addProviders([
-    GTAdsCsjProvider("csj", "5695020", "5695009", appName: "云亿连"),
     GTAdsYlhProvider("ylh", "1210892167", "1210892181"),
+    GTAdsCsjProvider("csj", "5695020", "5695009", appName: "云亿连"),
   ]);
   initList = await GTAds.init(isDebug: true);
 }

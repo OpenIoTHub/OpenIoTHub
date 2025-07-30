@@ -22,6 +22,7 @@ import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/util/GetParameters.dart';
 
 import '../../widgets/ads/banner_gtads.dart';
+import '../../widgets/ads/banner_ylh.dart';
 
 // 网关下面的mdns服务
 class MDNSServiceListPage extends StatefulWidget {
@@ -135,8 +136,8 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
       // padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
       itemCount: tiles.length + 1,
       itemBuilder: (context, index) {
-        if (index == 0) {
-          return build30075Banner();
+        if (tiles.isNotEmpty && index == 0) {
+          return buildYLHBanner();
         }
         return tiles.elementAt(index - 1);
       },

@@ -80,7 +80,11 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
       timer.cancel();
       _show_read_privacy_policy();
     });
-    _showSplashAd();
+    Timer.periodic(const Duration(milliseconds: 300), (timer) {
+      timer.cancel();
+      // 防止跟上面的调用冲突
+      _showSplashAd();
+    });
     // _showUserLoginStatus();
   }
 

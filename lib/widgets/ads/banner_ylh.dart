@@ -12,7 +12,7 @@ Widget buildYLHBanner(){
     //ios广告id
     iosId: "4126763933603341",
     //广告宽 单位dp
-    viewWidth: 500,
+    viewWidth: 80*6.4,
     //广告高  单位dp   宽高比应该为6.4:1
     viewHeight: 80,
     //下载二次确认弹窗 默认false

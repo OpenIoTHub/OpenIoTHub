@@ -28,8 +28,7 @@ import 'package:tdesign_flutter/tdesign_flutter.dart';
 import '../../configs/var.dart';
 import '../../widgets/ads/banner_gtads.dart';
 
-// import '../../widgets/ads/banner_ylh.dart';
-import '../../widgets/ads/banner_ylh_test.dart';
+import '../../widgets/ads/banner_ylh.dart';
 import '../../widgets/toast.dart';
 
 class MdnsServiceListPage extends StatefulWidget {
@@ -43,6 +42,7 @@ class MdnsServiceListPage extends StatefulWidget {
 }
 
 class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
+  bool _showAD = false;
   Utf8Decoder u8decodeer = const Utf8Decoder();
   final Map<String, PortServiceInfo> _IoTDeviceMap =
       <String, PortServiceInfo>{};
@@ -60,6 +60,9 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       refreshmDNSServicesFromeRemote();
     });
     Future.delayed(const Duration(milliseconds: 2000)).then((value) {
+      setState(() {
+        _showAD = true;
+      });
       refreshmDNSServicesFromeRemote();
     });
     _timerPeriodRemote = Timer.periodic(const Duration(seconds: 5), (
@@ -104,12 +107,12 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     });
     final divided = ListView.separated(
       padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-      itemCount: tiles.length + 1,
+      itemCount: _showAD?tiles.length + 1:tiles.length,
       itemBuilder: (context, index) {
-        if (index == 0) {
-          return build30075Banner();
+        if (_showAD&&index == 0) {
+          return tiles.isNotEmpty ? buildYLHBanner() : Container();
         }
-        return tiles.elementAt(index - 1);
+        return tiles.elementAt(_showAD?index - 1:index);
       },
       separatorBuilder: (context, index) {
         return Container(
