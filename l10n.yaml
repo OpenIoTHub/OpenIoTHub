@@ -1,0 +1,12 @@
+arb-dir: lib/l10n
+output-class: OpenIoTHubLocalizations
+output-localization-file: openiothub_localizations.dart
+output-dir: lib/l10n/generated
+#template-arb-file: intl_en.arb
+template-arb-file: intl_zh.arb
+#preferred-supported-locales: ["en"]
+preferred-supported-locales: ["zh"]
+synthetic-package: false
+nullable-getter: false
+format: true
+untranslated-messages-file: lib/l10n/untranslated.json

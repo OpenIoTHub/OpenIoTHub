@@ -1,0 +1,324 @@
+name: Test
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  project-id: codes.merritt.FeelingFinder
+
+jobs:
+  android:
+    name: Android
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: robinraju/release-downloader@v1
+        with:
+          repository: 'OpenIoTHub/OpenIoTHubService'
+          latest: true
+          fileName: 'mobile.aar'
+          out-file-path: 'packages/openiothub_mobile_service/android/libs'
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
+      - name: Init Signature
+        run: |
+          cd android
+          touch key.properties
+          echo storePassword='${{ secrets.STORE_PASSWORD }}' >> key.properties
+          echo keyPassword='${{ secrets.KEY_PASSWORD }}' >> key.properties
+          echo keyAlias='${{ secrets.KEY_ALIAS }}' >> key.properties
+          echo storeFile='../key.jks' >> key.properties
+          # 保存到到key.jks, base64 -i key.jks -o key.jks.base64
+          echo ${{ secrets.KEY_STORE }} | base64 --decode > $GITHUB_WORKSPACE/android/key.jks
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '23'
+      - name: Set up Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: 3.29.3
+#      - run: flutter pub upgrade
+      - run: flutter pub get
+      - run: flutter build apk --debug
+      - uses: actions/upload-artifact@v4
+        with:
+          name: app-debug-all.apk
+          path: ./build/app/outputs/flutter-apk/app-debug.apk
+      - run: flutter build appbundle --debug
+      - uses: actions/upload-artifact@v4
+        with:
+          name: app-debug-all.aab
+          path: ./build/app/outputs/bundle/debug/app-debug.aab
+
+  ios:
+    name: iOS
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: robinraju/release-downloader@v1
+        with:
+          repository: 'OpenIoTHub/OpenIoTHubService'
+          latest: true
+          fileName: 'OpenIoTHubMobile.xcframework.zip'
+          out-file-path: 'packages/openiothub_mobile_service/darwin'
+          extract: true
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
+      - run: |
+          ls packages/openiothub_mobile_service/darwin
+          rm packages/openiothub_mobile_service/darwin/OpenIoTHubMobile.xcframework.zip
+          ls packages/openiothub_mobile_service/darwin
+      - name: Set up Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: 3.29.3
+      - run: flutter config --no-enable-android
+      - run: flutter pub get
+      - run: flutter build ipa  --release --no-codesign
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Runner.xcarchive
+          path: ./build/ios/archive/Runner.xcarchive
+
+  linux:
+    name: Linux
+    runs-on: ubuntu-22.04
+    env:
+      SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: robinraju/release-downloader@v1
+        with:
+          repository: 'OpenIoTHub/OpenIoTHubService'
+          latest: true
+          fileName: 'libmobile_amd64.so'
+          out-file-path: 'packages/openiothub_mobile_service/linux/libs'
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
+      - run: mv packages/openiothub_mobile_service/linux/libs/libmobile_amd64.so packages/openiothub_mobile_service/linux/libs/libmobile.so
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: 3.29.3
+      - name: Install required build tools for linux
+        run: sudo apt-get update && sudo apt-get install clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev locate rpm patchelf libfuse2
+      - name: Build linux release
+        run: |
+          flutter config --enable-linux-desktop
+          flutter config --no-enable-android
+          flutter pub get
+          flutter build linux --release
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux-release.zip
+          path: ./build/linux/x64/release/bundle
+      - name: Install flutter_distributor
+        run: |
+          dart pub global activate flutter_distributor
+      - name: Build deb package
+        run: |
+          flutter_distributor package --platform linux --targets deb
+      - uses: actions/upload-artifact@v4
+        with:
+          name: openiothub.deb
+          path: dist/**/**/*.deb
+      - name: Build rpm package
+        run: |
+          flutter_distributor package --platform linux --targets rpm
+      - uses: actions/upload-artifact@v4
+        with:
+          name: openiothub.rpm
+          path: dist/**/**/*.rpm
+      - name: Build AppImage package
+        run: |
+          wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/13/obsolete-appimagetool-x86_64.AppImage"
+          chmod +x appimagetool
+          sudo mv appimagetool /usr/local/bin/
+          flutter_distributor package --platform linux --targets appimage
+      - uses: actions/upload-artifact@v4
+        with:
+          name: openiothub.AppImage
+          path: dist/**/**/*.AppImage
+      - run: rm -rf ./build
+      - name: Install snapcraft
+        run: |
+          sudo snap install snapcraft --classic
+      - run: hash -r
+      # https://github.com/CircleCI-Public/flutter-orb/issues/52
+      - run: flutter clean
+      - name: Setup LXD
+        uses: canonical/setup-lxd@main
+        with:
+          channel: latest/stable
+      - name: run snapcraft
+        run: |
+          snapcraft --use-lxd
+
+      - run: ls -a
+      - uses: actions/upload-artifact@v4
+        with:
+          name: openiothub_0.1.0_amd64.snap
+          path: ./openiothub_0.1.0_amd64.snap
+#
+  macos:
+    name: MacOS
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: robinraju/release-downloader@v1
+        with:
+          repository: 'OpenIoTHub/OpenIoTHubService'
+          latest: true
+          fileName: 'OpenIoTHubMobile.xcframework.zip'
+          out-file-path: 'packages/openiothub_mobile_service/darwin'
+          extract: true
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
+      - run: |
+          ls packages/openiothub_mobile_service/darwin
+          rm packages/openiothub_mobile_service/darwin/OpenIoTHubMobile.xcframework.zip
+          ls packages/openiothub_mobile_service/darwin
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: 3.29.3
+      - run: flutter config --enable-macos-desktop
+      - run: flutter config --no-enable-android
+      - run: flutter pub get
+      - run: flutter build macos --debug
+      - run: mkdir -p build/dmg
+      - run: cp -R build/macos/Build/Products/Debug/OpenIoTHub.app build/dmg/OpenIoTHub.app
+      - run: ln -s /Applications  build/dmg
+      - run: ls build/dmg
+      # https://github.com/create-dmg/create-dmg.git
+      - run: hdiutil create -srcfolder build/dmg -volname "OpenIoTHub" -format UDZO -ov -imagekey zlib-level=9 openiothub.dmg
+      - uses: actions/upload-artifact@v4
+        with:
+          name: openiothub.dmg
+          path: ./openiothub.dmg
+#
+  windows:
+    name: Windows
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: robinraju/release-downloader@v1
+        with:
+          repository: 'OpenIoTHub/OpenIoTHubService'
+          latest: true
+          fileName: 'mobile_amd64.dll'
+          out-file-path: 'packages/openiothub_mobile_service/windows/libs'
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
+      - run: Rename-Item -Path "packages/openiothub_mobile_service/windows/libs/mobile_amd64.dll" -NewName "mobile.dll"
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: 3.29.3
+      - run: flutter config --enable-windows-desktop
+      - run: flutter config --no-enable-android
+      - run: flutter pub get
+      - run: flutter build windows --release
+#      - run: Compress-Archive -Path build\windows\runner\Release -DestinationPath windows-release.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-release.zip
+          path: ./build/windows/x64/runner/Release
+      - run: flutter clean
+      - run: flutter pub get
+      - run: dart run msix:create
+      - uses: actions/upload-artifact@v4
+        with:
+         name: openiothub.msix
+         path: ./build/windows/x64/runner/Release/openiothub.msix
+      - name: Building the installer
+        run: |
+          "%programfiles(x86)%\Inno Setup 6\iscc.exe" "windows-setup.iss"
+        shell: cmd
+      - name: Upload the installer as an artifact
+        uses: actions/upload-artifact@v4
+        if: ${{ github.event_name != 'pull_request' }}
+        with:
+          name: OpenIoTHub-Setup.exe
+          path: Output/OpenIoTHub-Setup.exe
+
+  build-flutter-app:
+    name: Build and compressed Flutter app
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - uses: robinraju/release-downloader@v1
+        with:
+          repository: 'OpenIoTHub/OpenIoTHubService'
+          latest: true
+          fileName: 'libmobile_amd64.so'
+          out-file-path: 'packages/openiothub_mobile_service/linux/libs'
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
+      - run: mv packages/openiothub_mobile_service/linux/libs/libmobile_amd64.so packages/openiothub_mobile_service/linux/libs/libmobile.so
+      - name: Install Flutter dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev libx11-dev pkg-config cmake ninja-build libblkid-dev
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: 3.29.3
+
+      - name: Build Flutter linux version
+        working-directory: ${{ github.workspace }}
+        run: |
+          ./build-flutter-app.sh
+
+      - name: Upload app archive to workflow
+        uses: actions/upload-artifact@v4
+        with:
+          name: OpenIoTHubApp-Archive
+          path: OpenIoTHubApp-Linux-Portable.tar.gz
+
+  build-flatpak:
+    name: Build flatpak
+    needs: build-flutter-app
+    runs-on: ubuntu-latest
+    container:
+      image: bilelmoussaoui/flatpak-github-actions:freedesktop-24.08
+      options: --privileged
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: OpenIoTHubApp-Archive
+
+      - name: print current dir
+        run: |
+          ls -a
+          pwd
+          ls flathub_repo
+          cat flathub_repo/com.iotserv.OpenIoTHubApp.yml
+
+      - name: Build .flatpak
+        uses: bilelmoussaoui/flatpak-github-actions/flatpak-builder@v6
+        with:
+          bundle: OpenIoTHubApp.flatpak
+          manifest-path: flathub_repo/com.iotserv.OpenIoTHubApp.yml
+          cache-key: flatpak-builder-${{ github.sha }}
+          upload-artifact: false
+
+      - name: Upload .flatpak artifact to workflow
+        uses: actions/upload-artifact@v4
+        with:
+          name: Flatpak artifact
+          path: OpenIoTHubApp.flatpak

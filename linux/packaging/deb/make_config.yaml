@@ -1,0 +1,29 @@
+display_name: 云亿连
+package_name: openiothub
+maintainer:
+  name: openiothub
+  email: newfarry@126.com
+co_authors:
+  - name: iotserv
+    email: yu@iotserv.com
+priority: optional
+section: x11
+installed_size: 6604
+essential: false
+icon: assets/images/logos/openiothub_logo_1024x1024.png
+
+postinstall_scripts:
+  - echo "ok"
+postuninstall_scripts:
+  - echo "ok"
+
+keywords:
+  - NAT
+  - Application
+
+generic_name: NAT Application
+
+categories:
+  - Network
+
+startup_notify: true

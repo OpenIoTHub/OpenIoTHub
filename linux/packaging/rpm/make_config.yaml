@@ -1,0 +1,24 @@
+icon: assets/images/logos/openiothub_logo_1024x1024.png
+summary: NAT Network
+group: Application/Emulator
+vendor: farry
+packager: farry
+packagerEmail: newfarry@126.com
+license: MIT
+url: https://github.com/openiothub/openiothub
+
+display_name: 云亿连
+
+keywords:
+  - NAT
+  - 内网穿透
+  - 远程
+  - iothub
+
+generic_name: OpenIoTHub Application
+
+categories:
+  - Cool
+  - Awesome
+
+startup_notify: true

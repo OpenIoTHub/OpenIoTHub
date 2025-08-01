@@ -1,0 +1,14 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+
+Name=OpenIoTHub
+Name[zh_CN]=云亿连
+Comment=OpenIoTHub flatpak app
+Comment[zh_CN]=云亿连Linux桌面版
+Categories=Network;
+
+Icon=com.iotserv.OpenIoTHubApp
+Exec=openiothub
+Terminal=false
+StartupWMClass=openiothub

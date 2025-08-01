@@ -1,0 +1,38 @@
+display_name: 云亿连
+
+icon: assets/images/logos/openiothub_logo_1024x1024.png
+
+keywords:
+  - NAT
+  - 内网穿透
+  - 远程
+  - iothub
+
+generic_name: Cool Application
+
+#actions:
+#  - name: Say Hi
+#    label: say-hi
+#    arguments:
+#      - --say
+#      - hi
+#  - name: Say Bye
+#    label: say-bye
+#    arguments:
+#      - --say
+#      - bye
+
+categories:
+  - Network
+
+startup_notify: true
+
+# 您可以指定要与您的应用捆绑的共享库
+#
+# flutter_distributor 会自动检测您的应用所依赖的共享库，但您也可以在此处手动指定它们。
+#
+# 以下示例展示了如何将 libcurl 库与您的应用捆绑在一起
+#
+# include:
+#   - libcurl.so.4
+include: []
