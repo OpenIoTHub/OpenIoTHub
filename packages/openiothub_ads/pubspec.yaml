@@ -16,6 +16,8 @@ dependencies:
   gtads_csj: ^1.5.0
   #  #腾讯优量汇广告
   gtads_ylh: ^1.5.0
+  shared_preferences: ^2.1.1
+  openiothub_constants: ^1.0.2+3
 
 dev_dependencies:
   flutter_test:

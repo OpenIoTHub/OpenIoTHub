@@ -3,11 +3,13 @@ import 'dart:io';
 class CsjAdConfig {
 
   // Andriod
+  static const String appIdAndroid = '1037524';
   static const String appOpenAdUnitIdAndroid = '1037524';
   static const String bannerAdUnitIdAndroid = '1078260';
   static const String rewardedAdUnitIdAnndroid = '1035474';
 
   // iOS
+  static const String appIdiOS = '1076284';
   static const String appOpenAdUnitIdiOS = '1076284';
   static const String bannerAdUnitIdiOS = '1037981';
   static const String rewardedAdUnitIdiOS = '1035455';
@@ -16,6 +18,14 @@ class CsjAdConfig {
 
   static const postIntervaCountInlineAdsDefault = 5;
   static const clickAmountCountInterstitalAdsDefault = 3;
+
+  static String getAppId() {
+    if (Platform.isAndroid) {
+      return appIdAndroid;
+    } else {
+      return appIdiOS;
+    }
+  }
 
   static String getBannerAdUnitId() {
     if (Platform.isAndroid) {

@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:openiothub_ads/ylh/banner_ylh.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -14,9 +15,10 @@ import 'fullScreenWeb.dart';
 GlobalKey<WebScreenState> webGlobalKey = GlobalKey();
 
 class WebScreen extends StatefulWidget {
-  const WebScreen({super.key, required this.startUrl});
+  const WebScreen({super.key, required this.startUrl, this.title});
 
   final String startUrl;
+  final String? title;
 
   @override
   State<StatefulWidget> createState() {
@@ -74,11 +76,11 @@ class WebScreenState extends State<WebScreen> {
         child: Scaffold(
           appBar: AppBar(
             // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-            title: Text("OpenList"),
+            title: Text(widget.title==null?"Web":widget.title!),
             actions: _getActions(),
           ),
           body: Column(children: <Widget>[
-            SizedBox(height: MediaQuery.of(context).padding.top),
+            // SizedBox(height: MediaQuery.of(context).padding.top),
             LinearProgressIndicator(
               value: _progress,
               backgroundColor: Colors.grey[200],
@@ -163,6 +165,7 @@ class WebScreenState extends State<WebScreen> {
                 },
               ),
             ),
+            buildYLHBanner(context),
           ]),
         ));
   }

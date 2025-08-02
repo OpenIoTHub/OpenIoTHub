@@ -3,11 +3,13 @@ import 'dart:io';
 class YlhAdConfig {
 
   // Andriod
+  static const String appIdAndroid = '1037524';
   static const String appOpenAdUnitIdAndroid = '3196809258';
   static const String bannerAdUnitIdAndroid = '515666807244';
   static const String rewardedAdUnitIdAnndroid = '117809701965';
 
   // iOS
+  static const String appIdiOS = '1076284';
   static const String appOpenAdUnitIdiOS = '410696209357';
   static const String bannerAdUnitIdiOS = '4126733603341';
   static const String rewardedAdUnitIdiOS = '819349913258';
@@ -16,6 +18,14 @@ class YlhAdConfig {
 
   static const postIntervaCountInlineAdsDefault = 5;
   static const clickAmountCountInterstitalAdsDefault = 3;
+
+  static String getAppId() {
+    if (Platform.isAndroid) {
+      return appIdAndroid;
+    } else {
+      return appIdiOS;
+    }
+  }
 
   static String getBannerAdUnitId() {
     if (Platform.isAndroid) {

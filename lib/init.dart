@@ -5,13 +5,11 @@ import 'dart:isolate';
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gtads/gtads.dart';
-import 'package:gtads_csj/gtads_csj.dart';
-import 'package:gtads_ylh/gtads_ylh.dart';
 import 'package:jaguar/jaguar.dart';
 import 'package:jaguar_flutter_asset/jaguar_flutter_asset.dart';
 import 'package:openiothub/service/internal_plugin_service.dart';
 import 'package:openiothub/util/check/check.dart' as check;
+import 'package:openiothub_ads/gtads/init.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_constants/openiothub_constants.dart';
 import 'package:openiothub_grpc_api/google/protobuf/wrappers.pb.dart';
@@ -133,18 +131,7 @@ Future setWindowSize() async {
 }
 
 Future initAD() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  if (Platform.isAndroid &&
-      (!prefs.containsKey(SharedPreferencesKey.Agreed_Privacy_Policy) ||
-          !(prefs.getBool(SharedPreferencesKey.Agreed_Privacy_Policy)!))) {
-    return;
-  }
-  //添加Provider列表
-  GTAds.addProviders([
-    GTAdsYlhProvider("ylh", "1210892167", "1210892181"),
-    GTAdsCsjProvider("csj", "5695020", "5695009", appName: "云亿连"),
-  ]);
-  initList = await GTAds.init(isDebug: true);
+  initList = await initGTADsAD();
 }
 
 Future initForegroundService() async {

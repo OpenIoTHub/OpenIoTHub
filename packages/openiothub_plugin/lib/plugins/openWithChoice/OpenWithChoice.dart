@@ -7,7 +7,7 @@ import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:openiothub_plugin/openiothub_plugin.dart';
 import 'package:openiothub_plugin/plugins/mdnsService/mDNSService/ssh/SSHPage.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:openiothub_common_pages/web/web.dart';
 
 import '../../utils/portConfig2portService.dart';
 import '../mdnsService/mDNSService/VNCRFBWebPage.dart';
@@ -143,47 +143,14 @@ class OpenWithChoice extends StatelessWidget {
               Navigator.of(ctx).pop();
             });
           } else if (title == 'Web') {
+            var _url = "http://${Config.webgRpcIp}:${portConfig.localProt}";
             if (!Platform.isAndroid) {
-              _launchURL("http://${Config.webgRpcIp}:${portConfig.localProt}");
+              _launchURL(_url);
               Navigator.of(ctx).pop();
             } else {
-              // TODO 更换内置Web浏览器，带广告
-              WebViewController controller = WebViewController()
-                ..setJavaScriptMode(JavaScriptMode.unrestricted)
-                ..setBackgroundColor(const Color(0x00000000))
-                ..setNavigationDelegate(
-                  NavigationDelegate(
-                    onProgress: (int progress) {
-                      // Update loading bar.
-                    },
-                    onPageStarted: (String url) {},
-                    onPageFinished: (String url) {},
-                    onWebResourceError: (WebResourceError error) {},
-                    onNavigationRequest: (NavigationRequest request) {
-                      return NavigationDecision.navigate;
-                    },
-                  ),
-                )
-                ..loadRequest(Uri.parse(
-                    "http://${Config.webgRpcIp}:${portConfig.localProt}"));
               Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
-                return Scaffold(
-                  appBar: AppBar(title: Text(OpenIoTHubPluginLocalizations.of(ctx).web_browser), actions: <Widget>[
-                    IconButton(
-                        icon: Icon(
-                          Icons.open_in_browser,
-                          color: Colors.teal,
-                        ),
-                        onPressed: () {
-                          _launchURL(
-                              "http://${Config.webgRpcIp}:${portConfig.localProt}");
-                        })
-                  ]),
-                  body: WebViewWidget(controller: controller),
-                );
-              })).then((_) {
-                Navigator.of(ctx).pop();
-              });
+                return WebScreen(startUrl: _url,);
+              }));
             }
           } else if (title == 'RDP Remote Desktop') {
             var url =
