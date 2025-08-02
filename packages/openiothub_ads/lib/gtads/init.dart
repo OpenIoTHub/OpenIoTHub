@@ -6,8 +6,7 @@ import 'package:gtads_ylh/gtads_ylh.dart';
 import 'package:openiothub_constants/constants/SharedPreferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../configs/csj_config.dart';
-import '../configs/ylh_config.dart';
+import '../configs/configs.dart';
 
 Future initGTADsAD() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -20,6 +19,8 @@ Future initGTADsAD() async {
   GTAds.addProviders([
     GTAdsYlhProvider("ylh", YlhAdConfig.getAppId(), YlhAdConfig.getAppId()),
     GTAdsCsjProvider("csj", CsjAdConfig.getAppId(), CsjAdConfig.getAppId(), appName: "云亿连"),
+    // GTAdsYlhProvider("ylh", YlhAdConfig.appIdAndroid, YlhAdConfig.appIdiOS),
+    // GTAdsCsjProvider("csj", CsjAdConfig.appIdAndroid, CsjAdConfig.appIdiOS, appName: "云亿连"),
   ]);
   var initList = await GTAds.init(isDebug: true);
   return initList;
