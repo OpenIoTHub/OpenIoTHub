@@ -57,7 +57,7 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
   String get config_device_wifi => 'Config Device WiFi';
 
   @override
-  String get scan_QR => 'Scan QR';
+  String get scan_QR => 'Scan QR(recommend)';
 
   @override
   String get find_local_gateway => 'Find Local Gateway';

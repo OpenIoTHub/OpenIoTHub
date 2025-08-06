@@ -15,7 +15,7 @@
   "app_local_gateway": "本机网关",
   "profile_about_this_app": "关于本软件",
   "config_device_wifi": "配置设备WiFi",
-  "scan_QR": "扫描二维码",
+  "scan_QR": "扫描二维码(推荐)",
   "find_local_gateway": "发现局域网网关",
   "add_remote_host": "添加远程主机",
   "i_also_have_a_bottom_line": "我也是有底线的",

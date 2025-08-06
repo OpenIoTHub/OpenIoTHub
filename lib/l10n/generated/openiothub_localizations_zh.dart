@@ -57,7 +57,7 @@ class OpenIoTHubLocalizationsZh extends OpenIoTHubLocalizations {
   String get config_device_wifi => '配置设备WiFi';
 
   @override
-  String get scan_QR => '扫描二维码';
+  String get scan_QR => '扫描二维码(推荐)';
 
   @override
   String get find_local_gateway => '发现局域网网关';
@@ -568,7 +568,7 @@ class OpenIoTHubLocalizationsZhCn extends OpenIoTHubLocalizationsZh {
   String get config_device_wifi => '配置设备WiFi';
 
   @override
-  String get scan_QR => '扫描二维码';
+  String get scan_QR => '扫描二维码(推荐)';
 
   @override
   String get find_local_gateway => '发现局域网网关';
@@ -1079,7 +1079,7 @@ class OpenIoTHubLocalizationsZhHans extends OpenIoTHubLocalizationsZh {
   String get config_device_wifi => '配置设备WiFi';
 
   @override
-  String get scan_QR => '扫描二维码';
+  String get scan_QR => '扫描二维码(推荐)';
 
   @override
   String get find_local_gateway => '发现局域网网关';
@@ -1590,7 +1590,7 @@ class OpenIoTHubLocalizationsZhHant extends OpenIoTHubLocalizationsZh {
   String get config_device_wifi => '配置設備WiFi';
 
   @override
-  String get scan_QR => '掃描二維碼';
+  String get scan_QR => '掃描二維碼(推薦)';
 
   @override
   String get find_local_gateway => '發現局域網網關';
@@ -2101,7 +2101,7 @@ class OpenIoTHubLocalizationsZhTw extends OpenIoTHubLocalizationsZh {
   String get config_device_wifi => '配置設備WiFi';
 
   @override
-  String get scan_QR => '掃描二維碼';
+  String get scan_QR => '掃描二維碼(推薦)';
 
   @override
   String get find_local_gateway => '發現局域網網關';

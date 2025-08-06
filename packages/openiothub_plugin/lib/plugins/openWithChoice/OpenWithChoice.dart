@@ -144,7 +144,7 @@ class OpenWithChoice extends StatelessWidget {
             });
           } else if (title == 'Web') {
             var _url = "http://${Config.webgRpcIp}:${portConfig.localProt}";
-            if (!Platform.isAndroid) {
+            if (Platform.isLinux) {
               _launchURL(_url);
               Navigator.of(ctx).pop();
             } else {

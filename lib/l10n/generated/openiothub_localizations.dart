@@ -204,7 +204,7 @@ abstract class OpenIoTHubLocalizations {
   /// No description provided for @scan_QR.
   ///
   /// In zh, this message translates to:
-  /// **'扫描二维码'**
+  /// **'扫描二维码(推荐)'**
   String get scan_QR;
 
   /// No description provided for @find_local_gateway.
