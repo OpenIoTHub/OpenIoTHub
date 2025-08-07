@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/pages/commonDevice/services/services.dart';
 import 'package:openiothub/pages/commonDevice/widgets/AddHost.dart';
@@ -29,6 +30,7 @@ class CommonDeviceListPage extends StatefulWidget {
 }
 
 class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
+  BannerAd? _bannerAd;
   List<SessionConfig> _SessionList = [];
   List<Device> _CommonDeviceList = [];
   late Timer _timerPeriod;
@@ -42,6 +44,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
     _timerPeriod = Timer.periodic(const Duration(seconds: 15), (Timer timer) {
       getAllCommonDevice();
     });
+    _loadAd();
     print("init common devie List");
   }
 
@@ -102,7 +105,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
       itemCount: tiles.length+1,
       itemBuilder: (context, index) {
         if (index == 0) {
-          return buildYLHBanner(context);
+          return _buildBanner();
         }
         return tiles.elementAt(index-1);
       },
@@ -226,5 +229,91 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
           setState(() {});
         });
       });
+  }
+
+
+  _buildBanner() {
+    return isCnMainland(OpenIoTHubLocalizations.of(context).localeName)?
+    buildYLHBanner(context):
+    _bannerAd==null?Container():SafeArea(
+      child: SizedBox(
+        width: _bannerAd!.size.width.toDouble(),
+        height: _bannerAd!.size.height.toDouble(),
+        child: AdWidget(ad: _bannerAd!),
+      ),
+    );
+  }
+
+  void _loadAd() async {
+    // // [START_EXCLUDE silent]
+    // // Only load an ad if the Mobile Ads SDK has gathered consent aligned with
+    // // the app's configured messages.
+    // var canRequestAds = await _consentManager.canRequestAds();
+    // if (!canRequestAds) {
+    //   print("!canRequestAds");
+    //   return;
+    // }
+    //
+    // if (!mounted) {
+    //   print("!mounted");
+    //   return;
+    // }
+    // [END_EXCLUDE]
+    // [START get_ad_size]
+    // Get an AnchoredAdaptiveBannerAdSize before loading the ad.
+    final size = await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
+      MediaQuery.sizeOf(context).width.truncate(),
+    );
+    // [END get_ad_size]
+
+    if (size == null) {
+      // Unable to get width of anchored banner.
+      print("size == null");
+      return;
+    }
+
+    BannerAd(
+      adUnitId: GoogleAdConfig.getBannerAdUnitId(),
+      request: const AdRequest(),
+      size: size,
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          // Called when an ad is successfully received.
+          debugPrint("Ad was loaded.");
+          setState(() {
+            _bannerAd = ad as BannerAd;
+          });
+        },
+        onAdFailedToLoad: (ad, err) {
+          // Called when an ad request failed.
+          debugPrint("Ad failed to load with error: $err");
+          ad.dispose();
+        },
+        // [START_EXCLUDE silent]
+        // [START ad_events]
+        onAdOpened: (Ad ad) {
+          // Called when an ad opens an overlay that covers the screen.
+          debugPrint("Ad was opened.");
+        },
+        onAdClosed: (Ad ad) {
+          // Called when an ad removes an overlay that covers the screen.
+          debugPrint("Ad was closed.");
+        },
+        onAdImpression: (Ad ad) {
+          // Called when an impression occurs on the ad.
+          debugPrint("Ad recorded an impression.");
+        },
+        onAdClicked: (Ad ad) {
+          // Called when an a click event occurs on the ad.
+          debugPrint("Ad was clicked.");
+        },
+        onAdWillDismissScreen: (Ad ad) {
+          // iOS only. Called before dismissing a full screen view.
+          debugPrint("Ad will be dismissed.");
+        },
+        // [END ad_events]
+        // [END_EXCLUDE]
+      ),
+    ).load();
   }
 }

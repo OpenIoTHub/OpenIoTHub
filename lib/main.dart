@@ -8,15 +8,11 @@ import 'package:openiothub/init.dart';
 import 'package:openiothub/model/custom_theme.dart';
 import 'package:openiothub/pages/homePage/all/homePage.dart';
 import 'package:openiothub/pages/splashPage/splashAdPage.dart';
-import 'package:openiothub/service/internal_plugin_service.dart';
 import 'package:openiothub_common_pages/openiothub_common_pages.dart';
 import 'package:openiothub_plugin/openiothub_plugin.dart';
 import 'package:provider/provider.dart';
 import 'package:oktoast/oktoast.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
-
-import 'configs/consts.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

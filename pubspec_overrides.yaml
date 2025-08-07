@@ -9,3 +9,5 @@ dependency_overrides:
     path: ./packages/openiothub_api
   openiothub_common_pages:
     path: ./packages/openiothub_common_pages
+  openiothub_ads:
+    path: ./packages/openiothub_ads

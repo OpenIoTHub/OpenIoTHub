@@ -100,6 +100,7 @@ dependencies:
   wakelock_plus: ^1.3.2
   openiothub_ads:
     path: ./packages/openiothub_ads
+  google_mobile_ads: ^6.0.0
 #  #优量汇广告
 #  gtads_sigmob: ^1.5.0
 #  #百度百青藤广告

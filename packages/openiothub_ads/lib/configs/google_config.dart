@@ -3,14 +3,14 @@ import 'dart:io';
 class GoogleAdConfig {
 
   // Andriod
-  static const String appOpenAdUnitIdAndroid = 'ca-app-pub-3940256099942544/1033173712';
-  static const String bannerAdUnitIdAndroid = 'ca-app-pub-3940256099942544/6300978111';
-  static const String rewardedAdUnitIdAnndroid = 'ca-app-pub-3940256099942544/2247696110';
+  static const String appOpenAdUnitIdAndroid = 'ca-app-pub-3940256099942544/9257395921';
+  static const String bannerAdUnitIdAndroid = 'ca-app-pub-3940256099942544/9214589741';
+  static const String rewardedAdUnitIdAnndroid = 'ca-app-pub-3940256099942544/5224354917';
 
   // iOS
-  static const String appOpenAdUnitIdiOS = 'ca-app-pub-3940256099942544/4411468910';
-  static const String bannerAdUnitIdiOS = 'ca-app-pub-3940256099942544/2934735716';
-  static const String rewardedAdUnitIdiOS = 'ca-app-pub-3940256099942544/3986624511';
+  static const String appOpenAdUnitIdiOS = 'ca-app-pub-3940256099942544/5575463023';
+  static const String bannerAdUnitIdiOS = 'ca-app-pub-3940256099942544/2435281174';
+  static const String rewardedAdUnitIdiOS = 'ca-app-pub-3940256099942544/1712485313';
 
   // -- Don't edit these --
 

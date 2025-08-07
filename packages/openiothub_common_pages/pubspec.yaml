@@ -2,6 +2,7 @@ name: openiothub_common_pages
 description: openiothub_common_pages
 version: 1.0.5+83
 homepage: https://github.com/OpenIoTHub
+publish_to: 'none'
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -57,6 +58,9 @@ dependencies:
   sign_in_with_apple: ^7.0.1
 #  nsd: ^2.3.1
   wakelock_plus: ^1.3.2
+  google_mobile_ads: ^6.0.0
+  openiothub_ads:
+    path: ../openiothub_ads
 
 
 dev_dependencies:

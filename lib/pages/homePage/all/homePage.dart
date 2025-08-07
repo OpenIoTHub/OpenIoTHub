@@ -11,6 +11,7 @@ import 'package:openiothub_api/api/OpenIoTHub/Utils.dart';
 import 'package:openiothub_api/utils/check.dart';
 import 'package:openiothub_common_pages/commPages/feedback.dart';
 import 'package:openiothub_common_pages/gateway/GatewayQrPage.dart';
+import 'package:openiothub_common_pages/l10n/generated/openiothub_common_localizations.dart';
 import 'package:openiothub_common_pages/utils/goToUrl.dart';
 import 'package:openiothub_constants/constants/SharedPreferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -45,8 +46,8 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
       case AppLifecycleState.resumed: //从后台切换前台，界面可见
         // show_info( "程序状态：${state.toString()}", context);
         // TODO 检测存活
-        UtilApi.Ping().then((String ret){
-          if (ret != "ok"){
+        UtilApi.Ping().then((String ret) {
+          if (ret != "ok") {
             init();
             setState(() {});
           }
@@ -82,7 +83,13 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     Timer.periodic(const Duration(milliseconds: 300), (timer) {
       timer.cancel();
       // 防止跟上面的调用冲突
-      _showSplashAd();
+      if (isCnMainland(OpenIoTHubLocalizations.of(context).localeName)) {
+        _showSplashAd();
+      } else {
+        final _appOpenAdManager = AppOpenAdManager();
+        _appOpenAdManager.loadAd();
+        _appOpenAdManager.showAdIfAvailable();
+      }
     });
     // _showUserLoginStatus();
   }
@@ -95,17 +102,19 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    print("OpenIoTHubCommonLocalizations.of(context).localeName:${OpenIoTHubCommonLocalizations.of(context).localeName}");
     return Scaffold(
-        // appBar: AppBar(title: Text(OpenIoTHubLocalizations.of(context).app_title),),
-        key: _scaffoldKey,
-        // drawer: DrawerUI(),
-        body: _buildBody(_currentIndex),
-        // floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
-        // floatingActionButton: _build_peedDial(),
-        bottomNavigationBar: _buildBottomNavigationBar());
+      // appBar: AppBar(title: Text(OpenIoTHubLocalizations.of(context).app_title),),
+      key: _scaffoldKey,
+      // drawer: DrawerUI(),
+      body: _buildBody(_currentIndex),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
+      // floatingActionButton: _build_peedDial(),
+      bottomNavigationBar: _buildBottomNavigationBar(),
+    );
   }
 
-//通过index判断展现的类型
+  //通过index判断展现的类型
   Widget _buildBody(int index) {
     switch (index) {
       case 0:
@@ -148,17 +157,21 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   List<BottomNavigationBarItem> getBottomNavItems(BuildContext context) {
     final List<BottomNavigationBarItem> bottomNavItems = [
       BottomNavigationBarItem(
-          icon: const Icon(TDIcons.home),
-          label: OpenIoTHubLocalizations.of(context).tab_smart),
+        icon: const Icon(TDIcons.home),
+        label: OpenIoTHubLocalizations.of(context).tab_smart,
+      ),
       BottomNavigationBarItem(
-          icon: const Icon(TDIcons.internet),
-          label: OpenIoTHubLocalizations.of(context).tab_gateway),
+        icon: const Icon(TDIcons.internet),
+        label: OpenIoTHubLocalizations.of(context).tab_gateway,
+      ),
       BottomNavigationBarItem(
-          icon: const Icon(TDIcons.desktop),
-          label: OpenIoTHubLocalizations.of(context).tab_host),
+        icon: const Icon(TDIcons.desktop),
+        label: OpenIoTHubLocalizations.of(context).tab_host,
+      ),
       BottomNavigationBarItem(
-          icon: const Icon(TDIcons.user),
-          label: OpenIoTHubLocalizations.of(context).tab_user)
+        icon: const Icon(TDIcons.user),
+        label: OpenIoTHubLocalizations.of(context).tab_user,
+      ),
     ];
     return bottomNavItems;
   }
@@ -185,11 +198,13 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         (Platform.isWindows || Platform.isMacOS || Platform.isLinux)) {
       Timer.periodic(const Duration(seconds: 1), (timer) {
         timer.cancel();
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          return GatewayQrPage(
-            key: UniqueKey(),
-          );
-        }));
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) {
+              return GatewayQrPage(key: UniqueKey());
+            },
+          ),
+        );
       });
     }
   }
@@ -198,103 +213,124 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   void _show_read_privacy_policy() {
     // 如果没有登陆并且是PC平台则跳转到本地网关页面
     // 获取同意隐私政策状态
-    bool agreed = prefs!.getBool(SharedPreferencesKey.Agreed_Privacy_Policy) != null
-        ? prefs!.getBool(SharedPreferencesKey.Agreed_Privacy_Policy)!
-        : false;
+    bool agreed =
+        prefs!.getBool(SharedPreferencesKey.Agreed_Privacy_Policy) != null
+            ? prefs!.getBool(SharedPreferencesKey.Agreed_Privacy_Policy)!
+            : false;
     // showToast("msg:$agreed");
     if (Platform.isAndroid && !agreed) {
       showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-                  title:
-                      Text(OpenIoTHubLocalizations.of(context).privacy_policy),
-                  scrollable: true,
-                  content: SizedBox(
-                      height: 100, // 设置Dialog的高度
-                      child: ListView(
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(OpenIoTHubLocalizations.of(context).agree),
-                              TextButton(
-                                  // 同意才可以下一步
-                                  child: Text(
-                                    '《${OpenIoTHubLocalizations.of(context).privacy_policy}》',
-                                    style: TextStyle(color: Colors.red),
-                                  ),
-                                  onPressed: () async {
-                                    goToURL(
-                                        context,
-                                        "https://docs.iothub.cloud/privacyPolicy/index.html",
-                                        "《${OpenIoTHubLocalizations.of(context).privacy_policy}》");
-                                  }),
-                              TextButton(
-                                  child: Text(
-                                    OpenIoTHubLocalizations.of(context)
-                                        .feedback_channels,
-                                    style: TextStyle(color: Colors.green),
-                                  ),
-                                  onPressed: () async {
-                                    Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                            builder: (context) => FeedbackPage(
-                                                  key: UniqueKey(),
-                                                )));
-                                  }),
-                            ],
+        context: context,
+        builder:
+            (_) => AlertDialog(
+              title: Text(OpenIoTHubLocalizations.of(context).privacy_policy),
+              scrollable: true,
+              content: SizedBox(
+                height: 100, // 设置Dialog的高度
+                child: ListView(
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(OpenIoTHubLocalizations.of(context).agree),
+                        TextButton(
+                          // 同意才可以下一步
+                          child: Text(
+                            '《${OpenIoTHubLocalizations.of(context).privacy_policy}》',
+                            style: TextStyle(color: Colors.red),
                           ),
-                          Text(OpenIoTHubLocalizations.of(context)
-                              .if_you_do_not_agree_with_the_privacy_policy_please_click_to_exit_the_application)
-                        ],
-                      )),
-                  actions: <Widget>[
-                    TDButton(
-                      text: OpenIoTHubLocalizations.of(context)
-                          .exit_the_application,
-                      size: TDButtonSize.large,
-                      type: TDButtonType.fill,
-                      shape: TDButtonShape.rectangle,
-                      theme: TDButtonTheme.danger,
-                      onTap: () {
-                        SystemNavigator.pop();
-                      },
+                          onPressed: () async {
+                            goToURL(
+                              context,
+                              "https://docs.iothub.cloud/privacyPolicy/index.html",
+                              "《${OpenIoTHubLocalizations.of(context).privacy_policy}》",
+                            );
+                          },
+                        ),
+                        TextButton(
+                          child: Text(
+                            OpenIoTHubLocalizations.of(
+                              context,
+                            ).feedback_channels,
+                            style: TextStyle(color: Colors.green),
+                          ),
+                          onPressed: () async {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder:
+                                    (context) => FeedbackPage(key: UniqueKey()),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
                     ),
-                    TDButton(
-                      text: OpenIoTHubLocalizations.of(context)
-                          .agree_to_the_privacy_policy,
-                      size: TDButtonSize.large,
-                      type: TDButtonType.fill,
-                      shape: TDButtonShape.rectangle,
-                      theme: TDButtonTheme.primary,
-                      onTap: () async {
-                        // 保存同意状态，之后不再提示,首次还会初始化微信SDK，以后直接由于有状态启动就初始化微信sdk
-                        await prefs!
-                            .setBool(SharedPreferencesKey.Agreed_Privacy_Policy, true)
-                            .then((_) {
+                    Text(
+                      OpenIoTHubLocalizations.of(
+                        context,
+                      ).if_you_do_not_agree_with_the_privacy_policy_please_click_to_exit_the_application,
+                    ),
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                TDButton(
+                  text:
+                      OpenIoTHubLocalizations.of(context).exit_the_application,
+                  size: TDButtonSize.large,
+                  type: TDButtonType.fill,
+                  shape: TDButtonShape.rectangle,
+                  theme: TDButtonTheme.danger,
+                  onTap: () {
+                    SystemNavigator.pop();
+                  },
+                ),
+                TDButton(
+                  text:
+                      OpenIoTHubLocalizations.of(
+                        context,
+                      ).agree_to_the_privacy_policy,
+                  size: TDButtonSize.large,
+                  type: TDButtonType.fill,
+                  shape: TDButtonShape.rectangle,
+                  theme: TDButtonTheme.primary,
+                  onTap: () async {
+                    // 保存同意状态，之后不再提示,首次还会初始化微信SDK，以后直接由于有状态启动就初始化微信sdk
+                    await prefs!
+                        .setBool(
+                          SharedPreferencesKey.Agreed_Privacy_Policy,
+                          true,
+                        )
+                        .then((_) {
                           initWechat();
                           initQQ();
                         });
-                        Navigator.of(context).pop();
-                      },
-                    )
-                  ]));
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ),
+      );
     }
   }
 
-  _showSplashAd() async{
+  _showSplashAd() async {
     if (initList != null && needShowSplash) {
       if (Platform.isIOS) {
         // 为了防止腾讯开屏广告启动之后算一次返回再展现一次广告，穿山甲没有这样的问题
         needShowSplash = false;
       }
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-        return SplashPage();
-      }));
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) {
+            return SplashPage();
+          },
+        ),
+      );
     }
   }
 
-  _showUserLoginStatus() async{
+  _showUserLoginStatus() async {
     if (!(await userSignedIn())) {
       show_failed(OpenIoTHubLocalizations.of(context).login_failed, context);
     }

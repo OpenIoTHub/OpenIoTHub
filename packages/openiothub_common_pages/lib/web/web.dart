@@ -5,7 +5,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:openiothub_ads/ylh/banner_ylh.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:openiothub_ads/openiothub_ads.dart';
+import 'package:openiothub_common_pages/l10n/generated/openiothub_common_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -27,6 +29,8 @@ class WebScreen extends StatefulWidget {
 }
 
 class WebScreenState extends State<WebScreen> {
+  BannerAd? _bannerAd;
+
   InAppWebViewController? _webViewController;
   InAppWebViewSettings settings = InAppWebViewSettings(
     allowsInlineMediaPlayback: true,
@@ -56,6 +60,7 @@ class WebScreenState extends State<WebScreen> {
   void initState() {
     super.initState();
     // Future.delayed(Duration(seconds: 1),(){_webViewController?.reload();});
+    _loadAd();
   }
 
   @override
@@ -165,7 +170,7 @@ class WebScreenState extends State<WebScreen> {
                 },
               ),
             ),
-            buildYLHBanner(context),
+            _buildBanner(),
           ]),
         ));
   }
@@ -189,5 +194,90 @@ class WebScreenState extends State<WebScreen> {
       IconButton(onPressed: (){_openInBrowser();}, icon: Icon(Icons.open_in_browser))
     ];
     return actions;
+  }
+
+  _buildBanner() {
+    return isCnMainland(OpenIoTHubCommonLocalizations.of(context).localeName)?
+    buildYLHBanner(context):
+    _bannerAd==null?Container():SafeArea(
+      child: SizedBox(
+        width: _bannerAd!.size.width.toDouble(),
+        height: _bannerAd!.size.height.toDouble(),
+        child: AdWidget(ad: _bannerAd!),
+      ),
+    );
+  }
+
+  void _loadAd() async {
+    // // [START_EXCLUDE silent]
+    // // Only load an ad if the Mobile Ads SDK has gathered consent aligned with
+    // // the app's configured messages.
+    // var canRequestAds = await _consentManager.canRequestAds();
+    // if (!canRequestAds) {
+    //   print("!canRequestAds");
+    //   return;
+    // }
+    //
+    // if (!mounted) {
+    //   print("!mounted");
+    //   return;
+    // }
+    // [END_EXCLUDE]
+    // [START get_ad_size]
+    // Get an AnchoredAdaptiveBannerAdSize before loading the ad.
+    final size = await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
+      MediaQuery.sizeOf(context).width.truncate(),
+    );
+    // [END get_ad_size]
+
+    if (size == null) {
+      // Unable to get width of anchored banner.
+      print("size == null");
+      return;
+    }
+
+    BannerAd(
+      adUnitId: GoogleAdConfig.getBannerAdUnitId(),
+      request: const AdRequest(),
+      size: size,
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          // Called when an ad is successfully received.
+          debugPrint("Ad was loaded.");
+          setState(() {
+            _bannerAd = ad as BannerAd;
+          });
+        },
+        onAdFailedToLoad: (ad, err) {
+          // Called when an ad request failed.
+          debugPrint("Ad failed to load with error: $err");
+          ad.dispose();
+        },
+        // [START_EXCLUDE silent]
+        // [START ad_events]
+        onAdOpened: (Ad ad) {
+          // Called when an ad opens an overlay that covers the screen.
+          debugPrint("Ad was opened.");
+        },
+        onAdClosed: (Ad ad) {
+          // Called when an ad removes an overlay that covers the screen.
+          debugPrint("Ad was closed.");
+        },
+        onAdImpression: (Ad ad) {
+          // Called when an impression occurs on the ad.
+          debugPrint("Ad recorded an impression.");
+        },
+        onAdClicked: (Ad ad) {
+          // Called when an a click event occurs on the ad.
+          debugPrint("Ad was clicked.");
+        },
+        onAdWillDismissScreen: (Ad ad) {
+          // iOS only. Called before dismissing a full screen view.
+          debugPrint("Ad will be dismissed.");
+        },
+        // [END ad_events]
+        // [END_EXCLUDE]
+      ),
+    ).load();
   }
 }
