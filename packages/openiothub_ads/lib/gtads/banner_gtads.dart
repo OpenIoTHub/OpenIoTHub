@@ -48,11 +48,7 @@ Widget build300150Banner(BuildContext context) {
     //需要的广告位数组
       codes: [
         // 150高度
-        GTAdsCode(alias: "csj", probability: 3,androidId: "103478259",iosId: "103475998"),
-        GTAdsCode(alias: "ylh", probability: 10,androidId: "9116265903000255",iosId: "3166463913402394"),
-        // 75高度
-        // GTAdsCode(alias: "csj", probability: 6,androidId: "103478260",iosId: "103477981"),
-        // GTAdsCode(alias: "ylh", probability: 10,androidId: "5156668913307244",iosId: "4126763933603341"),
+        GTAdsCode(alias: "csj", probability: 3,androidId: CsjAdConfig.getBannerAdUnitId(),iosId: CsjAdConfig.getBannerAdUnitId()),
       ],
       //宽
       width: MediaQuery.of(context).size.width,
