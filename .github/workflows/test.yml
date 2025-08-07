@@ -171,15 +171,15 @@ jobs:
         uses: canonical/setup-lxd@main
         with:
           channel: latest/stable
-      - name: run snapcraft
-        run: |
-          snapcraft --use-lxd
-
-      - run: ls -a
-      - uses: actions/upload-artifact@v4
-        with:
-          name: openiothub_0.1.0_amd64.snap
-          path: ./openiothub_0.1.0_amd64.snap
+#      - name: run snapcraft
+#        run: |
+#          snapcraft --use-lxd
+#
+#      - run: ls -a
+#      - uses: actions/upload-artifact@v4
+#        with:
+#          name: openiothub_0.1.0_amd64.snap
+#          path: ./openiothub_0.1.0_amd64.snap
 #
   macos:
     name: MacOS

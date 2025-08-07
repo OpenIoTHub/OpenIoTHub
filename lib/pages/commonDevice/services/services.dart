@@ -438,7 +438,12 @@ class _ServicesListPageState extends State<ServicesListPage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     // 禁止开屏广告防止需要看两种广告
     // needShowSplash = false;
-    if ((Platform.isAndroid||Platform.isIOS)&&prefs.containsKey(JILI_AD)&&prefs.getInt(JILI_AD)!>5&&initList != null) {
+    if ((Platform.isAndroid||Platform.isIOS)&&
+        // 目前只有大陆才展示激励广告
+        isCnMainland(OpenIoTHubLocalizations.of(context).localeName)&&
+        prefs.containsKey(JILI_AD)&&
+        prefs.getInt(JILI_AD)!>5&&
+        initList != null) {
       await GTAds.rewardAd(
         //需要的广告位数组
         codes: [
