@@ -87,35 +87,12 @@ dependencies:
   go_router: ^15.0.0
   flutter_native_splash: ^2.4.1
   bonsoir: ^5.1.11
-#  穿山甲广告 https://www.csjplatform.com/
-  flutter_unionad: ^2.1.7
-  gtads: ^1.5.0
-#  #字节穿山甲广告
-  gtads_csj: ^1.5.0
-#  #腾讯优量汇广告
-  gtads_ylh: ^1.5.0
   window_manager: ^0.5.0
   flutter_foreground_task: ^9.1.0
   jwt_decoder: ^2.0.1
   wakelock_plus: ^1.3.2
   openiothub_ads:
     path: ./packages/openiothub_ads
-  google_mobile_ads: ^6.0.0
-#  #优量汇广告
-#  gtads_sigmob: ^1.5.0
-#  #百度百青藤广告
-#  gtads_bqt: ^1.5.0
-##  快手
-#  gtads_ks: ^1.5.0
-##  singmobi
-#  gtads_sigmob: ^1.5.0
-#  workmanager: ^0.5.2
-#  workmanager:
-#    git:
-#      url: https://github.com/fluttercommunity/flutter_workmanager.git
-#      path: workmanager
-#      ref: main
-#  flutter_foreground_task: ^9.1.0
 
 dev_dependencies:
   flutter_test:
