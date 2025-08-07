@@ -18,6 +18,8 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'dart:io' show Platform;
 
+import '../../configs/configs.dart';
+
 /// Utility class that manages loading and showing app open ads.
 class AppOpenAdManager {
   /// Maximum duration allowed between loading and showing the ad.
@@ -29,9 +31,7 @@ class AppOpenAdManager {
   AppOpenAd? _appOpenAd;
   bool _isShowingAd = false;
 
-  String adUnitId = Platform.isAndroid
-      ? 'ca-app-pub-3940256099942544/9257395921'
-      : 'ca-app-pub-3940256099942544/5575463023';
+  String adUnitId = GoogleAdConfig.getAppOpenAdUnitId();
 
   /// Load an [AppOpenAd].
   void loadAd() async {
