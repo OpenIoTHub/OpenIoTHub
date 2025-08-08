@@ -11,9 +11,9 @@ dependency_overrides:
     path: ./packages/openiothub_common_pages
   openiothub_ads:
     path: ./packages/openiothub_ads
-  # tdesign_flutter
-  tdesign_flutter_adaptation: 3.16.0
-  image_picker: 1.0.8
+  # tdesign_flutter https://tdesign.tencent.com/flutter/faq
+#  tdesign_flutter_adaptation: 3.16.0
+#  image_picker: 1.0.8
   # 如果你是tdesign_flutter 0.2.3版本，且使用了3.32版本以上的Flutter SDK
-#  tdesign_flutter_adaptation: 3.32.0
-#  image_picker: 1.1.2
+  tdesign_flutter_adaptation: 3.32.0
+  image_picker: 1.1.2

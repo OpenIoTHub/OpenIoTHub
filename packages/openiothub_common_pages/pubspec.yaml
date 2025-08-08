@@ -52,7 +52,7 @@ dependencies:
   qr_flutter: ^4.1.0
   webview_flutter: ^4.8.0
 #  tencent_kit: ^6.0.1
-  tdesign_flutter: ^0.1.6
+  tdesign_flutter: ^0.2.3
   dio: ^5.5.0+1
   bonsoir: ^5.1.11
   sign_in_with_apple: ^7.0.1
