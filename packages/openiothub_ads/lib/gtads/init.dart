@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:gtads/gtads.dart';
 // import 'package:gtads_csj/gtads_csj.dart';
 import 'package:gtads_ylh/gtads_ylh.dart';
@@ -16,7 +15,6 @@ Future initGTADsAD() async {
           !(prefs.getBool(SharedPreferencesKey.Agreed_Privacy_Policy)!))) {
     return null;
   }
-  MobileAds.instance.initialize().then((onValue){print(onValue.adapterStatuses.toString());});
   //添加Provider列表
   GTAds.addProviders([
     GTAdsYlhProvider("ylh", YlhAdConfig.getAppId(), YlhAdConfig.getAppId()),

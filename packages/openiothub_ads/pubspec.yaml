@@ -18,7 +18,7 @@ dependencies:
 #  flutter_unionad: ^2.1.7
   shared_preferences: ^2.1.1
   openiothub_constants: ^1.0.2+3
-  google_mobile_ads: ^6.0.0
+#  google_mobile_ads: ^6.0.0
 
 dev_dependencies:
   flutter_test:

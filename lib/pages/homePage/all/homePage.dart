@@ -83,13 +83,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     Timer.periodic(const Duration(milliseconds: 300), (timer) {
       timer.cancel();
       // 防止跟上面的调用冲突
-      if (isCnMainland(OpenIoTHubLocalizations.of(context).localeName)) {
-        _showSplashAd();
-      } else {
-        final _appOpenAdManager = AppOpenAdManager();
-        _appOpenAdManager.loadAd();
-        _appOpenAdManager.showAdIfAvailable();
-      }
+      _showSplashAd();
     });
     // _showUserLoginStatus();
   }
