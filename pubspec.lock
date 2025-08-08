@@ -1780,6 +1780,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.1.9"
+  tdesign_flutter_adaptation:
+    dependency: "direct overridden"
+    description:
+      name: tdesign_flutter_adaptation
+      sha256: "8c5ba936abd2651472495b19dd23c525f04fb2eac6ba23de55a8b63a7c226deb"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.16.0"
   term_glyph:
     dependency: transitive
     description:
