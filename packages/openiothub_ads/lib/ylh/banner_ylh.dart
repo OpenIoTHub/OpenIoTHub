@@ -5,6 +5,7 @@ import 'package:openiothub_ads/configs/configs.dart';
 import 'package:gtads_ylh/gtads_ylh.dart';
 
 Widget buildYLHBanner(BuildContext context){
+  // return Container();
   FlutterTencentAdBiddingController _bidding =
    FlutterTencentAdBiddingController();
   return FlutterTencentad.bannerAdView(

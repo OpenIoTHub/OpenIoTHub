@@ -58,7 +58,6 @@ dependencies:
   sign_in_with_apple: ^7.0.1
 #  nsd: ^2.3.1
   wakelock_plus: ^1.3.2
-  google_mobile_ads: ^6.0.0
   openiothub_ads:
     path: ../openiothub_ads
 

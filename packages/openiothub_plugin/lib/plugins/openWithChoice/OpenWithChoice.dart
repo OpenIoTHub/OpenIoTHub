@@ -148,6 +148,7 @@ class OpenWithChoice extends StatelessWidget {
               _launchURL(_url);
               Navigator.of(ctx).pop();
             } else {
+              Navigator.of(ctx).pop();
               Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
                 return WebScreen(startUrl: _url,);
               }));

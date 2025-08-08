@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:gtads/gtads.dart';
 import 'package:openiothub_ads/configs/configs.dart';
