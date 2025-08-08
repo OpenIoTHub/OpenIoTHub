@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:openiothub_ads/openiothub_ads.dart';
 import 'package:openiothub_common_pages/l10n/generated/openiothub_common_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
