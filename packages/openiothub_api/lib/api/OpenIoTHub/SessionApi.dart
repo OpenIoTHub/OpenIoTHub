@@ -1,6 +1,7 @@
 import 'package:openiothub_api/api/IoTManager/GatewayManager.dart';
 import 'package:openiothub_api/api/OpenIoTHub/OpenIoTHubChannel.dart';
 import 'package:openiothub_grpc_api/google/protobuf/empty.pb.dart';
+import 'package:openiothub_grpc_api/google/protobuf/wrappers.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/gatewayManager.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 
@@ -53,6 +54,23 @@ class SessionApi {
     await stub.updateSessionNameDescription(sessionConfig);
     channel.shutdown();
     return;
+  }
+
+  // rpc GetOneSOCKS5PortByRunId (google.protobuf.StringValue) returns (google.protobuf.Int64Value) {}
+  static Future<int> GetOneSOCKS5PortByRunId(String runId) async {
+    final channel = await Channel.getOpenIoTHubChannel();
+    final stub = SessionManagerClient(channel);
+    final port = await stub.getOneSOCKS5PortByRunId(StringValue(value: runId));
+    channel.shutdown();
+    return port.value.toInt();
+  }
+  // rpc GetOneHttpProxyPortByRunId (google.protobuf.StringValue) returns (google.protobuf.Int64Value) {}
+  static Future<int> GetOneHttpProxyPortByRunId(String runId) async {
+    final channel = await Channel.getOpenIoTHubChannel();
+    final stub = SessionManagerClient(channel);
+    final port = await stub.getOneHttpProxyPortByRunId(StringValue(value: runId));
+    channel.shutdown();
+    return port.value.toInt();
   }
 
   static Future<PortList> getAllTCP(SessionConfig sessionConfig) async {

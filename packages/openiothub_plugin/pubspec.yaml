@@ -51,7 +51,7 @@ dependencies:
 #  右键菜单
   contextmenu: ^3.0.0
   video_player: ^2.9.5
-  flutter_inappwebview: ^6.1.5
+#  flutter_inappwebview: ^6.1.5
   xml: ^6.5.0
   html: ^0.15.6
 

@@ -109,6 +109,15 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
       appBar: AppBar(
         title: Text(OpenIoTHubLocalizations.of(context).mdns_service_list),
         actions: <Widget>[
+          // TODO 带http proxy的浏览器
+          IconButton(
+              icon: const Icon(
+                TDIcons.logo_chrome,
+                color: Colors.green,
+              ),
+              onPressed: () {
+                _goToProxyBrowser();
+              }),
           // TODO 通过_device-info._tcp发现设备
           //重新命名
           IconButton(
@@ -312,6 +321,15 @@ loginwithtokenmap:
         },
       ),
     );
+  }
+
+  _goToProxyBrowser() async {
+    var port = await SessionApi.GetOneHttpProxyPortByRunId(widget.sessionConfig.runId);
+    print("GetOneHttpProxyPortByRunId:$port");
+    Navigator.push(context, MaterialPageRoute(builder: (ctx) {
+      // return WebScreen(startUrl: "https://baidu.com");
+      return WebScreen(startUrl: "https://baidu.com",httpProxyPort: port,);
+    }));
   }
 
   _renameDialog() async {

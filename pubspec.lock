@@ -1145,10 +1145,10 @@ packages:
     dependency: "direct main"
     description:
       name: msix
-      sha256: bbb9b3ff4a9f8e7e7507b2a22dc0517fd1fe3db44e72de7ab052cb6b362406ee
+      sha256: f88033fcb9e0dd8de5b18897cbebbd28ea30596810f4a7c86b12b0c03ace87e5
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.16.10"
+    version: "3.16.12"
   multicast_dns:
     dependency: "direct main"
     description:
@@ -1237,10 +1237,10 @@ packages:
     dependency: "direct main"
     description:
       name: openiothub_grpc_api
-      sha256: "0bd59756b898405715159b8f8ac136150d55fd9b8720d48c777613421fc3bd98"
+      sha256: c7af8092b7240094900e0ae0b5941125e9cd35a278f8fca0efc32aeda1bd9a30
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.1.8+2"
+    version: "1.2.4"
   openiothub_mobile_service:
     dependency: "direct main"
     description:

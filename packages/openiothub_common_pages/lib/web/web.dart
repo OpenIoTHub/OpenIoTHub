@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:openiothub_ads/openiothub_ads.dart';
 import 'package:openiothub_common_pages/l10n/generated/openiothub_common_localizations.dart';
+import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -16,10 +17,12 @@ import 'fullScreenWeb.dart';
 GlobalKey<WebScreenState> webGlobalKey = GlobalKey();
 
 class WebScreen extends StatefulWidget {
-  const WebScreen({super.key, required this.startUrl, this.title});
+  const WebScreen(
+      {super.key, required this.startUrl, this.title, this.httpProxyPort});
 
   final String startUrl;
   final String? title;
+  final int? httpProxyPort;
 
   @override
   State<StatefulWidget> createState() {
@@ -43,12 +46,15 @@ class WebScreenState extends State<WebScreen> {
   double _progress = 0;
   String? _url;
   String? _currentUrl;
+
   // String _url = "http://localhost:8889";
   // String _url = "http://localhost:15244";
   // String _url = "https://baidu.com";
   bool _canGoBack = false;
 
   bool favorite = false;
+
+  final TextEditingController _urlInput = TextEditingController(text: "");
 
   onClickNavigationBar() {
     log("onClickNavigationBar");
@@ -60,6 +66,7 @@ class WebScreenState extends State<WebScreen> {
     super.initState();
     // Future.delayed(Duration(seconds: 1),(){_webViewController?.reload();});
     _loadAd();
+    _setProxy();
   }
 
   @override
@@ -80,11 +87,25 @@ class WebScreenState extends State<WebScreen> {
         child: Scaffold(
           appBar: AppBar(
             // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-            title: Text(widget.title==null?"Web":widget.title!),
+            title: Text(widget.title == null ? "Web" : widget.title!),
             actions: _getActions(),
           ),
           body: Column(children: <Widget>[
             // SizedBox(height: MediaQuery.of(context).padding.top),
+            Row(children: [
+              TDInput(
+                controller: _urlInput,
+                backgroundColor: Colors.white,
+                leftLabel: "URL:",
+                width: MediaQuery.of(context).size.width - 70,
+                onChanged: (String v) {},
+              ),
+              SizedBox(width: 70,child: IconButton(
+                  onPressed: () {
+                    _webViewController?.loadUrl(urlRequest: URLRequest(url: WebUri(_urlInput.text)));
+                  },
+                  icon: Icon(Icons.start)),),
+            ],),
             LinearProgressIndicator(
               value: _progress,
               backgroundColor: Colors.grey[200],
@@ -127,20 +148,20 @@ class WebScreenState extends State<WebScreen> {
                   return NavigationActionPolicy.ALLOW;
                 },
                 onReceivedError: (controller, request, error) async {
-                // TODO
-                //   print(request.url);
-                //   print(request.url.path);
-                //   if (request.url.toString() == APIBaseUrl) {
-                //     _webViewController?.reload();
-                //     setState(() {
-                //
-                //     });
-                //   }
+                  // TODO
+                  //   print(request.url);
+                  //   print(request.url.path);
+                  //   if (request.url.toString() == APIBaseUrl) {
+                  //     _webViewController?.reload();
+                  //     setState(() {
+                  //
+                  //     });
+                  //   }
                 },
                 onDownloadStartRequest: (controller, url) async {
                   // show_info("onDownloadStartRequest:$url", context);
                   String urlStr = url.url.toString();
-                  ClipboardData data = new ClipboardData(text:urlStr);
+                  ClipboardData data = new ClipboardData(text: urlStr);
                   Clipboard.setData(data);
                   show_info("Url copied to clipboard", context);
                   launchUrlString(urlStr);
@@ -152,6 +173,9 @@ class WebScreenState extends State<WebScreen> {
                     _progress = 0;
                   });
                   _currentUrl = url.toString();
+                  setState(() {
+                    _urlInput.text = url.toString();
+                  });
                 },
                 onProgressChanged:
                     (InAppWebViewController controller, int progress) {
@@ -177,7 +201,10 @@ class WebScreenState extends State<WebScreen> {
   _goToFullScreen() async {
     var url = await _webViewController?.getUrl();
     Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-      return FullScreenWeb(key: UniqueKey(),startUrl: url!.toString(),);
+      return FullScreenWeb(
+        key: UniqueKey(),
+        startUrl: url!.toString(),
+      );
     }));
   }
 
@@ -187,24 +214,64 @@ class WebScreenState extends State<WebScreen> {
   }
 
   List<Widget>? _getActions() {
-    List<Widget>? actions = [
-      IconButton(onPressed: (){_webViewController?.reload();}, icon: Icon(Icons.refresh)),
-      IconButton(onPressed: (){_goToFullScreen();}, icon: Icon(Icons.fullscreen)),
-      IconButton(onPressed: (){_openInBrowser();}, icon: Icon(Icons.open_in_browser))
-    ];
+    List<Widget>? actions = [];
+    // if (widget.httpProxyPort != null) {
+    //   actions.add(IconButton(
+    //       onPressed: () {
+    //         _webViewController?.reload();
+    //       },
+    //       icon: Icon(Icons.abc)));
+    // }
+    actions.addAll([
+      IconButton(
+          onPressed: () {
+            _webViewController?.reload();
+          },
+          icon: Icon(Icons.refresh)),
+      IconButton(
+          onPressed: () {
+            _goToFullScreen();
+          },
+          icon: Icon(Icons.fullscreen)),
+      IconButton(
+          onPressed: () {
+            _openInBrowser();
+          },
+          icon: Icon(Icons.open_in_browser))
+    ]);
     return actions;
   }
 
   _buildBanner() {
-    return isCnMainland(OpenIoTHubCommonLocalizations.of(context).localeName)?
-    buildYLHBanner(context):
-    _bannerAd==null?Container():SafeArea(
-      child: SizedBox(
-        width: _bannerAd!.size.width.toDouble(),
-        height: _bannerAd!.size.height.toDouble(),
-        child: AdWidget(ad: _bannerAd!),
-      ),
-    );
+    return isCnMainland(OpenIoTHubCommonLocalizations.of(context).localeName)
+        ? buildYLHBanner(context)
+        : _bannerAd == null
+            ? Container()
+            : SafeArea(
+                child: SizedBox(
+                  width: _bannerAd!.size.width.toDouble(),
+                  height: _bannerAd!.size.height.toDouble(),
+                  child: AdWidget(ad: _bannerAd!),
+                ),
+              );
+  }
+
+  void _setProxy() async {
+    // https://github.com/pichillilorenzo/flutter_inappwebview/issues/1761
+    var proxyAvailable =
+        await WebViewFeature.isFeatureSupported(WebViewFeature.PROXY_OVERRIDE);
+    print("proxyAvailable $proxyAvailable, widget.httpProxyPort:${widget.httpProxyPort}");
+    if (proxyAvailable && widget.httpProxyPort != null) {
+      ProxyController proxyController = ProxyController.instance();
+      await proxyController.clearProxyOverride();
+      String urlProxy = 'http://127.0.0.1:${widget.httpProxyPort}';
+      await proxyController.setProxyOverride(
+          settings: ProxySettings(
+              proxyRules: [ProxyRule(url: urlProxy)],
+              bypassRules: [])); // ProxySettings
+    }else{
+      print("proxyAvailable $proxyAvailable, widget.httpProxyPort:${widget.httpProxyPort}");
+    }
   }
 
   void _loadAd() async {
