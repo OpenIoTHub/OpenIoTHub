@@ -26,6 +26,7 @@ class LoginPage extends StatefulWidget {
 class _State extends State<LoginPage> {
   // 是否已经同意隐私政策
   bool _isChecked = false;
+  bool _loginDisabled = false;
   StreamSubscription<WechatResp>? _auth;
   List<Widget> _list = <Widget>[];
 
@@ -65,7 +66,8 @@ class _State extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    wechat_login_failed = OpenIoTHubCommonLocalizations.of(context).wechat_login_failed;
+    wechat_login_failed =
+        OpenIoTHubCommonLocalizations.of(context).wechat_login_failed;
     return Scaffold(
         appBar: AppBar(
           title: Text(OpenIoTHubCommonLocalizations.of(context).login),
@@ -90,7 +92,8 @@ class _State extends State<LoginPage> {
             controller: _usermobile,
             backgroundColor: Colors.white,
             leftLabel: OpenIoTHubCommonLocalizations.of(context).user_mobile,
-            hintText: OpenIoTHubCommonLocalizations.of(context).please_input_mobile,
+            hintText:
+                OpenIoTHubCommonLocalizations.of(context).please_input_mobile,
             onChanged: (String v) {},
           ),
         ),
@@ -98,7 +101,8 @@ class _State extends State<LoginPage> {
           controller: _userpassword,
           backgroundColor: Colors.white,
           leftLabel: OpenIoTHubCommonLocalizations.of(context).password,
-          hintText: OpenIoTHubCommonLocalizations.of(context).please_input_password,
+          hintText:
+              OpenIoTHubCommonLocalizations.of(context).please_input_password,
           obscureText: true,
           onChanged: (String v) {},
         ),
@@ -114,15 +118,29 @@ class _State extends State<LoginPage> {
                   type: TDButtonType.outline,
                   shape: TDButtonShape.rectangle,
                   theme: TDButtonTheme.primary,
+                  disabled: _loginDisabled,
                   onTap: () async {
+                    setState(() {
+                      _loginDisabled = true;
+                    });
+                    Future.delayed(Duration(seconds: 5), (){
+                      setState(() {
+                        _loginDisabled = false;
+                      });
+                    });
                     // 只有同意隐私政策才可以进行下一步
                     if (!_isChecked) {
-                      show_failed("${OpenIoTHubCommonLocalizations.of(context).agree_to_the_user_agreement1}☑️${OpenIoTHubCommonLocalizations.of(context).agree_to_the_user_agreement2}", context);
+                      show_failed(
+                          "${OpenIoTHubCommonLocalizations.of(context).agree_to_the_user_agreement1}☑️${OpenIoTHubCommonLocalizations.of(context).agree_to_the_user_agreement2}",
+                          context);
                       return;
                     }
                     if (_usermobile.text.isEmpty ||
                         _userpassword.text.isEmpty) {
-                      show_failed(OpenIoTHubCommonLocalizations.of(context).username_and_password_cant_be_empty, context);
+                      show_failed(
+                          OpenIoTHubCommonLocalizations.of(context)
+                              .username_and_password_cant_be_empty,
+                          context);
                       return;
                     }
                     LoginInfo loginInfo = LoginInfo();
@@ -130,13 +148,17 @@ class _State extends State<LoginPage> {
                     loginInfo.password = _userpassword.text;
                     UserLoginResponse userLoginResponse =
                         await UserManager.LoginWithUserLoginInfo(loginInfo);
+                    setState(() {
+                      _loginDisabled = false;
+                    });
                     await _handleLoginResp(userLoginResponse);
                   }),
               Padding(
                 padding: const EdgeInsets.only(left: 20.0), // 设置顶部距离
                 child: TDButton(
                     icon: TDIcons.user,
-                    text: OpenIoTHubCommonLocalizations.of(context).user_registration,
+                    text: OpenIoTHubCommonLocalizations.of(context)
+                        .user_registration,
                     size: TDButtonSize.medium,
                     type: TDButtonType.outline,
                     shape: TDButtonShape.rectangle,
@@ -176,7 +198,8 @@ class _State extends State<LoginPage> {
                     goToURL(
                         context,
                         "https://docs.iothub.cloud/privacyPolicy/index.html",
-                        OpenIoTHubCommonLocalizations.of(context).privacy_policy);
+                        OpenIoTHubCommonLocalizations.of(context)
+                            .privacy_policy);
                   }),
               TextButton(
                   child: Text(
@@ -213,54 +236,7 @@ class _State extends State<LoginPage> {
             fixedSize: const WidgetStatePropertyAll<Size>(Size(70, 70)),
           ),
           onPressed: () async {
-            // 只有同意隐私政策才可以进行下一步
-            if (!_isChecked) {
-              show_failed("${OpenIoTHubCommonLocalizations.of(context).agree_to_the_user_agreement1}☑️${OpenIoTHubCommonLocalizations.of(context).agree_to_the_user_agreement2}", context);
-              return;
-            }
-            // 判断是否安装了微信，安装了微信则打开微信进行登录，否则显示二维码由手机扫描登录
-            bool wechatInstalled = false;
-            try {
-              wechatInstalled = await WechatKitPlatform.instance.isInstalled();
-            } on Exception catch (e) {
-              wechatInstalled = false;
-            }
-            if (wechatInstalled) {
-              WechatKitPlatform.instance.auth(
-                scope: <String>[WechatScope.kSNSApiUserInfo],
-                state: 'auth',
-              );
-            } else if (!Platform.isIOS) {
-              // 由于iOS审核，可能需要在iOS上屏蔽二维码登录
-              https://pub.dev/packages/sign_in_with_apple
-              //显示二维码扫描登录
-              loginFlag = generateRandomString(12);
-              String qrUrl = await getPicUrl(loginFlag!);
-              if (qrUrl == "") {
-                show_failed(OpenIoTHubCommonLocalizations.of(context).get_wechat_qr_code_failed, context);
-                return;
-              }
-              // 循环获取登录结果
-              showDialog(
-                  context: context,
-                  builder: (_) => AlertDialog(
-                          title: Text(OpenIoTHubCommonLocalizations.of(context).wechat_scan_qr_code_to_login),
-                          content: SizedBox.expand(child: Image.network(qrUrl)),
-                          actions: <Widget>[
-                            // 分享网关:二维码图片、小程序链接、网页
-                            TDButton(
-                              icon: TDIcons.fullscreen_exit,
-                              text: OpenIoTHubCommonLocalizations.of(context).exit,
-                              size: TDButtonSize.small,
-                              type: TDButtonType.outline,
-                              shape: TDButtonShape.rectangle,
-                              theme: TDButtonTheme.primary,
-                              onTap: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ])).then((_) => {loginFlag = null});
-            }
+            _wechatLogin();
           }));
     });
   }
@@ -289,7 +265,8 @@ class _State extends State<LoginPage> {
       }
     } else {
       show_failed(
-          "${OpenIoTHubCommonLocalizations.of(context).login_failed}:code:${userLoginResponse.code},message:${userLoginResponse.msg}", context);
+          "${OpenIoTHubCommonLocalizations.of(context).login_failed}:code:${userLoginResponse.code},message:${userLoginResponse.msg}",
+          context);
     }
   }
 
@@ -326,16 +303,76 @@ class _State extends State<LoginPage> {
         } else if ((response.data["data"] as Map<String, dynamic>)
                 .containsKey("scan") &&
             (response.data["data"] as Map<String, dynamic>)["scan"] == true) {
-          show_success(OpenIoTHubCommonLocalizations.of(context).login_after_wechat_bind, context);
+          show_success(
+              OpenIoTHubCommonLocalizations.of(context).login_after_wechat_bind,
+              context);
         } else if ((response.data["data"] as Map<String, dynamic>)
                 .containsKey("scan") &&
             (response.data["data"] as Map<String, dynamic>)["scan"] == false) {
           // showToast("请扫码！");
         } else {
-          show_failed("${OpenIoTHubCommonLocalizations.of(context).wechat_fast_login_failed}：${response.data["msg"]}", context);
+          show_failed(
+              "${OpenIoTHubCommonLocalizations.of(context).wechat_fast_login_failed}：${response.data["msg"]}",
+              context);
         }
       }
     });
+  }
+
+  _wechatLogin() async {
+    // 只有同意隐私政策才可以进行下一步
+    if (!_isChecked) {
+      show_failed(
+          "${OpenIoTHubCommonLocalizations.of(context).agree_to_the_user_agreement1}☑️${OpenIoTHubCommonLocalizations.of(context).agree_to_the_user_agreement2}",
+          context);
+      return;
+    }
+    // 判断是否安装了微信，安装了微信则打开微信进行登录，否则显示二维码由手机扫描登录
+    bool wechatInstalled = false;
+    try {
+      wechatInstalled = await WechatKitPlatform.instance.isInstalled();
+    } on Exception catch (e) {
+      wechatInstalled = false;
+    }
+    if (wechatInstalled) {
+      WechatKitPlatform.instance.auth(
+        scope: <String>[WechatScope.kSNSApiUserInfo],
+        state: 'auth',
+      );
+    } else if (!Platform.isIOS) {
+      // 由于iOS审核，可能需要在iOS上屏蔽二维码登录
+      https: //pub.dev/packages/sign_in_with_apple
+      //显示二维码扫描登录
+      loginFlag = generateRandomString(12);
+      String qrUrl = await getPicUrl(loginFlag!);
+      if (qrUrl == "") {
+        show_failed(
+            OpenIoTHubCommonLocalizations.of(context).get_wechat_qr_code_failed,
+            context);
+        return;
+      }
+      // 循环获取登录结果
+      showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+                  title: Text(OpenIoTHubCommonLocalizations.of(context)
+                      .wechat_scan_qr_code_to_login),
+                  content: SizedBox.expand(child: Image.network(qrUrl)),
+                  actions: <Widget>[
+                    // 分享网关:二维码图片、小程序链接、网页
+                    TDButton(
+                      icon: TDIcons.fullscreen_exit,
+                      text: OpenIoTHubCommonLocalizations.of(context).exit,
+                      size: TDButtonSize.small,
+                      type: TDButtonType.outline,
+                      shape: TDButtonShape.rectangle,
+                      theme: TDButtonTheme.primary,
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ])).then((_) => {loginFlag = null});
+    }
   }
 }
 

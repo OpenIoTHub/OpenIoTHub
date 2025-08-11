@@ -17,6 +17,7 @@ class RegisterPage extends StatefulWidget {
 class _State extends State<RegisterPage> {
   // 是否已经同意隐私政策
   bool _isChecked = false;
+  bool _registerDisabled = false;
 
 //  New
   final TextEditingController _usermobile = TextEditingController(text: "");
@@ -37,15 +38,18 @@ class _State extends State<RegisterPage> {
                 TDInput(
                   controller: _usermobile,
                   backgroundColor: Colors.white,
-                  leftLabel: OpenIoTHubCommonLocalizations.of(context).mobile_number,
-                  hintText: OpenIoTHubCommonLocalizations.of(context).please_input_mobile,
+                  leftLabel:
+                      OpenIoTHubCommonLocalizations.of(context).mobile_number,
+                  hintText: OpenIoTHubCommonLocalizations.of(context)
+                      .please_input_mobile,
                   onChanged: (String v) {},
                 ),
                 TDInput(
                   controller: _userpassword,
                   backgroundColor: Colors.white,
                   leftLabel: OpenIoTHubCommonLocalizations.of(context).password,
-                  hintText: OpenIoTHubCommonLocalizations.of(context).please_input_password,
+                  hintText: OpenIoTHubCommonLocalizations.of(context)
+                      .please_input_password,
                   obscureText: true,
                   onChanged: (String v) {},
                 ),
@@ -56,31 +60,12 @@ class _State extends State<RegisterPage> {
                     type: TDButtonType.outline,
                     shape: TDButtonShape.rectangle,
                     theme: TDButtonTheme.primary,
+                    disabled: _registerDisabled,
                     onTap: () async {
-                      if (!_isChecked) {
-                        show_failed("${OpenIoTHubCommonLocalizations.of(context).agree_to_the_user_agreement1}☑️${OpenIoTHubCommonLocalizations.of(context).agree_to_the_user_agreement2}", context);
-                        return;
-                      }
-                      if (_usermobile.text.isEmpty ||
-                          _userpassword.text.isEmpty) {
-                        show_failed(OpenIoTHubCommonLocalizations.of(context).username_and_password_cant_be_empty, context);
-                        return;
-                      }
-                      LoginInfo loginInfo = LoginInfo();
-                      loginInfo.userMobile = _usermobile.text;
-                      loginInfo.password = _userpassword.text;
-                      OperationResponse operationResponse =
-                          await UserManager.RegisterUserWithUserInfo(loginInfo);
-                      if (operationResponse.code == 0) {
-                        show_success("${OpenIoTHubCommonLocalizations.of(context).register_success}${operationResponse.msg}", context);
-                        if (Navigator.of(context).canPop()) {
-                          Navigator.of(context).pop();
-                        } else {}
-                      } else {
-                        show_failed("${OpenIoTHubCommonLocalizations.of(context).register_failed}:${operationResponse.msg}", context);
-                      }
+                      _register();
                     }),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Checkbox(
                       value: _isChecked,
@@ -95,18 +80,21 @@ class _State extends State<RegisterPage> {
                     Text(OpenIoTHubCommonLocalizations.of(context).agree),
                     TextButton(
                         child: Text(
-                          OpenIoTHubCommonLocalizations.of(context).privacy_policy,
+                          OpenIoTHubCommonLocalizations.of(context)
+                              .privacy_policy,
                           style: TextStyle(color: Colors.red),
                         ),
                         onPressed: () async {
                           goToURL(
                               context,
                               "https://docs.iothub.cloud/privacyPolicy/index.html",
-                              OpenIoTHubCommonLocalizations.of(context).privacy_policy);
+                              OpenIoTHubCommonLocalizations.of(context)
+                                  .privacy_policy);
                         }),
                     TextButton(
                         child: Text(
-                          OpenIoTHubCommonLocalizations.of(context).feedback_channels,
+                          OpenIoTHubCommonLocalizations.of(context)
+                              .feedback_channels,
                           style: TextStyle(color: Colors.green),
                         ),
                         onPressed: () async {
@@ -116,11 +104,55 @@ class _State extends State<RegisterPage> {
                                   )));
                         }),
                   ],
-                  mainAxisAlignment: MainAxisAlignment.center,
                 ),
               ],
             ),
           ),
         ));
+  }
+
+  _register() async {
+    // TODO 防止重复注册
+    setState(() {
+      _registerDisabled = true;
+    });
+    Future.delayed(Duration(seconds: 5), (){
+      setState(() {
+        _registerDisabled = false;
+      });
+    });
+    if (!_isChecked) {
+      show_failed(
+          "${OpenIoTHubCommonLocalizations.of(context).agree_to_the_user_agreement1}☑️${OpenIoTHubCommonLocalizations.of(context).agree_to_the_user_agreement2}",
+          context);
+      return;
+    }
+    if (_usermobile.text.isEmpty || _userpassword.text.isEmpty) {
+      show_failed(
+          OpenIoTHubCommonLocalizations.of(context)
+              .username_and_password_cant_be_empty,
+          context);
+      return;
+    }
+    LoginInfo loginInfo = LoginInfo();
+    loginInfo.userMobile = _usermobile.text;
+    loginInfo.password = _userpassword.text;
+    OperationResponse operationResponse =
+        await UserManager.RegisterUserWithUserInfo(loginInfo);
+    if (operationResponse.code == 0) {
+      setState(() {
+        _registerDisabled = false;
+      });
+      show_success(
+          "${OpenIoTHubCommonLocalizations.of(context).register_success}${operationResponse.msg}",
+          context);
+      if (Navigator.of(context).canPop()) {
+        Navigator.of(context).pop();
+      } else {}
+    } else {
+      show_failed(
+          "${OpenIoTHubCommonLocalizations.of(context).register_failed}:${operationResponse.msg}",
+          context);
+    }
   }
 }

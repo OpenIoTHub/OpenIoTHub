@@ -99,6 +99,9 @@ class WebScreenState extends State<WebScreen> {
                 leftLabel: "URL:",
                 width: MediaQuery.of(context).size.width - 70,
                 onChanged: (String v) {},
+                onEditingComplete: () {
+                  _webViewController?.loadUrl(urlRequest: URLRequest(url: WebUri(_urlInput.text)));
+                },
               ),
               SizedBox(width: 70,child: IconButton(
                   onPressed: () {
