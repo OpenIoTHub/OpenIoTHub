@@ -108,82 +108,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(OpenIoTHubLocalizations.of(context).mdns_service_list),
-        actions: <Widget>[
-          // TODO 带http proxy的浏览器
-          IconButton(
-              icon: const Icon(
-                TDIcons.logo_chrome,
-                color: Colors.green,
-              ),
-              onPressed: () {
-                _goToProxyBrowser();
-              }),
-          // TODO 通过_device-info._tcp发现设备
-          //重新命名
-          IconButton(
-              icon: const Icon(
-                Icons.edit,
-                // color: Colors.white,
-              ),
-              onPressed: () {
-                _renameDialog();
-              }),
-          IconButton(
-              icon: const Icon(
-                Icons.refresh,
-                // color: Colors.white,
-              ),
-              onPressed: () {
-                refreshmDNSServices(widget.sessionConfig).then((result) {
-                  SessionApi.getAllTCP(widget.sessionConfig).then((v) {
-                    setState(() {
-                      _ServiceList = v.portConfigs;
-                    });
-                  });
-                });
-              }),
-          IconButton(
-              icon: const Icon(
-                Icons.delete,
-                color: Colors.red,
-              ),
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (_) => AlertDialog(
-                            title: Text(OpenIoTHubLocalizations.of(context)
-                                .delete_gateway),
-                            content: SizedBox.expand(
-                                child: Text(OpenIoTHubLocalizations.of(context)
-                                    .confirm_delete_gateway)),
-                            actions: <Widget>[
-                              TextButton(
-                                child: Text(
-                                    OpenIoTHubLocalizations.of(context).cancel),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                              TextButton(
-                                child: Text(
-                                    OpenIoTHubLocalizations.of(context).delete),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                  deleteOneSession(widget.sessionConfig);
-//                                  ：TODO 删除之后刷新列表
-                                },
-                              )
-                            ]));
-              }),
-          IconButton(
-              icon: const Icon(
-                Icons.info,
-                // color: Colors.white,
-              ),
-              onPressed: () {
-                _pushDetail(widget.sessionConfig);
-              }),
-        ],
+        actions: _buildActions(),
       ),
       body: divided,
     );
@@ -389,6 +314,99 @@ loginwithtokenmap:
                 ]));
   }
 
+  List<Widget> _buildActions(){
+    List<Widget> actions =[];
+    // 目前浏览器Proxy配置只支持安卓
+    if (!isCnMainland(OpenIoTHubLocalizations.of(context).localeName)&&Platform.isAndroid){
+      // 不是中国大陆才显示按钮
+      actions.add(IconButton(
+          icon: const Icon(
+            TDIcons.logo_chrome,
+            color: Colors.green,
+          ),
+          onPressed: () {
+            _goToProxyBrowser();
+          }));
+    }else if (Platform.isAndroid){
+      // 只要是安卓就显示按钮，TODO 在国内安卓上架时候删掉
+      actions.add(IconButton(
+          icon: const Icon(
+            TDIcons.logo_chrome,
+            color: Colors.green,
+          ),
+          onPressed: () {
+            _goToProxyBrowser();
+          }));
+    }
+    actions.addAll(<Widget>[
+      // TODO 通过_device-info._tcp发现设备
+      //重新命名
+      IconButton(
+          icon: const Icon(
+            Icons.edit,
+            // color: Colors.white,
+          ),
+          onPressed: () {
+            _renameDialog();
+          }),
+      IconButton(
+          icon: const Icon(
+            Icons.refresh,
+            // color: Colors.white,
+          ),
+          onPressed: () {
+            refreshmDNSServices(widget.sessionConfig).then((result) {
+              SessionApi.getAllTCP(widget.sessionConfig).then((v) {
+                setState(() {
+                  _ServiceList = v.portConfigs;
+                });
+              });
+            });
+          }),
+      IconButton(
+          icon: const Icon(
+            Icons.delete,
+            color: Colors.red,
+          ),
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (_) => AlertDialog(
+                    title: Text(OpenIoTHubLocalizations.of(context)
+                        .delete_gateway),
+                    content: SizedBox.expand(
+                        child: Text(OpenIoTHubLocalizations.of(context)
+                            .confirm_delete_gateway)),
+                    actions: <Widget>[
+                      TextButton(
+                        child: Text(
+                            OpenIoTHubLocalizations.of(context).cancel),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      TextButton(
+                        child: Text(
+                            OpenIoTHubLocalizations.of(context).delete),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          deleteOneSession(widget.sessionConfig);
+//                                  ：TODO 删除之后刷新列表
+                        },
+                      )
+                    ]));
+          }),
+      IconButton(
+          icon: const Icon(
+            Icons.info,
+            // color: Colors.white,
+          ),
+          onPressed: () {
+            _pushDetail(widget.sessionConfig);
+          }),
+    ]);
+    return actions;
+  }
 
   _buildBanner() {
     if (!Platform.isAndroid && !Platform.isIOS){
