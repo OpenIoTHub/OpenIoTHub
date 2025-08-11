@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
@@ -232,6 +233,9 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
 
 
   _buildBanner() {
+    if (!Platform.isAndroid && !Platform.isIOS){
+      return Container();
+    }
     return isCnMainland(OpenIoTHubLocalizations.of(context).localeName)?
     buildYLHBanner(context):
     _bannerAd==null?Container():SafeArea(

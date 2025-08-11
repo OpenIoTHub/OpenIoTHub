@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
@@ -319,6 +320,9 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   _buildBanner() {
+    if (!Platform.isAndroid && !Platform.isIOS){
+      return Container();
+    }
     return isCnMainland(OpenIoTHubCommonLocalizations.of(context).localeName)?
     buildYLHBanner(context):
     _bannerAd==null?Container():SafeArea(

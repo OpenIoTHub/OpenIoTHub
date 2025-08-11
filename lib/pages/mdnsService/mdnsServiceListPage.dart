@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:bonsoir/bonsoir.dart';
@@ -105,12 +106,12 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     });
     final divided = ListView.separated(
       padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-      itemCount: _showAD?tiles.length + 1:tiles.length,
+      itemCount: _showAD ? tiles.length + 1 : tiles.length,
       itemBuilder: (context, index) {
-        if (_showAD&&index == 0) {
+        if (_showAD && index == 0) {
           return _buildBanner();
         }
-        return tiles.elementAt(_showAD?index - 1:index);
+        return tiles.elementAt(_showAD ? index - 1 : index);
       },
       separatorBuilder: (context, index) {
         return Container(
@@ -272,42 +273,40 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
         BonsoirDiscoveryEventType.discoveryServiceResolved) {
       // services.removeWhere((foundService) => foundService.name == service.name);
       // services.add(service);
-      setState(() {
-        if (MDNS2ModelsMap.modelsMap.containsKey(service.type)) {
-          PortServiceInfo portServiceInfo =
-              MDNS2ModelsMap.modelsMap[service.type]!.copyWith();
-          portServiceInfo.info!.addAll(service.attributes);
-          portServiceInfo.addr = (service as ResolvedBonsoirService).host!
-              .replaceAll(RegExp(r'.local.local.'), ".local")
-              .replaceAll(RegExp(r'.local.'), ".local");
-          portServiceInfo.port = service.port;
-          portServiceInfo.isLocal = true;
-          if (portServiceInfo.info!.containsKey("id") &&
-              portServiceInfo.info!["id"] != "") {
-            // 有id
-          } else if (portServiceInfo.info!.containsKey("mac") &&
-              portServiceInfo.info!["mac"] != "") {
-            portServiceInfo.info!["id"] = portServiceInfo.info!["mac"]!;
-          } else {
-            portServiceInfo.info!["id"] =
-                "${portServiceInfo.addr}:${portServiceInfo.port}@local";
-          }
-          addPortServiceInfo(portServiceInfo);
+      if (MDNS2ModelsMap.modelsMap.containsKey(service.type)) {
+        PortServiceInfo portServiceInfo =
+            MDNS2ModelsMap.modelsMap[service.type]!.copyWith();
+        portServiceInfo.info!.addAll(service.attributes);
+        portServiceInfo.addr = (service as ResolvedBonsoirService).host!
+            .replaceAll(RegExp(r'.local.local.'), ".local")
+            .replaceAll(RegExp(r'.local.'), ".local");
+        portServiceInfo.port = service.port;
+        portServiceInfo.isLocal = true;
+        if (portServiceInfo.info!.containsKey("id") &&
+            portServiceInfo.info!["id"] != "") {
+          // 有id
+        } else if (portServiceInfo.info!.containsKey("mac") &&
+            portServiceInfo.info!["mac"] != "") {
+          portServiceInfo.info!["id"] = portServiceInfo.info!["mac"]!;
         } else {
-          PortServiceInfo portServiceInfo = PortServiceInfo("", 80, true);
-          portServiceInfo.addr = (service as ResolvedBonsoirService).host!
-              .replaceAll(RegExp(r'.local.local.'), ".local")
-              .replaceAll(RegExp(r'.local.'), ".local");
-          portServiceInfo.port = service.port;
-          portServiceInfo.isLocal = true;
-          portServiceInfo.info = Map();
-          service.attributes.forEach((String key, value) {
-            portServiceInfo.info![key] = value;
-          });
-          print("print _portServiceInfo:$portServiceInfo");
-          addPortServiceInfo(portServiceInfo);
+          portServiceInfo.info!["id"] =
+              "${portServiceInfo.addr}:${portServiceInfo.port}@local";
         }
-      });
+        addPortServiceInfo(portServiceInfo);
+      } else {
+        PortServiceInfo portServiceInfo = PortServiceInfo("", 80, true);
+        portServiceInfo.addr = (service as ResolvedBonsoirService).host!
+            .replaceAll(RegExp(r'.local.local.'), ".local")
+            .replaceAll(RegExp(r'.local.'), ".local");
+        portServiceInfo.port = service.port;
+        portServiceInfo.isLocal = true;
+        portServiceInfo.info = Map();
+        service.attributes.forEach((String key, value) {
+          portServiceInfo.info![key] = value;
+        });
+        print("print _portServiceInfo:$portServiceInfo");
+        addPortServiceInfo(portServiceInfo);
+      }
     } else if (event.type == BonsoirDiscoveryEventType.discoveryServiceLost) {
       // services.removeWhere((foundService) => foundService.name == service.name);
     }
@@ -484,17 +483,21 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     }
   }
 
-
   _buildBanner() {
-    return isCnMainland(OpenIoTHubLocalizations.of(context).localeName)?
-    buildYLHBanner(context):
-    _bannerAd==null?Container():SafeArea(
-      child: SizedBox(
-        width: _bannerAd!.size.width.toDouble(),
-        height: _bannerAd!.size.height.toDouble(),
-        child: AdWidget(ad: _bannerAd!),
-      ),
-    );
+    if (!Platform.isAndroid && !Platform.isIOS) {
+      return Container();
+    }
+    return isCnMainland(OpenIoTHubLocalizations.of(context).localeName)
+        ? buildYLHBanner(context)
+        : _bannerAd == null
+        ? Container()
+        : SafeArea(
+          child: SizedBox(
+            width: _bannerAd!.size.width.toDouble(),
+            height: _bannerAd!.size.height.toDouble(),
+            child: AdWidget(ad: _bannerAd!),
+          ),
+        );
   }
 
   void _loadAd() async {

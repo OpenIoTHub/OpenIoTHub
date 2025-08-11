@@ -243,6 +243,9 @@ class WebScreenState extends State<WebScreen> {
   }
 
   _buildBanner() {
+    if (!Platform.isAndroid && !Platform.isIOS){
+      return Container();
+    }
     return isCnMainland(OpenIoTHubCommonLocalizations.of(context).localeName)
         ? buildYLHBanner(context)
         : _bannerAd == null

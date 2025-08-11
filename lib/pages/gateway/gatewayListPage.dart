@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -8,16 +9,13 @@ import 'package:openiothub/widgets/BuildGlobalActions.dart';
 import 'package:openiothub_api/api/OpenIoTHub/SessionApi.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_common_pages/commPages/findGatewayGoList.dart';
-import 'package:openiothub_common_pages/user/LoginPage.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import 'package:openiothub_ads/openiothub_ads.dart';
-import '../commonPages/scanQR.dart';
 import '../guide/guidePage.dart';
 import './mDNSServiceListPage.dart';
 
@@ -326,87 +324,10 @@ class _GatewayListPageState extends State<GatewayListPage> {
     );
   }
 
-  void _scan_qr() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (prefs.containsKey("scan_QR_Dialog") &&
-        prefs.getBool("scan_QR_Dialog")!) {
-      if (await userSignedIn()) {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) {
-              return ScanQRPage(key: UniqueKey());
-            },
-          ),
-        );
-      } else {
-        Navigator.of(
-          context,
-        ).push(MaterialPageRoute(builder: (context) => LoginPage()));
-      }
-    } else {
-      showDialog(
-        context: context,
-        builder:
-            (_) => AlertDialog(
-              title: Text(
-                OpenIoTHubLocalizations.of(context).camera_scan_code_prompt,
-              ),
-              scrollable: true,
-              content: SizedBox(
-                height: 120,
-                child: ListView(
-                  children: <Widget>[
-                    Text(
-                      OpenIoTHubLocalizations.of(
-                        context,
-                      ).camera_scan_code_prompt_content,
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                TextButton(
-                  child: Text(
-                    OpenIoTHubLocalizations.of(context).cancel,
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                  onPressed: () async {
-                    Navigator.of(context).pop();
-                  },
-                ),
-                TextButton(
-                  child: Text(
-                    OpenIoTHubLocalizations.of(context).confirm,
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  onPressed: () async {
-                    if (await userSignedIn()) {
-                      prefs.setBool("scan_QR_Dialog", true);
-                      Navigator.of(context).pop();
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return ScanQRPage(key: UniqueKey());
-                          },
-                        ),
-                      );
-                    } else {
-                      Navigator.of(context).pop();
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => LoginPage()),
-                      );
-                    }
-                  },
-                ),
-              ],
-            ),
-      );
-    }
-  }
-
-
   _buildBanner() {
+    if (!Platform.isAndroid && !Platform.isIOS){
+      return Container();
+    }
     return isCnMainland(OpenIoTHubLocalizations.of(context).localeName)?
     buildYLHBanner(context):
     _bannerAd==null?Container():SafeArea(

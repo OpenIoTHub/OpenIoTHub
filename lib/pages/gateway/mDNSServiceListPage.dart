@@ -191,6 +191,8 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
 
   void _pushDetail(SessionConfig config) async {
 //:TODO    这里显示内网的服务，socks5等，右上角详情才展示详细信息
+    var socksPort = await SessionApi.GetOneSOCKS5PortByRunId(widget.sessionConfig.runId);
+    var httpPort = await SessionApi.GetOneHttpProxyPortByRunId(widget.sessionConfig.runId);
     final List result = [];
     result.add(
         "ID(${OpenIoTHubLocalizations.of(context).after_simplification}):${config.runId.substring(24)}");
@@ -200,6 +202,10 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
         "${OpenIoTHubLocalizations.of(context).description}:${config.description}");
     result.add(
         "${OpenIoTHubLocalizations.of(context).connection_code_simplified}:${config.token.substring(0, 10)}");
+    result.add(
+        "socks:${socksPort}");
+    result.add(
+        "http:$httpPort");
     result.add(
         "${OpenIoTHubLocalizations.of(context).forwarding_connection_status}:${config.statusToClient ? OpenIoTHubLocalizations.of(context).online : OpenIoTHubLocalizations.of(context).offline}");
     result.add(
@@ -385,6 +391,9 @@ loginwithtokenmap:
 
 
   _buildBanner() {
+    if (!Platform.isAndroid && !Platform.isIOS){
+      return Container();
+    }
     return isCnMainland(OpenIoTHubLocalizations.of(context).localeName)?
     buildYLHBanner(context):
     _bannerAd==null?Container():SafeArea(

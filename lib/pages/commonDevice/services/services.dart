@@ -576,6 +576,9 @@ class _ServicesListPageState extends State<ServicesListPage> {
 
 
   _buildBanner() {
+    if (!Platform.isAndroid && !Platform.isIOS){
+      return Container();
+    }
     return isCnMainland(OpenIoTHubLocalizations.of(context).localeName)?
     buildYLHBanner(context):
     _bannerAd==null?Container():SafeArea(

@@ -131,6 +131,9 @@ Future setWindowSize() async {
 }
 
 Future initAD() async {
+  if (!Platform.isAndroid && !Platform.isIOS){
+    return;
+  }
   initList = await initGTADsAD();
 }
 
