@@ -501,6 +501,9 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
   }
 
   void _loadAd() async {
+    if (!Platform.isAndroid && !Platform.isIOS){
+      return;
+    }
     // // [START_EXCLUDE silent]
     // // Only load an ad if the Mobile Ads SDK has gathered consent aligned with
     // // the app's configured messages.

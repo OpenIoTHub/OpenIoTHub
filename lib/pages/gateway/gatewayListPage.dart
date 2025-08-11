@@ -340,6 +340,9 @@ class _GatewayListPageState extends State<GatewayListPage> {
   }
 
   void _loadAd() async {
+    if (!Platform.isAndroid && !Platform.isIOS){
+      return;
+    }
     // // [START_EXCLUDE silent]
     // // Only load an ad if the Mobile Ads SDK has gathered consent aligned with
     // // the app's configured messages.
