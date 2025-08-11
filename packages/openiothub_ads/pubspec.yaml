@@ -14,7 +14,7 @@ dependencies:
   #  #字节穿山甲广告
 #  gtads_csj: ^1.5.0
   #  #腾讯优量汇广告
-  gtads_ylh: ^1.5.0
+#  gtads_ylh: ^1.5.0
 #  flutter_unionad: ^2.1.7
   shared_preferences: ^2.1.1
   openiothub_constants: ^1.0.2+3

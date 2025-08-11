@@ -723,14 +723,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.2"
-  flutter_tencentad:
-    dependency: transitive
-    description:
-      name: flutter_tencentad
-      sha256: "5d7373e10422441e6e1ae49d5e24b0a9eca6cb1245cdd56037d75dcd2614eba1"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.2.36"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -837,14 +829,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.5.0"
-  gtads_ylh:
-    dependency: transitive
-    description:
-      name: gtads_ylh
-      sha256: "76a2e2a23245ba70469b27157e0ef6fbc82134295e99dfbee30da8640338a293"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.5.5"
   hashcodes:
     dependency: transitive
     description:
