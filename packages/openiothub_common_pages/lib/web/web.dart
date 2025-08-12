@@ -228,6 +228,11 @@ class WebScreenState extends State<WebScreen> {
     actions.addAll([
       IconButton(
           onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: Icon(Icons.backspace_outlined)),
+      IconButton(
+          onPressed: () {
             _webViewController?.reload();
           },
           icon: Icon(Icons.refresh)),
