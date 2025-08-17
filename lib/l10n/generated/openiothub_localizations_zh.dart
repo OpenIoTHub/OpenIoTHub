@@ -191,6 +191,9 @@ class OpenIoTHubLocalizationsZh extends OpenIoTHubLocalizations {
   String get service => '服务';
 
   @override
+  String get ports => '端口';
+
+  @override
   String get delete_device => '删除设备';
 
   @override
@@ -700,6 +703,9 @@ class OpenIoTHubLocalizationsZhCn extends OpenIoTHubLocalizationsZh {
 
   @override
   String get service => '服务';
+
+  @override
+  String get ports => '端口';
 
   @override
   String get delete_device => '删除设备';
@@ -1213,6 +1219,9 @@ class OpenIoTHubLocalizationsZhHans extends OpenIoTHubLocalizationsZh {
   String get service => '服务';
 
   @override
+  String get ports => '端口';
+
+  @override
   String get delete_device => '删除设备';
 
   @override
@@ -1724,6 +1733,9 @@ class OpenIoTHubLocalizationsZhHant extends OpenIoTHubLocalizationsZh {
   String get service => '服務';
 
   @override
+  String get ports => '端口';
+
+  @override
   String get delete_device => '刪除設備';
 
   @override
@@ -2233,6 +2245,9 @@ class OpenIoTHubLocalizationsZhTw extends OpenIoTHubLocalizationsZh {
 
   @override
   String get service => '服務';
+
+  @override
+  String get ports => '端口';
 
   @override
   String get delete_device => '刪除設備';

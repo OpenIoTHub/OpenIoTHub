@@ -59,6 +59,7 @@
   "ftp_port": "FTP端口",
   "http_port": "HTTP端口",
   "service": "服务",
+  "ports": "端口",
   "delete_device": "删除设备",
   "confirm_delete_device": "确认删除此设备？",
   "wake_up_device": "唤醒设备",

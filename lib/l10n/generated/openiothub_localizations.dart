@@ -465,6 +465,12 @@ abstract class OpenIoTHubLocalizations {
   /// **'服务'**
   String get service;
 
+  /// No description provided for @ports.
+  ///
+  /// In zh, this message translates to:
+  /// **'端口'**
+  String get ports;
+
   /// No description provided for @delete_device.
   ///
   /// In zh, this message translates to:

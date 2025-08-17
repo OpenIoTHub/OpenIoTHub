@@ -118,7 +118,7 @@ class _ServicesListPageState extends State<ServicesListPage> {
     );
     return Scaffold(
       appBar: AppBar(
-        title: Text(OpenIoTHubLocalizations.of(context).service),
+        title: Text(OpenIoTHubLocalizations.of(context).ports),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.delete, color: Colors.red),

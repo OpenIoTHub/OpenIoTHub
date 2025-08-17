@@ -259,7 +259,7 @@ loginwithtokenmap:
     print("GetOneHttpProxyPortByRunId:$port");
     Navigator.push(context, MaterialPageRoute(builder: (ctx) {
       // return WebScreen(startUrl: "https://baidu.com");
-      return WebScreen(startUrl: "https://baidu.com",httpProxyPort: port,);
+      return WebScreen(startUrl: "https://baidu.com",httpProxyPort: port, urlEditable:true);
     }));
   }
 

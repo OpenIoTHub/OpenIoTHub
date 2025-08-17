@@ -194,6 +194,9 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
   String get service => 'Service';
 
   @override
+  String get ports => 'Ports';
+
+  @override
   String get delete_device => 'Delete device';
 
   @override

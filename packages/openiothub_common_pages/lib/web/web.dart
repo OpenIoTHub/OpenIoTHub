@@ -18,11 +18,12 @@ GlobalKey<WebScreenState> webGlobalKey = GlobalKey();
 
 class WebScreen extends StatefulWidget {
   const WebScreen(
-      {super.key, required this.startUrl, this.title, this.httpProxyPort});
+      {super.key, required this.startUrl, this.title, this.httpProxyPort, this.urlEditable});
 
   final String startUrl;
   final String? title;
   final int? httpProxyPort;
+  final bool? urlEditable;
 
   @override
   State<StatefulWidget> createState() {
@@ -102,6 +103,7 @@ class WebScreenState extends State<WebScreen> {
                 onEditingComplete: () {
                   _webViewController?.loadUrl(urlRequest: URLRequest(url: WebUri(_urlInput.text)));
                 },
+                readOnly:(widget.urlEditable == null || widget.urlEditable == false)
               ),
               SizedBox(width: 70,child: IconButton(
                   onPressed: () {

@@ -59,6 +59,7 @@
   "ftp_port": "FTP Port",
   "http_port": "HTTP Port",
   "service": "Service",
+  "ports": "Ports",
   "delete_device": "Delete device",
   "confirm_delete_device": "Are you sure to delete this device?",
   "wake_up_device": "Wake-up Device",
