@@ -1101,6 +1101,12 @@ abstract class OpenIoTHubLocalizations {
   /// In zh, this message translates to:
   /// **'打开网关软件主页'**
   String get open_gateway_guide;
+
+  /// No description provided for @remote_lan_browser.
+  ///
+  /// In zh, this message translates to:
+  /// **'远程局域网浏览器'**
+  String get remote_lan_browser;
 }
 
 class _OpenIoTHubLocalizationsDelegate

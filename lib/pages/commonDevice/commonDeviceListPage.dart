@@ -124,13 +124,13 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
         shape: const CircleBorder(),
         elevation: 2.0,
-        tooltip: 'Add Host',
+        tooltip: 'Add remote Host in LAN',
         onPressed: () {
           _addRemoteHostFromSession();
         },
+        child: const Icon(Icons.add),
       ),
       body: RefreshIndicator(
         onRefresh: getAllCommonDevice,

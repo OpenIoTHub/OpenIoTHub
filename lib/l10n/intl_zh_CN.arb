@@ -164,5 +164,6 @@
   "skip_this_guide": "跳过本指导",
   "open_the_port": "打开端口",
   "add_port_button": "添加端口",
-  "open_gateway_guide": "打开网关软件主页"
+  "open_gateway_guide": "打开网关软件主页",
+  "remote_lan_browser": "远程局域网浏览器"
 }

@@ -54,10 +54,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
   void initState() {
     super.initState();
     getIoTDeviceFromLocal();
-    Future.delayed(const Duration(milliseconds: 500)).then((value) {
-      refreshmDNSServicesFromeRemote();
-    });
-    Future.delayed(const Duration(milliseconds: 2000)).then((value) {
+    Future.delayed(const Duration(milliseconds: 1000)).then((value) {
       setState(() {
         _showAD = true;
       });

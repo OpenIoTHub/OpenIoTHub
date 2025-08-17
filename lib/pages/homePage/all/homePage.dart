@@ -118,20 +118,20 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   Widget _buildBody(int index) {
     switch (index) {
       case 0:
-        return MdnsServiceListPage(
-          title: OpenIoTHubLocalizations.of(context).tab_smart,
-          key: UniqueKey(),
-        );
-        break;
-      case 1:
         return GatewayListPage(
           title: OpenIoTHubLocalizations.of(context).tab_gateway,
           key: UniqueKey(),
         );
         break;
-      case 2:
+      case 1:
         return CommonDeviceListPage(
           title: OpenIoTHubLocalizations.of(context).tab_host,
+          key: UniqueKey(),
+        );
+        break;
+      case 2:
+        return MdnsServiceListPage(
+          title: OpenIoTHubLocalizations.of(context).tab_smart,
           key: UniqueKey(),
         );
         break;
@@ -157,16 +157,16 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   List<BottomNavigationBarItem> getBottomNavItems(BuildContext context) {
     final List<BottomNavigationBarItem> bottomNavItems = [
       BottomNavigationBarItem(
-        icon: const Icon(TDIcons.home),
-        label: OpenIoTHubLocalizations.of(context).tab_smart,
-      ),
-      BottomNavigationBarItem(
         icon: const Icon(TDIcons.internet),
         label: OpenIoTHubLocalizations.of(context).tab_gateway,
       ),
       BottomNavigationBarItem(
         icon: const Icon(TDIcons.desktop),
         label: OpenIoTHubLocalizations.of(context).tab_host,
+      ),
+      BottomNavigationBarItem(
+        icon: const Icon(TDIcons.home),
+        label: OpenIoTHubLocalizations.of(context).tab_smart,
       ),
       BottomNavigationBarItem(
         icon: const Icon(TDIcons.user),

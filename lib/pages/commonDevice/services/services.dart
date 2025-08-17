@@ -122,6 +122,7 @@ class _ServicesListPageState extends State<ServicesListPage> {
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.delete, color: Colors.red),
+            tooltip: "Delete current host",
             onPressed: () {
               //TODO 删除小米网关设备
               _deleteCurrentDevice();
@@ -132,6 +133,7 @@ class _ServicesListPageState extends State<ServicesListPage> {
               Icons.power_settings_new,
               // color: Colors.white,
             ),
+            tooltip: "WoL(Wake on LAN)",
             onPressed: () {
               //网络唤醒
               _wakeOnLAN();
@@ -142,6 +144,7 @@ class _ServicesListPageState extends State<ServicesListPage> {
               Icons.add_circle,
               // color: Colors.white,
             ),
+            tooltip: "Add Tcp/Udp port in this host",
             onPressed: () {
               // 添加TCP、UDP、Http端口
               _addOnePortConfig(widget.device).then((v) {
@@ -155,6 +158,7 @@ class _ServicesListPageState extends State<ServicesListPage> {
               Icons.info,
               // color: Colors.white,
             ),
+            tooltip: "Current host info",
             onPressed: () {
               //网络唤醒
               _pushDetail();

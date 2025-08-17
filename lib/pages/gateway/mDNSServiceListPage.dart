@@ -259,7 +259,7 @@ loginwithtokenmap:
     print("GetOneHttpProxyPortByRunId:$port");
     Navigator.push(context, MaterialPageRoute(builder: (ctx) {
       // return WebScreen(startUrl: "https://baidu.com");
-      return WebScreen(startUrl: "https://baidu.com",httpProxyPort: port, urlEditable:true);
+      return WebScreen(startUrl: "http://127.0.0.1:34323",httpProxyPort: port, urlEditable:true, title: "LAN Browser",);
     }));
   }
 
@@ -324,6 +324,7 @@ loginwithtokenmap:
             TDIcons.logo_chrome,
             color: Colors.green,
           ),
+          tooltip: "Remote LAN Browser",
           onPressed: () {
             _goToProxyBrowser();
           }));
@@ -334,6 +335,7 @@ loginwithtokenmap:
             TDIcons.logo_chrome,
             color: Colors.green,
           ),
+          tooltip: "Remote LAN Browser",
           onPressed: () {
             _goToProxyBrowser();
           }));
@@ -346,6 +348,7 @@ loginwithtokenmap:
             Icons.edit,
             // color: Colors.white,
           ),
+          tooltip: "Edit gateway name",
           onPressed: () {
             _renameDialog();
           }),
@@ -354,6 +357,7 @@ loginwithtokenmap:
             Icons.refresh,
             // color: Colors.white,
           ),
+          tooltip: "Refresh mdns service",
           onPressed: () {
             refreshmDNSServices(widget.sessionConfig).then((result) {
               SessionApi.getAllTCP(widget.sessionConfig).then((v) {
@@ -368,6 +372,7 @@ loginwithtokenmap:
             Icons.delete,
             color: Colors.red,
           ),
+          tooltip: "Delete this gateway",
           onPressed: () {
             showDialog(
                 context: context,
@@ -401,6 +406,7 @@ loginwithtokenmap:
             Icons.info,
             // color: Colors.white,
           ),
+          tooltip: "Show gateway info",
           onPressed: () {
             _pushDetail(widget.sessionConfig);
           }),

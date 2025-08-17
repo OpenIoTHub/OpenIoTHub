@@ -40,7 +40,9 @@ class _GatewayListPageState extends State<GatewayListPage> {
   void initState() {
     super.initState();
     getAllSession();
-    _timerPeriod = Timer.periodic(const Duration(seconds: 15), (Timer timer) {
+    Future.delayed(Duration(seconds: 1),(){getAllSession();});
+    Future.delayed(Duration(seconds: 2),(){getAllSession();});
+    _timerPeriod = Timer.periodic(const Duration(seconds: 7), (Timer timer) {
       getAllSession();
     });
     _loadAd();
@@ -125,6 +127,16 @@ class _GatewayListPageState extends State<GatewayListPage> {
         title: Text(widget.title),
         centerTitle: true,
         actions: build_actions(context),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: FloatingActionButton(
+        shape: const CircleBorder(),
+        elevation: 2.0,
+        tooltip: 'Scan gateway-go QR code to add Gateway',
+        onPressed: () {
+          scanQR(context);
+        },
+        child: const Icon(TDIcons.scan),
       ),
       body: RefreshIndicator(
         onRefresh: getAllSession,
