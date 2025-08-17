@@ -2,10 +2,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:openiothub_common_pages/web/web.dart';
 
 import 'package:openiothub_plugin/openiothub_plugin.dart';
 
@@ -24,48 +22,10 @@ class WebPage extends StatefulWidget {
 class _WebPageState extends State<WebPage> {
   @override
   Widget build(BuildContext context) {
-    final localizations = OpenIoTHubPluginLocalizations.of(context);
-    WebViewController controller = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setBackgroundColor(const Color(0x00000000))
-      ..setNavigationDelegate(
-        NavigationDelegate(
-          onProgress: (int progress) {
-            // Update loading bar.
-          },
-          onPageStarted: (String url) {},
-          onPageFinished: (String url) {},
-          onWebResourceError: (WebResourceError error) {},
-          onNavigationRequest: (NavigationRequest request) {
-            return NavigationDecision.navigate;
-          },
-        ),
-      )
-      ..loadRequest(
-          Uri.parse("http://${widget.device.addr}:${widget.device.port}"));
+    var _url = 'http://${widget.device.addr}:${widget.device.port}';
+    // TODO 更换web插件
 //    解决退出没有断连的问题
-    return Scaffold(
-        appBar: AppBar(title: Text(localizations.web_browser), actions: <Widget>[
-          IconButton(
-              icon: Icon(
-                Icons.info,
-                color: Colors.green,
-              ),
-              onPressed: () {
-                _info();
-              }),
-          IconButton(
-              icon: Icon(
-                Icons.open_in_browser,
-                color: Colors.teal,
-              ),
-              onPressed: () {
-                _launchURL("http://${widget.device.addr}:${widget.device.port}");
-              })
-        ]),
-        body: Builder(builder: (BuildContext context) {
-          return WebViewWidget(controller: controller);
-        }));
+    return WebScreen(startUrl: _url,);
   }
 
   _info() async {
@@ -92,9 +52,9 @@ class _WebPageState extends State<WebPage> {
     // } else {
     //   _launchURL('http://${widget.device.addr}:${widget.device.port}');
     // }
+    var _url = 'http://${widget.device.addr}:${widget.device.port}';
     if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
-      var url = 'http://${widget.device.addr}:${widget.device.port}';
-      _launchURL(url);
+      _launchURL(_url);
       return;
     }
   }
