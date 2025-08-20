@@ -31,7 +31,7 @@ dependencies:
   openiothub_constants: ^1.0.0
   openiothub_api: ^1.0.5+7
   openiothub_grpc_api: ^1.0.0
-  openiothub_common_pages: ^1.0.5+66
+  openiothub_common_pages: ^1.0.5+83
 #  gateway_grpc_api: ^1.0.0
 #  iot_manager_grpc_api: ^1.0.0
 

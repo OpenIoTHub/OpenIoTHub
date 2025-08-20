@@ -43,54 +43,20 @@
 - [x] Support the discovery and control of smart home devices ([IOT device]（ https://github.com/iotdevice/todo-list )
 
 ---
-#### Development：
-#### Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
-
----
 #### Preview
-  * smart home control(https://github.com/iotdevice/esp8266-switch)
+  * gateway list
 
-<img src="./screen/智能设备开关控制.png" width = "50%" height = "50%" alt="智能设备开关控制"/>
+<img src="screen/gateway-list.jpg" width = "50%" height = "50%" alt="gateway-list"/>
 
-  * remote network list
+  * remote host in LAN list
 
-<img src="./screen/远程网络列表.png" width = "50%" height = "50%" alt="远程网络列表"/>
+<img src="screen/remote-host-list.jpg" width = "50%" height = "50%" alt="screen/remote-host-list.jpg"/>
 
-  * mdns service find list
+  * remote ports in LAN list
 
-<img src="./screen/内网由mDNS声明的服务.png" width = "50%" height = "50%" alt="内网由mDNS声明的服务"/>
+<img src="screen/remote-ports-list.jpg" width = "50%" height = "50%" alt="remote-ports-list"/>
 
-  * device manager
+  * remote mdns service
 
-<img src="./screen/设备管理器.png" width = "50%" height = "50%" alt="设备管理器"/>
-
-  * device list
-
-<img src="./screen/设备列表.png" width = "50%" height = "50%" alt="设备列表"/>
-
-  * common devices
-
-<img src="./screen/普通设备的服务.png" width = "50%" height = "50%" alt="普通设备的服务"/>
-
-  * tcp service of common device
-
-<img src="./screen/普通设备的TCP服务.png" width = "50%" height = "50%" alt="普通设备的TCP服务"/>
-
-  * the tcp open method of common device
-
-<img src="./screen/TCP端口打开方式.png" width = "50%" height = "50%" alt="TCP端口打开方式"/>
-
-  * me
-
-<img src="./screen/我.png" width = "50%" height = "50%" alt="我"/>
+<img src="screen/remote-mdns-service.jpg" width = "50%" height = "50%" alt="remote-mdns-service"/>

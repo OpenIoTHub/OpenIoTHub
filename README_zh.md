@@ -46,54 +46,20 @@ QQ群号: 251227638 <a target="_blank" href="https://jq.qq.com/?_wv=1027&k=1K3Dl
 - [x] 支持发现并操控智能家居设备([IoT Device](https://github.com/iotdevice/todo-list))
 
 ---
-#### 开发：
-#### 这是一个Flutter项目
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
-
----
 #### 预览图
-  * 智能家居设备操控(https://github.com/iotdevice/esp8266-switch)
+* 已添加到账户的远程网关
 
-<img src="./screen/智能设备开关控制.png" width = "50%" height = "50%" alt="智能设备开关控制"/>
+<img src="screen/gateway-list.jpg" width = "50%" height = "50%" alt="gateway-list"/>
 
-  * 远程网络列表
+* 手动添加的远程主机
 
-<img src="./screen/远程网络列表.png" width = "50%" height = "50%" alt="远程网络列表"/>
+<img src="screen/remote-host-list.jpg" width = "50%" height = "50%" alt="screen/remote-host-list.jpg"/>
 
-  * 内网由mDNS声明的服务
+* 远程主机下面添加的端口
 
-<img src="./screen/内网由mDNS声明的服务.png" width = "50%" height = "50%" alt="内网由mDNS声明的服务"/>
+<img src="screen/remote-ports-list.jpg" width = "50%" height = "50%" alt="remote-ports-list"/>
 
-  * 设备管理器
+* 远程网关所在局域网里面的mdns服务
 
-<img src="./screen/设备管理器.png" width = "50%" height = "50%" alt="设备管理器"/>
+<img src="screen/remote-mdns-service.jpg" width = "50%" height = "50%" alt="remote-mdns-service"/>
 
-  * 设备列表
-
-<img src="./screen/设备列表.png" width = "50%" height = "50%" alt="设备列表"/>
-
-  * 普通设备的服务
-
-<img src="./screen/普通设备的服务.png" width = "50%" height = "50%" alt="普通设备的服务"/>
-
-  * 普通设备的TCP服务
-
-<img src="./screen/普通设备的TCP服务.png" width = "50%" height = "50%" alt="普通设备的TCP服务"/>
-
-  * TCP端口打开方式
-
-<img src="./screen/TCP端口打开方式.png" width = "50%" height = "50%" alt="TCP端口打开方式"/>
-
-  * 我
-
-<img src="./screen/我.png" width = "50%" height = "50%" alt="我"/>
