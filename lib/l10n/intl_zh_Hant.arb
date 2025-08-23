@@ -165,5 +165,7 @@
   "open_the_port": "打開端口",
   "add_port_button": "添加端口",
   "open_gateway_guide": "打開雲億連網關軟件主頁",
-  "remote_lan_browser": "遠程局域網瀏覽器"
+  "remote_lan_browser": "遠程局域網瀏覽器",
+
+  "install_gateway_url": "安裝網關"
 }

@@ -165,5 +165,7 @@
   "open_the_port": "Open The Port",
   "add_port_button": "Add Port",
   "open_gateway_guide": "Open the OpenIoTHub gateway home page",
-  "remote_lan_browser": "Remote LAN Browser"
+  "remote_lan_browser": "Remote LAN Browser",
+
+  "install_gateway_url": "Install gateway"
 }

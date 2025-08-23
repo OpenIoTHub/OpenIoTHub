@@ -1107,6 +1107,12 @@ abstract class OpenIoTHubLocalizations {
   /// In zh, this message translates to:
   /// **'远程局域网浏览器'**
   String get remote_lan_browser;
+
+  /// No description provided for @install_gateway_url.
+  ///
+  /// In zh, this message translates to:
+  /// **'安装网关'**
+  String get install_gateway_url;
 }
 
 class _OpenIoTHubLocalizationsDelegate

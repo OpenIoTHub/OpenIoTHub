@@ -535,4 +535,7 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
 
   @override
   String get remote_lan_browser => 'Remote LAN Browser';
+
+  @override
+  String get install_gateway_url => 'Install gateway';
 }

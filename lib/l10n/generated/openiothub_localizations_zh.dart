@@ -519,6 +519,9 @@ class OpenIoTHubLocalizationsZh extends OpenIoTHubLocalizations {
 
   @override
   String get remote_lan_browser => '远程局域网浏览器';
+
+  @override
+  String get install_gateway_url => '安装网关';
 }
 
 /// The translations for Chinese, as used in China (`zh_CN`).
@@ -1036,6 +1039,9 @@ class OpenIoTHubLocalizationsZhCn extends OpenIoTHubLocalizationsZh {
 
   @override
   String get remote_lan_browser => '远程局域网浏览器';
+
+  @override
+  String get install_gateway_url => '安装网关';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hans`).
@@ -1553,6 +1559,9 @@ class OpenIoTHubLocalizationsZhHans extends OpenIoTHubLocalizationsZh {
 
   @override
   String get remote_lan_browser => '远程局域网浏览器';
+
+  @override
+  String get install_gateway_url => '安装网关';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -2070,6 +2079,9 @@ class OpenIoTHubLocalizationsZhHant extends OpenIoTHubLocalizationsZh {
 
   @override
   String get remote_lan_browser => '遠程局域網瀏覽器';
+
+  @override
+  String get install_gateway_url => '安裝網關';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -2587,4 +2599,7 @@ class OpenIoTHubLocalizationsZhTw extends OpenIoTHubLocalizationsZh {
 
   @override
   String get remote_lan_browser => '遠程局域網瀏覽器';
+
+  @override
+  String get install_gateway_url => '安裝網關';
 }
