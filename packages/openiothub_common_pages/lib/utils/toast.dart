@@ -7,7 +7,7 @@ show_success(String msg, BuildContext context) {
     context: context,
     content: msg,
     visible: true,
-    icon: false,
+    icon: true,
     theme: MessageTheme.success,
     duration: 3000,
     onDurationEnd: () {
@@ -21,7 +21,7 @@ show_failed(String msg, BuildContext context) {
     context: context,
     content: msg,
     visible: true,
-    icon: false,
+    icon: true,
     theme: MessageTheme.error,
     duration: 3000,
     onDurationEnd: () {
@@ -35,7 +35,7 @@ show_info(String msg, BuildContext context) {
     context: context,
     content: msg,
     visible: true,
-    icon: false,
+    icon: true,
     theme: MessageTheme.info,
     duration: 3000,
     onDurationEnd: () {

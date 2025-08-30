@@ -315,11 +315,20 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   }
 
   _showSplashAd() async {
+    // TODO 控制开屏广告时间间隔
     if (initList != null && needShowSplash) {
-      if (Platform.isIOS) {
-        // 为了防止腾讯开屏广告启动之后算一次返回再展现一次广告，穿山甲没有这样的问题
-        needShowSplash = false;
+      // if (Platform.isIOS) {
+      //   // 为了防止腾讯开屏广告启动之后算一次返回再展现一次广告，穿山甲没有这样的问题
+      //   needShowSplash = false;
+      // }
+      if (lastDateTime!=null) {
+        DateTime now = DateTime.now();
+        Duration difference = now.difference(lastDateTime!);
+        if (difference.inSeconds<35){
+          return;
+        }
       }
+      lastDateTime = DateTime.now();
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) {

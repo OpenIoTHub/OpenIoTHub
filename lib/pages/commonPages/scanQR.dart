@@ -277,6 +277,7 @@ class _ScanQRPageState extends State<ScanQRPage> {
             openIoTHubJwt.value,
             name,
             description);
+        await Future.delayed(Duration(milliseconds: 100));
         // TODO 自动添加主机和端口
         //自动 添加网关主机
         var device = Device();
@@ -286,6 +287,7 @@ class _ScanQRPageState extends State<ScanQRPage> {
         device.description = description;
         device.addr = "127.0.0.1";
         await CommonDeviceApi.createOneDevice(device);
+        await Future.delayed(Duration(milliseconds: 100));
         //自动 添加网关界面端口
         var tcpConfig = PortConfig();
         tcpConfig.device = device;

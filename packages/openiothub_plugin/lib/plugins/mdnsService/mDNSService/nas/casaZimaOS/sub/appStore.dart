@@ -191,7 +191,7 @@ class _AppStorePageState extends State<AppStorePage> {
         context: context,
         content: 'The installation task has been submitted, return to the list of installed software and wait for installation to complete',
         visible: true,
-        icon: false,
+        icon: true,
         theme: MessageTheme.success,
         duration: 3000,
         onDurationEnd: () {
