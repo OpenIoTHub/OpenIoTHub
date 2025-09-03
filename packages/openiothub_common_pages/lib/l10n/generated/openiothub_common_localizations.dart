@@ -942,6 +942,12 @@ abstract class OpenIoTHubCommonLocalizations {
   /// In en, this message translates to:
   /// **'Are you sure to add a gateway?'**
   String get confirm_add_gateway;
+
+  /// No description provided for @github_repo.
+  ///
+  /// In en, this message translates to:
+  /// **'Github Repository'**
+  String get github_repo;
 }
 
 class _OpenIoTHubCommonLocalizationsDelegate

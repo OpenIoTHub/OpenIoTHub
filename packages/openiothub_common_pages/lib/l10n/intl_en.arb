@@ -150,5 +150,7 @@
   "success": "Success!",
   "location_req_name": "Request location permission",
   "location_req_desc": "Apply for location permission to obtain WiFi information for smart device distribution network",
-  "confirm_add_gateway": "Are you sure to add a gateway?"
+  "confirm_add_gateway": "Are you sure to add a gateway?",
+
+  "github_repo": "Github Repository"
 }

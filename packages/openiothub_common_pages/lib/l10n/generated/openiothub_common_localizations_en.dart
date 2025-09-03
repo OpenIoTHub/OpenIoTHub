@@ -463,4 +463,7 @@ class OpenIoTHubCommonLocalizationsEn extends OpenIoTHubCommonLocalizations {
 
   @override
   String get confirm_add_gateway => 'Are you sure to add a gateway?';
+
+  @override
+  String get github_repo => 'Github Repository';
 }

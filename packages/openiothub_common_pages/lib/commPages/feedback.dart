@@ -1,48 +1,66 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+
+import '../l10n/generated/openiothub_common_localizations.dart';
 
 class FeedbackPage extends StatelessWidget {
   const FeedbackPage({required Key key}) : super(key: key);
+
   // TODO 没有翻译国际化
   @override
   Widget build(BuildContext context) {
-    final List _result = [];
-    _result.add("1：加入QQ群(251227638)反馈");
-    _result.add("2. 关注云亿连的微信公众号<云亿连物联网>反馈");
-
-    final tiles = _result.map(
-      (pair) {
-        return ListTile(
-          title: Text(
-            pair,
-          ),
-        );
-      },
-    );
-    List<Widget> divided = ListTile.divideTiles(
-      context: context,
-      tiles: tiles,
-    ).toList();
-    divided.add(ListTile(
+    final githubRepo = "https://github.com/OpenIoTHub";
+    final List<ListTile> tiles = [];
+    tiles.add(ListTile(
+      title: Row(
+        children: [
+          Text("0：Github"),
+          TextButton(
+              onPressed: () {
+                launchUrlString(githubRepo);
+              },
+              child: Text(githubRepo))
+        ],
+      ),
+    ));
+    tiles.add(ListTile(
+      title: Text(
+        "1：加入QQ群(251227638)反馈",
+      ),
+    ));
+    tiles.add(ListTile(
+      title: Text(
+        "2. 关注云亿连的微信公众号<云亿连物联网>反馈",
+      ),
+    ));
+    tiles.add(ListTile(
       title: Text(
         "公众号",
       ),
     ));
-    divided.add(Image.asset(
+    tiles.add(ListTile(
+        title: Image.asset(
       "assets/images/feedback/gongzhonghao.png",
       package: "openiothub_common_pages",
-    ));
-    divided.add(ListTile(
+    )));
+    tiles.add(ListTile(
       title: Text(
         "QQ群",
       ),
     ));
-    divided.add(Image.asset(
+    tiles.add(ListTile(
+        title: Image.asset(
       "assets/images/feedback/qqqun.jpg",
       package: "openiothub_common_pages",
-    ));
+    )));
+    List<Widget> divided = ListTile.divideTiles(
+      context: context,
+      tiles: tiles,
+    ).toList();
     return Scaffold(
         appBar: AppBar(
-          title: Text("反馈渠道"),
+          title:
+              Text(OpenIoTHubCommonLocalizations.of(context).feedback_channels),
           actions: <Widget>[],
         ),
         body: Container(

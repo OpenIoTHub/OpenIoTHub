@@ -40,6 +40,7 @@ class _AppInfoPageState extends State<AppInfoPage> {
   // QQ分享
   // late final StreamSubscription<TencentResp> _respSubs;
   // TencentLoginResp? _loginResp;
+  final githubRepo = "https://github.com/OpenIoTHub/OpenIoTHub";
 
   void _listenShareMsg(WechatResp resp) {
     // final String content = 'share: ${resp.errorCode} ${resp.errorMsg}';
@@ -100,6 +101,15 @@ class _AppInfoPageState extends State<AppInfoPage> {
       },
     );
     List<ListTile> tilesList = tiles.toList();
+    tilesList.add(ListTile(
+      title: Text(
+        OpenIoTHubCommonLocalizations.of(context).github_repo,
+        style: TextStyle(color: Colors.green),
+      ),
+      onTap: () {
+        launchURL(githubRepo);
+      },
+    ));
     tilesList.add(ListTile(
       title: Text(
         OpenIoTHubCommonLocalizations.of(context).feedback_channels,

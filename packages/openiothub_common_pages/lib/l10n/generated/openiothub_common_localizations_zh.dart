@@ -432,6 +432,9 @@ class OpenIoTHubCommonLocalizationsZh extends OpenIoTHubCommonLocalizations {
 
   @override
   String get confirm_add_gateway => '确认添加次网关到账户？';
+
+  @override
+  String get github_repo => 'Github开源';
 }
 
 /// The translations for Chinese, as used in China (`zh_CN`).
@@ -863,6 +866,9 @@ class OpenIoTHubCommonLocalizationsZhCn
 
   @override
   String get confirm_add_gateway => '确认添加次网关到账户？';
+
+  @override
+  String get github_repo => 'Github开源';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hans`).
@@ -1294,6 +1300,9 @@ class OpenIoTHubCommonLocalizationsZhHans
 
   @override
   String get confirm_add_gateway => '确认添加次网关到账户？';
+
+  @override
+  String get github_repo => 'Github开源';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -1725,6 +1734,9 @@ class OpenIoTHubCommonLocalizationsZhHant
 
   @override
   String get confirm_add_gateway => '確認添加網關到本賬號？';
+
+  @override
+  String get github_repo => 'Github開源';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -2156,4 +2168,7 @@ class OpenIoTHubCommonLocalizationsZhTw
 
   @override
   String get confirm_add_gateway => '確認添加網關到本賬號？';
+
+  @override
+  String get github_repo => 'Github開源';
 }

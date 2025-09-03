@@ -40,12 +40,23 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
   @override
   void initState() {
     super.initState();
-    startDiscovery();
+    userSignedIn().then((signedIn){
+      if (!signedIn) {
+        Navigator.of(context).pop();
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => LoginPage()),
+        );
+      }else{
+        startDiscovery();
+      }
+    });
   }
 
   @override
   void dispose() {
-    action!.stop();
+    if (action != null) {
+      action!.stop();
+    }
     super.dispose();
   }
 

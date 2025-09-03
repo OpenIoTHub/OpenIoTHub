@@ -150,5 +150,7 @@
   "success": "成功!",
   "location_req_name": "申請位置權限說明",
   "location_req_desc": "申請位置權限，以獲取WiFi信息用於智能設備配網",
-  "confirm_add_gateway": "確認添加網關到本賬號？"
+  "confirm_add_gateway": "確認添加網關到本賬號？",
+
+  "github_repo": "Github開源"
 }

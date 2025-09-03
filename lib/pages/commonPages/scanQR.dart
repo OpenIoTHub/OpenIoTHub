@@ -8,6 +8,7 @@ import 'package:openiothub_api/api/IoTManager/GatewayManager.dart';
 import 'package:openiothub_api/api/OpenIoTHub/CommonDeviceApi.dart';
 import 'package:openiothub_api/api/OpenIoTHub/SessionApi.dart';
 import 'package:openiothub_api/utils/uuid.dart';
+import 'package:openiothub_common_pages/user/LoginPage.dart';
 import 'package:openiothub_grpc_api/google/protobuf/wrappers.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/common.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/gatewayManager.pb.dart';
@@ -16,6 +17,7 @@ import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
+import '../../util/check/check.dart';
 import '../../widgets/toast.dart';
 
 class ScanQRPage extends StatefulWidget {
@@ -27,6 +29,19 @@ class ScanQRPage extends StatefulWidget {
 
 class _ScanQRPageState extends State<ScanQRPage> {
   final MobileScannerController controller = MobileScannerController();
+
+  @override
+  void initState() {
+    super.initState();
+    userSignedIn().then((signedIn){
+      if (!signedIn) {
+        Navigator.of(context).pop();
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => LoginPage()),
+        );
+      }
+    });
+  }
 
   Widget _buildBarcodeOverlay() {
     return ValueListenableBuilder(
