@@ -20,7 +20,7 @@ import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:wechat_kit/wechat_kit.dart';
 // import 'package:workmanager/workmanager.dart';
 
-import 'configs/consts.dart';
+// import 'configs/consts.dart';
 
 List<Map<String, bool>>? initList;
 
@@ -37,9 +37,11 @@ Future<void> init() async {
   initWechat();
   initQQ();
   // initSystemUi();
-  loadConfig();
+  Future.delayed(Duration(milliseconds: 10),(){
+    loadConfig();
+    initGatewayService();
+  });
   // setWindowSize();
-  initGatewayService();
 }
 
 void run(dynamic) {
