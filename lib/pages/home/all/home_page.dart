@@ -165,7 +165,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         label: OpenIoTHubLocalizations.of(context).tab_host,
       ),
       BottomNavigationBarItem(
-        icon: const Icon(TDIcons.home),
+        icon: const Icon(TDIcons.control_platform),
         label: OpenIoTHubLocalizations.of(context).tab_smart,
       ),
       BottomNavigationBarItem(
