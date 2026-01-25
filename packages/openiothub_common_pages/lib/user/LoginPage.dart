@@ -254,15 +254,18 @@ class _State extends State<LoginPage> {
           userLoginResponse.userInfo.mobile);
       await prefs.setString(SharedPreferencesKey.USER_AVATAR_KEY,
           userLoginResponse.userInfo.avatar);
+      
       Future.delayed(Duration(milliseconds: 500), () {
         UtilApi.SyncConfigWithToken();
       });
-      if (Navigator.of(context).canPop()) {
+      
+      // 跳转到主页面
+      // 先关闭所有可能打开的对话框或页面
+      while (Navigator.of(context).canPop()) {
         Navigator.of(context).pop();
       }
-      if (Navigator.of(context).canPop()) {
-        Navigator.of(context).pop();
-      }
+      // 使用pushReplacementNamed跳转到主页面
+      Navigator.of(context).pushReplacementNamed('/home');
     } else {
       show_failed(
           "${OpenIoTHubCommonLocalizations.of(context).login_failed}:code:${userLoginResponse.code},message:${userLoginResponse.msg}",
@@ -294,12 +297,18 @@ class _State extends State<LoginPage> {
               response.data["data"]["user"]["phone"]);
           await prefs.setString(SharedPreferencesKey.USER_AVATAR_KEY,
               response.data["data"]["user"]["headerImg"]);
+          
           Future.delayed(Duration(milliseconds: 500), () {
             UtilApi.SyncConfigWithToken();
           });
           timer.cancel();
-          Navigator.of(context).pop();
-          Navigator.of(context).pop();
+          // 跳转到主页面
+          // 先关闭所有可能打开的对话框或页面
+          while (Navigator.of(context).canPop()) {
+            Navigator.of(context).pop();
+          }
+          // 使用pushReplacementNamed跳转到主页面
+          Navigator.of(context).pushReplacementNamed('/home');
         } else if ((response.data["data"] as Map<String, dynamic>)
                 .containsKey("scan") &&
             (response.data["data"] as Map<String, dynamic>)["scan"] == true) {

@@ -40,15 +40,9 @@ class SplashAdPageState extends State<SplashAdPage> {
     _countdownTimer = Timer.periodic(const Duration(milliseconds: 200), (timer) {
       setState(() {
         if (_countdown <= 1) {
-//          Navigator.of(context).pushNamed("/demo1");
-          Navigator.of(context).pop();
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return MyHomePage(
-              key: UniqueKey(),
-              title: '',
-            );
-          }));
           _countdownTimer.cancel();
+          // 使用路由系统跳转到主页面
+          Navigator.of(context).pushReplacementNamed('/home-main');
         } else {
           setState(() {
             _countdown -= 1;
