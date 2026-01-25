@@ -74,25 +74,30 @@ class MyApp extends StatelessWidget {
           final systemLocale = WidgetsBinding.instance.platformDispatcher.locale;
           final effectiveLocale = localeProvider.getEffectiveLocale(systemLocale);
           
-          return OKToast(
-            child: MaterialApp(
-              title: "云亿连",
-              debugShowCheckedModeBanner: false,
-              locale: effectiveLocale,
-              localizationsDelegates: const [
-                OpenIoTHubLocalizations.delegate,
-                OpenIoTHubCommonLocalizations.delegate,
-                OpenIoTHubPluginLocalizations.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-              supportedLocales: OpenIoTHubLocalizations.supportedLocales,
-              theme: CustomThemes.light,
-              darkTheme: CustomThemes.dark,
-              themeMode: ThemeMode.system,
-              initialRoute: '/',
-              routes: {
+          return Consumer<AuthProvider>(
+            builder: (context, authProvider, child) {
+              return OKToast(
+                child: MaterialApp(
+                  title: "云亿连",
+                  debugShowCheckedModeBanner: false,
+                  locale: effectiveLocale,
+                  localizationsDelegates: const [
+                    OpenIoTHubLocalizations.delegate,
+                    OpenIoTHubCommonLocalizations.delegate,
+                    OpenIoTHubPluginLocalizations.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                  ],
+                  supportedLocales: OpenIoTHubLocalizations.supportedLocales,
+                  theme: CustomThemes.light,
+                  darkTheme: CustomThemes.dark,
+                  themeMode: ThemeMode.system,
+                  initialRoute: '/',
+                  navigatorObservers: [
+                    AuthNavigatorObserver(authProvider: authProvider),
+                  ],
+                  routes: {
                 '/': (context) => const _InitialRoute(),
                 '/login': (context) => LoginPage(),
                 '/register': (context) => RegisterPage(),
@@ -290,11 +295,118 @@ class MyApp extends StatelessWidget {
                     return null;
                 }
               },
-            ),
+                ),
+              );
+            },
           );
         },
       ),
     );
+  }
+}
+
+// 路由拦截器：监听认证状态并拦截需要登录的路由
+class AuthNavigatorObserver extends NavigatorObserver {
+  final AuthProvider authProvider;
+  bool _isHandlingAuthChange = false;
+
+  AuthNavigatorObserver({required this.authProvider}) {
+    // 监听认证状态变化
+    authProvider.addListener(_onAuthStateChanged);
+  }
+
+  void _onAuthStateChanged() {
+    if (_isHandlingAuthChange) return;
+    
+    // 如果用户未登录，检查当前路由并跳转到登录页面
+    if (!authProvider.isAuthenticated && !authProvider.isLoading) {
+      _isHandlingAuthChange = true;
+      
+      // 延迟执行，避免在路由变化过程中触发
+      Future.microtask(() {
+        _isHandlingAuthChange = false;
+        final navigator = this.navigator;
+        if (navigator != null) {
+          final currentRoute = ModalRoute.of(navigator.context);
+          if (currentRoute != null) {
+            final routeName = currentRoute.settings.name;
+            // 如果当前不在登录页面或注册页面，则跳转到登录页面
+            if (routeName != '/login' && routeName != '/register' && routeName != '/') {
+              navigator.pushNamedAndRemoveUntil(
+                '/login',
+                (route) => route.settings.name == '/login' || route.settings.name == '/',
+              );
+            }
+          }
+        }
+      });
+    }
+  }
+
+  @override
+  void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    super.didPush(route, previousRoute);
+    _checkAuthAndRedirect(route);
+    // 如果跳转到登录页面，重新加载 token 以确保状态同步
+    if (route.settings.name == '/login') {
+      authProvider.loadCurrentToken();
+    }
+  }
+
+  @override
+  void didReplace({Route<dynamic>? newRoute, Route<dynamic>? oldRoute}) {
+    super.didReplace(newRoute: newRoute, oldRoute: oldRoute);
+    if (newRoute != null) {
+      _checkAuthAndRedirect(newRoute);
+      // 如果跳转到登录页面，重新加载 token 以确保状态同步
+      if (newRoute.settings.name == '/login') {
+        authProvider.loadCurrentToken();
+      }
+    }
+  }
+
+  void _checkAuthAndRedirect(Route<dynamic> route) {
+    // 需要认证的路由列表
+    const protectedRoutes = [
+      '/home',
+      '/home-main',
+      '/user-info',
+      '/account-security',
+      '/feedback',
+      '/app-info',
+      '/privacy-policy',
+      '/gateway-guide',
+      '/gateway-qr',
+      '/find-gateway',
+      '/tools',
+      '/zip-devices',
+      '/add-mqtt-devices',
+    ];
+
+    final routeName = route.settings.name;
+    
+    // 如果路由需要认证但用户未登录，跳转到登录页面
+    if (routeName != null && 
+        protectedRoutes.contains(routeName) && 
+        !authProvider.isAuthenticated && 
+        !authProvider.isLoading) {
+      // 重新加载 token 以确保状态同步（可能在退出登录时 token 已被清除）
+      authProvider.loadCurrentToken().then((_) {
+        Future.microtask(() {
+          final navigator = this.navigator;
+          if (navigator != null && !authProvider.isAuthenticated) {
+            navigator.pushNamedAndRemoveUntil(
+              '/login',
+              (route) => route.settings.name == '/login' || route.settings.name == '/',
+            );
+          }
+        });
+      });
+    }
+  }
+
+  void dispose() {
+    authProvider.removeListener(_onAuthStateChanged);
   }
 }
 

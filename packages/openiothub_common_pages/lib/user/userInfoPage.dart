@@ -6,6 +6,7 @@ import 'package:openiothub_common_pages/user/LoginPage.dart';
 import 'package:openiothub_constants/openiothub_constants.dart';
 import 'package:openiothub_grpc_api/proto/manager/common.pb.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
 import 'accountSecurityPage.dart';
 
@@ -117,16 +118,18 @@ class _UserInfoPageState extends State<UserInfoPage> {
   }
 
   Future<void> _logOut() async {
+    // 清除本地存储的用户信息
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove(SharedPreferencesKey.USER_TOKEN_KEY);
     await prefs.remove(SharedPreferencesKey.USER_NAME_KEY);
     await prefs.remove(SharedPreferencesKey.USER_EMAIL_KEY);
     await prefs.remove(SharedPreferencesKey.USER_MOBILE_KEY);
-    if (Navigator.of(context).canPop()) {
-      Navigator.of(context).pop();
-    } else {
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => LoginPage()));
-    }
+    
+    // 清除路由栈并跳转到登录页面
+    // 路由拦截器会监听认证状态变化并自动处理
+    Navigator.of(context).pushNamedAndRemoveUntil(
+      '/login',
+      (route) => false, // 清除所有路由
+    );
   }
 }
