@@ -522,6 +522,12 @@ class OpenIoTHubLocalizationsZh extends OpenIoTHubLocalizations {
 
   @override
   String get install_gateway_url => '安装网关';
+
+  @override
+  String get language => '语言';
+
+  @override
+  String get follow_system => '跟随系统';
 }
 
 /// The translations for Chinese, as used in China (`zh_CN`).

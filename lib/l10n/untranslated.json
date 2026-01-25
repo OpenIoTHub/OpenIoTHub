@@ -1,1 +1,21 @@
-{}
+{
+  "zh_CN": [
+    "language",
+    "follow_system"
+  ],
+
+  "zh_Hans": [
+    "language",
+    "follow_system"
+  ],
+
+  "zh_Hant": [
+    "language",
+    "follow_system"
+  ],
+
+  "zh_TW": [
+    "language",
+    "follow_system"
+  ]
+}

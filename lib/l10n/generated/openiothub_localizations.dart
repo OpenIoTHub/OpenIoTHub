@@ -5,7 +5,15 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'openiothub_localizations_ar.dart';
+import 'openiothub_localizations_de.dart';
 import 'openiothub_localizations_en.dart';
+import 'openiothub_localizations_es.dart';
+import 'openiothub_localizations_fr.dart';
+import 'openiothub_localizations_it.dart';
+import 'openiothub_localizations_ja.dart';
+import 'openiothub_localizations_ko.dart';
+import 'openiothub_localizations_ru.dart';
 import 'openiothub_localizations_zh.dart';
 
 // ignore_for_file: type=lint
@@ -97,8 +105,16 @@ abstract class OpenIoTHubLocalizations {
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
-    Locale('zh'),
     Locale('en'),
+    Locale('ar'),
+    Locale('de'),
+    Locale('es'),
+    Locale('fr'),
+    Locale('it'),
+    Locale('ja'),
+    Locale('ko'),
+    Locale('ru'),
+    Locale('zh'),
     Locale('zh', 'CN'),
     Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
     Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
@@ -1113,6 +1129,18 @@ abstract class OpenIoTHubLocalizations {
   /// In zh, this message translates to:
   /// **'安装网关'**
   String get install_gateway_url;
+
+  /// No description provided for @language.
+  ///
+  /// In zh, this message translates to:
+  /// **'语言'**
+  String get language;
+
+  /// No description provided for @follow_system.
+  ///
+  /// In zh, this message translates to:
+  /// **'跟随系统'**
+  String get follow_system;
 }
 
 class _OpenIoTHubLocalizationsDelegate
@@ -1127,8 +1155,18 @@ class _OpenIoTHubLocalizationsDelegate
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['en', 'zh'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>[
+    'ar',
+    'de',
+    'en',
+    'es',
+    'fr',
+    'it',
+    'ja',
+    'ko',
+    'ru',
+    'zh',
+  ].contains(locale.languageCode);
 
   @override
   bool shouldReload(_OpenIoTHubLocalizationsDelegate old) => false;
@@ -1165,8 +1203,24 @@ OpenIoTHubLocalizations lookupOpenIoTHubLocalizations(Locale locale) {
 
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'ar':
+      return OpenIoTHubLocalizationsAr();
+    case 'de':
+      return OpenIoTHubLocalizationsDe();
     case 'en':
       return OpenIoTHubLocalizationsEn();
+    case 'es':
+      return OpenIoTHubLocalizationsEs();
+    case 'fr':
+      return OpenIoTHubLocalizationsFr();
+    case 'it':
+      return OpenIoTHubLocalizationsIt();
+    case 'ja':
+      return OpenIoTHubLocalizationsJa();
+    case 'ko':
+      return OpenIoTHubLocalizationsKo();
+    case 'ru':
+      return OpenIoTHubLocalizationsRu();
     case 'zh':
       return OpenIoTHubLocalizationsZh();
   }

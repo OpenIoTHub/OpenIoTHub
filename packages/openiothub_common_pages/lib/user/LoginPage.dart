@@ -71,6 +71,14 @@ class _State extends State<LoginPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text(OpenIoTHubCommonLocalizations.of(context).login),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.language),
+              tooltip: 'Language',
+              onPressed: () =>
+                  Navigator.of(context).pushNamed('/language-picker'),
+            ),
+          ],
         ),
         body: Center(
           child: Container(

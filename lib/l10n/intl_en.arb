@@ -1,4 +1,5 @@
 {
+  "@@locale": "en",
   "app_title": "OpenIoTHub",
   "tab_smart": "Smart",
   "tab_gateway": "Gateway",
@@ -167,5 +168,8 @@
   "open_gateway_guide": "Open the OpenIoTHub gateway home page",
   "remote_lan_browser": "Remote LAN Browser",
 
-  "install_gateway_url": "Install gateway"
+  "install_gateway_url": "Install gateway",
+
+  "language": "Language",
+  "follow_system": "Follow system"
 }

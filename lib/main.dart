@@ -40,6 +40,7 @@ import 'package:openiothub/pages/bottom_navigation/host/services/old/tcp_port_li
 import 'package:openiothub/pages/bottom_navigation/host/services/old/udp_port_list_page.dart';
 import 'package:openiothub/pages/bottom_navigation/host/services/old/ftp_port_list_page.dart';
 import 'package:openiothub/pages/bottom_navigation/host/services/old/http_port_list_page.dart';
+import 'package:openiothub/widgets/language_picker.dart';
 import 'package:openiothub_plugin/openiothub_plugin.dart';
 import 'package:openiothub_plugin/plugins/mdnsService/commWidgets/info.dart';
 import 'package:openiothub_plugin/plugins/mdnsService/commWidgets/mDNSInfo.dart';
@@ -90,6 +91,28 @@ class MyApp extends StatelessWidget {
                     GlobalCupertinoLocalizations.delegate,
                   ],
                   supportedLocales: OpenIoTHubLocalizations.supportedLocales,
+                  localeResolutionCallback: (locale, supportedLocales) {
+                    // 如果 locale 为 null，返回 null 让 Flutter 使用系统默认
+                    if (locale == null) return null;
+                    
+                    // 精确匹配（语言代码 + 国家代码）
+                    for (final supported in supportedLocales) {
+                      if (supported.languageCode == locale.languageCode &&
+                          supported.countryCode == locale.countryCode) {
+                        return supported;
+                      }
+                    }
+                    
+                    // 语言代码匹配
+                    for (final supported in supportedLocales) {
+                      if (supported.languageCode == locale.languageCode) {
+                        return supported;
+                      }
+                    }
+                    
+                    // 无匹配时返回英文
+                    return const Locale('en');
+                  },
                   theme: CustomThemes.light,
                   darkTheme: CustomThemes.dark,
                   themeMode: ThemeMode.system,
@@ -120,6 +143,7 @@ class MyApp extends StatelessWidget {
                 '/tools': (context) => ToolsTypePage(key: UniqueKey()),
                 '/zip-devices': (context) => const ZipDevicesPage(),
                 '/add-mqtt-devices': (context) => const AddMqttDevicesPage(),
+                kRouteLanguagePicker: (context) => const LanguagePickerPage(),
               },
               onGenerateRoute: (settings) {
                 // 处理需要参数的页面

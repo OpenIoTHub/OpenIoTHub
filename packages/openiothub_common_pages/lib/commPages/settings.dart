@@ -7,6 +7,7 @@ import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import 'package:openiothub_common_pages/openiothub_common_pages.dart';
 import 'package:openiothub/configs/consts.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/service/internal_plugin_service.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
@@ -38,7 +39,15 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = OpenIoTHubLocalizations.of(context);
     List<Widget> listView = <Widget>[
+      ListTile(
+        leading: const Icon(Icons.language),
+        title: Text(l10n.language, style: Constants.titleTextStyle),
+        trailing: const Icon(Icons.chevron_right),
+        onTap: () =>
+            Navigator.of(context).pushNamed('/language-picker'),
+      ),
       TDInput(
         controller: _grpcServiceHost,
         backgroundColor: Colors.white,

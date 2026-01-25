@@ -5,7 +5,15 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'openiothub_common_localizations_ar.dart';
+import 'openiothub_common_localizations_de.dart';
 import 'openiothub_common_localizations_en.dart';
+import 'openiothub_common_localizations_es.dart';
+import 'openiothub_common_localizations_fr.dart';
+import 'openiothub_common_localizations_it.dart';
+import 'openiothub_common_localizations_ja.dart';
+import 'openiothub_common_localizations_ko.dart';
+import 'openiothub_common_localizations_ru.dart';
 import 'openiothub_common_localizations_zh.dart';
 
 // ignore_for_file: type=lint
@@ -96,6 +104,14 @@ abstract class OpenIoTHubCommonLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
+    Locale('ar'),
+    Locale('de'),
+    Locale('es'),
+    Locale('fr'),
+    Locale('it'),
+    Locale('ja'),
+    Locale('ko'),
+    Locale('ru'),
     Locale('zh'),
     Locale('zh', 'CN'),
     Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
@@ -961,8 +977,18 @@ class _OpenIoTHubCommonLocalizationsDelegate
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['en', 'zh'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>[
+        'ar',
+        'de',
+        'en',
+        'es',
+        'fr',
+        'it',
+        'ja',
+        'ko',
+        'ru',
+        'zh'
+      ].contains(locale.languageCode);
 
   @override
   bool shouldReload(_OpenIoTHubCommonLocalizationsDelegate old) => false;
@@ -1000,8 +1026,24 @@ OpenIoTHubCommonLocalizations lookupOpenIoTHubCommonLocalizations(
 
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'ar':
+      return OpenIoTHubCommonLocalizationsAr();
+    case 'de':
+      return OpenIoTHubCommonLocalizationsDe();
     case 'en':
       return OpenIoTHubCommonLocalizationsEn();
+    case 'es':
+      return OpenIoTHubCommonLocalizationsEs();
+    case 'fr':
+      return OpenIoTHubCommonLocalizationsFr();
+    case 'it':
+      return OpenIoTHubCommonLocalizationsIt();
+    case 'ja':
+      return OpenIoTHubCommonLocalizationsJa();
+    case 'ko':
+      return OpenIoTHubCommonLocalizationsKo();
+    case 'ru':
+      return OpenIoTHubCommonLocalizationsRu();
     case 'zh':
       return OpenIoTHubCommonLocalizationsZh();
   }

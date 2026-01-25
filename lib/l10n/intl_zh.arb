@@ -167,5 +167,8 @@
   "open_gateway_guide": "打开网关软件主页",
   "remote_lan_browser": "远程局域网浏览器",
 
-  "install_gateway_url": "安装网关"
+  "install_gateway_url": "安装网关",
+
+  "language": "语言",
+  "follow_system": "跟随系统"
 }

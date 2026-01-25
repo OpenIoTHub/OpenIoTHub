@@ -4,8 +4,8 @@ output-localization-file: openiothub_localizations.dart
 output-dir: lib/l10n/generated
 #template-arb-file: intl_en.arb
 template-arb-file: intl_zh.arb
-#preferred-supported-locales: ["en"]
-preferred-supported-locales: ["zh"]
+preferred-supported-locales: ["en"]
+# 无匹配语言时优先使用英文
 synthetic-package: false
 nullable-getter: false
 format: true

@@ -538,4 +538,10 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
 
   @override
   String get install_gateway_url => 'Install gateway';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get follow_system => 'Follow system';
 }

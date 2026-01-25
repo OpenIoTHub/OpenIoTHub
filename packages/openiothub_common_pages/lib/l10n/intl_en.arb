@@ -1,4 +1,5 @@
 {
+  "@@locale": "en",
   "app_title": "OpenIoTHub",
 
   "click_to_get_wifi_info": "Click to get WiFi info",
