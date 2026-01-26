@@ -17,6 +17,7 @@ List<Widget>? build_actions(BuildContext context) {
       child: _buildPopupMenuItem(
         TDIcons.search,
         OpenIoTHubLocalizations.of(context).find_local_gateway,
+        context,
       ),
       value: "find_local_gateway",
     ),
@@ -29,6 +30,7 @@ List<Widget>? build_actions(BuildContext context) {
         child: _buildPopupMenuItem(
           TDIcons.scan,
           OpenIoTHubLocalizations.of(context).scan_QR,
+          context,
         ),
         value: "scan_QR",
       ),
@@ -38,6 +40,7 @@ List<Widget>? build_actions(BuildContext context) {
         child: _buildPopupMenuItem(
           TDIcons.wifi,
           OpenIoTHubLocalizations.of(context).config_device_wifi,
+          context,
         ),
         value: "config_device_wifi",
       ),
@@ -50,6 +53,7 @@ List<Widget>? build_actions(BuildContext context) {
       child: _buildPopupMenuItem(
         TDIcons.info_circle,
         OpenIoTHubLocalizations.of(context).user_guide,
+        context,
       ),
       value: "user_guide",
     ),
@@ -185,19 +189,29 @@ scanQR(BuildContext context) async {
   }
 }
 
-_buildPopupMenuItem(IconData icon, String title) {
+_buildPopupMenuItem(IconData icon, String title, BuildContext context) {
+  // 使用主题颜色，确保在浅色和深色主题下都有良好的对比度
+  final iconColor = Theme.of(context).iconTheme.color ?? 
+                   (Theme.of(context).brightness == Brightness.dark 
+                     ? Colors.white 
+                     : Colors.black87);
+  final textColor = Theme.of(context).textTheme.bodyMedium?.color ?? 
+                   (Theme.of(context).brightness == Brightness.dark 
+                     ? Colors.white 
+                     : Colors.black87);
+  
   return Row(
     children: <Widget>[
       Icon(
         icon,
-        // color: Colors.white,
+        color: iconColor,
       ),
 
       //Image.asset(CommonUtils.getBaseIconUrlPng("main_top_add_friends"), width: 18, height: 18,),
       Container(width: 12.0),
       Text(
         title,
-        // style: TextStyle(color: Color(0xFFFFFFFF)),
+        style: TextStyle(color: textColor),
       ),
     ],
   );

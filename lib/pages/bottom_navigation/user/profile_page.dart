@@ -52,9 +52,7 @@ class _ProfilePageState extends State<ProfilePage> {
         appBar: AppBar(
           // shadowColor: Colors.transparent,
           toolbarHeight: 0,
-          backgroundColor: Provider.of<CustomTheme>(context).isLightTheme()
-              ? CustomThemes.light.primaryColor
-              : CustomThemes.dark.primaryColor,
+          backgroundColor: Provider.of<CustomTheme>(context).primaryColor,
           systemOverlayStyle:
               const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
         ),
@@ -100,9 +98,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Container _buildHeader() {
     return Container(
-      color: Provider.of<CustomTheme>(context).isLightTheme()
-          ? CustomThemes.light.primaryColor
-          : CustomThemes.dark.primaryColor,
+      color: Provider.of<CustomTheme>(context).primaryColor,
       height: 150.0,
       child: Center(
         child: Column(

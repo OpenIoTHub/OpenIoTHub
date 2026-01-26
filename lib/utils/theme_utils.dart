@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 
 class ThemeUtils {
   // 默认主题色
-  static const Color defaultColor = Colors.blue;
+  static const Color defaultColor = Colors.orange;
+
+  // 浅灰色
+  static const Color lightGrey = Color(0xFFBDBDBD); // Material Design grey[300]
 
   // 可选的主题色
   static const List<Color> supportColors = [
@@ -11,13 +14,14 @@ class ThemeUtils {
     Colors.orange,
     Colors.deepPurpleAccent,
     Colors.redAccent,
-    Colors.blue,
+    Colors.lightBlue,
     Colors.amber,
     Colors.green,
     Colors.lime,
     Colors.indigo,
     Colors.cyan,
-    Colors.teal
+    Colors.teal,
+    lightGrey,
   ];
 
   // 当前的主题色

@@ -41,6 +41,7 @@ import 'package:openiothub/pages/bottom_navigation/host/services/old/udp_port_li
 import 'package:openiothub/pages/bottom_navigation/host/services/old/ftp_port_list_page.dart';
 import 'package:openiothub/pages/bottom_navigation/host/services/old/http_port_list_page.dart';
 import 'package:openiothub/widgets/language_picker.dart';
+import 'package:openiothub/widgets/theme_color_picker.dart';
 import 'package:openiothub_plugin/openiothub_plugin.dart';
 import 'package:openiothub_plugin/plugins/mdnsService/commWidgets/info.dart';
 import 'package:openiothub_plugin/plugins/mdnsService/commWidgets/mDNSInfo.dart';
@@ -75,47 +76,49 @@ class MyApp extends StatelessWidget {
           final systemLocale = WidgetsBinding.instance.platformDispatcher.locale;
           final effectiveLocale = localeProvider.getEffectiveLocale(systemLocale);
           
-          return Consumer<AuthProvider>(
-            builder: (context, authProvider, child) {
-              return OKToast(
-                child: MaterialApp(
-                  title: "云亿连",
-                  debugShowCheckedModeBanner: false,
-                  locale: effectiveLocale,
-                  localizationsDelegates: const [
-                    OpenIoTHubLocalizations.delegate,
-                    OpenIoTHubCommonLocalizations.delegate,
-                    OpenIoTHubPluginLocalizations.delegate,
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                    GlobalCupertinoLocalizations.delegate,
-                  ],
-                  supportedLocales: OpenIoTHubLocalizations.supportedLocales,
-                  localeResolutionCallback: (locale, supportedLocales) {
-                    // 如果 locale 为 null，返回 null 让 Flutter 使用系统默认
-                    if (locale == null) return null;
-                    
-                    // 精确匹配（语言代码 + 国家代码）
-                    for (final supported in supportedLocales) {
-                      if (supported.languageCode == locale.languageCode &&
-                          supported.countryCode == locale.countryCode) {
-                        return supported;
-                      }
-                    }
-                    
-                    // 语言代码匹配
-                    for (final supported in supportedLocales) {
-                      if (supported.languageCode == locale.languageCode) {
-                        return supported;
-                      }
-                    }
-                    
-                    // 无匹配时返回英文
-                    return const Locale('en');
-                  },
-                  theme: CustomThemes.light,
-                  darkTheme: CustomThemes.dark,
-                  themeMode: ThemeMode.system,
+          return Consumer<CustomTheme>(
+            builder: (context, customTheme, child) {
+              return Consumer<AuthProvider>(
+                builder: (context, authProvider, child) {
+                  return OKToast(
+                    child: MaterialApp(
+                      title: "云亿连",
+                      debugShowCheckedModeBanner: false,
+                      locale: effectiveLocale,
+                      localizationsDelegates: const [
+                        OpenIoTHubLocalizations.delegate,
+                        OpenIoTHubCommonLocalizations.delegate,
+                        OpenIoTHubPluginLocalizations.delegate,
+                        GlobalMaterialLocalizations.delegate,
+                        GlobalWidgetsLocalizations.delegate,
+                        GlobalCupertinoLocalizations.delegate,
+                      ],
+                      supportedLocales: OpenIoTHubLocalizations.supportedLocales,
+                      localeResolutionCallback: (locale, supportedLocales) {
+                        // 如果 locale 为 null，返回 null 让 Flutter 使用系统默认
+                        if (locale == null) return null;
+                        
+                        // 精确匹配（语言代码 + 国家代码）
+                        for (final supported in supportedLocales) {
+                          if (supported.languageCode == locale.languageCode &&
+                              supported.countryCode == locale.countryCode) {
+                            return supported;
+                          }
+                        }
+                        
+                        // 语言代码匹配
+                        for (final supported in supportedLocales) {
+                          if (supported.languageCode == locale.languageCode) {
+                            return supported;
+                          }
+                        }
+                        
+                        // 无匹配时返回英文
+                        return const Locale('en');
+                      },
+                      theme: CustomThemes.getLightTheme(customTheme.primaryColor),
+                      darkTheme: CustomThemes.getDarkTheme(customTheme.primaryColor),
+                      themeMode: customTheme.getThemeMode(),
                   initialRoute: '/',
                   navigatorObservers: [
                     AuthNavigatorObserver(authProvider: authProvider),
@@ -144,6 +147,7 @@ class MyApp extends StatelessWidget {
                 '/zip-devices': (context) => const ZipDevicesPage(),
                 '/add-mqtt-devices': (context) => const AddMqttDevicesPage(),
                 kRouteLanguagePicker: (context) => const LanguagePickerPage(),
+                kRouteThemeColorPicker: (context) => const ThemeColorPickerPage(),
               },
               onGenerateRoute: (settings) {
                 // 处理需要参数的页面
@@ -319,7 +323,9 @@ class MyApp extends StatelessWidget {
                     return null;
                 }
               },
-                ),
+                    ),
+                  );
+                },
               );
             },
           );
@@ -354,8 +360,12 @@ class AuthNavigatorObserver extends NavigatorObserver {
           final currentRoute = ModalRoute.of(navigator.context);
           if (currentRoute != null) {
             final routeName = currentRoute.settings.name;
-            // 如果当前不在登录页面或注册页面，则跳转到登录页面
-            if (routeName != '/login' && routeName != '/register' && routeName != '/') {
+            // 明确排除登录页面、注册页面和初始路由，避免循环跳转
+            // 如果当前已经在登录相关页面，则不进行跳转
+            if (routeName != null &&
+                routeName != '/login' && 
+                routeName != '/register' && 
+                routeName != '/') {
               navigator.pushNamedAndRemoveUntil(
                 '/login',
                 (route) => route.settings.name == '/login' || route.settings.name == '/',
@@ -371,10 +381,7 @@ class AuthNavigatorObserver extends NavigatorObserver {
   void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
     super.didPush(route, previousRoute);
     _checkAuthAndRedirect(route);
-    // 如果跳转到登录页面，重新加载 token 以确保状态同步
-    if (route.settings.name == '/login') {
-      authProvider.loadCurrentToken();
-    }
+    // 注意：登录页面不需要重新加载 token，避免触发不必要的状态变化和重定向
   }
 
   @override
@@ -382,10 +389,7 @@ class AuthNavigatorObserver extends NavigatorObserver {
     super.didReplace(newRoute: newRoute, oldRoute: oldRoute);
     if (newRoute != null) {
       _checkAuthAndRedirect(newRoute);
-      // 如果跳转到登录页面，重新加载 token 以确保状态同步
-      if (newRoute.settings.name == '/login') {
-        authProvider.loadCurrentToken();
-      }
+      // 注意：登录页面不需要重新加载 token，避免触发不必要的状态变化和重定向
     }
   }
 

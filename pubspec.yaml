@@ -23,7 +23,8 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.5
   #  golang的后台服务
-  openiothub_mobile_service: ^0.0.10
+  openiothub_mobile_service:
+    path: ./packages/openiothub_mobile_service
   http: ^1.1.0
   #  grpc
   #  grpc: ^4.0.0
@@ -54,10 +55,14 @@ dependencies:
   #  webDAV的文件浏览器
   #  modules:
   #    git: https://github.com/OpenIoTHub/modules
-  openiothub_constants: ^1.0.0
-  openiothub_plugin: ^1.0.2+36
-  openiothub_api: ^1.0.5+7
-  openiothub_common_pages: ^1.0.5+66
+  openiothub_constants:
+    path: ./packages/openiothub_constants
+  openiothub_plugin:
+    path: ./packages/openiothub_plugin
+  openiothub_api:
+    path: ./packages/openiothub_api
+  openiothub_common_pages:
+    path: ./packages/openiothub_common_pages
 
   openiothub_grpc_api: ^1.1.0+1
 #  server_grpc_api: ^1.0.0

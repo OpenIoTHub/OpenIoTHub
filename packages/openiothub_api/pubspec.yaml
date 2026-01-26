@@ -18,7 +18,8 @@ dependencies:
   grpc: ^4.0.0
   #  grpc协议
   protobuf: ^4.0.0
-  openiothub_constants: ^1.0.0
+  openiothub_constants:
+    path: ../openiothub_constants
   openiothub_grpc_api: ^1.2.4
 
 dev_dependencies:

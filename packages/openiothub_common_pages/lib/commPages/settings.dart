@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:openiothub_constants/openiothub_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
+import 'package:provider/provider.dart';
 
 import 'package:openiothub_common_pages/openiothub_common_pages.dart';
 import 'package:openiothub/configs/consts.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/service/internal_plugin_service.dart';
+import 'package:openiothub/widgets/theme_color_picker.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
@@ -47,6 +49,13 @@ class _SettingsPageState extends State<SettingsPage> {
         trailing: const Icon(Icons.chevron_right),
         onTap: () =>
             Navigator.of(context).pushNamed('/language-picker'),
+      ),
+      ListTile(
+        leading: const Icon(Icons.palette),
+        title: Text('主题色', style: Constants.titleTextStyle),
+        trailing: const Icon(Icons.chevron_right),
+        onTap: () =>
+            Navigator.of(context).pushNamed(kRouteThemeColorPicker),
       ),
       TDInput(
         controller: _grpcServiceHost,

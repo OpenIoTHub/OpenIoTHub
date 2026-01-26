@@ -31,9 +31,7 @@ class _ZipDevicesPageState extends State<ZipDevicesPage> {
       (pair) {
         var listItemContent = ListTile(
           leading: Icon(Icons.devices,
-              color: Provider.of<CustomTheme>(context).isLightTheme()
-                  ? CustomThemes.light.primaryColorLight
-                  : CustomThemes.dark.primaryColorDark),
+              color: Provider.of<CustomTheme>(context).primaryColor),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
