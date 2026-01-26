@@ -25,31 +25,38 @@ void showThemeColorPicker(BuildContext context) {
                 style: Theme.of(ctx).textTheme.titleMedium,
               ),
             ),
-            ...ThemeUtils.supportColors.map((color) {
-              final isSelected = currentColor.value == color.value;
-              return ListTile(
-                leading: Container(
-                  width: 24,
-                  height: 24,
-                  decoration: BoxDecoration(
-                    color: color,
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: isSelected ? Colors.white : Colors.grey,
-                      width: isSelected ? 2 : 1,
-                    ),
-                  ),
-                ),
-                title: Text(_getColorName(color, l10n)),
-                trailing: isSelected
-                    ? const Icon(Icons.check, color: Colors.green)
-                    : null,
-                onTap: () async {
-                  await customTheme.setThemeColor(color);
-                  if (ctx.mounted) Navigator.of(ctx).pop();
-                },
-              );
-            }),
+            Flexible(
+              child: ListView(
+                shrinkWrap: true,
+                children: [
+                  ...ThemeUtils.supportColors.map((color) {
+                    final isSelected = currentColor.value == color.value;
+                    return ListTile(
+                      leading: Container(
+                        width: 24,
+                        height: 24,
+                        decoration: BoxDecoration(
+                          color: color,
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: isSelected ? Colors.white : Colors.grey,
+                            width: isSelected ? 2 : 1,
+                          ),
+                        ),
+                      ),
+                      title: Text(_getColorName(color, l10n)),
+                      trailing: isSelected
+                          ? const Icon(Icons.check, color: Colors.green)
+                          : null,
+                      onTap: () async {
+                        await customTheme.setThemeColor(color);
+                        if (ctx.mounted) Navigator.of(ctx).pop();
+                      },
+                    );
+                  }),
+                ],
+              ),
+            ),
           ],
         ),
       );

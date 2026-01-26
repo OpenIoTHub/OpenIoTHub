@@ -57,7 +57,7 @@ Widget themeModeSettingTile(BuildContext context) {
     title: Text(l10n.theme_mode),
     subtitle: Text(modeName),
     trailing: const Icon(Icons.chevron_right),
-    onTap: () => Navigator.of(context).pushNamed(kRouteThemeModePicker),
+    onTap: () => showThemeModePicker(context),
   );
 }
 

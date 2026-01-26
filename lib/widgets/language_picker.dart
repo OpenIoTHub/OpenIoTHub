@@ -54,33 +54,40 @@ void showLanguagePicker(BuildContext context) {
                 style: Theme.of(ctx).textTheme.titleMedium,
               ),
             ),
-            // 跟随系统
-            ListTile(
-              title: Text(l10n.follow_system),
-              trailing: _localesEqual(currentLocale, null)
-                  ? const Icon(Icons.check, color: Colors.green)
-                  : null,
-              onTap: () async {
-                await localeProvider.setLocale(null);
-                if (ctx.mounted) Navigator.of(ctx).pop();
-              },
+            Flexible(
+              child: ListView(
+                shrinkWrap: true,
+                children: [
+                  // 跟随系统
+                  ListTile(
+                    title: Text(l10n.follow_system),
+                    trailing: _localesEqual(currentLocale, null)
+                        ? const Icon(Icons.check, color: Colors.green)
+                        : null,
+                    onTap: () async {
+                      await localeProvider.setLocale(null);
+                      if (ctx.mounted) Navigator.of(ctx).pop();
+                    },
+                  ),
+                  const Divider(height: 1),
+                  ...LocaleProvider.supportedLocales.map((locale) {
+                    final key = _localeToKey(locale);
+                    final name = _localeDisplayNames[key] ?? key;
+                    final isSelected = _localesEqual(currentLocale, locale);
+                    return ListTile(
+                      title: Text(name),
+                      trailing: isSelected
+                          ? const Icon(Icons.check, color: Colors.green)
+                          : null,
+                      onTap: () async {
+                        await localeProvider.setLocale(locale);
+                        if (ctx.mounted) Navigator.of(ctx).pop();
+                      },
+                    );
+                  }),
+                ],
+              ),
             ),
-            const Divider(height: 1),
-            ...LocaleProvider.supportedLocales.map((locale) {
-              final key = _localeToKey(locale);
-              final name = _localeDisplayNames[key] ?? key;
-              final isSelected = _localesEqual(currentLocale, locale);
-              return ListTile(
-                title: Text(name),
-                trailing: isSelected
-                    ? const Icon(Icons.check, color: Colors.green)
-                    : null,
-                onTap: () async {
-                  await localeProvider.setLocale(locale);
-                  if (ctx.mounted) Navigator.of(ctx).pop();
-                },
-              );
-            }),
           ],
         ),
       );

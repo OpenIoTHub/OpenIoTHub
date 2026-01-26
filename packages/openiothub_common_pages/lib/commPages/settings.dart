@@ -12,6 +12,7 @@ import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/service/internal_plugin_service.dart';
 import 'package:openiothub/widgets/theme_color_picker.dart';
 import 'package:openiothub/widgets/theme_mode_picker.dart';
+import 'package:openiothub/widgets/language_picker.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
@@ -44,13 +45,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     final l10n = OpenIoTHubLocalizations.of(context);
     List<Widget> listView = <Widget>[
-      ListTile(
-        leading: const Icon(Icons.language),
-        title: Text(l10n.language, style: Constants.titleTextStyle),
-        trailing: const Icon(Icons.chevron_right),
-        onTap: () =>
-            Navigator.of(context).pushNamed('/language-picker'),
-      ),
+      languageSettingTile(context),
       themeModeSettingTile(context),
       themeColorSettingTile(context),
       TDInput(
