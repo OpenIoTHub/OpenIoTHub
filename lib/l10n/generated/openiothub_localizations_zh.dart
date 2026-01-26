@@ -528,6 +528,63 @@ class OpenIoTHubLocalizationsZh extends OpenIoTHubLocalizations {
 
   @override
   String get follow_system => '跟随系统';
+
+  @override
+  String get theme_color => '主题色';
+
+  @override
+  String get color_blue => '蓝色';
+
+  @override
+  String get color_purple => '紫色';
+
+  @override
+  String get color_orange => '橙色';
+
+  @override
+  String get color_deep_purple => '深紫色';
+
+  @override
+  String get color_red => '红色';
+
+  @override
+  String get color_light_blue => '浅蓝色';
+
+  @override
+  String get color_amber => '琥珀色';
+
+  @override
+  String get color_green => '绿色';
+
+  @override
+  String get color_lime => '青柠色';
+
+  @override
+  String get color_indigo => '靛蓝色';
+
+  @override
+  String get color_cyan => '青色';
+
+  @override
+  String get color_teal => '青绿色';
+
+  @override
+  String get color_light_grey => '浅灰色';
+
+  @override
+  String get color_unknown => '未知颜色';
+
+  @override
+  String get theme_mode => '主题模式';
+
+  @override
+  String get theme_mode_follow_system => '跟随系统';
+
+  @override
+  String get theme_mode_light => '浅色';
+
+  @override
+  String get theme_mode_dark => '深色';
 }
 
 /// The translations for Chinese, as used in China (`zh_CN`).
@@ -1048,6 +1105,69 @@ class OpenIoTHubLocalizationsZhCn extends OpenIoTHubLocalizationsZh {
 
   @override
   String get install_gateway_url => '安装网关';
+
+  @override
+  String get language => '语言';
+
+  @override
+  String get follow_system => '跟随系统';
+
+  @override
+  String get theme_color => '主题色';
+
+  @override
+  String get color_blue => '蓝色';
+
+  @override
+  String get color_purple => '紫色';
+
+  @override
+  String get color_orange => '橙色';
+
+  @override
+  String get color_deep_purple => '深紫色';
+
+  @override
+  String get color_red => '红色';
+
+  @override
+  String get color_light_blue => '浅蓝色';
+
+  @override
+  String get color_amber => '琥珀色';
+
+  @override
+  String get color_green => '绿色';
+
+  @override
+  String get color_lime => '青柠色';
+
+  @override
+  String get color_indigo => '靛蓝色';
+
+  @override
+  String get color_cyan => '青色';
+
+  @override
+  String get color_teal => '青绿色';
+
+  @override
+  String get color_light_grey => '浅灰色';
+
+  @override
+  String get color_unknown => '未知颜色';
+
+  @override
+  String get theme_mode => '主题模式';
+
+  @override
+  String get theme_mode_follow_system => '跟随系统';
+
+  @override
+  String get theme_mode_light => '浅色';
+
+  @override
+  String get theme_mode_dark => '深色';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hans`).
@@ -1568,6 +1688,69 @@ class OpenIoTHubLocalizationsZhHans extends OpenIoTHubLocalizationsZh {
 
   @override
   String get install_gateway_url => '安装网关';
+
+  @override
+  String get language => '语言';
+
+  @override
+  String get follow_system => '跟随系统';
+
+  @override
+  String get theme_color => '主题色';
+
+  @override
+  String get color_blue => '蓝色';
+
+  @override
+  String get color_purple => '紫色';
+
+  @override
+  String get color_orange => '橙色';
+
+  @override
+  String get color_deep_purple => '深紫色';
+
+  @override
+  String get color_red => '红色';
+
+  @override
+  String get color_light_blue => '浅蓝色';
+
+  @override
+  String get color_amber => '琥珀色';
+
+  @override
+  String get color_green => '绿色';
+
+  @override
+  String get color_lime => '青柠色';
+
+  @override
+  String get color_indigo => '靛蓝色';
+
+  @override
+  String get color_cyan => '青色';
+
+  @override
+  String get color_teal => '青绿色';
+
+  @override
+  String get color_light_grey => '浅灰色';
+
+  @override
+  String get color_unknown => '未知颜色';
+
+  @override
+  String get theme_mode => '主题模式';
+
+  @override
+  String get theme_mode_follow_system => '跟随系统';
+
+  @override
+  String get theme_mode_light => '浅色';
+
+  @override
+  String get theme_mode_dark => '深色';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -2088,6 +2271,69 @@ class OpenIoTHubLocalizationsZhHant extends OpenIoTHubLocalizationsZh {
 
   @override
   String get install_gateway_url => '安裝網關';
+
+  @override
+  String get language => '語言';
+
+  @override
+  String get follow_system => '跟隨系統';
+
+  @override
+  String get theme_color => '主題色';
+
+  @override
+  String get color_blue => '藍色';
+
+  @override
+  String get color_purple => '紫色';
+
+  @override
+  String get color_orange => '橙色';
+
+  @override
+  String get color_deep_purple => '深紫色';
+
+  @override
+  String get color_red => '紅色';
+
+  @override
+  String get color_light_blue => '淺藍色';
+
+  @override
+  String get color_amber => '琥珀色';
+
+  @override
+  String get color_green => '綠色';
+
+  @override
+  String get color_lime => '青檸色';
+
+  @override
+  String get color_indigo => '靛藍色';
+
+  @override
+  String get color_cyan => '青色';
+
+  @override
+  String get color_teal => '青綠色';
+
+  @override
+  String get color_light_grey => '淺灰色';
+
+  @override
+  String get color_unknown => '未知顏色';
+
+  @override
+  String get theme_mode => '主題模式';
+
+  @override
+  String get theme_mode_follow_system => '跟隨系統';
+
+  @override
+  String get theme_mode_light => '淺色';
+
+  @override
+  String get theme_mode_dark => '深色';
 }
 
 /// The translations for Chinese, as used in Taiwan (`zh_TW`).
@@ -2608,4 +2854,67 @@ class OpenIoTHubLocalizationsZhTw extends OpenIoTHubLocalizationsZh {
 
   @override
   String get install_gateway_url => '安裝網關';
+
+  @override
+  String get language => '語言';
+
+  @override
+  String get follow_system => '跟隨系統';
+
+  @override
+  String get theme_color => '主題色';
+
+  @override
+  String get color_blue => '藍色';
+
+  @override
+  String get color_purple => '紫色';
+
+  @override
+  String get color_orange => '橙色';
+
+  @override
+  String get color_deep_purple => '深紫色';
+
+  @override
+  String get color_red => '紅色';
+
+  @override
+  String get color_light_blue => '淺藍色';
+
+  @override
+  String get color_amber => '琥珀色';
+
+  @override
+  String get color_green => '綠色';
+
+  @override
+  String get color_lime => '青檸色';
+
+  @override
+  String get color_indigo => '靛藍色';
+
+  @override
+  String get color_cyan => '青色';
+
+  @override
+  String get color_teal => '青綠色';
+
+  @override
+  String get color_light_grey => '淺灰色';
+
+  @override
+  String get color_unknown => '未知顏色';
+
+  @override
+  String get theme_mode => '主題模式';
+
+  @override
+  String get theme_mode_follow_system => '跟隨系統';
+
+  @override
+  String get theme_mode_light => '淺色';
+
+  @override
+  String get theme_mode_dark => '深色';
 }

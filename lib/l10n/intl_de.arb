@@ -171,5 +171,24 @@
   "install_gateway_url": "Gateway installieren",
 
   "language": "Sprache",
-  "follow_system": "System folgen"
+  "follow_system": "System folgen",
+  "theme_color": "Designfarbe",
+  "color_blue": "Blau",
+  "color_purple": "Lila",
+  "color_orange": "Orange",
+  "color_deep_purple": "Dunkellila",
+  "color_red": "Rot",
+  "color_light_blue": "Hellblau",
+  "color_amber": "Bernstein",
+  "color_green": "Grün",
+  "color_lime": "Limette",
+  "color_indigo": "Indigo",
+  "color_cyan": "Cyan",
+  "color_teal": "Türkis",
+  "color_light_grey": "Hellgrau",
+  "color_unknown": "Unbekannte Farbe",
+  "theme_mode": "Designmodus",
+  "theme_mode_follow_system": "System folgen",
+  "theme_mode_light": "Hell",
+  "theme_mode_dark": "Dunkel"
 }

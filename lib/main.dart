@@ -42,6 +42,7 @@ import 'package:openiothub/pages/bottom_navigation/host/services/old/ftp_port_li
 import 'package:openiothub/pages/bottom_navigation/host/services/old/http_port_list_page.dart';
 import 'package:openiothub/widgets/language_picker.dart';
 import 'package:openiothub/widgets/theme_color_picker.dart';
+import 'package:openiothub/widgets/theme_mode_picker.dart';
 import 'package:openiothub_plugin/openiothub_plugin.dart';
 import 'package:openiothub_plugin/plugins/mdnsService/commWidgets/info.dart';
 import 'package:openiothub_plugin/plugins/mdnsService/commWidgets/mDNSInfo.dart';
@@ -148,6 +149,7 @@ class MyApp extends StatelessWidget {
                 '/add-mqtt-devices': (context) => const AddMqttDevicesPage(),
                 kRouteLanguagePicker: (context) => const LanguagePickerPage(),
                 kRouteThemeColorPicker: (context) => const ThemeColorPickerPage(),
+                kRouteThemeModePicker: (context) => const ThemeModePickerPage(),
               },
               onGenerateRoute: (settings) {
                 // 处理需要参数的页面

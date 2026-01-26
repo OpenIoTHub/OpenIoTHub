@@ -11,7 +11,6 @@ class ThemeUtils {
   static const List<Color> supportColors = [
     defaultColor,
     Colors.purple,
-    Colors.orange,
     Colors.deepPurpleAccent,
     Colors.redAccent,
     Colors.lightBlue,

@@ -552,4 +552,61 @@ class OpenIoTHubLocalizationsEs extends OpenIoTHubLocalizations {
 
   @override
   String get follow_system => 'Seguir sistema';
+
+  @override
+  String get theme_color => 'Color del Tema';
+
+  @override
+  String get color_blue => 'Azul';
+
+  @override
+  String get color_purple => 'Morado';
+
+  @override
+  String get color_orange => 'Naranja';
+
+  @override
+  String get color_deep_purple => 'Morado Oscuro';
+
+  @override
+  String get color_red => 'Rojo';
+
+  @override
+  String get color_light_blue => 'Azul Claro';
+
+  @override
+  String get color_amber => 'Ámbar';
+
+  @override
+  String get color_green => 'Verde';
+
+  @override
+  String get color_lime => 'Lima';
+
+  @override
+  String get color_indigo => 'Índigo';
+
+  @override
+  String get color_cyan => 'Cian';
+
+  @override
+  String get color_teal => 'Verde Azulado';
+
+  @override
+  String get color_light_grey => 'Gris Claro';
+
+  @override
+  String get color_unknown => 'Color Desconocido';
+
+  @override
+  String get theme_mode => 'Modo de Tema';
+
+  @override
+  String get theme_mode_follow_system => 'Seguir Sistema';
+
+  @override
+  String get theme_mode_light => 'Claro';
+
+  @override
+  String get theme_mode_dark => 'Oscuro';
 }

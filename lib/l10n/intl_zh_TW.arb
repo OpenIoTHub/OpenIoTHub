@@ -167,5 +167,26 @@
   "open_gateway_guide": "打開雲億連網關軟件主頁",
   "remote_lan_browser": "遠程局域網瀏覽器",
 
-  "install_gateway_url": "安裝網關"
+  "install_gateway_url": "安裝網關",
+  "language": "語言",
+  "follow_system": "跟隨系統",
+  "theme_color": "主題色",
+  "color_blue": "藍色",
+  "color_purple": "紫色",
+  "color_orange": "橙色",
+  "color_deep_purple": "深紫色",
+  "color_red": "紅色",
+  "color_light_blue": "淺藍色",
+  "color_amber": "琥珀色",
+  "color_green": "綠色",
+  "color_lime": "青檸色",
+  "color_indigo": "靛藍色",
+  "color_cyan": "青色",
+  "color_teal": "青綠色",
+  "color_light_grey": "淺灰色",
+  "color_unknown": "未知顏色",
+  "theme_mode": "主題模式",
+  "theme_mode_follow_system": "跟隨系統",
+  "theme_mode_light": "淺色",
+  "theme_mode_dark": "深色"
 }

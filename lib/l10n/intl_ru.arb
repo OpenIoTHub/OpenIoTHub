@@ -171,5 +171,24 @@
   "install_gateway_url": "Установить шлюз",
 
   "language": "Язык",
-  "follow_system": "Следовать системе"
+  "follow_system": "Следовать системе",
+  "theme_color": "Цвет Темой",
+  "color_blue": "Синий",
+  "color_purple": "Фиолетовый",
+  "color_orange": "Оранжевый",
+  "color_deep_purple": "Тёмно-фиолетовый",
+  "color_red": "Красный",
+  "color_light_blue": "Голубой",
+  "color_amber": "Янтарный",
+  "color_green": "Зелёный",
+  "color_lime": "Лайм",
+  "color_indigo": "Индиго",
+  "color_cyan": "Циан",
+  "color_teal": "Бирюзовый",
+  "color_light_grey": "Светло-серый",
+  "color_unknown": "Неизвестный цвет",
+  "theme_mode": "Режим Темой",
+  "theme_mode_follow_system": "Следовать Системе",
+  "theme_mode_light": "Светлый",
+  "theme_mode_dark": "Тёмный"
 }

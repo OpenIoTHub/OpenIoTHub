@@ -1141,6 +1141,120 @@ abstract class OpenIoTHubLocalizations {
   /// In zh, this message translates to:
   /// **'跟随系统'**
   String get follow_system;
+
+  /// No description provided for @theme_color.
+  ///
+  /// In zh, this message translates to:
+  /// **'主题色'**
+  String get theme_color;
+
+  /// No description provided for @color_blue.
+  ///
+  /// In zh, this message translates to:
+  /// **'蓝色'**
+  String get color_blue;
+
+  /// No description provided for @color_purple.
+  ///
+  /// In zh, this message translates to:
+  /// **'紫色'**
+  String get color_purple;
+
+  /// No description provided for @color_orange.
+  ///
+  /// In zh, this message translates to:
+  /// **'橙色'**
+  String get color_orange;
+
+  /// No description provided for @color_deep_purple.
+  ///
+  /// In zh, this message translates to:
+  /// **'深紫色'**
+  String get color_deep_purple;
+
+  /// No description provided for @color_red.
+  ///
+  /// In zh, this message translates to:
+  /// **'红色'**
+  String get color_red;
+
+  /// No description provided for @color_light_blue.
+  ///
+  /// In zh, this message translates to:
+  /// **'浅蓝色'**
+  String get color_light_blue;
+
+  /// No description provided for @color_amber.
+  ///
+  /// In zh, this message translates to:
+  /// **'琥珀色'**
+  String get color_amber;
+
+  /// No description provided for @color_green.
+  ///
+  /// In zh, this message translates to:
+  /// **'绿色'**
+  String get color_green;
+
+  /// No description provided for @color_lime.
+  ///
+  /// In zh, this message translates to:
+  /// **'青柠色'**
+  String get color_lime;
+
+  /// No description provided for @color_indigo.
+  ///
+  /// In zh, this message translates to:
+  /// **'靛蓝色'**
+  String get color_indigo;
+
+  /// No description provided for @color_cyan.
+  ///
+  /// In zh, this message translates to:
+  /// **'青色'**
+  String get color_cyan;
+
+  /// No description provided for @color_teal.
+  ///
+  /// In zh, this message translates to:
+  /// **'青绿色'**
+  String get color_teal;
+
+  /// No description provided for @color_light_grey.
+  ///
+  /// In zh, this message translates to:
+  /// **'浅灰色'**
+  String get color_light_grey;
+
+  /// No description provided for @color_unknown.
+  ///
+  /// In zh, this message translates to:
+  /// **'未知颜色'**
+  String get color_unknown;
+
+  /// No description provided for @theme_mode.
+  ///
+  /// In zh, this message translates to:
+  /// **'主题模式'**
+  String get theme_mode;
+
+  /// No description provided for @theme_mode_follow_system.
+  ///
+  /// In zh, this message translates to:
+  /// **'跟随系统'**
+  String get theme_mode_follow_system;
+
+  /// No description provided for @theme_mode_light.
+  ///
+  /// In zh, this message translates to:
+  /// **'浅色'**
+  String get theme_mode_light;
+
+  /// No description provided for @theme_mode_dark.
+  ///
+  /// In zh, this message translates to:
+  /// **'深色'**
+  String get theme_mode_dark;
 }
 
 class _OpenIoTHubLocalizationsDelegate

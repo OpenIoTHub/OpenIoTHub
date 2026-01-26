@@ -28,13 +28,10 @@ dependencies:
   filesystem_picker: ^4.1.0
   path_provider: ^2.0.2
   dio: ^5.1.2
-  openiothub_constants:
-    path: ../openiothub_constants
-  openiothub_api:
-    path: ../openiothub_api
+  openiothub_constants: ^1.0.0
+  openiothub_api: ^1.0.5+7
   openiothub_grpc_api: ^1.0.0
-  openiothub_common_pages:
-    path: ../openiothub_common_pages
+  openiothub_common_pages: ^1.0.5+83
 #  gateway_grpc_api: ^1.0.0
 #  iot_manager_grpc_api: ^1.0.0
 

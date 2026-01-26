@@ -535,4 +535,61 @@ class OpenIoTHubLocalizationsJa extends OpenIoTHubLocalizations {
 
   @override
   String get follow_system => 'システムに従う';
+
+  @override
+  String get theme_color => 'テーマカラー';
+
+  @override
+  String get color_blue => '青';
+
+  @override
+  String get color_purple => '紫';
+
+  @override
+  String get color_orange => 'オレンジ';
+
+  @override
+  String get color_deep_purple => '濃い紫';
+
+  @override
+  String get color_red => '赤';
+
+  @override
+  String get color_light_blue => '水色';
+
+  @override
+  String get color_amber => '琥珀色';
+
+  @override
+  String get color_green => '緑';
+
+  @override
+  String get color_lime => 'ライム';
+
+  @override
+  String get color_indigo => 'インディゴ';
+
+  @override
+  String get color_cyan => 'シアン';
+
+  @override
+  String get color_teal => 'ティール';
+
+  @override
+  String get color_light_grey => '薄い灰色';
+
+  @override
+  String get color_unknown => '不明な色';
+
+  @override
+  String get theme_mode => 'テーマモード';
+
+  @override
+  String get theme_mode_follow_system => 'システムに従う';
+
+  @override
+  String get theme_mode_light => 'ライト';
+
+  @override
+  String get theme_mode_dark => 'ダーク';
 }

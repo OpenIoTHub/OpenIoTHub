@@ -542,4 +542,61 @@ class OpenIoTHubLocalizationsAr extends OpenIoTHubLocalizations {
 
   @override
   String get follow_system => 'اتباع النظام';
+
+  @override
+  String get theme_color => 'لون المظهر';
+
+  @override
+  String get color_blue => 'أزرق';
+
+  @override
+  String get color_purple => 'بنفسجي';
+
+  @override
+  String get color_orange => 'برتقالي';
+
+  @override
+  String get color_deep_purple => 'بنفسجي داكن';
+
+  @override
+  String get color_red => 'أحمر';
+
+  @override
+  String get color_light_blue => 'أزرق فاتح';
+
+  @override
+  String get color_amber => 'كهرماني';
+
+  @override
+  String get color_green => 'أخضر';
+
+  @override
+  String get color_lime => 'ليموني';
+
+  @override
+  String get color_indigo => 'نيلي';
+
+  @override
+  String get color_cyan => 'سماوي';
+
+  @override
+  String get color_teal => 'تركوازي';
+
+  @override
+  String get color_light_grey => 'رمادي فاتح';
+
+  @override
+  String get color_unknown => 'لون غير معروف';
+
+  @override
+  String get theme_mode => 'وضع المظهر';
+
+  @override
+  String get theme_mode_follow_system => 'اتباع النظام';
+
+  @override
+  String get theme_mode_light => 'فاتح';
+
+  @override
+  String get theme_mode_dark => 'داكن';
 }

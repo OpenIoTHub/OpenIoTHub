@@ -171,5 +171,24 @@
   "install_gateway_url": "Install gateway",
 
   "language": "Language",
-  "follow_system": "Follow system"
+  "follow_system": "Follow system",
+  "theme_color": "Theme Color",
+  "color_blue": "Blue",
+  "color_purple": "Purple",
+  "color_orange": "Orange",
+  "color_deep_purple": "Deep Purple",
+  "color_red": "Red",
+  "color_light_blue": "Light Blue",
+  "color_amber": "Amber",
+  "color_green": "Green",
+  "color_lime": "Lime",
+  "color_indigo": "Indigo",
+  "color_cyan": "Cyan",
+  "color_teal": "Teal",
+  "color_light_grey": "Light Grey",
+  "color_unknown": "Unknown Color",
+  "theme_mode": "Theme Mode",
+  "theme_mode_follow_system": "Follow System",
+  "theme_mode_light": "Light",
+  "theme_mode_dark": "Dark"
 }

@@ -171,5 +171,24 @@
   "install_gateway_url": "تثبيت البوابة",
 
   "language": "اللغة",
-  "follow_system": "اتباع النظام"
+  "follow_system": "اتباع النظام",
+  "theme_color": "لون المظهر",
+  "color_blue": "أزرق",
+  "color_purple": "بنفسجي",
+  "color_orange": "برتقالي",
+  "color_deep_purple": "بنفسجي داكن",
+  "color_red": "أحمر",
+  "color_light_blue": "أزرق فاتح",
+  "color_amber": "كهرماني",
+  "color_green": "أخضر",
+  "color_lime": "ليموني",
+  "color_indigo": "نيلي",
+  "color_cyan": "سماوي",
+  "color_teal": "تركوازي",
+  "color_light_grey": "رمادي فاتح",
+  "color_unknown": "لون غير معروف",
+  "theme_mode": "وضع المظهر",
+  "theme_mode_follow_system": "اتباع النظام",
+  "theme_mode_light": "فاتح",
+  "theme_mode_dark": "داكن"
 }

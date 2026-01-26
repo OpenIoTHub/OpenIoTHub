@@ -171,5 +171,24 @@
   "install_gateway_url": "Installa gateway",
 
   "language": "Lingua",
-  "follow_system": "Segui sistema"
+  "follow_system": "Segui sistema",
+  "theme_color": "Colore Tema",
+  "color_blue": "Blu",
+  "color_purple": "Viola",
+  "color_orange": "Arancione",
+  "color_deep_purple": "Viola Scuro",
+  "color_red": "Rosso",
+  "color_light_blue": "Azzurro",
+  "color_amber": "Ambra",
+  "color_green": "Verde",
+  "color_lime": "Lime",
+  "color_indigo": "Indaco",
+  "color_cyan": "Ciano",
+  "color_teal": "Verde Acqua",
+  "color_light_grey": "Grigio Chiaro",
+  "color_unknown": "Colore Sconosciuto",
+  "theme_mode": "Modalità Tema",
+  "theme_mode_follow_system": "Segui Sistema",
+  "theme_mode_light": "Chiaro",
+  "theme_mode_dark": "Scuro"
 }

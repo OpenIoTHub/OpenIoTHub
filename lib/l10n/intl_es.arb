@@ -171,5 +171,24 @@
   "install_gateway_url": "Instalar puerta de enlace",
 
   "language": "Idioma",
-  "follow_system": "Seguir sistema"
+  "follow_system": "Seguir sistema",
+  "theme_color": "Color del Tema",
+  "color_blue": "Azul",
+  "color_purple": "Morado",
+  "color_orange": "Naranja",
+  "color_deep_purple": "Morado Oscuro",
+  "color_red": "Rojo",
+  "color_light_blue": "Azul Claro",
+  "color_amber": "Ámbar",
+  "color_green": "Verde",
+  "color_lime": "Lima",
+  "color_indigo": "Índigo",
+  "color_cyan": "Cian",
+  "color_teal": "Verde Azulado",
+  "color_light_grey": "Gris Claro",
+  "color_unknown": "Color Desconocido",
+  "theme_mode": "Modo de Tema",
+  "theme_mode_follow_system": "Seguir Sistema",
+  "theme_mode_light": "Claro",
+  "theme_mode_dark": "Oscuro"
 }

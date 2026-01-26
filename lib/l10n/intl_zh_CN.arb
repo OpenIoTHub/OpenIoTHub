@@ -167,5 +167,26 @@
   "open_gateway_guide": "打开网关软件主页",
   "remote_lan_browser": "远程局域网浏览器",
 
-  "install_gateway_url": "安装网关"
+  "install_gateway_url": "安装网关",
+  "language": "语言",
+  "follow_system": "跟随系统",
+  "theme_color": "主题色",
+  "color_blue": "蓝色",
+  "color_purple": "紫色",
+  "color_orange": "橙色",
+  "color_deep_purple": "深紫色",
+  "color_red": "红色",
+  "color_light_blue": "浅蓝色",
+  "color_amber": "琥珀色",
+  "color_green": "绿色",
+  "color_lime": "青柠色",
+  "color_indigo": "靛蓝色",
+  "color_cyan": "青色",
+  "color_teal": "青绿色",
+  "color_light_grey": "浅灰色",
+  "color_unknown": "未知颜色",
+  "theme_mode": "主题模式",
+  "theme_mode_follow_system": "跟随系统",
+  "theme_mode_light": "浅色",
+  "theme_mode_dark": "深色"
 }

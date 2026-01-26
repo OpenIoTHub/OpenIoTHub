@@ -171,5 +171,24 @@
   "install_gateway_url": "Installer la passerelle",
 
   "language": "Langue",
-  "follow_system": "Suivre le système"
+  "follow_system": "Suivre le système",
+  "theme_color": "Couleur du Thème",
+  "color_blue": "Bleu",
+  "color_purple": "Violet",
+  "color_orange": "Orange",
+  "color_deep_purple": "Violet Foncé",
+  "color_red": "Rouge",
+  "color_light_blue": "Bleu Clair",
+  "color_amber": "Ambre",
+  "color_green": "Vert",
+  "color_lime": "Citron Vert",
+  "color_indigo": "Indigo",
+  "color_cyan": "Cyan",
+  "color_teal": "Sarcelle",
+  "color_light_grey": "Gris Clair",
+  "color_unknown": "Couleur Inconnue",
+  "theme_mode": "Mode Thème",
+  "theme_mode_follow_system": "Suivre le Système",
+  "theme_mode_light": "Clair",
+  "theme_mode_dark": "Sombre"
 }

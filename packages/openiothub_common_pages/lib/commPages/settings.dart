@@ -11,6 +11,7 @@ import 'package:openiothub/configs/consts.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/service/internal_plugin_service.dart';
 import 'package:openiothub/widgets/theme_color_picker.dart';
+import 'package:openiothub/widgets/theme_mode_picker.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
@@ -50,13 +51,8 @@ class _SettingsPageState extends State<SettingsPage> {
         onTap: () =>
             Navigator.of(context).pushNamed('/language-picker'),
       ),
-      ListTile(
-        leading: const Icon(Icons.palette),
-        title: Text('主题色', style: Constants.titleTextStyle),
-        trailing: const Icon(Icons.chevron_right),
-        onTap: () =>
-            Navigator.of(context).pushNamed(kRouteThemeColorPicker),
-      ),
+      themeModeSettingTile(context),
+      themeColorSettingTile(context),
       TDInput(
         controller: _grpcServiceHost,
         backgroundColor: Colors.white,

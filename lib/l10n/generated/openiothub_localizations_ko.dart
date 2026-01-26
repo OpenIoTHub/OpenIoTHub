@@ -533,4 +533,61 @@ class OpenIoTHubLocalizationsKo extends OpenIoTHubLocalizations {
 
   @override
   String get follow_system => '시스템 따르기';
+
+  @override
+  String get theme_color => '테마 색상';
+
+  @override
+  String get color_blue => '파란색';
+
+  @override
+  String get color_purple => '보라색';
+
+  @override
+  String get color_orange => '주황색';
+
+  @override
+  String get color_deep_purple => '진한 보라색';
+
+  @override
+  String get color_red => '빨간색';
+
+  @override
+  String get color_light_blue => '하늘색';
+
+  @override
+  String get color_amber => '호박색';
+
+  @override
+  String get color_green => '초록색';
+
+  @override
+  String get color_lime => '라임색';
+
+  @override
+  String get color_indigo => '남색';
+
+  @override
+  String get color_cyan => '청록색';
+
+  @override
+  String get color_teal => '청록색';
+
+  @override
+  String get color_light_grey => '밝은 회색';
+
+  @override
+  String get color_unknown => '알 수 없는 색상';
+
+  @override
+  String get theme_mode => '테마 모드';
+
+  @override
+  String get theme_mode_follow_system => '시스템 따르기';
+
+  @override
+  String get theme_mode_light => '라이트';
+
+  @override
+  String get theme_mode_dark => '다크';
 }

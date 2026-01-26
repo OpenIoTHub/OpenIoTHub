@@ -545,4 +545,61 @@ class OpenIoTHubLocalizationsRu extends OpenIoTHubLocalizations {
 
   @override
   String get follow_system => 'Следовать системе';
+
+  @override
+  String get theme_color => 'Цвет Темой';
+
+  @override
+  String get color_blue => 'Синий';
+
+  @override
+  String get color_purple => 'Фиолетовый';
+
+  @override
+  String get color_orange => 'Оранжевый';
+
+  @override
+  String get color_deep_purple => 'Тёмно-фиолетовый';
+
+  @override
+  String get color_red => 'Красный';
+
+  @override
+  String get color_light_blue => 'Голубой';
+
+  @override
+  String get color_amber => 'Янтарный';
+
+  @override
+  String get color_green => 'Зелёный';
+
+  @override
+  String get color_lime => 'Лайм';
+
+  @override
+  String get color_indigo => 'Индиго';
+
+  @override
+  String get color_cyan => 'Циан';
+
+  @override
+  String get color_teal => 'Бирюзовый';
+
+  @override
+  String get color_light_grey => 'Светло-серый';
+
+  @override
+  String get color_unknown => 'Неизвестный цвет';
+
+  @override
+  String get theme_mode => 'Режим Темой';
+
+  @override
+  String get theme_mode_follow_system => 'Следовать Системе';
+
+  @override
+  String get theme_mode_light => 'Светлый';
+
+  @override
+  String get theme_mode_dark => 'Тёмный';
 }

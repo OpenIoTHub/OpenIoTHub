@@ -21,7 +21,7 @@ void showThemeColorPicker(BuildContext context) {
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
               child: Text(
-                '主题色',
+                l10n.theme_color,
                 style: Theme.of(ctx).textTheme.titleMedium,
               ),
             ),
@@ -40,7 +40,7 @@ void showThemeColorPicker(BuildContext context) {
                     ),
                   ),
                 ),
-                title: Text(_getColorName(color)),
+                title: Text(_getColorName(color, l10n)),
                 trailing: isSelected
                     ? const Icon(Icons.check, color: Colors.green)
                     : null,
@@ -61,11 +61,12 @@ void showThemeColorPicker(BuildContext context) {
 Widget themeColorSettingTile(BuildContext context) {
   final customTheme = context.watch<CustomTheme>();
   final currentColor = customTheme.primaryColor;
-  final colorName = _getColorName(currentColor);
+  final l10n = OpenIoTHubLocalizations.of(context);
+  final colorName = _getColorName(currentColor, l10n);
 
   return ListTile(
     leading: const Icon(Icons.palette),
-    title: const Text('主题色'),
+    title: Text(l10n.theme_color),
     subtitle: Row(
       children: [
         Container(
@@ -97,9 +98,10 @@ class ThemeColorPickerPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final customTheme = context.watch<CustomTheme>();
     final currentColor = customTheme.primaryColor;
+    final l10n = OpenIoTHubLocalizations.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('主题色')),
+      appBar: AppBar(title: Text(l10n.theme_color)),
       body: ListView(
         children: [
           ...ThemeUtils.supportColors.map((color) {
@@ -117,7 +119,7 @@ class ThemeColorPickerPage extends StatelessWidget {
                   ),
                 ),
               ),
-              title: Text(_getColorName(color)),
+              title: Text(_getColorName(color, l10n)),
               trailing: isSelected
                   ? const Icon(Icons.check, color: Colors.green)
                   : null,
@@ -134,19 +136,19 @@ class ThemeColorPickerPage extends StatelessWidget {
 }
 
 /// 获取颜色名称
-String _getColorName(Color color) {
-  if (color.value == Colors.blue.value) return '蓝色';
-  if (color.value == Colors.purple.value) return '紫色';
-  if (color.value == Colors.orange.value) return '橙色';
-  if (color.value == Colors.deepPurpleAccent.value) return '深紫色';
-  if (color.value == Colors.redAccent.value) return '红色';
-  if (color.value == Colors.lightBlue.value) return '浅蓝色';
-  if (color.value == Colors.amber.value) return '琥珀色';
-  if (color.value == Colors.green.value) return '绿色';
-  if (color.value == Colors.lime.value) return '青柠色';
-  if (color.value == Colors.indigo.value) return '靛蓝色';
-  if (color.value == Colors.cyan.value) return '青色';
-  if (color.value == Colors.teal.value) return '青绿色';
-  if (color.value == ThemeUtils.lightGrey.value) return '浅灰色';
-  return '未知颜色';
+String _getColorName(Color color, OpenIoTHubLocalizations l10n) {
+  if (color.value == Colors.blue.value) return l10n.color_blue;
+  if (color.value == Colors.purple.value) return l10n.color_purple;
+  if (color.value == Colors.orange.value) return l10n.color_orange;
+  if (color.value == Colors.deepPurpleAccent.value) return l10n.color_deep_purple;
+  if (color.value == Colors.redAccent.value) return l10n.color_red;
+  if (color.value == Colors.lightBlue.value) return l10n.color_light_blue;
+  if (color.value == Colors.amber.value) return l10n.color_amber;
+  if (color.value == Colors.green.value) return l10n.color_green;
+  if (color.value == Colors.lime.value) return l10n.color_lime;
+  if (color.value == Colors.indigo.value) return l10n.color_indigo;
+  if (color.value == Colors.cyan.value) return l10n.color_cyan;
+  if (color.value == Colors.teal.value) return l10n.color_teal;
+  if (color.value == ThemeUtils.lightGrey.value) return l10n.color_light_grey;
+  return l10n.color_unknown;
 }
