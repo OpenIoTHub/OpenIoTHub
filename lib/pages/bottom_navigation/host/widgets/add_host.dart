@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub_common_pages/utils/toast.dart';
-import 'package:openiothub_api/api/OpenIoTHub/CommonDeviceApi.dart';
-import 'package:openiothub_api/api/OpenIoTHub/SessionApi.dart';
-import 'package:openiothub_api/utils/uuid.dart';
+import 'package:openiothub/common_pages/utils/toast.dart';
+import 'package:openiothub/network/api/OpenIoTHub/CommonDeviceApi.dart';
+import 'package:openiothub/network/api/OpenIoTHub/SessionApi.dart';
+import 'package:openiothub/network/utils/uuid.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
-import 'package:openiothub_constants/constants/AppSpacing.dart';
+import 'package:openiothub/core/constants/AppSpacing.dart';
 
 class AddHostWidget extends StatefulWidget {
   const AddHostWidget({super.key});

@@ -16,24 +16,27 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.5
 
-  # OpenIoTHub 内部包
+  # OpenIoTHub 插件（FFI，必须独立）
   openiothub_mobile_service: ^0.0.10
-  openiothub_constants: ^1.0.0
-  openiothub_plugin: ^1.0.2+36
-  openiothub_api: ^1.0.5+7
-  openiothub_common_pages: ^1.0.5+66
+  # gRPC 协议定义（来自 pub.dev）
   openiothub_grpc_api: ^1.1.0+1
-  openiothub_ads: ^0.0.1
 
   # 网络与通信
   http: ^1.1.0
   webview_flutter: ^4.2.1
+  flutter_inappwebview: ^6.1.5
   url_launcher: ^6.1.11
   multicast_dns: ^0.3.2+3
   bonsoir: ^5.1.11
+  dio: ^5.5.0+1
+  grpc: ^4.0.0
+  protobuf: ^4.0.0
+  web_socket_channel: ^3.0.2
+  mqtt5_client: ^4.0.2
 
   # 数据存储
   shared_preferences: ^2.1.1
+  path_provider: ^2.0.2
 
   # 状态管理
   provider: ^6.0.2
@@ -46,6 +49,36 @@ dependencies:
   mobile_scanner: ^6.0.2
   image_picker: ^1.0.7
   flutter_native_splash: ^2.4.1
+  qr_flutter: ^4.1.0
+  flutter_colorpicker: ^1.0.3
+  flutter_breadcrumb: ^1.0.1
+  flutter_seekbar: ^1.0.0
+  cached_network_image: ^3.4.1
+  flutter_svg_provider: ^1.0.7
+  fl_chart: ^0.70.2
+  contextmenu: ^3.0.0
+
+  # 媒体播放
+  flutter_vlc_player: ^7.4.0
+  video_player: ^2.9.5
+
+  # 文件管理
+  file_picker: ^8.0.7
+  filesystem_picker: ^4.1.0
+
+  # SSH 终端
+  xterm: ^4.0.0
+  dartssh2: ^2.12.0
+
+  # 数据解析
+  xml: ^6.5.0
+  html: ^0.15.6
+  image: ^4.0.9
+
+  # 广告 SDK
+  gtads: ^1.5.0
+  gtads_ylh: ^1.5.0
+  google_mobile_ads: ^6.0.0
 
   # 平台功能
   permission_handler: ^11.3.1
@@ -55,6 +88,12 @@ dependencies:
   window_manager: ^0.5.0
   flutter_foreground_task: ^9.1.0
   wakelock_plus: ^1.3.2
+  package_info_plus: ^8.0.0
+  network_info_plus: ^6.1.1
+  sign_in_with_apple: ^7.0.1
+
+  # WiFi 配网
+  airkiss_dart: ^1.0.0
 
   # 第三方登录
   wechat_kit: ^6.0.1
@@ -64,6 +103,7 @@ dependencies:
   jwt_decoder: ^2.0.1
   go_router: ^15.0.0
   msix: ^3.16.6
+  uuid: ^4.4.2
 
 dev_dependencies:
   flutter_test:
@@ -79,6 +119,8 @@ dev_dependencies:
 flutter_gen:
   assets:
     - lib/l10n/*.arb
+    - lib/common_pages/l10n/*.arb
+    - lib/plugin/l10n/*.arb
 
 flutter:
   # The following line ensures that the Material Icons font is
@@ -129,6 +171,10 @@ flutter:
     - assets/web/
     - assets/web/open/
     - assets/images/logos/
+    - assets/common/
+    - assets/common/feedback/
+    - assets/plugins/
+    - assets/plugins/casa/
 
 msix_config:
   display_name: openiothub

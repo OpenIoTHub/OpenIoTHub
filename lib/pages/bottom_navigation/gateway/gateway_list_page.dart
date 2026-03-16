@@ -4,17 +4,17 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub_constants/openiothub_constants.dart';
+import 'package:openiothub/core/openiothub_constants.dart';
 import 'package:openiothub/widgets/build_global_actions.dart';
-import 'package:openiothub_api/api/OpenIoTHub/SessionApi.dart';
-import 'package:openiothub_api/openiothub_api.dart';
-import 'package:openiothub_constants/constants/Constants.dart';
+import 'package:openiothub/network/api/OpenIoTHub/SessionApi.dart';
+import 'package:openiothub/network/openiothub_api.dart';
+import 'package:openiothub/core/constants/Constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import 'package:openiothub_ads/openiothub_ads.dart';
+import 'package:openiothub/ads/openiothub_ads.dart';
 import 'package:openiothub/router/app_navigator.dart';
 
 class GatewayListPage extends StatefulWidget {

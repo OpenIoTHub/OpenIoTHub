@@ -6,16 +6,16 @@ import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/pages/bottom_navigation/user/tools/tools_type_page.dart';
 import 'package:openiothub/router/app_routes.dart';
 import 'package:openiothub/router/app_navigator.dart';
-import 'package:openiothub_api/openiothub_api.dart';
-import 'package:openiothub_common_pages/openiothub_common_pages.dart';
-import 'package:openiothub_common_pages/utils/goToUrl.dart';
-import 'package:openiothub_constants/constants/AppSpacing.dart';
-import 'package:openiothub_constants/constants/SharedPreferences.dart';
+import 'package:openiothub/network/openiothub_api.dart';
+import 'package:openiothub/common_pages/openiothub_common_pages.dart';
+import 'package:openiothub/common_pages/utils/goToUrl.dart';
+import 'package:openiothub/core/constants/AppSpacing.dart';
+import 'package:openiothub/core/constants/SharedPreferences.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:openiothub/providers/custom_theme.dart';
-import 'package:openiothub_ads/openiothub_ads.dart';
+import 'package:openiothub/ads/openiothub_ads.dart';
 // import '../../widgets/ads/banner_ylh_test.dart';
 
 class ProfilePage extends StatefulWidget {

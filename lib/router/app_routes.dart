@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:openiothub/pages/home/all/home_page.dart';
 import 'package:openiothub/pages/splash/splash_ad_page.dart';
 import 'package:openiothub/pages/common/scan_qr.dart';
-import 'package:openiothub_common_pages/openiothub_common_pages.dart';
-import 'package:openiothub_common_pages/user/accountSecurityPage.dart';
-import 'package:openiothub_common_pages/commPages/serverInfo.dart';
-import 'package:openiothub_common_pages/web/web2.dart';
-import 'package:openiothub_common_pages/web/fullScreenWeb.dart';
+import 'package:openiothub/common_pages/openiothub_common_pages.dart';
+import 'package:openiothub/common_pages/user/accountSecurityPage.dart';
+import 'package:openiothub/common_pages/commPages/serverInfo.dart';
+import 'package:openiothub/common_pages/web/web2.dart';
+import 'package:openiothub/common_pages/web/fullScreenWeb.dart';
 import 'package:openiothub/pages/guide/guide_page.dart';
 import 'package:openiothub/pages/bottom_navigation/user/tools/tools_type_page.dart';
 import 'package:openiothub/pages/bottom_navigation/service/mdns_service_list_page.dart';
@@ -24,9 +24,9 @@ import 'package:openiothub/pages/bottom_navigation/host/services/old/http_port_l
 import 'package:openiothub/widgets/language_picker.dart';
 import 'package:openiothub/widgets/theme_color_picker.dart';
 import 'package:openiothub/widgets/theme_mode_picker.dart';
-import 'package:openiothub_plugin/openiothub_plugin.dart';
-import 'package:openiothub_plugin/plugins/mdnsService/commWidgets/mDNSInfo.dart';
-import 'package:openiothub_constants/openiothub_constants.dart';
+import 'package:openiothub/plugin/openiothub_plugin.dart';
+import 'package:openiothub/plugin/plugins/mdnsService/commWidgets/mDNSInfo.dart';
+import 'package:openiothub/core/openiothub_constants.dart';
 
 /// 应用内所有页面路由的唯一定义与生成。
 /// 跳转请使用 [AppRoutes] 常量 + [AppNavigator] 方法，避免硬编码路径和直接 MaterialPageRoute。

@@ -4,12 +4,12 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:openiothub_common_pages/utils/toast.dart';
-import 'package:openiothub_api/openiothub_api.dart';
-import 'package:openiothub_common_pages/web/web.dart';
-import 'package:openiothub_constants/constants/AppSpacing.dart';
-import 'package:openiothub_constants/constants/Config.dart';
-import 'package:openiothub_constants/constants/Constants.dart';
+import 'package:openiothub/common_pages/utils/toast.dart';
+import 'package:openiothub/network/openiothub_api.dart';
+import 'package:openiothub/common_pages/web/web.dart';
+import 'package:openiothub/core/constants/AppSpacing.dart';
+import 'package:openiothub/core/constants/Config.dart';
+import 'package:openiothub/core/constants/Constants.dart';
 import 'package:openiothub_grpc_api/proto/manager/gatewayManager.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
@@ -19,7 +19,7 @@ import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 
 import 'package:openiothub/router/app_navigator.dart';
 
-import 'package:openiothub_ads/openiothub_ads.dart';
+import 'package:openiothub/ads/openiothub_ads.dart';
 
 // 网关下面的mdns服务
 class MDNSServiceListPage extends StatefulWidget {

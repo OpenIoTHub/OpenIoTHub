@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub_constants/constants/AppSpacing.dart';
-import 'package:openiothub_common_pages/utils/toast.dart';
-import 'package:openiothub_api/api/OpenIoTHub/CommonDeviceApi.dart';
+import 'package:openiothub/core/constants/AppSpacing.dart';
+import 'package:openiothub/common_pages/utils/toast.dart';
+import 'package:openiothub/network/api/OpenIoTHub/CommonDeviceApi.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 
 class CreateServiceWidget extends StatefulWidget {

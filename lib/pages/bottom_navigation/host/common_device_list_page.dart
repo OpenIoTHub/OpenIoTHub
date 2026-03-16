@@ -9,16 +9,16 @@ import 'package:openiothub/pages/bottom_navigation/host/services/services.dart';
 import 'package:openiothub/router/app_navigator.dart';
 import 'package:openiothub/pages/bottom_navigation/host/widgets/add_host.dart';
 // import 'package:openiothub/pages/commonDevice/services/old/commonDeviceServiceTypesList.dart';
-import 'package:openiothub_constants/openiothub_constants.dart';
+import 'package:openiothub/core/openiothub_constants.dart';
 import 'package:openiothub/widgets/build_global_actions.dart';
-import 'package:openiothub_common_pages/utils/toast.dart';
-import 'package:openiothub_api/openiothub_api.dart';
-import 'package:openiothub_constants/constants/Constants.dart';
+import 'package:openiothub/common_pages/utils/toast.dart';
+import 'package:openiothub/network/openiothub_api.dart';
+import 'package:openiothub/core/constants/Constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
-import 'package:openiothub_ads/openiothub_ads.dart';
+import 'package:openiothub/ads/openiothub_ads.dart';
 
 class CommonDeviceListPage extends StatefulWidget {
   const CommonDeviceListPage({required Key key, required this.title})

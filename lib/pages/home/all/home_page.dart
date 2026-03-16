@@ -6,19 +6,19 @@ import 'package:flutter/services.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/pages/bottom_navigation/service/mdns_service_list_page.dart';
 import 'package:openiothub/pages/bottom_navigation/user/profile_page.dart';
-import 'package:openiothub_api/api/OpenIoTHub/Utils.dart';
-import 'package:openiothub_api/utils/check.dart';
-import 'package:openiothub_common_pages/commPages/feedback.dart';
-import 'package:openiothub_common_pages/gateway/GatewayQrPage.dart';
-import 'package:openiothub_common_pages/utils/goToUrl.dart';
-import 'package:openiothub_constants/constants/SharedPreferences.dart';
+import 'package:openiothub/network/api/OpenIoTHub/Utils.dart';
+import 'package:openiothub/network/utils/check.dart';
+import 'package:openiothub/common_pages/commPages/feedback.dart';
+import 'package:openiothub/common_pages/gateway/GatewayQrPage.dart';
+import 'package:openiothub/common_pages/utils/goToUrl.dart';
+import 'package:openiothub/core/constants/SharedPreferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import 'package:openiothub/configs/var.dart';
 import 'package:openiothub/init.dart';
 import 'package:openiothub/router/app_routes.dart';
-import 'package:openiothub_ads/openiothub_ads.dart';
+import 'package:openiothub/ads/openiothub_ads.dart';
 import 'package:openiothub/pages/bottom_navigation/host/common_device_list_page.dart';
 import 'package:openiothub/pages/bottom_navigation/gateway/gateway_list_page.dart';
 

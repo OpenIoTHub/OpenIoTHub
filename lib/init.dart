@@ -9,9 +9,9 @@ import 'package:jaguar/jaguar.dart';
 import 'package:jaguar_flutter_asset/jaguar_flutter_asset.dart';
 import 'package:openiothub/service/internal_plugin_service.dart';
 import 'package:openiothub/utils/check_auth.dart' as check;
-import 'package:openiothub_ads/openiothub_ads.dart';
-import 'package:openiothub_api/openiothub_api.dart';
-import 'package:openiothub_constants/openiothub_constants.dart';
+import 'package:openiothub/ads/openiothub_ads.dart';
+import 'package:openiothub/network/openiothub_api.dart';
+import 'package:openiothub/core/openiothub_constants.dart';
 import 'package:openiothub_grpc_api/google/protobuf/wrappers.pb.dart';
 import 'package:openiothub_mobile_service/openiothub_mobile_service.dart'
     as openiothub_mobile_service;

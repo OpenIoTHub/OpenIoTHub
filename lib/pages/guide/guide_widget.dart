@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:openiothub_common_pages/openiothub_common_pages.dart';
-import 'package:openiothub_constants/openiothub_constants.dart';
+import 'package:openiothub/common_pages/openiothub_common_pages.dart';
+import 'package:openiothub/core/openiothub_constants.dart';
 import 'package:openiothub/router/app_routes.dart';
 import 'package:openiothub/router/app_navigator.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';

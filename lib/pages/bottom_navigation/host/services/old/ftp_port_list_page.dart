@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:openiothub_api/api/OpenIoTHub/CommonDeviceApi.dart';
-import 'package:openiothub_constants/constants/Config.dart';
-import 'package:openiothub_constants/constants/AppSpacing.dart';
-import 'package:openiothub_constants/constants/Constants.dart';
+import 'package:openiothub/network/api/OpenIoTHub/CommonDeviceApi.dart';
+import 'package:openiothub/core/constants/Config.dart';
+import 'package:openiothub/core/constants/AppSpacing.dart';
+import 'package:openiothub/core/constants/Constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import 'package:openiothub_common_pages/utils/toast.dart';
+import 'package:openiothub/common_pages/utils/toast.dart';
 
 class FtpPortListPage extends StatefulWidget {
   const FtpPortListPage({required Key key, required this.device}) : super(key: key);

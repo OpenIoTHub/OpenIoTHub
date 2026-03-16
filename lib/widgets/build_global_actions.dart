@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/pages/common/scan_qr.dart';
-import 'package:openiothub_common_pages/openiothub_common_pages.dart';
-import 'package:openiothub_plugin/openiothub_plugin.dart';
+import 'package:openiothub/common_pages/openiothub_common_pages.dart';
+import 'package:openiothub/plugin/openiothub_plugin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 

@@ -2,7 +2,7 @@ name: openiothub_workspace
 
 packages:
   - .
-  - packages/*
+  - packages/openiothub_mobile_service
 
 command:
   bootstrap:
@@ -10,10 +10,8 @@ command:
 
 scripts:
   analyze:
-    description: Run static analysis on all packages
+    description: Run static analysis
     run: dart analyze --fatal-infos
-    exec:
-      concurrency: 1
 
   format:
     description: Format all Dart files
@@ -31,22 +29,12 @@ scripts:
     exec:
       concurrency: 3
 
-  build_runner:
-    description: Run build_runner for packages that need it
-    run: dart run build_runner build --delete-conflicting-outputs
-    packageFilters:
-      dependsOn:
-        - build_runner
-
   l10n:
     description: Generate localizations
     run: flutter gen-l10n
-    packageFilters:
-      dirExists:
-        - lib/l10n
 
   test:
-    description: Run tests for all packages
+    description: Run tests
     run: flutter test
     packageFilters:
       dirExists:

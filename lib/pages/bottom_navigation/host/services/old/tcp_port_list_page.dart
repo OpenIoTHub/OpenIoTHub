@@ -1,16 +1,16 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub_api/api/OpenIoTHub/CommonDeviceApi.dart';
-import 'package:openiothub_api/openiothub_api.dart';
-import 'package:openiothub_constants/constants/AppSpacing.dart';
-import 'package:openiothub_constants/constants/Constants.dart';
+import 'package:openiothub/network/api/OpenIoTHub/CommonDeviceApi.dart';
+import 'package:openiothub/network/openiothub_api.dart';
+import 'package:openiothub/core/constants/AppSpacing.dart';
+import 'package:openiothub/core/constants/Constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
-import 'package:openiothub_plugin/plugins/openWithChoice/OpenWithChoice.dart';
+import 'package:openiothub/plugin/plugins/openWithChoice/OpenWithChoice.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
-import 'package:openiothub_common_pages/utils/toast.dart';
+import 'package:openiothub/common_pages/utils/toast.dart';
 
 class TcpPortListPage extends StatefulWidget {
   const TcpPortListPage({required Key key, required this.device}) : super(key: key);

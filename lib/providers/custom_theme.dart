@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:openiothub_constants/openiothub_constants.dart';
+import 'package:openiothub/core/openiothub_constants.dart';
 
 /// 主题模式枚举
 enum AppThemeMode {

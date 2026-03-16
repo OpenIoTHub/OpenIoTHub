@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:openiothub_constants/openiothub_constants.dart';
+import 'package:openiothub/core/openiothub_constants.dart';
 
 class AppEmptyState extends StatelessWidget {
   const AppEmptyState({

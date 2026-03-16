@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/providers/custom_theme.dart';
 import 'package:openiothub/router/app_routes.dart';
-import 'package:openiothub_constants/openiothub_constants.dart';
+import 'package:openiothub/core/openiothub_constants.dart';
 import 'package:provider/provider.dart';
 
 /// 主题色选择器：弹窗选择主题色

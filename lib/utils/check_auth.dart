@@ -1,5 +1,5 @@
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:openiothub_constants/constants/SharedPreferences.dart';
+import 'package:openiothub/core/constants/SharedPreferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<bool> agreedPrivacyPolicy() async {

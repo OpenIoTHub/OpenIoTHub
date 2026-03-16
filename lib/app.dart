@@ -7,8 +7,8 @@ import 'package:openiothub/providers/auth_provider.dart';
 import 'package:openiothub/pages/home/all/home_page.dart';
 import 'package:openiothub/router/app_routes.dart';
 import 'package:openiothub/router/auth_navigator_observer.dart';
-import 'package:openiothub_common_pages/openiothub_common_pages.dart';
-import 'package:openiothub_plugin/openiothub_plugin.dart';
+import 'package:openiothub/common_pages/openiothub_common_pages.dart';
+import 'package:openiothub/plugin/openiothub_plugin.dart';
 import 'package:provider/provider.dart';
 import 'package:oktoast/oktoast.dart';
 
