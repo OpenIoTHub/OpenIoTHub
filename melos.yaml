@@ -1,0 +1,53 @@
+name: openiothub_workspace
+
+packages:
+  - .
+  - packages/*
+
+command:
+  bootstrap:
+    usePubspecOverrides: true
+
+scripts:
+  analyze:
+    description: Run static analysis on all packages
+    run: dart analyze --fatal-infos
+    exec:
+      concurrency: 1
+
+  format:
+    description: Format all Dart files
+    run: dart format .
+
+  clean:
+    description: Clean all packages
+    run: flutter clean
+    exec:
+      concurrency: 1
+
+  get:
+    description: Get dependencies for all packages
+    run: flutter pub get
+    exec:
+      concurrency: 3
+
+  build_runner:
+    description: Run build_runner for packages that need it
+    run: dart run build_runner build --delete-conflicting-outputs
+    packageFilters:
+      dependsOn:
+        - build_runner
+
+  l10n:
+    description: Generate localizations
+    run: flutter gen-l10n
+    packageFilters:
+      dirExists:
+        - lib/l10n
+
+  test:
+    description: Run tests for all packages
+    run: flutter test
+    packageFilters:
+      dirExists:
+        - test

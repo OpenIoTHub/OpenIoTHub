@@ -6,7 +6,6 @@ import 'dart:math';
 import 'package:bonsoir/bonsoir.dart';
 import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub/utils/theme_utils.dart';
 import 'package:openiothub/widgets/build_global_actions.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_common_pages/wifiConfig/airkiss.dart';
@@ -25,8 +24,9 @@ import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 // import '../../widgets/ads/banner_gtads.dart';
 import 'package:openiothub/configs/var.dart';
+import 'package:openiothub/router/app_navigator.dart';
 import 'package:openiothub_ads/openiothub_ads.dart';
-import 'package:openiothub/widgets/toast.dart';
+import 'package:openiothub_common_pages/utils/toast.dart';
 
 class MdnsServiceListPage extends StatefulWidget {
   const MdnsServiceListPage({required Key key, required this.title})
@@ -112,7 +112,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       },
       separatorBuilder: (context, index) {
         return Container(
-          padding: EdgeInsets.only(left: 70), // 添加左侧缩进
+          padding: EdgeInsets.only(left: AppSpacing.listDividerIndent),
           child: TDDivider(),
         );
       },
@@ -154,18 +154,9 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
                           shape: WidgetStateProperty.all(const StadiumBorder()),
                         ),
                         onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return Airkiss(
-                                  title:
-                                      OpenIoTHubLocalizations.of(
-                                        context,
-                                      ).add_device,
-                                  key: UniqueKey(),
-                                );
-                              },
-                            ),
+                          AppNavigator.pushAirkiss(
+                            context,
+                            title: OpenIoTHubLocalizations.of(context).add_device,
                           );
                         },
                         child: Text(
@@ -205,14 +196,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
         ),
       );
     } else {
-      //      TODO 没有可供显示的界面
-      await Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) {
-            return InfoPage(portService: device, key: UniqueKey());
-          },
-        ),
-      );
+      await AppNavigator.pushInfo(context, device);
     }
     needShowSplash = true;
   }

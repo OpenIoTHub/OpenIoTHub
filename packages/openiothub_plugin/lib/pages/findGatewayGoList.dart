@@ -31,7 +31,6 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
   BonsoirDiscovery? action;
   final Map<String, PortService> _ServiceMap = {};
 
-  // final flutterNsd = FlutterNsd();
   bool initialStart = true;
   bool _scanning = false;
 
@@ -79,18 +78,11 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
     if (event.service == null) {
       return;
     }
-    // print("onEventOccurred");
-    // print(event.type);
     BonsoirService oneMdnsService = event.service!;
     if (event.type == BonsoirDiscoveryEventType.discoveryServiceFound) {
-      // services.add(service);
-      // print(oneMdnsService);
       oneMdnsService.resolve(action!.serviceResolver);
     } else if (event.type ==
         BonsoirDiscoveryEventType.discoveryServiceResolved) {
-      // print(oneMdnsService);
-      // services.removeWhere((foundService) => foundService.name == service.name);
-      // services.add(service);
       setState(() {
         PortService _portService = PortService.create();
         _portService.ip = (oneMdnsService as ResolvedBonsoirService)
@@ -124,7 +116,6 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
         }
       });
     } else if (event.type == BonsoirDiscoveryEventType.discoveryServiceLost) {
-      // services.removeWhere((foundService) => foundService.name == service.name);
     }
   }
 
@@ -153,7 +144,6 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
           subtitle: TDTag(
             "version:${pair.info["version"] != null ? pair.info["version"] : pair.info["firmware-version"]}",
             theme: TDTagTheme.success,
-            // isOutline: true,
             isLight: true,
             fixedWidth: 100,
           ),
@@ -172,10 +162,8 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
             TextEditingController descriptionController =
                 TextEditingController.fromValue(
                     TextEditingValue(text: "Gateway-${DateTime.now()}"));
-            // 对于mdns含有添加信息的，直接在本页面使用api添加
             if (pair.info.containsKey("run_id") &&
                 !pair.info["run_id"]!.isEmpty) {
-              // 确认添加
               showGeneralDialog(
                 context: context,
                 pageBuilder: (BuildContext buildContext,
@@ -211,14 +199,11 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
                         maxLines: 1,
                         needClear: true,
                       )
-                      // 是否自动添加网关主机
                     ]),
                     titleColor: Colors.black,
                     contentColor: Colors.redAccent,
-                    // backgroundColor: AppTheme.blockBgColor,
                     leftBtn: TDDialogButtonOptions(
                       title: OpenIoTHubCommonLocalizations.of(context).cancel,
-                      // titleColor: AppTheme.color999,
                       style: TDButtonStyle(
                         backgroundColor: Colors.grey,
                       ),
@@ -245,9 +230,7 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
               );
               return;
             }
-            //直接打开内置web浏览器浏览页面
             Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-//              return Text("${pair.iP}:${pair.port}");
               return Gateway(
                 device: portService2PortServiceInfo(pair),
                 key: UniqueKey(),
@@ -269,18 +252,9 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
         title: Text(
             OpenIoTHubCommonLocalizations.of(context).find_local_gateway_list),
         actions: <Widget>[
-          // IconButton(
-          //     icon: Icon(
-          //       Icons.refresh,
-          //       color: Colors.white,
-          //     ),
-          //     onPressed: () {
-          //       _findClientListBymDNS();
-          //     }),
           IconButton(
               icon: Icon(
                 Icons.add_circle,
-                // color: Colors.white,
               ),
               onPressed: () {
                 _addGateway();
@@ -288,7 +262,6 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
           IconButton(
               icon: Icon(
                 Icons.info,
-                // color: Colors.white,
               ),
               onPressed: () {
                 _gatewayGuide();
@@ -307,23 +280,17 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
     }));
   }
 
-  //已经确认过可以添加，添加到我的账号
   void _addToMyAccount(
       String gatewayId, String? host, name, description) async {
     try {
-      // TODO 可以搞一个确认步骤，确认后添加
-      // 使用扫描的Gateway ID构建一个GatewayInfo用于服务器添加
       GatewayInfo gatewayInfo = GatewayInfo(
           gatewayUuid: gatewayId,
-          // 服务器的UUID变主机地址，或者都可以
           serverUuid: host,
           name: name,
           description: description);
       OperationResponse operationResponse =
           await GatewayManager.AddGateway(gatewayInfo);
-      //将网关映射到本机
       if (operationResponse.code == 0) {
-        // TODO 从服务器获取连接JWT
         StringValue openIoTHubJwt =
             await GatewayManager.GetOpenIoTHubJwtByGatewayUuid(gatewayId);
         await _addToMySessionList(
@@ -331,7 +298,6 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
       } else {
         show_failed("Response: ${operationResponse.msg}", context);
       }
-      //自动 添加网关主机
       var device = Device();
       device.runId = gatewayId;
       device.uuid = getOneUUID();
@@ -339,7 +305,6 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
       device.description = description;
       device.addr = "127.0.0.1";
       await CommonDeviceApi.createOneDevice(device);
-      //自动 添加网关界面端口
       var tcpConfig = PortConfig();
       tcpConfig.device = device;
       tcpConfig.name = "$name Gateway";
@@ -405,8 +370,6 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
                   TextButton(
                     child: Text(OpenIoTHubCommonLocalizations.of(context).add),
                     onPressed: () async {
-                      // 从服务器自动生成一个网关
-                      // TODO 选择服务器
                       GatewayInfo gatewayInfo =
                           await GatewayManager.GenerateOneGatewayWithServerUuid(
                               value!);
@@ -449,7 +412,6 @@ loginwithtokenmap:
           "${OpenIoTHubCommonLocalizations.of(context).login_failed}：${exception}",
           context);
     }
-    // TODO 添加网关主机及网关软件的端口
   }
 
   Future<List<DropdownMenuItem<String>>> _listAvailableServer() async {

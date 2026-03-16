@@ -3,17 +3,18 @@ import 'package:flutter/material.dart';
 enum CircleImageType { network, asset }
 
 class CircleImage extends StatefulWidget {
-  double width;
-  double height;
-  String path;
-  CircleImageType type; // network, asset
+  final double width;
+  final double height;
+  final String path;
+  final CircleImageType type;
 
-  CircleImage(
-      {super.key,
-      required this.width,
-      required this.height,
-      required this.path,
-      required this.type});
+  const CircleImage({
+    super.key,
+    required this.width,
+    required this.height,
+    required this.path,
+    required this.type,
+  });
 
   @override
   CircleImageState createState() => CircleImageState();

@@ -5,7 +5,7 @@ import 'package:openiothub_plugin/openiothub_plugin.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../../../../../models/PortServiceInfo.dart';
 import 'zima/installedApps.dart';
-import 'package:openiothub_plugin/utils/toast.dart';
+import 'package:openiothub_common_pages/utils/toast.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import 'package:openiothub_plugin/generated/assets.dart';

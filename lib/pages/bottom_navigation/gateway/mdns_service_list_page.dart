@@ -1,32 +1,32 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:openiothub/widgets/toast.dart';
+import 'package:openiothub_common_pages/utils/toast.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_common_pages/web/web.dart';
+import 'package:openiothub_constants/constants/AppSpacing.dart';
 import 'package:openiothub_constants/constants/Config.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:openiothub_grpc_api/proto/manager/gatewayManager.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
-import 'package:openiothub_plugin/plugins/mdnsService/commWidgets/mDNSInfo.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 
-import 'package:openiothub/utils/get_parameters.dart';
+import 'package:openiothub/router/app_navigator.dart';
 
 import 'package:openiothub_ads/openiothub_ads.dart';
 
 // 网关下面的mdns服务
 class MDNSServiceListPage extends StatefulWidget {
-  MDNSServiceListPage({required Key key, required this.sessionConfig})
+  const MDNSServiceListPage({required Key key, required this.sessionConfig})
       : super(key: key);
 
-  SessionConfig sessionConfig;
+  final SessionConfig sessionConfig;
 
   @override
   _MDNSServiceListPageState createState() => _MDNSServiceListPageState();
@@ -34,7 +34,6 @@ class MDNSServiceListPage extends StatefulWidget {
 
 class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
   BannerAd? _bannerAd;
-  static const double IMAGE_ICON_WIDTH = 30.0;
   List<PortConfig> _ServiceList = [];
 
   @override
@@ -53,36 +52,47 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
     final tiles = _ServiceList.map(
       (pair) {
         var listItemContent = ListTile(
-          leading: Icon(TDIcons.earth,
-              color: Colors.green, size: 50,),
+          leading: TDAvatar(
+            size: TDAvatarSize.medium,
+            type: TDAvatarType.customText,
+            text: pair.description.isNotEmpty ? pair.description[0] : "S",
+            shape: TDAvatarShape.square,
+            backgroundColor: Color.fromRGBO(
+              Random().nextInt(156) + 50,
+              Random().nextInt(156) + 50,
+              Random().nextInt(156) + 50,
+              1,
+            ),
+          ),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Text(
-                  "${pair.description.substring(0, pair.description.length > getTitleCharLens() ? getTitleCharLens() : pair.description.length)}${pair.description.length > getTitleCharLens() ? "..." : ""}",
-                  style: Constants.titleTextStyle),
+              Expanded(
+                child: Text(
+                  pair.description,
+                  style: Constants.titleTextStyle,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+              ),
             ],
           ),
-          subtitle: TDTag(
+          subtitle: Text(
             "${pair.device.addr}:${pair.remotePort}",
-            theme: TDTagTheme.success,
-            // isOutline: true,
-            isLight: true,
-            fixedWidth: 10,
+            style: Constants.subTitleTextStyle,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
           ),
           trailing: Constants.rightArrowIcon,
         );
         return InkWell(
           onTap: () {
-            var _url = "http://${Config.webgRpcIp}:${pair.localProt}";
+            var url = "http://${Config.webgRpcIp}:${pair.localProt}";
             if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
-              _launchURL(_url);
+              _launchURL(url);
               return;
             }
-            // TODO 更换内置Web浏览器WebScreen
-            Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-              return WebScreen(startUrl: _url,);
-            }));
+            AppNavigator.pushWeb(context, url);
           },
           child: listItemContent,
         );
@@ -100,7 +110,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
       },
       separatorBuilder: (context, index) {
         return Container(
-          padding: EdgeInsets.only(left: 70), // 添加左侧缩进
+          padding: EdgeInsets.only(left: AppSpacing.listDividerIndent),
           child: TDDivider(),
         );
       },
@@ -240,20 +250,6 @@ loginwithtokenmap:
     }
   }
 
-  _info(PortConfig portConfig) async {
-    // TODO 设备信息
-    await Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) {
-          return MDNSInfoPage(
-            portConfig: portConfig,
-            key: UniqueKey(),
-          );
-        },
-      ),
-    );
-  }
-
   _goToProxyBrowser() async {
     var port = await SessionApi.GetOneHttpProxyPortByRunId(widget.sessionConfig.runId);
     print("GetOneHttpProxyPortByRunId:$port");
@@ -276,7 +272,7 @@ loginwithtokenmap:
                     TextFormField(
                       controller: newNameController,
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
+                        contentPadding: AppSpacing.listTileDensePadding,
                         labelText: OpenIoTHubLocalizations.of(context)
                             .please_input_new_name,
                         helperText: OpenIoTHubLocalizations.of(context).name,

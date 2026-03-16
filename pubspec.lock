@@ -1749,7 +1749,7 @@ packages:
     source: hosted
     version: "0.2.7"
   tdesign_flutter_adaptation:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: tdesign_flutter_adaptation
       sha256: "707bbc52ec8b5872ea808500200f402007acf24c03a1cc823a3be2113c1d813a"

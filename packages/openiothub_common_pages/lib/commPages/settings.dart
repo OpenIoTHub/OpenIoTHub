@@ -7,7 +7,6 @@ import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:provider/provider.dart';
 
 import 'package:openiothub_common_pages/openiothub_common_pages.dart';
-import 'package:openiothub/configs/consts.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/service/internal_plugin_service.dart';
 import 'package:openiothub/widgets/theme_color_picker.dart';

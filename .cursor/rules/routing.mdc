@@ -1,0 +1,27 @@
+# 页面路由规范
+
+本项目中所有页面跳转必须通过统一路由管理，禁止在业务代码中手写 `MaterialPageRoute` 或硬编码路径字符串。
+
+## 跳转方式
+
+- **无参数页面**：`Navigator.of(context).pushNamed(AppRoutes.xxx)`
+- **带参数页面**：优先使用 `AppNavigator.pushXxx(context, ...)`；否则 `Navigator.pushNamed(context, AppRoutes.xxx, arguments: { ... })`，且 arguments 的 key 必须与 `AppNavigator.kArg*` / `AppRoutes.onGenerateRoute` 中一致
+
+## 新增页面时的步骤
+
+1. **在 `lib/router/app_routes.dart`**
+   - 在 `AppRoutes` 中增加路由常量（如 `static const String xxx = '/xxx';`），放在对应分区注释下
+   - 无参数：在 `buildStaticRoutes` 中增加 `路由名: (context) => YourPage(),`
+   - 有参数：在 `onGenerateRoute` 的 switch 中增加 case，从 `settings.arguments` 取参并构建 `MaterialPageRoute`，参数 key 与 `AppNavigator.kArg*` 一致
+
+2. **在 `lib/router/app_navigator.dart`**（带参数时推荐）
+   - 如需新参数 key，增加 `static const kArgXxx = 'xxx';`
+   - 增加 `static Future<T?> pushXxx<T>(BuildContext context, ...)`，内部 `pushNamed(AppRoutes.xxx, arguments: { kArgXxx: ... })`
+
+3. **业务代码中**
+   - 使用 `Navigator.pushNamed(context, AppRoutes.xxx)` 或 `AppNavigator.pushXxx(context, ...)`
+   - 禁止 `Navigator.push(context, MaterialPageRoute(builder: ...))` 或 `pushNamed(context, '/hardcoded-path')`
+
+## 跨包路由（如 openiothub_common_pages）
+
+若子包需要跳转到主应用已注册的路由，使用 `openiothub_constants` 中的 `RoutePaths` 常量（如 `RoutePaths.languagePicker`），与主应用 `AppRoutes` 保持同步；主应用 `AppRoutes` 中对应常量应引用 `RoutePaths.xxx`。

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:openiothub/pages/bottom_navigation/service/third_device/zip_devices_page.dart';
+import 'package:openiothub/router/app_routes.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 
 class AddMqttDevicesPage extends StatefulWidget {
@@ -22,13 +22,7 @@ class _AddMqttDevicesPageState extends State<AddMqttDevicesPage> {
               title: Text(OpenIoTHubLocalizations.of(context).add_zip_devices),
               trailing: const Icon(Icons.arrow_right),
               onTap: () async {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return const ZipDevicesPage();
-                    },
-                  ),
-                );
+                Navigator.of(context).pushNamed(AppRoutes.zipDevices);
               }),
         ]));
   }

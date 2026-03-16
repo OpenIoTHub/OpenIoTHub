@@ -4,22 +4,22 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub_api/api/Server/HttpManager.dart';
+import 'package:openiothub_constants/constants/AppSpacing.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart' as openiothub;
 import 'package:openiothub_grpc_api/proto/server/server.pb.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class HttpPortListPage extends StatefulWidget {
-  HttpPortListPage({required Key key, required this.device}) : super(key: key);
+  const HttpPortListPage({required Key key, required this.device}) : super(key: key);
 
-  openiothub.Device device;
+  final openiothub.Device device;
 
   @override
   _HttpPortListPageState createState() => _HttpPortListPageState();
 }
 
 class _HttpPortListPageState extends State<HttpPortListPage> {
-  static const double IMAGE_ICON_WIDTH = 30.0;
   List<HTTPConfig> _HttpList = [];
   late Timer _timerPeriod;
 
@@ -190,7 +190,7 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
                     TextFormField(
                       controller: descriptionController,
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
+                        contentPadding: AppSpacing.listTileDensePadding,
                         labelText: OpenIoTHubLocalizations.of(context).notes,
                         helperText:
                             OpenIoTHubLocalizations.of(context).custom_remarks,
@@ -199,7 +199,7 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
                     TextFormField(
                       controller: domainController,
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
+                        contentPadding: AppSpacing.listTileDensePadding,
                         labelText: OpenIoTHubLocalizations.of(context).domain,
                         helperText: OpenIoTHubLocalizations.of(context)
                             .configure_the_domain_name_for_this_port,
@@ -208,7 +208,7 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
                     TextFormField(
                       controller: portController,
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
+                        contentPadding: AppSpacing.listTileDensePadding,
                         labelText:
                             OpenIoTHubLocalizations.of(context).remote_port,
                         helperText: OpenIoTHubLocalizations.of(context)

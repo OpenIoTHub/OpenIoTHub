@@ -1,14 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/pages/common/scanned_barcode_label.dart';
 import 'package:openiothub/pages/common/scanner_error_widget.dart';
 import 'package:openiothub_api/api/IoTManager/GatewayManager.dart';
 import 'package:openiothub_api/api/OpenIoTHub/CommonDeviceApi.dart';
 import 'package:openiothub_api/api/OpenIoTHub/SessionApi.dart';
 import 'package:openiothub_api/utils/uuid.dart';
-import 'package:openiothub_common_pages/user/LoginPage.dart';
 import 'package:openiothub_grpc_api/google/protobuf/wrappers.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/common.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/gatewayManager.pb.dart';
@@ -17,8 +15,9 @@ import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
-import 'package:openiothub/utils/check/check.dart';
-import '../../widgets/toast.dart';
+import 'package:openiothub/router/app_routes.dart';
+import 'package:openiothub/utils/check_auth.dart';
+import 'package:openiothub_common_pages/utils/toast.dart';
 
 class ScanQRPage extends StatefulWidget {
   const ScanQRPage({super.key});
@@ -36,9 +35,7 @@ class _ScanQRPageState extends State<ScanQRPage> {
     userSignedIn().then((signedIn){
       if (!signedIn) {
         Navigator.of(context).pop();
-        Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => LoginPage()),
-        );
+        Navigator.of(context).pushNamed(AppRoutes.login);
       }
     });
   }

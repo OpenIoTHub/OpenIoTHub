@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_breadcrumb/flutter_breadcrumb.dart';
 import 'package:openiothub_plugin/generated/assets.dart';
 import 'package:openiothub_plugin/pages/videp_player.dart';
-import 'package:openiothub_plugin/utils/toast.dart';
+import 'package:openiothub_common_pages/utils/toast.dart';
 import 'package:openiothub_plugin/utils/web.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 

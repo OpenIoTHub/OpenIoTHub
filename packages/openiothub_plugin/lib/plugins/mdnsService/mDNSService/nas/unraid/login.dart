@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:openiothub_plugin/generated/assets.dart';
 import 'package:openiothub_plugin/openiothub_plugin.dart';
-import 'package:openiothub_plugin/utils/toast.dart';
+import 'package:openiothub_common_pages/utils/toast.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import '../../../../../models/PortServiceInfo.dart';

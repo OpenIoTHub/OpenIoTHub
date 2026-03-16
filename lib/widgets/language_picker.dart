@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub/model/locale_provider.dart';
+import 'package:openiothub/providers/locale_provider.dart';
+import 'package:openiothub/router/app_routes.dart';
 import 'package:provider/provider.dart';
 
 /// 各语言的本地化显示名称
@@ -113,10 +114,7 @@ Widget languageSettingTile(BuildContext context) {
   );
 }
 
-/// 路由名称，供登录页、设置页 pushNamed 使用
-const String kRouteLanguagePicker = '/language-picker';
-
-/// 全页语言选择：用于 /language-picker 路由，登录页与设置页通过 pushNamed 打开
+/// 全页语言选择；路由名见 [AppRoutes.languagePicker]，登录页等通过 pushNamed 打开。
 class LanguagePickerPage extends StatelessWidget {
   const LanguagePickerPage({super.key});
 

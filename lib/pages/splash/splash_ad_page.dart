@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:openiothub/pages/home/all/home_page.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 
 class SplashAdPage extends StatefulWidget {

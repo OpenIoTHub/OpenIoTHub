@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:openiothub/pages/common/scan_qr.dart';
-import 'package:openiothub_common_pages/commPages/findGatewayGoList.dart';
 import 'package:openiothub_common_pages/openiothub_common_pages.dart';
-import 'package:openiothub_common_pages/user/LoginPage.dart';
+import 'package:openiothub_constants/openiothub_constants.dart';
+import 'package:openiothub/router/app_routes.dart';
+import 'package:openiothub/router/app_navigator.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import '../../l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub/pages/bottom_navigation/host/common_device_list_page.dart';
 
 class GuideWidget extends StatefulWidget {
   const GuideWidget({super.key, required this.activeIndex});
@@ -59,7 +58,11 @@ class _GuideWidgetState extends State<GuideWidget> {
       ),
     ];
     return Padding(
-        padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
+        padding: const EdgeInsets.only(
+          left: AppSpacing.lg,
+          right: AppSpacing.lg,
+          top: AppSpacing.lg,
+        ),
         child: Column(
           children: [
             Row(
@@ -76,7 +79,7 @@ class _GuideWidgetState extends State<GuideWidget> {
             ),
             _buildGuideByIndex(activeIndex),
             Padding(
-              padding: EdgeInsets.only(top: 16),
+              padding: const EdgeInsets.only(top: AppSpacing.lg),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -104,14 +107,14 @@ class _GuideWidgetState extends State<GuideWidget> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 1),
+              padding: const EdgeInsets.only(top: AppSpacing.xs),
               child: TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
                   child: Text(
                     OpenIoTHubLocalizations.of(context).skip_this_guide,
-                    style: TextStyle(color: Colors.grey, fontSize: 8),
+                    style: AppTextStyle.caption,
                   )),
             )
           ],
@@ -140,20 +143,18 @@ class _GuideWidgetState extends State<GuideWidget> {
       Center(
         child: Text(
           OpenIoTHubLocalizations.of(context).register_login_content,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          style: Constants.titleTextStyle,
         ),
       ),
       Padding(
-        padding: EdgeInsets.only(top: 16),
+        padding: const EdgeInsets.only(top: AppSpacing.lg),
         child: TextButton(
             style: ButtonStyle(
-              side: WidgetStateProperty.all(
-                  const BorderSide(color: Colors.grey, width: 1)),
+              side: WidgetStateProperty.all(AppDecorations.dividerBorder),
               shape: WidgetStateProperty.all(const StadiumBorder()),
             ),
             onPressed: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => LoginPage()));
+              Navigator.of(context).pushNamed(AppRoutes.login);
             },
             child: Text(OpenIoTHubLocalizations.of(context).register_login)),
       ),
@@ -170,55 +171,55 @@ class _GuideWidgetState extends State<GuideWidget> {
       //         child: Image.asset('assets/images/empty_list.png'),
       //       ),
       Padding(
-          padding: EdgeInsets.only(top: 16),
+          padding: const EdgeInsets.only(top: AppSpacing.lg),
           child: Center(
             child: Text(
               OpenIoTHubLocalizations.of(context).add_gateway_content,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: Constants.titleTextStyle,
             ),
           )),
       Padding(
-          padding: EdgeInsets.only(top: 16),
+          padding: const EdgeInsets.only(top: AppSpacing.lg),
           child: Center(
             child: TextButton(
               onPressed: () {
                 launchURL("https://github.com/OpenIoTHub/gateway-go");
               },
-              child: Text(
+                  child: Text(
                   OpenIoTHubLocalizations.of(context).open_gateway_guide,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  style: Constants.titleTextStyle),
             ),
-          )),
+          ),
+        ),
       Padding(
-          padding: EdgeInsets.only(top: 16),
+          padding: const EdgeInsets.only(top: AppSpacing.lg),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextButton(
                   style: ButtonStyle(
                     side: WidgetStateProperty.all(
-                        const BorderSide(color: Colors.grey, width: 1)),
+                        AppDecorations.dividerBorder),
                     shape: WidgetStateProperty.all(const StadiumBorder()),
                   ),
                   onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => ScanQRPage()));
+                    Navigator.of(context).pushNamed(AppRoutes.scanQr);
                   },
                   child: Text(OpenIoTHubLocalizations.of(context).scan_QR)),
               TextButton(
                   style: ButtonStyle(
                     side: WidgetStateProperty.all(
-                        const BorderSide(color: Colors.grey, width: 1)),
+                        AppDecorations.dividerBorder),
                     shape: WidgetStateProperty.all(const StadiumBorder()),
                   ),
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => FindGatewayGoListPage()));
+                    Navigator.of(context).pushNamed(AppRoutes.findGateway);
                   },
                   child: Text(
                       OpenIoTHubLocalizations.of(context).find_local_gateway))
             ],
-          ))
+          ),
+        ),
     ]);
   }
 
@@ -232,27 +233,23 @@ class _GuideWidgetState extends State<GuideWidget> {
       //         child: Image.asset('assets/images/empty_list.png'),
       //       ),
       Padding(
-          padding: EdgeInsets.only(top: 16),
+          padding: const EdgeInsets.only(top: AppSpacing.lg),
           child: Center(
             child: Text(
               OpenIoTHubLocalizations.of(context).add_host_content,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: Constants.titleTextStyle,
             ),
           )),
       Padding(
-          padding: EdgeInsets.only(top: 16),
+          padding: const EdgeInsets.only(top: AppSpacing.lg),
           child: TextButton(
               style: ButtonStyle(
                 side: WidgetStateProperty.all(
-                    const BorderSide(color: Colors.grey, width: 1)),
+                    AppDecorations.dividerBorder),
                 shape: WidgetStateProperty.all(const StadiumBorder()),
               ),
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => CommonDeviceListPage(
-                          key: UniqueKey(),
-                          title: '',
-                        )));
+                AppNavigator.pushCommonDeviceList(context, title: '');
               },
               child: Text(OpenIoTHubLocalizations.of(context).add_remote_host)))
     ]);
@@ -268,27 +265,23 @@ class _GuideWidgetState extends State<GuideWidget> {
       //         child: Image.asset('assets/images/empty_list.png'),
       //       ),
       Padding(
-          padding: EdgeInsets.only(top: 16),
+          padding: const EdgeInsets.only(top: AppSpacing.lg),
           child: Center(
             child: Text(
               OpenIoTHubLocalizations.of(context).add_ports_content,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: Constants.titleTextStyle,
             ),
           )),
       Padding(
-          padding: EdgeInsets.only(top: 16),
+          padding: const EdgeInsets.only(top: AppSpacing.lg),
           child: TextButton(
               style: ButtonStyle(
                 side: WidgetStateProperty.all(
-                    const BorderSide(color: Colors.grey, width: 1)),
+                    AppDecorations.dividerBorder),
                 shape: WidgetStateProperty.all(const StadiumBorder()),
               ),
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => CommonDeviceListPage(
-                          key: UniqueKey(),
-                          title: '',
-                        )));
+                AppNavigator.pushCommonDeviceList(context, title: '');
               },
               child: Text(OpenIoTHubLocalizations.of(context).add_port_button)))
     ]);
@@ -304,27 +297,23 @@ class _GuideWidgetState extends State<GuideWidget> {
       //         child: Image.asset('assets/images/empty_list.png'),
       //       ),
       Padding(
-          padding: EdgeInsets.only(top: 16),
+          padding: const EdgeInsets.only(top: AppSpacing.lg),
           child: Center(
             child: Text(
               OpenIoTHubLocalizations.of(context).access_ports_content,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: Constants.titleTextStyle,
             ),
           )),
       Padding(
-          padding: EdgeInsets.only(top: 16),
+          padding: const EdgeInsets.only(top: AppSpacing.lg),
           child: TextButton(
               style: ButtonStyle(
                 side: WidgetStateProperty.all(
-                    const BorderSide(color: Colors.grey, width: 1)),
+                    AppDecorations.dividerBorder),
                 shape: WidgetStateProperty.all(const StadiumBorder()),
               ),
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => CommonDeviceListPage(
-                          key: UniqueKey(),
-                          title: '',
-                        )));
+                AppNavigator.pushCommonDeviceList(context, title: '');
               },
               child: Text(OpenIoTHubLocalizations.of(context).open_the_port)))
     ]);

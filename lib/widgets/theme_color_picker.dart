@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub/model/custom_theme.dart';
-import 'package:openiothub/utils/theme_utils.dart';
+import 'package:openiothub/providers/custom_theme.dart';
+import 'package:openiothub/router/app_routes.dart';
+import 'package:openiothub_constants/openiothub_constants.dart';
 import 'package:provider/provider.dart';
 
 /// 主题色选择器：弹窗选择主题色
@@ -94,10 +95,7 @@ Widget themeColorSettingTile(BuildContext context) {
   );
 }
 
-/// 路由名称，供设置页 pushNamed 使用
-const String kRouteThemeColorPicker = '/theme-color-picker';
-
-/// 全页主题色选择：用于 /theme-color-picker 路由，设置页通过 pushNamed 打开
+/// 全页主题色选择；路由名见 [AppRoutes.themeColorPicker]。
 class ThemeColorPickerPage extends StatelessWidget {
   const ThemeColorPickerPage({super.key});
 

@@ -1,28 +1,27 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub_api/api/OpenIoTHub/CommonDeviceApi.dart';
 import 'package:openiothub_api/openiothub_api.dart';
+import 'package:openiothub_constants/constants/AppSpacing.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:openiothub_plugin/plugins/openWithChoice/OpenWithChoice.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
-import 'package:openiothub/widgets/toast.dart';
+import 'package:openiothub_common_pages/utils/toast.dart';
 
 class TcpPortListPage extends StatefulWidget {
-  TcpPortListPage({required Key key, required this.device}) : super(key: key);
+  const TcpPortListPage({required Key key, required this.device}) : super(key: key);
 
-  Device device;
+  final Device device;
 
   @override
   _TcpPortListPageState createState() => _TcpPortListPageState();
 }
 
 class _TcpPortListPageState extends State<TcpPortListPage> {
-  static const double IMAGE_ICON_WIDTH = 30.0;
   List<PortConfig> _ServiceList = [];
 
   @override
@@ -217,7 +216,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                     TextFormField(
                       controller: descriptionController,
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
+                        contentPadding: AppSpacing.listTileDensePadding,
                         labelText:
                             OpenIoTHubLocalizations.of(context).description,
                         helperText:
@@ -227,7 +226,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                     TextFormField(
                       controller: remotePortController,
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
+                        contentPadding: AppSpacing.listTileDensePadding,
                         labelText: OpenIoTHubLocalizations.of(context)
                             .the_port_number_that_the_remote_machine_needs_to_access,
                         helperText:
@@ -237,7 +236,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                     TextFormField(
                       controller: localPortController,
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
+                        contentPadding: AppSpacing.listTileDensePadding,
                         labelText: OpenIoTHubLocalizations.of(context)
                             .map_to_the_port_number_of_this_mobile_phone,
                         helperText: OpenIoTHubLocalizations.of(context)
@@ -247,7 +246,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                     TextFormField(
                       controller: domainController,
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
+                        contentPadding: AppSpacing.listTileDensePadding,
                         labelText: OpenIoTHubLocalizations.of(context).domain,
                         helperText:
                             OpenIoTHubLocalizations.of(context).domain_notes,

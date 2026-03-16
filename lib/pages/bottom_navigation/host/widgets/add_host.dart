@@ -2,11 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub/widgets/toast.dart';
+import 'package:openiothub_common_pages/utils/toast.dart';
 import 'package:openiothub_api/api/OpenIoTHub/CommonDeviceApi.dart';
 import 'package:openiothub_api/api/OpenIoTHub/SessionApi.dart';
 import 'package:openiothub_api/utils/uuid.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
+import 'package:openiothub_constants/constants/AppSpacing.dart';
 
 class AddHostWidget extends StatefulWidget {
   const AddHostWidget({super.key});
@@ -87,7 +88,7 @@ class _AddHostWidgetState extends State<AddHostWidget> {
                 TextFormField(
                   controller: nameController,
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10.0),
+                    contentPadding: AppSpacing.listTileDensePadding,
                     labelText: OpenIoTHubLocalizations.of(context).name,
                     helperText:
                         OpenIoTHubLocalizations.of(context).custom_remarks,
@@ -96,7 +97,7 @@ class _AddHostWidgetState extends State<AddHostWidget> {
                 TextFormField(
                   controller: descriptionController,
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10.0),
+                    contentPadding: AppSpacing.listTileDensePadding,
                     labelText: OpenIoTHubLocalizations.of(context).description,
                     helperText:
                         OpenIoTHubLocalizations.of(context).custom_remarks,
@@ -117,7 +118,7 @@ class _AddHostWidgetState extends State<AddHostWidget> {
                   // TODO 从可选项中选择主机地址，也可以进行填写
                   controller: remoteIpController,
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10.0),
+                    contentPadding: AppSpacing.listTileDensePadding,
                     labelText: OpenIoTHubLocalizations.of(context)
                         .ip_address_of_remote_intranet,
                     helperText: OpenIoTHubLocalizations.of(context)

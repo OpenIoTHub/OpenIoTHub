@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:jaguar/jaguar.dart';
 import 'package:jaguar_flutter_asset/jaguar_flutter_asset.dart';
 import 'package:openiothub/service/internal_plugin_service.dart';
-import 'package:openiothub/utils/check/check.dart' as check;
+import 'package:openiothub/utils/check_auth.dart' as check;
 import 'package:openiothub_ads/openiothub_ads.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_constants/openiothub_constants.dart';
@@ -31,7 +31,7 @@ Future<void> init() async {
   try {
     await initAD();
   } catch (e) {
-    print(e);
+    debugPrint('initAD: $e');
   }
   initHttpAssets();
   initWechat();
@@ -64,7 +64,9 @@ Future<void> initHttpAssets() async {
     server.serve(logRequests: true).then((v) {
       server.log.onRecord.listen((r) => debugPrint("==serve-log：$r"));
     });
-  } catch (e) {}
+  } catch (e) {
+    debugPrint('initHttpAssets: $e');
+  }
 }
 
 Future<void> initWechat() async {
@@ -128,7 +130,7 @@ Future<void> loadConfig() async {
 
 Future setWindowSize() async {
   Size size = await DesktopWindow.getWindowSize();
-  print("windows size:$size");
+  debugPrint("windows size:$size");
   await DesktopWindow.setWindowSize(Size(500, 500));
 }
 
@@ -153,7 +155,7 @@ Future initForegroundService() async {
       WakelockPlus.disable();
     }
   } catch (e) {
-    print(e);
+    debugPrint('initForegroundService: $e');
   }
 }
 
@@ -173,7 +175,7 @@ Future initGatewayService() async {
       }
     }
   } catch (e) {
-    print(e);
+    debugPrint('initGatewayService: $e');
   }
 }
 
@@ -185,6 +187,6 @@ Future initWakeLockService() async {
       WakelockPlus.toggle(enable: wakeLockEnabled);
     }
   } catch (e) {
-    print(e);
+    debugPrint('initWakeLockService: $e');
   }
 }

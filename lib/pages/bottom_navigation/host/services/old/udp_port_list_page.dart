@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub_api/api/OpenIoTHub/CommonDeviceApi.dart';
+import 'package:openiothub_constants/constants/AppSpacing.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 
-import 'package:openiothub/widgets/toast.dart';
+import 'package:openiothub_common_pages/utils/toast.dart';
 
 class UdpPortListPage extends StatefulWidget {
-  UdpPortListPage({required Key key, required this.device}) : super(key: key);
+  const UdpPortListPage({required Key key, required this.device}) : super(key: key);
 
-  Device device;
+  final Device device;
 
   @override
   _UdpPortListPageState createState() => _UdpPortListPageState();
 }
 
 class _UdpPortListPageState extends State<UdpPortListPage> {
-  static const double IMAGE_ICON_WIDTH = 30.0;
   List<PortConfig> _ServiceList = [];
 
   @override
@@ -180,7 +179,7 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
                     TextFormField(
                       controller: descriptionController,
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
+                        contentPadding: AppSpacing.listTileDensePadding,
                         labelText:
                             OpenIoTHubLocalizations.of(context).description,
                         helperText:
@@ -190,7 +189,7 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
                     TextFormField(
                       controller: remotePortController,
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
+                        contentPadding: AppSpacing.listTileDensePadding,
                         labelText: OpenIoTHubLocalizations.of(context)
                             .the_port_number_that_the_remote_machine_needs_to_access,
                         helperText:
@@ -200,7 +199,7 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
                     TextFormField(
                       controller: localPortController,
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
+                        contentPadding: AppSpacing.listTileDensePadding,
                         labelText: OpenIoTHubLocalizations.of(context)
                             .map_to_the_port_number_of_this_mobile_phone,
                         helperText: OpenIoTHubLocalizations.of(context)

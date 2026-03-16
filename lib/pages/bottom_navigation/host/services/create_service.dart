@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:oktoast/oktoast.dart';
-
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub/widgets/toast.dart';
+import 'package:openiothub_constants/constants/AppSpacing.dart';
+import 'package:openiothub_common_pages/utils/toast.dart';
 import 'package:openiothub_api/api/OpenIoTHub/CommonDeviceApi.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 
@@ -118,7 +116,7 @@ class _CreateServiceWidgetState extends State<CreateServiceWidget> {
                 TextFormField(
                   controller: nameController,
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10.0),
+                    contentPadding: AppSpacing.listTileDensePadding,
                     labelText:
                     OpenIoTHubLocalizations.of(context).name,
                     helperText:
@@ -129,7 +127,7 @@ class _CreateServiceWidgetState extends State<CreateServiceWidget> {
                 TextFormField(
                   controller: descriptionController,
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10.0),
+                    contentPadding: AppSpacing.listTileDensePadding,
                     labelText:
                     OpenIoTHubLocalizations.of(context).description,
                     helperText:
@@ -140,7 +138,7 @@ class _CreateServiceWidgetState extends State<CreateServiceWidget> {
                 TextFormField(
                   controller: remotePortController,
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10.0),
+                    contentPadding: AppSpacing.listTileDensePadding,
                     labelText: OpenIoTHubLocalizations.of(context)
                         .the_port_number_that_the_remote_machine_needs_to_access,
                     helperText:
@@ -151,7 +149,7 @@ class _CreateServiceWidgetState extends State<CreateServiceWidget> {
                 TextFormField(
                   controller: localPortController,
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10.0),
+                    contentPadding: AppSpacing.listTileDensePadding,
                     labelText: OpenIoTHubLocalizations.of(context)
                         .map_to_the_port_number_of_this_mobile_phone,
                     helperText: OpenIoTHubLocalizations.of(context)
@@ -162,7 +160,7 @@ class _CreateServiceWidgetState extends State<CreateServiceWidget> {
                 TextFormField(
                   controller: domainController,
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10.0),
+                    contentPadding: AppSpacing.listTileDensePadding,
                     labelText: OpenIoTHubLocalizations.of(context).domain,
                     helperText:
                     OpenIoTHubLocalizations.of(context).domain_notes,

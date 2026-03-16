@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:openiothub/configs/consts.dart';
-import 'package:openiothub/utils/theme_utils.dart';
+import 'package:openiothub_constants/openiothub_constants.dart';
 
-/// 统一空状态组件：插图 + 提示文案 + 可选主/次按钮
 class AppEmptyState extends StatelessWidget {
   const AppEmptyState({
     super.key,
@@ -33,20 +31,20 @@ class AppEmptyState extends StatelessWidget {
       physics: const AlwaysScrollableScrollPhysics(),
       child: ConstrainedBox(
         constraints: BoxConstraints(
-          minHeight: MediaQuery.sizeOf(context).height - LayoutConstants.emptyStateMinHeightOffset,
+          minHeight: MediaQuery.sizeOf(context).height - AppSpacing.emptyStateMinHeightOffset,
         ),
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: LayoutConstants.spacingLg),
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  width: LayoutConstants.emptyIllustrationSize,
-                  height: LayoutConstants.emptyIllustrationSize,
+                  width: AppSpacing.emptyIllustrationSize,
+                  height: AppSpacing.emptyIllustrationSize,
                   child: Image.asset(illustration, fit: BoxFit.contain),
                 ),
-                const SizedBox(height: LayoutConstants.emptyStateSpacing),
+                const SizedBox(height: AppSpacing.emptyStateSpacing),
                 Text(
                   message,
                   style: theme.textTheme.titleMedium?.copyWith(
@@ -55,7 +53,7 @@ class AppEmptyState extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 if (primaryLabel != null && onPrimaryTap != null) ...[
-                  const SizedBox(height: LayoutConstants.emptyStateButtonSpacing),
+                  const SizedBox(height: AppSpacing.emptyStateButtonSpacing),
                   FilledButton.icon(
                     onPressed: onPrimaryTap,
                     icon: Icon(primaryIcon ?? Icons.add, size: 20),
@@ -63,7 +61,7 @@ class AppEmptyState extends StatelessWidget {
                   ),
                 ],
                 if (secondaryLabel != null && onSecondaryTap != null) ...[
-                  const SizedBox(height: LayoutConstants.emptyStateButtonSpacing),
+                  const SizedBox(height: AppSpacing.emptyStateButtonSpacing),
                   OutlinedButton(
                     onPressed: onSecondaryTap,
                     child: Text(secondaryLabel!),

@@ -1,21 +1,20 @@
 import 'dart:io';
-import 'dart:math';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/pages/bottom_navigation/user/tools/tools_type_page.dart';
+import 'package:openiothub/router/app_routes.dart';
+import 'package:openiothub/router/app_navigator.dart';
 import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_common_pages/openiothub_common_pages.dart';
 import 'package:openiothub_common_pages/utils/goToUrl.dart';
+import 'package:openiothub_constants/constants/AppSpacing.dart';
 import 'package:openiothub_constants/constants/SharedPreferences.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
-import 'package:url_launcher/url_launcher_string.dart';
-
-import 'package:openiothub/model/custom_theme.dart';
+import 'package:openiothub/providers/custom_theme.dart';
 import 'package:openiothub_ads/openiothub_ads.dart';
 // import '../../widgets/ads/banner_ylh_test.dart';
 
@@ -72,7 +71,7 @@ class _ProfilePageState extends State<ProfilePage> {
           },
           separatorBuilder: (context, index) {
             return Container(
-              padding: EdgeInsets.only(left: 50), // 添加左侧缩进
+              padding: EdgeInsets.only(left: AppSpacing.settingsListIndent),
               child: TDDivider(),
             );
           },
@@ -84,14 +83,12 @@ class _ProfilePageState extends State<ProfilePage> {
   _login() async {
     bool userSignedIned = await userSignedIn();
     if (userSignedIned) {
-      //  已经登录
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => UserInfoPage()))
+          .pushNamed(AppRoutes.userInfo)
           .then((value) => _getUserInfo());
     } else {
-      //  未登录
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => LoginPage()))
+          .pushNamed(AppRoutes.login)
           .then((value) => _getUserInfo());
     }
   }
@@ -163,12 +160,10 @@ class _ProfilePageState extends State<ProfilePage> {
             leading: Icon(TDIcons.setting, color: Colors.red),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => SettingsPage(
-                        title: OpenIoTHubLocalizations.of(context)
-                            .profile_settings,
-                        key: UniqueKey(),
-                      )));
+              AppNavigator.pushSettings(
+                context,
+                title: OpenIoTHubLocalizations.of(context).profile_settings,
+              );
             }),
         ListTile(
             //第一个功能项
@@ -177,15 +172,12 @@ class _ProfilePageState extends State<ProfilePage> {
             trailing: const Icon(Icons.arrow_right),
             onTap: () async {
               if (await userSignedIn()) {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ServerPages(
-                      title:
-                      OpenIoTHubLocalizations.of(context).profile_servers,
-                      key: UniqueKey(),
-                    )));
-              }else{
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => LoginPage()));
+                AppNavigator.pushServers(
+                  context,
+                  title: OpenIoTHubLocalizations.of(context).profile_servers,
+                );
+              } else {
+                Navigator.of(context).pushNamed(AppRoutes.login);
               }
             }),
         ListTile(
@@ -194,8 +186,7 @@ class _ProfilePageState extends State<ProfilePage> {
             leading: Icon(TDIcons.tools, color: Colors.yellow),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => ToolsTypePage()));
+              Navigator.of(context).pushNamed(AppRoutes.tools);
             }),
         ListTile(
             //第二个功能项
@@ -223,10 +214,7 @@ class _ProfilePageState extends State<ProfilePage> {
             leading: Icon(TDIcons.wifi, color: Colors.blue),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => GatewayQrPage(
-                        key: UniqueKey(),
-                      )));
+              Navigator.of(context).pushNamed(AppRoutes.gatewayQr);
             }),
         // ListTile(
         //     //第二个功能项
@@ -244,11 +232,7 @@ class _ProfilePageState extends State<ProfilePage> {
             leading: Icon(TDIcons.info_circle, color: Colors.purple),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
-              // openiothub_mobile_service.run();
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => AppInfoPage(
-                        key: UniqueKey(),
-                      )));
+              Navigator.of(context).pushNamed(AppRoutes.appInfo);
             }),
         // ListTile(
         //     //第二个功能项
@@ -272,16 +256,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
   ListTile _buildListTile(int index) {
     return _listTiles[index];
-  }
-
-  _launchURL(String url) async {
-    if (await canLaunchUrlString(url)) {
-      await launchUrlString(url);
-    } else {
-      if (kDebugMode) {
-        print('Could not launch $url');
-      }
-    }
   }
 
   Future<void> _getUserInfo() async {

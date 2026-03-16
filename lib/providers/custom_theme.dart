@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:openiothub/utils/theme_utils.dart';
+import 'package:openiothub_constants/openiothub_constants.dart';
 
 /// 主题模式枚举
 enum AppThemeMode {
@@ -235,7 +235,11 @@ class CustomThemes {
         primary: primaryColor,
         secondary: primaryColor,
       ),
+      textTheme: _buildTextTheme(Brightness.light),
       iconTheme: IconThemeData(color: primaryColor),
+      listTileTheme: const ListTileThemeData(
+        contentPadding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+      ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         selectedItemColor: primaryColor,
         unselectedItemColor: Colors.grey,
@@ -286,7 +290,11 @@ class CustomThemes {
         secondary: primaryColor,
         surface: darkSurfaceColor,
       ),
+      textTheme: _buildTextTheme(Brightness.dark),
       iconTheme: IconThemeData(color: primaryColor),
+      listTileTheme: const ListTileThemeData(
+        contentPadding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+      ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         selectedItemColor: primaryColor,
         unselectedItemColor: Colors.grey,
@@ -310,6 +318,34 @@ class CustomThemes {
           borderRadius: BorderRadius.circular(8),
         ),
       ),
+    );
+  }
+
+  /// 统一文字主题：标题 16 加粗，副标题/正文灰色
+  static TextTheme _buildTextTheme(Brightness brightness) {
+    final base = brightness == Brightness.dark
+        ? Typography.material2018().white
+        : Typography.material2018().black;
+    final grey = brightness == Brightness.dark
+        ? const Color(0xFFB0B0B0)
+        : Colors.grey;
+    return TextTheme(
+      titleLarge: base.titleLarge?.copyWith(
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+      ),
+      titleMedium: base.titleMedium?.copyWith(
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+      ),
+      titleSmall: base.titleSmall?.copyWith(
+        fontSize: 14,
+        fontWeight: FontWeight.w600,
+      ),
+      bodyLarge: base.bodyLarge?.copyWith(fontSize: 16),
+      bodyMedium: base.bodyMedium?.copyWith(fontSize: 14),
+      bodySmall: base.bodySmall?.copyWith(fontSize: 12, color: grey),
+      labelLarge: base.labelLarge?.copyWith(fontSize: 14),
     );
   }
 

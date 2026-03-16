@@ -4,11 +4,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub/utils/theme_utils.dart';
+import 'package:openiothub_constants/openiothub_constants.dart';
 import 'package:openiothub/widgets/build_global_actions.dart';
 import 'package:openiothub_api/api/OpenIoTHub/SessionApi.dart';
 import 'package:openiothub_api/openiothub_api.dart';
-import 'package:openiothub_common_pages/commPages/findGatewayGoList.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
@@ -16,8 +15,7 @@ import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import 'package:openiothub_ads/openiothub_ads.dart';
-import 'package:openiothub/pages/guide/guide_page.dart';
-import 'mdns_service_list_page.dart';
+import 'package:openiothub/router/app_navigator.dart';
 
 class GatewayListPage extends StatefulWidget {
   const GatewayListPage({required Key key, required this.title})
@@ -57,6 +55,9 @@ class _GatewayListPageState extends State<GatewayListPage> {
   @override
   Widget build(BuildContext context) {
     final tiles = _SessionList.map((pair) {
+      final bool isOnline = pair.statusToClient ||
+          pair.statusP2PAsClient ||
+          pair.statusP2PAsServer;
       var listItemContent = ListTile(
         leading: TDAvatar(
           size: TDAvatarSize.medium,
@@ -64,39 +65,43 @@ class _GatewayListPageState extends State<GatewayListPage> {
           text: pair.name[0],
           shape: TDAvatarShape.square,
           backgroundColor: Color.fromRGBO(
-            Random().nextInt(156) + 50, // 随机生成0到255之间的整数
-            Random().nextInt(156) + 50, // 随机生成0到255之间的整数
-            Random().nextInt(156) + 50, // 随机生成0到255之间的整数
-            1, // 不透明度，1表示完全不透明
+            Random().nextInt(156) + 50,
+            Random().nextInt(156) + 50,
+            Random().nextInt(156) + 50,
+            1,
           ),
         ),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Text(
-              "${pair.name.substring(0, pair.name.length > 20 ? 20 : pair.name.length)}${pair.name.length > 20 ? "..." : ""}(${pair.description.substring(0, pair.description.length > 10 ? 10 : pair.description.length)}${pair.description.length > 10 ? "..." : ""})",
-              style: Constants.titleTextStyle,
+            Expanded(
+              child: Text(
+                pair.name,
+                style: Constants.titleTextStyle,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
             ),
+            const SizedBox(width: 8),
+            isOnline
+                ? TDTag(
+                    OpenIoTHubLocalizations.of(context).online,
+                    theme: TDTagTheme.success,
+                    isLight: true,
+                  )
+                : TDTag(
+                    OpenIoTHubLocalizations.of(context).offline,
+                    theme: TDTagTheme.danger,
+                    isLight: true,
+                  ),
           ],
         ),
-        subtitle:
-            pair.statusToClient ||
-                    pair.statusP2PAsClient ||
-                    pair.statusP2PAsServer
-                ? TDTag(
-                  OpenIoTHubLocalizations.of(context).online,
-                  theme: TDTagTheme.success,
-                  // isOutline: true,
-                  isLight: true,
-                  fixedWidth: 100,
-                )
-                : TDTag(
-                  OpenIoTHubLocalizations.of(context).offline,
-                  theme: TDTagTheme.danger,
-                  // isOutline: true,
-                  isLight: true,
-                  fixedWidth: 100,
-                ),
+        subtitle: Text(
+          pair.description,
+          style: Constants.subTitleTextStyle,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+        ),
         trailing: Constants.rightArrowIcon,
       );
       return InkWell(
@@ -117,7 +122,7 @@ class _GatewayListPageState extends State<GatewayListPage> {
       },
       separatorBuilder: (context, index) {
         return Container(
-          padding: EdgeInsets.only(left: 70), // 添加左侧缩进
+          padding: EdgeInsets.only(left: AppSpacing.listDividerIndent),
           child: TDDivider(),
         );
       },
@@ -157,20 +162,12 @@ class _GatewayListPageState extends State<GatewayListPage> {
                     TextButton(
                       style: ButtonStyle(
                         side: WidgetStateProperty.all(
-                          const BorderSide(color: Colors.grey, width: 1),
+                          AppDecorations.dividerBorder,
                         ),
                         shape: WidgetStateProperty.all(const StadiumBorder()),
                       ),
                       onPressed: () {
-                        Navigator.of(context)
-                            .push(
-                          MaterialPageRoute(
-                            builder: (context) {
-                              // 写成独立的组件，支持刷新
-                              return GuidePage(activeIndex: 1,);
-                            },
-                          ),
-                        );
+                        AppNavigator.pushGuide(context, activeIndex: 1);
                       },
                       child: Text(
                         OpenIoTHubLocalizations.of(
@@ -195,40 +192,9 @@ class _GatewayListPageState extends State<GatewayListPage> {
   }
 
   void _pushmDNSServices(SessionConfig config) async {
-    //:TODO    这里显示内网的服务，socks5等，右上角详情才展示详细信息
-    Navigator.of(context)
-        .push(
-          MaterialPageRoute(
-            builder: (context) {
-              // 写成独立的组件，支持刷新
-              return MDNSServiceListPage(
-                sessionConfig: config,
-                key: UniqueKey(),
-              );
-            },
-          ),
-        )
+    AppNavigator.pushGatewayMdnsServiceList(context, config)
         .then((result) {
           setState(() {
-            getAllSession();
-          });
-        });
-  }
-
-  void _pushFindmDNSClientListPage() async {
-    //:TODO    这里显示内网的服务，socks5等，右上角详情才展示详细信息
-    Navigator.of(context)
-        .push(
-          MaterialPageRoute(
-            builder: (context) {
-              // 写成独立的组件，支持刷新
-              return FindGatewayGoListPage(key: UniqueKey());
-            },
-          ),
-        )
-        .then((result) {
-          setState(() {
-            // showToast( "我返回回来了");
             getAllSession();
           });
         });

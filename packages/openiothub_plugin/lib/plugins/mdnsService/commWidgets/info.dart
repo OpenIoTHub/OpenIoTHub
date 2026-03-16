@@ -6,7 +6,7 @@ import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 
 import 'package:openiothub_plugin/openiothub_plugin.dart';
-import 'package:openiothub_plugin/utils/toast.dart';
+import 'package:openiothub_common_pages/utils/toast.dart';
 
 import '../../../models/PortServiceInfo.dart';
 

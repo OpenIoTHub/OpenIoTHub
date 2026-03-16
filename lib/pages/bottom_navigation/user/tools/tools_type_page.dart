@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:openiothub_common_pages/openiothub_common_pages.dart';
+import 'package:openiothub_constants/constants/AppSpacing.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
+import 'package:openiothub/router/app_navigator.dart';
 
 class ToolsTypePage extends StatelessWidget {
   static const String TAG_START = "startDivider";
@@ -44,7 +46,7 @@ class ToolsTypePage extends StatelessWidget {
 
   Widget getIconImage(path) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+      padding: const EdgeInsets.only(right: AppSpacing.listItemInnerPadding),
       child:
           Image.asset(path, width: IMAGE_ICON_WIDTH, height: IMAGE_ICON_WIDTH),
     );
@@ -56,25 +58,19 @@ class ToolsTypePage extends StatelessWidget {
       switch (item) {
         case TAG_START:
           return const TDDivider();
-          break;
         case TAG_END:
           return const TDDivider();
-          break;
         case TAG_CENTER:
-          return const Padding(
-            padding: EdgeInsets.fromLTRB(50.0, 0.0, 0.0, 0.0),
+          return Padding(
+            padding: const EdgeInsets.only(left: AppSpacing.settingsListIndent),
             child: const TDDivider(),
           );
-          break;
         case TAG_BLANK:
-          return Container(
-            height: 20.0,
-          );
-          break;
+          return const SizedBox(height: AppSpacing.listPageTopPadding);
       }
     } else if (item is ListItem) {
       var listItemContent = Padding(
-        padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
+        padding: AppInsets.listItemRow,
         child: Row(
           children: <Widget>[
             getIconImage(item.icon),
@@ -101,23 +97,18 @@ class ToolsTypePage extends StatelessWidget {
     switch (title) {
       case "Airkiss":
         {
-          Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
-//        smartconfig 工具页面
-            return Airkiss(
-              title: "${OpenIoTHubLocalizations.of(context).wechat} Airkiss",
-              key: UniqueKey(),
-            );
-          }));
+          AppNavigator.pushAirkiss(
+            ctx,
+            title: "${OpenIoTHubLocalizations.of(ctx).wechat} Airkiss",
+          );
         }
         break;
       default:
         {
-          Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
-            return Airkiss(
-              title: "${OpenIoTHubLocalizations.of(context).wechat} Airkiss",
-              key: UniqueKey(),
-            );
-          }));
+          AppNavigator.pushAirkiss(
+            ctx,
+            title: "${OpenIoTHubLocalizations.of(ctx).wechat} Airkiss",
+          );
         }
         break;
     }
@@ -128,7 +119,7 @@ class ToolsTypePage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(title: Text(OpenIoTHubLocalizations.of(context).tools)),
         body: Padding(
-          padding: const EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
+          padding: const EdgeInsets.only(top: AppSpacing.listPageTopPadding),
           child: ListView.builder(
             itemCount: listData.length,
             itemBuilder: (context, i) => renderRow(context, i),

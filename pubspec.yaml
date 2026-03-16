@@ -9,90 +9,61 @@ environment:
   sdk: ">=3.7.2 <4.0.0"
   flutter: ">=3.19.0"
 
-# Dependencies specify other packages that your package needs in order to work.
-# To automatically upgrade your package dependencies to the latest versions
-# consider running `flutter pub upgrade --major-versions`. Alternatively,
-# dependencies can be manually updated by changing the version numbers below to
-# the latest version available on pub.dev. To see which dependencies have newer
-# versions available, run `flutter pub outdated`.
 dependencies:
   flutter:
     sdk: flutter
-
   flutter_localizations:
     sdk: flutter
   cupertino_icons: ^1.0.5
-  #  golang的后台服务
+
+  # OpenIoTHub 内部包
   openiothub_mobile_service: ^0.0.10
-  http: ^1.1.0
-  #  grpc
-  #  grpc: ^4.0.0
-  #  grpc协议
-  #  protobuf: ^3.1.0
-  #  app内嵌网页浏览器
-  webview_flutter: ^4.2.1
-  #  打开url
-  url_launcher: ^6.1.11
-  #  安卓intent调用其他程序
-  #  android_intent: ^2.0.2
-  #  数据存储
-  shared_preferences: ^2.1.1
-  #  事件总线
-  event_bus: ^2.0.0
-  #  动态请求权限，定位，存储等
-  permission_handler: ^11.3.1
-  #  查看手机安装的app
-  #  device_apps: ^1.0.8
-  #  静态网页sever
-  jaguar_flutter_asset: ^3.0.0
-  #  player
-  #  video_player: ^0.10.1+3
-  #  mDNS
-  multicast_dns: ^0.3.2+3
-  #  mdns_plugin: ^1.1.4
-  #  sqflite: ^1.1.6+2
-  #  webDAV的文件浏览器
-  #  modules:
-  #    git: https://github.com/OpenIoTHub/modules
   openiothub_constants: ^1.0.0
   openiothub_plugin: ^1.0.2+36
   openiothub_api: ^1.0.5+7
   openiothub_common_pages: ^1.0.5+66
-
   openiothub_grpc_api: ^1.1.0+1
-#  server_grpc_api: ^1.0.0
-#  gateway_grpc_api: ^1.0.0
-#  iot_manager_grpc_api: ^1.0.0
+  openiothub_ads: ^0.0.1
 
-  #    path: ../modules/
-  # 应用OTA
-  #  upgrader: ^0.10.2
-  #  provider: ^3.0.0
+  # 网络与通信
+  http: ^1.1.0
+  webview_flutter: ^4.2.1
+  url_launcher: ^6.1.11
+  multicast_dns: ^0.3.2+3
+  bonsoir: ^5.1.11
+
+  # 数据存储
+  shared_preferences: ^2.1.1
+
+  # 状态管理
   provider: ^6.0.2
-  #  fluwx: ^2.4.1
-  wechat_kit: ^6.0.1
-#  fluttertoast: ^8.0.8
+  event_bus: ^2.0.0
+
+  # UI 组件
+  tdesign_flutter: ^0.2.7
   oktoast: ^3.3.2+1
-  msix: ^3.16.6
   flutter_speed_dial: ^7.0.0
   mobile_scanner: ^6.0.2
   image_picker: ^1.0.7
+  flutter_native_splash: ^2.4.1
 
-  intl: '>=0.19.0 <= 1.0.0'
+  # 平台功能
+  permission_handler: ^11.3.1
+  jaguar_flutter_asset: ^3.0.0
   jaguar: any
   desktop_window: ^0.4.0
-#  tencent_kit: ^6.0.1
-#  fluent_ui: ^4.9.0
-  tdesign_flutter: ^0.2.3
-  go_router: ^15.0.0
-  flutter_native_splash: ^2.4.1
-  bonsoir: ^5.1.11
   window_manager: ^0.5.0
   flutter_foreground_task: ^9.1.0
-  jwt_decoder: ^2.0.1
   wakelock_plus: ^1.3.2
-  openiothub_ads:
-    path: ./packages/openiothub_ads
+
+  # 第三方登录
+  wechat_kit: ^6.0.1
+
+  # 工具
+  intl: '>=0.19.0 <= 1.0.0'
+  jwt_decoder: ^2.0.1
+  go_router: ^15.0.0
+  msix: ^3.16.6
 
 dev_dependencies:
   flutter_test:
@@ -159,30 +130,19 @@ flutter:
     - assets/web/open/
     - assets/images/logos/
 
-#flutter_intl:
-#  enabled: true
-
 msix_config:
   display_name: openiothub
   publisher: CN=5F64CEA2-463E-41A3-AE89-6979242A61DF
   publisher_display_name: OpenIoTHub Cloud
   identity_name: 38916OpenIoTHubCloud.openiothub
-  #  msix_version: 1.0.0.0
   logo_path: .\assets\images\logos\openiothub_logo.png
   start_menu_icon_path: .\assets\images\logos\openiothub_logo.png
   tile_icon_path: .\assets\images\logos\openiothub_logo.png
   icons_background_color: transparent
   capabilities: internetClientServer, privateNetworkClientServer, removableStorage, location
-#  app_installer:
-#    publish_folder_path: C:\Users\iotserv\Downloads
-#    hours_between_update_checks: 0
-#    automatic_background_task: true
-#    update_blocks_activation: true
-#    show_prompt: true
-#    force_update_from_any_version: false
   store: true
+
 wechat_kit:
-  #  ios: no_pay # 默认 pay
   app_id: wx9211939fcd68a318
   universal_link: https://iothub.cloud/app/openiothub/
 tencent_kit:

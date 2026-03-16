@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub/model/custom_theme.dart';
+import 'package:openiothub/providers/custom_theme.dart';
+import 'package:openiothub/router/app_routes.dart';
 import 'package:provider/provider.dart';
 
 /// 主题模式选择器：弹窗选择主题模式
@@ -61,10 +62,7 @@ Widget themeModeSettingTile(BuildContext context) {
   );
 }
 
-/// 路由名称，供设置页 pushNamed 使用
-const String kRouteThemeModePicker = '/theme-mode-picker';
-
-/// 全页主题模式选择：用于 /theme-mode-picker 路由，设置页通过 pushNamed 打开
+/// 全页主题模式选择；路由名见 [AppRoutes.themeModePicker]。
 class ThemeModePickerPage extends StatelessWidget {
   const ThemeModePickerPage({super.key});
 

@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:openiothub_api/api/OpenIoTHub/CommonDeviceApi.dart';
 import 'package:openiothub_constants/constants/Config.dart';
+import 'package:openiothub_constants/constants/AppSpacing.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import 'package:openiothub/widgets/toast.dart';
+import 'package:openiothub_common_pages/utils/toast.dart';
 
 class FtpPortListPage extends StatefulWidget {
-  FtpPortListPage({required Key key, required this.device}) : super(key: key);
+  const FtpPortListPage({required Key key, required this.device}) : super(key: key);
 
-  Device device;
+  final Device device;
 
   @override
   _FtpPortListPageState createState() => _FtpPortListPageState();
 }
 
 class _FtpPortListPageState extends State<FtpPortListPage> {
-  static const double IMAGE_ICON_WIDTH = 30.0;
   List<PortConfig> _ServiceList = [];
 
   @override
@@ -182,7 +181,7 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
                     TextFormField(
                       controller: descriptionController,
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
+                        contentPadding: AppSpacing.listTileDensePadding,
                         labelText: OpenIoTHubLocalizations.of(context).notes,
                         helperText:
                             OpenIoTHubLocalizations.of(context).custom_remarks,
@@ -191,7 +190,7 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
                     TextFormField(
                       controller: remotePortController,
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
+                        contentPadding: AppSpacing.listTileDensePadding,
                         labelText:
                             OpenIoTHubLocalizations.of(context).port_number,
                         helperText: OpenIoTHubLocalizations.of(context)
@@ -201,7 +200,7 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
                     TextFormField(
                         controller: localPortController,
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(10.0),
+                          contentPadding: AppSpacing.listTileDensePadding,
                           labelText: OpenIoTHubLocalizations.of(context)
                               .map_to_the_port_number_of_this_mobile_phone,
                           helperText: OpenIoTHubLocalizations.of(context)

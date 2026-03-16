@@ -8,7 +8,7 @@ import 'package:openiothub_api/openiothub_api.dart';
 import 'package:openiothub_constants/constants/Config.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_plugin/l10n/generated/openiothub_plugin_localizations.dart';
-import 'package:openiothub_plugin/utils/toast.dart';
+import 'package:openiothub_common_pages/utils/toast.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:webview_flutter/webview_flutter.dart';

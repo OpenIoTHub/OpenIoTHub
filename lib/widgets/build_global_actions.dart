@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/pages/common/scan_qr.dart';
 import 'package:openiothub_common_pages/openiothub_common_pages.dart';
+import 'package:openiothub_plugin/openiothub_plugin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
-import '../pages/guide/guide_page.dart';
-import '../utils/check/check.dart';
+import 'package:openiothub/router/app_routes.dart';
+import 'package:openiothub/router/app_navigator.dart';
+import 'package:openiothub/utils/check_auth.dart';
 
 List<Widget>? build_actions(BuildContext context) {
   var popupMenuEntrys = <PopupMenuEntry<String>>[
@@ -70,40 +72,19 @@ List<Widget>? build_actions(BuildContext context) {
       onSelected: (String selected) async {
         switch (selected) {
           case 'config_device_wifi':
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return Airkiss(
-                    title:
-                        OpenIoTHubLocalizations.of(context).config_device_wifi,
-                    key: UniqueKey(),
-                  );
-                },
-              ),
+            AppNavigator.pushAirkiss(
+              context,
+              title: OpenIoTHubLocalizations.of(context).config_device_wifi,
             );
             break;
           case 'scan_QR':
             scanQR(context);
             break;
           case 'find_local_gateway':
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  // 写成独立的组件，支持刷新
-                  return FindGatewayGoListPage(key: UniqueKey());
-                },
-              ),
-            );
+            Navigator.of(context).pushNamed(AppRoutes.findGateway);
             break;
           case 'user_guide':
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  // 写成独立的组件，支持刷新
-                  return GuidePage(activeIndex: 0);
-                },
-              ),
-            );
+            AppNavigator.pushGuide(context, activeIndex: 0);
             break;
         }
       },
@@ -115,17 +96,9 @@ scanQR(BuildContext context) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   if (prefs.containsKey("scan_QR_Dialog") && prefs.getBool("scan_QR_Dialog")!) {
     if (await userSignedIn()) {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) {
-            return ScanQRPage(key: UniqueKey());
-          },
-        ),
-      );
+      Navigator.of(context).pushNamed(AppRoutes.scanQr);
     } else {
-      Navigator.of(
-        context,
-      ).push(MaterialPageRoute(builder: (context) => LoginPage()));
+      Navigator.of(context).pushNamed(AppRoutes.login);
     }
   } else {
     showDialog(
@@ -168,18 +141,10 @@ scanQR(BuildContext context) async {
                   if (await userSignedIn()) {
                     prefs.setBool("scan_QR_Dialog", true);
                     Navigator.of(context).pop();
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return ScanQRPage(key: UniqueKey());
-                        },
-                      ),
-                    );
+                    Navigator.of(context).pushNamed(AppRoutes.scanQr);
                   } else {
                     Navigator.of(context).pop();
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => LoginPage()),
-                    );
+                    Navigator.of(context).pushNamed(AppRoutes.login);
                   }
                 },
               ),

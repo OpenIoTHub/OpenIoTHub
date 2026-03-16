@@ -16,8 +16,8 @@ class InternalPluginServiceHandler extends TaskHandler {
   @override
   void onRepeatEvent(DateTime timestamp) async {
     _count++;
-
-    FlutterForegroundTask.updateService(notificationText: "云亿连(OpenIoTHub) is Running");
+    FlutterForegroundTask.updateService(
+        notificationText: "云亿连(OpenIoTHub) is Running ($_count)");
 
     // Send data to main isolate.
     FlutterForegroundTask.sendDataToMain("云亿连(OpenIoTHub) is Running");

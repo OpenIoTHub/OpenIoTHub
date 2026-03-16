@@ -10,9 +10,7 @@ show_success(String msg, BuildContext context) {
     icon: true,
     theme: MessageTheme.success,
     duration: 3000,
-    onDurationEnd: () {
-      print('message end');
-    },
+    onDurationEnd: () {},
   );
 }
 
@@ -24,9 +22,7 @@ show_failed(String msg, BuildContext context) {
     icon: true,
     theme: MessageTheme.error,
     duration: 3000,
-    onDurationEnd: () {
-      print('message end');
-    },
+    onDurationEnd: () {},
   );
 }
 
@@ -38,8 +34,6 @@ show_info(String msg, BuildContext context) {
     icon: true,
     theme: MessageTheme.info,
     duration: 3000,
-    onDurationEnd: () {
-      print('message end');
-    },
+    onDurationEnd: () {},
   );
 }

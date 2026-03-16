@@ -75,8 +75,8 @@ class _State extends State<LoginPage> {
             IconButton(
               icon: const Icon(Icons.language),
               tooltip: 'Language',
-              onPressed: () =>
-                  Navigator.of(context).pushNamed('/language-picker'),
+              onPressed: () => Navigator.of(context).pushNamed(
+                  RoutePaths.languagePicker),
             ),
           ],
         ),

@@ -7,3 +7,5 @@ export 'package:openiothub_plugin/plugins/mdnsService/mDNSService/ssh/SSHPage.da
 export 'package:openiothub_plugin/plugins/mdnsService/commWidgets/uploadOTA.dart';
 
 export "package:openiothub_plugin/plugins/mdnsService/commWidgets/info.dart";
+
+export 'package:openiothub_plugin/pages/findGatewayGoList.dart';

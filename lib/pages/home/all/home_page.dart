@@ -6,12 +6,10 @@ import 'package:flutter/services.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/pages/bottom_navigation/service/mdns_service_list_page.dart';
 import 'package:openiothub/pages/bottom_navigation/user/profile_page.dart';
-import 'package:openiothub/widgets/toast.dart';
 import 'package:openiothub_api/api/OpenIoTHub/Utils.dart';
 import 'package:openiothub_api/utils/check.dart';
 import 'package:openiothub_common_pages/commPages/feedback.dart';
 import 'package:openiothub_common_pages/gateway/GatewayQrPage.dart';
-import 'package:openiothub_common_pages/l10n/generated/openiothub_common_localizations.dart';
 import 'package:openiothub_common_pages/utils/goToUrl.dart';
 import 'package:openiothub_constants/constants/SharedPreferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,6 +17,7 @@ import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import 'package:openiothub/configs/var.dart';
 import 'package:openiothub/init.dart';
+import 'package:openiothub/router/app_routes.dart';
 import 'package:openiothub_ads/openiothub_ads.dart';
 import 'package:openiothub/pages/bottom_navigation/host/common_device_list_page.dart';
 import 'package:openiothub/pages/bottom_navigation/gateway/gateway_list_page.dart';
@@ -32,7 +31,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
-  final Color _activeColor = Colors.orange;
   int _currentIndex = 0;
   SharedPreferences? prefs;
 
@@ -62,9 +60,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         // showToast( "程序状态：${state.toString()}");
         break;
       case AppLifecycleState.detached: // APP结束时调用
-        // showToast( "程序状态：${state.toString()}");
         exit(1);
-        break;
       default:
         break;
     }
@@ -102,7 +98,6 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    print("OpenIoTHubCommonLocalizations.of(context).localeName:${OpenIoTHubCommonLocalizations.of(context).localeName}");
     return Scaffold(
       // appBar: AppBar(title: Text(OpenIoTHubLocalizations.of(context).app_title),),
       key: _scaffoldKey,
@@ -122,28 +117,24 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
           title: OpenIoTHubLocalizations.of(context).tab_gateway,
           key: UniqueKey(),
         );
-        break;
       case 1:
         return CommonDeviceListPage(
           title: OpenIoTHubLocalizations.of(context).tab_host,
           key: UniqueKey(),
         );
-        break;
       case 2:
         return MdnsServiceListPage(
           title: OpenIoTHubLocalizations.of(context).tab_smart,
           key: UniqueKey(),
         );
-        break;
       case 3:
-        // return UserInfoPage();
         return const ProfilePage();
-        break;
+      default:
+        return MdnsServiceListPage(
+          title: OpenIoTHubLocalizations.of(context).tab_smart,
+          key: UniqueKey(),
+        );
     }
-    return MdnsServiceListPage(
-      title: OpenIoTHubLocalizations.of(context).tab_smart,
-      key: UniqueKey(),
-    );
   }
 
   void _changePage(int index) {
@@ -198,13 +189,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         (Platform.isWindows || Platform.isMacOS || Platform.isLinux)) {
       Timer.periodic(const Duration(seconds: 1), (timer) {
         timer.cancel();
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) {
-              return GatewayQrPage(key: UniqueKey());
-            },
-          ),
-        );
+        Navigator.of(context).pushNamed(AppRoutes.gatewayQr);
       });
     }
   }
@@ -255,12 +240,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                             style: TextStyle(color: Colors.green),
                           ),
                           onPressed: () async {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder:
-                                    (context) => FeedbackPage(key: UniqueKey()),
-                              ),
-                            );
+                            Navigator.of(context).pushNamed(AppRoutes.feedback);
                           },
                         ),
                       ],
@@ -331,17 +311,10 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
       lastDateTime = DateTime.now();
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) {
-            return SplashPage();
-          },
+          builder: (context) => SplashPage(),
         ),
       );
     }
   }
 
-  _showUserLoginStatus() async {
-    if (!(await userSignedIn())) {
-      show_failed(OpenIoTHubLocalizations.of(context).login_failed, context);
-    }
-  }
 }

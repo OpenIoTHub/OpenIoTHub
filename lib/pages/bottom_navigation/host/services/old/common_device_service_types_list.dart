@@ -2,14 +2,15 @@ import 'dart:async' as DeviceServiceTypesList;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub_api/api/OpenIoTHub/CommonDeviceApi.dart';
+import 'package:openiothub_constants/constants/AppSpacing.dart';
 import 'package:openiothub_constants/constants/Constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
-import 'package:openiothub/widgets/toast.dart';
+import 'package:openiothub_common_pages/utils/toast.dart';
+import 'package:openiothub/router/app_navigator.dart';
 import './ftp_port_list_page.dart';
 import 'udp_port_list_page.dart';
 import 'http_port_list_page.dart';
@@ -131,33 +132,13 @@ class _CommonDeviceServiceTypesListState
   void handleListItemClick(BuildContext ctx, ListItem item) {
     String title = item.title;
     if (title == OpenIoTHubLocalizations.of(context).tcp_port) {
-      Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
-        return TcpPortListPage(
-          device: widget.device,
-          key: UniqueKey(),
-        );
-      }));
+      AppNavigator.pushTcpPortList(ctx, widget.device);
     } else if (title == OpenIoTHubLocalizations.of(context).udp_port) {
-      Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
-        return UdpPortListPage(
-          device: widget.device,
-          key: UniqueKey(),
-        );
-      }));
+      AppNavigator.pushUdpPortList(ctx, widget.device);
     } else if (title == OpenIoTHubLocalizations.of(context).ftp_port) {
-      Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
-        return FtpPortListPage(
-          device: widget.device,
-          key: UniqueKey(),
-        );
-      }));
+      AppNavigator.pushFtpPortList(ctx, widget.device);
     } else if (title == OpenIoTHubLocalizations.of(context).http_port) {
-      Navigator.of(ctx).push(MaterialPageRoute(builder: (context) {
-        return HttpPortListPage(
-          device: widget.device,
-          key: UniqueKey(),
-        );
-      }));
+      AppNavigator.pushHttpPortList(ctx, widget.device);
     }
   }
 
@@ -294,7 +275,7 @@ class _CommonDeviceServiceTypesListState
                     TextFormField(
                       controller: macController,
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
+                        contentPadding: AppSpacing.listTileDensePadding,
                         labelText: OpenIoTHubLocalizations.of(context)
                             .physical_address,
                         helperText: OpenIoTHubLocalizations.of(context)
