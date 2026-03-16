@@ -12,7 +12,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../utils/toast.dart';
-import 'fullScreenWeb.dart';
+import 'full_screen_web.dart';
 
 GlobalKey<WebScreenState> webGlobalKey = GlobalKey();
 
@@ -164,11 +164,11 @@ class WebScreenState extends State<WebScreen> {
                   //   }
                 },
                 onDownloadStartRequest: (controller, url) async {
-                  // show_info("onDownloadStartRequest:$url", context);
+                  // showInfo("onDownloadStartRequest:$url", context);
                   String urlStr = url.url.toString();
                   ClipboardData data = new ClipboardData(text: urlStr);
                   Clipboard.setData(data);
-                  show_info("Url copied to clipboard", context);
+                  showInfo("Url copied to clipboard", context);
                   launchUrlString(urlStr);
                   return;
                 },

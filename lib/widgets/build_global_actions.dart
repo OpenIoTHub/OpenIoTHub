@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub/pages/common/scan_qr.dart';
+import 'package:openiothub/pages/scanner/scan_qr.dart';
 import 'package:openiothub/common_pages/openiothub_common_pages.dart';
 import 'package:openiothub/plugin/openiothub_plugin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,8 +12,8 @@ import 'package:openiothub/router/app_routes.dart';
 import 'package:openiothub/router/app_navigator.dart';
 import 'package:openiothub/utils/check_auth.dart';
 
-List<Widget>? build_actions(BuildContext context) {
-  var popupMenuEntrys = <PopupMenuEntry<String>>[
+List<Widget>? buildActions(BuildContext context) {
+  var popupMenuEntries = <PopupMenuEntry<String>>[
     PopupMenuItem(
       //child: _buildPopupMenuItem(Icons.camera_alt, '扫一扫'),
       child: _buildPopupMenuItem(
@@ -25,7 +25,7 @@ List<Widget>? build_actions(BuildContext context) {
     ),
   ];
   if (Platform.isAndroid || Platform.isIOS) {
-    popupMenuEntrys.addAll(<PopupMenuEntry<String>>[
+    popupMenuEntries.addAll(<PopupMenuEntry<String>>[
       const PopupMenuDivider(height: 0.2),
       PopupMenuItem(
         //child: _buildPopupMenuItem(Icons.camera_alt, '扫一扫'),
@@ -48,7 +48,7 @@ List<Widget>? build_actions(BuildContext context) {
       ),
     ]);
   }
-  popupMenuEntrys.addAll(<PopupMenuEntry<String>>[
+  popupMenuEntries.addAll(<PopupMenuEntry<String>>[
     const PopupMenuDivider(height: 0.2),
     PopupMenuItem(
       //child: _buildPopupMenuItem(Icons.camera_alt, '扫一扫'),
@@ -64,7 +64,7 @@ List<Widget>? build_actions(BuildContext context) {
     PopupMenuButton(
       tooltip: "",
       itemBuilder: (BuildContext context) {
-        return popupMenuEntrys;
+        return popupMenuEntries;
       },
       padding: EdgeInsets.only(top: 0.0),
       elevation: 5.0,

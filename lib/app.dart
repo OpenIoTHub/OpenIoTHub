@@ -4,7 +4,7 @@ import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/providers/custom_theme.dart';
 import 'package:openiothub/providers/locale_provider.dart';
 import 'package:openiothub/providers/auth_provider.dart';
-import 'package:openiothub/pages/home/all/home_page.dart';
+import 'package:openiothub/pages/home/home_page.dart';
 import 'package:openiothub/router/app_routes.dart';
 import 'package:openiothub/router/auth_navigator_observer.dart';
 import 'package:openiothub/common_pages/openiothub_common_pages.dart';

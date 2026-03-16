@@ -4,7 +4,7 @@ import 'package:openiothub/ads/ylh/banner_ylh.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-import 'fullScreenWeb.dart';
+import 'full_screen_web.dart';
 
 GlobalKey<WebScreenState> webGlobalKey = GlobalKey();
 

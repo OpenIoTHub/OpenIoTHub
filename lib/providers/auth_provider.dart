@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:openiothub/core/constants/SharedPreferences.dart';
+import 'package:openiothub/core/shared_preferences_keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthProvider with ChangeNotifier {
@@ -22,13 +22,13 @@ class AuthProvider with ChangeNotifier {
 
     try {
       final prefs = await SharedPreferences.getInstance();
-      final token = prefs.getString(SharedPreferencesKey.USER_TOKEN_KEY);
+      final token = prefs.getString(SharedPreferencesKey.userTokenKey);
 
       if (token != null && token.isNotEmpty) {
         // 检查Token是否过期
         if (JwtDecoder.isExpired(token)) {
           // Token已过期，清除
-          await prefs.remove(SharedPreferencesKey.USER_TOKEN_KEY);
+          await prefs.remove(SharedPreferencesKey.userTokenKey);
           _isAuthenticated = false;
           _token = null;
         } else {
@@ -50,7 +50,7 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> setToken(String token) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(SharedPreferencesKey.USER_TOKEN_KEY, token);
+    await prefs.setString(SharedPreferencesKey.userTokenKey, token);
     _token = token;
     _isAuthenticated = true;
     notifyListeners();
@@ -58,7 +58,7 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> clearToken() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(SharedPreferencesKey.USER_TOKEN_KEY);
+    await prefs.remove(SharedPreferencesKey.userTokenKey);
     _token = null;
     _isAuthenticated = false;
     notifyListeners();

@@ -10,6 +10,6 @@ Future<String> getJWT() async {
     return "";
   } else {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(SharedPreferencesKey.USER_TOKEN_KEY)!;
+    return prefs.getString(SharedPreferencesKey.userTokenKey)!;
   }
 }

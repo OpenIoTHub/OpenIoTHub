@@ -1,6 +1,6 @@
 import 'package:url_launcher/url_launcher_string.dart';
 
-launchURL(String url) async {
+launchUrl(String url) async {
 //    await intent.launch();
   if (await canLaunchUrlString(url)) {
     await launchUrlString(url);

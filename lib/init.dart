@@ -74,8 +74,8 @@ Future<void> initWechat() async {
   // 如果同意了隐私政策或者不是安卓平台则初始化wechat_kit
   if (agreed || Platform.isIOS) {
     WechatKitPlatform.instance.registerApp(
-      appId: WeChatConfig.WECHAT_APPID,
-      universalLink: WeChatConfig.WECHAT_UNIVERSAL_LINK,
+      appId: WeChatConfig.wechatAppId,
+      universalLink: WeChatConfig.wechatUniversalLink,
     );
   }
 }
@@ -86,7 +86,7 @@ Future<void> initQQ() async {
   // if (agreed || Platform.isIOS) {
   //   await TencentKitPlatform.instance.setIsPermissionGranted(granted: true);
   //   await TencentKitPlatform.instance.registerApp(
-  //         appId: QQConfig.QQ_APPID, universalLink: QQConfig.QQ_UNIVERSAL_LINK);
+  //         appId: QQConfig.qqAppId, universalLink: QQConfig.qqUniversalLink);
   // }
 }
 
@@ -108,18 +108,18 @@ Future<void> loadConfig() async {
     return;
   }
   // Future.delayed(const Duration(milliseconds: 500), () {
-  //   UtilApi.SyncConfigWithToken().then((OpenIoTHubOperationResponse rsp) {
+  //   UtilApi.syncConfigWithToken().then((OpenIoTHubOperationResponse rsp) {
   //     // showToast( rsp.msg);
   //   });
   // });
-  // CnameManager.LoadAllCnameFromRemote();
+  // CnameManager.loadAllCnameFromRemote();
   // TODO 后面也可以定时同步
-  CnameManager.LoadAllCnameFromRemote().then(
+  CnameManager.loadAllCnameFromRemote().then(
     (_) => {
-      UserManager.GetAllConfig().then(
+      UserManager.getAllConfig().then(
         (StringValue config) => {
-          UtilApi.Ping().then(
-            (_) => {UtilApi.SyncConfigWithJsonConfig(config.value)},
+          UtilApi.ping().then(
+            (_) => {UtilApi.syncConfigWithJsonConfig(config.value)},
           ),
         },
       ),
@@ -143,7 +143,7 @@ Future initAD() async {
 
 Future initForegroundService() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  bool? forgeRound = prefs.getBool(SharedPreferencesKey.FORGE_ROUND_TASK_ENABLE);
+  bool? forgeRound = prefs.getBool(SharedPreferencesKey.forgeRoundTaskEnable);
   try {
     if (Platform.isAndroid && forgeRound != null && forgeRound) {
       InternalPluginService.instance.init();
@@ -161,13 +161,13 @@ Future initForegroundService() async {
 
 Future initGatewayService() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  bool? autoStartGateway = prefs.getBool(SharedPreferencesKey.START_GATEWAY_WHEN_APP_START);
+  bool? autoStartGateway = prefs.getBool(SharedPreferencesKey.startGatewayWhenAppStart);
   try {
     if (autoStartGateway == null || autoStartGateway) {
-      if (prefs.containsKey(SharedPreferencesKey.Gateway_Jwt_KEY) &&
-          prefs.containsKey(SharedPreferencesKey.QR_Code_For_Mobile_Add_KEY)) {
-        var gatewayJwt = prefs.getString(SharedPreferencesKey.Gateway_Jwt_KEY)!;
-        await GatewayLoginManager.LoginServerByToken(
+      if (prefs.containsKey(SharedPreferencesKey.gatewayJwtKey) &&
+          prefs.containsKey(SharedPreferencesKey.qrCodeForMobileAddKey)) {
+        var gatewayJwt = prefs.getString(SharedPreferencesKey.gatewayJwtKey)!;
+        await GatewayLoginManager.loginServerByToken(
           gatewayJwt,
           Config.gatewayGrpcIp,
           Config.gatewayGrpcPort,
@@ -181,7 +181,7 @@ Future initGatewayService() async {
 
 Future initWakeLockService() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  bool? wakeLockEnabled = prefs.getBool(SharedPreferencesKey.WAKE_LOCK);
+  bool? wakeLockEnabled = prefs.getBool(SharedPreferencesKey.wakeLockEnabled);
   try {
     if (wakeLockEnabled != null) {
       WakelockPlus.toggle(enable: wakeLockEnabled);

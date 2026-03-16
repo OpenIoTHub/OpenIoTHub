@@ -1,31 +1,31 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:openiothub/pages/home/all/home_page.dart';
+import 'package:openiothub/pages/home/home_page.dart';
 import 'package:openiothub/pages/splash/splash_ad_page.dart';
-import 'package:openiothub/pages/common/scan_qr.dart';
+import 'package:openiothub/pages/scanner/scan_qr.dart';
 import 'package:openiothub/common_pages/openiothub_common_pages.dart';
-import 'package:openiothub/common_pages/user/accountSecurityPage.dart';
-import 'package:openiothub/common_pages/commPages/serverInfo.dart';
+import 'package:openiothub/common_pages/user/account_security_page.dart';
+import 'package:openiothub/common_pages/server_info.dart';
 import 'package:openiothub/common_pages/web/web2.dart';
-import 'package:openiothub/common_pages/web/fullScreenWeb.dart';
+import 'package:openiothub/common_pages/web/full_screen_web.dart';
 import 'package:openiothub/pages/guide/guide_page.dart';
-import 'package:openiothub/pages/bottom_navigation/user/tools/tools_type_page.dart';
-import 'package:openiothub/pages/bottom_navigation/service/mdns_service_list_page.dart';
-import 'package:openiothub/pages/bottom_navigation/service/add_mqtt_devices_page.dart';
-import 'package:openiothub/pages/bottom_navigation/service/third_device/zip_devices_page.dart';
-import 'package:openiothub/pages/bottom_navigation/host/common_device_list_page.dart';
-import 'package:openiothub/pages/bottom_navigation/host/services/services.dart';
-import 'package:openiothub/pages/bottom_navigation/gateway/mdns_service_list_page.dart';
-import 'package:openiothub/pages/bottom_navigation/host/services/old/tcp_port_list_page.dart';
-import 'package:openiothub/pages/bottom_navigation/host/services/old/udp_port_list_page.dart';
-import 'package:openiothub/pages/bottom_navigation/host/services/old/ftp_port_list_page.dart';
-import 'package:openiothub/pages/bottom_navigation/host/services/old/http_port_list_page.dart';
+import 'package:openiothub/pages/profile/tools/tools_type_page.dart';
+import 'package:openiothub/pages/service/mdns_service_list_page.dart';
+import 'package:openiothub/pages/service/add_mqtt_devices_page.dart';
+import 'package:openiothub/pages/service/third_device/zip_devices_page.dart';
+import 'package:openiothub/pages/host/common_device_list_page.dart';
+import 'package:openiothub/pages/host/services/services.dart';
+import 'package:openiothub/pages/gateway/mdns_service_list_page.dart';
+import 'package:openiothub/pages/host/services/old/tcp_port_list_page.dart';
+import 'package:openiothub/pages/host/services/old/udp_port_list_page.dart';
+import 'package:openiothub/pages/host/services/old/ftp_port_list_page.dart';
+import 'package:openiothub/pages/host/services/old/http_port_list_page.dart';
 import 'package:openiothub/widgets/language_picker.dart';
 import 'package:openiothub/widgets/theme_color_picker.dart';
 import 'package:openiothub/widgets/theme_mode_picker.dart';
 import 'package:openiothub/plugin/openiothub_plugin.dart';
-import 'package:openiothub/plugin/plugins/mdnsService/commWidgets/mDNSInfo.dart';
+import 'package:openiothub/plugin/mdns_service/comm_widgets/mdns_info.dart';
 import 'package:openiothub/core/openiothub_constants.dart';
 
 /// 应用内所有页面路由的唯一定义与生成。
@@ -35,7 +35,7 @@ import 'package:openiothub/core/openiothub_constants.dart';
 /// 1. 在本类中增加路由常量（如 `static const String xxx = '/xxx';`），按分区放在对应注释下。
 /// 2. 若无参数：在 [buildStaticRoutes] 中增加 `路由名: (context) => YourPage(),`。
 /// 3. 若有参数：在 [onGenerateRoute] 的 switch 中增加 case，从 `settings.arguments` 取参并构建 [MaterialPageRoute]；
-///    参数 key 与 [AppNavigator] 中的 kArg* 常量一致。
+///    参数 key 与 [AppNavigator] 中的 arg* 常量一致。
 /// 4. 在 [AppNavigator] 中增加对应的 `pushXxx(context, ...)` 方法（可选但推荐），内部用 pushNamed + arguments。
 /// 5. 业务处跳转使用 `Navigator.pushNamed(context, AppRoutes.xxx)` 或 `AppNavigator.pushXxx(context, ...)`，禁止手写 MaterialPageRoute。
 class AppRoutes {

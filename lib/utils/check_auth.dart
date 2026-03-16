@@ -1,24 +1,24 @@
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:openiothub/core/constants/SharedPreferences.dart';
+import 'package:openiothub/core/shared_preferences_keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<bool> agreedPrivacyPolicy() async {
   SharedPreferences? prefs = await SharedPreferences.getInstance();
-  bool agreed = prefs.getBool(SharedPreferencesKey.Agreed_Privacy_Policy) != null
-      ? prefs.getBool(SharedPreferencesKey.Agreed_Privacy_Policy)!
+  bool agreed = prefs.getBool(SharedPreferencesKey.agreedPrivacyPolicy) != null
+      ? prefs.getBool(SharedPreferencesKey.agreedPrivacyPolicy)!
       : false;
   return agreed;
 }
 
 Future<bool> userSignedIn() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  if (prefs.containsKey(SharedPreferencesKey.USER_TOKEN_KEY) &&
-      prefs.getString(SharedPreferencesKey.USER_TOKEN_KEY) != null &&
-      prefs.getString(SharedPreferencesKey.USER_TOKEN_KEY)!.isNotEmpty){
+  if (prefs.containsKey(SharedPreferencesKey.userTokenKey) &&
+      prefs.getString(SharedPreferencesKey.userTokenKey) != null &&
+      prefs.getString(SharedPreferencesKey.userTokenKey)!.isNotEmpty){
     // 判断Token有没有过期，过期则删除Token
-    var jwt = prefs.getString(SharedPreferencesKey.USER_TOKEN_KEY)!;
+    var jwt = prefs.getString(SharedPreferencesKey.userTokenKey)!;
     if (JwtDecoder.isExpired(jwt)){
-      prefs.remove(SharedPreferencesKey.USER_TOKEN_KEY);
+      prefs.remove(SharedPreferencesKey.userTokenKey);
       return false;
     }
     return true;

@@ -183,7 +183,7 @@ class _GuideWidgetState extends State<GuideWidget> {
           child: Center(
             child: TextButton(
               onPressed: () {
-                launchURL("https://github.com/OpenIoTHub/gateway-go");
+                launchUrl("https://github.com/OpenIoTHub/gateway-go");
               },
                   child: Text(
                   OpenIoTHubLocalizations.of(context).open_gateway_guide,

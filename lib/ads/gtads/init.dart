@@ -4,7 +4,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:gtads/gtads.dart';
 // import 'package:gtads_csj/gtads_csj.dart';
 import 'package:gtads_ylh/gtads_ylh.dart';
-import 'package:openiothub/core/constants/SharedPreferences.dart';
+import 'package:openiothub/core/shared_preferences_keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../configs/configs.dart';
@@ -12,8 +12,8 @@ import '../configs/configs.dart';
 Future initGTADsAD() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   if (Platform.isAndroid &&
-      (!prefs.containsKey(SharedPreferencesKey.Agreed_Privacy_Policy) ||
-          !(prefs.getBool(SharedPreferencesKey.Agreed_Privacy_Policy)!))) {
+      (!prefs.containsKey(SharedPreferencesKey.agreedPrivacyPolicy) ||
+          !(prefs.getBool(SharedPreferencesKey.agreedPrivacyPolicy)!))) {
     return null;
   }
   MobileAds.instance.initialize().then((onValue){print(onValue.adapterStatuses.toString());});

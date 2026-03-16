@@ -2,7 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
-show_success(String msg, BuildContext context) {
+showSuccess(String msg, BuildContext context) {
   TDMessage.showMessage(
     context: context,
     content: msg,
@@ -14,7 +14,7 @@ show_success(String msg, BuildContext context) {
   );
 }
 
-show_failed(String msg, BuildContext context) {
+showFailed(String msg, BuildContext context) {
   TDMessage.showMessage(
     context: context,
     content: msg,
@@ -26,7 +26,7 @@ show_failed(String msg, BuildContext context) {
   );
 }
 
-show_info(String msg, BuildContext context) {
+showInfo(String msg, BuildContext context) {
   TDMessage.showMessage(
     context: context,
     content: msg,
