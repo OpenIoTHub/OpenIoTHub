@@ -7,22 +7,42 @@ class LocaleProvider with ChangeNotifier {
   
   // 支持的语言列表
   static const List<Locale> supportedLocales = [
-    Locale('en'), // 英文
-    Locale('zh'), // 简体中文
-    Locale('zh', 'TW'), // 繁体中文
-    Locale('ja'), // 日语
-    Locale('ko'), // 韩语
-    Locale('de'), // 德语
-    Locale('es'), // 西班牙语
-    Locale('fr'), // 法语
-    Locale('it'), // 意大利语
-    Locale('ru'), // 俄语
-    Locale('ar'), // 阿拉伯语
-    Locale('pt'), // 葡萄牙语
-    Locale('hi'), // 印地语
-    Locale('tr'), // 土耳其语
-    Locale('vi'), // 越南语
-    Locale('id'), // 印尼语
+    Locale('en'),
+    Locale('zh'),
+    Locale('zh', 'TW'),
+    Locale('ja'),
+    Locale('ko'),
+    Locale('de'),
+    Locale('es'),
+    Locale('fr'),
+    Locale('it'),
+    Locale('ru'),
+    Locale('ar'),
+    Locale('pt'),
+    Locale('hi'),
+    Locale('tr'),
+    Locale('vi'),
+    Locale('id'),
+    Locale('th'),
+    Locale('pl'),
+    Locale('nl'),
+    Locale('sv'),
+    Locale('da'),
+    Locale('fi'),
+    Locale('nb'),
+    Locale('cs'),
+    Locale('ro'),
+    Locale('hu'),
+    Locale('el'),
+    Locale('he'),
+    Locale('uk'),
+    Locale('ms'),
+    Locale('bn'),
+    Locale('fil'),
+    Locale('sk'),
+    Locale('bg'),
+    Locale('hr'),
+    Locale('ca'),
   ];
 
   LocaleProvider() {

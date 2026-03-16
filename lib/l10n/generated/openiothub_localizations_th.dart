@@ -1,0 +1,604 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+import 'openiothub_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for Thai (`th`).
+class OpenIoTHubLocalizationsTh extends OpenIoTHubLocalizations {
+  OpenIoTHubLocalizationsTh([String locale = 'th']) : super(locale);
+
+  @override
+  String get app_title => 'OpenIoTHub';
+
+  @override
+  String get tab_smart => 'สมาร์ท';
+
+  @override
+  String get tab_gateway => 'เกตเวย์';
+
+  @override
+  String get tab_host => 'โฮสต์';
+
+  @override
+  String get tab_user => 'ฉัน';
+
+  @override
+  String get profile_not_logged_in => 'ยังไม่ได้เข้าสู่ระบบ';
+
+  @override
+  String get profile_click_avatar_to_sign_in =>
+      'คลิกรูปโปรไฟล์เพื่อเข้าสู่ระบบ';
+
+  @override
+  String get profile_settings => 'การตั้งค่า';
+
+  @override
+  String get profile_servers => 'เซิร์ฟเวอร์ของฉัน';
+
+  @override
+  String get profile_tools => 'เครื่องมือ';
+
+  @override
+  String get profile_docs => 'เอกสาร';
+
+  @override
+  String get profile_video_tutorials => 'วิดีโอสอนการใช้งาน';
+
+  @override
+  String get profile_feedback => 'ข้อเสนอแนะและคำแนะนำ';
+
+  @override
+  String get app_local_gateway => 'เกตเวย์ท้องถิ่นของแอป';
+
+  @override
+  String get profile_about_this_app => 'เกี่ยวกับแอปนี้';
+
+  @override
+  String get config_device_wifi => 'ตั้งค่า WiFi อุปกรณ์';
+
+  @override
+  String get scan_QR => 'สแกน QR (แนะนำ)';
+
+  @override
+  String get find_local_gateway => 'ค้นหาเกตเวย์ท้องถิ่น';
+
+  @override
+  String get add_remote_host => 'เพิ่มโฮสต์ระยะไกล';
+
+  @override
+  String get i_also_have_a_bottom_line => 'ไม่มีข้อมูลเพิ่มเติมแล้ว';
+
+  @override
+  String get ftp_port_list_title => 'รายการพอร์ต FTP';
+
+  @override
+  String get remote_port => 'พอร์ตระยะไกล';
+
+  @override
+  String get local_port => 'พอร์ตท้องถิ่น';
+
+  @override
+  String get description => 'คำอธิบาย';
+
+  @override
+  String get forwarding_connection_status => 'สถานะการเชื่อมต่อการส่งต่อ';
+
+  @override
+  String get online => 'ออนไลน์';
+
+  @override
+  String get offline => 'ออฟไลน์';
+
+  @override
+  String get port_details => 'รายละเอียดพอร์ต';
+
+  @override
+  String get add_port => 'เพิ่มพอร์ต：';
+
+  @override
+  String get notes => 'หมายเหตุ';
+
+  @override
+  String get custom_remarks => 'หมายเหตุที่กำหนดเอง';
+
+  @override
+  String get port_number => 'หมายเลขพอร์ต';
+
+  @override
+  String get the_port_number_of_this_machine => 'หมายเลขพอร์ตระยะไกล';
+
+  @override
+  String get map_to_the_port_number_of_this_mobile_phone =>
+      'หมายเลขพอร์ตท้องถิ่น';
+
+  @override
+  String get this_phone_has_an_idle_port_number_of_1024_or_above =>
+      '0: สุ่ม; 1024 ขึ้นไป';
+
+  @override
+  String get cancel => 'ยกเลิก';
+
+  @override
+  String get add => 'เพิ่ม';
+
+  @override
+  String get check_if_the_port_is_a_number => 'ตรวจสอบว่าพอร์ตเป็นตัวเลข';
+
+  @override
+  String get delete_ftp => 'ลบ FTP';
+
+  @override
+  String get confirm_to_delete_this_ftp => 'คุณแน่ใจหรือไม่ที่จะลบ FTP นี้?';
+
+  @override
+  String get delete => 'ลบ';
+
+  @override
+  String get http_port_list_title => 'รายการพอร์ต HTTP';
+
+  @override
+  String get domain => 'โดเมน';
+
+  @override
+  String get add_port_domain_name => 'เพิ่มชื่อโดเมนพอร์ต:';
+
+  @override
+  String get configure_the_domain_name_for_this_port =>
+      'กำหนดค่าชื่อโดเมนสำหรับพอร์ตนี้';
+
+  @override
+  String get ports_that_need_to_be_mapped => 'พอร์ตที่ต้องทำแมป';
+
+  @override
+  String get delete_this_http => 'ลบ HTTP';
+
+  @override
+  String get are_you_sure_to_delete_this_http =>
+      'คุณแน่ใจหรือไม่ที่จะลบ HTTP นี้?';
+
+  @override
+  String get tcp_port_list_title => 'รายการพอร์ต TCP';
+
+  @override
+  String get opening_method => 'วิธีการเปิด:';
+
+  @override
+  String get my_tcp_port => 'TCP ของฉัน';
+
+  @override
+  String get the_port_number_that_the_remote_machine_needs_to_access =>
+      'พอร์ตเครื่องระยะไกล';
+
+  @override
+  String get domain_notes => 'สำหรับ HTTP สาธารณะเท่านั้น';
+
+  @override
+  String get delete_tcp => 'ลบ TCP';
+
+  @override
+  String get confirm_to_delete_this_tcp => 'คุณแน่ใจหรือไม่ที่จะลบ TCP นี้?';
+
+  @override
+  String get tcp_port => 'พอร์ต TCP';
+
+  @override
+  String get udp_port => 'พอร์ต UDP';
+
+  @override
+  String get ftp_port => 'พอร์ต FTP';
+
+  @override
+  String get http_port => 'พอร์ต HTTP';
+
+  @override
+  String get service => 'บริการ';
+
+  @override
+  String get ports => 'พอร์ต';
+
+  @override
+  String get delete_device => 'ลบอุปกรณ์';
+
+  @override
+  String get confirm_delete_device => 'คุณแน่ใจหรือไม่ที่จะลบอุปกรณ์นี้?';
+
+  @override
+  String get wake_up_device => 'ปลุกอุปกรณ์';
+
+  @override
+  String get wake_up_device_notes1 =>
+      'สำหรับการใช้งานครั้งแรก กรุณาเลือก \'ตั้งค่าที่อยู่ทางกายภาพ\' เมื่อตั้งค่าที่อยู่ทางกายภาพแล้ว คุณสามารถคลิก \'ปลุกอุปกรณ์\' ได้โดยตรง';
+
+  @override
+  String get reset_physical_address => 'รีเซ็ตที่อยู่ทางกายภาพ';
+
+  @override
+  String get set_physical_address => 'ตั้งค่าที่อยู่ทางกายภาพ';
+
+  @override
+  String get physical_address => 'MAC';
+
+  @override
+  String get the_physical_address_of_the_machine =>
+      'ที่อยู่ทางกายภาพของการ์ดเครือข่ายแบบมีสายของเครื่อง';
+
+  @override
+  String get set => 'ตั้งค่า';
+
+  @override
+  String get device_id => 'ID อุปกรณ์นี้ (ย่อ)';
+
+  @override
+  String get gateway_id => 'ID เครือข่ายภายใน (ย่อ)';
+
+  @override
+  String get addr => 'ที่อยู่';
+
+  @override
+  String get copy_successful => 'คัดลอกสำเร็จ!';
+
+  @override
+  String get device_details => 'รายละเอียดอุปกรณ์';
+
+  @override
+  String get internal_network_devices => 'อุปกรณ์เครือข่ายภายใน';
+
+  @override
+  String get add_device => 'เพิ่มอุปกรณ์';
+
+  @override
+  String get ip_address_of_remote_intranet => 'ที่อยู่ IP ของอินทราเน็ตระยะไกล';
+
+  @override
+  String get ip_address_of_internal_network_devices =>
+      'ที่อยู่ IP ของอุปกรณ์เครือข่ายภายใน';
+
+  @override
+  String get create_device_failed => 'สร้างอุปกรณ์ล้มเหลว';
+
+  @override
+  String get camera_scan_code_prompt => 'แจ้งเตือนการสแกนรหัสด้วยกล้อง!';
+
+  @override
+  String get camera_scan_code_prompt_content =>
+      'โปรดทราบว่าเมื่อคลิก \'ตกลง\' ด้านล่าง เราจะขออนุญาตกล้องเพื่อสแกนรหัส';
+
+  @override
+  String get select_the_network_where_the_remote_host_is_located =>
+      'กรุณาเลือกเครือข่ายที่โฮสต์ระยะไกลตั้งอยู่';
+
+  @override
+  String get confirm => 'ตกลง';
+
+  @override
+  String get udp_port_list_title => 'รายการพอร์ต UDP';
+
+  @override
+  String get my_udp_port => 'UDP ของฉัน';
+
+  @override
+  String get delete_udp => 'ลบ UDP';
+
+  @override
+  String get confirm_to_delete_this_udp => 'คุณแน่ใจหรือไม่ที่จะลบ UDP นี้?';
+
+  @override
+  String get please_scan_the_qr_code => 'กรุณาสแกน QR Code เกตเวย์ OpenIoTHub';
+
+  @override
+  String get scan_the_qr_code => 'สแกน QR Code';
+
+  @override
+  String get unsupported_qr_code => 'QR Code ที่ไม่รองรับ';
+
+  @override
+  String get unsupported_uri_path => 'เส้นทาง URI ที่ไม่รองรับ';
+
+  @override
+  String get adding_gateway_to_my_account_failed =>
+      'เพิ่มเกตเวย์ไปยังบัญชีของฉันล้มเหลว';
+
+  @override
+  String get add_gateway_failed => 'เพิ่มเกตเวย์ล้มเหลว';
+
+  @override
+  String get add_gateway_successful => 'เพิ่มเกตเวย์สำเร็จ!';
+
+  @override
+  String get login_failed => 'เข้าสู่ระบบล้มเหลว กรุณาลองอีกครั้ง!';
+
+  @override
+  String get please_use_the_magnifying_glass_in_the_upper_right_corner =>
+      'กรุณาใช้มุมขวาบนเพื่อค้นหาเกตเวย์หรือเพิ่มเกตเวย์โดยการสแกน QR Code';
+
+  @override
+  String get add_a_gateway => 'เพิ่มเกตเวย์ระยะไกล';
+
+  @override
+  String get install_gateway => 'ติดตั้งเกตเวย์สำหรับเครือข่ายท้องถิ่น';
+
+  @override
+  String get delete_result => 'ผลการลบ';
+
+  @override
+  String get delete_successful => 'ลบสำเร็จ!';
+
+  @override
+  String get delete_failed => 'ลบล้มเหลว!';
+
+  @override
+  String get web_browser => 'เว็บเบราว์เซอร์';
+
+  @override
+  String get mdns_service_list => 'รายการ mDNS';
+
+  @override
+  String get delete_gateway => 'ลบเกตเวย์';
+
+  @override
+  String get confirm_delete_gateway => 'คุณแน่ใจหรือไม่ที่จะลบเกตเวย์นี้?';
+
+  @override
+  String get after_simplification => 'หลังจากย่อ';
+
+  @override
+  String get connection_code_simplified => 'รหัสเชื่อมต่อ (ย่อ)';
+
+  @override
+  String get p2p_connection_status => 'สถานะการเชื่อมต่อ P2P';
+
+  @override
+  String get modify => 'แก้ไข';
+
+  @override
+  String get gateway_config_notes1 =>
+      'โทเค็นสำหรับเกตเวย์ถูกคัดลอกไปยังคลิปบอร์ดแล้ว! คุณสามารถใช้โทเค็นนี้เป็นพารามิเตอร์เกตเวย์หรือเพิ่มลงในไฟล์กำหนดค่า: bash>gateway-go-t<your token>';
+
+  @override
+  String get gateway_config_notes2 => 'คัดลอกโทเค็นเกตเวย์';
+
+  @override
+  String get gateway_config_notes3 =>
+      'ไฟล์กำหนดค่าของเกตเวย์ถูกคัดลอกไปยังคลิปบอร์ดแล้ว! คุณสามารถคัดลอกเนื้อหาการกำหนดค่านี้ไปยังไฟล์กำหนดค่าเกตเวย์ (gateway-go.yaml) ได้เลย';
+
+  @override
+  String get gateway_config_notes4 => 'คัดลอกเนื้อหาการกำหนดค่าเกตเวย์';
+
+  @override
+  String get gateway_config_notes5 => 'รายละเอียดเครือข่าย';
+
+  @override
+  String get failed_to_delete_the_configuration_of_the_remote_gateway =>
+      'ล้มเหลวในการลบการกำหนดค่าของเกตเวย์ระยะไกล';
+
+  @override
+  String get failed_to_delete_mapping_for_local_gateway =>
+      'ล้มเหลวในการลบการแมปสำหรับเกตเวย์ท้องถิ่น';
+
+  @override
+  String get successfully_deleted_gateway => 'ลบเกตเวย์สำเร็จ!';
+
+  @override
+  String get modify_name => 'เปลี่ยนชื่อ:';
+
+  @override
+  String get name => 'ชื่อ';
+
+  @override
+  String get please_input_new_name => 'กรุณาใส่ชื่อใหม่';
+
+  @override
+  String get privacy_policy => 'นโยบายความเป็นส่วนตัว';
+
+  @override
+  String get agree => 'ยอมรับ';
+
+  @override
+  String get feedback_channels => 'ช่องทางข้อเสนอแนะ';
+
+  @override
+  String
+  get if_you_do_not_agree_with_the_privacy_policy_please_click_to_exit_the_application =>
+      'หากคุณไม่เห็นด้วยกับนโยบายความเป็นส่วนตัว กรุณาคลิกเพื่อออกจากแอปพลิเคชัน';
+
+  @override
+  String get exit_the_application => 'ออกจากแอปพลิเคชัน';
+
+  @override
+  String get agree_to_the_privacy_policy => 'ยอมรับนโยบายความเป็นส่วนตัว';
+
+  @override
+  String get wechat => 'WeChat';
+
+  @override
+  String get tools => 'เครื่องมือ';
+
+  @override
+  String get skip_ad => 'ข้าม';
+
+  @override
+  String get please_add_device_first => 'กรุณาเพิ่มอุปกรณ์ก่อน';
+
+  @override
+  String get failed_to_obtain_the_iot_list_remotely =>
+      'ไม่สามารถรับรายการ IoT จากระยะไกลได้';
+
+  @override
+  String get failure_reason => 'สาเหตุความล้มเหลว';
+
+  @override
+  String get add_mqtt_devices => 'เพิ่มอุปกรณ์ MQTT';
+
+  @override
+  String get add_zip_devices => 'เพิ่มอุปกรณ์ zip (zDC1, zTC1...)';
+
+  @override
+  String get device_list => 'รายการอุปกรณ์';
+
+  @override
+  String get add_device_to_opneiothub => 'เพิ่มอุปกรณ์ไปยัง OpenIoTHub';
+
+  @override
+  String get are_you_sure_to_add_this_device_to_openiothub =>
+      'คุณแน่ใจหรือไม่ที่จะเพิ่มอุปกรณ์นี้ไปยัง OpenIoTHub?';
+
+  @override
+  String get you_havent_logged_in_yet =>
+      'คุณยังไม่ได้เข้าสู่ระบบ! กรุณาเข้าสู่ระบบก่อนแล้วจึงเพิ่มอุปกรณ์';
+
+  @override
+  String get add_successful => 'เพิ่มสำเร็จ!';
+
+  @override
+  String get please_add_host_first => 'กรุณาเพิ่มโฮสต์ก่อน';
+
+  @override
+  String get no_more_prompts_next_time => 'ไม่แสดงอีกในครั้งถัดไป:';
+
+  @override
+  String get network_protocol => 'โปรโตคอลเครือข่าย';
+
+  @override
+  String get application_protocol => 'โปรโตคอลแอปพลิเคชัน';
+
+  @override
+  String get confirm_add_gateway => 'คุณแน่ใจหรือไม่ที่จะเพิ่มเกตเวย์?';
+
+  @override
+  String get ok => 'ตกลง';
+
+  @override
+  String get choose_an_network => 'เลือกเครือข่ายระยะไกล';
+
+  @override
+  String get choose_an_host_address => 'เลือกที่อยู่โฮสต์';
+
+  @override
+  String get fill_in_below => 'กรอกด้านล่าง';
+
+  @override
+  String get user_guide => 'คู่มือผู้ใช้';
+
+  @override
+  String get register_login => 'เข้าสู่ระบบ';
+
+  @override
+  String get register_login_content =>
+      'คลิกปุ่มด้านล่าง ลงทะเบียนและเข้าสู่ระบบบัญชีของคุณ';
+
+  @override
+  String get add_gateway => 'เกตเวย์';
+
+  @override
+  String get add_gateway_content =>
+      'เลือกการสแกน QR Code เพื่อเพิ่มเกตเวย์หรือค้นหาผ่าน LAN จากสองปุ่มด้านล่าง';
+
+  @override
+  String get add_host => 'โฮสต์';
+
+  @override
+  String get add_host_content =>
+      'คลิกปุ่มด้านล่างเพื่อไปยังหน้ารายการโฮสต์\nจากนั้นแตะปุ่มที่มุมขวาล่างเพื่อเริ่มเพิ่มโฮสต์ระยะไกล';
+
+  @override
+  String get add_ports => 'พอร์ต';
+
+  @override
+  String get add_ports_content =>
+      'คลิกปุ่มด้านล่างเพื่อไปยังหน้ารายการโฮสต์\nเลือกโฮสต์ที่คุณต้องการเพิ่มพอร์ตและกำหนดค่าพอร์ตบนโฮสต์นั้น';
+
+  @override
+  String get access_ports => 'เข้าถึง';
+
+  @override
+  String get access_ports_content =>
+      'คลิกปุ่มด้านล่างเพื่อไปยังหน้ารายการโฮสต์\nเลือกโฮสต์เพื่อเข้าสู่รายการพอร์ต\nจากนั้นคลิกพอร์ตใดก็ได้เพื่อเข้าถึงพอร์ตระยะไกล (คุณอาจต้องเลือกวิธีการเข้าถึง)';
+
+  @override
+  String get last_step => 'ขั้นตอนก่อนหน้า';
+
+  @override
+  String get next_step => 'ขั้นตอนถัดไป';
+
+  @override
+  String get skip_this_guide => 'ข้ามคู่มือนี้';
+
+  @override
+  String get open_the_port => 'เปิดพอร์ต';
+
+  @override
+  String get add_port_button => 'เพิ่มพอร์ต';
+
+  @override
+  String get open_gateway_guide => 'เปิดหน้าแรกเกตเวย์ OpenIoTHub';
+
+  @override
+  String get remote_lan_browser => 'เบราว์เซอร์ LAN ระยะไกล';
+
+  @override
+  String get install_gateway_url => 'ติดตั้งเกตเวย์';
+
+  @override
+  String get language => 'ภาษา';
+
+  @override
+  String get follow_system => 'ตามระบบ';
+
+  @override
+  String get theme_color => 'สีธีม';
+
+  @override
+  String get color_blue => 'น้ำเงิน';
+
+  @override
+  String get color_purple => 'ม่วง';
+
+  @override
+  String get color_orange => 'ส้ม';
+
+  @override
+  String get color_deep_purple => 'ม่วงเข้ม';
+
+  @override
+  String get color_red => 'แดง';
+
+  @override
+  String get color_light_blue => 'ฟ้าอ่อน';
+
+  @override
+  String get color_amber => 'อำพัน';
+
+  @override
+  String get color_green => 'เขียว';
+
+  @override
+  String get color_lime => 'เขียวมะนาว';
+
+  @override
+  String get color_indigo => 'คราม';
+
+  @override
+  String get color_cyan => 'ฟ้า';
+
+  @override
+  String get color_teal => 'เขียวน้ำทะเล';
+
+  @override
+  String get color_light_grey => 'เทาอ่อน';
+
+  @override
+  String get color_unknown => 'สีที่ไม่รู้จัก';
+
+  @override
+  String get theme_mode => 'โหมดธีม';
+
+  @override
+  String get theme_mode_follow_system => 'ตามระบบ';
+
+  @override
+  String get theme_mode_light => 'สว่าง';
+
+  @override
+  String get theme_mode_dark => 'มืด';
+}

@@ -6,18 +6,38 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
 import 'openiothub_common_localizations_ar.dart';
+import 'openiothub_common_localizations_bg.dart';
+import 'openiothub_common_localizations_bn.dart';
+import 'openiothub_common_localizations_ca.dart';
+import 'openiothub_common_localizations_cs.dart';
+import 'openiothub_common_localizations_da.dart';
 import 'openiothub_common_localizations_de.dart';
+import 'openiothub_common_localizations_el.dart';
 import 'openiothub_common_localizations_en.dart';
 import 'openiothub_common_localizations_es.dart';
+import 'openiothub_common_localizations_fi.dart';
+import 'openiothub_common_localizations_fil.dart';
 import 'openiothub_common_localizations_fr.dart';
+import 'openiothub_common_localizations_he.dart';
 import 'openiothub_common_localizations_hi.dart';
+import 'openiothub_common_localizations_hr.dart';
+import 'openiothub_common_localizations_hu.dart';
 import 'openiothub_common_localizations_id.dart';
 import 'openiothub_common_localizations_it.dart';
 import 'openiothub_common_localizations_ja.dart';
 import 'openiothub_common_localizations_ko.dart';
+import 'openiothub_common_localizations_ms.dart';
+import 'openiothub_common_localizations_nb.dart';
+import 'openiothub_common_localizations_nl.dart';
+import 'openiothub_common_localizations_pl.dart';
 import 'openiothub_common_localizations_pt.dart';
+import 'openiothub_common_localizations_ro.dart';
 import 'openiothub_common_localizations_ru.dart';
+import 'openiothub_common_localizations_sk.dart';
+import 'openiothub_common_localizations_sv.dart';
+import 'openiothub_common_localizations_th.dart';
 import 'openiothub_common_localizations_tr.dart';
+import 'openiothub_common_localizations_uk.dart';
 import 'openiothub_common_localizations_vi.dart';
 import 'openiothub_common_localizations_zh.dart';
 
@@ -76,13 +96,15 @@ import 'openiothub_common_localizations_zh.dart';
 /// property.
 abstract class OpenIoTHubCommonLocalizations {
   OpenIoTHubCommonLocalizations(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
   static OpenIoTHubCommonLocalizations of(BuildContext context) {
     return Localizations.of<OpenIoTHubCommonLocalizations>(
-        context, OpenIoTHubCommonLocalizations)!;
+      context,
+      OpenIoTHubCommonLocalizations,
+    )!;
   }
 
   static const LocalizationsDelegate<OpenIoTHubCommonLocalizations> delegate =
@@ -100,33 +122,53 @@ abstract class OpenIoTHubCommonLocalizations {
   /// of delegates is preferred or required.
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
-    Locale('en'),
     Locale('ar'),
+    Locale('bg'),
+    Locale('bn'),
+    Locale('ca'),
+    Locale('cs'),
+    Locale('da'),
     Locale('de'),
+    Locale('el'),
+    Locale('en'),
     Locale('es'),
+    Locale('fi'),
+    Locale('fil'),
     Locale('fr'),
+    Locale('he'),
     Locale('hi'),
+    Locale('hr'),
+    Locale('hu'),
     Locale('id'),
     Locale('it'),
     Locale('ja'),
     Locale('ko'),
+    Locale('ms'),
+    Locale('nb'),
+    Locale('nl'),
+    Locale('pl'),
     Locale('pt'),
+    Locale('ro'),
     Locale('ru'),
+    Locale('sk'),
+    Locale('sv'),
+    Locale('th'),
     Locale('tr'),
+    Locale('uk'),
     Locale('vi'),
     Locale('zh'),
     Locale('zh', 'CN'),
     Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
     Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
-    Locale('zh', 'TW')
+    Locale('zh', 'TW'),
   ];
 
   /// No description provided for @app_title.
@@ -983,34 +1025,56 @@ class _OpenIoTHubCommonLocalizationsDelegate
   @override
   Future<OpenIoTHubCommonLocalizations> load(Locale locale) {
     return SynchronousFuture<OpenIoTHubCommonLocalizations>(
-        lookupOpenIoTHubCommonLocalizations(locale));
+      lookupOpenIoTHubCommonLocalizations(locale),
+    );
   }
 
   @override
   bool isSupported(Locale locale) => <String>[
-        'ar',
-        'de',
-        'en',
-        'es',
-        'fr',
-        'hi',
-        'id',
-        'it',
-        'ja',
-        'ko',
-        'pt',
-        'ru',
-        'tr',
-        'vi',
-        'zh'
-      ].contains(locale.languageCode);
+    'ar',
+    'bg',
+    'bn',
+    'ca',
+    'cs',
+    'da',
+    'de',
+    'el',
+    'en',
+    'es',
+    'fi',
+    'fil',
+    'fr',
+    'he',
+    'hi',
+    'hr',
+    'hu',
+    'id',
+    'it',
+    'ja',
+    'ko',
+    'ms',
+    'nb',
+    'nl',
+    'pl',
+    'pt',
+    'ro',
+    'ru',
+    'sk',
+    'sv',
+    'th',
+    'tr',
+    'uk',
+    'vi',
+    'zh',
+  ].contains(locale.languageCode);
 
   @override
   bool shouldReload(_OpenIoTHubCommonLocalizationsDelegate old) => false;
 }
 
 OpenIoTHubCommonLocalizations lookupOpenIoTHubCommonLocalizations(
-    Locale locale) {
+  Locale locale,
+) {
   // Lookup logic when language+script codes are specified.
   switch (locale.languageCode) {
     case 'zh':
@@ -1043,16 +1107,38 @@ OpenIoTHubCommonLocalizations lookupOpenIoTHubCommonLocalizations(
   switch (locale.languageCode) {
     case 'ar':
       return OpenIoTHubCommonLocalizationsAr();
+    case 'bg':
+      return OpenIoTHubCommonLocalizationsBg();
+    case 'bn':
+      return OpenIoTHubCommonLocalizationsBn();
+    case 'ca':
+      return OpenIoTHubCommonLocalizationsCa();
+    case 'cs':
+      return OpenIoTHubCommonLocalizationsCs();
+    case 'da':
+      return OpenIoTHubCommonLocalizationsDa();
     case 'de':
       return OpenIoTHubCommonLocalizationsDe();
+    case 'el':
+      return OpenIoTHubCommonLocalizationsEl();
     case 'en':
       return OpenIoTHubCommonLocalizationsEn();
     case 'es':
       return OpenIoTHubCommonLocalizationsEs();
+    case 'fi':
+      return OpenIoTHubCommonLocalizationsFi();
+    case 'fil':
+      return OpenIoTHubCommonLocalizationsFil();
     case 'fr':
       return OpenIoTHubCommonLocalizationsFr();
+    case 'he':
+      return OpenIoTHubCommonLocalizationsHe();
     case 'hi':
       return OpenIoTHubCommonLocalizationsHi();
+    case 'hr':
+      return OpenIoTHubCommonLocalizationsHr();
+    case 'hu':
+      return OpenIoTHubCommonLocalizationsHu();
     case 'id':
       return OpenIoTHubCommonLocalizationsId();
     case 'it':
@@ -1061,12 +1147,30 @@ OpenIoTHubCommonLocalizations lookupOpenIoTHubCommonLocalizations(
       return OpenIoTHubCommonLocalizationsJa();
     case 'ko':
       return OpenIoTHubCommonLocalizationsKo();
+    case 'ms':
+      return OpenIoTHubCommonLocalizationsMs();
+    case 'nb':
+      return OpenIoTHubCommonLocalizationsNb();
+    case 'nl':
+      return OpenIoTHubCommonLocalizationsNl();
+    case 'pl':
+      return OpenIoTHubCommonLocalizationsPl();
     case 'pt':
       return OpenIoTHubCommonLocalizationsPt();
+    case 'ro':
+      return OpenIoTHubCommonLocalizationsRo();
     case 'ru':
       return OpenIoTHubCommonLocalizationsRu();
+    case 'sk':
+      return OpenIoTHubCommonLocalizationsSk();
+    case 'sv':
+      return OpenIoTHubCommonLocalizationsSv();
+    case 'th':
+      return OpenIoTHubCommonLocalizationsTh();
     case 'tr':
       return OpenIoTHubCommonLocalizationsTr();
+    case 'uk':
+      return OpenIoTHubCommonLocalizationsUk();
     case 'vi':
       return OpenIoTHubCommonLocalizationsVi();
     case 'zh':
@@ -1074,8 +1178,9 @@ OpenIoTHubCommonLocalizations lookupOpenIoTHubCommonLocalizations(
   }
 
   throw FlutterError(
-      'OpenIoTHubCommonLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'OpenIoTHubCommonLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.',
+  );
 }

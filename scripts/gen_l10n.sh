@@ -4,6 +4,9 @@ set -e
 echo "Generating main app localizations..."
 flutter gen-l10n
 
+# l10n.yaml at project root overrides CLI args, so temporarily rename it
+mv l10n.yaml l10n.yaml.bak
+
 echo "Generating common_pages localizations..."
 flutter gen-l10n \
   --arb-dir=lib/common_pages/l10n \
@@ -27,5 +30,7 @@ flutter gen-l10n \
   --no-synthetic-package \
   --no-nullable-getter \
   --format
+
+mv l10n.yaml.bak l10n.yaml
 
 echo "All localizations generated successfully!"

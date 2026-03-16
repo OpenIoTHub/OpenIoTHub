@@ -6,18 +6,38 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
 import 'openiothub_localizations_ar.dart';
+import 'openiothub_localizations_bg.dart';
+import 'openiothub_localizations_bn.dart';
+import 'openiothub_localizations_ca.dart';
+import 'openiothub_localizations_cs.dart';
+import 'openiothub_localizations_da.dart';
 import 'openiothub_localizations_de.dart';
+import 'openiothub_localizations_el.dart';
 import 'openiothub_localizations_en.dart';
 import 'openiothub_localizations_es.dart';
+import 'openiothub_localizations_fi.dart';
+import 'openiothub_localizations_fil.dart';
 import 'openiothub_localizations_fr.dart';
+import 'openiothub_localizations_he.dart';
 import 'openiothub_localizations_hi.dart';
+import 'openiothub_localizations_hr.dart';
+import 'openiothub_localizations_hu.dart';
 import 'openiothub_localizations_id.dart';
 import 'openiothub_localizations_it.dart';
 import 'openiothub_localizations_ja.dart';
 import 'openiothub_localizations_ko.dart';
+import 'openiothub_localizations_ms.dart';
+import 'openiothub_localizations_nb.dart';
+import 'openiothub_localizations_nl.dart';
+import 'openiothub_localizations_pl.dart';
 import 'openiothub_localizations_pt.dart';
+import 'openiothub_localizations_ro.dart';
 import 'openiothub_localizations_ru.dart';
+import 'openiothub_localizations_sk.dart';
+import 'openiothub_localizations_sv.dart';
+import 'openiothub_localizations_th.dart';
 import 'openiothub_localizations_tr.dart';
+import 'openiothub_localizations_uk.dart';
 import 'openiothub_localizations_vi.dart';
 import 'openiothub_localizations_zh.dart';
 
@@ -112,17 +132,37 @@ abstract class OpenIoTHubLocalizations {
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
     Locale('ar'),
+    Locale('bg'),
+    Locale('bn'),
+    Locale('ca'),
+    Locale('cs'),
+    Locale('da'),
     Locale('de'),
+    Locale('el'),
     Locale('es'),
+    Locale('fi'),
+    Locale('fil'),
     Locale('fr'),
+    Locale('he'),
     Locale('hi'),
+    Locale('hr'),
+    Locale('hu'),
     Locale('id'),
     Locale('it'),
     Locale('ja'),
     Locale('ko'),
+    Locale('ms'),
+    Locale('nb'),
+    Locale('nl'),
+    Locale('pl'),
     Locale('pt'),
+    Locale('ro'),
     Locale('ru'),
+    Locale('sk'),
+    Locale('sv'),
+    Locale('th'),
     Locale('tr'),
+    Locale('uk'),
     Locale('vi'),
     Locale('zh'),
     Locale('zh', 'CN'),
@@ -1281,18 +1321,38 @@ class _OpenIoTHubLocalizationsDelegate
   @override
   bool isSupported(Locale locale) => <String>[
     'ar',
+    'bg',
+    'bn',
+    'ca',
+    'cs',
+    'da',
     'de',
+    'el',
     'en',
     'es',
+    'fi',
+    'fil',
     'fr',
+    'he',
     'hi',
+    'hr',
+    'hu',
     'id',
     'it',
     'ja',
     'ko',
+    'ms',
+    'nb',
+    'nl',
+    'pl',
     'pt',
+    'ro',
     'ru',
+    'sk',
+    'sv',
+    'th',
     'tr',
+    'uk',
     'vi',
     'zh',
   ].contains(locale.languageCode);
@@ -1334,16 +1394,38 @@ OpenIoTHubLocalizations lookupOpenIoTHubLocalizations(Locale locale) {
   switch (locale.languageCode) {
     case 'ar':
       return OpenIoTHubLocalizationsAr();
+    case 'bg':
+      return OpenIoTHubLocalizationsBg();
+    case 'bn':
+      return OpenIoTHubLocalizationsBn();
+    case 'ca':
+      return OpenIoTHubLocalizationsCa();
+    case 'cs':
+      return OpenIoTHubLocalizationsCs();
+    case 'da':
+      return OpenIoTHubLocalizationsDa();
     case 'de':
       return OpenIoTHubLocalizationsDe();
+    case 'el':
+      return OpenIoTHubLocalizationsEl();
     case 'en':
       return OpenIoTHubLocalizationsEn();
     case 'es':
       return OpenIoTHubLocalizationsEs();
+    case 'fi':
+      return OpenIoTHubLocalizationsFi();
+    case 'fil':
+      return OpenIoTHubLocalizationsFil();
     case 'fr':
       return OpenIoTHubLocalizationsFr();
+    case 'he':
+      return OpenIoTHubLocalizationsHe();
     case 'hi':
       return OpenIoTHubLocalizationsHi();
+    case 'hr':
+      return OpenIoTHubLocalizationsHr();
+    case 'hu':
+      return OpenIoTHubLocalizationsHu();
     case 'id':
       return OpenIoTHubLocalizationsId();
     case 'it':
@@ -1352,12 +1434,30 @@ OpenIoTHubLocalizations lookupOpenIoTHubLocalizations(Locale locale) {
       return OpenIoTHubLocalizationsJa();
     case 'ko':
       return OpenIoTHubLocalizationsKo();
+    case 'ms':
+      return OpenIoTHubLocalizationsMs();
+    case 'nb':
+      return OpenIoTHubLocalizationsNb();
+    case 'nl':
+      return OpenIoTHubLocalizationsNl();
+    case 'pl':
+      return OpenIoTHubLocalizationsPl();
     case 'pt':
       return OpenIoTHubLocalizationsPt();
+    case 'ro':
+      return OpenIoTHubLocalizationsRo();
     case 'ru':
       return OpenIoTHubLocalizationsRu();
+    case 'sk':
+      return OpenIoTHubLocalizationsSk();
+    case 'sv':
+      return OpenIoTHubLocalizationsSv();
+    case 'th':
+      return OpenIoTHubLocalizationsTh();
     case 'tr':
       return OpenIoTHubLocalizationsTr();
+    case 'uk':
+      return OpenIoTHubLocalizationsUk();
     case 'vi':
       return OpenIoTHubLocalizationsVi();
     case 'zh':

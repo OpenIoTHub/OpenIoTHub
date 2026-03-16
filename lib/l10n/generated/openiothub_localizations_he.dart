@@ -1,0 +1,603 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+import 'openiothub_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for Hebrew (`he`).
+class OpenIoTHubLocalizationsHe extends OpenIoTHubLocalizations {
+  OpenIoTHubLocalizationsHe([String locale = 'he']) : super(locale);
+
+  @override
+  String get app_title => 'OpenIoTHub';
+
+  @override
+  String get tab_smart => 'חכם';
+
+  @override
+  String get tab_gateway => 'שער';
+
+  @override
+  String get tab_host => 'מארח';
+
+  @override
+  String get tab_user => 'אני';
+
+  @override
+  String get profile_not_logged_in => 'לא מחובר';
+
+  @override
+  String get profile_click_avatar_to_sign_in => 'לחץ על הסמל כדי להתחבר';
+
+  @override
+  String get profile_settings => 'הגדרות';
+
+  @override
+  String get profile_servers => 'השרתים שלי';
+
+  @override
+  String get profile_tools => 'כלים';
+
+  @override
+  String get profile_docs => 'מסמכים';
+
+  @override
+  String get profile_video_tutorials => 'מדריכי וידאו';
+
+  @override
+  String get profile_feedback => 'משוב והצעות';
+
+  @override
+  String get app_local_gateway => 'שער מקומי של האפליקציה';
+
+  @override
+  String get profile_about_this_app => 'אודות אפליקציה זו';
+
+  @override
+  String get config_device_wifi => 'הגדרת WiFi של המכשיר';
+
+  @override
+  String get scan_QR => 'סריקת QR (מומלץ)';
+
+  @override
+  String get find_local_gateway => 'חיפוש שער מקומי';
+
+  @override
+  String get add_remote_host => 'הוספת מארח מרוחק';
+
+  @override
+  String get i_also_have_a_bottom_line => 'אין עוד נתונים';
+
+  @override
+  String get ftp_port_list_title => 'רשימת יציאות FTP';
+
+  @override
+  String get remote_port => 'יציאה מרוחקת';
+
+  @override
+  String get local_port => 'יציאה מקומית';
+
+  @override
+  String get description => 'תיאור';
+
+  @override
+  String get forwarding_connection_status => 'מצב חיבור העברה';
+
+  @override
+  String get online => 'מקוון';
+
+  @override
+  String get offline => 'לא מקוון';
+
+  @override
+  String get port_details => 'פרטי יציאה';
+
+  @override
+  String get add_port => 'הוספת יציאה：';
+
+  @override
+  String get notes => 'הערות';
+
+  @override
+  String get custom_remarks => 'הערות מותאמות אישית';
+
+  @override
+  String get port_number => 'מספר יציאה';
+
+  @override
+  String get the_port_number_of_this_machine => 'מספר היציאה המרוחקת';
+
+  @override
+  String get map_to_the_port_number_of_this_mobile_phone =>
+      'מספר היציאה המקומית';
+
+  @override
+  String get this_phone_has_an_idle_port_number_of_1024_or_above =>
+      '0: אקראי; 1024 ומעלה';
+
+  @override
+  String get cancel => 'ביטול';
+
+  @override
+  String get add => 'הוספה';
+
+  @override
+  String get check_if_the_port_is_a_number => 'בדוק אם היציאה היא מספר';
+
+  @override
+  String get delete_ftp => 'מחיקת FTP';
+
+  @override
+  String get confirm_to_delete_this_ftp => 'האם אתה בטוח שברצונך למחוק FTP זה?';
+
+  @override
+  String get delete => 'מחיקה';
+
+  @override
+  String get http_port_list_title => 'רשימת יציאות HTTP';
+
+  @override
+  String get domain => 'דומיין';
+
+  @override
+  String get add_port_domain_name => 'הוספת שם דומיין ליציאה:';
+
+  @override
+  String get configure_the_domain_name_for_this_port =>
+      'הגדרת שם דומיין ליציאה זו';
+
+  @override
+  String get ports_that_need_to_be_mapped => 'יציאות שצריך למפות';
+
+  @override
+  String get delete_this_http => 'מחיקת HTTP';
+
+  @override
+  String get are_you_sure_to_delete_this_http =>
+      'האם אתה בטוח שברצונך למחוק HTTP זה?';
+
+  @override
+  String get tcp_port_list_title => 'רשימת יציאות TCP';
+
+  @override
+  String get opening_method => 'שיטת פתיחה:';
+
+  @override
+  String get my_tcp_port => 'ה-TCP שלי';
+
+  @override
+  String get the_port_number_that_the_remote_machine_needs_to_access =>
+      'יציאת המכונה המרוחקת';
+
+  @override
+  String get domain_notes => 'עבור HTTP ציבורי בלבד';
+
+  @override
+  String get delete_tcp => 'מחיקת TCP';
+
+  @override
+  String get confirm_to_delete_this_tcp => 'האם אתה בטוח שברצונך למחוק TCP זה?';
+
+  @override
+  String get tcp_port => 'יציאת TCP';
+
+  @override
+  String get udp_port => 'יציאת UDP';
+
+  @override
+  String get ftp_port => 'יציאת FTP';
+
+  @override
+  String get http_port => 'יציאת HTTP';
+
+  @override
+  String get service => 'שירות';
+
+  @override
+  String get ports => 'יציאות';
+
+  @override
+  String get delete_device => 'מחיקת מכשיר';
+
+  @override
+  String get confirm_delete_device => 'האם אתה בטוח שברצונך למחוק מכשיר זה?';
+
+  @override
+  String get wake_up_device => 'השכמת מכשיר';
+
+  @override
+  String get wake_up_device_notes1 =>
+      'לשימוש ראשון, בחר \'הגדר כתובת פיזית\'. לאחר שהכתובת הפיזית הוגדרה, תוכל ללחוץ ישירות על \'השכמת מכשיר\'.';
+
+  @override
+  String get reset_physical_address => 'איפוס כתובת פיזית';
+
+  @override
+  String get set_physical_address => 'הגדרת כתובת פיזית';
+
+  @override
+  String get physical_address => 'MAC';
+
+  @override
+  String get the_physical_address_of_the_machine =>
+      'הכתובת הפיזית של כרטיס הרשת הקווי';
+
+  @override
+  String get set => 'הגדרה';
+
+  @override
+  String get device_id => 'מזהה מכשיר (מפושט)';
+
+  @override
+  String get gateway_id => 'מזהה רשת פנימית (מפושט)';
+
+  @override
+  String get addr => 'כתובת';
+
+  @override
+  String get copy_successful => 'ההעתקה הצליחה!';
+
+  @override
+  String get device_details => 'פרטי מכשיר';
+
+  @override
+  String get internal_network_devices => 'מכשירי רשת פנימית';
+
+  @override
+  String get add_device => 'הוספת מכשיר';
+
+  @override
+  String get ip_address_of_remote_intranet => 'כתובת IP של רשת פנימית מרוחקת';
+
+  @override
+  String get ip_address_of_internal_network_devices =>
+      'כתובת IP של מכשירי רשת פנימית';
+
+  @override
+  String get create_device_failed => 'יצירת המכשיר נכשלה';
+
+  @override
+  String get camera_scan_code_prompt => 'הנחיית סריקת מצלמה!';
+
+  @override
+  String get camera_scan_code_prompt_content =>
+      'שים לב, לחיצה על \'OK\' למטה תבקש הרשאת מצלמה לסריקת קוד';
+
+  @override
+  String get select_the_network_where_the_remote_host_is_located =>
+      'בחר את הרשת שבה נמצא המארח המרוחק';
+
+  @override
+  String get confirm => 'OK';
+
+  @override
+  String get udp_port_list_title => 'רשימת יציאות UDP';
+
+  @override
+  String get my_udp_port => 'ה-UDP שלי';
+
+  @override
+  String get delete_udp => 'מחיקת UDP';
+
+  @override
+  String get confirm_to_delete_this_udp => 'האם אתה בטוח שברצונך למחוק UDP זה?';
+
+  @override
+  String get please_scan_the_qr_code => 'סרוק את קוד ה-QR של שער OpenIoTHub';
+
+  @override
+  String get scan_the_qr_code => 'סריקת קוד QR';
+
+  @override
+  String get unsupported_qr_code => 'קוד QR לא נתמך';
+
+  @override
+  String get unsupported_uri_path => 'נתיב URI לא נתמך';
+
+  @override
+  String get adding_gateway_to_my_account_failed =>
+      'הוספת שער לחשבון שלי נכשלה';
+
+  @override
+  String get add_gateway_failed => 'הוספת שער נכשלה';
+
+  @override
+  String get add_gateway_successful => 'השער נוסף בהצלחה!';
+
+  @override
+  String get login_failed => 'ההתחברות נכשלה, נסה שוב!';
+
+  @override
+  String get please_use_the_magnifying_glass_in_the_upper_right_corner =>
+      'השתמש בפינה הימנית העליונה לגילוי שער או סרוק קוד QR';
+
+  @override
+  String get add_a_gateway => 'הוספת שער מרוחק';
+
+  @override
+  String get install_gateway => 'התקנת שער ברשת מקומית';
+
+  @override
+  String get delete_result => 'תוצאת מחיקה';
+
+  @override
+  String get delete_successful => 'נמחק בהצלחה!';
+
+  @override
+  String get delete_failed => 'המחיקה נכשלה!';
+
+  @override
+  String get web_browser => 'דפדפן אינטרנט';
+
+  @override
+  String get mdns_service_list => 'רשימת mDNS';
+
+  @override
+  String get delete_gateway => 'מחיקת שער';
+
+  @override
+  String get confirm_delete_gateway => 'האם אתה בטוח שברצונך למחוק שער זה?';
+
+  @override
+  String get after_simplification => 'לאחר פישוט';
+
+  @override
+  String get connection_code_simplified => 'קוד חיבור (מפושט)';
+
+  @override
+  String get p2p_connection_status => 'מצב חיבור P2P';
+
+  @override
+  String get modify => 'שינוי';
+
+  @override
+  String get gateway_config_notes1 =>
+      'הטוקן של השער הועתק ללוח! תוכל להריץ טוקן זה כפרמטר שער או להוסיף אותו לקובץ ההגדרות: bash>gateway-go -t <הטוקן שלך>';
+
+  @override
+  String get gateway_config_notes2 => 'העתקת טוקן שער';
+
+  @override
+  String get gateway_config_notes3 =>
+      'קובץ ההגדרות של השער הועתק ללוח! תוכל להעתיק תוכן זה לקובץ הגדרות השער (gateway-go.yaml)';
+
+  @override
+  String get gateway_config_notes4 => 'העתקת תוכן הגדרות שער';
+
+  @override
+  String get gateway_config_notes5 => 'פרטי רשת';
+
+  @override
+  String get failed_to_delete_the_configuration_of_the_remote_gateway =>
+      'מחיקת הגדרות שער מרוחק נכשלה';
+
+  @override
+  String get failed_to_delete_mapping_for_local_gateway =>
+      'מחיקת מיפוי שער מקומי נכשלה';
+
+  @override
+  String get successfully_deleted_gateway => 'השער נמחק בהצלחה!';
+
+  @override
+  String get modify_name => 'שינוי שם:';
+
+  @override
+  String get name => 'שם';
+
+  @override
+  String get please_input_new_name => 'הזן שם חדש';
+
+  @override
+  String get privacy_policy => 'מדיניות פרטיות';
+
+  @override
+  String get agree => 'מסכים';
+
+  @override
+  String get feedback_channels => 'ערוצי משוב';
+
+  @override
+  String
+  get if_you_do_not_agree_with_the_privacy_policy_please_click_to_exit_the_application =>
+      'אם אינך מסכים למדיניות הפרטיות, לחץ כדי לצאת מהאפליקציה';
+
+  @override
+  String get exit_the_application => 'יציאה מהאפליקציה';
+
+  @override
+  String get agree_to_the_privacy_policy => 'הסכמה למדיניות הפרטיות';
+
+  @override
+  String get wechat => 'WeChat';
+
+  @override
+  String get tools => 'כלים';
+
+  @override
+  String get skip_ad => 'דלג';
+
+  @override
+  String get please_add_device_first => 'הוסף תחילה את המכשיר';
+
+  @override
+  String get failed_to_obtain_the_iot_list_remotely =>
+      'קבלת רשימת IoT מרחוק נכשלה';
+
+  @override
+  String get failure_reason => 'סיבת כשל';
+
+  @override
+  String get add_mqtt_devices => 'הוספת מכשיר MQTT';
+
+  @override
+  String get add_zip_devices => 'הוספת מכשירי zip (zDC1, zTC1...)';
+
+  @override
+  String get device_list => 'רשימת מכשירים';
+
+  @override
+  String get add_device_to_opneiothub => 'הוספת מכשיר ל-OpenIoTHub';
+
+  @override
+  String get are_you_sure_to_add_this_device_to_openiothub =>
+      'האם אתה בטוח שברצונך להוסיף מכשיר זה ל-OpenIoTHub?';
+
+  @override
+  String get you_havent_logged_in_yet =>
+      'עדיין לא התחברת! התחבר תחילה ואז הוסף את המכשיר';
+
+  @override
+  String get add_successful => 'נוסף בהצלחה!';
+
+  @override
+  String get please_add_host_first => 'הוסף תחילה מארח';
+
+  @override
+  String get no_more_prompts_next_time => 'לא להציג שוב:';
+
+  @override
+  String get network_protocol => 'פרוטוקול רשת';
+
+  @override
+  String get application_protocol => 'פרוטוקול אפליקציה';
+
+  @override
+  String get confirm_add_gateway => 'האם אתה בטוח שברצונך להוסיף שער?';
+
+  @override
+  String get ok => 'OK';
+
+  @override
+  String get choose_an_network => 'בחר רשת מרוחקת';
+
+  @override
+  String get choose_an_host_address => 'בחר כתובת מארח';
+
+  @override
+  String get fill_in_below => 'מלא למטה';
+
+  @override
+  String get user_guide => 'מדריך למשתמש';
+
+  @override
+  String get register_login => 'התחברות';
+
+  @override
+  String get register_login_content =>
+      'לחץ על הכפתור למטה, הירשם והתחבר לחשבונך';
+
+  @override
+  String get add_gateway => 'שער';
+
+  @override
+  String get add_gateway_content =>
+      'בחר סריקת קוד QR להוספת שער או גילוי דרך רשת מקומית';
+
+  @override
+  String get add_host => 'מארח';
+
+  @override
+  String get add_host_content =>
+      'לחץ על הכפתור למטה כדי לעבור לדף רשימת המארחים,\nואז לחץ על הכפתור בפינה הימנית התחתונה כדי להוסיף מארח מרוחק';
+
+  @override
+  String get add_ports => 'יציאות';
+
+  @override
+  String get add_ports_content =>
+      'לחץ על הכפתור למטה כדי לעבור לדף רשימת המארחים,\nבחר את המארח שבו תרצה להוסיף יציאות והגדר אותן';
+
+  @override
+  String get access_ports => 'גישה';
+
+  @override
+  String get access_ports_content =>
+      'לחץ על הכפתור למטה כדי לעבור לדף רשימת המארחים,\nבחר מארח כדי להיכנס לרשימת היציאות שלו,\nואז לחץ על כל יציאה לגישה מרחוק (ייתכן שתצטרך לבחור שיטת גישה)';
+
+  @override
+  String get last_step => 'שלב קודם';
+
+  @override
+  String get next_step => 'שלב הבא';
+
+  @override
+  String get skip_this_guide => 'דלג על מדריך זה';
+
+  @override
+  String get open_the_port => 'פתח את היציאה';
+
+  @override
+  String get add_port_button => 'הוספת יציאה';
+
+  @override
+  String get open_gateway_guide => 'פתח את דף הבית של שער OpenIoTHub';
+
+  @override
+  String get remote_lan_browser => 'דפדפן LAN מרוחק';
+
+  @override
+  String get install_gateway_url => 'התקנת שער';
+
+  @override
+  String get language => 'שפה';
+
+  @override
+  String get follow_system => 'עקוב אחר המערכת';
+
+  @override
+  String get theme_color => 'צבע ערכת נושא';
+
+  @override
+  String get color_blue => 'כחול';
+
+  @override
+  String get color_purple => 'סגול';
+
+  @override
+  String get color_orange => 'כתום';
+
+  @override
+  String get color_deep_purple => 'סגול כהה';
+
+  @override
+  String get color_red => 'אדום';
+
+  @override
+  String get color_light_blue => 'כחול בהיר';
+
+  @override
+  String get color_amber => 'ענבר';
+
+  @override
+  String get color_green => 'ירוק';
+
+  @override
+  String get color_lime => 'ליים';
+
+  @override
+  String get color_indigo => 'אינדיגו';
+
+  @override
+  String get color_cyan => 'ציאן';
+
+  @override
+  String get color_teal => 'טורקיז';
+
+  @override
+  String get color_light_grey => 'אפור בהיר';
+
+  @override
+  String get color_unknown => 'צבע לא ידוע';
+
+  @override
+  String get theme_mode => 'מצב ערכת נושא';
+
+  @override
+  String get theme_mode_follow_system => 'עקוב אחר המערכת';
+
+  @override
+  String get theme_mode_light => 'בהיר';
+
+  @override
+  String get theme_mode_dark => 'כהה';
+}
