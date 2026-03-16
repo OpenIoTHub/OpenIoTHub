@@ -45,7 +45,7 @@ class OpenIoTHubLocalizationsRu extends OpenIoTHubLocalizations {
   String get profile_video_tutorials => 'Видеоуроки';
 
   @override
-  String get profile_feedback => 'Обратная связь';
+  String get profile_feedback => 'Отзывы и предложения';
 
   @override
   String get app_local_gateway => 'Локальный шлюз приложения';
@@ -66,10 +66,10 @@ class OpenIoTHubLocalizationsRu extends OpenIoTHubLocalizations {
   String get add_remote_host => 'Добавить удалённый хост';
 
   @override
-  String get i_also_have_a_bottom_line => 'I also have a bottom line';
+  String get i_also_have_a_bottom_line => 'Вы достигли конца списка';
 
   @override
-  String get ftp_port_list_title => 'FTP port list';
+  String get ftp_port_list_title => 'Список FTP-портов';
 
   @override
   String get remote_port => 'Удалённый порт';
@@ -224,16 +224,16 @@ class OpenIoTHubLocalizationsRu extends OpenIoTHubLocalizations {
       'Физический адрес проводной сетевой карты машины';
 
   @override
-  String get set => 'Set up';
+  String get set => 'Установить';
 
   @override
-  String get device_id => 'This device ID (simplified)';
+  String get device_id => 'ID этого устройства (упрощённый)';
 
   @override
-  String get gateway_id => 'Internal network ID (simplified)';
+  String get gateway_id => 'ID внутренней сети (упрощённый)';
 
   @override
-  String get addr => 'Address';
+  String get addr => 'Адрес';
 
   @override
   String get copy_successful => 'Копирование успешно!';
@@ -256,18 +256,18 @@ class OpenIoTHubLocalizationsRu extends OpenIoTHubLocalizations {
       'IP-адрес устройств внутренней сети';
 
   @override
-  String get create_device_failed => 'Create device failed';
+  String get create_device_failed => 'Ошибка создания устройства';
 
   @override
-  String get camera_scan_code_prompt => 'Camera scan code prompt!';
+  String get camera_scan_code_prompt => 'Запрос сканирования камерой!';
 
   @override
   String get camera_scan_code_prompt_content =>
-      'Please note that by clicking on \'OK\' below, we will request camera permission to scan the code';
+      'Обратите внимание: нажав \'OK\' ниже, мы запросим разрешение на использование камеры для сканирования кода';
 
   @override
   String get select_the_network_where_the_remote_host_is_located =>
-      'Please select the network where the remote host is located';
+      'Выберите сеть, в которой находится удалённый хост';
 
   @override
   String get confirm => 'OK';
@@ -517,7 +517,7 @@ class OpenIoTHubLocalizationsRu extends OpenIoTHubLocalizations {
       'Нажмите кнопку ниже, чтобы перейти на страницу списка хостов, \nвыберите хост, чтобы войти в его список портов, \nзатем нажмите на любой порт, чтобы получить доступ к удалённому порту (возможно, потребуется выбрать метод доступа)';
 
   @override
-  String get last_step => 'Последний шаг';
+  String get last_step => 'Предыдущий шаг';
 
   @override
   String get next_step => 'Следующий шаг';
@@ -547,7 +547,7 @@ class OpenIoTHubLocalizationsRu extends OpenIoTHubLocalizations {
   String get follow_system => 'Следовать системе';
 
   @override
-  String get theme_color => 'Цвет Темой';
+  String get theme_color => 'Цвет темы';
 
   @override
   String get color_blue => 'Синий';
@@ -592,7 +592,7 @@ class OpenIoTHubLocalizationsRu extends OpenIoTHubLocalizations {
   String get color_unknown => 'Неизвестный цвет';
 
   @override
-  String get theme_mode => 'Режим Темой';
+  String get theme_mode => 'Режим темы';
 
   @override
   String get theme_mode_follow_system => 'Следовать Системе';

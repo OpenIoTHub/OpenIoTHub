@@ -10,10 +10,15 @@ import 'openiothub_common_localizations_de.dart';
 import 'openiothub_common_localizations_en.dart';
 import 'openiothub_common_localizations_es.dart';
 import 'openiothub_common_localizations_fr.dart';
+import 'openiothub_common_localizations_hi.dart';
+import 'openiothub_common_localizations_id.dart';
 import 'openiothub_common_localizations_it.dart';
 import 'openiothub_common_localizations_ja.dart';
 import 'openiothub_common_localizations_ko.dart';
+import 'openiothub_common_localizations_pt.dart';
 import 'openiothub_common_localizations_ru.dart';
+import 'openiothub_common_localizations_tr.dart';
+import 'openiothub_common_localizations_vi.dart';
 import 'openiothub_common_localizations_zh.dart';
 
 // ignore_for_file: type=lint
@@ -108,10 +113,15 @@ abstract class OpenIoTHubCommonLocalizations {
     Locale('de'),
     Locale('es'),
     Locale('fr'),
+    Locale('hi'),
+    Locale('id'),
     Locale('it'),
     Locale('ja'),
     Locale('ko'),
+    Locale('pt'),
     Locale('ru'),
+    Locale('tr'),
+    Locale('vi'),
     Locale('zh'),
     Locale('zh', 'CN'),
     Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
@@ -983,10 +993,15 @@ class _OpenIoTHubCommonLocalizationsDelegate
         'en',
         'es',
         'fr',
+        'hi',
+        'id',
         'it',
         'ja',
         'ko',
+        'pt',
         'ru',
+        'tr',
+        'vi',
         'zh'
       ].contains(locale.languageCode);
 
@@ -1036,14 +1051,24 @@ OpenIoTHubCommonLocalizations lookupOpenIoTHubCommonLocalizations(
       return OpenIoTHubCommonLocalizationsEs();
     case 'fr':
       return OpenIoTHubCommonLocalizationsFr();
+    case 'hi':
+      return OpenIoTHubCommonLocalizationsHi();
+    case 'id':
+      return OpenIoTHubCommonLocalizationsId();
     case 'it':
       return OpenIoTHubCommonLocalizationsIt();
     case 'ja':
       return OpenIoTHubCommonLocalizationsJa();
     case 'ko':
       return OpenIoTHubCommonLocalizationsKo();
+    case 'pt':
+      return OpenIoTHubCommonLocalizationsPt();
     case 'ru':
       return OpenIoTHubCommonLocalizationsRu();
+    case 'tr':
+      return OpenIoTHubCommonLocalizationsTr();
+    case 'vi':
+      return OpenIoTHubCommonLocalizationsVi();
     case 'zh':
       return OpenIoTHubCommonLocalizationsZh();
   }

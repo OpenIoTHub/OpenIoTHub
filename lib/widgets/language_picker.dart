@@ -17,6 +17,11 @@ const Map<String, String> _localeDisplayNames = {
   'it': 'Italiano',
   'ru': 'Русский',
   'ar': 'العربية',
+  'pt': 'Português',
+  'hi': 'हिन्दी',
+  'tr': 'Türkçe',
+  'vi': 'Tiếng Việt',
+  'id': 'Bahasa Indonesia',
 };
 
 String _localeToKey(Locale? locale) {
@@ -34,7 +39,7 @@ bool _localesEqual(Locale? a, Locale? b) {
       (a.countryCode ?? '') == (b.countryCode ?? '');
 }
 
-/// 语言选择器：弹窗选择语言，支持「跟随系统」及 11 种语言
+/// 语言选择器：弹窗选择语言，支持「跟随系统」及 16 种语言
 void showLanguagePicker(BuildContext context) {
   final localeProvider = context.read<LocaleProvider>();
   final l10n = OpenIoTHubLocalizations.of(context);

@@ -18,6 +18,11 @@ class LocaleProvider with ChangeNotifier {
     Locale('it'), // 意大利语
     Locale('ru'), // 俄语
     Locale('ar'), // 阿拉伯语
+    Locale('pt'), // 葡萄牙语
+    Locale('hi'), // 印地语
+    Locale('tr'), // 土耳其语
+    Locale('vi'), // 越南语
+    Locale('id'), // 印尼语
   ];
 
   LocaleProvider() {

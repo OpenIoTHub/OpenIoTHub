@@ -10,10 +10,15 @@ import 'openiothub_plugin_localizations_de.dart';
 import 'openiothub_plugin_localizations_en.dart';
 import 'openiothub_plugin_localizations_es.dart';
 import 'openiothub_plugin_localizations_fr.dart';
+import 'openiothub_plugin_localizations_hi.dart';
+import 'openiothub_plugin_localizations_id.dart';
 import 'openiothub_plugin_localizations_it.dart';
 import 'openiothub_plugin_localizations_ja.dart';
 import 'openiothub_plugin_localizations_ko.dart';
+import 'openiothub_plugin_localizations_pt.dart';
 import 'openiothub_plugin_localizations_ru.dart';
+import 'openiothub_plugin_localizations_tr.dart';
+import 'openiothub_plugin_localizations_vi.dart';
 import 'openiothub_plugin_localizations_zh.dart';
 
 // ignore_for_file: type=lint
@@ -108,10 +113,15 @@ abstract class OpenIoTHubPluginLocalizations {
     Locale('de'),
     Locale('es'),
     Locale('fr'),
+    Locale('hi'),
+    Locale('id'),
     Locale('it'),
     Locale('ja'),
     Locale('ko'),
+    Locale('pt'),
     Locale('ru'),
+    Locale('tr'),
+    Locale('vi'),
     Locale('zh'),
     Locale('zh', 'CN'),
     Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
@@ -575,10 +585,15 @@ class _OpenIoTHubPluginLocalizationsDelegate
         'en',
         'es',
         'fr',
+        'hi',
+        'id',
         'it',
         'ja',
         'ko',
+        'pt',
         'ru',
+        'tr',
+        'vi',
         'zh'
       ].contains(locale.languageCode);
 
@@ -628,14 +643,24 @@ OpenIoTHubPluginLocalizations lookupOpenIoTHubPluginLocalizations(
       return OpenIoTHubPluginLocalizationsEs();
     case 'fr':
       return OpenIoTHubPluginLocalizationsFr();
+    case 'hi':
+      return OpenIoTHubPluginLocalizationsHi();
+    case 'id':
+      return OpenIoTHubPluginLocalizationsId();
     case 'it':
       return OpenIoTHubPluginLocalizationsIt();
     case 'ja':
       return OpenIoTHubPluginLocalizationsJa();
     case 'ko':
       return OpenIoTHubPluginLocalizationsKo();
+    case 'pt':
+      return OpenIoTHubPluginLocalizationsPt();
     case 'ru':
       return OpenIoTHubPluginLocalizationsRu();
+    case 'tr':
+      return OpenIoTHubPluginLocalizationsTr();
+    case 'vi':
+      return OpenIoTHubPluginLocalizationsVi();
     case 'zh':
       return OpenIoTHubPluginLocalizationsZh();
   }

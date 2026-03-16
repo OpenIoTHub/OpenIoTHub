@@ -45,7 +45,7 @@ class OpenIoTHubLocalizationsAr extends OpenIoTHubLocalizations {
   String get profile_video_tutorials => 'دروس فيديو';
 
   @override
-  String get profile_feedback => 'تعليقات';
+  String get profile_feedback => 'ملاحظات واقتراحات';
 
   @override
   String get app_local_gateway => 'بوابة التطبيق المحلية';
@@ -66,10 +66,10 @@ class OpenIoTHubLocalizationsAr extends OpenIoTHubLocalizations {
   String get add_remote_host => 'إضافة مضيف بعيد';
 
   @override
-  String get i_also_have_a_bottom_line => 'I also have a bottom line';
+  String get i_also_have_a_bottom_line => 'لقد وصلت إلى النهاية';
 
   @override
-  String get ftp_port_list_title => 'FTP port list';
+  String get ftp_port_list_title => 'قائمة منافذ FTP';
 
   @override
   String get remote_port => 'منفذ بعيد';
@@ -221,16 +221,16 @@ class OpenIoTHubLocalizationsAr extends OpenIoTHubLocalizations {
       'العنوان الفيزيائي لبطاقة الشبكة السلكية للجهاز';
 
   @override
-  String get set => 'Set up';
+  String get set => 'إعداد';
 
   @override
-  String get device_id => 'This device ID (simplified)';
+  String get device_id => 'معرف هذا الجهاز (مبسط)';
 
   @override
-  String get gateway_id => 'Internal network ID (simplified)';
+  String get gateway_id => 'معرف الشبكة الداخلية (مبسط)';
 
   @override
-  String get addr => 'Address';
+  String get addr => 'العنوان';
 
   @override
   String get copy_successful => 'تم النسخ بنجاح!';
@@ -253,18 +253,18 @@ class OpenIoTHubLocalizationsAr extends OpenIoTHubLocalizations {
       'عنوان IP لأجهزة الشبكة الداخلية';
 
   @override
-  String get create_device_failed => 'Create device failed';
+  String get create_device_failed => 'فشل إنشاء الجهاز';
 
   @override
-  String get camera_scan_code_prompt => 'Camera scan code prompt!';
+  String get camera_scan_code_prompt => 'طلب مسح الكود بالكاميرا!';
 
   @override
   String get camera_scan_code_prompt_content =>
-      'Please note that by clicking on \'OK\' below, we will request camera permission to scan the code';
+      'يرجى ملاحظة أنه عند النقر على \'موافق\' أدناه، سنطلب إذن الكاميرا لمسح الكود';
 
   @override
   String get select_the_network_where_the_remote_host_is_located =>
-      'Please select the network where the remote host is located';
+      'يرجى اختيار الشبكة التي يوجد فيها المضيف البعيد';
 
   @override
   String get confirm => 'OK';
@@ -514,7 +514,7 @@ class OpenIoTHubLocalizationsAr extends OpenIoTHubLocalizations {
       'انقر على الزر أدناه للانتقال إلى صفحة قائمة المضيفين، \nاختر مضيفاً للدخول إلى قائمة منافذه، \nثم انقر على أي منفذ للوصول إلى المنفذ البعيد (قد تحتاج إلى اختيار طريقة الوصول)';
 
   @override
-  String get last_step => 'الخطوة الأخيرة';
+  String get last_step => 'الخطوة السابقة';
 
   @override
   String get next_step => 'الخطوة التالية';

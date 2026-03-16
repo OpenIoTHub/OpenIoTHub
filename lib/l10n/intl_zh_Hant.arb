@@ -161,7 +161,7 @@
   "access_ports_content": "點擊下方按鈕跳轉到主機列表頁面，\n點擊主機進入端口列表頁面，\n點擊任意端口訪問遠程端口(可能需要選擇訪問方式)",
   "last_step": "上一步",
   "next_step": "下一步",
-  "skip_this_guide": "跳过本指导",
+  "skip_this_guide": "跳過本指導",
   "open_the_port": "打開端口",
   "add_port_button": "添加端口",
   "open_gateway_guide": "打開雲億連網關軟件主頁",

@@ -45,7 +45,7 @@ class OpenIoTHubLocalizationsKo extends OpenIoTHubLocalizations {
   String get profile_video_tutorials => '비디오 튜토리얼';
 
   @override
-  String get profile_feedback => '피드백';
+  String get profile_feedback => '피드백 및 건의';
 
   @override
   String get app_local_gateway => '앱 로컬 게이트웨이';
@@ -66,7 +66,7 @@ class OpenIoTHubLocalizationsKo extends OpenIoTHubLocalizations {
   String get add_remote_host => '원격 호스트 추가';
 
   @override
-  String get i_also_have_a_bottom_line => 'I also have a bottom line';
+  String get i_also_have_a_bottom_line => '더 이상 내용이 없습니다';
 
   @override
   String get ftp_port_list_title => 'FTP 포트 목록';
@@ -112,7 +112,7 @@ class OpenIoTHubLocalizationsKo extends OpenIoTHubLocalizations {
 
   @override
   String get this_phone_has_an_idle_port_number_of_1024_or_above =>
-      '0: random;1024 or above';
+      '0: 랜덤; 1024 이상';
 
   @override
   String get cancel => '취소';
@@ -387,7 +387,7 @@ class OpenIoTHubLocalizationsKo extends OpenIoTHubLocalizations {
   String get agree => '동의';
 
   @override
-  String get feedback_channels => '피드백';
+  String get feedback_channels => '피드백 채널';
 
   @override
   String
@@ -505,7 +505,7 @@ class OpenIoTHubLocalizationsKo extends OpenIoTHubLocalizations {
       '아래 버튼을 클릭하여 호스트 목록 페이지로 이동한 후\n호스트를 선택하여 포트 목록에 들어가고\n포트를 클릭하여 원격 포트에 액세스하세요（액세스 방법을 선택해야 할 수 있습니다）';
 
   @override
-  String get last_step => '마지막 단계';
+  String get last_step => '이전 단계';
 
   @override
   String get next_step => '다음 단계';

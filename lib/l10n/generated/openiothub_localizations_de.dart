@@ -45,7 +45,7 @@ class OpenIoTHubLocalizationsDe extends OpenIoTHubLocalizations {
   String get profile_video_tutorials => 'Video-Tutorials';
 
   @override
-  String get profile_feedback => 'Feedback';
+  String get profile_feedback => 'Feedback und Vorschläge';
 
   @override
   String get app_local_gateway => 'App-Lokales Gateway';
@@ -66,7 +66,8 @@ class OpenIoTHubLocalizationsDe extends OpenIoTHubLocalizations {
   String get add_remote_host => 'Remote-Host hinzufügen';
 
   @override
-  String get i_also_have_a_bottom_line => 'Ich habe auch eine Grundlinie';
+  String get i_also_have_a_bottom_line =>
+      'Sie haben das Ende der Liste erreicht';
 
   @override
   String get ftp_port_list_title => 'FTP-Portliste';
@@ -523,7 +524,7 @@ class OpenIoTHubLocalizationsDe extends OpenIoTHubLocalizations {
       'Klicken Sie auf die Schaltfläche unten, um zur Host-Listenseite zu navigieren, \nwählen Sie einen Host aus, um zu dessen Port-Liste zu gelangen, \ndann klicken Sie auf einen Port, um auf den Remote-Port zuzugreifen (Sie müssen möglicherweise eine Zugriffsmethode wählen)';
 
   @override
-  String get last_step => 'Letzter Schritt';
+  String get last_step => 'Vorheriger Schritt';
 
   @override
   String get next_step => 'Nächster Schritt';

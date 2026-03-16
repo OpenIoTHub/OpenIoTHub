@@ -10,10 +10,15 @@ import 'openiothub_localizations_de.dart';
 import 'openiothub_localizations_en.dart';
 import 'openiothub_localizations_es.dart';
 import 'openiothub_localizations_fr.dart';
+import 'openiothub_localizations_hi.dart';
+import 'openiothub_localizations_id.dart';
 import 'openiothub_localizations_it.dart';
 import 'openiothub_localizations_ja.dart';
 import 'openiothub_localizations_ko.dart';
+import 'openiothub_localizations_pt.dart';
 import 'openiothub_localizations_ru.dart';
+import 'openiothub_localizations_tr.dart';
+import 'openiothub_localizations_vi.dart';
 import 'openiothub_localizations_zh.dart';
 
 // ignore_for_file: type=lint
@@ -110,10 +115,15 @@ abstract class OpenIoTHubLocalizations {
     Locale('de'),
     Locale('es'),
     Locale('fr'),
+    Locale('hi'),
+    Locale('id'),
     Locale('it'),
     Locale('ja'),
     Locale('ko'),
+    Locale('pt'),
     Locale('ru'),
+    Locale('tr'),
+    Locale('vi'),
     Locale('zh'),
     Locale('zh', 'CN'),
     Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
@@ -1275,10 +1285,15 @@ class _OpenIoTHubLocalizationsDelegate
     'en',
     'es',
     'fr',
+    'hi',
+    'id',
     'it',
     'ja',
     'ko',
+    'pt',
     'ru',
+    'tr',
+    'vi',
     'zh',
   ].contains(locale.languageCode);
 
@@ -1327,14 +1342,24 @@ OpenIoTHubLocalizations lookupOpenIoTHubLocalizations(Locale locale) {
       return OpenIoTHubLocalizationsEs();
     case 'fr':
       return OpenIoTHubLocalizationsFr();
+    case 'hi':
+      return OpenIoTHubLocalizationsHi();
+    case 'id':
+      return OpenIoTHubLocalizationsId();
     case 'it':
       return OpenIoTHubLocalizationsIt();
     case 'ja':
       return OpenIoTHubLocalizationsJa();
     case 'ko':
       return OpenIoTHubLocalizationsKo();
+    case 'pt':
+      return OpenIoTHubLocalizationsPt();
     case 'ru':
       return OpenIoTHubLocalizationsRu();
+    case 'tr':
+      return OpenIoTHubLocalizationsTr();
+    case 'vi':
+      return OpenIoTHubLocalizationsVi();
     case 'zh':
       return OpenIoTHubLocalizationsZh();
   }

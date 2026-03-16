@@ -45,7 +45,7 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
   String get profile_video_tutorials => 'Video Tutorials';
 
   @override
-  String get profile_feedback => 'feedback';
+  String get profile_feedback => 'Feedback and Suggestions';
 
   @override
   String get app_local_gateway => 'App Local Gateway';
@@ -516,7 +516,7 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
       'Click the button below to navigate to the host list page, \nselect a host to enter its port list, \nthen click any port to access the remote port (you may need to choose an access method)';
 
   @override
-  String get last_step => 'Last Step';
+  String get last_step => 'Previous Step';
 
   @override
   String get next_step => 'Next Step';

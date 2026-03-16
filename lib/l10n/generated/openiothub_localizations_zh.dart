@@ -2255,7 +2255,7 @@ class OpenIoTHubLocalizationsZhHant extends OpenIoTHubLocalizationsZh {
   String get next_step => '下一步';
 
   @override
-  String get skip_this_guide => '跳过本指导';
+  String get skip_this_guide => '跳過本指導';
 
   @override
   String get open_the_port => '打開端口';
