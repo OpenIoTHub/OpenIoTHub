@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:openiothub/ads/openiothub_ads.dart';
-import 'package:openiothub/common_pages/l10n/generated/openiothub_common_localizations.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -256,7 +256,7 @@ class WebScreenState extends State<WebScreen> {
     if (!Platform.isAndroid && !Platform.isIOS){
       return Container();
     }
-    return isCnMainland(OpenIoTHubCommonLocalizations.of(context).localeName)
+    return isCnMainland(OpenIoTHubLocalizations.of(context).localeName)
         ? buildYLHBanner(context)
         : _bannerAd == null
             ? Container()

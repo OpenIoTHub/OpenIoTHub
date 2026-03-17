@@ -57,8 +57,8 @@ class _GatewayQrPageState extends State<GatewayQrPage> {
 
   @override
   Widget build(BuildContext context) {
-    shareSuccess = OpenIoTHubCommonLocalizations.of(context).share_success;
-    shareFailed = OpenIoTHubCommonLocalizations.of(context).share_failed;
+    shareSuccess = OpenIoTHubLocalizations.of(context).share_success;
+    shareFailed = OpenIoTHubLocalizations.of(context).share_failed;
     // return Text("data");
     // return QrImageView(
     //   data: jwtQRCodePair != null ? jwtQRCodePair!.qRCodeForMobileAdd : "https://iothub.cloud",
@@ -67,7 +67,7 @@ class _GatewayQrPageState extends State<GatewayQrPage> {
     // );
     return Scaffold(
         appBar: AppBar(
-          title: Text(OpenIoTHubCommonLocalizations.of(context).as_a_gateway),
+          title: Text(OpenIoTHubLocalizations.of(context).as_a_gateway),
           actions: <Widget>[
             //   TODO 以图片或者小程序方式分享给其他人
             IconButton(
@@ -101,13 +101,13 @@ class _GatewayQrPageState extends State<GatewayQrPage> {
             Center(
                 child: Padding(
               padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
-              child: Text(OpenIoTHubCommonLocalizations.of(context).as_a_gateway_description1),
+              child: Text(OpenIoTHubLocalizations.of(context).as_a_gateway_description1),
             )),
             Center(
                 child: Padding(
               padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
               child: TextButton(
-                child: Text(OpenIoTHubCommonLocalizations.of(context).change_gateway_id),
+                child: Text(OpenIoTHubLocalizations.of(context).change_gateway_id),
                 onPressed: () {
                   _generateJwtQRCodePair(true);
                 },
@@ -119,7 +119,7 @@ class _GatewayQrPageState extends State<GatewayQrPage> {
               padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
               child: TDButton(
                 icon: TDIcons.backward,
-                text: OpenIoTHubCommonLocalizations.of(context).go_to_main_menu,
+                text: OpenIoTHubLocalizations.of(context).go_to_main_menu,
                 size: TDButtonSize.small,
                 type: TDButtonType.outline,
                 shape: TDButtonShape.rectangle,
@@ -182,13 +182,13 @@ class _GatewayQrPageState extends State<GatewayQrPage> {
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: Text(OpenIoTHubCommonLocalizations.of(context).share_to_wechat),
-                content: Text(OpenIoTHubCommonLocalizations.of(context).select_where_to_share),
+                title: Text(OpenIoTHubLocalizations.of(context).share_to_wechat),
+                content: Text(OpenIoTHubLocalizations.of(context).select_where_to_share),
                 actions: <Widget>[
                   // 分享网关:二维码图片、小程序链接、网页
                   TDButton(
                     icon: TDIcons.logo_wechat_stroke,
-                    text: OpenIoTHubCommonLocalizations.of(context).share_to_wechat,
+                    text: OpenIoTHubLocalizations.of(context).share_to_wechat,
                     size: TDButtonSize.small,
                     type: TDButtonType.outline,
                     shape: TDButtonShape.rectangle,
@@ -196,8 +196,8 @@ class _GatewayQrPageState extends State<GatewayQrPage> {
                     onTap: () {
                       WechatKitPlatform.instance.shareWebpage(
                         scene: WechatScene.kSession,
-                        title: OpenIoTHubCommonLocalizations.of(context).openiothub_gateway_share,
-                        description: OpenIoTHubCommonLocalizations.of(context).openiothub_gateway_share_description,
+                        title: OpenIoTHubLocalizations.of(context).openiothub_gateway_share,
+                        description: OpenIoTHubLocalizations.of(context).openiothub_gateway_share_description,
                         // thumbData:,
                         webpageUrl: url,
                       );

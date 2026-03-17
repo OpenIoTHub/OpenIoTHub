@@ -293,7 +293,7 @@ class _ProfilePageState extends State<ProfilePage> {
     if (!Platform.isAndroid && !Platform.isIOS){
       return Container();
     }
-    return isCnMainland(OpenIoTHubCommonLocalizations.of(context).localeName)?
+    return isCnMainland(OpenIoTHubLocalizations.of(context).localeName)?
     buildYLHBanner(context):
     _bannerAd==null?Container():SafeArea(
       child: SizedBox(

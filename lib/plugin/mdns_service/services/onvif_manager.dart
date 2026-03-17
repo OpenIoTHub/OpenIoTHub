@@ -24,7 +24,7 @@ class OvifManagerPage extends StatefulWidget {
 }
 
 class _OvifManagerPageState extends State<OvifManagerPage> {
-  OpenIoTHubPluginLocalizations? localizations;
+  OpenIoTHubLocalizations? localizations;
   List<dynamic> _list = [];
 
   @override
@@ -35,7 +35,7 @@ class _OvifManagerPageState extends State<OvifManagerPage> {
 
   @override
   Widget build(BuildContext context) {
-    localizations = OpenIoTHubPluginLocalizations.of(context);
+    localizations = OpenIoTHubLocalizations.of(context);
     final tiles = _list.map(
       (pair) {
         var listItemContent = Padding(
@@ -148,7 +148,7 @@ class _OvifManagerPageState extends State<OvifManagerPage> {
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: Text(localizations!.confirm),
+                title: Text(localizations!.plugin_confirm),
                 content: SizedBox.expand(
                   child: Text(localizations!.confirm_delete_onvif_device),
                 ),

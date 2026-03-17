@@ -106,11 +106,11 @@ class ServerPagesState extends State<ServerPages> {
         TextEditingController.fromValue(TextEditingValue(text: getOneUUID()));
     // string Name = 2;
     TextEditingController nameController = TextEditingController.fromValue(
-        TextEditingValue(text: OpenIoTHubCommonLocalizations.of(context).my_server_description_example));
+        TextEditingValue(text: OpenIoTHubLocalizations.of(context).my_server_description_example));
     // string ServerHost = 3;
     TextEditingController serverHostController =
         TextEditingController.fromValue(
-            TextEditingValue(text: OpenIoTHubCommonLocalizations.of(context).server_go_addr_example));
+            TextEditingValue(text: OpenIoTHubLocalizations.of(context).server_go_addr_example));
     // string LoginKey = 4;
     TextEditingController loginKeyController =
         TextEditingController.fromValue(TextEditingValue(text: getOneUUID()));
@@ -134,7 +134,7 @@ class ServerPagesState extends State<ServerPages> {
         TextEditingController.fromValue(TextEditingValue(text: "34322"));
     // string Description = 11;
     TextEditingController descriptionController =
-        TextEditingController.fromValue(TextEditingValue(text: OpenIoTHubCommonLocalizations.of(context).my_server_description));
+        TextEditingController.fromValue(TextEditingValue(text: OpenIoTHubLocalizations.of(context).my_server_description));
     // bool IsPublic = 12;
     bool isPublic = false;
     return showDialog(
@@ -143,7 +143,7 @@ class ServerPagesState extends State<ServerPages> {
           return StatefulBuilder(
             builder: (context, state) {
               return AlertDialog(
-                  title: Text(OpenIoTHubCommonLocalizations.of(context).add_self_hosted_server),
+                  title: Text(OpenIoTHubLocalizations.of(context).add_self_hosted_server),
                   content: SizedBox.expand(
                     child: ListView(
                       children: <Widget>[
@@ -151,24 +151,24 @@ class ServerPagesState extends State<ServerPages> {
                           controller: uuidController,
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(10.0),
-                            labelText: OpenIoTHubCommonLocalizations.of(context).server_uuid,
-                            helperText: OpenIoTHubCommonLocalizations.of(context).as_config_file,
+                            labelText: OpenIoTHubLocalizations.of(context).server_uuid,
+                            helperText: OpenIoTHubLocalizations.of(context).as_config_file,
                           ),
                         ),
                         TextFormField(
                           controller: nameController,
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(10.0),
-                            labelText: OpenIoTHubCommonLocalizations.of(context).name,
-                            helperText: OpenIoTHubCommonLocalizations.of(context).define_server_name,
+                            labelText: OpenIoTHubLocalizations.of(context).name,
+                            helperText: OpenIoTHubLocalizations.of(context).define_server_name,
                           ),
                         ),
                         TextFormField(
                           controller: serverHostController,
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(10.0),
-                            labelText: OpenIoTHubCommonLocalizations.of(context).define_server_ip_or_domain,
-                            helperText: OpenIoTHubCommonLocalizations.of(context).define_server_addr,
+                            labelText: OpenIoTHubLocalizations.of(context).define_server_ip_or_domain,
+                            helperText: OpenIoTHubLocalizations.of(context).define_server_addr,
                           ),
                         ),
                         TextFormField(
@@ -176,7 +176,7 @@ class ServerPagesState extends State<ServerPages> {
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(10.0),
                             labelText: 'login_key',
-                            helperText: OpenIoTHubCommonLocalizations.of(context).define_server_key,
+                            helperText: OpenIoTHubLocalizations.of(context).define_server_key,
                           ),
                         ),
                         TextFormField(
@@ -184,7 +184,7 @@ class ServerPagesState extends State<ServerPages> {
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(10.0),
                             labelText: 'tcp_port',
-                            helperText: OpenIoTHubCommonLocalizations.of(context).define_server_tcp_port,
+                            helperText: OpenIoTHubLocalizations.of(context).define_server_tcp_port,
                           ),
                         ),
                         TextFormField(
@@ -192,7 +192,7 @@ class ServerPagesState extends State<ServerPages> {
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(10.0),
                             labelText: 'kcp_port',
-                            helperText: OpenIoTHubCommonLocalizations.of(context).define_server_kcp_port,
+                            helperText: OpenIoTHubLocalizations.of(context).define_server_kcp_port,
                           ),
                         ),
                         TextFormField(
@@ -200,7 +200,7 @@ class ServerPagesState extends State<ServerPages> {
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(10.0),
                             labelText: 'udp_api_port',
-                            helperText: OpenIoTHubCommonLocalizations.of(context).port,
+                            helperText: OpenIoTHubLocalizations.of(context).port,
                           ),
                         ),
                         TextFormField(
@@ -208,7 +208,7 @@ class ServerPagesState extends State<ServerPages> {
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(10.0),
                             labelText: 'kcp_api_port',
-                            helperText: OpenIoTHubCommonLocalizations.of(context).port,
+                            helperText: OpenIoTHubLocalizations.of(context).port,
                           ),
                         ),
                         TextFormField(
@@ -216,7 +216,7 @@ class ServerPagesState extends State<ServerPages> {
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(10.0),
                             labelText: 'tls_port',
-                            helperText: OpenIoTHubCommonLocalizations.of(context).port,
+                            helperText: OpenIoTHubLocalizations.of(context).port,
                           ),
                         ),
                         TextFormField(
@@ -224,20 +224,20 @@ class ServerPagesState extends State<ServerPages> {
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(10.0),
                             labelText: 'grpc_port',
-                            helperText: OpenIoTHubCommonLocalizations.of(context).port,
+                            helperText: OpenIoTHubLocalizations.of(context).port,
                           ),
                         ),
                         TextFormField(
                           controller: descriptionController,
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(10.0),
-                            labelText: OpenIoTHubCommonLocalizations.of(context).description,
-                            helperText: OpenIoTHubCommonLocalizations.of(context).define_description,
+                            labelText: OpenIoTHubLocalizations.of(context).description,
+                            helperText: OpenIoTHubLocalizations.of(context).define_description,
                           ),
                         ),
                         Row(
                           children: [
-                            Text(OpenIoTHubCommonLocalizations.of(context).for_everyone_to_use),
+                            Text(OpenIoTHubLocalizations.of(context).for_everyone_to_use),
                             Switch(
                                 value: isPublic,
                                 onChanged: null,
@@ -255,13 +255,13 @@ class ServerPagesState extends State<ServerPages> {
                   ),
                   actions: <Widget>[
                     TextButton(
-                      child: Text(OpenIoTHubCommonLocalizations.of(context).cancel),
+                      child: Text(OpenIoTHubLocalizations.of(context).cancel),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
                     ),
                     TextButton(
-                      child: Text(OpenIoTHubCommonLocalizations.of(context).add_to_server),
+                      child: Text(OpenIoTHubLocalizations.of(context).add_to_server),
                       onPressed: () {
                         ServerInfo serverInfo = ServerInfo();
                         serverInfo.uuid = uuidController.text;
@@ -284,7 +284,7 @@ class ServerPagesState extends State<ServerPages> {
                         serverInfo.isPublic = isPublic;
                         ServerManager.addServer(serverInfo)
                             .then((value) =>
-                                showSuccess("${OpenIoTHubCommonLocalizations.of(context).add_server}(${nameController.text})${OpenIoTHubCommonLocalizations.of(context).success}", context))
+                                showSuccess("${OpenIoTHubLocalizations.of(context).add_server}(${nameController.text})${OpenIoTHubLocalizations.of(context).success}", context))
                             .then((value) => Navigator.of(context).pop())
                             .then((value) => _listMyServers());
                       },

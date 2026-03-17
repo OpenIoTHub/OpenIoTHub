@@ -15,31 +15,31 @@ class _GatewayGuidePageState extends State<GatewayGuidePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(OpenIoTHubCommonLocalizations.of(context).gateway_install_guide),
+        title: Text(OpenIoTHubLocalizations.of(context).gateway_install_guide),
         actions: <Widget>[],
       ),
       body: ListView(
         children: [
           Text(
-            OpenIoTHubCommonLocalizations.of(context).gateway_install_guide_content1,
+            OpenIoTHubLocalizations.of(context).gateway_install_guide_content1,
             style: TextStyle(fontSize: 23),
           ),
-          Text(OpenIoTHubCommonLocalizations.of(context).gateway_install_guide_content2),
-          Text(OpenIoTHubCommonLocalizations.of(context).gateway_install_guide_content3),
-          Text(OpenIoTHubCommonLocalizations.of(context).gateway_install_guide_content4),
-          Text(OpenIoTHubCommonLocalizations.of(context).gateway_install_guide_content5),
+          Text(OpenIoTHubLocalizations.of(context).gateway_install_guide_content2),
+          Text(OpenIoTHubLocalizations.of(context).gateway_install_guide_content3),
+          Text(OpenIoTHubLocalizations.of(context).gateway_install_guide_content4),
+          Text(OpenIoTHubLocalizations.of(context).gateway_install_guide_content5),
           Text(
-            OpenIoTHubCommonLocalizations.of(context).gateway_install_guide_content6,
+            OpenIoTHubLocalizations.of(context).gateway_install_guide_content6,
             style: TextStyle(fontSize: 23),
           ),
           TextButton(
               onPressed: () {
                 _launchUrl("https://github.com/OpenIoTHub/gateway-go/releases");
               },
-              child: Text(OpenIoTHubCommonLocalizations.of(context).gateway_install_guide_content7)),
-          Text(OpenIoTHubCommonLocalizations.of(context).gateway_install_guide_content8),
-          Text(OpenIoTHubCommonLocalizations.of(context).gateway_install_guide_content9),
-          Text(OpenIoTHubCommonLocalizations.of(context).gateway_install_guide_content10),
+              child: Text(OpenIoTHubLocalizations.of(context).gateway_install_guide_content7)),
+          Text(OpenIoTHubLocalizations.of(context).gateway_install_guide_content8),
+          Text(OpenIoTHubLocalizations.of(context).gateway_install_guide_content9),
+          Text(OpenIoTHubLocalizations.of(context).gateway_install_guide_content10),
         ],
       ),
     );

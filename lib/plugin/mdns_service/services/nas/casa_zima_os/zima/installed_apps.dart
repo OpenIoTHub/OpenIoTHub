@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:openiothub/network/openiothub_api.dart';
 import 'package:openiothub/core/config.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
-import 'package:openiothub/plugin/l10n/generated/openiothub_plugin_localizations.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/common_pages/utils/toast.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -585,7 +585,7 @@ class _InstalledAppsPageState extends State<InstalledAppsPage> {
       Navigator.push(context, MaterialPageRoute(builder: (ctx) {
         return Scaffold(
           appBar: AppBar(
-              title: Text(OpenIoTHubPluginLocalizations.of(ctx).web_browser),
+              title: Text(OpenIoTHubLocalizations.of(ctx).web_browser),
               actions: <Widget>[
                 IconButton(
                     icon: Icon(

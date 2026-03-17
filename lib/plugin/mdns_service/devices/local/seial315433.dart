@@ -101,7 +101,7 @@ class _Serial315433PageState extends State<Serial315433Page> {
         context: context,
         builder: (_) => AlertDialog(
                 title: Text(
-                    "${OpenIoTHubPluginLocalizations.of(context).setting_name}："),
+                    "${OpenIoTHubLocalizations.of(context).setting_name}："),
                 content: SizedBox.expand(
                   child: ListView(
                     children: <Widget>[
@@ -110,7 +110,7 @@ class _Serial315433PageState extends State<Serial315433Page> {
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.all(10.0),
                           labelText:
-                              OpenIoTHubPluginLocalizations.of(context).name,
+                              OpenIoTHubLocalizations.of(context).name,
                         ),
                       )
                     ],
@@ -119,14 +119,14 @@ class _Serial315433PageState extends State<Serial315433Page> {
                 actions: <Widget>[
                   TextButton(
                     child:
-                        Text(OpenIoTHubPluginLocalizations.of(context).cancel),
+                        Text(OpenIoTHubLocalizations.of(context).cancel),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
                     child:
-                        Text(OpenIoTHubPluginLocalizations.of(context).modify),
+                        Text(OpenIoTHubLocalizations.of(context).modify),
                     onPressed: () async {
                       try {
                         String url =
@@ -188,7 +188,7 @@ class _Serial315433PageState extends State<Serial315433Page> {
         context: context,
         builder: (_) => AlertDialog(
                 title: Text(
-                    "${OpenIoTHubPluginLocalizations.of(context).upgrade_firmware}："),
+                    "${OpenIoTHubLocalizations.of(context).upgrade_firmware}："),
                 content: SizedBox.expand(
                     child: UploadOTAPage(
                   url:
@@ -198,7 +198,7 @@ class _Serial315433PageState extends State<Serial315433Page> {
                 actions: <Widget>[
                   TextButton(
                     child:
-                        Text(OpenIoTHubPluginLocalizations.of(context).cancel),
+                        Text(OpenIoTHubLocalizations.of(context).cancel),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },

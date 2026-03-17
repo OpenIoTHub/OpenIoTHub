@@ -170,12 +170,12 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
                     Animation<double> animation,
                     Animation<double> secondaryAnimation) {
                   return TDAlertDialog(
-                    title: OpenIoTHubCommonLocalizations.of(context)
+                    title: OpenIoTHubLocalizations.of(context)
                         .confirm_add_gateway,
                     contentWidget: Column(children: <Widget>[
                       TDInput(
                         leftLabel:
-                            OpenIoTHubCommonLocalizations.of(context).name,
+                            OpenIoTHubLocalizations.of(context).name,
                         leftLabelSpace: 0,
                         hintText: "",
                         backgroundColor: Colors.white,
@@ -187,7 +187,7 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
                         needClear: true,
                       ),
                       TDInput(
-                        leftLabel: OpenIoTHubCommonLocalizations.of(context)
+                        leftLabel: OpenIoTHubLocalizations.of(context)
                             .description,
                         leftLabelSpace: 0,
                         hintText: "",
@@ -203,7 +203,7 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
                     titleColor: Colors.black,
                     contentColor: Colors.redAccent,
                     leftBtn: TDDialogButtonOptions(
-                      title: OpenIoTHubCommonLocalizations.of(context).cancel,
+                      title: OpenIoTHubLocalizations.of(context).cancel,
                       style: TDButtonStyle(
                         backgroundColor: Colors.grey,
                       ),
@@ -212,7 +212,7 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
                       },
                     ),
                     rightBtn: TDDialogButtonOptions(
-                      title: OpenIoTHubCommonLocalizations.of(context).ok,
+                      title: OpenIoTHubLocalizations.of(context).ok,
                       style: TDButtonStyle(
                         backgroundColor: Colors.blue,
                       ),
@@ -250,7 +250,7 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            OpenIoTHubCommonLocalizations.of(context).find_local_gateway_list),
+            OpenIoTHubLocalizations.of(context).find_local_gateway_list),
         actions: <Widget>[
           IconButton(
               icon: Icon(
@@ -327,7 +327,7 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
         builder: (context) {
           return StatefulBuilder(builder: (context, state) {
             return AlertDialog(
-                title: Text(OpenIoTHubCommonLocalizations.of(context)
+                title: Text(OpenIoTHubLocalizations.of(context)
                     .manually_create_a_gateway),
                 content: SizedBox(
                     width: 250,
@@ -336,12 +336,12 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
                       children: ListTile.divideTiles(
                         context: context,
                         tiles: [
-                          Text(OpenIoTHubCommonLocalizations.of(context)
+                          Text(OpenIoTHubLocalizations.of(context)
                               .manually_create_a_gateway_description1),
-                          Text(OpenIoTHubCommonLocalizations.of(context)
+                          Text(OpenIoTHubLocalizations.of(context)
                               .manually_create_a_gateway_description2),
                           Text(
-                            OpenIoTHubCommonLocalizations.of(context)
+                            OpenIoTHubLocalizations.of(context)
                                 .manually_create_a_gateway_description3,
                             style: TextStyle(
                               color: Colors.amber,
@@ -362,13 +362,13 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
                 actions: <Widget>[
                   TextButton(
                     child:
-                        Text(OpenIoTHubCommonLocalizations.of(context).cancel),
+                        Text(OpenIoTHubLocalizations.of(context).cancel),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: Text(OpenIoTHubCommonLocalizations.of(context).add),
+                    child: Text(OpenIoTHubLocalizations.of(context).add),
                     onPressed: () async {
                       GatewayInfo gatewayInfo =
                           await GatewayManager.generateOneGatewayWithServerUuid(
@@ -387,7 +387,7 @@ loginwithtokenmap:
 ''';
                       Clipboard.setData(ClipboardData(text: data));
                       showSuccess(
-                          OpenIoTHubCommonLocalizations.of(context).paste_info,
+                          OpenIoTHubLocalizations.of(context).paste_info,
                           context);
                       Navigator.of(context).pop();
                     },
@@ -405,11 +405,11 @@ loginwithtokenmap:
     try {
       await SessionApi.createOneSession(config);
       showSuccess(
-          OpenIoTHubCommonLocalizations.of(context).add_gateway_success,
+          OpenIoTHubLocalizations.of(context).common_add_gateway_success,
           context);
     } catch (exception) {
       showFailed(
-          "${OpenIoTHubCommonLocalizations.of(context).login_failed}：${exception}",
+          "${OpenIoTHubLocalizations.of(context).common_login_failed}：${exception}",
           context);
     }
   }

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:xterm/xterm.dart';
 
-import 'package:openiothub/plugin/l10n/generated/openiothub_plugin_localizations.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/plugin/models/port_service_info.dart';
 import './virtual_keyboard.dart';
 
@@ -48,11 +48,11 @@ class SSHNativePageState extends State<SSHNativePage> {
       pageBuilder: (BuildContext buildContext, Animation<double> animation,
           Animation<double> secondaryAnimation) {
         return TDAlertDialog(
-          title: OpenIoTHubPluginLocalizations.of(context)
+          title: OpenIoTHubLocalizations.of(context)
               .please_input_ssh_username_password,
           contentWidget: Column(children: <Widget>[
             TDInput(
-              leftLabel: OpenIoTHubPluginLocalizations.of(context).username,
+              leftLabel: OpenIoTHubLocalizations.of(context).username,
               leftLabelSpace: 0,
               hintText: "",
               backgroundColor: Colors.white,
@@ -64,7 +64,7 @@ class SSHNativePageState extends State<SSHNativePage> {
               needClear: true,
             ),
             TDInput(
-              leftLabel: OpenIoTHubPluginLocalizations.of(context).password,
+              leftLabel: OpenIoTHubLocalizations.of(context).password,
               leftLabelSpace: 0,
               hintText: "",
               backgroundColor: Colors.white,
@@ -82,7 +82,7 @@ class SSHNativePageState extends State<SSHNativePage> {
           contentColor: Colors.redAccent,
           // backgroundColor: AppTheme.blockBgColor,
           leftBtn: TDDialogButtonOptions(
-            title: OpenIoTHubPluginLocalizations.of(context).cancel,
+            title: OpenIoTHubLocalizations.of(context).cancel,
             // titleColor: AppTheme.color999,
             style: TDButtonStyle(
               backgroundColor: Colors.grey,
@@ -92,7 +92,7 @@ class SSHNativePageState extends State<SSHNativePage> {
             },
           ),
           rightBtn: TDDialogButtonOptions(
-            title: OpenIoTHubPluginLocalizations.of(context).ok,
+            title: OpenIoTHubLocalizations.of(context).ok,
             style: TDButtonStyle(
               backgroundColor: Colors.blue,
             ),

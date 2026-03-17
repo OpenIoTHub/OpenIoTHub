@@ -85,7 +85,7 @@ class UART2TCPStatus extends State<UART2TCPPage> with TickerProviderStateMixin {
                 },
                 onSubmitted: (String msg) => _submitMsg(true, msg),
                 decoration: InputDecoration.collapsed(
-                    hintText: OpenIoTHubPluginLocalizations.of(context)
+                    hintText: OpenIoTHubLocalizations.of(context)
                         .please_input_message),
               ),
             ),
@@ -182,8 +182,8 @@ class Msg extends StatelessWidget {
                     margin: const EdgeInsets.only(left: 18.0),
                     child: CircleAvatar(
                         child: Text(me
-                            ? OpenIoTHubPluginLocalizations.of(ctx).me
-                            : OpenIoTHubPluginLocalizations.of(ctx)
+                            ? OpenIoTHubLocalizations.of(ctx).me
+                            : OpenIoTHubLocalizations.of(ctx)
                                 .serial_port)),
                   ),
                 ],
@@ -195,8 +195,8 @@ class Msg extends StatelessWidget {
                     margin: const EdgeInsets.only(right: 18.0),
                     child: CircleAvatar(
                         child: Text(me
-                            ? OpenIoTHubPluginLocalizations.of(ctx).me
-                            : OpenIoTHubPluginLocalizations.of(ctx)
+                            ? OpenIoTHubLocalizations.of(ctx).me
+                            : OpenIoTHubLocalizations.of(ctx)
                                 .serial_port)),
                   ),
                   Expanded(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import 'l10n/generated/openiothub_common_localizations.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 
 class FeedbackPage extends StatelessWidget {
   const FeedbackPage({required Key key}) : super(key: key);
@@ -58,7 +58,7 @@ class FeedbackPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title:
-              Text(OpenIoTHubCommonLocalizations.of(context).feedback_channels),
+              Text(OpenIoTHubLocalizations.of(context).common_feedback_channels),
           actions: <Widget>[],
         ),
         body: Container(

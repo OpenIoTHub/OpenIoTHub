@@ -51,8 +51,8 @@ class _DHTPageState extends State<DHTPage> {
   @override
   Widget build(BuildContext context) {
     _realName = Map.from({
-      temperature: OpenIoTHubPluginLocalizations.of(context).temperature,
-      humidity: OpenIoTHubPluginLocalizations.of(context).humidity,
+      temperature: OpenIoTHubLocalizations.of(context).temperature,
+      humidity: OpenIoTHubLocalizations.of(context).humidity,
     });
     final List _result = [];
     _result.addAll(_valueKeyList);
@@ -173,7 +173,7 @@ class _DHTPageState extends State<DHTPage> {
         context: context,
         builder: (_) => AlertDialog(
                 title: Text(
-                    "${OpenIoTHubPluginLocalizations.of(context).setting_name}："),
+                    "${OpenIoTHubLocalizations.of(context).setting_name}："),
                 content: SizedBox.expand(
                     child: ListView(
                   children: <Widget>[
@@ -182,7 +182,7 @@ class _DHTPageState extends State<DHTPage> {
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText:
-                            OpenIoTHubPluginLocalizations.of(context).name,
+                            OpenIoTHubLocalizations.of(context).name,
                       ),
                     )
                   ],
@@ -190,14 +190,14 @@ class _DHTPageState extends State<DHTPage> {
                 actions: <Widget>[
                   TextButton(
                     child:
-                        Text(OpenIoTHubPluginLocalizations.of(context).cancel),
+                        Text(OpenIoTHubLocalizations.of(context).cancel),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
                     child:
-                        Text(OpenIoTHubPluginLocalizations.of(context).modify),
+                        Text(OpenIoTHubLocalizations.of(context).modify),
                     onPressed: () async {
                       try {
                         String url =
@@ -239,7 +239,7 @@ class _DHTPageState extends State<DHTPage> {
         context: context,
         builder: (_) => AlertDialog(
                 title: Text(
-                    "${OpenIoTHubPluginLocalizations.of(context).upgrade_firmware}："),
+                    "${OpenIoTHubLocalizations.of(context).upgrade_firmware}："),
                 content: SizedBox.expand(
                     child: UploadOTAPage(
                   url:
@@ -249,7 +249,7 @@ class _DHTPageState extends State<DHTPage> {
                 actions: <Widget>[
                   TextButton(
                     child:
-                        Text(OpenIoTHubPluginLocalizations.of(context).cancel),
+                        Text(OpenIoTHubLocalizations.of(context).cancel),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },

@@ -67,10 +67,10 @@ class _State extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     wechatLoginFailed =
-        OpenIoTHubCommonLocalizations.of(context).wechat_login_failed;
+        OpenIoTHubLocalizations.of(context).wechat_login_failed;
     return Scaffold(
         appBar: AppBar(
-          title: Text(OpenIoTHubCommonLocalizations.of(context).login),
+          title: Text(OpenIoTHubLocalizations.of(context).login),
           actions: [
             IconButton(
               icon: const Icon(Icons.language),
@@ -99,18 +99,18 @@ class _State extends State<LoginPage> {
           child: TDInput(
             controller: _usermobile,
             backgroundColor: Colors.white,
-            leftLabel: OpenIoTHubCommonLocalizations.of(context).user_mobile,
+            leftLabel: OpenIoTHubLocalizations.of(context).user_mobile,
             hintText:
-                OpenIoTHubCommonLocalizations.of(context).please_input_mobile,
+                OpenIoTHubLocalizations.of(context).please_input_mobile,
             onChanged: (String v) {},
           ),
         ),
         TDInput(
           controller: _userpassword,
           backgroundColor: Colors.white,
-          leftLabel: OpenIoTHubCommonLocalizations.of(context).password,
+          leftLabel: OpenIoTHubLocalizations.of(context).password,
           hintText:
-              OpenIoTHubCommonLocalizations.of(context).please_input_password,
+              OpenIoTHubLocalizations.of(context).please_input_password,
           obscureText: true,
           onChanged: (String v) {},
         ),
@@ -121,7 +121,7 @@ class _State extends State<LoginPage> {
             children: [
               TDButton(
                   icon: TDIcons.login,
-                  text: OpenIoTHubCommonLocalizations.of(context).login,
+                  text: OpenIoTHubLocalizations.of(context).login,
                   size: TDButtonSize.medium,
                   type: TDButtonType.outline,
                   shape: TDButtonShape.rectangle,
@@ -139,15 +139,15 @@ class _State extends State<LoginPage> {
                     // 只有同意隐私政策才可以进行下一步
                     if (!_isChecked) {
                       showFailed(
-                          "${OpenIoTHubCommonLocalizations.of(context).agree_to_the_user_agreement1}☑️${OpenIoTHubCommonLocalizations.of(context).agree_to_the_user_agreement2}",
+                          "${OpenIoTHubLocalizations.of(context).agree_to_the_user_agreement1}☑️${OpenIoTHubLocalizations.of(context).agree_to_the_user_agreement2}",
                           context);
                       return;
                     }
                     if (_usermobile.text.isEmpty ||
                         _userpassword.text.isEmpty) {
                       showFailed(
-                          OpenIoTHubCommonLocalizations.of(context)
-                              .username_and_password_cant_be_empty,
+                          OpenIoTHubLocalizations.of(context)
+                              .common_username_and_password_cant_be_empty,
                           context);
                       return;
                     }
@@ -165,7 +165,7 @@ class _State extends State<LoginPage> {
                 padding: const EdgeInsets.only(left: 20.0), // 设置顶部距离
                 child: TDButton(
                     icon: TDIcons.user,
-                    text: OpenIoTHubCommonLocalizations.of(context)
+                    text: OpenIoTHubLocalizations.of(context)
                         .user_registration,
                     size: TDButtonSize.medium,
                     type: TDButtonType.outline,
@@ -195,23 +195,23 @@ class _State extends State<LoginPage> {
                 activeColor: Colors.green, // 选中时的颜色
                 checkColor: Colors.white, // 选中标记的颜色
               ),
-              Text(OpenIoTHubCommonLocalizations.of(context).agree),
+              Text(OpenIoTHubLocalizations.of(context).agree),
               TextButton(
                   // TODO 勾选才可以下一步
                   child: Text(
-                    OpenIoTHubCommonLocalizations.of(context).privacy_policy,
+                    OpenIoTHubLocalizations.of(context).common_privacy_policy,
                     style: TextStyle(color: Colors.red),
                   ),
                   onPressed: () async {
                     goToUrl(
                         context,
                         "https://docs.iothub.cloud/privacyPolicy/index.html",
-                        OpenIoTHubCommonLocalizations.of(context)
+                        OpenIoTHubLocalizations.of(context)
                             .privacy_policy);
                   }),
               TextButton(
                   child: Text(
-                    OpenIoTHubCommonLocalizations.of(context).feedback_channels,
+                    OpenIoTHubLocalizations.of(context).common_feedback_channels,
                     style: TextStyle(color: Colors.green),
                   ),
                   onPressed: () async {
@@ -276,7 +276,7 @@ class _State extends State<LoginPage> {
       Navigator.of(context).pushReplacementNamed('/home');
     } else {
       showFailed(
-          "${OpenIoTHubCommonLocalizations.of(context).login_failed}:code:${userLoginResponse.code},message:${userLoginResponse.msg}",
+          "${OpenIoTHubLocalizations.of(context).common_login_failed}:code:${userLoginResponse.code},message:${userLoginResponse.msg}",
           context);
     }
   }
@@ -321,7 +321,7 @@ class _State extends State<LoginPage> {
                 .containsKey("scan") &&
             (response.data["data"] as Map<String, dynamic>)["scan"] == true) {
           showSuccess(
-              OpenIoTHubCommonLocalizations.of(context).login_after_wechat_bind,
+              OpenIoTHubLocalizations.of(context).login_after_wechat_bind,
               context);
         } else if ((response.data["data"] as Map<String, dynamic>)
                 .containsKey("scan") &&
@@ -329,7 +329,7 @@ class _State extends State<LoginPage> {
           // showToast("请扫码！");
         } else {
           showFailed(
-              "${OpenIoTHubCommonLocalizations.of(context).wechat_fast_login_failed}：${response.data["msg"]}",
+              "${OpenIoTHubLocalizations.of(context).wechat_fast_login_failed}：${response.data["msg"]}",
               context);
         }
       }
@@ -340,7 +340,7 @@ class _State extends State<LoginPage> {
     // 只有同意隐私政策才可以进行下一步
     if (!_isChecked) {
       showFailed(
-          "${OpenIoTHubCommonLocalizations.of(context).agree_to_the_user_agreement1}☑️${OpenIoTHubCommonLocalizations.of(context).agree_to_the_user_agreement2}",
+          "${OpenIoTHubLocalizations.of(context).agree_to_the_user_agreement1}☑️${OpenIoTHubLocalizations.of(context).agree_to_the_user_agreement2}",
           context);
       return;
     }
@@ -364,7 +364,7 @@ class _State extends State<LoginPage> {
       String qrUrl = await getPicUrl(loginFlag!);
       if (qrUrl == "") {
         showFailed(
-            OpenIoTHubCommonLocalizations.of(context).get_wechat_qr_code_failed,
+            OpenIoTHubLocalizations.of(context).get_wechat_qr_code_failed,
             context);
         return;
       }
@@ -372,14 +372,14 @@ class _State extends State<LoginPage> {
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
-                  title: Text(OpenIoTHubCommonLocalizations.of(context)
+                  title: Text(OpenIoTHubLocalizations.of(context)
                       .wechat_scan_qr_code_to_login),
                   content: SizedBox.expand(child: Image.network(qrUrl)),
                   actions: <Widget>[
                     // 分享网关:二维码图片、小程序链接、网页
                     TDButton(
                       icon: TDIcons.fullscreen_exit,
-                      text: OpenIoTHubCommonLocalizations.of(context).exit,
+                      text: OpenIoTHubLocalizations.of(context).exit,
                       size: TDButtonSize.small,
                       type: TDButtonType.outline,
                       shape: TDButtonShape.rectangle,

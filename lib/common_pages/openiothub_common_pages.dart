@@ -9,6 +9,6 @@ export 'user/login_page.dart';
 export 'user/register_page.dart';
 export 'user/user_info_page.dart';
 export 'wifi_config/airkiss.dart';
-export 'l10n/generated/openiothub_common_localizations.dart';
+export 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 export 'utils/go_to_url.dart';
 export 'utils/toast.dart';

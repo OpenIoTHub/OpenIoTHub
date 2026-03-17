@@ -141,7 +141,7 @@ class _RGBALedPageState extends State<RGBALedPage> {
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                  Text("${OpenIoTHubPluginLocalizations.of(context).effect}："),
+                  Text("${OpenIoTHubLocalizations.of(context).effect}："),
                   DropdownButton<int>(
                     value: _currentModes,
                     onChanged: _setMode,
@@ -160,7 +160,7 @@ class _RGBALedPageState extends State<RGBALedPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                   Text(
-                      "${OpenIoTHubPluginLocalizations.of(context).switch_bottom}："),
+                      "${OpenIoTHubLocalizations.of(context).switch_bottom}："),
                   Switch(
                     onChanged: (_) {
                       _changeSwitchStatus();
@@ -174,7 +174,7 @@ class _RGBALedPageState extends State<RGBALedPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text("${OpenIoTHubPluginLocalizations.of(context).speed}："),
+                  Text("${OpenIoTHubLocalizations.of(context).speed}："),
                   IconButton(
                     icon: Icon(Icons.arrow_drop_up),
                     onPressed: () {
@@ -202,7 +202,7 @@ class _RGBALedPageState extends State<RGBALedPage> {
         context: context,
         builder: (_) => AlertDialog(
                 title: Text(
-                    "${OpenIoTHubPluginLocalizations.of(context).setting_name}："),
+                    "${OpenIoTHubLocalizations.of(context).setting_name}："),
                 content: SizedBox.expand(
                     child: ListView(
                   children: <Widget>[
@@ -211,7 +211,7 @@ class _RGBALedPageState extends State<RGBALedPage> {
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText:
-                            OpenIoTHubPluginLocalizations.of(context).name,
+                            OpenIoTHubLocalizations.of(context).name,
                       ),
                     )
                   ],
@@ -219,14 +219,14 @@ class _RGBALedPageState extends State<RGBALedPage> {
                 actions: <Widget>[
                   TextButton(
                     child:
-                        Text(OpenIoTHubPluginLocalizations.of(context).cancel),
+                        Text(OpenIoTHubLocalizations.of(context).cancel),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
                     child:
-                        Text(OpenIoTHubPluginLocalizations.of(context).modify),
+                        Text(OpenIoTHubLocalizations.of(context).modify),
                     onPressed: () async {
                       try {
                         String url =
@@ -268,7 +268,7 @@ class _RGBALedPageState extends State<RGBALedPage> {
         context: context,
         builder: (_) => AlertDialog(
                 title: Text(
-                    "${OpenIoTHubPluginLocalizations.of(context).upgrade_firmware}："),
+                    "${OpenIoTHubLocalizations.of(context).upgrade_firmware}："),
                 content: SizedBox.expand(
                     child: UploadOTAPage(
                   url:
@@ -278,7 +278,7 @@ class _RGBALedPageState extends State<RGBALedPage> {
                 actions: <Widget>[
                   TextButton(
                     child:
-                        Text(OpenIoTHubPluginLocalizations.of(context).cancel),
+                        Text(OpenIoTHubLocalizations.of(context).cancel),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },

@@ -7,7 +7,6 @@ import 'package:openiothub_grpc_api/proto/manager/common.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/userManager.pb.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
-import 'package:openiothub/common_pages/openiothub_common_pages.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -27,7 +26,7 @@ class _State extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(OpenIoTHubCommonLocalizations.of(context).register),
+          title: Text(OpenIoTHubLocalizations.of(context).register),
         ),
         body: Center(
           child: Container(
@@ -39,23 +38,23 @@ class _State extends State<RegisterPage> {
                   controller: _usermobile,
                   backgroundColor: Colors.white,
                   leftLabel:
-                      OpenIoTHubCommonLocalizations.of(context).mobile_number,
-                  hintText: OpenIoTHubCommonLocalizations.of(context)
+                      OpenIoTHubLocalizations.of(context).mobile_number,
+                  hintText: OpenIoTHubLocalizations.of(context)
                       .please_input_mobile,
                   onChanged: (String v) {},
                 ),
                 TDInput(
                   controller: _userpassword,
                   backgroundColor: Colors.white,
-                  leftLabel: OpenIoTHubCommonLocalizations.of(context).password,
-                  hintText: OpenIoTHubCommonLocalizations.of(context)
+                  leftLabel: OpenIoTHubLocalizations.of(context).password,
+                  hintText: OpenIoTHubLocalizations.of(context)
                       .please_input_password,
                   obscureText: true,
                   onChanged: (String v) {},
                 ),
                 TDButton(
                     icon: TDIcons.login,
-                    text: OpenIoTHubCommonLocalizations.of(context).register,
+                    text: OpenIoTHubLocalizations.of(context).register,
                     size: TDButtonSize.large,
                     type: TDButtonType.outline,
                     shape: TDButtonShape.rectangle,
@@ -77,10 +76,10 @@ class _State extends State<RegisterPage> {
                       activeColor: Colors.green, // 选中时的颜色
                       checkColor: Colors.white, // 选中标记的颜色
                     ),
-                    Text(OpenIoTHubCommonLocalizations.of(context).agree),
+                    Text(OpenIoTHubLocalizations.of(context).agree),
                     TextButton(
                         child: Text(
-                          OpenIoTHubCommonLocalizations.of(context)
+                          OpenIoTHubLocalizations.of(context)
                               .privacy_policy,
                           style: TextStyle(color: Colors.red),
                         ),
@@ -88,12 +87,12 @@ class _State extends State<RegisterPage> {
                           goToUrl(
                               context,
                               "https://docs.iothub.cloud/privacyPolicy/index.html",
-                              OpenIoTHubCommonLocalizations.of(context)
+                              OpenIoTHubLocalizations.of(context)
                                   .privacy_policy);
                         }),
                     TextButton(
                         child: Text(
-                          OpenIoTHubCommonLocalizations.of(context)
+                          OpenIoTHubLocalizations.of(context)
                               .feedback_channels,
                           style: TextStyle(color: Colors.green),
                         ),
@@ -123,14 +122,14 @@ class _State extends State<RegisterPage> {
     });
     if (!_isChecked) {
       showFailed(
-          "${OpenIoTHubCommonLocalizations.of(context).agree_to_the_user_agreement1}☑️${OpenIoTHubCommonLocalizations.of(context).agree_to_the_user_agreement2}",
+          "${OpenIoTHubLocalizations.of(context).agree_to_the_user_agreement1}☑️${OpenIoTHubLocalizations.of(context).agree_to_the_user_agreement2}",
           context);
       return;
     }
     if (_usermobile.text.isEmpty || _userpassword.text.isEmpty) {
       showFailed(
-          OpenIoTHubCommonLocalizations.of(context)
-              .username_and_password_cant_be_empty,
+          OpenIoTHubLocalizations.of(context)
+              .common_username_and_password_cant_be_empty,
           context);
       return;
     }
@@ -144,14 +143,14 @@ class _State extends State<RegisterPage> {
         _registerDisabled = false;
       });
       showSuccess(
-          "${OpenIoTHubCommonLocalizations.of(context).register_success}${operationResponse.msg}",
+          "${OpenIoTHubLocalizations.of(context).register_success}${operationResponse.msg}",
           context);
       if (Navigator.of(context).canPop()) {
         Navigator.of(context).pop();
       } else {}
     } else {
       showFailed(
-          "${OpenIoTHubCommonLocalizations.of(context).register_failed}:${operationResponse.msg}",
+          "${OpenIoTHubLocalizations.of(context).register_failed}:${operationResponse.msg}",
           context);
     }
   }

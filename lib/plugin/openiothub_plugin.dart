@@ -1,4 +1,4 @@
-export 'l10n/generated/openiothub_plugin_localizations.dart';
+export 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 
 export 'package:openiothub/plugin/mdns_service/services/ssh/ssh_page.dart';
 

@@ -8,7 +8,7 @@ import 'package:openiothub_grpc_api/proto/manager/gatewayManager.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/serverManager.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
-import 'package:openiothub/plugin/l10n/generated/openiothub_plugin_localizations.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/common_pages/utils/toast.dart';
 
 import 'package:openiothub/plugin/models/port_service_info.dart';
@@ -28,7 +28,7 @@ class GatewayState extends State<Gateway> {
   //是否可以添加 true：可以添加 false：不可以添加
   bool _addable = true;
   List<ServerInfo> _availableServerList = [];
-  OpenIoTHubPluginLocalizations? localizations;
+  OpenIoTHubLocalizations? localizations;
 
   @override
   void initState() {
@@ -39,7 +39,7 @@ class GatewayState extends State<Gateway> {
 
   @override
   Widget build(BuildContext context) {
-    localizations = OpenIoTHubPluginLocalizations.of(context);
+    localizations = OpenIoTHubLocalizations.of(context);
     final tiles = _availableServerList.map(
       (pair) {
         var listItemContent = Padding(
@@ -105,9 +105,9 @@ class GatewayState extends State<Gateway> {
     config.description = name;
     try {
       await SessionApi.createOneSession(config);
-      showSuccess(localizations!.add_gateway_success, context);
+      showSuccess(localizations!.plugin_add_gateway_success, context);
     } catch (exception) {
-      showFailed("${localizations!.login_failed}：${exception}", context);
+      showFailed("${localizations!.plugin_login_failed}：${exception}", context);
     }
   }
 
@@ -161,7 +161,7 @@ class GatewayState extends State<Gateway> {
         });
       }
     } catch (exception) {
-      showFailed("${localizations!.add_gateway_failed}：${exception}", context);
+      showFailed("${localizations!.plugin_add_gateway_failed}：${exception}", context);
     }
   }
 

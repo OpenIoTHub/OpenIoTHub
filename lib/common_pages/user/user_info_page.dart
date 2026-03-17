@@ -32,27 +32,27 @@ class _UserInfoPageState extends State<UserInfoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(OpenIoTHubCommonLocalizations.of(context).user_info),
+          title: Text(OpenIoTHubLocalizations.of(context).user_info),
         ),
         body: ListView(children: <Widget>[
           ListTile(
             //第一个功能项
-            title: Text('${OpenIoTHubCommonLocalizations.of(context).username}：$username'),
+            title: Text('${OpenIoTHubLocalizations.of(context).username}：$username'),
             // trailing: Icon(Icons.arrow_right),
           ),
           ListTile(
             //第二个功能项
-            title: Text('${OpenIoTHubCommonLocalizations.of(context).user_mobile}：$usermobile'),
+            title: Text('${OpenIoTHubLocalizations.of(context).user_mobile}：$usermobile'),
             // trailing: Icon(Icons.arrow_right),
           ),
           ListTile(
             //第三个功能项
-            title: Text('${OpenIoTHubCommonLocalizations.of(context).user_email}：$useremail'),
+            title: Text('${OpenIoTHubLocalizations.of(context).user_email}：$useremail'),
             // trailing: Icon(Icons.arrow_right),
           ),
           ListTile(
               //第四个功能项
-              title: Text(OpenIoTHubCommonLocalizations.of(context).account_and_safety),
+              title: Text(OpenIoTHubLocalizations.of(context).account_and_safety),
               trailing: Icon(Icons.arrow_right),
               onTap: () async {
                 Navigator.of(context)
@@ -65,7 +65,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                 _logOut();
               },
               child: Text(
-                OpenIoTHubCommonLocalizations.of(context).logout,
+                OpenIoTHubLocalizations.of(context).logout,
                 style: TextStyle(
                   color: Colors.red,
                 ),

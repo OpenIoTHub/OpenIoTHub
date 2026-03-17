@@ -81,16 +81,16 @@ class _ServerInfoPageState extends State<ServerInfoPage> {
         controller: _nameController,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.all(10.0),
-          labelText: OpenIoTHubCommonLocalizations.of(context).name,
-          helperText: OpenIoTHubCommonLocalizations.of(context).define_server_name,
+          labelText: OpenIoTHubLocalizations.of(context).name,
+          helperText: OpenIoTHubLocalizations.of(context).define_server_name,
         ),
       ),
       TextFormField(
         controller: _serverHostController,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.all(10.0),
-          labelText: OpenIoTHubCommonLocalizations.of(context).define_server_ip_or_domain,
-          helperText: OpenIoTHubCommonLocalizations.of(context).define_server_addr,
+          labelText: OpenIoTHubLocalizations.of(context).define_server_ip_or_domain,
+          helperText: OpenIoTHubLocalizations.of(context).define_server_addr,
         ),
       ),
       TextFormField(
@@ -98,7 +98,7 @@ class _ServerInfoPageState extends State<ServerInfoPage> {
         decoration: InputDecoration(
           contentPadding: EdgeInsets.all(10.0),
           labelText: 'login_key',
-          helperText: OpenIoTHubCommonLocalizations.of(context).define_server_key,
+          helperText: OpenIoTHubLocalizations.of(context).define_server_key,
         ),
       ),
       TextFormField(
@@ -106,7 +106,7 @@ class _ServerInfoPageState extends State<ServerInfoPage> {
         decoration: InputDecoration(
           contentPadding: EdgeInsets.all(10.0),
           labelText: 'tcp_port',
-          helperText: OpenIoTHubCommonLocalizations.of(context).define_server_tcp_port,
+          helperText: OpenIoTHubLocalizations.of(context).define_server_tcp_port,
         ),
       ),
       TextFormField(
@@ -114,7 +114,7 @@ class _ServerInfoPageState extends State<ServerInfoPage> {
         decoration: InputDecoration(
           contentPadding: EdgeInsets.all(10.0),
           labelText: 'kcp_port',
-          helperText: OpenIoTHubCommonLocalizations.of(context).define_server_kcp_port,
+          helperText: OpenIoTHubLocalizations.of(context).define_server_kcp_port,
         ),
       ),
       TextFormField(
@@ -122,7 +122,7 @@ class _ServerInfoPageState extends State<ServerInfoPage> {
         decoration: InputDecoration(
           contentPadding: EdgeInsets.all(10.0),
           labelText: 'udp_api_port',
-          helperText: OpenIoTHubCommonLocalizations.of(context).port,
+          helperText: OpenIoTHubLocalizations.of(context).port,
         ),
       ),
       TextFormField(
@@ -130,7 +130,7 @@ class _ServerInfoPageState extends State<ServerInfoPage> {
         decoration: InputDecoration(
           contentPadding: EdgeInsets.all(10.0),
           labelText: 'kcp_api_port',
-          helperText: OpenIoTHubCommonLocalizations.of(context).port,
+          helperText: OpenIoTHubLocalizations.of(context).port,
         ),
       ),
       TextFormField(
@@ -138,7 +138,7 @@ class _ServerInfoPageState extends State<ServerInfoPage> {
         decoration: InputDecoration(
           contentPadding: EdgeInsets.all(10.0),
           labelText: 'tls_port',
-          helperText: OpenIoTHubCommonLocalizations.of(context).port,
+          helperText: OpenIoTHubLocalizations.of(context).port,
         ),
       ),
       TextFormField(
@@ -146,20 +146,20 @@ class _ServerInfoPageState extends State<ServerInfoPage> {
         decoration: InputDecoration(
           contentPadding: EdgeInsets.all(10.0),
           labelText: 'grpc_port',
-          helperText: OpenIoTHubCommonLocalizations.of(context).port,
+          helperText: OpenIoTHubLocalizations.of(context).port,
         ),
       ),
       TextFormField(
         controller: _descriptionController,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.all(10.0),
-          labelText: OpenIoTHubCommonLocalizations.of(context).description,
-          helperText: OpenIoTHubCommonLocalizations.of(context).define_description,
+          labelText: OpenIoTHubLocalizations.of(context).description,
+          helperText: OpenIoTHubLocalizations.of(context).define_description,
         ),
       ),
       Row(
         children: [
-          Text(OpenIoTHubCommonLocalizations.of(context).for_everyone_to_use),
+          Text(OpenIoTHubLocalizations.of(context).for_everyone_to_use),
           Switch(
               value: _isPublic,
               onChanged: null,
@@ -187,9 +187,9 @@ class _ServerInfoPageState extends State<ServerInfoPage> {
             serverInfo.description = _descriptionController.text;
             serverInfo.isPublic = _isPublic;
             ServerManager.updateServer(serverInfo)
-                .then((value) => showSuccess(OpenIoTHubCommonLocalizations.of(context).update_success, context));
+                .then((value) => showSuccess(OpenIoTHubLocalizations.of(context).update_success, context));
           },
-          child: Text(OpenIoTHubCommonLocalizations.of(context).confirm_modify)),
+          child: Text(OpenIoTHubLocalizations.of(context).confirm_modify)),
     ];
     final divided = ListTile.divideTiles(
       context: context,
@@ -197,7 +197,7 @@ class _ServerInfoPageState extends State<ServerInfoPage> {
     ).toList();
 
     return Scaffold(
-      appBar: AppBar(title: Text(OpenIoTHubCommonLocalizations.of(context).server_info), actions: <Widget>[
+      appBar: AppBar(title: Text(OpenIoTHubLocalizations.of(context).server_info), actions: <Widget>[
         IconButton(
             icon: Icon(
               Icons.delete,
@@ -205,7 +205,7 @@ class _ServerInfoPageState extends State<ServerInfoPage> {
             ),
             onPressed: () {
               ServerManager.delServer(widget.serverInfo)
-                  .then((value) => showSuccess(OpenIoTHubCommonLocalizations.of(context).delete_success, context))
+                  .then((value) => showSuccess(OpenIoTHubLocalizations.of(context).common_delete_success, context))
                   .then((value) => Navigator.of(context).pop());
             }),
       ]),

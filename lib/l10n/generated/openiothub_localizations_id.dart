@@ -599,4 +599,631 @@ class OpenIoTHubLocalizationsId extends OpenIoTHubLocalizations {
 
   @override
   String get theme_mode_dark => 'Gelap';
+
+  @override
+  String get click_to_get_wifi_info => 'Klik untuk mendapatkan informasi WiFi';
+
+  @override
+  String get input_wifi_password =>
+      'Masukkan kata sandi WiFi di atas untuk mulai mengonfigurasi perangkat ke jaringan';
+
+  @override
+  String get connecting_to_router =>
+      'Mengonfigurasi perangkat untuk terhubung ke router';
+
+  @override
+  String get device_wifi_config => 'Konfigurasi WiFi perangkat';
+
+  @override
+  String get wifi_ssid => 'Nama WiFi';
+
+  @override
+  String get start_adding_surrounding_smart_devices =>
+      'Mulai menambahkan perangkat pintar di sekitar';
+
+  @override
+  String get wifi_info_cant_be_empty => 'Informasi WiFi tidak boleh kosong';
+
+  @override
+  String get discovering_device_please_wait =>
+      'Menemukan perangkat, harap tunggu, mungkin memakan waktu sekitar satu menit';
+
+  @override
+  String get please_input_2p4g_wifi_password =>
+      'Masukkan kata sandi WiFi router (frekuensi 2.4G) untuk memulai konfigurasi';
+
+  @override
+  String get airkiss_device_wifi_config_success =>
+      'Konfigurasi WiFi perangkat AirKiss terdekat selesai';
+
+  @override
+  String get bind_wechat_success => 'Binding WeChat berhasil!';
+
+  @override
+  String get bind_wechat_failed => 'Binding WeChat gagal';
+
+  @override
+  String get get_wechat_login_info_failed =>
+      'Gagal mendapatkan informasi login WeChat';
+
+  @override
+  String get account_and_safety => 'Akun dan keamanan';
+
+  @override
+  String get mobile_number => 'Nomor telepon';
+
+  @override
+  String get username => 'Nama pengguna';
+
+  @override
+  String get user_mobile => 'Nomor ponsel';
+
+  @override
+  String get user_email => 'Email';
+
+  @override
+  String get modify_password => 'Ubah kata sandi';
+
+  @override
+  String get password => 'Kata sandi';
+
+  @override
+  String get bind_wechat => 'Binding WeChat';
+
+  @override
+  String get no_wechat_installed =>
+      'Hanya dapat binding WeChat jika sudah terpasang';
+
+  @override
+  String get unbind_wechat => 'Batalkan binding WeChat';
+
+  @override
+  String get unbind_wechat_success => 'Pembatalan binding WeChat berhasil!';
+
+  @override
+  String get unbind_wechat_failed_reason =>
+      'Pembatalan binding WeChat gagal! Alasan:';
+
+  @override
+  String get cancel_account => 'Hapus akun';
+
+  @override
+  String get please_input_new_value => 'Silakan masukkan nilai baru';
+
+  @override
+  String get new_value => 'Nilai baru';
+
+  @override
+  String get cancel_my_account => 'Hapus akun saya';
+
+  @override
+  String get cancel_my_account_notify1 =>
+      'Perhatian: Setelah konfirmasi, operasi penghapusan akan segera berlaku dan tidak dapat dipulihkan!';
+
+  @override
+  String get operation_cannot_be_restored => 'Operasi tidak dapat dipulihkan!';
+
+  @override
+  String get please_input_your_password => 'Silakan masukkan kata sandi Anda';
+
+  @override
+  String get current_account_password => 'Kata sandi akun saat ini';
+
+  @override
+  String get confirm_cancel_account => 'Konfirmasi hapus akun?';
+
+  @override
+  String get cancel_account_success => 'Akun berhasil dihapus!';
+
+  @override
+  String get cancel_account_failed => 'Gagal menghapus akun';
+
+  @override
+  String get wechat_login_failed => 'Login WeChat gagal';
+
+  @override
+  String get login => 'Login';
+
+  @override
+  String get please_input_mobile => 'Silakan masukkan nomor ponsel';
+
+  @override
+  String get please_input_password => 'Silakan masukkan kata sandi pengguna';
+
+  @override
+  String get agree_to_the_user_agreement1 => 'Silakan centang';
+
+  @override
+  String get agree_to_the_user_agreement2 =>
+      'persetujuan kebijakan privasi di bawah untuk melanjutkan';
+
+  @override
+  String get common_username_and_password_cant_be_empty =>
+      'Nama pengguna dan kata sandi tidak boleh kosong';
+
+  @override
+  String get user_registration => 'Pendaftaran pengguna';
+
+  @override
+  String get common_privacy_policy => 'Kebijakan privasi';
+
+  @override
+  String get common_feedback_channels => 'Saluran umpan balik';
+
+  @override
+  String get get_wechat_qr_code_failed =>
+      'Gagal mendapatkan kode QR login WeChat!';
+
+  @override
+  String get wechat_scan_qr_code_to_login =>
+      'Pindai kode QR WeChat untuk login!';
+
+  @override
+  String get exit => 'Keluar';
+
+  @override
+  String get common_login_failed => 'Login gagal';
+
+  @override
+  String get login_after_wechat_bind =>
+      'Silakan binding akun WeChat ini terlebih dahulu sebelum menggunakan login cepat WeChat';
+
+  @override
+  String get wechat_fast_login_failed => 'Login cepat WeChat gagal';
+
+  @override
+  String get register => 'Daftar';
+
+  @override
+  String get register_success =>
+      'Pendaftaran berhasil! Gunakan informasi pendaftaran untuk login!';
+
+  @override
+  String get register_failed => 'Pendaftaran gagal! Silakan coba lagi';
+
+  @override
+  String get user_info => 'Informasi pengguna';
+
+  @override
+  String get logout => 'Logout';
+
+  @override
+  String get share_success => 'Berbagi berhasil!';
+
+  @override
+  String get share_failed => 'Berbagi gagal!';
+
+  @override
+  String get as_a_gateway => 'Perangkat ini sebagai gateway';
+
+  @override
+  String get as_a_gateway_description1 =>
+      'Gunakan aplikasi OpenIoTHub untuk memindai kode QR di atas untuk menambahkan gateway ini dan mengakses jaringan ini';
+
+  @override
+  String get change_gateway_id => 'Ubah ID gateway';
+
+  @override
+  String get go_to_main_menu => 'Kembali ke menu utama';
+
+  @override
+  String get share_to_wechat => 'Bagikan ke WeChat';
+
+  @override
+  String get select_where_to_share => 'Pilih lokasi untuk berbagi';
+
+  @override
+  String get openiothub_gateway_share => 'Berbagi gateway OpenIoTHub';
+
+  @override
+  String get openiothub_gateway_share_description =>
+      'Gunakan OpenIoTHub untuk memindai kode QR menambahkan gateway, kelola semua perangkat pintar dan cloud pribadi Anda';
+
+  @override
+  String get app_name => 'Nama aplikasi:';
+
+  @override
+  String get package_name => 'Nama paket:';
+
+  @override
+  String get version => 'Versi:';
+
+  @override
+  String get version_sn => 'Nomor versi:';
+
+  @override
+  String get icp_number => 'Nomor registrasi aplikasi:';
+
+  @override
+  String get online_feedback => 'Umpan balik online';
+
+  @override
+  String get app_info => 'Informasi aplikasi';
+
+  @override
+  String get share_app_title =>
+      'OpenIoTHub tunneling intranet dan manajemen rumah pintar';
+
+  @override
+  String get share_app_description =>
+      'OpenIoTHub mengelola semua perangkat pintar dan cloud pribadi Anda di semua platform';
+
+  @override
+  String get share => 'Bagikan';
+
+  @override
+  String get share_to_where => 'Pilih lokasi untuk berbagi';
+
+  @override
+  String get wechat_not_installed => 'WeChat tidak terpasang';
+
+  @override
+  String get share_on_moments => 'Bagikan ke Moments';
+
+  @override
+  String get find_local_gateway_list => 'Temukan daftar gateway lokal';
+
+  @override
+  String get manually_create_a_gateway => 'Buat gateway secara manual?';
+
+  @override
+  String get manually_create_a_gateway_description1 =>
+      'Gateway yang terpasang dapat ditemukan di halaman ini';
+
+  @override
+  String get manually_create_a_gateway_description2 =>
+      'Secara otomatis menghasilkan informasi gateway, lalu isi token ke file konfigurasi gateway, cocok ketika ponsel tidak dapat menemukan gateway di jaringan lokal yang sama';
+
+  @override
+  String get manually_create_a_gateway_description3 =>
+      'Pilih server yang akan dihubungkan gateway dari bawah:';
+
+  @override
+  String get paste_info =>
+      'ID dan token gateway telah disalin ke clipboard, silakan isi konfigurasi ke file konfigurasi gateway';
+
+  @override
+  String get common_add_gateway_success =>
+      'ID dan token gateway telah disalin ke clipboard, silakan isi konfigurasi ke file konfigurasi gateway';
+
+  @override
+  String get gateway_install_guide => 'Panduan instalasi gateway';
+
+  @override
+  String get gateway_install_guide_content1 =>
+      'Berikut cara menginstal gateway Anda sendiri';
+
+  @override
+  String get gateway_install_guide_content2 =>
+      'Pertama, Anda perlu menginstal gateway ke jaringan lokal yang ingin Anda akses untuk berjalan terus-menerus';
+
+  @override
+  String get gateway_install_guide_content3 =>
+      'Pertama kali, sambungkan aplikasi ini ke jaringan lokal yang sama dengan gateway';
+
+  @override
+  String get gateway_install_guide_content4 =>
+      'Setelah aplikasi mencari di jaringan lokal dan mengonfigurasi menambahkan gateway sekali';
+
+  @override
+  String get gateway_install_guide_content5 =>
+      'Kemudian selama gateway online, klien seluler dapat mengakses';
+
+  @override
+  String get gateway_install_guide_content6 =>
+      'Berikut cara menginstal gateway ke jaringan yang perlu Anda akses';
+
+  @override
+  String get gateway_install_guide_content7 =>
+      'Lihat alamat sumber terbuka gateway';
+
+  @override
+  String get gateway_install_guide_content8 =>
+      'Instalasi router OpenWrt snapshot: opkg install gateway-go';
+
+  @override
+  String get gateway_install_guide_content9 =>
+      'MacOS dengan homebrew: brew install gateway-go';
+
+  @override
+  String get gateway_install_guide_content10 =>
+      'Linux dengan snapcraft: sudo snap install gateway-go';
+
+  @override
+  String get define_server_name => 'Nama server kustom';
+
+  @override
+  String get define_server_ip_or_domain => 'Alamat IP atau domain server';
+
+  @override
+  String get define_server_addr => 'Alamat server server-go publik';
+
+  @override
+  String get define_server_key => 'Kunci rahasia';
+
+  @override
+  String get define_server_tcp_port => 'Port TCP';
+
+  @override
+  String get define_server_kcp_port => 'Port KCP';
+
+  @override
+  String get port => 'Port';
+
+  @override
+  String get define_description => 'Informasi deskripsi kustom';
+
+  @override
+  String get for_everyone_to_use => 'Tersedia untuk semua pengguna aplikasi:';
+
+  @override
+  String get update_success => 'Pembaruan berhasil!';
+
+  @override
+  String get confirm_modify => 'Konfirmasi perubahan';
+
+  @override
+  String get server_info => 'Informasi server';
+
+  @override
+  String get common_delete_success => 'Penghapusan berhasil!';
+
+  @override
+  String get grpc_server_addr => 'Alamat layanan grpc';
+
+  @override
+  String get grpc_server_ip_or_domain =>
+      'Silakan masukkan IP atau domain layanan grpc';
+
+  @override
+  String get grpc_service_port => 'Port layanan grpc';
+
+  @override
+  String get input_grpc_service_port => 'Silakan masukkan port layanan grpc';
+
+  @override
+  String get iot_manager_addr => 'Alamat iot-manager';
+
+  @override
+  String get input_iot_manager_addr =>
+      'Silakan masukkan alamat layanan grpc iot-manager';
+
+  @override
+  String get activate_front_desk_service =>
+      'Aktifkan layanan latar depan (tetap aktif di latar belakang)';
+
+  @override
+  String get auto_start_gateway =>
+      'Mulai gateway bawaan saat aplikasi diluncurkan';
+
+  @override
+  String get wake_lock_enabled =>
+      'Aktifkan wake lock (tetap aktif saat layar terkunci)';
+
+  @override
+  String get my_server_description_example => 'Server server-go saya sendiri';
+
+  @override
+  String get server_go_addr_example => 'guonei.servers.iothub.cloud';
+
+  @override
+  String get my_server_description => 'Deskripsi server saya';
+
+  @override
+  String get add_self_hosted_server => 'Tambahkan server self-hosted:';
+
+  @override
+  String get server_uuid => 'UUID server';
+
+  @override
+  String get as_config_file =>
+      'Konsisten dengan file konfigurasi server server-go';
+
+  @override
+  String get add_to_server => 'Tambahkan ke server';
+
+  @override
+  String get add_server => 'Tambahkan server';
+
+  @override
+  String get success => 'Berhasil!';
+
+  @override
+  String get location_req_name => 'Deskripsi izin lokasi';
+
+  @override
+  String get location_req_desc =>
+      'Minta izin lokasi untuk mendapatkan informasi WiFi untuk konfigurasi perangkat pintar';
+
+  @override
+  String get github_repo => 'Sumber terbuka Github';
+
+  @override
+  String get rdp_remote_desktop => 'Desktop jarak jauh RDP';
+
+  @override
+  String get select_server_for_gateway =>
+      'Pilih server yang perlu dihubungkan oleh gateway ini';
+
+  @override
+  String get plugin_add_gateway_success => 'Gateway berhasil ditambahkan!';
+
+  @override
+  String get plugin_login_failed => 'Login gagal!';
+
+  @override
+  String get plugin_add_gateway_failed => 'Gagal menambahkan gateway!';
+
+  @override
+  String get gateway_already_added =>
+      'Gateway ini sudah ditambahkan oleh pengguna lain. Hubungi administrator gateway atau hapus konfigurasi gateway dan restart gateway';
+
+  @override
+  String get confirm_gateway_connect_this_server =>
+      'Konfirmasi menambahkan gateway ini ke server ini?';
+
+  @override
+  String get get_gateway_login_status_failed =>
+      'Gagal mendapatkan status login gateway';
+
+  @override
+  String get onvif_camera_manager => 'Manajer kamera Onvif';
+
+  @override
+  String get plugin_confirm => 'Konfirmasi';
+
+  @override
+  String get confirm_delete_onvif_device =>
+      'Konfirmasi menghapus perangkat Onvif ini?';
+
+  @override
+  String get onvif_camera => 'Kamera Onvif';
+
+  @override
+  String get add_onvif_camera => 'Tambah kamera Onvif';
+
+  @override
+  String get custom_name => 'Nama kustom';
+
+  @override
+  String get x_addr_addr => 'Alamat XAddr';
+
+  @override
+  String get onvif_device_host_port => 'Alamat:port Onvif mesin ini';
+
+  @override
+  String get onvif_username => 'Nama pengguna Onvif';
+
+  @override
+  String get onvif_password => 'Kata sandi Onvif';
+
+  @override
+  String get device_name => 'Nama perangkat';
+
+  @override
+  String get device_model => 'Model perangkat';
+
+  @override
+  String get mac_addr => 'Alamat fisik';
+
+  @override
+  String get firmware_author => 'Penulis firmware';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get home_page => 'Beranda';
+
+  @override
+  String get firmware_repository => 'Program firmware';
+
+  @override
+  String get firmware_version => 'Versi firmware';
+
+  @override
+  String get is_local => 'Apakah perangkat jaringan lokal';
+
+  @override
+  String get yes => 'Ya';
+
+  @override
+  String get no => 'Tidak';
+
+  @override
+  String get device_ip => 'Alamat perangkat';
+
+  @override
+  String get device_port => 'Port perangkat';
+
+  @override
+  String get device_info => 'Informasi perangkat';
+
+  @override
+  String get modify_device_name => 'Ubah nama';
+
+  @override
+  String get input_new_device_name => 'Masukkan nama baru';
+
+  @override
+  String get plugin_confirm_delete_device =>
+      'Konfirmasi menghapus perangkat ini?';
+
+  @override
+  String get plugin_delete_success => 'Berhasil dihapus!';
+
+  @override
+  String get mdns_info => 'Informasi perangkat';
+
+  @override
+  String get firmware_url => 'URL firmware';
+
+  @override
+  String get start_ota => 'Mulai pembaruan';
+
+  @override
+  String get temperature => 'Suhu';
+
+  @override
+  String get humidity => 'Kelembaban';
+
+  @override
+  String get setting_name => 'Nama pengaturan';
+
+  @override
+  String get upgrade_firmware => 'Upgrade firmware';
+
+  @override
+  String get switch_control => 'Kontrol saklar';
+
+  @override
+  String get on => 'Sudah menyala';
+
+  @override
+  String get off => 'Sudah mati';
+
+  @override
+  String get effect => 'Efek';
+
+  @override
+  String get switch_bottom => 'Saklar';
+
+  @override
+  String get speed => 'Kecepatan';
+
+  @override
+  String get please_input_message => 'Silakan masukkan pesan';
+
+  @override
+  String get me => 'Saya';
+
+  @override
+  String get serial_port => 'Port serial';
+
+  @override
+  String get please_input_linux_login_info => 'Masukkan informasi login Linux';
+
+  @override
+  String get linux_username => 'Nama pengguna Linux';
+
+  @override
+  String get ssh_password => 'Kata sandi SSH';
+
+  @override
+  String get above_mentioned_ssh_password =>
+      'Kata sandi pengguna Linux di atas';
+
+  @override
+  String get connect => 'Hubungkan';
+
+  @override
+  String get please_input_user_name => 'Silakan masukkan nama pengguna';
+
+  @override
+  String get plugin_username_and_password_cant_be_empty =>
+      'Nama pengguna dan kata sandi tidak boleh kosong';
+
+  @override
+  String get please_input_ssh_username_password =>
+      'Silakan masukkan nama pengguna dan kata sandi SSH';
 }

@@ -12,7 +12,7 @@ class MDNSInfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     //设备信息
     final List _result = [];
-    _result.add("${OpenIoTHubPluginLocalizations.of(context).mdns_info}:${portConfig.mDNSInfo}");
+    _result.add("${OpenIoTHubLocalizations.of(context).mdns_info}:${portConfig.mDNSInfo}");
 
     final tiles = _result.map(
       (pair) {
@@ -29,7 +29,7 @@ class MDNSInfoPage extends StatelessWidget {
     ).toList();
     return Scaffold(
       appBar: AppBar(
-        title: Text(OpenIoTHubPluginLocalizations.of(context).device_info),
+        title: Text(OpenIoTHubLocalizations.of(context).device_info),
       ),
       body: ListView(children: divided),
     );

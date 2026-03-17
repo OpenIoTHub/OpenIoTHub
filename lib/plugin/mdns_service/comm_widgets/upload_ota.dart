@@ -27,12 +27,12 @@ class _UploadOTAPageState extends State<UploadOTAPage> {
                 Container(
                   child: TextField(
                     controller: _urlController,
-                    decoration: InputDecoration(labelText: OpenIoTHubPluginLocalizations.of(context).firmware_url),
+                    decoration: InputDecoration(labelText: OpenIoTHubLocalizations.of(context).firmware_url),
                   ),
                 ),
                 Container(height: 10),
                 TextButton(
-                  child: Text(OpenIoTHubPluginLocalizations.of(context).start_ota),
+                  child: Text(OpenIoTHubLocalizations.of(context).start_ota),
                   onPressed: () {
                     _uploadBinFile(_urlController.text);
                   },

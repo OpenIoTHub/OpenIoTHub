@@ -10,7 +10,6 @@ import 'package:tdesign_flutter/tdesign_flutter.dart';
 // import 'package:tencent_kit/tencent_kit.dart';
 import 'package:wechat_kit/wechat_kit.dart';
 
-import 'package:openiothub/common_pages/openiothub_common_pages.dart';
 
 class AppInfoPage extends StatefulWidget {
   AppInfoPage({required Key key}) : super(key: key);
@@ -85,11 +84,11 @@ class _AppInfoPageState extends State<AppInfoPage> {
   @override
   Widget build(BuildContext context) {
     final List _result = [];
-    _result.add("${OpenIoTHubCommonLocalizations.of(context).app_name}$appName");
-    _result.add("${OpenIoTHubCommonLocalizations.of(context).package_name}$packageName");
-    _result.add("${OpenIoTHubCommonLocalizations.of(context).version}$version");
-    _result.add("${OpenIoTHubCommonLocalizations.of(context).version_sn}$buildNumber");
-    _result.add("${OpenIoTHubCommonLocalizations.of(context).icp_number}皖ICP备2022013511号-2A");
+    _result.add("${OpenIoTHubLocalizations.of(context).app_name}$appName");
+    _result.add("${OpenIoTHubLocalizations.of(context).package_name}$packageName");
+    _result.add("${OpenIoTHubLocalizations.of(context).version}$version");
+    _result.add("${OpenIoTHubLocalizations.of(context).version_sn}$buildNumber");
+    _result.add("${OpenIoTHubLocalizations.of(context).icp_number}皖ICP备2022013511号-2A");
 
     final tiles = _result.map(
       (pair) {
@@ -103,7 +102,7 @@ class _AppInfoPageState extends State<AppInfoPage> {
     List<ListTile> tilesList = tiles.toList();
     tilesList.add(ListTile(
       title: Text(
-        OpenIoTHubCommonLocalizations.of(context).github_repo,
+        OpenIoTHubLocalizations.of(context).github_repo,
         style: TextStyle(color: Colors.green),
       ),
       onTap: () {
@@ -112,7 +111,7 @@ class _AppInfoPageState extends State<AppInfoPage> {
     ));
     tilesList.add(ListTile(
       title: Text(
-        OpenIoTHubCommonLocalizations.of(context).feedback_channels,
+        OpenIoTHubLocalizations.of(context).common_feedback_channels,
         style: TextStyle(color: Colors.green),
       ),
       onTap: () {
@@ -126,7 +125,7 @@ class _AppInfoPageState extends State<AppInfoPage> {
     ));
     tilesList.add(ListTile(
       title: Text(
-          OpenIoTHubCommonLocalizations.of(context).online_feedback,
+          OpenIoTHubLocalizations.of(context).online_feedback,
         style: TextStyle(color: Colors.green),
       ),
       onTap: () {
@@ -135,12 +134,12 @@ class _AppInfoPageState extends State<AppInfoPage> {
     ));
     tilesList.add(ListTile(
       title: Text(
-        OpenIoTHubCommonLocalizations.of(context).privacy_policy,
+        OpenIoTHubLocalizations.of(context).common_privacy_policy,
         style: TextStyle(color: Colors.green),
       ),
       onTap: () {
         goToUrl(context, "https://docs.iothub.cloud/privacyPolicy/index.html",
-            OpenIoTHubCommonLocalizations.of(context).privacy_policy);
+            OpenIoTHubLocalizations.of(context).common_privacy_policy);
       },
     ));
     final divided = ListTile.divideTiles(
@@ -149,7 +148,7 @@ class _AppInfoPageState extends State<AppInfoPage> {
     ).toList();
 
     return Scaffold(
-      appBar: AppBar(title: Text(OpenIoTHubCommonLocalizations.of(context).app_info), actions: <Widget>[
+      appBar: AppBar(title: Text(OpenIoTHubLocalizations.of(context).app_info), actions: <Widget>[
         IconButton(
             icon: Icon(
               Icons.share,
@@ -175,27 +174,27 @@ class _AppInfoPageState extends State<AppInfoPage> {
   }
 
   _shareAction() async {
-    var title = OpenIoTHubCommonLocalizations.of(context).share_app_title;
-    var description = OpenIoTHubCommonLocalizations.of(context).share_app_description;
+    var title = OpenIoTHubLocalizations.of(context).share_app_title;
+    var description = OpenIoTHubLocalizations.of(context).share_app_description;
     var url = "https://m.malink.cn/s/RNzqia";
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: Text(OpenIoTHubCommonLocalizations.of(context).share),
-                content: Text(OpenIoTHubCommonLocalizations.of(context).share_to_where),
+                title: Text(OpenIoTHubLocalizations.of(context).share),
+                content: Text(OpenIoTHubLocalizations.of(context).share_to_where),
                 actions: <Widget>[
                   Row(
                     children: [
                       TDButton(
                         icon: TDIcons.logo_wechat_stroke,
-                        text: OpenIoTHubCommonLocalizations.of(context).share_to_wechat,
+                        text: OpenIoTHubLocalizations.of(context).share_to_wechat,
                         size: TDButtonSize.small,
                         type: TDButtonType.outline,
                         shape: TDButtonShape.rectangle,
                         theme: TDButtonTheme.primary,
                         onTap: () async {
                           if (!await WechatKitPlatform.instance.isInstalled()) {
-                            showFailed(OpenIoTHubCommonLocalizations.of(context).wechat_not_installed, context);
+                            showFailed(OpenIoTHubLocalizations.of(context).wechat_not_installed, context);
                             return;
                           }
                           WechatKitPlatform.instance.shareWebpage(
@@ -212,7 +211,7 @@ class _AppInfoPageState extends State<AppInfoPage> {
                         padding: const EdgeInsets.only(left: 10.0), // 设置左边距离
                         child: TDButton(
                           icon: TDIcons.logo_wechat_stroke,
-                          text: OpenIoTHubCommonLocalizations.of(context).share_on_moments,
+                          text: OpenIoTHubLocalizations.of(context).share_on_moments,
                           size: TDButtonSize.small,
                           type: TDButtonType.outline,
                           shape: TDButtonShape.rectangle,
@@ -220,7 +219,7 @@ class _AppInfoPageState extends State<AppInfoPage> {
                           onTap: () async {
                             if (!await WechatKitPlatform.instance
                                 .isInstalled()) {
-                              showFailed(OpenIoTHubCommonLocalizations.of(context).wechat_not_installed, context);
+                              showFailed(OpenIoTHubLocalizations.of(context).wechat_not_installed, context);
                               return;
                             }
                             WechatKitPlatform.instance.shareWebpage(

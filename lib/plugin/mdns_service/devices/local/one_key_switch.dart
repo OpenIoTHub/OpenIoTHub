@@ -34,7 +34,7 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(OpenIoTHubPluginLocalizations.of(context).switch_control),
+        title: Text(OpenIoTHubLocalizations.of(context).switch_control),
         actions: <Widget>[
           IconButton(
               icon: Icon(
@@ -74,8 +74,8 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 ledBottonStatus == "on"
-                    ? Text(OpenIoTHubPluginLocalizations.of(context).on)
-                    : Text(OpenIoTHubPluginLocalizations.of(context).off),
+                    ? Text(OpenIoTHubLocalizations.of(context).on)
+                    : Text(OpenIoTHubLocalizations.of(context).off),
               ],
             )
           ]),
@@ -115,7 +115,7 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
         context: context,
         builder: (_) => AlertDialog(
                 title: Text(
-                    "${OpenIoTHubPluginLocalizations.of(context).setting_name}："),
+                    "${OpenIoTHubLocalizations.of(context).setting_name}："),
                 content: SizedBox.expand(
                   child: ListView(
                     children: <Widget>[
@@ -124,7 +124,7 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.all(10.0),
                           labelText:
-                              OpenIoTHubPluginLocalizations.of(context).name,
+                              OpenIoTHubLocalizations.of(context).name,
                         ),
                       )
                     ],
@@ -133,14 +133,14 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
                 actions: <Widget>[
                   TextButton(
                     child:
-                        Text(OpenIoTHubPluginLocalizations.of(context).cancel),
+                        Text(OpenIoTHubLocalizations.of(context).cancel),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
                     child:
-                        Text(OpenIoTHubPluginLocalizations.of(context).modify),
+                        Text(OpenIoTHubLocalizations.of(context).modify),
                     onPressed: () async {
                       try {
                         String url =

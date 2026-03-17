@@ -28,7 +28,7 @@ class UnraidLoginPage extends StatefulWidget {
 }
 
 class _UnraidLoginPageState extends State<UnraidLoginPage> {
-  OpenIoTHubPluginLocalizations? localizations;
+  OpenIoTHubLocalizations? localizations;
   List<Widget> _list = <Widget>[];
 
   final TextEditingController _username = TextEditingController(text: "");
@@ -72,8 +72,8 @@ class _UnraidLoginPageState extends State<UnraidLoginPage> {
           child: TDInput(
             controller: _username,
             backgroundColor: Colors.white,
-            leftLabel: OpenIoTHubPluginLocalizations.of(context).username,
-            hintText: OpenIoTHubPluginLocalizations.of(context)
+            leftLabel: OpenIoTHubLocalizations.of(context).username,
+            hintText: OpenIoTHubLocalizations.of(context)
                 .please_input_user_name,
             onChanged: (String v) {},
           ),
@@ -81,9 +81,9 @@ class _UnraidLoginPageState extends State<UnraidLoginPage> {
         TDInput(
           controller: _userPassword,
           backgroundColor: Colors.white,
-          leftLabel: OpenIoTHubPluginLocalizations.of(context).password,
+          leftLabel: OpenIoTHubLocalizations.of(context).password,
           hintText:
-              OpenIoTHubPluginLocalizations.of(context).please_input_password,
+              OpenIoTHubLocalizations.of(context).please_input_password,
           obscureText: true,
           onChanged: (String v) {},
         ),
@@ -94,7 +94,7 @@ class _UnraidLoginPageState extends State<UnraidLoginPage> {
             children: [
               TDButton(
                   icon: TDIcons.login,
-                  text: OpenIoTHubPluginLocalizations.of(context).login,
+                  text: OpenIoTHubLocalizations.of(context).login,
                   size: TDButtonSize.medium,
                   type: TDButtonType.outline,
                   shape: TDButtonShape.rectangle,
@@ -102,8 +102,8 @@ class _UnraidLoginPageState extends State<UnraidLoginPage> {
                   onTap: () async {
                     if (_username.text.isEmpty || _userPassword.text.isEmpty) {
                       showFailed(
-                          OpenIoTHubPluginLocalizations.of(context)
-                              .username_and_password_cant_be_empty,
+                          OpenIoTHubLocalizations.of(context)
+                              .plugin_username_and_password_cant_be_empty,
                           context);
                       return;
                     }

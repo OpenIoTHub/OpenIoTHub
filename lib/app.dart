@@ -41,8 +41,6 @@ class MyApp extends StatelessWidget {
                       locale: effectiveLocale,
                       localizationsDelegates: const [
                         OpenIoTHubLocalizations.delegate,
-                        OpenIoTHubCommonLocalizations.delegate,
-                        OpenIoTHubPluginLocalizations.delegate,
                         GlobalMaterialLocalizations.delegate,
                         GlobalWidgetsLocalizations.delegate,
                         GlobalCupertinoLocalizations.delegate,

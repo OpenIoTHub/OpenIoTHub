@@ -24,7 +24,7 @@ class Airkiss extends StatefulWidget {
 }
 
 class _AirkissState extends State<Airkiss> {
-  OpenIoTHubCommonLocalizations? localizations;
+  OpenIoTHubLocalizations? localizations;
   final NetworkInfo _networkInfo = NetworkInfo();
 
 //  New
@@ -82,7 +82,7 @@ class _AirkissState extends State<Airkiss> {
 
   @override
   Widget build(BuildContext context) {
-    localizations = OpenIoTHubCommonLocalizations.of(context);
+    localizations = OpenIoTHubLocalizations.of(context);
     if (_ssidFilter.text.isEmpty) {
       _ssidFilter.text = localizations!.click_to_get_wifi_info;
     }
@@ -184,14 +184,14 @@ class _AirkissState extends State<Airkiss> {
       pageBuilder: (BuildContext buildContext, Animation<double> animation,
           Animation<double> secondaryAnimation) {
         return TDAlertDialog(
-          title: OpenIoTHubCommonLocalizations.of(context).location_req_name,
+          title: OpenIoTHubLocalizations.of(context).location_req_name,
             // Note 说明权限申请的使用目的，包括但不限于申请权限的名称、服务的具体功能、用途
-          content: OpenIoTHubCommonLocalizations.of(context).location_req_desc,
+          content: OpenIoTHubLocalizations.of(context).location_req_desc,
           titleColor: Colors.black,
           contentColor: Colors.redAccent,
           // backgroundColor: AppTheme.blockBgColor,
           leftBtn: TDDialogButtonOptions(
-            title: OpenIoTHubCommonLocalizations.of(context).cancel,
+            title: OpenIoTHubLocalizations.of(context).cancel,
             // titleColor: AppTheme.color999,
             style: TDButtonStyle(
               backgroundColor: Colors.grey,
@@ -201,7 +201,7 @@ class _AirkissState extends State<Airkiss> {
             },
           ),
           rightBtn: TDDialogButtonOptions(
-            title: OpenIoTHubCommonLocalizations.of(context).ok,
+            title: OpenIoTHubLocalizations.of(context).ok,
             style: TDButtonStyle(
               backgroundColor: Colors.blue,
             ),

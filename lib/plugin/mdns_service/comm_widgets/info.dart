@@ -12,13 +12,13 @@ import 'package:openiothub/plugin/models/port_service_info.dart';
 
 class InfoPage extends StatelessWidget {
   InfoPage({required Key key, required this.portService}) : super(key: key);
-  OpenIoTHubPluginLocalizations? localizations;
+  OpenIoTHubLocalizations? localizations;
   PortServiceInfo portService;
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    localizations = OpenIoTHubPluginLocalizations.of(context);
+    localizations = OpenIoTHubLocalizations.of(context);
     //设备信息
     final List _stdKey = [
       "name",
@@ -145,23 +145,23 @@ _deleteDialog(BuildContext context, PortServiceInfo portService) async {
   showDialog(
       context: context,
       builder: (_) => AlertDialog(
-              title: Text("${OpenIoTHubPluginLocalizations.of(context).delete_device}："),
+              title: Text("${OpenIoTHubLocalizations.of(context).delete_device}："),
               content: SizedBox.expand(
                 child: ListView(
                   children: <Widget>[
-                    Text("${OpenIoTHubPluginLocalizations.of(context).confirm_delete_device}"),
+                    Text("${OpenIoTHubLocalizations.of(context).plugin_confirm_delete_device}"),
                   ],
                 ),
               ),
               actions: <Widget>[
                 TextButton(
-                  child: Text(OpenIoTHubPluginLocalizations.of(context).cancel),
+                  child: Text(OpenIoTHubLocalizations.of(context).cancel),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
                 ),
                 TextButton(
-                  child: Text(OpenIoTHubPluginLocalizations.of(context).delete),
+                  child: Text(OpenIoTHubLocalizations.of(context).delete),
                   onPressed: () async {
                     await _delete(context, portService);
                     Navigator.of(context).pop();
@@ -176,5 +176,5 @@ _delete(BuildContext context, PortServiceInfo portService) async {
   MqttDeviceInfo mqttDeviceInfo = MqttDeviceInfo();
   mqttDeviceInfo.deviceId = portService.info!["id"]!;
   await MqttDeviceManager.delMqttDevice(mqttDeviceInfo);
-  showSuccess(OpenIoTHubPluginLocalizations.of(context).delete_success, context);
+  showSuccess(OpenIoTHubLocalizations.of(context).plugin_delete_success, context);
 }
