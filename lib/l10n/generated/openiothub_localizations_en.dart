@@ -125,6 +125,10 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
   String get check_if_the_port_is_a_number => 'Check if the port is a number';
 
   @override
+  String get duplicate_remote_port_same_network_protocol =>
+      'This host already has this remote port for the same network protocol (e.g. TCP or UDP). Duplicates are not allowed within the same protocol.';
+
+  @override
   String get delete_ftp => 'Delete FTP';
 
   @override

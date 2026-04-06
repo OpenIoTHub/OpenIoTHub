@@ -125,6 +125,10 @@ class OpenIoTHubLocalizationsHr extends OpenIoTHubLocalizations {
   String get check_if_the_port_is_a_number => 'Provjerite je li port broj';
 
   @override
+  String get duplicate_remote_port_same_network_protocol =>
+      '该主机下已存在相同网络协议（如 TCP/UDP）的远程端口，同一协议内不可重复';
+
+  @override
   String get delete_ftp => 'Obriši FTP';
 
   @override

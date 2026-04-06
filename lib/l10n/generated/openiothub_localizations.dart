@@ -399,6 +399,12 @@ abstract class OpenIoTHubLocalizations {
   /// **'检查端口是否为数字'**
   String get check_if_the_port_is_a_number;
 
+  /// No description provided for @duplicate_remote_port_same_network_protocol.
+  ///
+  /// In zh, this message translates to:
+  /// **'该主机下已存在相同网络协议（如 TCP/UDP）的远程端口，同一协议内不可重复'**
+  String get duplicate_remote_port_same_network_protocol;
+
   /// No description provided for @delete_ftp.
   ///
   /// In zh, this message translates to:

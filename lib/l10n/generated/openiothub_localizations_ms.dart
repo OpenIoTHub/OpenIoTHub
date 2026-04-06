@@ -126,6 +126,10 @@ class OpenIoTHubLocalizationsMs extends OpenIoTHubLocalizations {
       'Semak sama ada port ialah nombor';
 
   @override
+  String get duplicate_remote_port_same_network_protocol =>
+      '该主机下已存在相同网络协议（如 TCP/UDP）的远程端口，同一协议内不可重复';
+
+  @override
   String get delete_ftp => 'Padam FTP';
 
   @override

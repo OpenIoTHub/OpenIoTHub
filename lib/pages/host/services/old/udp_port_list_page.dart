@@ -217,7 +217,7 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
                   ),
                   TextButton(
                     child: Text(OpenIoTHubLocalizations.of(context).add),
-                    onPressed: () {
+                    onPressed: () async {
                       var udpConfig = PortConfig();
                       udpConfig.device = device;
                       udpConfig.description = descriptionController.text;
@@ -233,9 +233,24 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
                       }
                       udpConfig.networkProtocol = "udp";
                       udpConfig.applicationProtocol = "unknown";
-                      CommonDeviceApi.createOneUDP(udpConfig).then((restlt) {
-                        Navigator.of(context).pop();
-                      });
+                      final l = OpenIoTHubLocalizations.of(context);
+                      try {
+                        await CommonDeviceApi.createOneUDP(udpConfig);
+                        if (mounted) {
+                          Navigator.of(context).pop();
+                        }
+                      } on RemotePortDuplicateException {
+                        if (mounted) {
+                          showFailed(
+                            l.duplicate_remote_port_same_network_protocol,
+                            context,
+                          );
+                        }
+                      } catch (e) {
+                        if (mounted) {
+                          showFailed(e.toString(), context);
+                        }
+                      }
                     },
                   )
                 ]));

@@ -38,6 +38,7 @@
   "cancel": "Cancel",
   "add": "Add",
   "check_if_the_port_is_a_number": "Check if the port is a number",
+  "duplicate_remote_port_same_network_protocol": "This host already has this remote port for the same network protocol (e.g. TCP or UDP). Duplicates are not allowed within the same protocol.",
   "delete_ftp": "Delete FTP",
   "confirm_to_delete_this_ftp": "Are you sure to delete this FTP?",
   "delete": "Delete",

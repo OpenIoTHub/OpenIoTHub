@@ -177,7 +177,7 @@ class _CreateServiceWidgetState extends State<CreateServiceWidget> {
           ),
           TextButton(
             child: Text(OpenIoTHubLocalizations.of(context).add),
-            onPressed: () {
+            onPressed: () async {
               var tcpConfig = PortConfig();
               tcpConfig.device = widget.device;
               tcpConfig.name = nameController.text;
@@ -200,17 +200,30 @@ class _CreateServiceWidgetState extends State<CreateServiceWidget> {
               } else {
                 tcpConfig.applicationProtocol = "unknown";
               }
-              switch (tcpConfig.networkProtocol) {
-                case "tcp":
-                  CommonDeviceApi.createOneTCP(tcpConfig).then((restlt) {
-                    Navigator.of(context).pop();
-                  });
-                  break;
-                case "udp":
-                  CommonDeviceApi.createOneUDP(tcpConfig).then((restlt) {
-                    Navigator.of(context).pop();
-                  });
-                  break;
+              final l = OpenIoTHubLocalizations.of(context);
+              try {
+                switch (tcpConfig.networkProtocol) {
+                  case "tcp":
+                    await CommonDeviceApi.createOneTCP(tcpConfig);
+                    break;
+                  case "udp":
+                    await CommonDeviceApi.createOneUDP(tcpConfig);
+                    break;
+                }
+                if (mounted) {
+                  Navigator.of(context).pop();
+                }
+              } on RemotePortDuplicateException {
+                if (mounted) {
+                  showFailed(
+                    l.duplicate_remote_port_same_network_protocol,
+                    context,
+                  );
+                }
+              } catch (e) {
+                if (mounted) {
+                  showFailed(e.toString(), context);
+                }
               }
             },
           )

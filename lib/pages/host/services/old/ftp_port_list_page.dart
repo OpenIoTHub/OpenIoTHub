@@ -217,7 +217,7 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
                   ),
                   TextButton(
                     child: Text(OpenIoTHubLocalizations.of(context).add),
-                    onPressed: () {
+                    onPressed: () async {
                       var ftpConfig = PortConfig();
                       ftpConfig.device = device;
                       ftpConfig.description = descriptionController.text;
@@ -233,9 +233,24 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
                       }
                       ftpConfig.networkProtocol = "tcp";
                       ftpConfig.applicationProtocol = "ftp";
-                      CommonDeviceApi.createOneFTP(ftpConfig).then((restlt) {
-                        Navigator.of(context).pop();
-                      });
+                      final l = OpenIoTHubLocalizations.of(context);
+                      try {
+                        await CommonDeviceApi.createOneFTP(ftpConfig);
+                        if (mounted) {
+                          Navigator.of(context).pop();
+                        }
+                      } on RemotePortDuplicateException {
+                        if (mounted) {
+                          showFailed(
+                            l.duplicate_remote_port_same_network_protocol,
+                            context,
+                          );
+                        }
+                      } catch (e) {
+                        if (mounted) {
+                          showFailed(e.toString(), context);
+                        }
+                      }
                     },
                   )
                 ]));

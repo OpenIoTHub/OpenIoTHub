@@ -263,7 +263,7 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                   ),
                   TextButton(
                     child: Text(OpenIoTHubLocalizations.of(context).add),
-                    onPressed: () {
+                    onPressed: () async {
                       var tcpConfig = PortConfig();
                       tcpConfig.device = device;
                       tcpConfig.description = descriptionController.text;
@@ -284,9 +284,24 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                       } else {
                         tcpConfig.applicationProtocol = "unknown";
                       }
-                      CommonDeviceApi.createOneTCP(tcpConfig).then((restlt) {
-                        Navigator.of(context).pop();
-                      });
+                      final l = OpenIoTHubLocalizations.of(context);
+                      try {
+                        await CommonDeviceApi.createOneTCP(tcpConfig);
+                        if (mounted) {
+                          Navigator.of(context).pop();
+                        }
+                      } on RemotePortDuplicateException {
+                        if (mounted) {
+                          showFailed(
+                            l.duplicate_remote_port_same_network_protocol,
+                            context,
+                          );
+                        }
+                      } catch (e) {
+                        if (mounted) {
+                          showFailed(e.toString(), context);
+                        }
+                      }
                     },
                   )
                 ]));

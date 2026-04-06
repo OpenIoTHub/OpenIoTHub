@@ -7,7 +7,62 @@ import 'package:openiothub_grpc_api/proto/manager/hostManager.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/portManager.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 
+/// 客户端与后端一致的「同主机同网络协议远程端口重复」校验失败时抛出，由 UI 展示本地化文案。
+class RemotePortDuplicateException implements Exception {
+  const RemotePortDuplicateException();
+
+  @override
+  String toString() => 'RemotePortDuplicateException';
+}
+
 class CommonDeviceApi {
+  /// 与后端一致：同一主机下，同一网络协议（TCP / UDP）的远程端口不可重复；TCP 与 UDP 可同号。
+  /// FTP 走 TCP，与 [getAllTCP] / [getAllFTP] 列表一并校验。
+  static Future<bool> hostHasConflictingRemotePort(
+    Device device,
+    String networkProtocol,
+    int remotePort, {
+    String? excludePortUuid,
+  }) async {
+    final want = networkProtocol.toLowerCase();
+    if (want == 'udp') {
+      final list = await getAllUDP(device);
+      return _existingPortConflicts(
+        list.portConfigs,
+        want,
+        remotePort,
+        excludePortUuid,
+      );
+    }
+    final tcp = await getAllTCP(device);
+    final ftp = await getAllFTP(device);
+    final merged = <PortConfig>[
+      ...tcp.portConfigs,
+      ...ftp.portConfigs,
+    ];
+    return _existingPortConflicts(merged, 'tcp', remotePort, excludePortUuid);
+  }
+
+  static bool _existingPortConflicts(
+    Iterable<PortConfig> existing,
+    String networkProtocolLower,
+    int remotePort,
+    String? excludePortUuid,
+  ) {
+    for (final c in existing) {
+      if (excludePortUuid != null && c.uuid == excludePortUuid) {
+        continue;
+      }
+      if (c.remotePort != remotePort) {
+        continue;
+      }
+      if (c.networkProtocol.toLowerCase() == networkProtocolLower) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   //设置设备的物理地址
   static Future setDeviceMac(Device device) async {
     final channel = await Channel.getOpenIoTHubChannel();
@@ -76,6 +131,13 @@ class CommonDeviceApi {
   // TCP
 //  rpc CreateOneTCP (PortConfig) returns (PortConfig) {}
   static Future createOneTCP(PortConfig config) async {
+    if (await hostHasConflictingRemotePort(
+      config.device,
+      config.networkProtocol,
+      config.remotePort,
+    )) {
+      throw const RemotePortDuplicateException();
+    }
     config.uuid = getOneUUID();
     final channel = await Channel.getOpenIoTHubChannel();
     final stub = CommonDeviceManagerClient(channel);
@@ -156,6 +218,13 @@ class CommonDeviceApi {
   // UDP
 //  rpc CreateOneUDP (PortConfig) returns (PortConfig) {}
   static Future createOneUDP(PortConfig config) async {
+    if (await hostHasConflictingRemotePort(
+      config.device,
+      config.networkProtocol,
+      config.remotePort,
+    )) {
+      throw const RemotePortDuplicateException();
+    }
     config.uuid = getOneUUID();
     final channel = await Channel.getOpenIoTHubChannel();
     final stub = CommonDeviceManagerClient(channel);
@@ -223,6 +292,13 @@ class CommonDeviceApi {
   // FTP
 //  rpc CreateOneFTP (PortConfig) returns (PortConfig) {}
   static Future createOneFTP(PortConfig config) async {
+    if (await hostHasConflictingRemotePort(
+      config.device,
+      config.networkProtocol,
+      config.remotePort,
+    )) {
+      throw const RemotePortDuplicateException();
+    }
     config.uuid = getOneUUID();
     final channel = await Channel.getOpenIoTHubChannel();
     final stub = CommonDeviceManagerClient(channel);
