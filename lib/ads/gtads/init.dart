@@ -17,7 +17,7 @@ Future initGTADsAD() async {
     return null;
   }
   MobileAds.instance.initialize().then((onValue){print(onValue.adapterStatuses.toString());});
-  //添加Provider列表
+  // 添加 Provider：优量汇(ylh) 置于首位，与各广告位 GTAdsCode 中 ylh 优先策略一致
   GTAds.addProviders([
     GTAdsYlhProvider("ylh", YlhAdConfig.getAppId(), YlhAdConfig.getAppId()),
     // GTAdsCsjProvider("csj", CsjAdConfig.getAppId(), CsjAdConfig.getAppId(), appName: "云亿连"),

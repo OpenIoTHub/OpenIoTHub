@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:gtads/gtads.dart';
 import 'package:openiothub/ads/configs/configs.dart';
@@ -15,8 +13,6 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  bool _offstage = true;
-
   @override
   void initState() {
     super.initState();
@@ -34,8 +30,8 @@ class _SplashPageState extends State<SplashPage> {
             codes: [
               //GTAdsModel.PRIORITY时 当前广告位的优先级数值越大越优先加载（当加载失败后从剩余广告中按数值大小依次重试）
               //GTAdsModel.RANDOM时 当前广告位出现的概率必须大于0,如果小于0则不会加载该广告,数值越大出现的概率越高（当加载失败后从剩余广告中重新随机加载）
-              GTAdsCode(alias: "csj", probability: 5,androidId: CsjAdConfig.getAppOpenAdUnitId(),iosId: CsjAdConfig.getAppOpenAdUnitId()),
-              GTAdsCode(alias: "ylh", probability: 10,androidId: YlhAdConfig.getAppOpenAdUnitId(),iosId: YlhAdConfig.getAppOpenAdUnitId()),
+              GTAdsCode(alias: "ylh", probability: 100,androidId: YlhAdConfig.getAppOpenAdUnitId(),iosId: YlhAdConfig.getAppOpenAdUnitId()),
+              GTAdsCode(alias: "csj", probability: 1,androidId: CsjAdConfig.getAppOpenAdUnitId(),iosId: CsjAdConfig.getAppOpenAdUnitId()),
             ],
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,

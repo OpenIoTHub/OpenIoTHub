@@ -306,7 +306,8 @@ class _GatewayListPageState extends State<GatewayListPage> {
     if (!Platform.isAndroid && !Platform.isIOS){
       return Container();
     }
-    return isCnMainland(OpenIoTHubLocalizations.of(context).localeName)?
+    var _isCnMainland = isCnMainland(OpenIoTHubLocalizations.of(context).localeName);
+    return _isCnMainland?
     buildYLHBanner(context):
     _bannerAd==null?Container():SafeArea(
       child: SizedBox(

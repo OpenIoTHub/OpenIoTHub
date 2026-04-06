@@ -453,16 +453,16 @@ class _ServicesListPageState extends State<ServicesListPage> {
         //需要的广告位数组
         codes: [
           GTAdsCode(
-            alias: "csj",
-            probability: 5,
-            androidId: CsjAdConfig.getRewardedAdUnitId(),
-            iosId: CsjAdConfig.getRewardedAdUnitId(),
-          ),
-          GTAdsCode(
             alias: "ylh",
-            probability: 10,
+            probability: 100,
             androidId: YlhAdConfig.getRewardedAdUnitId(),
             iosId: YlhAdConfig.getRewardedAdUnitId(),
+          ),
+          GTAdsCode(
+            alias: "csj",
+            probability: 1,
+            androidId: CsjAdConfig.getRewardedAdUnitId(),
+            iosId: CsjAdConfig.getRewardedAdUnitId(),
           ),
         ],
         //奖励名称

@@ -6,8 +6,8 @@ Widget build30075Banner(BuildContext context){
   return GTAdsBannerWidget(
     //需要的广告位数组
       codes: [
-        GTAdsCode(alias: "csj", probability: 6,androidId: CsjAdConfig.getBannerAdUnitId(),iosId: CsjAdConfig.getBannerAdUnitId()),
-        GTAdsCode(alias: "ylh", probability: 10,androidId: YlhAdConfig.getBannerAdUnitId(),iosId: YlhAdConfig.getBannerAdUnitId()),
+        GTAdsCode(alias: "ylh", probability: 100,androidId: YlhAdConfig.getBannerAdUnitId(),iosId: YlhAdConfig.getBannerAdUnitId()),
+        GTAdsCode(alias: "csj", probability: 1,androidId: CsjAdConfig.getBannerAdUnitId(),iosId: CsjAdConfig.getBannerAdUnitId()),
       ],
       //宽
       width: MediaQuery.of(context).size.width,
@@ -45,18 +45,19 @@ Widget build300150Banner(BuildContext context) {
   return GTAdsBannerWidget(
     //需要的广告位数组
       codes: [
-        // 150高度
-        GTAdsCode(alias: "csj", probability: 3,androidId: CsjAdConfig.getBannerAdUnitId(),iosId: CsjAdConfig.getBannerAdUnitId()),
+        // 150高度，与 build30075Banner 一致：优量汇优先
+        GTAdsCode(alias: "ylh", probability: 100,androidId: YlhAdConfig.getBannerAdUnitId(),iosId: YlhAdConfig.getBannerAdUnitId()),
+        GTAdsCode(alias: "csj", probability: 1,androidId: CsjAdConfig.getBannerAdUnitId(),iosId: CsjAdConfig.getBannerAdUnitId()),
       ],
       //宽
       width: MediaQuery.of(context).size.width,
       //高
       height: MediaQuery.of(context).size.width/6.4,
       //超时时间 当广告失败后会依次重试其他广告 直至所有广告均加载失败 设置超时时间可提前取消
-      timeout: 3,
+      timeout: 15,
       //广告加载模式 [GTAdsModel.RANDOM]优先级模式 [GTAdsModel.RANDOM]随机模式
       //默认随机模式
-      model: GTAdsModel.RANDOM,
+      model: GTAdsModel.PRIORITY,
       //回调
       callBack: GTAdsCallBack(
         onShow: (code) {
