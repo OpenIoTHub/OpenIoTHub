@@ -34,9 +34,9 @@ jobs:
           echo ${{ secrets.KEY_STORE }} | base64 --decode > $GITHUB_WORKSPACE/android/key.jks
       - name: Init AD Config
         run: |
-          echo ${{ secrets.CSJ_CONFIG }} | base64 --decode > $GITHUB_WORKSPACE/packages/openiothub_ads/lib/configs/csj_config.dart
-          echo ${{ secrets.GOOGLE_CONFIG }} | base64 --decode > $GITHUB_WORKSPACE/packages/openiothub_ads/lib/configs/google_config.dart
-          echo ${{ secrets.YLH_CONFIG }} | base64 --decode > $GITHUB_WORKSPACE/packages/openiothub_ads/lib/configs/ylh_config.dart
+          echo ${{ secrets.CSJ_CONFIG }} | base64 --decode > $GITHUB_WORKSPACE/lib/ads/configs/csj_config.dart
+          echo ${{ secrets.GOOGLE_CONFIG }} | base64 --decode > $GITHUB_WORKSPACE/lib/ads/configs/google_config.dart
+          echo ${{ secrets.YLH_CONFIG }} | base64 --decode > $GITHUB_WORKSPACE/lib/ads/configs/ylh_config.dart
       - uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
@@ -70,9 +70,9 @@ jobs:
       - uses: actions/checkout@v4
       - name: Init AD Config
         run: |
-          echo ${{ secrets.CSJ_CONFIG }} | base64 --decode > $GITHUB_WORKSPACE/packages/openiothub_ads/lib/configs/csj_config.dart
-          echo ${{ secrets.GOOGLE_CONFIG }} | base64 --decode > $GITHUB_WORKSPACE/packages/openiothub_ads/lib/configs/google_config.dart
-          echo ${{ secrets.YLH_CONFIG }} | base64 --decode > $GITHUB_WORKSPACE/packages/openiothub_ads/lib/configs/ylh_config.dart
+          echo ${{ secrets.CSJ_CONFIG }} | base64 --decode > $GITHUB_WORKSPACE/lib/ads/configs/csj_config.dart
+          echo ${{ secrets.GOOGLE_CONFIG }} | base64 --decode > $GITHUB_WORKSPACE/lib/ads/configs/google_config.dart
+          echo ${{ secrets.YLH_CONFIG }} | base64 --decode > $GITHUB_WORKSPACE/lib/ads/configs/ylh_config.dart
       - uses: robinraju/release-downloader@v1
         with:
           repository: 'OpenIoTHub/OpenIoTHubService'
