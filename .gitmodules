@@ -1,0 +1,6 @@
+[submodule "references/iothub-backend"]
+	path = references/iothub-backend
+	url = git@github.com:OpenIoTHub/iothub-backend.git
+[submodule "references/server-go"]
+	path = references/server-go
+	url = git@github.com:OpenIoTHub/server-go
