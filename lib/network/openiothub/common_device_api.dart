@@ -1,3 +1,5 @@
+import 'dart:developer' as developer;
+
 import 'package:openiothub/network/openiothub/openiothub_channel.dart';
 import 'package:openiothub/network/openiothub_api.dart';
 import 'package:openiothub_grpc_api/google/protobuf/empty.pb.dart';
@@ -98,14 +100,37 @@ class CommonDeviceApi {
 //  rpc DeleteOneTCP (PortConfig) returns (Empty) {}
   static Future deleteOneTCP(PortConfig config) async {
     final channel = await Channel.getOpenIoTHubChannel();
-    final stub = CommonDeviceManagerClient(channel);
-    final response = await stub.deleteOneTCP(config);
-    print('Greeter client received: ${response}');
-    channel.shutdown();
-    //同步到服务器
-    PortInfo portInfo = PortInfo();
-    portInfo.uUID = config.uuid;
-    await PortManager.delPort(portInfo);
+    try {
+      final stub = CommonDeviceManagerClient(channel);
+      final response = await stub.deleteOneTCP(config);
+      print('Greeter client received: ${response}');
+      PortInfo portInfo = PortInfo();
+      portInfo.uUID = config.uuid;
+      await PortManager.delPort(portInfo);
+    } catch (e, st) {
+      developer.log(
+        'deleteOneTCP failed uuid=${config.uuid}',
+        name: 'CommonDeviceApi',
+        error: e,
+        stackTrace: st,
+      );
+      rethrow;
+    } finally {
+      channel.shutdown();
+    }
+  }
+
+  /// 根据 [PortConfig] 的协议字段调用对应的删除 RPC（与 [getAllTCP] / [getAllUDP] / [getAllFTP] 列表一致）。
+  static Future<void> deleteOnePortForConfig(PortConfig config) async {
+    final app = config.applicationProtocol.toLowerCase();
+    final net = config.networkProtocol.toLowerCase();
+    if (app == 'ftp') {
+      await deleteOneFTP(config);
+    } else if (net == 'udp') {
+      await deleteOneUDP(config);
+    } else {
+      await deleteOneTCP(config);
+    }
   }
 
 //  rpc GetOneTCP (PortConfig) returns (PortConfig) {}
@@ -155,14 +180,24 @@ class CommonDeviceApi {
 //  rpc DeleteOneUDP (PortConfig) returns (Empty) {}
   static Future deleteOneUDP(PortConfig config) async {
     final channel = await Channel.getOpenIoTHubChannel();
-    final stub = CommonDeviceManagerClient(channel);
-    final response = await stub.deleteOneUDP(config);
-    print('Greeter client received: ${response}');
-    channel.shutdown();
-
-    PortInfo portInfo = PortInfo();
-    portInfo.uUID = config.uuid;
-    await PortManager.delPort(portInfo);
+    try {
+      final stub = CommonDeviceManagerClient(channel);
+      final response = await stub.deleteOneUDP(config);
+      print('Greeter client received: ${response}');
+      PortInfo portInfo = PortInfo();
+      portInfo.uUID = config.uuid;
+      await PortManager.delPort(portInfo);
+    } catch (e, st) {
+      developer.log(
+        'deleteOneUDP failed uuid=${config.uuid}',
+        name: 'CommonDeviceApi',
+        error: e,
+        stackTrace: st,
+      );
+      rethrow;
+    } finally {
+      channel.shutdown();
+    }
   }
 
 //  rpc GetOneUDP (PortConfig) returns (PortConfig) {}
@@ -212,14 +247,24 @@ class CommonDeviceApi {
 //  rpc DeleteOneFTP (PortConfig) returns (Empty) {}
   static Future deleteOneFTP(PortConfig config) async {
     final channel = await Channel.getOpenIoTHubChannel();
-    final stub = CommonDeviceManagerClient(channel);
-    final response = await stub.deleteOneFTP(config);
-    print('Greeter client received: ${response}');
-    channel.shutdown();
-
-    PortInfo portInfo = PortInfo();
-    portInfo.uUID = config.uuid;
-    await PortManager.delPort(portInfo);
+    try {
+      final stub = CommonDeviceManagerClient(channel);
+      final response = await stub.deleteOneFTP(config);
+      print('Greeter client received: ${response}');
+      PortInfo portInfo = PortInfo();
+      portInfo.uUID = config.uuid;
+      await PortManager.delPort(portInfo);
+    } catch (e, st) {
+      developer.log(
+        'deleteOneFTP failed uuid=${config.uuid}',
+        name: 'CommonDeviceApi',
+        error: e,
+        stackTrace: st,
+      );
+      rethrow;
+    } finally {
+      channel.shutdown();
+    }
   }
 
 //  rpc GetOneFTP (PortConfig) returns (PortConfig) {}

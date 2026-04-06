@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer' as developer;
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -541,42 +542,62 @@ class _ServicesListPageState extends State<ServicesListPage> {
   }
 
   Future _deleteOnePortConfig(PortConfig config) async {
-    showDialog(
-          context: context,
-          builder:
-              (_) => AlertDialog(
-                title: Text(OpenIoTHubLocalizations.of(context).delete_tcp),
-                content: SizedBox.expand(
-                  child: Text(
-                    OpenIoTHubLocalizations.of(
-                      context,
-                    ).confirm_to_delete_this_tcp,
-                  ),
-                ),
-                actions: <Widget>[
-                  TextButton(
-                    child: Text(OpenIoTHubLocalizations.of(context).cancel),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                  TextButton(
-                    child: Text(OpenIoTHubLocalizations.of(context).delete),
-                    onPressed: () {
-                      CommonDeviceApi.deleteOneTCP(config).then((result) {
-                        Navigator.of(context).pop();
-                      });
-                    },
-                  ),
-                ],
-              ),
-        )
-        .then((v) {
-          Navigator.of(context).pop();
-        })
-        .then((v) {
-          refreshPortConfigList();
-        });
+    final l = OpenIoTHubLocalizations.of(context);
+    final app = config.applicationProtocol.toLowerCase();
+    final net = config.networkProtocol.toLowerCase();
+    final String deleteTitle;
+    final String deleteConfirm;
+    if (app == 'ftp') {
+      deleteTitle = l.delete_ftp;
+      deleteConfirm = l.confirm_to_delete_this_ftp;
+    } else if (net == 'udp') {
+      deleteTitle = l.delete_udp;
+      deleteConfirm = l.confirm_to_delete_this_udp;
+    } else {
+      deleteTitle = l.delete_tcp;
+      deleteConfirm = l.confirm_to_delete_this_tcp;
+    }
+    final deleted = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(deleteTitle),
+        content: SizedBox.expand(
+          child: Text(deleteConfirm),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: Text(l.cancel),
+            onPressed: () {
+              Navigator.of(dialogContext).pop(false);
+            },
+          ),
+          TextButton(
+            child: Text(l.delete),
+            onPressed: () {
+              CommonDeviceApi.deleteOnePortForConfig(config).then((_) {
+                if (dialogContext.mounted) {
+                  Navigator.of(dialogContext).pop(true);
+                }
+              }).catchError((Object e, StackTrace st) {
+                developer.log(
+                  'ServicesListPage: delete port failed uuid=${config.uuid}',
+                  name: 'ServicesListPage',
+                  error: e,
+                  stackTrace: st,
+                );
+                if (!mounted) return;
+                showFailed(e.toString(), context);
+              });
+            },
+          ),
+        ],
+      ),
+    );
+    if (!mounted) return;
+    if (deleted == true) {
+      Navigator.of(context).pop();
+      refreshPortConfigList();
+    }
   }
 
 
