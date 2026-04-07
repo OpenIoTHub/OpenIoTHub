@@ -21,22 +21,22 @@ Widget build30075Banner(BuildContext context){
       //回调
       callBack: GTAdsCallBack(
         onShow: (code) {
-          print("Banner显示 ${code.toJson()}");
+          debugPrint("Banner显示 ${code.toJson()}");
         },
         onClick: (code) {
-          print("Banner点击 ${code.toJson()}");
+          debugPrint("Banner点击 ${code.toJson()}");
         },
         onFail: (code,message) {
-          print("Banner错误 ${code?.toJson()} $message");
+          debugPrint("Banner错误 ${code?.toJson()} $message");
         },
         onClose: (code) {
-          print("Banner关闭 ${code.toJson()}");
+          debugPrint("Banner关闭 ${code.toJson()}");
         },
         onTimeout: () {
-          print("Banner加载超时");
+          debugPrint("Banner加载超时");
         },
         onEnd: () {
-          print("Banner所有广告位都加载失败");
+          debugPrint("Banner所有广告位都加载失败");
         },
       ));
 }
@@ -61,22 +61,22 @@ Widget build300150Banner(BuildContext context) {
       //回调
       callBack: GTAdsCallBack(
         onShow: (code) {
-          print("Banner显示 ${code.toJson()}");
+          debugPrint("Banner显示 ${code.toJson()}");
         },
         onClick: (code) {
-          print("Banner点击 ${code.toJson()}");
+          debugPrint("Banner点击 ${code.toJson()}");
         },
         onFail: (code,message) {
-          print("Banner错误 ${code?.toJson()} $message");
+          debugPrint("Banner错误 ${code?.toJson()} $message");
         },
         onClose: (code) {
-          print("Banner关闭 ${code.toJson()}");
+          debugPrint("Banner关闭 ${code.toJson()}");
         },
         onTimeout: () {
-          print("Banner加载超时");
+          debugPrint("Banner加载超时");
         },
         onEnd: () {
-          print("Banner所有广告位都加载失败");
+          debugPrint("Banner所有广告位都加载失败");
         },
       ));
 }

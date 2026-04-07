@@ -3,9 +3,8 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:oktoast/oktoast.dart';
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub/common_pages/utils/toast.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import 'widgets/indicator.dart';
@@ -262,7 +261,7 @@ class _SystemInfoPageState extends State<SystemInfoPage> {
     ];
     return Scaffold(
         appBar: AppBar(
-          title: Text("System Info"),
+          title: Text(OpenIoTHubLocalizations.of(context).nas_system_info),
           // actions: [Text("")],
         ),
         body: utilization.isEmpty
@@ -289,12 +288,14 @@ class _SystemInfoPageState extends State<SystemInfoPage> {
     String reqUri = "/v1/sys/utilization";
     try {
       final response = await dio.getUri(Uri.parse(reqUri));
+      if (!mounted) return;
       if (response.data["success"] == 200) {
         setState(() {
           utilization = response.data["data"];
         });
       }
     } catch (e) {
+      if (!mounted) return;
       showFailed(e.toString(), context);
     }
   }

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
@@ -16,7 +17,7 @@ class UserInfoPage extends StatefulWidget {
 }
 
 class _UserInfoPageState extends State<UserInfoPage> {
-  late List<ListTile> _listTiles = <ListTile>[];
+  late final List<ListTile> _listTiles = <ListTile>[];
 
   @override
   void initState() {
@@ -28,7 +29,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("CasaOS/ZimaOS AppStore"),
+          title: Text(OpenIoTHubLocalizations.of(context).nas_store_casa_zima),
           // actions: <Widget>[
           //   // 系统的各种状态
           //   IconButton(

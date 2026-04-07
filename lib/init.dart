@@ -37,10 +37,10 @@ Future<void> init() async {
   initWechat();
   initQQ();
   // initSystemUi();
-  Future.delayed(Duration(milliseconds: 10),(){
+  unawaited(Future.delayed(const Duration(milliseconds: 10), () {
     loadConfig();
     initGatewayService();
-  });
+  }));
   // setWindowSize();
 }
 
@@ -61,9 +61,8 @@ Future<void> initHttpAssets() async {
       port: Config.webStaticPort,
     );
     server.addRoute(serveFlutterAssets());
-    server.serve(logRequests: true).then((v) {
-      server.log.onRecord.listen((r) => debugPrint("==serve-log：$r"));
-    });
+    await server.serve(logRequests: true);
+    server.log.onRecord.listen((r) => debugPrint('==serve-log：$r'));
   } catch (e) {
     debugPrint('initHttpAssets: $e');
   }
@@ -107,41 +106,36 @@ Future<void> loadConfig() async {
   if (!(await check.userSignedIn())) {
     return;
   }
-  // Future.delayed(const Duration(milliseconds: 500), () {
-  //   UtilApi.syncConfigWithToken().then((OpenIoTHubOperationResponse rsp) {
-  //     // showToast( rsp.msg);
-  //   });
-  // });
-  // CnameManager.loadAllCnameFromRemote();
-  // TODO 后面也可以定时同步
-  CnameManager.loadAllCnameFromRemote().then(
-    (_) => {
-      UserManager.getAllConfig().then(
-        (StringValue config) => {
-          UtilApi.ping().then(
-            (_) => {UtilApi.syncConfigWithJsonConfig(config.value)},
-          ),
-        },
-      ),
-    },
-  );
-  // TODO 通知UI进行刷新
+  // 异步拉取配置与云端别名；别名写入本地后由 [CnameRefreshSignal] 通知列表刷新展示名。
+  unawaited(_loadConfigChain());
 }
 
-Future setWindowSize() async {
+Future<void> _loadConfigChain() async {
+  try {
+    await CnameManager.loadAllCnameFromRemote();
+    final StringValue config = await UserManager.getAllConfig();
+    await UtilApi.ping();
+    await UtilApi.syncConfigWithJsonConfig(config.value);
+  } catch (e, stackTrace) {
+    debugPrint('loadConfig: $e');
+    debugPrint('$stackTrace');
+  }
+}
+
+Future<void> setWindowSize() async {
   Size size = await DesktopWindow.getWindowSize();
   debugPrint("windows size:$size");
   await DesktopWindow.setWindowSize(Size(500, 500));
 }
 
-Future initAD() async {
-  if (!Platform.isAndroid && !Platform.isIOS){
+Future<void> initAD() async {
+  if (!Platform.isAndroid && !Platform.isIOS) {
     return;
   }
   initList = await initGTADsAD();
 }
 
-Future initForegroundService() async {
+Future<void> initForegroundService() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   bool? forgeRound = prefs.getBool(SharedPreferencesKey.forgeRoundTaskEnable);
   try {
@@ -159,7 +153,7 @@ Future initForegroundService() async {
   }
 }
 
-Future initGatewayService() async {
+Future<void> initGatewayService() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   bool? autoStartGateway = prefs.getBool(SharedPreferencesKey.startGatewayWhenAppStart);
   try {
@@ -179,7 +173,7 @@ Future initGatewayService() async {
   }
 }
 
-Future initWakeLockService() async {
+Future<void> initWakeLockService() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   bool? wakeLockEnabled = prefs.getBool(SharedPreferencesKey.wakeLockEnabled);
   try {

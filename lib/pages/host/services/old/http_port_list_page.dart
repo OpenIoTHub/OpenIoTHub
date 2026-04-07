@@ -16,10 +16,10 @@ class HttpPortListPage extends StatefulWidget {
   final openiothub.Device device;
 
   @override
-  _HttpPortListPageState createState() => _HttpPortListPageState();
+  State<HttpPortListPage> createState() => HttpPortListPageState();
 }
 
-class _HttpPortListPageState extends State<HttpPortListPage> {
+class HttpPortListPageState extends State<HttpPortListPage> {
   List<HTTPConfig> _httpList = [];
   late Timer _timerPeriod;
 
@@ -160,15 +160,17 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
     );
   }
 
-  Future refreshmHttpList() async {
+  Future<void> refreshmHttpList() async {
     try {
-      HttpManager.getAllHttp(widget.device).then((v) {
-        setState(() {
-          _httpList = v.hTTPConfigs;
-        });
+      final v = await HttpManager.getAllHttp(widget.device);
+      if (!mounted) return;
+      setState(() {
+        _httpList = v.hTTPConfigs;
       });
     } catch (e) {
-      print('Caught error: $e');
+      if (kDebugMode) {
+        debugPrint('Caught error: $e');
+      }
     }
   }
 
@@ -234,6 +236,7 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
                       httpConfig.remotePort = int.parse(portController.text);
                       httpConfig.domain = domainController.text;
                       HttpManager.createOneHttp(httpConfig).then((restlt) {
+                        if (!mounted) return;
                         Navigator.of(context).pop();
                       });
                     },
@@ -261,13 +264,16 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
                     child: Text(OpenIoTHubLocalizations.of(context).delete),
                     onPressed: () {
                       HttpManager.deleteOneHttp(config).then((result) {
+                        if (!mounted) return;
                         Navigator.of(context).pop();
                       });
                     },
                   )
                 ])).then((v) {
+      if (!mounted) return;
       Navigator.of(context).pop();
     }).then((v) {
+      if (!mounted) return;
       refreshmHttpList();
     });
   }
@@ -277,7 +283,7 @@ class _HttpPortListPageState extends State<HttpPortListPage> {
       await launchUrlString(url);
     } else {
       if (kDebugMode) {
-        print('Could not launch $url');
+        debugPrint('Could not launch $url');
       }
     }
   }

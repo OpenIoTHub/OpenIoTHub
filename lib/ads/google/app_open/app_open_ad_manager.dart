@@ -16,7 +16,6 @@
 // import 'consent_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'dart:io' show Platform;
 
 import '../../configs/configs.dart';
 

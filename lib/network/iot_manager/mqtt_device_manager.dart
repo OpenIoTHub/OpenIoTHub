@@ -4,6 +4,7 @@ import 'package:openiothub/network/utils/jwt.dart';
 import 'package:openiothub_grpc_api/google/protobuf/empty.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/common.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/mqttDeviceManager.pbgrpc.dart';
+import 'package:openiothub/network/network_log.dart';
 
 class MqttDeviceManager {
   // rpc AddMqttDevice (MqttDeviceInfo) returns (OperationResponse) {}
@@ -15,7 +16,7 @@ class MqttDeviceManager {
         options: CallOptions(metadata: {'jwt': jwt}));
     OperationResponse operationResponse =
         await stub.addMqttDevice(mqttDeviceInfo);
-    print('OperationResponse: ${operationResponse}');
+    netLog('MqttDeviceManager', 'addMqttDevice: $operationResponse');
     channel.shutdown();
     return operationResponse;
   }
@@ -29,7 +30,7 @@ class MqttDeviceManager {
         options: CallOptions(metadata: {'jwt': jwt}));
     OperationResponse operationResponse =
         await stub.delMqttDevice(mqttDeviceInfo);
-    print('OperationResponse: ${operationResponse}');
+    netLog('MqttDeviceManager', 'delMqttDevice: $operationResponse');
     channel.shutdown();
     return operationResponse;
   }
@@ -42,7 +43,7 @@ class MqttDeviceManager {
     final stub = MqttDeviceManagerClient(channel,
         options: CallOptions(metadata: {'jwt': jwt}));
     MqttDeviceInfoList mqttDeviceInfoList = await stub.getAllMqttDevice(empty);
-    print('MqttDeviceInfoList: ${mqttDeviceInfoList}');
+    netLog('MqttDeviceManager', 'getAllMqttDevice: $mqttDeviceInfoList');
     channel.shutdown();
     return mqttDeviceInfoList;
   }
@@ -55,7 +56,7 @@ class MqttDeviceManager {
     final stub = MqttDeviceManagerClient(channel,
         options: CallOptions(metadata: {'jwt': jwt}));
     MqttInfo mqttInfo = await stub.generateMqttUsernamePassword(mqttDeviceInfo);
-    print('MqttInfo: ${mqttInfo}');
+    netLog('MqttDeviceManager', 'generateMqttUsernamePassword: $mqttInfo');
     channel.shutdown();
     return mqttInfo;
   }

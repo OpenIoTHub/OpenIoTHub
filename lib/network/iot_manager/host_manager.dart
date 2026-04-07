@@ -4,6 +4,8 @@ import 'package:openiothub_grpc_api/google/protobuf/empty.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/common.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/hostManager.pbgrpc.dart';
 
+import 'package:openiothub/network/network_log.dart';
+
 import 'iot_manager_channel.dart';
 
 class HostManager {
@@ -15,7 +17,7 @@ class HostManager {
         options: CallOptions(metadata: {'jwt': jwt}));
     Empty empty = Empty();
     HostInfoList hostInfoList = await stub.getAllHosts(empty);
-    print('getAllHosts: ${hostInfoList}');
+    netLog('HostManager', 'getAllHosts: $hostInfoList');
     channel.shutdown();
     return hostInfoList;
   }
@@ -27,7 +29,7 @@ class HostManager {
     final stub = HostManagerClient(channel,
         options: CallOptions(metadata: {'jwt': jwt}));
     OperationResponse hostInfoList = await stub.addHost(hostInfo);
-    print('OperationResponse: ${hostInfoList}');
+    netLog('HostManager', 'addHost: $hostInfoList');
     channel.shutdown();
     return hostInfoList;
   }
@@ -39,7 +41,7 @@ class HostManager {
     final stub = HostManagerClient(channel,
         options: CallOptions(metadata: {'jwt': jwt}));
     OperationResponse hostInfoList = await stub.updateHost(hostInfo);
-    print('OperationResponse: ${hostInfoList}');
+    netLog('HostManager', 'updateHost: $hostInfoList');
     channel.shutdown();
     return hostInfoList;
   }
@@ -51,7 +53,7 @@ class HostManager {
     final stub = HostManagerClient(channel,
         options: CallOptions(metadata: {'jwt': jwt}));
     OperationResponse hostInfoList = await stub.delHost(hostInfo);
-    print('delHost: ${hostInfoList}');
+    netLog('HostManager', 'delHost: $hostInfoList');
     channel.shutdown();
     return hostInfoList;
   }
@@ -63,7 +65,7 @@ class HostManager {
     final stub = HostManagerClient(channel,
         options: CallOptions(metadata: {'jwt': jwt}));
     OperationResponse hostInfoList = await stub.setDeviceMac(hostInfo);
-    print('setDeviceMac: ${hostInfoList}');
+    netLog('HostManager', 'setDeviceMac: $hostInfoList');
     channel.shutdown();
     return hostInfoList;
   }

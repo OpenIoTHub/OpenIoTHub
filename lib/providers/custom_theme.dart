@@ -164,7 +164,7 @@ class CustomTheme with ChangeNotifier {
     try {
       final prefs = await SharedPreferences.getInstance();
       _primaryColor = color;
-      await prefs.setInt(_ThemeKeys.themeColor, color.value);
+      await prefs.setInt(_ThemeKeys.themeColor, color.toARGB32());
       notifyListeners();
     } catch (e) {
       debugPrint('Error setting theme color: $e');
@@ -356,9 +356,9 @@ class CustomThemes {
   static MaterialColor _createMaterialColor(Color color) {
     final List<double> strengths = <double>[0.05];
     final Map<int, Color> swatch = <int, Color>{};
-    final int r = color.red;
-    final int g = color.green;
-    final int b = color.blue;
+    final int r = (color.r * 255.0).round() & 0xff;
+    final int g = (color.g * 255.0).round() & 0xff;
+    final int b = (color.b * 255.0).round() & 0xff;
 
     // 生成不同强度的颜色
     for (int i = 1; i < 10; i++) {
@@ -374,6 +374,6 @@ class CustomThemes {
         1,
       );
     }
-    return MaterialColor(color.value, swatch);
+    return MaterialColor(color.toARGB32(), swatch);
   }
 }

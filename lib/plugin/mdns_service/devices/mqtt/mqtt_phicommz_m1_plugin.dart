@@ -6,26 +6,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_seekbar/flutter_seekbar.dart';
 import 'package:mqtt5_client/mqtt5_client.dart';
 import 'package:mqtt5_client/mqtt5_server_client.dart';
-import 'package:oktoast/oktoast.dart';
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:openiothub/common_pages/utils/toast.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 
 import 'package:openiothub/plugin/models/port_service_info.dart';
 import '../../comm_widgets/info.dart';
 
 class MqttPhicommzM1PluginPage extends StatefulWidget {
-  MqttPhicommzM1PluginPage({required Key key, required this.device})
+  const MqttPhicommzM1PluginPage({required Key key, required this.device})
       : super(key: key);
   static final String modelName = "com.iotserv.devices.mqtt.zM1";
   final PortServiceInfo device;
 
   @override
-  _MqttPhicommzM1PluginPageState createState() =>
-      _MqttPhicommzM1PluginPageState();
+  State<MqttPhicommzM1PluginPage> createState() =>
+      MqttPhicommzM1PluginPageState();
 }
 
-class _MqttPhicommzM1PluginPageState extends State<MqttPhicommzM1PluginPage> {
+class MqttPhicommzM1PluginPageState extends State<MqttPhicommzM1PluginPage> {
   late MqttServerClient client;
   late String topicSensor;
   late String topicSet;
@@ -36,7 +34,7 @@ class _MqttPhicommzM1PluginPageState extends State<MqttPhicommzM1PluginPage> {
   static const String pm25 = "PM25";
   static const String hcho = "formaldehyde";
 
-  List<String> _valueKeyList = [brightness, temperature, humidity, pm25, hcho];
+  final List<String> _valueKeyList = [brightness, temperature, humidity, pm25, hcho];
 
   List<SectionTextModel> sectionTexts = [
     SectionTextModel(position: 0, text: '关闭', progressColor: Colors.red),
@@ -46,10 +44,10 @@ class _MqttPhicommzM1PluginPageState extends State<MqttPhicommzM1PluginPage> {
     SectionTextModel(position: 4, text: '4', progressColor: Colors.amber),
   ];
 
-  Map<String, dynamic> _status =
+  final Map<String, dynamic> _status =
       Map.from({brightness: 0, temperature: 0, humidity: 0, pm25: 0, hcho: 0});
 
-  Map<String, String> _realName = Map.from({
+  final Map<String, String> _realName = Map.from({
     brightness: "亮度",
     temperature: "温度",
     humidity: "湿度",
@@ -57,7 +55,7 @@ class _MqttPhicommzM1PluginPageState extends State<MqttPhicommzM1PluginPage> {
     hcho: "甲醛"
   });
 
-  Map<String, String> _unit = Map.from(
+  final Map<String, String> _unit = Map.from(
       {brightness: "", temperature: "", humidity: "", pm25: "", hcho: ""});
 
   @override
@@ -66,7 +64,7 @@ class _MqttPhicommzM1PluginPageState extends State<MqttPhicommzM1PluginPage> {
     topicSensor = "device/zm1/${widget.device.info!["mac"]}/sensor";
     topicSet = "device/zm1/${widget.device.info!["mac"]}/set";
     _initMqtt();
-    print("init iot devie List");
+    debugPrint("init iot device list");
   }
 
   @override
@@ -79,9 +77,9 @@ class _MqttPhicommzM1PluginPageState extends State<MqttPhicommzM1PluginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final List _result = [];
-    _result.addAll(_valueKeyList);
-    final tiles = _result.map(
+    final List result = [];
+    result.addAll(_valueKeyList);
+    final tiles = result.map(
       (pair) {
         switch (pair) {
           case brightness:
@@ -113,7 +111,6 @@ class _MqttPhicommzM1PluginPageState extends State<MqttPhicommzM1PluginPage> {
                 ],
               ),
             );
-            break;
           // case temperature:
           // case humidity:
           // case pm25:
@@ -130,7 +127,6 @@ class _MqttPhicommzM1PluginPageState extends State<MqttPhicommzM1PluginPage> {
                 ],
               ),
             );
-            break;
         }
       },
     );
@@ -181,10 +177,18 @@ class _MqttPhicommzM1PluginPageState extends State<MqttPhicommzM1PluginPage> {
       await client.connect(
           widget.device.info!["username"], widget.device.info!["password"]);
     } on MqttNoConnectionException catch (e) {
-      showFailed("MqttNoConnectionException:$e", context);
+      if (!mounted) return;
+      showFailed(
+        '${OpenIoTHubLocalizations.of(context).mqtt_connection_failed}: $e',
+        context,
+      );
       client.disconnect();
     } on SocketException catch (e) {
-      showFailed("SocketException:$e", context);
+      if (!mounted) return;
+      showFailed(
+        '${OpenIoTHubLocalizations.of(context).mqtt_socket_error}: $e',
+        context,
+      );
       client.disconnect();
     }
     //QoS
@@ -192,7 +196,7 @@ class _MqttPhicommzM1PluginPageState extends State<MqttPhicommzM1PluginPage> {
     client.subscribe(topicSet, MqttQos.atMostOnce);
 
     client.updates.listen((List<MqttReceivedMessage<MqttMessage>> c) {
-      c.forEach((MqttReceivedMessage<MqttMessage> element) {
+      for (var element in c) {
         final recMess = element.payload as MqttPublishMessage;
         final pt =
             MqttUtilities.bytesToStringAsString(recMess.payload.message!);
@@ -201,14 +205,14 @@ class _MqttPhicommzM1PluginPageState extends State<MqttPhicommzM1PluginPage> {
         //         'EXAMPLE::Change notification:: topic is <${c[0].topic}>, payload is <-- $pt -->');
         //  通过获取的消息更新状态
         Map<String, dynamic> m = jsonDecode(pt);
-        _valueKeyList.forEach((String key) {
+        for (var key in _valueKeyList) {
           if (m.containsKey(key)) {
             setState(() {
               _status[key] = m[key];
             });
           }
-        });
-      });
+        }
+      }
     });
   }
 
@@ -229,37 +233,54 @@ class _MqttPhicommzM1PluginPageState extends State<MqttPhicommzM1PluginPage> {
   _changeStatus(String name, int value) async {
     final builder = MqttPayloadBuilder();
     builder
-        .addString('{"mac":"${widget.device.info!["mac"]}","$name":${value}}');
+        .addString('{"mac":"${widget.device.info!["mac"]}","$name":$value}');
     client.publishMessage(topicSet, MqttQos.atLeastOnce, builder.payload!);
   }
 
   //mqtt的调用函数
   /// The subscribed callback
   void onSubscribed(MqttSubscription subscription) {
-    showSuccess("onSubscribed:${subscription.topic}", context);
+    showSuccess(
+      '${OpenIoTHubLocalizations.of(context).mqtt_subscribed}: ${subscription.topic}',
+      context,
+    );
   }
 
   /// The unsolicited disconnect callback
   void onDisconnected() {
-    showFailed("onDisconnected",context);
+    showFailed(
+      OpenIoTHubLocalizations.of(context).mqtt_disconnected,
+      context,
+    );
   }
 
   /// The successful connect callback
   void onConnected() {
     showSuccess(
-        'EXAMPLE::OnConnected client callback - Client connection was successful', context);
+      OpenIoTHubLocalizations.of(context).mqtt_connected,
+      context,
+    );
   }
 
   /// Pong callback
   void pong() {
-    showSuccess('EXAMPLE::Ping response client callback invoked',context);
+    showSuccess(
+      OpenIoTHubLocalizations.of(context).mqtt_ping_received,
+      context,
+    );
   }
 
   void onAutoReconnect() {
-    showSuccess('重连mqtt...', context);
+    showSuccess(
+      OpenIoTHubLocalizations.of(context).mqtt_reconnecting,
+      context,
+    );
   }
 
   void onAutoReconnected() {
-    showSuccess('重连mqtt服务器成功！', context);
+    showSuccess(
+      OpenIoTHubLocalizations.of(context).mqtt_reconnected_success,
+      context,
+    );
   }
 }

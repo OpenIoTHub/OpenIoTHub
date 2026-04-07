@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:openiothub/network/openiothub_api.dart';
 import 'package:openiothub/common_pages/openiothub_common_pages.dart';
-import 'package:openiothub/common_pages/utils/toast.dart';
 import 'package:openiothub/core/openiothub_constants.dart';
 import 'package:openiothub_grpc_api/google/protobuf/wrappers.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/common.pb.dart';
@@ -15,13 +14,14 @@ import 'package:openiothub_grpc_api/proto/manager/serverManager.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:openiothub/plugin/mdns_service/components.dart';
+import 'package:openiothub/plugin/registry/plugin_navigation.dart';
 import 'package:openiothub/plugin/utils/port_config_to_port_service.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 const utf8encoder = Utf8Encoder();
 
 class FindGatewayGoListPage extends StatefulWidget {
-  const FindGatewayGoListPage({Key? key}) : super(key: key);
+  const FindGatewayGoListPage({super.key});
 
   @override
   State createState() => _FindGatewayGoListPageState();
@@ -39,22 +39,27 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
   @override
   void initState() {
     super.initState();
-    userSignedIn().then((signedIn){
-      if (!signedIn) {
-        Navigator.of(context).pop();
-        Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => LoginPage()),
-        );
-      }else{
-        startDiscovery();
-      }
-    });
+    _checkSignedInAndStart();
+  }
+
+  Future<void> _checkSignedInAndStart() async {
+    final nav = Navigator.of(context);
+    final signedIn = await userSignedIn();
+    if (!mounted) return;
+    if (!signedIn) {
+      nav.pop();
+      nav.push(
+        MaterialPageRoute(builder: (context) => const LoginPage()),
+      );
+      return;
+    }
+    await startDiscovery();
   }
 
   @override
   void dispose() {
     if (action != null) {
-      action!.stop();
+      unawaited(action!.stop());
     }
     super.dispose();
   }
@@ -69,35 +74,42 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
 
     action = BonsoirDiscovery(type: Config.mdnsGatewayService);
     await action!.ready;
+    if (!mounted) return;
     action!.eventStream?.listen(onEventOccurred);
     await action!.start();
-    print("stared");
+    if (!mounted) return;
+    debugPrint('gateway mdns discovery started');
   }
 
   void onEventOccurred(BonsoirDiscoveryEvent event) {
     if (event.service == null) {
       return;
     }
+    final discovery = action;
+    if (discovery == null || !mounted) {
+      return;
+    }
     BonsoirService oneMdnsService = event.service!;
     if (event.type == BonsoirDiscoveryEventType.discoveryServiceFound) {
-      oneMdnsService.resolve(action!.serviceResolver);
+      oneMdnsService.resolve(discovery.serviceResolver);
     } else if (event.type ==
         BonsoirDiscoveryEventType.discoveryServiceResolved) {
+      if (!mounted || action == null) return;
       setState(() {
-        PortService _portService = PortService.create();
-        _portService.ip = (oneMdnsService as ResolvedBonsoirService)
+        final portService = PortService.create();
+        portService.ip = (oneMdnsService as ResolvedBonsoirService)
             .host!
             .replaceAll(RegExp(r'.local.local.'), ".local")
             .replaceAll(RegExp(r'.local.'), ".local");
-        print(_portService.ip);
-        _portService.port = oneMdnsService.port;
-        _portService.isLocal = true;
-        _portService.info.addAll({
+        debugPrint(portService.ip);
+        portService.port = oneMdnsService.port;
+        portService.isLocal = true;
+        portService.info.addAll({
           "name":
-              "${oneMdnsService.name}(${_portService.ip}:${oneMdnsService.port})",
+              "${oneMdnsService.name}(${portService.ip}:${oneMdnsService.port})",
           "model": Gateway.modelName,
           "mac": "mac",
-          "id": _portService.ip + ":" + _portService.port.toString(),
+          "id": "${portService.ip}:${portService.port}",
           "author": "Farry",
           "email": "newfarry@126.com",
           "home-page": "https://github.com/OpenIoTHub",
@@ -105,14 +117,13 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
           "firmware-version": "version",
         });
 
-        oneMdnsService.attributes.forEach((String key, String value) {
-          _portService.info[key] = value;
-        });
-        print("print _portService:$_portService");
-        if (!_serviceMap.containsKey(_portService.info["id"])) {
-          setState(() {
-            _serviceMap[_portService.info["id"]!] = _portService;
-          });
+        for (final MapEntry<String, String> e
+            in oneMdnsService.attributes.entries) {
+          portService.info[e.key] = e.value;
+        }
+        debugPrint('_portService: $portService');
+        if (!_serviceMap.containsKey(portService.info["id"])) {
+          _serviceMap[portService.info["id"]!] = portService;
         }
       });
     } else if (event.type == BonsoirDiscoveryEventType.discoveryServiceLost) {
@@ -122,11 +133,21 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
   Future<void> stopDiscovery() async {
     if (!_scanning) return;
 
+    final act = action;
     setState(() {
       _serviceMap.clear();
       _scanning = false;
     });
-    action!.stop();
+    if (act != null) {
+      await act.stop();
+    }
+  }
+
+  /// 停止当前 Bonsoir 扫描后重新发现（例如从网关插件页返回后刷新列表）。
+  Future<void> restartDiscovery() async {
+    await stopDiscovery();
+    if (!mounted) return;
+    await startDiscovery();
   }
 
   @override
@@ -142,30 +163,37 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
             ],
           ),
           subtitle: TDTag(
-            "version:${pair.info["version"] != null ? pair.info["version"] : pair.info["firmware-version"]}",
+            "version:${pair.info["version"] ?? pair.info["firmware-version"]}",
             theme: TDTagTheme.success,
             isLight: true,
             fixedWidth: 100,
           ),
           trailing: Constants.rightArrowIcon,
           onTap: () async {
+            final ctx = context;
             if (!(await userSignedIn())) {
-              showFailed("Please login before Add Gateway", context);
+              if (!ctx.mounted) return;
+              showFailed(
+                OpenIoTHubLocalizations.of(ctx).please_login_before_add_gateway,
+                ctx,
+              );
               if (!(await userSignedIn())) {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => LoginPage()));
+                if (!ctx.mounted) return;
+                Navigator.of(ctx)
+                    .push(MaterialPageRoute(builder: (context) => const LoginPage()));
               }
             }
-            TextEditingController nameController =
+            if (!ctx.mounted) return;
+            final nameController =
                 TextEditingController.fromValue(
                     TextEditingValue(text: "Gateway-${DateTime.now().minute}"));
-            TextEditingController descriptionController =
+            final descriptionController =
                 TextEditingController.fromValue(
                     TextEditingValue(text: "Gateway-${DateTime.now()}"));
             if (pair.info.containsKey("run_id") &&
-                !pair.info["run_id"]!.isEmpty) {
+                pair.info["run_id"]!.isNotEmpty) {
               showGeneralDialog(
-                context: context,
+                context: ctx,
                 pageBuilder: (BuildContext buildContext,
                     Animation<double> animation,
                     Animation<double> secondaryAnimation) {
@@ -230,12 +258,11 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
               );
               return;
             }
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              return Gateway(
-                device: portService2PortServiceInfo(pair),
-                key: UniqueKey(),
-              );
-            }));
+            if (!ctx.mounted) return;
+            final gatewayDevice = portService2PortServiceInfo(pair);
+            await ctx.pushPluginPage(Gateway.modelName, gatewayDevice);
+            if (!ctx.mounted) return;
+            await restartDiscovery();
           },
         );
         return InkWell(
@@ -280,7 +307,7 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
     }));
   }
 
-  void _addToMyAccount(
+  Future<void> _addToMyAccount(
       String gatewayId, String? host, name, description) async {
     try {
       GatewayInfo gatewayInfo = GatewayInfo(
@@ -290,14 +317,21 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
           description: description);
       OperationResponse operationResponse =
           await GatewayManager.addGateway(gatewayInfo);
+      if (!mounted) return;
       if (operationResponse.code == 0) {
         StringValue openIoTHubJwt =
             await GatewayManager.getOpenIoTHubJwtByGatewayUuid(gatewayId);
+        if (!mounted) return;
         await _addToMySessionList(
             openIoTHubJwt.value, gatewayInfo.name, gatewayInfo.description);
       } else {
-        showFailed("Response: ${operationResponse.msg}", context);
+        if (!mounted) return;
+        showFailed(
+          '${OpenIoTHubLocalizations.of(context).add_gateway_failed}: ${operationResponse.msg}',
+          context,
+        );
       }
+      if (!mounted) return;
       var device = Device();
       device.runId = gatewayId;
       device.uuid = getOneUUID();
@@ -305,6 +339,7 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
       device.description = description;
       device.addr = "127.0.0.1";
       await CommonDeviceApi.createOneDevice(device);
+      if (!mounted) return;
       var tcpConfig = PortConfig();
       tcpConfig.device = device;
       tcpConfig.name = "$name Gateway";
@@ -315,12 +350,17 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
       tcpConfig.applicationProtocol = "http";
       await CommonDeviceApi.createOneTCP(tcpConfig);
     } catch (exception) {
-      showFailed("Failed: ${exception}", context);
+      if (!mounted) return;
+      showFailed(
+        '${OpenIoTHubLocalizations.of(context).add_gateway_failed}: $exception',
+        context,
+      );
     }
   }
 
   Future<void> _addGateway() async {
     List<DropdownMenuItem<String>> l = await _listAvailableServer();
+    if (!mounted) return;
     String? value = l.first.value;
     showDialog(
         context: context,
@@ -370,11 +410,13 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
                   TextButton(
                     child: Text(OpenIoTHubLocalizations.of(context).add),
                     onPressed: () async {
+                      final dialogCtx = context;
                       GatewayInfo gatewayInfo =
                           await GatewayManager.generateOneGatewayWithServerUuid(
                               value!);
                       await _addToMySessionList(gatewayInfo.openIoTHubJwt,
                           gatewayInfo.name, gatewayInfo.description);
+                      if (!dialogCtx.mounted) return;
                       String uuid = gatewayInfo.gatewayUuid;
                       String gatewayJwt = gatewayInfo.gatewayJwt;
                       String data = '''
@@ -387,9 +429,9 @@ loginwithtokenmap:
 ''';
                       Clipboard.setData(ClipboardData(text: data));
                       showSuccess(
-                          OpenIoTHubLocalizations.of(context).paste_info,
-                          context);
-                      Navigator.of(context).pop();
+                          OpenIoTHubLocalizations.of(dialogCtx).paste_info,
+                          dialogCtx);
+                      Navigator.of(dialogCtx).pop();
                     },
                   )
                 ]);
@@ -404,12 +446,14 @@ loginwithtokenmap:
     config.description = description;
     try {
       await SessionApi.createOneSession(config);
+      if (!mounted) return;
       showSuccess(
           OpenIoTHubLocalizations.of(context).common_add_gateway_success,
           context);
     } catch (exception) {
+      if (!mounted) return;
       showFailed(
-          "${OpenIoTHubLocalizations.of(context).common_login_failed}：${exception}",
+          "${OpenIoTHubLocalizations.of(context).common_login_failed}：$exception",
           context);
     }
   }
@@ -417,17 +461,17 @@ loginwithtokenmap:
   Future<List<DropdownMenuItem<String>>> _listAvailableServer() async {
     ServerInfoList serverInfoList = await ServerManager.getAllServer();
     List<DropdownMenuItem<String>> l = [];
-    serverInfoList.serverInfoList.forEach((ServerInfo v) {
+    for (final ServerInfo v in serverInfoList.serverInfoList) {
       l.add(DropdownMenuItem<String>(
         value: v.uuid,
         child: Text(
-          "${v.name}(${v.serverHost}",
+          "${v.name}(${v.serverHost})",
           style: TextStyle(
             color: Colors.green,
           ),
         ),
       ));
-    });
+    }
     return l;
   }
 }

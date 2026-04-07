@@ -4,26 +4,27 @@ import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:oktoast/oktoast.dart';
+import 'package:go_router/go_router.dart';
 import 'package:openiothub/network/openiothub_api.dart';
-import 'package:openiothub/common_pages/feedback.dart';
-import 'package:openiothub/common_pages/user/register_page.dart';
+import 'package:openiothub/providers/auth_provider.dart';
+import 'package:openiothub/router/app_routes.dart';
 import 'package:openiothub/core/openiothub_constants.dart';
 import 'package:openiothub_grpc_api/proto/manager/userManager.pb.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:wechat_kit/wechat_kit.dart';
 
 import 'package:openiothub/common_pages/openiothub_common_pages.dart';
 
-import '../utils/toast.dart';
-
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
-  _State createState() => _State();
+  State<LoginPage> createState() => LoginPageState();
 }
 
-class _State extends State<LoginPage> {
+class LoginPageState extends State<LoginPage> {
   // 是否已经同意隐私政策
   bool _isChecked = false;
   bool _loginDisabled = false;
@@ -74,9 +75,8 @@ class _State extends State<LoginPage> {
           actions: [
             IconButton(
               icon: const Icon(Icons.language),
-              tooltip: 'Language',
-              onPressed: () => Navigator.of(context).pushNamed(
-                  RoutePaths.languagePicker),
+              tooltip: OpenIoTHubLocalizations.of(context).language,
+              onPressed: () => context.push(AppRoutes.languagePicker),
             ),
           ],
         ),
@@ -156,6 +156,7 @@ class _State extends State<LoginPage> {
                     loginInfo.password = _userpassword.text;
                     UserLoginResponse userLoginResponse =
                         await UserManager.loginWithUserLoginInfo(loginInfo);
+                    if (!mounted) return;
                     setState(() {
                       _loginDisabled = false;
                     });
@@ -173,7 +174,7 @@ class _State extends State<LoginPage> {
                     theme: TDButtonTheme.defaultTheme,
                     onTap: () async {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => RegisterPage()));
+                          builder: (context) => const RegisterPage()));
                     }),
               )
             ],
@@ -262,21 +263,19 @@ class _State extends State<LoginPage> {
           userLoginResponse.userInfo.mobile);
       await prefs.setString(SharedPreferencesKey.userAvatarKey,
           userLoginResponse.userInfo.avatar);
-      
+
       Future.delayed(Duration(milliseconds: 500), () {
         UtilApi.syncConfigWithToken();
       });
-      
-      // 跳转到主页面
-      // 先关闭所有可能打开的对话框或页面
-      while (Navigator.of(context).canPop()) {
-        Navigator.of(context).pop();
-      }
-      // 使用pushReplacementNamed跳转到主页面
-      Navigator.of(context).pushReplacementNamed('/home');
+
+      if (!mounted) return;
+      await context.read<AuthProvider>().loadCurrentToken();
+      if (!mounted) return;
+      context.go(AppRoutes.home);
     } else {
+      final l10n = OpenIoTHubLocalizations.of(context);
       showFailed(
-          "${OpenIoTHubLocalizations.of(context).common_login_failed}:code:${userLoginResponse.code},message:${userLoginResponse.msg}",
+          "${l10n.common_login_failed}:code:${userLoginResponse.code},message:${userLoginResponse.msg}",
           context);
     }
   }
@@ -284,11 +283,14 @@ class _State extends State<LoginPage> {
   Future<void> _initTimer() async {
     // 获取扫码登录结果
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) async {
-      if (loginFlag != null && !loginFlag!.isEmpty) {
+      if (loginFlag != null && loginFlag!.isNotEmpty) {
+        final ctx = context;
         String loginRetUrl =
             "https://${Config.iotManagerHttpIp}/wxLogin/loginOrCreate?clientType=app&loginFlag=$loginFlag";
         final dio = Dio();
         final response = await dio.get(loginRetUrl);
+        if (!ctx.mounted) return;
+        final l10n = OpenIoTHubLocalizations.of(ctx);
         if (response.data["code"] == 0 &&
             (response.data["data"] as Map<String, dynamic>)
                 .containsKey("token") &&
@@ -305,32 +307,28 @@ class _State extends State<LoginPage> {
               response.data["data"]["user"]["phone"]);
           await prefs.setString(SharedPreferencesKey.userAvatarKey,
               response.data["data"]["user"]["headerImg"]);
-          
+
+          if (!ctx.mounted) return;
           Future.delayed(Duration(milliseconds: 500), () {
             UtilApi.syncConfigWithToken();
           });
           timer.cancel();
-          // 跳转到主页面
-          // 先关闭所有可能打开的对话框或页面
-          while (Navigator.of(context).canPop()) {
-            Navigator.of(context).pop();
-          }
-          // 使用pushReplacementNamed跳转到主页面
-          Navigator.of(context).pushReplacementNamed('/home');
+          if (!ctx.mounted) return;
+          await ctx.read<AuthProvider>().loadCurrentToken();
+          if (!ctx.mounted) return;
+          ctx.go(AppRoutes.home);
         } else if ((response.data["data"] as Map<String, dynamic>)
                 .containsKey("scan") &&
             (response.data["data"] as Map<String, dynamic>)["scan"] == true) {
-          showSuccess(
-              OpenIoTHubLocalizations.of(context).login_after_wechat_bind,
-              context);
+          showSuccess(l10n.login_after_wechat_bind, ctx);
         } else if ((response.data["data"] as Map<String, dynamic>)
                 .containsKey("scan") &&
             (response.data["data"] as Map<String, dynamic>)["scan"] == false) {
           // showToast("请扫码！");
         } else {
           showFailed(
-              "${OpenIoTHubLocalizations.of(context).wechat_fast_login_failed}：${response.data["msg"]}",
-              context);
+              "${l10n.wechat_fast_login_failed}：${response.data["msg"]}",
+              ctx);
         }
       }
     });
@@ -344,48 +342,49 @@ class _State extends State<LoginPage> {
           context);
       return;
     }
+    final ctx = context;
     // 判断是否安装了微信，安装了微信则打开微信进行登录，否则显示二维码由手机扫描登录
     bool wechatInstalled = false;
     try {
       wechatInstalled = await WechatKitPlatform.instance.isInstalled();
-    } on Exception catch (e) {
+    } on Exception {
       wechatInstalled = false;
     }
+    if (!ctx.mounted) return;
     if (wechatInstalled) {
       WechatKitPlatform.instance.auth(
         scope: <String>[WechatScope.kSNSApiUserInfo],
         state: 'auth',
       );
     } else if (!Platform.isIOS) {
-      // 由于iOS审核，可能需要在iOS上屏蔽二维码登录
-      https: //pub.dev/packages/sign_in_with_apple
-      //显示二维码扫描登录
+      // 由于 iOS 审核，可能需要在 iOS 上屏蔽二维码登录
+      // 参考: pub.dev/packages/sign_in_with_apple
+      // 显示二维码扫描登录
+      final l10n = OpenIoTHubLocalizations.of(ctx);
       loginFlag = generateRandomString(12);
       String qrUrl = await getPicUrl(loginFlag!);
+      if (!ctx.mounted) return;
       if (qrUrl == "") {
-        showFailed(
-            OpenIoTHubLocalizations.of(context).get_wechat_qr_code_failed,
-            context);
+        showFailed(l10n.get_wechat_qr_code_failed, ctx);
         return;
       }
       // 循环获取登录结果
       showDialog(
-          context: context,
+          context: ctx,
           builder: (_) => AlertDialog(
-                  title: Text(OpenIoTHubLocalizations.of(context)
-                      .wechat_scan_qr_code_to_login),
+                  title: Text(l10n.wechat_scan_qr_code_to_login),
                   content: SizedBox.expand(child: Image.network(qrUrl)),
                   actions: <Widget>[
                     // 分享网关:二维码图片、小程序链接、网页
                     TDButton(
                       icon: TDIcons.fullscreen_exit,
-                      text: OpenIoTHubLocalizations.of(context).exit,
+                      text: l10n.exit,
                       size: TDButtonSize.small,
                       type: TDButtonType.outline,
                       shape: TDButtonShape.rectangle,
                       theme: TDButtonTheme.primary,
                       onTap: () {
-                        Navigator.of(context).pop();
+                        Navigator.of(ctx).pop();
                       },
                     ),
                   ])).then((_) => {loginFlag = null});

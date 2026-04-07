@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 
 class PrivacyPolicyPage extends StatelessWidget {
   const PrivacyPolicyPage({required Key key}) : super(key: key);
-
-  // TODO 国际化
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("隐私政策(2023.11.15)"),
+          title: Text(OpenIoTHubLocalizations.of(context).privacy_policy_title_dated),
           actions: <Widget>[],
         ),
         body: ListView(children: [

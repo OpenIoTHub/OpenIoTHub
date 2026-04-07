@@ -5,7 +5,7 @@ class Channel {
     final channel = ClientChannel(ip,
         port: port,
         options: const ChannelOptions(
-            credentials: const ChannelCredentials.insecure()));
+            credentials: ChannelCredentials.insecure()));
     return channel;
   }
 }

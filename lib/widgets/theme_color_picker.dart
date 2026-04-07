@@ -31,7 +31,8 @@ void showThemeColorPicker(BuildContext context) {
                 shrinkWrap: true,
                 children: [
                   ...ThemeUtils.supportColors.map((color) {
-                    final isSelected = currentColor.value == color.value;
+                    final isSelected =
+                        currentColor.toARGB32() == color.toARGB32();
                     return ListTile(
                       leading: Container(
                         width: 24,
@@ -110,7 +111,8 @@ class ThemeColorPickerPage extends StatelessWidget {
       body: ListView(
         children: [
           ...ThemeUtils.supportColors.map((color) {
-            final isSelected = currentColor.value == color.value;
+            final isSelected =
+                currentColor.toARGB32() == color.toARGB32();
             return ListTile(
               leading: Container(
                 width: 32,
@@ -142,18 +144,19 @@ class ThemeColorPickerPage extends StatelessWidget {
 
 /// 获取颜色名称
 String _getColorName(Color color, OpenIoTHubLocalizations l10n) {
-  if (color.value == Colors.blue.value) return l10n.color_blue;
-  if (color.value == Colors.purple.value) return l10n.color_purple;
-  if (color.value == Colors.orange.value) return l10n.color_orange;
-  if (color.value == Colors.deepPurpleAccent.value) return l10n.color_deep_purple;
-  if (color.value == Colors.redAccent.value) return l10n.color_red;
-  if (color.value == Colors.lightBlue.value) return l10n.color_light_blue;
-  if (color.value == Colors.amber.value) return l10n.color_amber;
-  if (color.value == Colors.green.value) return l10n.color_green;
-  if (color.value == Colors.lime.value) return l10n.color_lime;
-  if (color.value == Colors.indigo.value) return l10n.color_indigo;
-  if (color.value == Colors.cyan.value) return l10n.color_cyan;
-  if (color.value == Colors.teal.value) return l10n.color_teal;
-  if (color.value == ThemeUtils.lightGrey.value) return l10n.color_light_grey;
+  final c = color.toARGB32();
+  if (c == Colors.blue.toARGB32()) return l10n.color_blue;
+  if (c == Colors.purple.toARGB32()) return l10n.color_purple;
+  if (c == Colors.orange.toARGB32()) return l10n.color_orange;
+  if (c == Colors.deepPurpleAccent.toARGB32()) return l10n.color_deep_purple;
+  if (c == Colors.redAccent.toARGB32()) return l10n.color_red;
+  if (c == Colors.lightBlue.toARGB32()) return l10n.color_light_blue;
+  if (c == Colors.amber.toARGB32()) return l10n.color_amber;
+  if (c == Colors.green.toARGB32()) return l10n.color_green;
+  if (c == Colors.lime.toARGB32()) return l10n.color_lime;
+  if (c == Colors.indigo.toARGB32()) return l10n.color_indigo;
+  if (c == Colors.cyan.toARGB32()) return l10n.color_cyan;
+  if (c == Colors.teal.toARGB32()) return l10n.color_teal;
+  if (c == ThemeUtils.lightGrey.toARGB32()) return l10n.color_light_grey;
   return l10n.color_unknown;
 }

@@ -1,14 +1,11 @@
 import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub/pages/profile/tools/tools_type_page.dart';
+import 'package:go_router/go_router.dart';
 import 'package:openiothub/router/app_routes.dart';
 import 'package:openiothub/router/app_navigator.dart';
 import 'package:openiothub/network/openiothub_api.dart';
 import 'package:openiothub/common_pages/openiothub_common_pages.dart';
-import 'package:openiothub/common_pages/utils/go_to_url.dart';
 import 'package:openiothub/core/app_spacing.dart';
 import 'package:openiothub/core/shared_preferences_keys.dart';
 import 'package:provider/provider.dart';
@@ -22,10 +19,10 @@ class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
   @override
-  _ProfilePageState createState() => _ProfilePageState();
+  State<ProfilePage> createState() => ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class ProfilePageState extends State<ProfilePage> {
   BannerAd? _bannerAd;
   String username = "";
   String useremail = "";
@@ -81,14 +78,15 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   _login() async {
-    bool userSignedIned = await userSignedIn();
+    final userSignedIned = await userSignedIn();
+    if (!mounted) return;
     if (userSignedIned) {
-      Navigator.of(context)
-          .pushNamed(AppRoutes.userInfo)
+      context
+          .push(AppRoutes.userInfo)
           .then((value) => _getUserInfo());
     } else {
-      Navigator.of(context)
-          .pushNamed(AppRoutes.login)
+      context
+          .push(AppRoutes.login)
           .then((value) => _getUserInfo());
     }
   }
@@ -171,13 +169,15 @@ class _ProfilePageState extends State<ProfilePage> {
             leading: Icon(TDIcons.server, color: Colors.orange),
             trailing: const Icon(Icons.arrow_right),
             onTap: () async {
-              if (await userSignedIn()) {
+              final signed = await userSignedIn();
+              if (!mounted) return;
+              if (signed) {
                 AppNavigator.pushServers(
                   context,
                   title: OpenIoTHubLocalizations.of(context).profile_servers,
                 );
               } else {
-                Navigator.of(context).pushNamed(AppRoutes.login);
+                context.push(AppRoutes.login);
               }
             }),
         ListTile(
@@ -186,7 +186,7 @@ class _ProfilePageState extends State<ProfilePage> {
             leading: Icon(TDIcons.tools, color: Colors.yellow),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
-              Navigator.of(context).pushNamed(AppRoutes.tools);
+              context.push(AppRoutes.tools);
             }),
         ListTile(
             //第二个功能项
@@ -214,7 +214,7 @@ class _ProfilePageState extends State<ProfilePage> {
             leading: Icon(TDIcons.wifi, color: Colors.blue),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
-              Navigator.of(context).pushNamed(AppRoutes.gatewayQr);
+              context.push(AppRoutes.gatewayQr);
             }),
         // ListTile(
         //     //第二个功能项
@@ -232,7 +232,7 @@ class _ProfilePageState extends State<ProfilePage> {
             leading: Icon(TDIcons.info_circle, color: Colors.purple),
             trailing: const Icon(Icons.arrow_right),
             onTap: () {
-              Navigator.of(context).pushNamed(AppRoutes.appInfo);
+              context.push(AppRoutes.appInfo);
             }),
         // ListTile(
         //     //第二个功能项
@@ -259,7 +259,8 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future<void> _getUserInfo() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
+    if (!mounted) return;
     if (prefs.containsKey(SharedPreferencesKey.userNameKey)) {
       setState(() {
         username = prefs.getString(SharedPreferencesKey.userNameKey)!;
@@ -293,7 +294,7 @@ class _ProfilePageState extends State<ProfilePage> {
     if (!Platform.isAndroid && !Platform.isIOS){
       return Container();
     }
-    return isCnMainland(OpenIoTHubLocalizations.of(context).localeName)?
+    return context.isCnMainlandLocale?
     buildYLHBanner(context):
     _bannerAd==null?Container():SafeArea(
       child: SizedBox(
@@ -313,12 +314,12 @@ class _ProfilePageState extends State<ProfilePage> {
     // // the app's configured messages.
     // var canRequestAds = await _consentManager.canRequestAds();
     // if (!canRequestAds) {
-    //   print("!canRequestAds");
+    //   debugPrint("!canRequestAds");
     //   return;
     // }
     //
     // if (!mounted) {
-    //   print("!mounted");
+    //   debugPrint("!mounted");
     //   return;
     // }
     // [END_EXCLUDE]
@@ -331,7 +332,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
     if (size == null) {
       // Unable to get width of anchored banner.
-      print("size == null");
+      debugPrint("size == null");
       return;
     }
 

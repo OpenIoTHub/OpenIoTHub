@@ -15,6 +15,7 @@ import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
+import 'package:go_router/go_router.dart';
 import 'package:openiothub/router/app_routes.dart';
 import 'package:openiothub/utils/check_auth.dart';
 import 'package:openiothub/common_pages/utils/toast.dart';
@@ -23,19 +24,21 @@ class ScanQRPage extends StatefulWidget {
   const ScanQRPage({super.key});
 
   @override
-  State<ScanQRPage> createState() => _ScanQRPageState();
+  State<ScanQRPage> createState() => ScanQRPageState();
 }
 
-class _ScanQRPageState extends State<ScanQRPage> {
+class ScanQRPageState extends State<ScanQRPage> {
   final MobileScannerController controller = MobileScannerController();
 
   @override
   void initState() {
     super.initState();
-    userSignedIn().then((signedIn){
+    userSignedIn().then((signedIn) {
+      if (!mounted) return;
       if (!signedIn) {
         Navigator.of(context).pop();
-        Navigator.of(context).pushNamed(AppRoutes.login);
+        if (!mounted) return;
+        context.push(AppRoutes.login);
       }
     });
   }
@@ -251,7 +254,7 @@ class _ScanQRPageState extends State<ScanQRPage> {
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               height: 100,
-              color: Colors.black.withOpacity(0.4),
+              color: Colors.black.withValues(alpha: 0.4),
               child: ScannedBarcodeLabel(barcodes: controller.barcodes),
             ),
           ),
@@ -280,16 +283,20 @@ class _ScanQRPageState extends State<ScanQRPage> {
       );
       OperationResponse operationResponse =
           await GatewayManager.addGateway(gatewayInfo);
+      if (!mounted) return;
       //将网关映射到本机
       if (operationResponse.code == 0) {
         // TODO 从服务器获取连接JWT
         StringValue openIoTHubJwt =
             await GatewayManager.getOpenIoTHubJwtByGatewayUuid(gatewayId);
+        if (!mounted) return;
         await _addToMySessionList(
             openIoTHubJwt.value,
             name,
             description);
+        if (!mounted) return;
         await Future.delayed(Duration(milliseconds: 100));
+        if (!mounted) return;
         // TODO 自动添加主机和端口
         //自动 添加网关主机
         var device = Device();
@@ -299,7 +306,9 @@ class _ScanQRPageState extends State<ScanQRPage> {
         device.description = description;
         device.addr = "127.0.0.1";
         await CommonDeviceApi.createOneDevice(device);
+        if (!mounted) return;
         await Future.delayed(Duration(milliseconds: 100));
+        if (!mounted) return;
         //自动 添加网关界面端口
         var tcpConfig = PortConfig();
         tcpConfig.device = device;
@@ -312,12 +321,14 @@ class _ScanQRPageState extends State<ScanQRPage> {
         tcpConfig.applicationProtocol = "http";
         await CommonDeviceApi.createOneTCP(tcpConfig);
       } else {
+        if (!mounted) return;
         showFailed(
             "${OpenIoTHubLocalizations.of(context).adding_gateway_to_my_account_failed}:${operationResponse.msg}",context);
       }
     } catch (exception) {
+      if (!mounted) return;
       showFailed(
-          "${OpenIoTHubLocalizations.of(context).add_gateway_failed}：${exception}", context);
+          "${OpenIoTHubLocalizations.of(context).add_gateway_failed}：$exception", context);
     }
   }
 
@@ -328,10 +339,12 @@ class _ScanQRPageState extends State<ScanQRPage> {
     config.description = description;
     try {
       await SessionApi.createOneSession(config);
+      if (!mounted) return;
       showSuccess(OpenIoTHubLocalizations.of(context).add_gateway_successful,context);
     } catch (exception) {
+      if (!mounted) return;
       showFailed(
-          "${OpenIoTHubLocalizations.of(context).login_failed}：${exception}", context);
+          "${OpenIoTHubLocalizations.of(context).login_failed}：$exception", context);
     }
   }
 }
@@ -349,7 +362,7 @@ class ScannerOverlay extends CustomPainter {
     final cutoutPath = Path()..addRect(scanWindow);
 
     final backgroundPaint = Paint()
-      ..color = Colors.black.withOpacity(0.5)
+      ..color = Colors.black.withValues(alpha: 0.5)
       ..style = PaintingStyle.fill
       ..blendMode = BlendMode.dstOut;
 

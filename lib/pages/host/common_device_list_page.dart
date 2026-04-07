@@ -5,7 +5,6 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub/pages/host/services/services.dart';
 import 'package:openiothub/router/app_navigator.dart';
 import 'package:openiothub/pages/host/widgets/add_host.dart';
 // import 'package:openiothub/pages/commonDevice/services/old/commonDeviceServiceTypesList.dart';
@@ -13,7 +12,6 @@ import 'package:openiothub/core/openiothub_constants.dart';
 import 'package:openiothub/widgets/build_global_actions.dart';
 import 'package:openiothub/common_pages/utils/toast.dart';
 import 'package:openiothub/network/openiothub_api.dart';
-import 'package:openiothub/core/constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
@@ -27,10 +25,10 @@ class CommonDeviceListPage extends StatefulWidget {
   final String title;
 
   @override
-  _CommonDeviceListPageState createState() => _CommonDeviceListPageState();
+  State<CommonDeviceListPage> createState() => CommonDeviceListPageState();
 }
 
-class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
+class CommonDeviceListPageState extends State<CommonDeviceListPage> {
   BannerAd? _bannerAd;
   List<SessionConfig> _sessionList = [];
   List<Device> _commonDeviceList = [];
@@ -46,7 +44,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
       getAllCommonDevice();
     });
     _loadAd();
-    print("init common devie List");
+    debugPrint('init common device list');
   }
 
   @override
@@ -127,7 +125,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
         elevation: 2.0,
-        tooltip: 'Add remote Host in LAN',
+        tooltip: OpenIoTHubLocalizations.of(context).tooltip_add_remote_host_lan,
         onPressed: () {
           _addRemoteHostFromSession();
         },
@@ -137,35 +135,34 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
         onRefresh: getAllCommonDevice,
         child: tiles.isNotEmpty
             ? divided
-            : Container(
-                child: Column(children: [
-                  ThemeUtils.isDarkMode(context)
-                      ? Center(
-                          child:
-                              Image.asset('assets/images/empty_list_black.png'),
-                        )
-                      : Center(
-                          child: Image.asset('assets/images/empty_list.png'),
-                        ),
-                  TextButton(
-                      style: ButtonStyle(
-                        side: WidgetStateProperty.all(
-                            AppDecorations.dividerBorder),
-                        shape: WidgetStateProperty.all(const StadiumBorder()),
+            : Column(children: [
+                ThemeUtils.isDarkMode(context)
+                    ? Center(
+                        child:
+                            Image.asset('assets/images/empty_list_black.png'),
+                      )
+                    : Center(
+                        child: Image.asset('assets/images/empty_list.png'),
                       ),
-                      onPressed: () {
-                        _addRemoteHostFromSession();
-                      },
-                      child: Text(OpenIoTHubLocalizations.of(context)
-                          .please_add_host_first))
-                ]),
-              ),
+                TextButton(
+                    style: ButtonStyle(
+                      side: WidgetStateProperty.all(
+                          AppDecorations.dividerBorder),
+                      shape: WidgetStateProperty.all(const StadiumBorder()),
+                    ),
+                    onPressed: () {
+                      _addRemoteHostFromSession();
+                    },
+                    child: Text(OpenIoTHubLocalizations.of(context)
+                        .please_add_host_first))
+              ]),
       ),
     );
   }
 
   void _pushDeviceServiceTypes(Device device) async {
     AppNavigator.pushServicesList(context, device).then((result) {
+      if (!mounted) return;
       setState(() {
         getAllSession();
       });
@@ -175,12 +172,16 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
   Future getAllSession() async {
     try {
       final response = await SessionApi.getAllSession();
-      print('Greeter client received: ${response.sessionConfigs}');
+      debugPrint('Greeter client received: ${response.sessionConfigs}');
       setState(() {
         _sessionList = response.sessionConfigs;
       });
     } catch (e) {
-      showFailed("getAllSession：$e", context);
+      if (!mounted) return;
+      showFailed(
+        '${OpenIoTHubLocalizations.of(context).failed_to_get_session_list}: $e',
+        context,
+      );
     }
   }
 
@@ -188,6 +189,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
     try {
       await CommonDeviceApi.createOneDevice(device);
     } catch (e) {
+      if (!mounted) return;
       showFailed(
           "${OpenIoTHubLocalizations.of(context).create_device_failed}：$e",
           context);
@@ -197,13 +199,13 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
   Future<void> getAllCommonDevice() async {
     try {
       final response = await CommonDeviceApi.getAllDevice();
-      print("=====getAllDevice:${response.devices}");
+      debugPrint("=====getAllDevice:${response.devices}");
       setState(() {
         _commonDeviceList = response.devices;
       });
     } catch (e) {
       if (kDebugMode) {
-        print("openiothub获取设备失败:$e");
+        debugPrint("openiothub获取设备失败:$e");
       }
       // showToast( "获取设备列表失败：${e}");
     }
@@ -226,7 +228,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
     if (!Platform.isAndroid && !Platform.isIOS){
       return Container();
     }
-    return isCnMainland(OpenIoTHubLocalizations.of(context).localeName)?
+    return context.isCnMainlandLocale?
     buildYLHBanner(context):
     _bannerAd==null?Container():SafeArea(
       child: SizedBox(
@@ -246,12 +248,12 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
     // // the app's configured messages.
     // var canRequestAds = await _consentManager.canRequestAds();
     // if (!canRequestAds) {
-    //   print("!canRequestAds");
+    //   debugPrint("!canRequestAds");
     //   return;
     // }
     //
     // if (!mounted) {
-    //   print("!mounted");
+    //   debugPrint("!mounted");
     //   return;
     // }
     // [END_EXCLUDE]
@@ -264,7 +266,7 @@ class _CommonDeviceListPageState extends State<CommonDeviceListPage> {
 
     if (size == null) {
       // Unable to get width of anchored banner.
-      print("size == null");
+      debugPrint("size == null");
       return;
     }
 

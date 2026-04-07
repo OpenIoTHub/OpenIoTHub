@@ -3,11 +3,9 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:oktoast/oktoast.dart';
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:openiothub/plugin/openiothub_plugin.dart';
 import 'package:openiothub/plugin/utils/ip.dart';
 import 'package:openiothub/common_pages/utils/toast.dart';
@@ -15,26 +13,26 @@ import 'package:openiothub/common_pages/utils/toast.dart';
 import 'package:openiothub/plugin/models/port_service_info.dart';
 
 class PhicommR1ControlerPage extends StatefulWidget {
-  PhicommR1ControlerPage({required Key key, required this.device})
+  const PhicommR1ControlerPage({required Key key, required this.device})
       : super(key: key);
 
   static final String modelName = "com.iotserv.devices.phicomm-r1-controler";
   final PortServiceInfo device;
 
   @override
-  _PhicommR1ControlerPageState createState() => _PhicommR1ControlerPageState();
+  State<PhicommR1ControlerPage> createState() => PhicommR1ControlerPageState();
 }
 
-class _PhicommR1ControlerPageState extends State<PhicommR1ControlerPage> {
+class PhicommR1ControlerPageState extends State<PhicommR1ControlerPage> {
   static const int _up = 24;
   static const int _off = 164;
   static const int _down = 25;
   int _currentKey = 1;
   String _currentPackage = "android";
   List<String> _listPackages = [];
-  TextEditingController _cmdController =
+  final TextEditingController _cmdController =
       TextEditingController.fromValue(TextEditingValue(text: ""));
-  TextEditingController _adbCmdController =
+  final TextEditingController _adbCmdController =
       TextEditingController.fromValue(TextEditingValue(text: ""));
   static const Map<int, String> keyevents = {
     1: "按键 Soft Left",
@@ -227,11 +225,12 @@ class _PhicommR1ControlerPageState extends State<PhicommR1ControlerPage> {
   void initState() {
     super.initState();
     _getInstalledPackages();
-    print("init iot devie List");
+    debugPrint("init iot device list");
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = OpenIoTHubLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.device.info!["name"]!),
@@ -253,7 +252,7 @@ class _PhicommR1ControlerPageState extends State<PhicommR1ControlerPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text("adb操作(kill/start/reconnect):"),
+                Text(l10n.r1_adb_operations_hint),
                 IconButton(
                   icon: Icon(Icons.power_settings_new),
                   color: Colors.red,
@@ -280,7 +279,7 @@ class _PhicommR1ControlerPageState extends State<PhicommR1ControlerPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text("关机/重启:"),
+                Text(l10n.r1_power_restart),
                 IconButton(
                   icon: Icon(Icons.power_settings_new),
                   color: Colors.red,
@@ -300,7 +299,7 @@ class _PhicommR1ControlerPageState extends State<PhicommR1ControlerPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text("音量控制:"),
+                Text(l10n.r1_volume_control),
                 IconButton(
                   icon: Icon(Icons.volume_down),
                   color: Colors.cyan,
@@ -326,42 +325,42 @@ class _PhicommR1ControlerPageState extends State<PhicommR1ControlerPage> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[Text("媒体播放控制:")],
+              children: <Widget>[Text(l10n.r1_media_control_section)],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 // 86: "多媒体键 停止",
                 TextButton(
-                  child: Text("停止"),
+                  child: Text(l10n.r1_media_stop),
                   onPressed: () {
                     _keyEvent(86);
                   },
                 ),
                 // 87: "多媒体键 下一首",
                 TextButton(
-                  child: Text("下一首"),
+                  child: Text(l10n.r1_media_next),
                   onPressed: () {
                     _keyEvent(87);
                   },
                 ),
                 // 88: "多媒体键 上一首",
                 TextButton(
-                  child: Text("上一首"),
+                  child: Text(l10n.r1_media_previous),
                   onPressed: () {
                     _keyEvent(88);
                   },
                 ),
                 // 89: "多媒体键 快退",
                 TextButton(
-                  child: Text("快退"),
+                  child: Text(l10n.r1_media_rewind),
                   onPressed: () {
                     _keyEvent(89);
                   },
                 ),
                 // 90: "多媒体键 快进",
                 TextButton(
-                  child: Text("快进"),
+                  child: Text(l10n.r1_media_fast_forward),
                   onPressed: () {
                     _keyEvent(90);
                   },
@@ -373,35 +372,35 @@ class _PhicommR1ControlerPageState extends State<PhicommR1ControlerPage> {
               children: <Widget>[
                 // 126: "多媒体键 播放",
                 TextButton(
-                  child: Text("播放"),
+                  child: Text(l10n.r1_media_play),
                   onPressed: () {
                     _keyEvent(126);
                   },
                 ),
                 // 127: "多媒体键 暂停",
                 TextButton(
-                  child: Text("暂停"),
+                  child: Text(l10n.r1_media_pause),
                   onPressed: () {
                     _keyEvent(127);
                   },
                 ),
                 // 128: "多媒体键 关闭",
                 TextButton(
-                  child: Text("关闭"),
+                  child: Text(l10n.r1_media_close),
                   onPressed: () {
                     _keyEvent(128);
                   },
                 ),
                 // 129: "多媒体键 弹出",
                 TextButton(
-                  child: Text("弹出"),
+                  child: Text(l10n.r1_media_eject),
                   onPressed: () {
                     _keyEvent(129);
                   },
                 ),
                 // 130: "多媒体键 录音",
                 TextButton(
-                  child: Text("录音"),
+                  child: Text(l10n.r1_media_record),
                   onPressed: () {
                     _keyEvent(130);
                   },
@@ -412,7 +411,7 @@ class _PhicommR1ControlerPageState extends State<PhicommR1ControlerPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 TextButton(
-                  child: Text("查看屏幕截图"),
+                  child: Text(l10n.r1_view_screenshot),
                   onPressed: () {
                     _showImage();
                   },
@@ -426,8 +425,8 @@ class _PhicommR1ControlerPageState extends State<PhicommR1ControlerPage> {
                   controller: _cmdController,
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(10.0),
-                    labelText: '请输入需要在安卓上执行的命令',
-                    helperText: 'shell cmd',
+                    labelText: l10n.r1_shell_cmd_label,
+                    helperText: l10n.r1_shell_cmd_helper,
                   ),
                 ),
               ],
@@ -436,7 +435,7 @@ class _PhicommR1ControlerPageState extends State<PhicommR1ControlerPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 TextButton(
-                  child: Text("开始执行上述命令到安卓"),
+                  child: Text(l10n.r1_run_shell_on_device),
                   onPressed: () {
                     _doCmd(_cmdController.text);
                   },
@@ -450,8 +449,8 @@ class _PhicommR1ControlerPageState extends State<PhicommR1ControlerPage> {
                   controller: _adbCmdController,
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(10.0),
-                    labelText: '请输入需要执行adb命令的参数，如:kill-server',
-                    helperText: 'adb cmd args',
+                    labelText: l10n.r1_adb_args_label,
+                    helperText: l10n.r1_adb_args_helper,
                   ),
                 ),
               ],
@@ -460,7 +459,7 @@ class _PhicommR1ControlerPageState extends State<PhicommR1ControlerPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 TextButton(
-                  child: Text("开始执行上述adb命令"),
+                  child: Text(l10n.r1_run_adb_command),
                   onPressed: () {
                     _doAdbCmd(_adbCmdController.text);
                   },
@@ -470,7 +469,7 @@ class _PhicommR1ControlerPageState extends State<PhicommR1ControlerPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text("输入按键:"),
+                Text(l10n.r1_key_input_label),
                 DropdownButton<int>(
                   value: _currentKey,
                   onChanged: _keyEvent,
@@ -482,7 +481,7 @@ class _PhicommR1ControlerPageState extends State<PhicommR1ControlerPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 TextButton(
-                  child: Text("安装apk程序"),
+                  child: Text(l10n.r1_install_apk),
                   onPressed: () {
                     _installApk();
                   },
@@ -492,7 +491,7 @@ class _PhicommR1ControlerPageState extends State<PhicommR1ControlerPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text("选择需要卸载的软件:"),
+                Text(l10n.r1_select_package_uninstall),
                 DropdownButton<String>(
                   value: _currentPackage,
                   onChanged: _removePackage,
@@ -507,7 +506,7 @@ class _PhicommR1ControlerPageState extends State<PhicommR1ControlerPage> {
                     onPressed: () {
                       _getInstalledPackages();
                     },
-                    child: Text("刷新软件包列表")),
+                    child: Text(l10n.r1_refresh_packages)),
               ],
             ),
             Row(
@@ -518,18 +517,18 @@ class _PhicommR1ControlerPageState extends State<PhicommR1ControlerPage> {
                       _doCmd("settings put global bluetooth_on 1");
                       _doCmd("svc bluetooth enable");
                     },
-                    child: Text("打开蓝牙")),
+                    child: Text(l10n.r1_bluetooth_enable)),
                 TextButton(
                     onPressed: () {
                       _doCmd("settings put global bluetooth_on 0");
                       _doCmd("svc bluetooth disable");
                     },
-                    child: Text("关闭蓝牙")),
+                    child: Text(l10n.r1_bluetooth_disable)),
                 TextButton(
                     onPressed: () {
                       _getBluetoothStatus();
                     },
-                    child: Text("获取蓝牙状态")),
+                    child: Text(l10n.r1_bluetooth_status)),
               ],
             ),
             //TODO  原厂配网和非原厂配网
@@ -555,24 +554,22 @@ class _PhicommR1ControlerPageState extends State<PhicommR1ControlerPage> {
     setState(() {
       _currentKey = key!;
     });
-    String url =
-        "http://${widget.device.addr}:${widget.device.port}/input-keyevent?key=$key";
-    http.Response response;
     try {
-      response = await http
+      final hostAddr = widget.device.addr.endsWith(".local")
+          ? await getIpByDomain(widget.device.addr)
+          : widget.device.addr;
+      if (!mounted) return;
+      final response = await http
           .get(Uri(
               scheme: 'http',
-              host: widget.device.addr.endsWith(".local")
-                  ? await getIpByDomain(widget.device.addr)
-                  : widget.device.addr,
+              host: hostAddr,
               port: widget.device.port,
               path: '/input-keyevent',
               queryParameters: {"key": key}))
           .timeout(const Duration(seconds: 2));
-      print(response.body);
+      debugPrint(response.body);
     } catch (e) {
-      print(e.toString());
-      return;
+      debugPrint(e.toString());
     }
   }
 
@@ -580,46 +577,51 @@ class _PhicommR1ControlerPageState extends State<PhicommR1ControlerPage> {
     setState(() {
       _currentPackage = package!;
     });
-    String url =
-        "http://${widget.device.addr}:${widget.device.port}/do-cmd?cmd=/system/bin/pm uninstall $package";
-    http.Response response;
     try {
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
-                  title: Text("确认卸载软件包:"),
+                  title: Text(OpenIoTHubLocalizations.of(context).r1_uninstall_title),
                   content: SizedBox.expand(
-                    child: Text("请确认"),
+                    child: Text(OpenIoTHubLocalizations.of(context).r1_uninstall_prompt),
                   ),
                   actions: <Widget>[
                     TextButton(
-                      child: Text("取消"),
+                      child: Text(OpenIoTHubLocalizations.of(context).cancel),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
                     ),
                     TextButton(
-                      child: Text("确认"),
+                      child: Text(OpenIoTHubLocalizations.of(context).plugin_confirm),
                       onPressed: () async {
-                        response = await http
-                            .get(Uri(
-                                scheme: 'http',
-                                host: widget.device.addr.endsWith(".local")
-                                    ? await getIpByDomain(widget.device.addr)
-                                    : widget.device.addr,
-                                port: widget.device.port,
-                                path: '/do-cmd',
-                                queryParameters: {
-                                  "cmd": "/system/bin/pm uninstall $package"
-                                }))
-                            .timeout(const Duration(seconds: 2));
-                        print(response.body);
-                        Navigator.of(context).pop();
+                        try {
+                          final hostAddr = widget.device.addr.endsWith(".local")
+                              ? await getIpByDomain(widget.device.addr)
+                              : widget.device.addr;
+                          if (!mounted) return;
+                          final response = await http
+                              .get(Uri(
+                                  scheme: 'http',
+                                  host: hostAddr,
+                                  port: widget.device.port,
+                                  path: '/do-cmd',
+                                  queryParameters: {
+                                    "cmd":
+                                        "/system/bin/pm uninstall $package"
+                                  }))
+                              .timeout(const Duration(seconds: 2));
+                          debugPrint(response.body);
+                          if (!mounted) return;
+                          Navigator.of(context).pop();
+                        } catch (e) {
+                          debugPrint(e.toString());
+                        }
                       },
                     )
                   ]));
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
       return;
     }
     _getInstalledPackages();
@@ -630,35 +632,48 @@ class _PhicommR1ControlerPageState extends State<PhicommR1ControlerPage> {
         context: context,
         builder: (context) {
           return StatefulBuilder(builder: (context, state) {
-            String _screenUrl =
+            String screenUrl =
                 "http://${widget.device.addr}:${widget.device.port}/get-image?time=${DateTime.now().millisecondsSinceEpoch}";
             return AlertDialog(
-                title: Text("屏幕截图:"),
+                title: Text(
+                  '${OpenIoTHubLocalizations.of(context).device_screen_mirror}:',
+                ),
                 content: SizedBox.expand(
                   child: SingleChildScrollView(
                     child: Column(
                       children: <Widget>[
                         GestureDetector(
                           child: Image.network(
-                            _screenUrl,
+                            screenUrl,
                             width: 360,
                             height: 240,
                           ),
                           onTapDown: (TapDownDetails details) {
-                            showSuccess(
-                                "onTapDown:${details.globalPosition},${details.localPosition},${details.kind}", context);
+                            if (kDebugMode) {
+                              debugPrint(
+                                'onTapDown: ${details.globalPosition}, ${details.localPosition}, ${details.kind}',
+                              );
+                            }
                           },
                           onVerticalDragStart: (DragStartDetails details) {
-                            showSuccess("onVerticalDragStart:$details", context);
+                            if (kDebugMode) {
+                              debugPrint('onVerticalDragStart: $details');
+                            }
                           },
                           onVerticalDragEnd: (DragEndDetails details) {
-                            showSuccess("onVerticalDragEnd:$details", context);
+                            if (kDebugMode) {
+                              debugPrint('onVerticalDragEnd: $details');
+                            }
                           },
                           onHorizontalDragStart: (DragStartDetails details) {
-                            showSuccess("onHorizontalDragStart:$details", context);
+                            if (kDebugMode) {
+                              debugPrint('onHorizontalDragStart: $details');
+                            }
                           },
                           onHorizontalDragEnd: (DragEndDetails details) {
-                            showSuccess("onHorizontalDragEnd:$details", context);
+                            if (kDebugMode) {
+                              debugPrint('onHorizontalDragEnd: $details');
+                            }
                           },
                         ),
                         // 19: "导航键向上",
@@ -676,7 +691,7 @@ class _PhicommR1ControlerPageState extends State<PhicommR1ControlerPage> {
                                   Future.delayed(const Duration(seconds: 1),
                                       () {
                                     state(() {
-                                      _screenUrl =
+                                      screenUrl =
                                           "http://${widget.device.addr}:${widget.device.port}/get-image?time=${DateTime.now().millisecondsSinceEpoch}";
                                     });
                                   });
@@ -693,7 +708,7 @@ class _PhicommR1ControlerPageState extends State<PhicommR1ControlerPage> {
                                   Future.delayed(const Duration(seconds: 1),
                                       () {
                                     state(() {
-                                      _screenUrl =
+                                      screenUrl =
                                           "http://${widget.device.addr}:${widget.device.port}/get-image?time=${DateTime.now().millisecondsSinceEpoch}";
                                     });
                                   });
@@ -705,7 +720,7 @@ class _PhicommR1ControlerPageState extends State<PhicommR1ControlerPage> {
                                   Future.delayed(const Duration(seconds: 1),
                                       () {
                                     state(() {
-                                      _screenUrl =
+                                      screenUrl =
                                           "http://${widget.device.addr}:${widget.device.port}/get-image?time=${DateTime.now().millisecondsSinceEpoch}";
                                     });
                                   });
@@ -717,7 +732,7 @@ class _PhicommR1ControlerPageState extends State<PhicommR1ControlerPage> {
                                   Future.delayed(const Duration(seconds: 1),
                                       () {
                                     state(() {
-                                      _screenUrl =
+                                      screenUrl =
                                           "http://${widget.device.addr}:${widget.device.port}/get-image?time=${DateTime.now().millisecondsSinceEpoch}";
                                     });
                                   });
@@ -734,7 +749,7 @@ class _PhicommR1ControlerPageState extends State<PhicommR1ControlerPage> {
                                   Future.delayed(const Duration(seconds: 1),
                                       () {
                                     state(() {
-                                      _screenUrl =
+                                      screenUrl =
                                           "http://${widget.device.addr}:${widget.device.port}/get-image?time=${DateTime.now().millisecondsSinceEpoch}";
                                     });
                                   });
@@ -744,34 +759,40 @@ class _PhicommR1ControlerPageState extends State<PhicommR1ControlerPage> {
                         Row(
                           children: <Widget>[
                             TextButton(
-                                child: Text("返回"),
+                                child: Text(
+                                    OpenIoTHubLocalizations.of(context)
+                                        .r1_android_back),
                                 onPressed: () {
                                   _keyEvent(4);
                                   Future.delayed(const Duration(seconds: 1),
                                       () {
                                     state(() {
-                                      _screenUrl =
+                                      screenUrl =
                                           "http://${widget.device.addr}:${widget.device.port}/get-image?time=${DateTime.now().millisecondsSinceEpoch}";
                                     });
                                   });
                                 }),
                             TextButton(
-                                child: Text("桌面"),
+                                child: Text(
+                                    OpenIoTHubLocalizations.of(context)
+                                        .r1_android_home),
                                 onPressed: () {
                                   _keyEvent(3);
                                   Future.delayed(const Duration(seconds: 1),
                                       () {
                                     state(() {
-                                      _screenUrl =
+                                      screenUrl =
                                           "http://${widget.device.addr}:${widget.device.port}/get-image?time=${DateTime.now().millisecondsSinceEpoch}";
                                     });
                                   });
                                 }),
                             TextButton(
-                                child: Text("刷新显示屏"),
+                                child: Text(
+                                    OpenIoTHubLocalizations.of(context)
+                                        .r1_refresh_display),
                                 onPressed: () {
                                   state(() {
-                                    _screenUrl =
+                                    screenUrl =
                                         "http://${widget.device.addr}:${widget.device.port}/get-image?time=${DateTime.now().millisecondsSinceEpoch}";
                                   });
                                 }),
@@ -783,7 +804,7 @@ class _PhicommR1ControlerPageState extends State<PhicommR1ControlerPage> {
                 ),
                 actions: <Widget>[
                   TextButton(
-                    child: Text("确认"),
+                    child: Text(OpenIoTHubLocalizations.of(context).plugin_confirm),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -794,95 +815,91 @@ class _PhicommR1ControlerPageState extends State<PhicommR1ControlerPage> {
   }
 
   _doCmd(String cmd) async {
-    String url =
-        "http://${widget.device.addr}:${widget.device.port}/do-cmd?cmd=$cmd";
-    http.Response response;
     try {
-      response = await http
+      final hostAddr = widget.device.addr.endsWith(".local")
+          ? await getIpByDomain(widget.device.addr)
+          : widget.device.addr;
+      if (!mounted) return;
+      final response = await http
           .get(Uri(
               scheme: 'http',
-              host: widget.device.addr.endsWith(".local")
-                  ? await getIpByDomain(widget.device.addr)
-                  : widget.device.addr,
+              host: hostAddr,
               port: widget.device.port,
               path: '/do-cmd',
               queryParameters: {"cmd": cmd}))
           .timeout(const Duration(seconds: 2));
+      if (!mounted) return;
       showSuccess(response.body, context);
     } catch (e) {
-      print(e.toString());
-      return;
+      debugPrint(e.toString());
     }
   }
 
   _doAdbCmd(String cmd) async {
-    String url =
-        "http://${widget.device.addr}:${widget.device.port}/do-adb-cmd?cmd=$cmd";
-    http.Response response;
     try {
-      response = await http
+      final hostAddr = widget.device.addr.endsWith(".local")
+          ? await getIpByDomain(widget.device.addr)
+          : widget.device.addr;
+      if (!mounted) return;
+      final response = await http
           .get(Uri(
               scheme: 'http',
-              host: widget.device.addr.endsWith(".local")
-                  ? await getIpByDomain(widget.device.addr)
-                  : widget.device.addr,
+              host: hostAddr,
               port: widget.device.port,
               path: '/do-adb-cmd',
               queryParameters: {"cmd": cmd}))
           .timeout(const Duration(seconds: 2));
+      if (!mounted) return;
       showSuccess(response.body, context);
     } catch (e) {
-      print(e.toString());
-      return;
+      debugPrint(e.toString());
     }
   }
 
   _getBluetoothStatus() async {
-    String url =
-        "http://${widget.device.addr}:${widget.device.port}/do-cmd?cmd=settings get global bluetooth_on";
-    http.Response response;
     try {
-      response = await http
+      final hostAddr = widget.device.addr.endsWith(".local")
+          ? await getIpByDomain(widget.device.addr)
+          : widget.device.addr;
+      if (!mounted) return;
+      final response = await http
           .get(Uri(
               scheme: 'http',
-              host: widget.device.addr.endsWith(".local")
-                  ? await getIpByDomain(widget.device.addr)
-                  : widget.device.addr,
+              host: hostAddr,
               port: widget.device.port,
               path: '/do-cmd',
               queryParameters: {"cmd": "settings get global bluetooth_on"}))
           .timeout(const Duration(seconds: 2));
+      if (!mounted) return;
       showSuccess(response.body, context);
       Map<String, dynamic> body = jsonDecode(response.body);
+      if (!mounted) return;
       showSuccess(body['result'].toString(), context);
     } catch (e) {
-      print(e.toString());
-      return;
+      debugPrint(e.toString());
     }
   }
 
   _getInstalledPackages() async {
-    String url =
-        "http://${widget.device.addr}:${widget.device.port}/list-packages";
-    http.Response response;
     try {
-      response = await http
+      final hostAddr = widget.device.addr.endsWith(".local")
+          ? await getIpByDomain(widget.device.addr)
+          : widget.device.addr;
+      if (!mounted) return;
+      final response = await http
           .get(Uri(
               scheme: 'http',
-              host: widget.device.addr.endsWith(".local")
-                  ? await getIpByDomain(widget.device.addr)
-                  : widget.device.addr,
+              host: hostAddr,
               port: widget.device.port,
               path: '/list-packages'))
           .timeout(const Duration(seconds: 7));
-      // Fluttertoast.showToast(msg: response.body);
+      if (!mounted) return;
       Map<String, dynamic> body = jsonDecode(response.body);
       setState(() {
         _listPackages = List<String>.from(body['result']);
       });
     } catch (e) {
-      print(e.toString());
-      return;
+      debugPrint(e.toString());
     }
   }
 
@@ -892,23 +909,28 @@ class _PhicommR1ControlerPageState extends State<PhicommR1ControlerPage> {
         // allowedExtensions: ['apk'],
         );
 
+    if (!mounted) return;
     if (path == null) {
-      showFailed("User canceled the picker", context);
+      showFailed(
+        OpenIoTHubLocalizations.of(context).file_picker_canceled,
+        context,
+      );
       return;
     }
     showSuccess(path.files.single.path!, context);
     String url = "http://${widget.device.addr}:${widget.device.port}/install-apk";
-    Response response;
     try {
       //安装apk
       FormData formData = FormData.fromMap({
         "android.apk": await MultipartFile.fromFile(path.files.single.path!,
             filename: "android.apk"),
       });
-      response = await dio.post(url, data: formData);
+      if (!mounted) return;
+      final response = await dio.post(url, data: formData);
+      if (!mounted) return;
       showSuccess(response.toString(), context);
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
       return;
     }
     _getInstalledPackages();
@@ -927,12 +949,12 @@ class _PhicommR1ControlerPageState extends State<PhicommR1ControlerPage> {
 
   List<DropdownMenuItem<String>> _getPackagesList() {
     List<DropdownMenuItem<String>> l = [];
-    _listPackages.forEach((String v) {
+    for (var v in _listPackages) {
       l.add(DropdownMenuItem<String>(
         value: v,
         child: Text(v),
       ));
-    });
+    }
     return l;
   }
 }

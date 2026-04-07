@@ -5,6 +5,8 @@ import 'package:openiothub_grpc_api/google/protobuf/wrappers.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/common.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/configManager.pbgrpc.dart';
 
+import 'package:openiothub/network/network_log.dart';
+
 import 'iot_manager_channel.dart';
 
 class ConfigManager {
@@ -18,7 +20,7 @@ class ConfigManager {
     StringValue stringValueKey = StringValue();
     stringValueKey.value = value;
     StringValue stringValue = await stub.getUserConfigByKey(stringValueKey);
-    print('getUserConfigByKey: ${stringValue}');
+    netLog('ConfigManager', 'getUserConfigByKey: $stringValue');
     channel.shutdown();
     return stringValue;
   }
@@ -31,7 +33,7 @@ class ConfigManager {
         options: CallOptions(metadata: {'jwt': jwt}));
     Empty empty = Empty();
     UserConfigMap configMap = await stub.getAllUserConfig(empty);
-    print('getAllUserConfig: ${configMap}');
+    netLog('ConfigManager', 'getAllUserConfig: $configMap');
     channel.shutdown();
     return configMap;
   }
@@ -46,7 +48,7 @@ class ConfigManager {
         options: CallOptions(metadata: {'jwt': jwt}));
     OperationResponse operationResponse =
         await stub.setUserConfigByKey(userConfigMap);
-    print('setUserConfigByKey: ${operationResponse}');
+    netLog('ConfigManager', 'setUserConfigByKey: $operationResponse');
     channel.shutdown();
     return operationResponse;
   }
@@ -61,7 +63,7 @@ class ConfigManager {
         options: CallOptions(metadata: {'jwt': jwt}));
     OperationResponse operationResponse =
         await stub.delAllUserConfig(userConfigMap);
-    print('delAllUserConfig: ${operationResponse}');
+    netLog('ConfigManager', 'delAllUserConfig: $operationResponse');
     channel.shutdown();
     return operationResponse;
   }
@@ -76,7 +78,7 @@ class ConfigManager {
     stringValue.value = value;
     OperationResponse operationResponse =
         await stub.delUserConfigByKey(stringValue);
-    print('delUserConfigByKey: ${operationResponse}');
+    netLog('ConfigManager', 'delUserConfigByKey: $operationResponse');
     channel.shutdown();
     return operationResponse;
   }

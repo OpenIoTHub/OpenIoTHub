@@ -1,8 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:oktoast/oktoast.dart';
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub/common_pages/utils/toast.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -13,10 +12,10 @@ class SettingsPage extends StatefulWidget {
   final Map<String, dynamic> data;
 
   @override
-  State<SettingsPage> createState() => _SettingsPageState();
+  State<SettingsPage> createState() => CasaZimaOsSettingsPageState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class CasaZimaOsSettingsPageState extends State<SettingsPage> {
   bool usbAutoMount = true;
 
   @override
@@ -29,7 +28,7 @@ class _SettingsPageState extends State<SettingsPage> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Text("USB auto mount"),
+            Text(OpenIoTHubLocalizations.of(context).nas_usb_auto_mount),
           ],
         ),
         trailing: Switch(
@@ -43,12 +42,14 @@ class _SettingsPageState extends State<SettingsPage> {
             try {
               final response = await dio.putUri(Uri.parse(reqUri),
                   data: {"state": newValue ? "on" : "off"});
+              if (!context.mounted) return;
               if (response.data["success"] == 200) {
                 setState(() {
                   usbAutoMount = newValue;
                 });
               }
             } catch (e) {
+              if (!context.mounted) return;
               showFailed(e.toString(), context);
             }
           },
@@ -63,7 +64,7 @@ class _SettingsPageState extends State<SettingsPage> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Text("Power Control"),
+            Text(OpenIoTHubLocalizations.of(context).nas_power_control),
           ],
         ),
         trailing: IconButton(
@@ -78,12 +79,13 @@ class _SettingsPageState extends State<SettingsPage> {
                   Animation<double> animation,
                   Animation<double> secondaryAnimation) {
                 return TDAlertDialog.vertical(
-                    title: "Power Control",
+                    title: OpenIoTHubLocalizations.of(context).nas_power_control,
                     content: "",
                     showCloseButton: true,
                     buttons: [
                       TDDialogButtonOptions(
-                          title: 'Restart',
+                          title: OpenIoTHubLocalizations.of(context)
+                              .nas_system_restart,
                           action: () async {
                             final dio = Dio(BaseOptions(
                                 baseUrl: widget.baseUrl,
@@ -95,17 +97,24 @@ class _SettingsPageState extends State<SettingsPage> {
                             try {
                               final response =
                                   await dio.putUri(Uri.parse(reqUri));
+                              if (!context.mounted) return;
                               if (response.data["success"] == 200) {
-                                showSuccess("success!", context);
+                                showSuccess(
+                                  OpenIoTHubLocalizations.of(context).success,
+                                  context,
+                                );
                               }
                             } catch (e) {
+                              if (!context.mounted) return;
                               showFailed(e.toString(), context);
                             }
+                            if (!context.mounted) return;
                             Navigator.pop(context);
                           },
                           theme: TDButtonTheme.danger),
                       TDDialogButtonOptions(
-                          title: 'PowerOff',
+                          title: OpenIoTHubLocalizations.of(context)
+                              .nas_system_power_off,
                           titleColor: TDTheme.of(context).brandColor7,
                           action: () async {
                             final dio = Dio(BaseOptions(
@@ -118,12 +127,18 @@ class _SettingsPageState extends State<SettingsPage> {
                             try {
                               final response =
                                   await dio.putUri(Uri.parse(reqUri));
+                              if (!context.mounted) return;
                               if (response.data["success"] == 200) {
-                                showSuccess("success!", context);
+                                showSuccess(
+                                  OpenIoTHubLocalizations.of(context).success,
+                                  context,
+                                );
                               }
                             } catch (e) {
+                              if (!context.mounted) return;
                               showFailed(e.toString(), context);
                             }
+                            if (!context.mounted) return;
                             Navigator.pop(context);
                           },
                           theme: TDButtonTheme.danger),
@@ -136,7 +151,7 @@ class _SettingsPageState extends State<SettingsPage> {
     ];
     return Scaffold(
         appBar: AppBar(
-          title: Text("Settings"),
+          title: Text(OpenIoTHubLocalizations.of(context).profile_settings),
         ),
         body: Center(
           child: Container(

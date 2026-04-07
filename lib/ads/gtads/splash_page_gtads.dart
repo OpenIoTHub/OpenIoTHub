@@ -8,11 +8,13 @@ import 'package:openiothub/ads/configs/configs.dart';
 /// @time   2020/3/11
 
 class SplashPage extends StatefulWidget {
+  const SplashPage({super.key});
+
   @override
-  _SplashPageState createState() => _SplashPageState();
+  SplashPageState createState() => SplashPageState();
 }
 
-class _SplashPageState extends State<SplashPage> {
+class SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
@@ -42,32 +44,36 @@ class _SplashPageState extends State<SplashPage> {
             model: GTAdsModel.PRIORITY,
             callBack: GTAdsCallBack(
               onShow: (code) {
-                print("开屏显示 ${code.toJson()}");
+                debugPrint("开屏显示 ${code.toJson()}");
               },
               onClick: (code) {
-                print("开屏点击 ${code.toJson()}");
+                debugPrint("开屏点击 ${code.toJson()}");
               },
               onFail: (code, message) {
-                print("开屏错误 ${code?.toJson()} $message");
-                if (Navigator.canPop(context)){
+                debugPrint("开屏错误 ${code?.toJson()} $message");
+                if (!mounted) return;
+                if (Navigator.canPop(context)) {
                   Navigator.pop(context);
                 }
               },
               onClose: (code) {
-                print("开屏关闭 ${code.toJson()}");
-                if (Navigator.canPop(context)){
+                debugPrint("开屏关闭 ${code.toJson()}");
+                if (!mounted) return;
+                if (Navigator.canPop(context)) {
                   Navigator.pop(context);
                 }
               },
               onTimeout: () {
-                print("开屏加载超时");
-                if (Navigator.canPop(context)){
+                debugPrint("开屏加载超时");
+                if (!mounted) return;
+                if (Navigator.canPop(context)) {
                   Navigator.pop(context);
                 }
               },
               onEnd: () {
-                print("开屏所有广告位都加载失败");
-                if (Navigator.canPop(context)){
+                debugPrint("开屏所有广告位都加载失败");
+                if (!mounted) return;
+                if (Navigator.canPop(context)) {
                   Navigator.pop(context);
                 }
               },

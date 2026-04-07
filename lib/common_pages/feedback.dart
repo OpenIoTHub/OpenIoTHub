@@ -6,15 +6,15 @@ import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 class FeedbackPage extends StatelessWidget {
   const FeedbackPage({required Key key}) : super(key: key);
 
-  // TODO 没有翻译国际化
   @override
   Widget build(BuildContext context) {
+    final l10n = OpenIoTHubLocalizations.of(context);
     final githubRepo = "https://github.com/OpenIoTHub";
     final List<ListTile> tiles = [];
     tiles.add(ListTile(
       title: Row(
         children: [
-          Text("0：Github"),
+          Text(l10n.feedback_github_title),
           TextButton(
               onPressed: () {
                 launchUrlString(githubRepo);
@@ -25,17 +25,17 @@ class FeedbackPage extends StatelessWidget {
     ));
     tiles.add(ListTile(
       title: Text(
-        "1：加入QQ群(251227638)反馈",
+        l10n.feedback_qq_group_line,
       ),
     ));
     tiles.add(ListTile(
       title: Text(
-        "2. 关注云亿连的微信公众号<云亿连物联网>反馈",
+        l10n.feedback_wechat_line,
       ),
     ));
     tiles.add(ListTile(
       title: Text(
-        "公众号",
+        l10n.feedback_wechat_account_heading,
       ),
     ));
     tiles.add(ListTile(
@@ -44,7 +44,7 @@ class FeedbackPage extends StatelessWidget {
     )));
     tiles.add(ListTile(
       title: Text(
-        "QQ群",
+        l10n.feedback_qq_group_heading,
       ),
     ));
     tiles.add(ListTile(
@@ -57,12 +57,9 @@ class FeedbackPage extends StatelessWidget {
     ).toList();
     return Scaffold(
         appBar: AppBar(
-          title:
-              Text(OpenIoTHubLocalizations.of(context).common_feedback_channels),
+          title: Text(l10n.common_feedback_channels),
           actions: <Widget>[],
         ),
-        body: Container(
-          child: ListView(children: divided),
-        ));
+        body: ListView(children: divided));
   }
 }

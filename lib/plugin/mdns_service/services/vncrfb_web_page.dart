@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:openiothub/core/openiothub_constants.dart';
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import 'package:openiothub/plugin/models/port_service_info.dart';
 
 class VNCWebPage extends StatefulWidget {
-  VNCWebPage({required Key key, required this.device}) : super(key: key);
+  const VNCWebPage({required Key key, required this.device}) : super(key: key);
 
   static final String modelName = "com.iotserv.services.vnc";
   final PortServiceInfo device;
@@ -18,7 +15,7 @@ class VNCWebPage extends StatefulWidget {
 }
 
 class VNCWebPageState extends State<VNCWebPage> {
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   late final WebViewController _controller;
 
   @override
@@ -44,7 +41,6 @@ class VNCWebPageState extends State<VNCWebPage> {
       )
       ..loadRequest(Uri.parse(url));
     _controller = controller;
-    // _launchUrl(url);
   }
 
   @override
@@ -53,13 +49,5 @@ class VNCWebPageState extends State<VNCWebPage> {
       key: _scaffoldKey,
       body: WebViewWidget(controller: _controller),
     );
-  }
-
-  _launchUrl(String url) async {
-    if (await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(Uri.parse(url));
-    } else {
-      print('Could not launch $url');
-    }
   }
 }

@@ -1,43 +1,11 @@
-import 'dart:io';
-
-import 'package:flutter/material.dart';
-import 'package:openiothub/pages/home/home_page.dart';
-import 'package:openiothub/pages/splash/splash_ad_page.dart';
-import 'package:openiothub/pages/scanner/scan_qr.dart';
-import 'package:openiothub/common_pages/openiothub_common_pages.dart';
-import 'package:openiothub/common_pages/user/account_security_page.dart';
-import 'package:openiothub/common_pages/server_info.dart';
-import 'package:openiothub/common_pages/web/web2.dart';
-import 'package:openiothub/common_pages/web/full_screen_web.dart';
-import 'package:openiothub/pages/guide/guide_page.dart';
-import 'package:openiothub/pages/profile/tools/tools_type_page.dart';
-import 'package:openiothub/pages/service/mdns_service_list_page.dart';
-import 'package:openiothub/pages/service/add_mqtt_devices_page.dart';
-import 'package:openiothub/pages/service/third_device/zip_devices_page.dart';
-import 'package:openiothub/pages/host/common_device_list_page.dart';
-import 'package:openiothub/pages/host/services/services.dart';
-import 'package:openiothub/pages/gateway/mdns_service_list_page.dart';
-import 'package:openiothub/pages/host/services/old/tcp_port_list_page.dart';
-import 'package:openiothub/pages/host/services/old/udp_port_list_page.dart';
-import 'package:openiothub/pages/host/services/old/ftp_port_list_page.dart';
-import 'package:openiothub/pages/host/services/old/http_port_list_page.dart';
-import 'package:openiothub/widgets/language_picker.dart';
-import 'package:openiothub/widgets/theme_color_picker.dart';
-import 'package:openiothub/widgets/theme_mode_picker.dart';
-import 'package:openiothub/plugin/openiothub_plugin.dart';
-import 'package:openiothub/plugin/mdns_service/comm_widgets/mdns_info.dart';
 import 'package:openiothub/core/openiothub_constants.dart';
 
-/// 应用内所有页面路由的唯一定义与生成。
-/// 跳转请使用 [AppRoutes] 常量 + [AppNavigator] 方法，避免硬编码路径和直接 MaterialPageRoute。
+/// 应用内路由路径常量；跳转使用 [AppNavigator]、`context.push` / `context.go`（go_router）。
 ///
-/// ## 新增页面路由时的步骤
-/// 1. 在本类中增加路由常量（如 `static const String xxx = '/xxx';`），按分区放在对应注释下。
-/// 2. 若无参数：在 [buildStaticRoutes] 中增加 `路由名: (context) => YourPage(),`。
-/// 3. 若有参数：在 [onGenerateRoute] 的 switch 中增加 case，从 `settings.arguments` 取参并构建 [MaterialPageRoute]；
-///    参数 key 与 [AppNavigator] 中的 arg* 常量一致。
-/// 4. 在 [AppNavigator] 中增加对应的 `pushXxx(context, ...)` 方法（可选但推荐），内部用 pushNamed + arguments。
-/// 5. 业务处跳转使用 `Navigator.pushNamed(context, AppRoutes.xxx)` 或 `AppNavigator.pushXxx(context, ...)`，禁止手写 MaterialPageRoute。
+/// ## 新增页面
+/// 1. 在此类增加路径常量；主页多 Tab 可放在 `homeMain*` 下。
+/// 2. 在 `lib/router/go_routes/` 对应模块中注册 `GoRoute`。
+/// 3. 若页面**无需登录**可访问，将路径加入 [publicPaths]；否则保持默认（需登录）。
 class AppRoutes {
   // --- 认证与根 ---
   static const String root = '/';
@@ -45,6 +13,12 @@ class AppRoutes {
   static const String register = '/register';
   static const String home = '/home';
   static const String homeMain = '/home-main';
+
+  /// [StatefulShellRoute] 各 Tab（与 `home_main_shell_routes.dart` 分支一致）。
+  static const String homeMainGateway = '/home-main/gateway';
+  static const String homeMainHost = '/home-main/host';
+  static const String homeMainSmart = '/home-main/smart';
+  static const String homeMainProfile = '/home-main/profile';
 
   // --- 用户与设置 ---
   static const String userInfo = '/user-info';
@@ -86,221 +60,18 @@ class AppRoutes {
   static const String ftpPortList = '/ftp-port-list';
   static const String httpPortList = '/http-port-list';
 
-  static const List<String> protectedRoutes = [
-    home,
-    homeMain,
-    userInfo,
-    accountSecurity,
-    feedback,
-    appInfo,
-    privacyPolicy,
-    gatewayGuide,
-    gatewayQr,
-    findGateway,
-    tools,
-    zipDevices,
-    addMqttDevices,
-  ];
+  /// 未登录也可访问的路径（其余路径在会话就绪后均需登录，见 [requiresAuth]）。
+  static const Set<String> publicPaths = {
+    root,
+    login,
+    register,
+    guide,
+    languagePicker,
+    themeColorPicker,
+    themeModePicker,
+  };
 
-  static Map<String, WidgetBuilder> buildStaticRoutes({
-    required Widget initialRouteWidget,
-    required Widget homeMainWidget,
-  }) {
-    return {
-      root: (context) => initialRouteWidget,
-      login: (context) => LoginPage(),
-      register: (context) => RegisterPage(),
-      home: (context) => Platform.isAndroid || Platform.isIOS
-          ? const SplashAdPage()
-          : MyHomePage(key: UniqueKey(), title: ''),
-      homeMain: (context) => homeMainWidget,
-      scanQr: (context) => const ScanQRPage(),
-      userInfo: (context) => UserInfoPage(),
-      accountSecurity: (context) => AccountSecurityPage(),
-      feedback: (context) => FeedbackPage(key: UniqueKey()),
-      appInfo: (context) => AppInfoPage(key: UniqueKey()),
-      privacyPolicy: (context) => PrivacyPolicyPage(key: UniqueKey()),
-      gatewayGuide: (context) => GatewayGuidePage(key: UniqueKey()),
-      gatewayQr: (context) => const GatewayQrPage(),
-      findGateway: (context) => const FindGatewayGoListPage(),
-      tools: (context) => ToolsTypePage(key: UniqueKey()),
-      zipDevices: (context) => const ZipDevicesPage(),
-      addMqttDevices: (context) => const AddMqttDevicesPage(),
-      languagePicker: (context) => const LanguagePickerPage(),
-      themeColorPicker: (context) => const ThemeColorPickerPage(),
-      themeModePicker: (context) => const ThemeModePickerPage(),
-    };
-  }
-
-  static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
-    switch (settings.name) {
-      case web:
-        final args = settings.arguments as Map<String, dynamic>?;
-        final startUrl = args?['url'] as String? ?? '';
-        final title = args?['title'] as String?;
-        return MaterialPageRoute(
-          builder: (context) => WebScreen(
-            key: UniqueKey(),
-            startUrl: startUrl,
-            title: title,
-          ),
-        );
-      case AppRoutes.settings:
-        final args = settings.arguments as Map<String, dynamic>?;
-        final title = args?['title'] as String? ?? '设置';
-        return MaterialPageRoute(
-          builder: (context) => SettingsPage(
-            key: UniqueKey(),
-            title: title,
-          ),
-        );
-      case serverInfo:
-        final args = settings.arguments as Map<String, dynamic>?;
-        final serverInfoData = args?['serverInfo'];
-        if (serverInfoData == null) return null;
-        return MaterialPageRoute(
-          builder: (context) => ServerInfoPage(
-            key: UniqueKey(),
-            serverInfo: serverInfoData,
-          ),
-        );
-      case guide:
-        final args = settings.arguments as Map<String, dynamic>?;
-        final activeIndex = args?['activeIndex'] as int? ?? 0;
-        return MaterialPageRoute(
-          builder: (context) => GuidePage(
-            key: UniqueKey(),
-            activeIndex: activeIndex,
-          ),
-        );
-      case fullscreenWeb:
-        final args = settings.arguments as Map<String, dynamic>?;
-        final startUrl = args?['url'] as String? ?? '';
-        if (startUrl.isEmpty) return null;
-        return MaterialPageRoute(
-          builder: (context) => FullScreenWeb(
-            key: UniqueKey(),
-            startUrl: startUrl,
-          ),
-        );
-      case servers:
-        final args = settings.arguments as Map<String, dynamic>?;
-        final title = args?['title'] as String? ?? '服务器';
-        return MaterialPageRoute(
-          builder: (context) => ServerPages(
-            key: UniqueKey(),
-            title: title,
-          ),
-        );
-      case airkiss:
-        final args = settings.arguments as Map<String, dynamic>?;
-        final title = args?['title'] as String? ?? 'WiFi配置';
-        return MaterialPageRoute(
-          builder: (context) => Airkiss(
-            key: UniqueKey(),
-            title: title,
-          ),
-        );
-      case mdnsServiceList:
-        final args = settings.arguments as Map<String, dynamic>?;
-        final title = args?['title'] as String? ?? 'mDNS服务';
-        return MaterialPageRoute(
-          builder: (context) => MdnsServiceListPage(
-            key: UniqueKey(),
-            title: title,
-          ),
-        );
-      case commonDeviceList:
-        final args = settings.arguments as Map<String, dynamic>?;
-        final title = args?['title'] as String? ?? '设备列表';
-        return MaterialPageRoute(
-          builder: (context) => CommonDeviceListPage(
-            key: UniqueKey(),
-            title: title,
-          ),
-        );
-      case servicesList:
-        final args = settings.arguments as Map<String, dynamic>?;
-        final device = args?['device'];
-        if (device == null) return null;
-        return MaterialPageRoute(
-          builder: (context) => ServicesListPage(
-            key: UniqueKey(),
-            device: device,
-          ),
-        );
-      case gatewayMdnsServiceList:
-        final args = settings.arguments as Map<String, dynamic>?;
-        final sessionConfig = args?['sessionConfig'];
-        if (sessionConfig == null) return null;
-        return MaterialPageRoute(
-          builder: (context) => MDNSServiceListPage(
-            key: UniqueKey(),
-            sessionConfig: sessionConfig,
-          ),
-        );
-      case info:
-        final args = settings.arguments as Map<String, dynamic>?;
-        final portService = args?['portService'];
-        if (portService == null) return null;
-        return MaterialPageRoute(
-          builder: (context) => InfoPage(
-            key: UniqueKey(),
-            portService: portService,
-          ),
-        );
-      case mdnsInfo:
-        final args = settings.arguments as Map<String, dynamic>?;
-        final portConfig = args?['portConfig'];
-        if (portConfig == null) return null;
-        return MaterialPageRoute(
-          builder: (context) => MDNSInfoPage(
-            key: UniqueKey(),
-            portConfig: portConfig,
-          ),
-        );
-      case tcpPortList:
-        final args = settings.arguments as Map<String, dynamic>?;
-        final device = args?['device'];
-        if (device == null) return null;
-        return MaterialPageRoute(
-          builder: (context) => TcpPortListPage(
-            key: UniqueKey(),
-            device: device,
-          ),
-        );
-      case udpPortList:
-        final args = settings.arguments as Map<String, dynamic>?;
-        final device = args?['device'];
-        if (device == null) return null;
-        return MaterialPageRoute(
-          builder: (context) => UdpPortListPage(
-            key: UniqueKey(),
-            device: device,
-          ),
-        );
-      case ftpPortList:
-        final args = settings.arguments as Map<String, dynamic>?;
-        final device = args?['device'];
-        if (device == null) return null;
-        return MaterialPageRoute(
-          builder: (context) => FtpPortListPage(
-            key: UniqueKey(),
-            device: device,
-          ),
-        );
-      case httpPortList:
-        final args = settings.arguments as Map<String, dynamic>?;
-        final device = args?['device'];
-        if (device == null) return null;
-        return MaterialPageRoute(
-          builder: (context) => HttpPortListPage(
-            key: UniqueKey(),
-            device: device,
-          ),
-        );
-      default:
-        return null;
-    }
-  }
+  /// 是否在「已结束加载、可判断登录态」的前提下需要登录才能停留该路径。
+  static bool requiresAuth(String matchedLocation) =>
+      !publicPaths.contains(matchedLocation);
 }

@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub/pages/scanner/scan_qr.dart';
 import 'package:openiothub/common_pages/openiothub_common_pages.dart';
 import 'package:openiothub/plugin/openiothub_plugin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -62,7 +62,7 @@ List<Widget>? buildActions(BuildContext context) {
   ]);
   return <Widget>[
     PopupMenuButton(
-      tooltip: "",
+      tooltip: OpenIoTHubLocalizations.of(context).tooltip_quick_actions,
       itemBuilder: (BuildContext context) {
         return popupMenuEntries;
       },
@@ -81,7 +81,7 @@ List<Widget>? buildActions(BuildContext context) {
             scanQR(context);
             break;
           case 'find_local_gateway':
-            Navigator.of(context).pushNamed(AppRoutes.findGateway);
+            context.push(AppRoutes.findGateway);
             break;
           case 'user_guide':
             AppNavigator.pushGuide(context, activeIndex: 0);
@@ -92,13 +92,16 @@ List<Widget>? buildActions(BuildContext context) {
   ];
 }
 
-scanQR(BuildContext context) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
+Future<void> scanQR(BuildContext context) async {
+  final prefs = await SharedPreferences.getInstance();
+  if (!context.mounted) return;
   if (prefs.containsKey("scan_QR_Dialog") && prefs.getBool("scan_QR_Dialog")!) {
     if (await userSignedIn()) {
-      Navigator.of(context).pushNamed(AppRoutes.scanQr);
+      if (!context.mounted) return;
+      context.push(AppRoutes.scanQr);
     } else {
-      Navigator.of(context).pushNamed(AppRoutes.login);
+      if (!context.mounted) return;
+      context.push(AppRoutes.login);
     }
   } else {
     showDialog(
@@ -139,12 +142,17 @@ scanQR(BuildContext context) async {
                 ),
                 onPressed: () async {
                   if (await userSignedIn()) {
-                    prefs.setBool("scan_QR_Dialog", true);
+                    if (!context.mounted) return;
+                    await prefs.setBool("scan_QR_Dialog", true);
+                    if (!context.mounted) return;
                     Navigator.of(context).pop();
-                    Navigator.of(context).pushNamed(AppRoutes.scanQr);
+                    if (!context.mounted) return;
+                    context.push(AppRoutes.scanQr);
                   } else {
+                    if (!context.mounted) return;
                     Navigator.of(context).pop();
-                    Navigator.of(context).pushNamed(AppRoutes.login);
+                    if (!context.mounted) return;
+                    context.push(AppRoutes.login);
                   }
                 },
               ),

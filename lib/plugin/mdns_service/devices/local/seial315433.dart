@@ -1,31 +1,29 @@
 //Serial315433:https://github.com/iotdevice/serial-315-433
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:openiothub/plugin/openiothub_plugin.dart';
 import 'package:openiothub/plugin/utils/ip.dart';
 
 import 'package:openiothub/plugin/models/port_service_info.dart';
 
 class Serial315433Page extends StatefulWidget {
-  Serial315433Page({required Key key, required this.device}) : super(key: key);
+  const Serial315433Page({required Key key, required this.device}) : super(key: key);
 
   static final String modelName = "com.iotserv.devices.serial-315-433";
   final PortServiceInfo device;
 
   @override
-  _Serial315433PageState createState() => _Serial315433PageState();
+  State<Serial315433Page> createState() => Serial315433PageState();
 }
 
-class _Serial315433PageState extends State<Serial315433Page> {
+class Serial315433PageState extends State<Serial315433Page> {
   static const String _up = "up";
   static const String _down = "down";
 
   @override
   void initState() {
     super.initState();
-    print("init iot devie List");
+    debugPrint("init iot device list");
   }
 
   @override
@@ -95,7 +93,7 @@ class _Serial315433PageState extends State<Serial315433Page> {
 
   _setting() async {
     // TODO 设备设置
-    TextEditingController _nameController = TextEditingController.fromValue(
+    TextEditingController nameController = TextEditingController.fromValue(
         TextEditingValue(text: widget.device.info!["name"]!));
     return showDialog(
         context: context,
@@ -106,7 +104,7 @@ class _Serial315433PageState extends State<Serial315433Page> {
                   child: ListView(
                     children: <Widget>[
                       TextFormField(
-                        controller: _nameController,
+                        controller: nameController,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.all(10.0),
                           labelText:
@@ -130,16 +128,16 @@ class _Serial315433PageState extends State<Serial315433Page> {
                     onPressed: () async {
                       try {
                         String url =
-                            "http://${widget.device.addr}:${widget.device.port}/rename?name=${_nameController.text}";
+                            "http://${widget.device.addr}:${widget.device.port}/rename?name=${nameController.text}";
                         await http
                             .get(Uri.parse(url))
                             .timeout(const Duration(seconds: 2));
-                        widget.device.info!["name"] = _nameController.text;
+                        widget.device.info!["name"] = nameController.text;
+                        if (!mounted) return;
+                        Navigator.of(context).pop();
                       } catch (e) {
-                        print(e.toString());
-                        return;
+                        debugPrint(e.toString());
                       }
-                      Navigator.of(context).pop();
                     },
                   )
                 ]));
@@ -160,8 +158,6 @@ class _Serial315433PageState extends State<Serial315433Page> {
   }
 
   _clickBotton(String cmd) async {
-    String url =
-        "http://${widget.device.addr}:${widget.device.port}/botton?status=$cmd";
     http.Response response;
     try {
       response = await http
@@ -176,9 +172,9 @@ class _Serial315433PageState extends State<Serial315433Page> {
                 "status": cmd,
               }))
           .timeout(const Duration(seconds: 2));
-      print(response.body);
+      debugPrint(response.body);
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
       return;
     }
   }

@@ -2,24 +2,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:http/http.dart' as http;
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:openiothub/plugin/openiothub_plugin.dart';
 import 'package:openiothub/plugin/utils/ip.dart';
 
 import 'package:openiothub/plugin/models/port_service_info.dart';
 
+int _colorByte(double channel) => (channel * 255.0).round() & 0xff;
+
+int _colorAlphaByte(Color c) => (c.a * 255.0).round() & 0xff;
+
+bool _colorAlphaIsZero(Color c) => _colorAlphaByte(c) == 0;
+
 class RGBALedPage extends StatefulWidget {
-  RGBALedPage({required Key key, required this.device}) : super(key: key);
+  const RGBALedPage({required Key key, required this.device}) : super(key: key);
 
   static final String modelName = "com.iotserv.devices.rgbaLed";
   final PortServiceInfo device;
 
   @override
-  _RGBALedPageState createState() => _RGBALedPageState();
+  State<RGBALedPage> createState() => RGBALedPageState();
 }
 
-class _RGBALedPageState extends State<RGBALedPage> {
+class RGBALedPageState extends State<RGBALedPage> {
   static const Color onColor = Colors.green;
   static const Color offColor = Colors.red;
 
@@ -92,14 +96,14 @@ class _RGBALedPageState extends State<RGBALedPage> {
 
   static const String color = "color";
 
-  Map<String, dynamic> _status = Map.from({
+  final Map<String, dynamic> _status = Map.from({
     color: Colors.blue,
   });
 
   @override
   void initState() {
     super.initState();
-    print("init iot devie List");
+    debugPrint("init iot device list");
   }
 
   @override
@@ -137,17 +141,16 @@ class _RGBALedPageState extends State<RGBALedPage> {
       body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
+            Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
                   Text("${OpenIoTHubLocalizations.of(context).effect}："),
                   DropdownButton<int>(
                     value: _currentModes,
                     onChanged: _setMode,
                     items: _getModesList(),
                   ),
-                ])),
+                ]),
             SingleChildScrollView(
               child: ColorPicker(
                 pickerColor: _status[color],
@@ -155,40 +158,37 @@ class _RGBALedPageState extends State<RGBALedPage> {
                 pickerAreaHeightPercent: 0.8,
               ),
             ),
-            Container(
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
+            Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
                   Text(
                       "${OpenIoTHubLocalizations.of(context).switch_bottom}："),
                   Switch(
                     onChanged: (_) {
                       _changeSwitchStatus();
                     },
-                    value: _status[color].alpha == 0 ? false : true,
+                    value: !_colorAlphaIsZero(_status[color] as Color),
                     activeColor: onColor,
                     inactiveThumbColor: offColor,
                   ),
-                ])),
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text("${OpenIoTHubLocalizations.of(context).speed}："),
-                  IconButton(
-                    icon: Icon(Icons.arrow_drop_up),
-                    onPressed: () {
-                      _setSpeed("+");
-                    },
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.arrow_drop_down),
-                    onPressed: () {
-                      _setSpeed("-");
-                    },
-                  ),
-                ],
-              ),
+                ]),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text("${OpenIoTHubLocalizations.of(context).speed}："),
+                IconButton(
+                  icon: Icon(Icons.arrow_drop_up),
+                  onPressed: () {
+                    _setSpeed("+");
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.arrow_drop_down),
+                  onPressed: () {
+                    _setSpeed("-");
+                  },
+                ),
+              ],
             ),
           ]),
     );
@@ -196,7 +196,7 @@ class _RGBALedPageState extends State<RGBALedPage> {
 
   _setting() async {
     // TODO 设备设置
-    TextEditingController _nameController = TextEditingController.fromValue(
+    TextEditingController nameController = TextEditingController.fromValue(
         TextEditingValue(text: widget.device.info!["name"]!));
     return showDialog(
         context: context,
@@ -207,7 +207,7 @@ class _RGBALedPageState extends State<RGBALedPage> {
                     child: ListView(
                   children: <Widget>[
                     TextFormField(
-                      controller: _nameController,
+                      controller: nameController,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText:
@@ -230,17 +230,17 @@ class _RGBALedPageState extends State<RGBALedPage> {
                     onPressed: () async {
                       try {
                         String url =
-                            "http://${widget.device.addr}:${widget.device.port}/rename?name=${_nameController.text}";
+                            "http://${widget.device.addr}:${widget.device.port}/rename?name=${nameController.text}";
                         http
                             .get(Uri.parse(url))
                             .timeout(const Duration(seconds: 2))
                             .then((_) {
                           setState(() {
-                            widget.device.info!["name"] = _nameController.text;
+                            widget.device.info!["name"] = nameController.text;
                           });
                         });
                       } catch (e) {
-                        print(e.toString());
+                        debugPrint(e.toString());
                         return;
                       }
                       Navigator.of(context).pop();
@@ -287,12 +287,6 @@ class _RGBALedPageState extends State<RGBALedPage> {
   }
 
   _changeSwitchStatus() async {
-    String url;
-    if (_status[color].alpha == 0) {
-      url = "http://${widget.device.addr}:${widget.device.port}/set?b=255";
-    } else {
-      url = "http://${widget.device.addr}:${widget.device.port}/set?b=0";
-    }
     try {
       await http
           .get(Uri(
@@ -302,23 +296,28 @@ class _RGBALedPageState extends State<RGBALedPage> {
                   : widget.device.addr,
               port: widget.device.port,
               path: '/set',
-              queryParameters: {"b": _status[color].alpha == 0 ? 255 : 0}))
+              queryParameters: {
+                "b": _colorAlphaIsZero(_status[color] as Color) ? 255 : 0,
+              }))
           .timeout(const Duration(seconds: 2));
       setState(() {
-        _status[color] = Color.fromARGB(_status[color].alpha == 0 ? 255 : 0,
-            _status[color].red, _status[color].green, _status[color].blue);
-        ;
+        final Color s = _status[color] as Color;
+        _status[color] = Color.fromARGB(
+          _colorAlphaIsZero(s) ? 255 : 0,
+          _colorByte(s.r),
+          _colorByte(s.g),
+          _colorByte(s.b),
+        );
       });
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
       return;
     }
   }
 
   _changeColorStatus(Color c) async {
-    Color tempColor = Color.fromARGB(0, c.red, c.green, c.blue);
-    String url =
-        "http://${widget.device.addr}:${widget.device.port}/set?c=${tempColor.value.toRadixString(16)}&b=${c.alpha}";
+    final Color tempColor =
+        Color.fromARGB(0, _colorByte(c.r), _colorByte(c.g), _colorByte(c.b));
     try {
       if (!_requsting) {
         _requsting = true;
@@ -331,8 +330,8 @@ class _RGBALedPageState extends State<RGBALedPage> {
                 port: widget.device.port,
                 path: '/set',
                 queryParameters: {
-                  "c": tempColor.value.toRadixString(16),
-                  "b": c.alpha,
+                  "c": tempColor.toARGB32().toRadixString(16),
+                  "b": _colorAlphaByte(c),
                 }))
             .timeout(const Duration(seconds: 2));
         setState(() {
@@ -340,7 +339,7 @@ class _RGBALedPageState extends State<RGBALedPage> {
         });
       }
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
       return;
     }
     setState(() {
@@ -361,8 +360,6 @@ class _RGBALedPageState extends State<RGBALedPage> {
   }
 
   _setMode(int? newValue) async {
-    String url =
-        "http://${widget.device.addr}:${widget.device.port}/set?m=${newValue.toString()}";
     try {
       await http
           .get(Uri(
@@ -380,14 +377,12 @@ class _RGBALedPageState extends State<RGBALedPage> {
         _currentModes = newValue!;
       });
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
       return;
     }
   }
 
   _setSpeed(String cmd) async {
-    String url =
-        "http://${widget.device.addr}:${widget.device.port}/set?s=${cmd}";
     try {
       await http
           .get(Uri(
@@ -402,7 +397,7 @@ class _RGBALedPageState extends State<RGBALedPage> {
               }))
           .timeout(const Duration(seconds: 2));
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
       return;
     }
   }

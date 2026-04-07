@@ -5,6 +5,7 @@ import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart' as mobile;
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/server/server.pb.dart';
 import 'package:openiothub_grpc_api/proto/server/server.pbgrpc.dart' as server;
+import 'package:openiothub/network/network_log.dart';
 
 class HttpManager {
 //  rpc createOneHttp (HTTPConfig) returns (HTTPConfig) {}
@@ -16,7 +17,7 @@ class HttpManager {
         options: CallOptions(metadata: {'jwt': sessionConfig.token}));
 
     HTTPConfig httpConfigResponse = await stub.createOneHTTP(httpConfig);
-    print('httpConfigResponse: ${httpConfigResponse}');
+    netLog('HttpManager', 'createOneHttp: $httpConfigResponse');
     channel.shutdown();
     return httpConfigResponse;
   }

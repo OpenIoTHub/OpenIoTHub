@@ -1,7 +1,5 @@
 //这个模型是用来使用WebDAV的文件服务器来操作文件的
 import 'package:flutter/material.dart';
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 
 import 'package:openiothub/plugin/models/port_service_info.dart';
 import '../../mdns_service/comm_widgets/info.dart';
@@ -9,16 +7,16 @@ import '../../mdns_service/comm_widgets/info.dart';
 //手动注册一些端口到mdns的声明，用于接入一些传统的设备或者服务或者帮助一些不方便注册mdns的设备或服务注册
 //需要选择模型和输入相关配置参数
 class MDNSResponserPage extends StatefulWidget {
-  MDNSResponserPage({required Key key, required this.device}) : super(key: key);
+  const MDNSResponserPage({required Key key, required this.device}) : super(key: key);
 
   static final String modelName = "com.iotserv.services.mdnsResponser";
   final PortServiceInfo device;
 
   @override
-  _MDNSResponserPageState createState() => _MDNSResponserPageState();
+  State<MDNSResponserPage> createState() => MDNSResponserPageState();
 }
 
-class _MDNSResponserPageState extends State<MDNSResponserPage> {
+class MDNSResponserPageState extends State<MDNSResponserPage> {
   List<String> pathHistory = ["/"];
 
   @override

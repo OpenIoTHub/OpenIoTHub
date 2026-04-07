@@ -4,6 +4,8 @@ import 'package:openiothub_grpc_api/google/protobuf/empty.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/common.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/portManager.pbgrpc.dart';
 
+import 'package:openiothub/network/network_log.dart';
+
 import 'iot_manager_channel.dart';
 
 class PortManager {
@@ -15,7 +17,7 @@ class PortManager {
         options: CallOptions(metadata: {'jwt': jwt}));
     Empty empty = Empty();
     PortInfoList portInfoList = await stub.getAllPorts(empty);
-    print('getAllPorts: ${portInfoList}');
+    netLog('PortManager', 'getAllPorts: $portInfoList');
     channel.shutdown();
     return portInfoList;
   }
@@ -27,7 +29,7 @@ class PortManager {
     final stub = PortManagerClient(channel,
         options: CallOptions(metadata: {'jwt': jwt}));
     OperationResponse operationResponse = await stub.addPort(portInfo);
-    print('addPort: ${operationResponse}');
+    netLog('PortManager', 'addPort: $operationResponse');
     channel.shutdown();
     return operationResponse;
   }
@@ -39,7 +41,7 @@ class PortManager {
     final stub = PortManagerClient(channel,
         options: CallOptions(metadata: {'jwt': jwt}));
     OperationResponse operationResponse = await stub.updatePort(portInfo);
-    print('updatePort: ${operationResponse}');
+    netLog('PortManager', 'updatePort: $operationResponse');
     channel.shutdown();
     return operationResponse;
   }
@@ -51,7 +53,7 @@ class PortManager {
     final stub = PortManagerClient(channel,
         options: CallOptions(metadata: {'jwt': jwt}));
     OperationResponse operationResponse = await stub.delPort(portInfo);
-    print('delPort: ${operationResponse}');
+    netLog('PortManager', 'delPort: $operationResponse');
     channel.shutdown();
     return operationResponse;
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:openiothub/providers/custom_theme.dart';
 import 'package:openiothub/common_pages/utils/toast.dart';
 import 'package:openiothub/network/openiothub_api.dart';
@@ -12,10 +13,10 @@ class ZipDevicesPage extends StatefulWidget {
   const ZipDevicesPage({super.key});
 
   @override
-  _ZipDevicesPageState createState() => _ZipDevicesPageState();
+  State<ZipDevicesPage> createState() => ZipDevicesPageState();
 }
 
-class _ZipDevicesPageState extends State<ZipDevicesPage> {
+class ZipDevicesPageState extends State<ZipDevicesPage> {
   List<ZipLocalDevice> _zipLocalDeviceList = [];
 
   @override
@@ -96,8 +97,10 @@ class _ZipDevicesPageState extends State<ZipDevicesPage> {
                     child: Text(OpenIoTHubLocalizations.of(context).confirm),
                     onPressed: () async {
                       // print("添加该设备到云亿连");
-                      _addDeviceAndSetMqttServer(zipLocalDevice)
-                          .then((value) => Navigator.of(context).pop());
+                      _addDeviceAndSetMqttServer(zipLocalDevice).then((_) {
+                        if (!mounted) return;
+                        Navigator.of(context).pop();
+                      });
                     },
                   )
                 ]));
@@ -105,22 +108,27 @@ class _ZipDevicesPageState extends State<ZipDevicesPage> {
 
   Future<void> _addDeviceAndSetMqttServer(ZipLocalDevice zipLocalDevice) async {
     //  检查用户是否已经登录，如果没有登录则跳转到登录界面
-    bool userSignedIned = await userSignedIn();
+    final userSignedIned = await userSignedIn();
+    if (!mounted) return;
     if (!userSignedIned) {
       showFailed(OpenIoTHubLocalizations.of(context).you_havent_logged_in_yet, context);
-      Navigator.of(context).pushNamed(AppRoutes.login);
+      context.push(AppRoutes.login);
     }
+    if (!mounted) return;
     //  添加设备到数据库
     MqttDeviceInfo mqttDeviceInfo = MqttDeviceInfo();
     mqttDeviceInfo.deviceId = zipLocalDevice.mac;
     mqttDeviceInfo.deviceModel =
         "com.iotserv.devices.mqtt.${zipLocalDevice.typeName}";
     await MqttDeviceManager.addMqttDevice(mqttDeviceInfo);
+    if (!mounted) return;
     //  根据数据库生成mqtt的账号
     MqttInfo mqttInfo =
         await MqttDeviceManager.generateMqttUsernamePassword(mqttDeviceInfo);
+    if (!mounted) return;
     //  将生成的账号配置到设备
     await zipLocalDevice.configMqttServer(mqttInfo);
+    if (!mounted) return;
     //  提示配置结果
     showSuccess(OpenIoTHubLocalizations.of(context).add_successful, context);
     return;

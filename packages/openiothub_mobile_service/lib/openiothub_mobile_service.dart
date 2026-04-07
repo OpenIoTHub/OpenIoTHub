@@ -1,16 +1,13 @@
-
-import 'dart:async';
 import 'dart:ffi';
 import 'dart:io';
-import 'dart:isolate';
 
 import 'openiothub_mobile_service_bindings_generated.dart';
 
-void run() => _bindings_prebuild.Run();
+void run() => _nativeBindings.Run();
 
-final DynamicLibrary _dylib_prebuild = () {
-  var _android_libName_prebuild = "gojni";
-  var _linux_windows_libName_prebuild = "mobile";
+final DynamicLibrary _nativeDylib = () {
+  const androidLibName = 'gojni';
+  const linuxWindowsLibName = 'mobile';
   if (Platform.isMacOS || Platform.isIOS) {
     return DynamicLibrary.process();
     // return DynamicLibrary.executable();
@@ -18,16 +15,17 @@ final DynamicLibrary _dylib_prebuild = () {
     // return DynamicLibrary.open('$_libName.framework/$_libName');
   }
   if (Platform.isAndroid) {
-    return DynamicLibrary.open('lib$_android_libName_prebuild.so');
+    return DynamicLibrary.open('lib$androidLibName.so');
   }
   if (Platform.isLinux) {
-    return DynamicLibrary.open('lib$_linux_windows_libName_prebuild.so');
+    return DynamicLibrary.open('lib$linuxWindowsLibName.so');
   }
   if (Platform.isWindows) {
-    return DynamicLibrary.open('$_linux_windows_libName_prebuild.dll');
+    return DynamicLibrary.open('$linuxWindowsLibName.dll');
   }
   throw UnsupportedError('Unknown platform: ${Platform.operatingSystem}');
 }();
 
-/// The bindings to the native functions in [_dylib].
-final OpeniothubMobileServiceBindings _bindings_prebuild = OpeniothubMobileServiceBindings(_dylib_prebuild);
+/// The bindings to the native functions in [_nativeDylib].
+final OpeniothubMobileServiceBindings _nativeBindings =
+    OpeniothubMobileServiceBindings(_nativeDylib);

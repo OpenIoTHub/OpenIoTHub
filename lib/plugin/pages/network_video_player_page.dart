@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:video_player/video_player.dart';
 
-/// Stateful widget to fetch and then display video content.
+/// 使用 `video_player` 播放网络 URL 的全屏页（与 `mdns_service/services/video_player.dart` 的 VLC 实现区分）。
 class VideoPlayerPage extends StatefulWidget {
   const VideoPlayerPage({super.key, required this.url});
 
   final String url;
   @override
-  _VideoPlayerPageState createState() => _VideoPlayerPageState();
+  State<VideoPlayerPage> createState() => VideoPlayerPageState();
 }
 
-class _VideoPlayerPageState extends State<VideoPlayerPage> {
+class VideoPlayerPageState extends State<VideoPlayerPage> {
   late VideoPlayerController _controller;
 
   @override
@@ -28,7 +29,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Video"),
+          title: Text(OpenIoTHubLocalizations.of(context).nas_video),
         ),
         body: Center(
           child: _controller.value.isInitialized

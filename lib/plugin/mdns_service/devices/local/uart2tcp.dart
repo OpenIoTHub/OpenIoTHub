@@ -4,14 +4,12 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:openiothub/plugin/openiothub_plugin.dart';
 
 import 'package:openiothub/plugin/models/port_service_info.dart';
 
 class UART2TCPPage extends StatefulWidget {
-  UART2TCPPage({required Key key, required this.device}) : super(key: key);
+  const UART2TCPPage({required Key key, required this.device}) : super(key: key);
 
   static final String modelName = "com.iotserv.devices.UART2TCP";
   final PortServiceInfo device;
@@ -61,8 +59,8 @@ class UART2TCPStatus extends State<UART2TCPPage> with TickerProviderStateMixin {
         )),
         Divider(height: 1.0),
         Container(
-          child: _buildComposer(),
           decoration: BoxDecoration(color: Theme.of(ctx).cardColor),
+          child: _buildComposer(),
         ),
       ]),
     );
@@ -80,7 +78,7 @@ class UART2TCPStatus extends State<UART2TCPPage> with TickerProviderStateMixin {
                 controller: _textController,
                 onChanged: (String txt) {
                   setState(() {
-                    _isWriting = txt.length > 0;
+                    _isWriting = txt.isNotEmpty;
                   });
                 },
                 onSubmitted: (String msg) => _submitMsg(true, msg),
@@ -149,9 +147,13 @@ class UART2TCPStatus extends State<UART2TCPPage> with TickerProviderStateMixin {
 }
 
 class Msg extends StatelessWidget {
-  Msg({required this.me, required this.txt, required this.animationController});
+  const Msg({super.key, 
+    required this.me,
+    required this.txt,
+    required this.animationController,
+  });
 
-  bool me = true;
+  final bool me;
   final String txt;
   final AnimationController animationController;
 

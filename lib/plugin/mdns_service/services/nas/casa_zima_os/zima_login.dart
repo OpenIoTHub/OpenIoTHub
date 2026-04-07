@@ -6,6 +6,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 import 'package:openiothub/plugin/models/port_service_info.dart';
 import 'zima/installed_apps.dart';
 import 'package:openiothub/common_pages/utils/toast.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import 'package:openiothub/plugin/generated/assets.dart';
@@ -13,7 +14,7 @@ import 'package:openiothub/plugin/generated/assets.dart';
 //手动注册一些端口到mdns的声明，用于接入一些传统的设备或者服务或者帮助一些不方便注册mdns的设备或服务注册
 //需要选择模型和输入相关配置参数
 class ZimaLoginPage extends StatefulWidget {
-  ZimaLoginPage({required Key key, required this.device})
+  const ZimaLoginPage({required Key key, required this.device})
       : super(key: key);
 
   static final String modelName = "com.zimaspace.zimaos.webpage.v1";
@@ -26,10 +27,10 @@ class ZimaLoginPage extends StatefulWidget {
   // final PortConfig? portConfig;
 
   @override
-  _ZimaLoginPageState createState() => _ZimaLoginPageState();
+  State<ZimaLoginPage> createState() => ZimaLoginPageState();
 }
 
-class _ZimaLoginPageState extends State<ZimaLoginPage> {
+class ZimaLoginPageState extends State<ZimaLoginPage> {
   OpenIoTHubLocalizations? localizations;
   List<Widget> _list = <Widget>[];
 
@@ -46,7 +47,7 @@ class _ZimaLoginPageState extends State<ZimaLoginPage> {
     _initList();
     return Scaffold(
         appBar: AppBar(
-          title: Text("Zima OS Login"),
+          title: Text(OpenIoTHubLocalizations.of(context).nas_login_zimaos),
           actions:<Widget>[
             IconButton(
                 icon: Icon(
@@ -135,6 +136,7 @@ class _ZimaLoginPageState extends State<ZimaLoginPage> {
     try {
       final response = await dio.postUri(Uri.parse(reqUri),
           data: {'username': username, 'password': password});
+      if (!mounted) return;
       if (response.data["success"] == 200) {
         //  登录成功
         Map<String, dynamic> data = response.data;
@@ -146,12 +148,18 @@ class _ZimaLoginPageState extends State<ZimaLoginPage> {
         return;
       } else {
         //  登录失败
-        showFailed("Login failed", context);
+        if (!mounted) return;
+        showFailed(
+            OpenIoTHubLocalizations.of(context).plugin_login_failed, context);
       }
     } catch (e) {
       //  登录失败
-      showFailed("Login failed:${e.toString()}", context);
-      print(e.toString());
+      if (!mounted) return;
+      showFailed(
+        '${OpenIoTHubLocalizations.of(context).plugin_login_failed} $e',
+        context,
+      );
+      debugPrint(e.toString());
       return;
     }
     // {
@@ -182,7 +190,7 @@ class _ZimaLoginPageState extends State<ZimaLoginPage> {
     if (await canLaunchUrlString(url)) {
       await launchUrlString(url);
     } else {
-      print('Could not launch $url');
+      debugPrint('Could not launch $url');
     }
   }
 }

@@ -1,10 +1,14 @@
+import 'package:flutter/foundation.dart';
 import 'package:grpc/grpc.dart';
+import 'package:openiothub/core/cname_refresh_signal.dart';
 import 'package:openiothub/network/utils/jwt.dart';
 import 'package:openiothub_grpc_api/google/protobuf/empty.pb.dart';
 import 'package:openiothub_grpc_api/google/protobuf/wrappers.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/cnameManager.pbgrpc.dart';
 import 'package:openiothub_grpc_api/proto/manager/common.pb.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:openiothub/network/network_log.dart';
 
 import 'iot_manager_channel.dart';
 
@@ -19,7 +23,7 @@ class CnameManager {
     StringValue stringValueKey = StringValue();
     stringValueKey.value = value;
     StringValue stringValue = await stub.getCnameByKey(stringValueKey);
-    print('getCnameByKey: ${stringValue}');
+    netLog('CnameManager', 'getCnameByKey: $stringValue');
     channel.shutdown();
     return stringValue;
   }
@@ -32,7 +36,7 @@ class CnameManager {
         options: CallOptions(metadata: {'jwt': jwt}));
     Empty empty = Empty();
     CnameMap cnameMap = await stub.getAllCname(empty);
-    print('getAllCname: ${cnameMap}');
+    netLog('CnameManager', 'getAllCname: $cnameMap');
     channel.shutdown();
     return cnameMap;
   }
@@ -45,7 +49,7 @@ class CnameManager {
     final stub = CnameManagerClient(channel,
         options: CallOptions(metadata: {'jwt': jwt}));
     OperationResponse operationResponse = await stub.setCnameByKey(cnameMap);
-    print('setCnameByKey: ${operationResponse}');
+    netLog('CnameManager', 'setCnameByKey: $operationResponse');
     channel.shutdown();
     return operationResponse;
   }
@@ -58,7 +62,7 @@ class CnameManager {
     final stub = CnameManagerClient(channel,
         options: CallOptions(metadata: {'jwt': jwt}));
     OperationResponse operationResponse = await stub.delAllCname(cnameMap);
-    print('delAllCname: ${operationResponse}');
+    netLog('CnameManager', 'delAllCname: $operationResponse');
     channel.shutdown();
     return operationResponse;
   }
@@ -72,7 +76,7 @@ class CnameManager {
     StringValue stringValue = StringValue();
     stringValue.value = value;
     OperationResponse operationResponse = await stub.delCnameByKey(stringValue);
-    print('delCnameByKey: ${operationResponse}');
+    netLog('CnameManager', 'delCnameByKey: $operationResponse');
     channel.shutdown();
     return operationResponse;
   }
@@ -84,11 +88,12 @@ class CnameManager {
     c.config.forEach((key, value) {
       prefs.setString(key, value);
     });
+    CnameRefreshSignal.instance.notifyCnamesSynced();
   }
 
   static Future<String> getCname(String key) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (await prefs.containsKey(key)) {
+    if (prefs.containsKey(key)) {
       return prefs.getString(key)!;
     }
     StringValue c = await getCnameByKey(key);
@@ -97,10 +102,15 @@ class CnameManager {
   }
 
   static Future<void> setCname(String key, String value) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(key, value);
-    CnameMap cnameMap = CnameMap();
-    cnameMap.config.addAll({key: value});
-    setCnameByKey(cnameMap);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(key, value);
+    CnameRefreshSignal.instance.notifyCnamesSynced();
+    final cnameMap = CnameMap()..config.addAll({key: value});
+    try {
+      await setCnameByKey(cnameMap);
+    } catch (e, stackTrace) {
+      netLog('CnameManager', 'setCname: $e');
+      debugPrint('$stackTrace');
+    }
   }
 }

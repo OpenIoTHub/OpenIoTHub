@@ -50,7 +50,7 @@ class UtilApi {
 
   static Future<void> saveAllConfig() async {
     final allconfig = await getAllConfig();
-    print("====saveAllConfig:$allconfig");
+    netLog('UtilApi', 'saveAllConfig: $allconfig');
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString(
         SharedPreferencesKey.openiothubGoAarConfigKey, allconfig);
@@ -58,14 +58,13 @@ class UtilApi {
 
   static Future<void> loadAllConfig() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (!await prefs
-        .containsKey(SharedPreferencesKey.openiothubGoAarConfigKey)) {
+    if (!prefs.containsKey(SharedPreferencesKey.openiothubGoAarConfigKey)) {
       return;
     }
     String? allconfig =
         prefs.getString(SharedPreferencesKey.openiothubGoAarConfigKey);
     if (allconfig != null) {
-      print("====loadAllConfig:$allconfig");
+      netLog('UtilApi', 'loadAllConfig: $allconfig');
       setAllConfig(allconfig);
     }
   }
@@ -76,7 +75,7 @@ class UtilApi {
     final stub = UtilsClient(channel);
     final response = await stub.getAllmDNSServiceList(Empty());
     channel.shutdown();
-    print("===getAllmDNSServiceList：${response.mDNSServices}");
+    netLog('UtilApi', 'getAllmDNSServiceList: ${response.mDNSServices}');
     return response;
   }
 
@@ -88,7 +87,7 @@ class UtilApi {
     sv.value = type;
     final response = await stub.getmDNSServiceListByType(sv);
     channel.shutdown();
-    print("===getOnemDNSServiceList：${response.mDNSServices}");
+    netLog('UtilApi', 'getOnemDNSServiceList: ${response.mDNSServices}');
     return response;
   }
 

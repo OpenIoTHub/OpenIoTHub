@@ -8,7 +8,6 @@ import 'package:openiothub/core/openiothub_constants.dart';
 import 'package:openiothub/widgets/build_global_actions.dart';
 import 'package:openiothub/network/openiothub/session_api.dart';
 import 'package:openiothub/network/openiothub_api.dart';
-import 'package:openiothub/core/constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
@@ -24,10 +23,10 @@ class GatewayListPage extends StatefulWidget {
   final String title;
 
   @override
-  _GatewayListPageState createState() => _GatewayListPageState();
+  State<GatewayListPage> createState() => GatewayListPageState();
 }
 
-class _GatewayListPageState extends State<GatewayListPage> {
+class GatewayListPageState extends State<GatewayListPage> {
   BannerAd? _bannerAd;
   static const double imageIconWidth = 30.0;
 
@@ -137,7 +136,7 @@ class _GatewayListPageState extends State<GatewayListPage> {
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
         elevation: 2.0,
-        tooltip: 'Scan gateway-go QR code to add Gateway',
+        tooltip: OpenIoTHubLocalizations.of(context).tooltip_scan_gateway_go_qr,
         onPressed: () {
           scanQR(context);
         },
@@ -194,6 +193,7 @@ class _GatewayListPageState extends State<GatewayListPage> {
   void _pushmDNSServices(SessionConfig config) async {
     AppNavigator.pushGatewayMdnsServiceList(context, config)
         .then((result) {
+          if (!mounted) return;
           setState(() {
             getAllSession();
           });
@@ -203,16 +203,17 @@ class _GatewayListPageState extends State<GatewayListPage> {
   Future createOneSession(SessionConfig config) async {
     try {
       final response = await SessionApi.createOneSession(config);
-      print('Greeter client received: $response');
+      debugPrint('Greeter client received: $response');
     } catch (e) {
-      print('Caught error: $e');
+      debugPrint('Caught error: $e');
     }
   }
 
   void deleteOneSession(SessionConfig config) async {
     try {
       final response = await SessionApi.deleteOneSession(config);
-      print('Greeter client received: $response');
+      debugPrint('Greeter client received: $response');
+      if (!mounted) return;
       showDialog(
         context: context,
         builder:
@@ -234,11 +235,12 @@ class _GatewayListPageState extends State<GatewayListPage> {
               ],
             ),
       ).then((result) {
-        if (!context.mounted) return;
+        if (!mounted) return;
         Navigator.of(context).pop();
       });
     } catch (e) {
-      print('Caught error: $e');
+      debugPrint('Caught error: $e');
+      if (!mounted) return;
       showDialog(
         context: context,
         builder:
@@ -273,12 +275,12 @@ class _GatewayListPageState extends State<GatewayListPage> {
   Future<void> getAllSession() async {
     try {
       final response = await SessionApi.getAllSession();
-      print('Greeter client received: ${response.sessionConfigs}');
+      debugPrint('Greeter client received: ${response.sessionConfigs}');
       setState(() {
         _sessionList = response.sessionConfigs;
       });
     } catch (e) {
-      print('Caught error: $e');
+      debugPrint('Caught error: $e');
     }
     return;
   }
@@ -287,7 +289,7 @@ class _GatewayListPageState extends State<GatewayListPage> {
     try {
       await SessionApi.refreshmDNSServices(sessionConfig);
     } catch (e) {
-      print('Caught error: $e');
+      debugPrint('Caught error: $e');
     }
   }
 
@@ -306,16 +308,18 @@ class _GatewayListPageState extends State<GatewayListPage> {
     if (!Platform.isAndroid && !Platform.isIOS){
       return Container();
     }
-    var _isCnMainland = isCnMainland(OpenIoTHubLocalizations.of(context).localeName);
-    return _isCnMainland?
-    buildYLHBanner(context):
-    _bannerAd==null?Container():SafeArea(
-      child: SizedBox(
-        width: _bannerAd!.size.width.toDouble(),
-        height: _bannerAd!.size.height.toDouble(),
-        child: AdWidget(ad: _bannerAd!),
-      ),
-    );
+    final mainlandCn = context.isCnMainlandLocale;
+    return mainlandCn
+        ? buildYLHBanner(context)
+        : _bannerAd == null
+            ? Container()
+            : SafeArea(
+                child: SizedBox(
+                  width: _bannerAd!.size.width.toDouble(),
+                  height: _bannerAd!.size.height.toDouble(),
+                  child: AdWidget(ad: _bannerAd!),
+                ),
+              );
   }
 
   void _loadAd() async {
@@ -327,12 +331,12 @@ class _GatewayListPageState extends State<GatewayListPage> {
     // // the app's configured messages.
     // var canRequestAds = await _consentManager.canRequestAds();
     // if (!canRequestAds) {
-    //   print("!canRequestAds");
+    //   debugPrint("!canRequestAds");
     //   return;
     // }
     //
     // if (!mounted) {
-    //   print("!mounted");
+    //   debugPrint("!mounted");
     //   return;
     // }
     // [END_EXCLUDE]
@@ -345,7 +349,7 @@ class _GatewayListPageState extends State<GatewayListPage> {
 
     if (size == null) {
       // Unable to get width of anchored banner.
-      print("size == null");
+      debugPrint("size == null");
       return;
     }
 

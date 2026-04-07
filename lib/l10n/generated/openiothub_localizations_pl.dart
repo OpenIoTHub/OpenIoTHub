@@ -265,6 +265,12 @@ class OpenIoTHubLocalizationsPl extends OpenIoTHubLocalizations {
   String get create_device_failed => 'Tworzenie urządzenia nie powiodło się';
 
   @override
+  String get failed_to_get_session_list => '获取会话列表失败';
+
+  @override
+  String get wifi_info_filled => '已填入当前 Wi-Fi 的 SSID 与 BSSID';
+
+  @override
   String get camera_scan_code_prompt => 'Monit skanowania kodu aparatem!';
 
   @override
@@ -340,6 +346,24 @@ class OpenIoTHubLocalizationsPl extends OpenIoTHubLocalizations {
   String get web_browser => 'Przeglądarka internetowa';
 
   @override
+  String get open_with_aria2 => 'Aria2';
+
+  @override
+  String get open_with_ssh => 'SSH';
+
+  @override
+  String get open_with_vnc => 'VNC';
+
+  @override
+  String get open_with_casaos => 'CasaOS';
+
+  @override
+  String get open_with_zimaos => 'ZimaOS';
+
+  @override
+  String get open_with_unraid => 'Unraid';
+
+  @override
   String get mdns_service_list => 'Lista mDNS';
 
   @override
@@ -401,6 +425,9 @@ class OpenIoTHubLocalizationsPl extends OpenIoTHubLocalizations {
   String get privacy_policy => 'Polityka prywatności';
 
   @override
+  String get privacy_policy_title_dated => '隐私政策（2023.11.15）';
+
+  @override
   String get agree => 'Zgadzam się';
 
   @override
@@ -456,6 +483,9 @@ class OpenIoTHubLocalizationsPl extends OpenIoTHubLocalizations {
   @override
   String get you_havent_logged_in_yet =>
       'Nie jesteś jeszcze zalogowany! Zaloguj się najpierw, a następnie dodaj urządzenie';
+
+  @override
+  String get please_login_before_add_gateway => '请先登录后再添加网关';
 
   @override
   String get add_successful => 'Dodano pomyślnie!';
@@ -647,6 +677,26 @@ class OpenIoTHubLocalizationsPl extends OpenIoTHubLocalizations {
       'Zadanie dystrybucji sieciowej pobliskiego sprzętu AirKiss zostało zakończone';
 
   @override
+  String get wifi_bssid_label => 'BSSID';
+
+  @override
+  String get wifi_name_permission_denied => '无定位权限，无法读取 Wi-Fi 名称';
+
+  @override
+  String get wifi_bssid_permission_denied => '无定位权限，无法读取 BSSID';
+
+  @override
+  String get wifi_name_read_failed => '读取 Wi-Fi 名称失败';
+
+  @override
+  String get wifi_bssid_read_failed => '读取 BSSID 失败';
+
+  @override
+  String airkiss_configure_failed(String message) {
+    return '配网失败：$message';
+  }
+
+  @override
   String get bind_wechat_success => 'Powiązanie z WeChat zakończone sukcesem!';
 
   @override
@@ -758,6 +808,21 @@ class OpenIoTHubLocalizationsPl extends OpenIoTHubLocalizations {
 
   @override
   String get common_feedback_channels => 'Kanały opinii';
+
+  @override
+  String get feedback_github_title => 'GitHub';
+
+  @override
+  String get feedback_qq_group_line => '加入 QQ 群 (251227638) 反馈';
+
+  @override
+  String get feedback_wechat_line => '关注微信公众号「云亿连物联网」反馈';
+
+  @override
+  String get feedback_wechat_account_heading => '公众号';
+
+  @override
+  String get feedback_qq_group_heading => 'QQ 群';
 
   @override
   String get get_wechat_qr_code_failed =>
@@ -956,6 +1021,27 @@ class OpenIoTHubLocalizationsPl extends OpenIoTHubLocalizations {
 
   @override
   String get define_server_kcp_port => 'Port KCP';
+
+  @override
+  String get server_field_login_key => '登录密钥';
+
+  @override
+  String get server_field_tcp_port => 'TCP 端口';
+
+  @override
+  String get server_field_kcp_port => 'KCP 端口';
+
+  @override
+  String get server_field_udp_api_port => 'UDP API 端口';
+
+  @override
+  String get server_field_kcp_api_port => 'KCP API 端口';
+
+  @override
+  String get server_field_tls_port => 'TLS 端口';
+
+  @override
+  String get server_field_grpc_port => 'gRPC 端口';
 
   @override
   String get port => 'Port';
@@ -1162,6 +1248,284 @@ class OpenIoTHubLocalizationsPl extends OpenIoTHubLocalizations {
   String get plugin_delete_success => 'Usunięto pomyślnie!';
 
   @override
+  String get nas_app_upgrade_failed => '应用升级失败';
+
+  @override
+  String get nas_app_upgrade_success => '应用升级操作已提交';
+
+  @override
+  String get nas_app_remove_failed => '卸载应用失败';
+
+  @override
+  String get nas_app_remove_success => '应用已卸载';
+
+  @override
+  String get nas_app_change_status_failed => '应用状态更新失败';
+
+  @override
+  String get nas_app_change_status_success => '应用状态已更新';
+
+  @override
+  String get nas_system_restart => '重启';
+
+  @override
+  String get nas_system_power_off => '关机';
+
+  @override
+  String get nas_power_control => '电源管理';
+
+  @override
+  String get nas_usb_auto_mount => 'USB 自动挂载';
+
+  @override
+  String get nas_apps => '应用';
+
+  @override
+  String get nas_files => '文件';
+
+  @override
+  String get nas_files_sidebar_root => '根目录';
+
+  @override
+  String get nas_files_sidebar_data => 'DATA';
+
+  @override
+  String get nas_files_sidebar_documents => '文档';
+
+  @override
+  String get nas_files_sidebar_downloads => '下载';
+
+  @override
+  String get nas_files_sidebar_gallery => '相册';
+
+  @override
+  String get nas_files_sidebar_media => '媒体';
+
+  @override
+  String get nas_files_sidebar_zima_hd => 'ZimaOS 存储';
+
+  @override
+  String get nas_files_sidebar_backup => '备份';
+
+  @override
+  String get tooltip_quick_actions => '快捷操作';
+
+  @override
+  String get nas_app_store_title => '应用商店';
+
+  @override
+  String get nas_system_info => '系统信息';
+
+  @override
+  String get nas_terminal => '终端';
+
+  @override
+  String get nas_login_casaos => 'CasaOS 登录';
+
+  @override
+  String get nas_login_zimaos => 'ZimaOS 登录';
+
+  @override
+  String get nas_login_unraid => 'Unraid 登录';
+
+  @override
+  String get nas_store_casa_zima => 'CasaOS / ZimaOS 应用商店';
+
+  @override
+  String get nas_video => '视频';
+
+  @override
+  String get nas_version_info_title => '版本信息';
+
+  @override
+  String get nas_version_current_version => '当前版本';
+
+  @override
+  String get nas_version_need_update => '需要更新';
+
+  @override
+  String get nas_version_changelog => '更新说明';
+
+  @override
+  String get nas_version_device_model => '设备型号';
+
+  @override
+  String get nas_version_device_name => '设备名称';
+
+  @override
+  String get nas_version_build_hash => '构建标识';
+
+  @override
+  String get nas_version_os_version => '系统版本';
+
+  @override
+  String smart_device_switch_n(int n) {
+    return '开关 $n';
+  }
+
+  @override
+  String get smart_device_power => '功率';
+
+  @override
+  String get unit_watt => 'W';
+
+  @override
+  String get gateway_tooltip_edit_name => '修改网关名称';
+
+  @override
+  String get gateway_tooltip_refresh_mdns => '刷新 mDNS 列表';
+
+  @override
+  String get gateway_tooltip_show_info => '网关详情';
+
+  @override
+  String get tooltip_scan_gateway_go_qr => '扫描 gateway-go 二维码添加网关';
+
+  @override
+  String get tooltip_add_remote_host_lan => '在局域网添加远程主机';
+
+  @override
+  String get tooltip_delete_current_host => '删除当前主机';
+
+  @override
+  String get tooltip_wake_on_lan => '网络唤醒 (WoL)';
+
+  @override
+  String get tooltip_add_tcp_udp_port => '在此主机添加 TCP/UDP 端口';
+
+  @override
+  String get tooltip_current_host_info => '当前主机信息';
+
+  @override
+  String get device_screen_mirror => '屏幕截图';
+
+  @override
+  String get r1_adb_operations_hint => 'ADB（kill/start/reconnect）：';
+
+  @override
+  String get r1_power_restart => '关机 / 重启：';
+
+  @override
+  String get r1_volume_control => '音量：';
+
+  @override
+  String get r1_media_control_section => '媒体播放：';
+
+  @override
+  String get r1_media_stop => '停止';
+
+  @override
+  String get r1_media_next => '下一首';
+
+  @override
+  String get r1_media_previous => '上一首';
+
+  @override
+  String get r1_media_rewind => '快退';
+
+  @override
+  String get r1_media_fast_forward => '快进';
+
+  @override
+  String get r1_media_play => '播放';
+
+  @override
+  String get r1_media_pause => '暂停';
+
+  @override
+  String get r1_media_close => '关闭';
+
+  @override
+  String get r1_media_eject => '弹出';
+
+  @override
+  String get r1_media_record => '录音';
+
+  @override
+  String get r1_view_screenshot => '查看屏幕截图';
+
+  @override
+  String get r1_shell_cmd_label => '在设备上执行的 shell 命令';
+
+  @override
+  String get r1_shell_cmd_helper => 'shell cmd';
+
+  @override
+  String get r1_adb_args_label => 'adb 命令参数，例如 kill-server';
+
+  @override
+  String get r1_adb_args_helper => 'adb cmd args';
+
+  @override
+  String get r1_run_shell_on_device => '执行上述命令';
+
+  @override
+  String get r1_run_adb_command => '执行上述 adb 命令';
+
+  @override
+  String get r1_key_input_label => '按键：';
+
+  @override
+  String get r1_install_apk => '安装 APK';
+
+  @override
+  String get r1_select_package_uninstall => '选择要卸载的应用：';
+
+  @override
+  String get r1_refresh_packages => '刷新应用列表';
+
+  @override
+  String get r1_bluetooth_enable => '打开蓝牙';
+
+  @override
+  String get r1_bluetooth_disable => '关闭蓝牙';
+
+  @override
+  String get r1_bluetooth_status => '蓝牙状态';
+
+  @override
+  String get r1_uninstall_title => '确认卸载应用包？';
+
+  @override
+  String get r1_uninstall_prompt => '请确认';
+
+  @override
+  String get r1_android_back => '返回';
+
+  @override
+  String get r1_android_home => '桌面';
+
+  @override
+  String get r1_refresh_display => '刷新画面';
+
+  @override
+  String get mqtt_connection_failed => 'MQTT 连接失败';
+
+  @override
+  String get mqtt_socket_error => '网络连接异常';
+
+  @override
+  String get mqtt_disconnected => 'MQTT 已断开';
+
+  @override
+  String get mqtt_subscribed => '已订阅';
+
+  @override
+  String get mqtt_connected => 'MQTT 连接成功';
+
+  @override
+  String get mqtt_ping_received => 'MQTT 心跳响应';
+
+  @override
+  String get mqtt_reconnecting => '正在重连 MQTT…';
+
+  @override
+  String get mqtt_reconnected_success => '已重新连接 MQTT';
+
+  @override
+  String get file_picker_canceled => '已取消选择文件';
+
+  @override
   String get mdns_info => 'Informacje mDNS';
 
   @override
@@ -1235,4 +1599,19 @@ class OpenIoTHubLocalizationsPl extends OpenIoTHubLocalizations {
   @override
   String get please_input_ssh_username_password =>
       'Proszę wprowadzić nazwę użytkownika i hasło SSH';
+
+  @override
+  String get ssh_terminal_connecting => '正在连接…';
+
+  @override
+  String get ssh_terminal_connected => '已连接';
+
+  @override
+  String get ssh_key_ctrl => 'Ctrl';
+
+  @override
+  String get ssh_key_alt => 'Alt';
+
+  @override
+  String get ssh_key_shift => 'Shift';
 }

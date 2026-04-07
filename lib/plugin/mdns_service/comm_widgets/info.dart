@@ -1,26 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:oktoast/oktoast.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/network/openiothub_api.dart';
-import 'package:openiothub_grpc_api/proto/manager/mqttDeviceManager.pbgrpc.dart';
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
+import 'package:openiothub_grpc_api/proto/manager/mqttDeviceManager.pb.dart';
 
-import 'package:openiothub/plugin/openiothub_plugin.dart';
 import 'package:openiothub/common_pages/utils/toast.dart';
 
 import 'package:openiothub/plugin/models/port_service_info.dart';
 
 class InfoPage extends StatelessWidget {
-  InfoPage({required Key key, required this.portService}) : super(key: key);
-  OpenIoTHubLocalizations? localizations;
-  PortServiceInfo portService;
+  const InfoPage({required Key key, required this.portService}) : super(key: key);
 
-  // This widget is the root of your application.
+  final PortServiceInfo portService;
+
   @override
   Widget build(BuildContext context) {
-    localizations = OpenIoTHubLocalizations.of(context);
+    final l10n = OpenIoTHubLocalizations.of(context);
     //设备信息
-    final List _stdKey = [
+    final List stdKey = [
       "name",
       "model",
       "mac",
@@ -31,27 +27,27 @@ class InfoPage extends StatelessWidget {
       "firmware-respository",
       "firmware-version"
     ];
-    final List _result = [];
-    _result.add("${localizations!.device_name}:${portService.info!["name"]}");
-    _result.add("${localizations!.device_model}:${portService.info!["model"]!.replaceAll("#", ".")}");
-    _result.add("${localizations!.mac_addr}:${portService.info!["mac"]}");
-    _result.add("id:${portService.info!["id"]}");
-    _result.add("${localizations!.firmware_author}:${portService.info!["author"]}");
-    _result.add("${localizations!.email}:${portService.info!["email"]}");
-    _result.add("${localizations!.home_page}:${portService.info!["home-page"]}");
-    _result.add("${localizations!.firmware_repository}:${portService.info!["firmware-respository"]}");
-    _result.add("${localizations!.firmware_version}:${portService.info!["firmware-version"]}");
-    _result.add("${localizations!.is_local}:${portService.isLocal ? localizations!.yes : localizations!.no}");
-    _result.add("${localizations!.device_ip}:${portService.addr}");
-    _result.add("${localizations!.device_port}:${portService.port}");
+    final List result = [];
+    result.add("${l10n.device_name}:${portService.info!["name"]}");
+    result.add("${l10n.device_model}:${portService.info!["model"]!.replaceAll("#", ".")}");
+    result.add("${l10n.mac_addr}:${portService.info!["mac"]}");
+    result.add("id:${portService.info!["id"]}");
+    result.add("${l10n.firmware_author}:${portService.info!["author"]}");
+    result.add("${l10n.email}:${portService.info!["email"]}");
+    result.add("${l10n.home_page}:${portService.info!["home-page"]}");
+    result.add("${l10n.firmware_repository}:${portService.info!["firmware-respository"]}");
+    result.add("${l10n.firmware_version}:${portService.info!["firmware-version"]}");
+    result.add("${l10n.is_local}:${portService.isLocal ? l10n.yes : l10n.no}");
+    result.add("${l10n.device_ip}:${portService.addr}");
+    result.add("${l10n.device_port}:${portService.port}");
 
     portService.info!.forEach((key, value) {
-      if (!_stdKey.contains(key)) {
-        _result.add("${key}:${value}");
+      if (!stdKey.contains(key)) {
+        result.add("$key:$value");
       }
     });
 
-    final tiles = _result.map(
+    final tiles = result.map(
       (pair) {
         return ListTile(
           title: Text(
@@ -68,7 +64,6 @@ class InfoPage extends StatelessWidget {
       IconButton(
           icon: Icon(
             Icons.edit,
-            // color: Colors.white,
           ),
           onPressed: () {
             _renameDialog(context);
@@ -87,30 +82,31 @@ class InfoPage extends StatelessWidget {
     }
     return Scaffold(
       appBar: AppBar(
-        title: Text(localizations!.device_info),
+        title: Text(l10n.device_info),
         actions: actions,
       ),
       body: ListView(children: divided),
     );
   }
 
-  _renameDialog(BuildContext context) async {
-    TextEditingController _newNameController =
+  Future<void> _renameDialog(BuildContext context) async {
+    final l10n = OpenIoTHubLocalizations.of(context);
+    TextEditingController newNameController =
         TextEditingController.fromValue(
             TextEditingValue(text: portService.info!["name"]!));
-    showDialog(
+    await showDialog(
         context: context,
         builder: (_) => AlertDialog(
-                title: Text("${localizations!.modify_device_name}："),
+                title: Text("${l10n.modify_device_name}："),
                 content: SizedBox.expand(
                   child: ListView(
                     children: <Widget>[
                       TextFormField(
-                        controller: _newNameController,
+                        controller: newNameController,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.all(10.0),
-                          labelText: '${localizations!.input_new_device_name}',
-                          helperText: '${localizations!.name}',
+                          labelText: l10n.input_new_device_name,
+                          helperText: l10n.name,
                         ),
                       )
                     ],
@@ -118,38 +114,37 @@ class InfoPage extends StatelessWidget {
                 ),
                 actions: <Widget>[
                   TextButton(
-                    child: Text(localizations!.cancel),
+                    child: Text(l10n.cancel),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                   ),
                   TextButton(
-                    child: Text(localizations!.modify),
+                    child: Text(l10n.modify),
                     onPressed: () async {
                       await _rename(
-                          portService.info!["id"]!, _newNameController.text);
-                      Navigator.of(context).pop();
+                          portService.info!["id"]!, newNameController.text);
+                      if (context.mounted) Navigator.of(context).pop();
                     },
                   )
-                ])).then((restlt) {
-      Navigator.of(context).pop();
-    });
+                ]));
   }
 
-  _rename(String id, name) async {
+  Future<void> _rename(String id, name) async {
     CnameManager.setCname(id, name);
   }
 }
 
-_deleteDialog(BuildContext context, PortServiceInfo portService) async {
-  showDialog(
+Future<void> _deleteDialog(BuildContext context, PortServiceInfo portService) async {
+  await showDialog(
       context: context,
       builder: (_) => AlertDialog(
               title: Text("${OpenIoTHubLocalizations.of(context).delete_device}："),
               content: SizedBox.expand(
                 child: ListView(
                   children: <Widget>[
-                    Text("${OpenIoTHubLocalizations.of(context).plugin_confirm_delete_device}"),
+                    Text(OpenIoTHubLocalizations.of(context)
+                        .plugin_confirm_delete_device),
                   ],
                 ),
               ),
@@ -164,17 +159,18 @@ _deleteDialog(BuildContext context, PortServiceInfo portService) async {
                   child: Text(OpenIoTHubLocalizations.of(context).delete),
                   onPressed: () async {
                     await _delete(context, portService);
+                    if (!context.mounted) return;
+                    Navigator.of(context).pop();
                     Navigator.of(context).pop();
                   },
                 )
-              ])).then((restlt) {
-    Navigator.of(context).pop();
-  });
+              ]));
 }
 
-_delete(BuildContext context, PortServiceInfo portService) async {
+Future<void> _delete(BuildContext context, PortServiceInfo portService) async {
   MqttDeviceInfo mqttDeviceInfo = MqttDeviceInfo();
   mqttDeviceInfo.deviceId = portService.info!["id"]!;
   await MqttDeviceManager.delMqttDevice(mqttDeviceInfo);
+  if (!context.mounted) return;
   showSuccess(OpenIoTHubLocalizations.of(context).plugin_delete_success, context);
 }

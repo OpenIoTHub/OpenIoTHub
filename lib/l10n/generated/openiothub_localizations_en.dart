@@ -261,6 +261,12 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
   String get create_device_failed => 'Create device failed';
 
   @override
+  String get failed_to_get_session_list => 'Failed to get session list';
+
+  @override
+  String get wifi_info_filled => 'SSID and BSSID filled in from current Wi-Fi';
+
+  @override
   String get camera_scan_code_prompt => 'Camera scan code prompt!';
 
   @override
@@ -335,6 +341,24 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
   String get web_browser => 'Web browser';
 
   @override
+  String get open_with_aria2 => 'Aria2';
+
+  @override
+  String get open_with_ssh => 'SSH';
+
+  @override
+  String get open_with_vnc => 'VNC';
+
+  @override
+  String get open_with_casaos => 'CasaOS';
+
+  @override
+  String get open_with_zimaos => 'ZimaOS';
+
+  @override
+  String get open_with_unraid => 'Unraid';
+
+  @override
   String get mdns_service_list => 'Mdns list';
 
   @override
@@ -396,6 +420,9 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
   String get privacy_policy => 'Privacy Policy';
 
   @override
+  String get privacy_policy_title_dated => 'Privacy policy (Nov 15, 2023)';
+
+  @override
   String get agree => 'Agree';
 
   @override
@@ -450,6 +477,10 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
   @override
   String get you_havent_logged_in_yet =>
       'You haven\'t logged in yet! Please log in first and then add the device';
+
+  @override
+  String get please_login_before_add_gateway =>
+      'Please log in before adding a gateway';
 
   @override
   String get add_successful => 'Added successfully!';
@@ -641,6 +672,28 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
       'The nearby AirKiss equipment distribution task has been completed';
 
   @override
+  String get wifi_bssid_label => 'BSSID';
+
+  @override
+  String get wifi_name_permission_denied =>
+      'Location permission required to read Wi-Fi name';
+
+  @override
+  String get wifi_bssid_permission_denied =>
+      'Location permission required to read BSSID';
+
+  @override
+  String get wifi_name_read_failed => 'Failed to read Wi-Fi name';
+
+  @override
+  String get wifi_bssid_read_failed => 'Failed to read BSSID';
+
+  @override
+  String airkiss_configure_failed(String message) {
+    return 'Configuration failed: $message';
+  }
+
+  @override
   String get bind_wechat_success => 'WeChat binding successful!';
 
   @override
@@ -751,6 +804,22 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
 
   @override
   String get common_feedback_channels => 'Feedback channels';
+
+  @override
+  String get feedback_github_title => 'GitHub';
+
+  @override
+  String get feedback_qq_group_line => 'Join QQ group 251227638 for feedback';
+
+  @override
+  String get feedback_wechat_line =>
+      'Follow the WeChat official account \"云亿连物联网\" for feedback';
+
+  @override
+  String get feedback_wechat_account_heading => 'WeChat official account';
+
+  @override
+  String get feedback_qq_group_heading => 'QQ group';
 
   @override
   String get get_wechat_qr_code_failed => 'Get wechat qr code failed！';
@@ -947,6 +1016,27 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
 
   @override
   String get define_server_kcp_port => 'Kcp port';
+
+  @override
+  String get server_field_login_key => 'Login key';
+
+  @override
+  String get server_field_tcp_port => 'TCP port';
+
+  @override
+  String get server_field_kcp_port => 'KCP port';
+
+  @override
+  String get server_field_udp_api_port => 'UDP API port';
+
+  @override
+  String get server_field_kcp_api_port => 'KCP API port';
+
+  @override
+  String get server_field_tls_port => 'TLS port';
+
+  @override
+  String get server_field_grpc_port => 'gRPC port';
 
   @override
   String get port => 'Port';
@@ -1150,6 +1240,285 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
   String get plugin_delete_success => 'Delete_success!';
 
   @override
+  String get nas_app_upgrade_failed => 'App upgrade failed';
+
+  @override
+  String get nas_app_upgrade_success => 'App upgrade submitted';
+
+  @override
+  String get nas_app_remove_failed => 'Failed to remove app';
+
+  @override
+  String get nas_app_remove_success => 'App removed';
+
+  @override
+  String get nas_app_change_status_failed => 'Failed to update app status';
+
+  @override
+  String get nas_app_change_status_success => 'App status updated';
+
+  @override
+  String get nas_system_restart => 'Restart';
+
+  @override
+  String get nas_system_power_off => 'Shut down';
+
+  @override
+  String get nas_power_control => 'Power';
+
+  @override
+  String get nas_usb_auto_mount => 'USB auto-mount';
+
+  @override
+  String get nas_apps => 'Apps';
+
+  @override
+  String get nas_files => 'Files';
+
+  @override
+  String get nas_files_sidebar_root => 'Root';
+
+  @override
+  String get nas_files_sidebar_data => 'DATA';
+
+  @override
+  String get nas_files_sidebar_documents => 'Documents';
+
+  @override
+  String get nas_files_sidebar_downloads => 'Downloads';
+
+  @override
+  String get nas_files_sidebar_gallery => 'Gallery';
+
+  @override
+  String get nas_files_sidebar_media => 'Media';
+
+  @override
+  String get nas_files_sidebar_zima_hd => 'ZimaOS storage';
+
+  @override
+  String get nas_files_sidebar_backup => 'Backup';
+
+  @override
+  String get tooltip_quick_actions => 'Quick actions';
+
+  @override
+  String get nas_app_store_title => 'App Store';
+
+  @override
+  String get nas_system_info => 'System info';
+
+  @override
+  String get nas_terminal => 'Terminal';
+
+  @override
+  String get nas_login_casaos => 'CasaOS login';
+
+  @override
+  String get nas_login_zimaos => 'ZimaOS login';
+
+  @override
+  String get nas_login_unraid => 'Unraid login';
+
+  @override
+  String get nas_store_casa_zima => 'CasaOS / ZimaOS App Store';
+
+  @override
+  String get nas_video => 'Video';
+
+  @override
+  String get nas_version_info_title => 'Version info';
+
+  @override
+  String get nas_version_current_version => 'Current version';
+
+  @override
+  String get nas_version_need_update => 'Update needed';
+
+  @override
+  String get nas_version_changelog => 'Changelog';
+
+  @override
+  String get nas_version_device_model => 'Device model';
+
+  @override
+  String get nas_version_device_name => 'Device name';
+
+  @override
+  String get nas_version_build_hash => 'Build ID';
+
+  @override
+  String get nas_version_os_version => 'OS version';
+
+  @override
+  String smart_device_switch_n(int n) {
+    return 'Switch $n';
+  }
+
+  @override
+  String get smart_device_power => 'Power';
+
+  @override
+  String get unit_watt => 'W';
+
+  @override
+  String get gateway_tooltip_edit_name => 'Edit gateway name';
+
+  @override
+  String get gateway_tooltip_refresh_mdns => 'Refresh mDNS list';
+
+  @override
+  String get gateway_tooltip_show_info => 'Gateway details';
+
+  @override
+  String get tooltip_scan_gateway_go_qr =>
+      'Scan gateway-go QR code to add gateway';
+
+  @override
+  String get tooltip_add_remote_host_lan => 'Add remote host on LAN';
+
+  @override
+  String get tooltip_delete_current_host => 'Delete current host';
+
+  @override
+  String get tooltip_wake_on_lan => 'Wake on LAN (WoL)';
+
+  @override
+  String get tooltip_add_tcp_udp_port => 'Add TCP/UDP port on this host';
+
+  @override
+  String get tooltip_current_host_info => 'Current host info';
+
+  @override
+  String get device_screen_mirror => 'Screen capture';
+
+  @override
+  String get r1_adb_operations_hint => 'ADB (kill/start/reconnect):';
+
+  @override
+  String get r1_power_restart => 'Power off / restart:';
+
+  @override
+  String get r1_volume_control => 'Volume:';
+
+  @override
+  String get r1_media_control_section => 'Media:';
+
+  @override
+  String get r1_media_stop => 'Stop';
+
+  @override
+  String get r1_media_next => 'Next';
+
+  @override
+  String get r1_media_previous => 'Previous';
+
+  @override
+  String get r1_media_rewind => 'Rewind';
+
+  @override
+  String get r1_media_fast_forward => 'Fast-forward';
+
+  @override
+  String get r1_media_play => 'Play';
+
+  @override
+  String get r1_media_pause => 'Pause';
+
+  @override
+  String get r1_media_close => 'Close';
+
+  @override
+  String get r1_media_eject => 'Eject';
+
+  @override
+  String get r1_media_record => 'Record';
+
+  @override
+  String get r1_view_screenshot => 'View screenshot';
+
+  @override
+  String get r1_shell_cmd_label => 'Shell command to run on device';
+
+  @override
+  String get r1_shell_cmd_helper => 'shell cmd';
+
+  @override
+  String get r1_adb_args_label => 'ADB arguments, e.g. kill-server';
+
+  @override
+  String get r1_adb_args_helper => 'adb cmd args';
+
+  @override
+  String get r1_run_shell_on_device => 'Run command';
+
+  @override
+  String get r1_run_adb_command => 'Run ADB command';
+
+  @override
+  String get r1_key_input_label => 'Key:';
+
+  @override
+  String get r1_install_apk => 'Install APK';
+
+  @override
+  String get r1_select_package_uninstall => 'App to uninstall:';
+
+  @override
+  String get r1_refresh_packages => 'Refresh app list';
+
+  @override
+  String get r1_bluetooth_enable => 'Turn on Bluetooth';
+
+  @override
+  String get r1_bluetooth_disable => 'Turn off Bluetooth';
+
+  @override
+  String get r1_bluetooth_status => 'Bluetooth status';
+
+  @override
+  String get r1_uninstall_title => 'Uninstall this package?';
+
+  @override
+  String get r1_uninstall_prompt => 'Please confirm';
+
+  @override
+  String get r1_android_back => 'Back';
+
+  @override
+  String get r1_android_home => 'Home';
+
+  @override
+  String get r1_refresh_display => 'Refresh screen';
+
+  @override
+  String get mqtt_connection_failed => 'MQTT connection failed';
+
+  @override
+  String get mqtt_socket_error => 'Network error';
+
+  @override
+  String get mqtt_disconnected => 'MQTT disconnected';
+
+  @override
+  String get mqtt_subscribed => 'Subscribed';
+
+  @override
+  String get mqtt_connected => 'MQTT connected';
+
+  @override
+  String get mqtt_ping_received => 'MQTT ping received';
+
+  @override
+  String get mqtt_reconnecting => 'Reconnecting MQTT…';
+
+  @override
+  String get mqtt_reconnected_success => 'MQTT reconnected';
+
+  @override
+  String get file_picker_canceled => 'File selection canceled';
+
+  @override
   String get mdns_info => 'Mdns info';
 
   @override
@@ -1222,4 +1591,19 @@ class OpenIoTHubLocalizationsEn extends OpenIoTHubLocalizations {
   @override
   String get please_input_ssh_username_password =>
       'Please input ssh username and password';
+
+  @override
+  String get ssh_terminal_connecting => 'Connecting…';
+
+  @override
+  String get ssh_terminal_connected => 'Connected';
+
+  @override
+  String get ssh_key_ctrl => 'Ctrl';
+
+  @override
+  String get ssh_key_alt => 'Alt';
+
+  @override
+  String get ssh_key_shift => 'Shift';
 }

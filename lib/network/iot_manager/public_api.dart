@@ -1,6 +1,8 @@
 import 'package:openiothub_grpc_api/google/protobuf/empty.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/publicApi.pbgrpc.dart';
 
+import 'package:openiothub/network/network_log.dart';
+
 import 'iot_manager_channel.dart';
 
 class PublicApi {
@@ -11,7 +13,7 @@ class PublicApi {
     final stub = PublicApiClient(channel);
     Empty empty = Empty();
     JwtQRCodePair jwtQRCodePair = await stub.generateJwtQRCodePair(empty);
-    print('generateJwtQRCodePair: ${jwtQRCodePair}');
+    netLog('PublicApi', 'generateJwtQRCodePair: $jwtQRCodePair');
     channel.shutdown();
     return jwtQRCodePair;
   }

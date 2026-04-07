@@ -1,10 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/common_pages/openiothub_common_pages.dart';
-import 'package:openiothub/common_pages/utils/go_to_url.dart';
-import 'package:openiothub/common_pages/utils/toast.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 // import 'package:tencent_kit/tencent_kit.dart';
@@ -12,13 +9,13 @@ import 'package:wechat_kit/wechat_kit.dart';
 
 
 class AppInfoPage extends StatefulWidget {
-  AppInfoPage({required Key key}) : super(key: key);
+  const AppInfoPage({required Key key}) : super(key: key);
 
   @override
-  _AppInfoPageState createState() => _AppInfoPageState();
+  State<AppInfoPage> createState() => AppInfoPageState();
 }
 
-class _AppInfoPageState extends State<AppInfoPage> {
+class AppInfoPageState extends State<AppInfoPage> {
   //APP名称
   String appName = "";
 
@@ -83,14 +80,14 @@ class _AppInfoPageState extends State<AppInfoPage> {
 
   @override
   Widget build(BuildContext context) {
-    final List _result = [];
-    _result.add("${OpenIoTHubLocalizations.of(context).app_name}$appName");
-    _result.add("${OpenIoTHubLocalizations.of(context).package_name}$packageName");
-    _result.add("${OpenIoTHubLocalizations.of(context).version}$version");
-    _result.add("${OpenIoTHubLocalizations.of(context).version_sn}$buildNumber");
-    _result.add("${OpenIoTHubLocalizations.of(context).icp_number}皖ICP备2022013511号-2A");
+    final List result = [];
+    result.add("${OpenIoTHubLocalizations.of(context).app_name}$appName");
+    result.add("${OpenIoTHubLocalizations.of(context).package_name}$packageName");
+    result.add("${OpenIoTHubLocalizations.of(context).version}$version");
+    result.add("${OpenIoTHubLocalizations.of(context).version_sn}$buildNumber");
+    result.add("${OpenIoTHubLocalizations.of(context).icp_number}皖ICP备2022013511号-2A");
 
-    final tiles = _result.map(
+    final tiles = result.map(
       (pair) {
         return ListTile(
           title: Text(
@@ -193,8 +190,11 @@ class _AppInfoPageState extends State<AppInfoPage> {
                         shape: TDButtonShape.rectangle,
                         theme: TDButtonTheme.primary,
                         onTap: () async {
+                          final ctx = context;
+                          final l10n = OpenIoTHubLocalizations.of(ctx);
                           if (!await WechatKitPlatform.instance.isInstalled()) {
-                            showFailed(OpenIoTHubLocalizations.of(context).wechat_not_installed, context);
+                            if (!ctx.mounted) return;
+                            showFailed(l10n.wechat_not_installed, ctx);
                             return;
                           }
                           WechatKitPlatform.instance.shareWebpage(
@@ -204,7 +204,8 @@ class _AppInfoPageState extends State<AppInfoPage> {
                             // thumbData:,
                             webpageUrl: url,
                           );
-                          Navigator.of(context).pop();
+                          if (!ctx.mounted) return;
+                          Navigator.of(ctx).pop();
                         },
                       ),
                       Padding(
@@ -217,9 +218,12 @@ class _AppInfoPageState extends State<AppInfoPage> {
                           shape: TDButtonShape.rectangle,
                           theme: TDButtonTheme.primary,
                           onTap: () async {
+                            final ctx = context;
+                            final l10n = OpenIoTHubLocalizations.of(ctx);
                             if (!await WechatKitPlatform.instance
                                 .isInstalled()) {
-                              showFailed(OpenIoTHubLocalizations.of(context).wechat_not_installed, context);
+                              if (!ctx.mounted) return;
+                              showFailed(l10n.wechat_not_installed, ctx);
                               return;
                             }
                             WechatKitPlatform.instance.shareWebpage(
@@ -229,7 +233,8 @@ class _AppInfoPageState extends State<AppInfoPage> {
                               // thumbData:,
                               webpageUrl: url,
                             );
-                            Navigator.of(context).pop();
+                            if (!ctx.mounted) return;
+                            Navigator.of(ctx).pop();
                           },
                         ),
                       )

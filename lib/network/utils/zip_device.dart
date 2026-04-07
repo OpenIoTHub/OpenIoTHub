@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:openiothub_grpc_api/proto/manager/mqttDeviceManager.pb.dart';
+import 'package:openiothub/network/network_log.dart';
 
 class ZipLocalDevice {
   String name;
@@ -14,7 +15,7 @@ class ZipLocalDevice {
 
   Future<void> configMqttServer(MqttInfo mqttInfo) async {
     String config =
-        '{"mac":"${mac}","setting":{"mqtt_uri":"${mqttInfo.mqttServerHost}","mqtt_port":${mqttInfo.mqttServerPort},"mqtt_user":"${mqttInfo.mqttClientUserName}","mqtt_password":"${mqttInfo.mqttClientUserPassword}"}}';
+        '{"mac":"$mac","setting":{"mqtt_uri":"${mqttInfo.mqttServerHost}","mqtt_port":${mqttInfo.mqttServerPort},"mqtt_user":"${mqttInfo.mqttClientUserName}","mqtt_password":"${mqttInfo.mqttClientUserPassword}"}}';
     await send(config);
   }
 
@@ -23,11 +24,11 @@ class ZipLocalDevice {
     RawDatagramSocket socket =
         await RawDatagramSocket.bind(InternetAddress.anyIPv4, 10181);
     socket.broadcastEnabled = true;
-    await socket.send(message.codeUnits, destinationAddress, 10182);
+    socket.send(message.codeUnits, destinationAddress, 10182);
     await Future.delayed(Duration(seconds: 1));
-    await socket.send(message.codeUnits, destinationAddress, 10182);
+    socket.send(message.codeUnits, destinationAddress, 10182);
     await Future.delayed(Duration(seconds: 1));
-    await socket.send(message.codeUnits, destinationAddress, 10182);
+    socket.send(message.codeUnits, destinationAddress, 10182);
     socket.close();
   }
 
@@ -52,8 +53,8 @@ Future<List<ZipLocalDevice>> findZipDevicesFromLocal(int timeOut) async {
   List<ZipLocalDevice> zipLocalDeviceList = [];
   await RawDatagramSocket.bind(InternetAddress.anyIPv4, 10181)
       .then((RawDatagramSocket socket) async {
-    print('Datagram socket ready to receive');
-    print('${socket.address.address}:${socket.port}');
+    netLog('ZipDevice', 'Datagram socket ready to receive');
+    netLog('ZipDevice', '${socket.address.address}:${socket.port}');
     socket.broadcastEnabled = true;
     socket.send(
         '{"cmd":"device report"}'.codeUnits, destinationAddress, 10182);
@@ -62,10 +63,11 @@ Future<List<ZipLocalDevice>> findZipDevicesFromLocal(int timeOut) async {
       if (d == null) {
         return;
       }
-      String message = new String.fromCharCodes(d.data).trim();
-      print('Datagram from ${d.address.address}:${d.port}: ${message}');
+      String message = String.fromCharCodes(d.data).trim();
+      netLog('ZipDevice',
+          'Datagram from ${d.address.address}:${d.port}: $message');
       Map<String, dynamic> device = jsonDecode(message);
-      print(device);
+      netLog('ZipDevice', '$device');
       //去掉非本格式数据
       if (!device.containsKey("name") ||
           !device.containsKey("ip") ||
@@ -87,7 +89,7 @@ Future<List<ZipLocalDevice>> findZipDevicesFromLocal(int timeOut) async {
         '{"cmd":"device report"}'.codeUnits, destinationAddress, 10182);
     await Future.delayed(Duration(seconds: timeOut))
         .then((value) => socket.close());
-    print("findZipDevicesFromLocal:${zipLocalDeviceList.length}");
+    netLog('ZipDevice', 'findZipDevicesFromLocal: ${zipLocalDeviceList.length}');
   });
   return zipLocalDeviceList;
 }

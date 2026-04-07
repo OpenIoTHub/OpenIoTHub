@@ -6,7 +6,7 @@ class Channel {
     final channel = ClientChannel(Config.webgRpcIp,
         port: Config.webgRpcPort,
         options: const ChannelOptions(
-            credentials: const ChannelCredentials.insecure()));
+            credentials: ChannelCredentials.insecure()));
     return channel;
   }
 }

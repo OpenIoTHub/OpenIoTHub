@@ -657,6 +657,18 @@ abstract class OpenIoTHubLocalizations {
   /// **'创建设备失败'**
   String get create_device_failed;
 
+  /// No description provided for @failed_to_get_session_list.
+  ///
+  /// In zh, this message translates to:
+  /// **'获取会话列表失败'**
+  String get failed_to_get_session_list;
+
+  /// No description provided for @wifi_info_filled.
+  ///
+  /// In zh, this message translates to:
+  /// **'已填入当前 Wi-Fi 的 SSID 与 BSSID'**
+  String get wifi_info_filled;
+
   /// No description provided for @camera_scan_code_prompt.
   ///
   /// In zh, this message translates to:
@@ -795,6 +807,42 @@ abstract class OpenIoTHubLocalizations {
   /// **'网页浏览器'**
   String get web_browser;
 
+  /// No description provided for @open_with_aria2.
+  ///
+  /// In zh, this message translates to:
+  /// **'Aria2'**
+  String get open_with_aria2;
+
+  /// No description provided for @open_with_ssh.
+  ///
+  /// In zh, this message translates to:
+  /// **'SSH'**
+  String get open_with_ssh;
+
+  /// No description provided for @open_with_vnc.
+  ///
+  /// In zh, this message translates to:
+  /// **'VNC'**
+  String get open_with_vnc;
+
+  /// No description provided for @open_with_casaos.
+  ///
+  /// In zh, this message translates to:
+  /// **'CasaOS'**
+  String get open_with_casaos;
+
+  /// No description provided for @open_with_zimaos.
+  ///
+  /// In zh, this message translates to:
+  /// **'ZimaOS'**
+  String get open_with_zimaos;
+
+  /// No description provided for @open_with_unraid.
+  ///
+  /// In zh, this message translates to:
+  /// **'Unraid'**
+  String get open_with_unraid;
+
   /// No description provided for @mdns_service_list.
   ///
   /// In zh, this message translates to:
@@ -909,6 +957,12 @@ abstract class OpenIoTHubLocalizations {
   /// **'隐私政策'**
   String get privacy_policy;
 
+  /// No description provided for @privacy_policy_title_dated.
+  ///
+  /// In zh, this message translates to:
+  /// **'隐私政策（2023.11.15）'**
+  String get privacy_policy_title_dated;
+
   /// No description provided for @agree.
   ///
   /// In zh, this message translates to:
@@ -1011,6 +1065,12 @@ abstract class OpenIoTHubLocalizations {
   /// In zh, this message translates to:
   /// **'您还没有登录!请先登录再添加设备'**
   String get you_havent_logged_in_yet;
+
+  /// No description provided for @please_login_before_add_gateway.
+  ///
+  /// In zh, this message translates to:
+  /// **'请先登录后再添加网关'**
+  String get please_login_before_add_gateway;
 
   /// No description provided for @add_successful.
   ///
@@ -1372,6 +1432,42 @@ abstract class OpenIoTHubLocalizations {
   /// **'附近的AirKiss设备配网任务完成'**
   String get airkiss_device_wifi_config_success;
 
+  /// No description provided for @wifi_bssid_label.
+  ///
+  /// In zh, this message translates to:
+  /// **'BSSID'**
+  String get wifi_bssid_label;
+
+  /// No description provided for @wifi_name_permission_denied.
+  ///
+  /// In zh, this message translates to:
+  /// **'无定位权限，无法读取 Wi-Fi 名称'**
+  String get wifi_name_permission_denied;
+
+  /// No description provided for @wifi_bssid_permission_denied.
+  ///
+  /// In zh, this message translates to:
+  /// **'无定位权限，无法读取 BSSID'**
+  String get wifi_bssid_permission_denied;
+
+  /// No description provided for @wifi_name_read_failed.
+  ///
+  /// In zh, this message translates to:
+  /// **'读取 Wi-Fi 名称失败'**
+  String get wifi_name_read_failed;
+
+  /// No description provided for @wifi_bssid_read_failed.
+  ///
+  /// In zh, this message translates to:
+  /// **'读取 BSSID 失败'**
+  String get wifi_bssid_read_failed;
+
+  /// No description provided for @airkiss_configure_failed.
+  ///
+  /// In zh, this message translates to:
+  /// **'配网失败：{message}'**
+  String airkiss_configure_failed(String message);
+
   /// No description provided for @bind_wechat_success.
   ///
   /// In zh, this message translates to:
@@ -1587,6 +1683,36 @@ abstract class OpenIoTHubLocalizations {
   /// In zh, this message translates to:
   /// **'反馈渠道'**
   String get common_feedback_channels;
+
+  /// No description provided for @feedback_github_title.
+  ///
+  /// In zh, this message translates to:
+  /// **'GitHub'**
+  String get feedback_github_title;
+
+  /// No description provided for @feedback_qq_group_line.
+  ///
+  /// In zh, this message translates to:
+  /// **'加入 QQ 群 (251227638) 反馈'**
+  String get feedback_qq_group_line;
+
+  /// No description provided for @feedback_wechat_line.
+  ///
+  /// In zh, this message translates to:
+  /// **'关注微信公众号「云亿连物联网」反馈'**
+  String get feedback_wechat_line;
+
+  /// No description provided for @feedback_wechat_account_heading.
+  ///
+  /// In zh, this message translates to:
+  /// **'公众号'**
+  String get feedback_wechat_account_heading;
+
+  /// No description provided for @feedback_qq_group_heading.
+  ///
+  /// In zh, this message translates to:
+  /// **'QQ 群'**
+  String get feedback_qq_group_heading;
 
   /// No description provided for @get_wechat_qr_code_failed.
   ///
@@ -1935,6 +2061,48 @@ abstract class OpenIoTHubLocalizations {
   /// In zh, this message translates to:
   /// **'kcp端口'**
   String get define_server_kcp_port;
+
+  /// No description provided for @server_field_login_key.
+  ///
+  /// In zh, this message translates to:
+  /// **'登录密钥'**
+  String get server_field_login_key;
+
+  /// No description provided for @server_field_tcp_port.
+  ///
+  /// In zh, this message translates to:
+  /// **'TCP 端口'**
+  String get server_field_tcp_port;
+
+  /// No description provided for @server_field_kcp_port.
+  ///
+  /// In zh, this message translates to:
+  /// **'KCP 端口'**
+  String get server_field_kcp_port;
+
+  /// No description provided for @server_field_udp_api_port.
+  ///
+  /// In zh, this message translates to:
+  /// **'UDP API 端口'**
+  String get server_field_udp_api_port;
+
+  /// No description provided for @server_field_kcp_api_port.
+  ///
+  /// In zh, this message translates to:
+  /// **'KCP API 端口'**
+  String get server_field_kcp_api_port;
+
+  /// No description provided for @server_field_tls_port.
+  ///
+  /// In zh, this message translates to:
+  /// **'TLS 端口'**
+  String get server_field_tls_port;
+
+  /// No description provided for @server_field_grpc_port.
+  ///
+  /// In zh, this message translates to:
+  /// **'gRPC 端口'**
+  String get server_field_grpc_port;
 
   /// No description provided for @port.
   ///
@@ -2320,6 +2488,558 @@ abstract class OpenIoTHubLocalizations {
   /// **'删除成功!'**
   String get plugin_delete_success;
 
+  /// No description provided for @nas_app_upgrade_failed.
+  ///
+  /// In zh, this message translates to:
+  /// **'应用升级失败'**
+  String get nas_app_upgrade_failed;
+
+  /// No description provided for @nas_app_upgrade_success.
+  ///
+  /// In zh, this message translates to:
+  /// **'应用升级操作已提交'**
+  String get nas_app_upgrade_success;
+
+  /// No description provided for @nas_app_remove_failed.
+  ///
+  /// In zh, this message translates to:
+  /// **'卸载应用失败'**
+  String get nas_app_remove_failed;
+
+  /// No description provided for @nas_app_remove_success.
+  ///
+  /// In zh, this message translates to:
+  /// **'应用已卸载'**
+  String get nas_app_remove_success;
+
+  /// No description provided for @nas_app_change_status_failed.
+  ///
+  /// In zh, this message translates to:
+  /// **'应用状态更新失败'**
+  String get nas_app_change_status_failed;
+
+  /// No description provided for @nas_app_change_status_success.
+  ///
+  /// In zh, this message translates to:
+  /// **'应用状态已更新'**
+  String get nas_app_change_status_success;
+
+  /// No description provided for @nas_system_restart.
+  ///
+  /// In zh, this message translates to:
+  /// **'重启'**
+  String get nas_system_restart;
+
+  /// No description provided for @nas_system_power_off.
+  ///
+  /// In zh, this message translates to:
+  /// **'关机'**
+  String get nas_system_power_off;
+
+  /// No description provided for @nas_power_control.
+  ///
+  /// In zh, this message translates to:
+  /// **'电源管理'**
+  String get nas_power_control;
+
+  /// No description provided for @nas_usb_auto_mount.
+  ///
+  /// In zh, this message translates to:
+  /// **'USB 自动挂载'**
+  String get nas_usb_auto_mount;
+
+  /// No description provided for @nas_apps.
+  ///
+  /// In zh, this message translates to:
+  /// **'应用'**
+  String get nas_apps;
+
+  /// No description provided for @nas_files.
+  ///
+  /// In zh, this message translates to:
+  /// **'文件'**
+  String get nas_files;
+
+  /// No description provided for @nas_files_sidebar_root.
+  ///
+  /// In zh, this message translates to:
+  /// **'根目录'**
+  String get nas_files_sidebar_root;
+
+  /// No description provided for @nas_files_sidebar_data.
+  ///
+  /// In zh, this message translates to:
+  /// **'DATA'**
+  String get nas_files_sidebar_data;
+
+  /// No description provided for @nas_files_sidebar_documents.
+  ///
+  /// In zh, this message translates to:
+  /// **'文档'**
+  String get nas_files_sidebar_documents;
+
+  /// No description provided for @nas_files_sidebar_downloads.
+  ///
+  /// In zh, this message translates to:
+  /// **'下载'**
+  String get nas_files_sidebar_downloads;
+
+  /// No description provided for @nas_files_sidebar_gallery.
+  ///
+  /// In zh, this message translates to:
+  /// **'相册'**
+  String get nas_files_sidebar_gallery;
+
+  /// No description provided for @nas_files_sidebar_media.
+  ///
+  /// In zh, this message translates to:
+  /// **'媒体'**
+  String get nas_files_sidebar_media;
+
+  /// No description provided for @nas_files_sidebar_zima_hd.
+  ///
+  /// In zh, this message translates to:
+  /// **'ZimaOS 存储'**
+  String get nas_files_sidebar_zima_hd;
+
+  /// No description provided for @nas_files_sidebar_backup.
+  ///
+  /// In zh, this message translates to:
+  /// **'备份'**
+  String get nas_files_sidebar_backup;
+
+  /// No description provided for @tooltip_quick_actions.
+  ///
+  /// In zh, this message translates to:
+  /// **'快捷操作'**
+  String get tooltip_quick_actions;
+
+  /// No description provided for @nas_app_store_title.
+  ///
+  /// In zh, this message translates to:
+  /// **'应用商店'**
+  String get nas_app_store_title;
+
+  /// No description provided for @nas_system_info.
+  ///
+  /// In zh, this message translates to:
+  /// **'系统信息'**
+  String get nas_system_info;
+
+  /// No description provided for @nas_terminal.
+  ///
+  /// In zh, this message translates to:
+  /// **'终端'**
+  String get nas_terminal;
+
+  /// No description provided for @nas_login_casaos.
+  ///
+  /// In zh, this message translates to:
+  /// **'CasaOS 登录'**
+  String get nas_login_casaos;
+
+  /// No description provided for @nas_login_zimaos.
+  ///
+  /// In zh, this message translates to:
+  /// **'ZimaOS 登录'**
+  String get nas_login_zimaos;
+
+  /// No description provided for @nas_login_unraid.
+  ///
+  /// In zh, this message translates to:
+  /// **'Unraid 登录'**
+  String get nas_login_unraid;
+
+  /// No description provided for @nas_store_casa_zima.
+  ///
+  /// In zh, this message translates to:
+  /// **'CasaOS / ZimaOS 应用商店'**
+  String get nas_store_casa_zima;
+
+  /// No description provided for @nas_video.
+  ///
+  /// In zh, this message translates to:
+  /// **'视频'**
+  String get nas_video;
+
+  /// No description provided for @nas_version_info_title.
+  ///
+  /// In zh, this message translates to:
+  /// **'版本信息'**
+  String get nas_version_info_title;
+
+  /// No description provided for @nas_version_current_version.
+  ///
+  /// In zh, this message translates to:
+  /// **'当前版本'**
+  String get nas_version_current_version;
+
+  /// No description provided for @nas_version_need_update.
+  ///
+  /// In zh, this message translates to:
+  /// **'需要更新'**
+  String get nas_version_need_update;
+
+  /// No description provided for @nas_version_changelog.
+  ///
+  /// In zh, this message translates to:
+  /// **'更新说明'**
+  String get nas_version_changelog;
+
+  /// No description provided for @nas_version_device_model.
+  ///
+  /// In zh, this message translates to:
+  /// **'设备型号'**
+  String get nas_version_device_model;
+
+  /// No description provided for @nas_version_device_name.
+  ///
+  /// In zh, this message translates to:
+  /// **'设备名称'**
+  String get nas_version_device_name;
+
+  /// No description provided for @nas_version_build_hash.
+  ///
+  /// In zh, this message translates to:
+  /// **'构建标识'**
+  String get nas_version_build_hash;
+
+  /// No description provided for @nas_version_os_version.
+  ///
+  /// In zh, this message translates to:
+  /// **'系统版本'**
+  String get nas_version_os_version;
+
+  /// No description provided for @smart_device_switch_n.
+  ///
+  /// In zh, this message translates to:
+  /// **'开关 {n}'**
+  String smart_device_switch_n(int n);
+
+  /// No description provided for @smart_device_power.
+  ///
+  /// In zh, this message translates to:
+  /// **'功率'**
+  String get smart_device_power;
+
+  /// No description provided for @unit_watt.
+  ///
+  /// In zh, this message translates to:
+  /// **'W'**
+  String get unit_watt;
+
+  /// No description provided for @gateway_tooltip_edit_name.
+  ///
+  /// In zh, this message translates to:
+  /// **'修改网关名称'**
+  String get gateway_tooltip_edit_name;
+
+  /// No description provided for @gateway_tooltip_refresh_mdns.
+  ///
+  /// In zh, this message translates to:
+  /// **'刷新 mDNS 列表'**
+  String get gateway_tooltip_refresh_mdns;
+
+  /// No description provided for @gateway_tooltip_show_info.
+  ///
+  /// In zh, this message translates to:
+  /// **'网关详情'**
+  String get gateway_tooltip_show_info;
+
+  /// No description provided for @tooltip_scan_gateway_go_qr.
+  ///
+  /// In zh, this message translates to:
+  /// **'扫描 gateway-go 二维码添加网关'**
+  String get tooltip_scan_gateway_go_qr;
+
+  /// No description provided for @tooltip_add_remote_host_lan.
+  ///
+  /// In zh, this message translates to:
+  /// **'在局域网添加远程主机'**
+  String get tooltip_add_remote_host_lan;
+
+  /// No description provided for @tooltip_delete_current_host.
+  ///
+  /// In zh, this message translates to:
+  /// **'删除当前主机'**
+  String get tooltip_delete_current_host;
+
+  /// No description provided for @tooltip_wake_on_lan.
+  ///
+  /// In zh, this message translates to:
+  /// **'网络唤醒 (WoL)'**
+  String get tooltip_wake_on_lan;
+
+  /// No description provided for @tooltip_add_tcp_udp_port.
+  ///
+  /// In zh, this message translates to:
+  /// **'在此主机添加 TCP/UDP 端口'**
+  String get tooltip_add_tcp_udp_port;
+
+  /// No description provided for @tooltip_current_host_info.
+  ///
+  /// In zh, this message translates to:
+  /// **'当前主机信息'**
+  String get tooltip_current_host_info;
+
+  /// No description provided for @device_screen_mirror.
+  ///
+  /// In zh, this message translates to:
+  /// **'屏幕截图'**
+  String get device_screen_mirror;
+
+  /// No description provided for @r1_adb_operations_hint.
+  ///
+  /// In zh, this message translates to:
+  /// **'ADB（kill/start/reconnect）：'**
+  String get r1_adb_operations_hint;
+
+  /// No description provided for @r1_power_restart.
+  ///
+  /// In zh, this message translates to:
+  /// **'关机 / 重启：'**
+  String get r1_power_restart;
+
+  /// No description provided for @r1_volume_control.
+  ///
+  /// In zh, this message translates to:
+  /// **'音量：'**
+  String get r1_volume_control;
+
+  /// No description provided for @r1_media_control_section.
+  ///
+  /// In zh, this message translates to:
+  /// **'媒体播放：'**
+  String get r1_media_control_section;
+
+  /// No description provided for @r1_media_stop.
+  ///
+  /// In zh, this message translates to:
+  /// **'停止'**
+  String get r1_media_stop;
+
+  /// No description provided for @r1_media_next.
+  ///
+  /// In zh, this message translates to:
+  /// **'下一首'**
+  String get r1_media_next;
+
+  /// No description provided for @r1_media_previous.
+  ///
+  /// In zh, this message translates to:
+  /// **'上一首'**
+  String get r1_media_previous;
+
+  /// No description provided for @r1_media_rewind.
+  ///
+  /// In zh, this message translates to:
+  /// **'快退'**
+  String get r1_media_rewind;
+
+  /// No description provided for @r1_media_fast_forward.
+  ///
+  /// In zh, this message translates to:
+  /// **'快进'**
+  String get r1_media_fast_forward;
+
+  /// No description provided for @r1_media_play.
+  ///
+  /// In zh, this message translates to:
+  /// **'播放'**
+  String get r1_media_play;
+
+  /// No description provided for @r1_media_pause.
+  ///
+  /// In zh, this message translates to:
+  /// **'暂停'**
+  String get r1_media_pause;
+
+  /// No description provided for @r1_media_close.
+  ///
+  /// In zh, this message translates to:
+  /// **'关闭'**
+  String get r1_media_close;
+
+  /// No description provided for @r1_media_eject.
+  ///
+  /// In zh, this message translates to:
+  /// **'弹出'**
+  String get r1_media_eject;
+
+  /// No description provided for @r1_media_record.
+  ///
+  /// In zh, this message translates to:
+  /// **'录音'**
+  String get r1_media_record;
+
+  /// No description provided for @r1_view_screenshot.
+  ///
+  /// In zh, this message translates to:
+  /// **'查看屏幕截图'**
+  String get r1_view_screenshot;
+
+  /// No description provided for @r1_shell_cmd_label.
+  ///
+  /// In zh, this message translates to:
+  /// **'在设备上执行的 shell 命令'**
+  String get r1_shell_cmd_label;
+
+  /// No description provided for @r1_shell_cmd_helper.
+  ///
+  /// In zh, this message translates to:
+  /// **'shell cmd'**
+  String get r1_shell_cmd_helper;
+
+  /// No description provided for @r1_adb_args_label.
+  ///
+  /// In zh, this message translates to:
+  /// **'adb 命令参数，例如 kill-server'**
+  String get r1_adb_args_label;
+
+  /// No description provided for @r1_adb_args_helper.
+  ///
+  /// In zh, this message translates to:
+  /// **'adb cmd args'**
+  String get r1_adb_args_helper;
+
+  /// No description provided for @r1_run_shell_on_device.
+  ///
+  /// In zh, this message translates to:
+  /// **'执行上述命令'**
+  String get r1_run_shell_on_device;
+
+  /// No description provided for @r1_run_adb_command.
+  ///
+  /// In zh, this message translates to:
+  /// **'执行上述 adb 命令'**
+  String get r1_run_adb_command;
+
+  /// No description provided for @r1_key_input_label.
+  ///
+  /// In zh, this message translates to:
+  /// **'按键：'**
+  String get r1_key_input_label;
+
+  /// No description provided for @r1_install_apk.
+  ///
+  /// In zh, this message translates to:
+  /// **'安装 APK'**
+  String get r1_install_apk;
+
+  /// No description provided for @r1_select_package_uninstall.
+  ///
+  /// In zh, this message translates to:
+  /// **'选择要卸载的应用：'**
+  String get r1_select_package_uninstall;
+
+  /// No description provided for @r1_refresh_packages.
+  ///
+  /// In zh, this message translates to:
+  /// **'刷新应用列表'**
+  String get r1_refresh_packages;
+
+  /// No description provided for @r1_bluetooth_enable.
+  ///
+  /// In zh, this message translates to:
+  /// **'打开蓝牙'**
+  String get r1_bluetooth_enable;
+
+  /// No description provided for @r1_bluetooth_disable.
+  ///
+  /// In zh, this message translates to:
+  /// **'关闭蓝牙'**
+  String get r1_bluetooth_disable;
+
+  /// No description provided for @r1_bluetooth_status.
+  ///
+  /// In zh, this message translates to:
+  /// **'蓝牙状态'**
+  String get r1_bluetooth_status;
+
+  /// No description provided for @r1_uninstall_title.
+  ///
+  /// In zh, this message translates to:
+  /// **'确认卸载应用包？'**
+  String get r1_uninstall_title;
+
+  /// No description provided for @r1_uninstall_prompt.
+  ///
+  /// In zh, this message translates to:
+  /// **'请确认'**
+  String get r1_uninstall_prompt;
+
+  /// No description provided for @r1_android_back.
+  ///
+  /// In zh, this message translates to:
+  /// **'返回'**
+  String get r1_android_back;
+
+  /// No description provided for @r1_android_home.
+  ///
+  /// In zh, this message translates to:
+  /// **'桌面'**
+  String get r1_android_home;
+
+  /// No description provided for @r1_refresh_display.
+  ///
+  /// In zh, this message translates to:
+  /// **'刷新画面'**
+  String get r1_refresh_display;
+
+  /// No description provided for @mqtt_connection_failed.
+  ///
+  /// In zh, this message translates to:
+  /// **'MQTT 连接失败'**
+  String get mqtt_connection_failed;
+
+  /// No description provided for @mqtt_socket_error.
+  ///
+  /// In zh, this message translates to:
+  /// **'网络连接异常'**
+  String get mqtt_socket_error;
+
+  /// No description provided for @mqtt_disconnected.
+  ///
+  /// In zh, this message translates to:
+  /// **'MQTT 已断开'**
+  String get mqtt_disconnected;
+
+  /// No description provided for @mqtt_subscribed.
+  ///
+  /// In zh, this message translates to:
+  /// **'已订阅'**
+  String get mqtt_subscribed;
+
+  /// No description provided for @mqtt_connected.
+  ///
+  /// In zh, this message translates to:
+  /// **'MQTT 连接成功'**
+  String get mqtt_connected;
+
+  /// No description provided for @mqtt_ping_received.
+  ///
+  /// In zh, this message translates to:
+  /// **'MQTT 心跳响应'**
+  String get mqtt_ping_received;
+
+  /// No description provided for @mqtt_reconnecting.
+  ///
+  /// In zh, this message translates to:
+  /// **'正在重连 MQTT…'**
+  String get mqtt_reconnecting;
+
+  /// No description provided for @mqtt_reconnected_success.
+  ///
+  /// In zh, this message translates to:
+  /// **'已重新连接 MQTT'**
+  String get mqtt_reconnected_success;
+
+  /// No description provided for @file_picker_canceled.
+  ///
+  /// In zh, this message translates to:
+  /// **'已取消选择文件'**
+  String get file_picker_canceled;
+
   /// No description provided for @mdns_info.
   ///
   /// In zh, this message translates to:
@@ -2463,6 +3183,36 @@ abstract class OpenIoTHubLocalizations {
   /// In zh, this message translates to:
   /// **'请输入ssh的用户名和密码'**
   String get please_input_ssh_username_password;
+
+  /// No description provided for @ssh_terminal_connecting.
+  ///
+  /// In zh, this message translates to:
+  /// **'正在连接…'**
+  String get ssh_terminal_connecting;
+
+  /// No description provided for @ssh_terminal_connected.
+  ///
+  /// In zh, this message translates to:
+  /// **'已连接'**
+  String get ssh_terminal_connected;
+
+  /// No description provided for @ssh_key_ctrl.
+  ///
+  /// In zh, this message translates to:
+  /// **'Ctrl'**
+  String get ssh_key_ctrl;
+
+  /// No description provided for @ssh_key_alt.
+  ///
+  /// In zh, this message translates to:
+  /// **'Alt'**
+  String get ssh_key_alt;
+
+  /// No description provided for @ssh_key_shift.
+  ///
+  /// In zh, this message translates to:
+  /// **'Shift'**
+  String get ssh_key_shift;
 }
 
 class _OpenIoTHubLocalizationsDelegate

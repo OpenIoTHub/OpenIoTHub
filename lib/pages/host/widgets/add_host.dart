@@ -13,12 +13,12 @@ class AddHostWidget extends StatefulWidget {
   const AddHostWidget({super.key});
 
   @override
-  State<AddHostWidget> createState() => _AddHostWidgetState();
+  State<AddHostWidget> createState() => AddHostWidgetState();
 }
 
-class _AddHostWidgetState extends State<AddHostWidget> {
+class AddHostWidgetState extends State<AddHostWidget> {
   List<SessionConfig> _sessionList = [];
-  Map<String, String> _hostAddrMap = {};
+  final Map<String, String> _hostAddrMap = {};
   String selectedHostAddrDropdownValue = '';
   String selectedRunIdDropdownValue = '';
 
@@ -149,6 +149,7 @@ class _AddHostWidgetState extends State<AddHostWidget> {
                 device.addr = selectedHostAddrDropdownValue;
               }
               await createOneCommonDevice(device);
+              if (!context.mounted) return;
               Navigator.of(context).pop();
             },
           )
@@ -173,6 +174,7 @@ class _AddHostWidgetState extends State<AddHostWidget> {
     try {
       await CommonDeviceApi.createOneDevice(device);
     } catch (e) {
+      if (!mounted) return;
       showFailed(
           "${OpenIoTHubLocalizations.of(context).create_device_failed}：$e",
           context);
@@ -182,12 +184,16 @@ class _AddHostWidgetState extends State<AddHostWidget> {
   Future getAllSession() async {
     try {
       final response = await SessionApi.getAllSession();
-      print('Greeter client received: ${response.sessionConfigs}');
+      debugPrint('Greeter client received: ${response.sessionConfigs}');
       setState(() {
         _sessionList = response.sessionConfigs;
       });
     } catch (e) {
-      showFailed("getAllSession：$e", context);
+      if (!mounted) return;
+      showFailed(
+        '${OpenIoTHubLocalizations.of(context).failed_to_get_session_list}: $e',
+        context,
+      );
     }
     return _sessionList;
   }
@@ -195,12 +201,13 @@ class _AddHostWidgetState extends State<AddHostWidget> {
   // TODO 从mdns获取所有主机地址，并添加“手动填写”， “127.0.0.1”
   Future getHostList(String runId) async {
     SessionApi.getAllTCP(SessionConfig(runId: runId)).then((v) {
+      if (!mounted) return;
       setState(() {
         setState(() {
           _hostAddrMap.clear();
           _hostAddrMap.addAll({"": OpenIoTHubLocalizations.of(context).fill_in_below, "127.0.0.1": "localhost"});
         });
-        v.portConfigs.forEach((PortConfig portConfig) {
+        for (final portConfig in v.portConfigs) {
           if (!_hostAddrMap.containsKey(portConfig.device.addr)) {
             setState(() {
               _hostAddrMap.addAll({
@@ -210,7 +217,7 @@ class _AddHostWidgetState extends State<AddHostWidget> {
               });
             });
           }
-        });
+        }
       });
     });
   }

@@ -1,23 +1,25 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:openiothub/network/openiothub_api.dart';
-import 'package:openiothub/common_pages/user/login_page.dart';
+import 'package:openiothub/providers/auth_provider.dart';
+import 'package:openiothub/router/app_routes.dart';
 import 'package:openiothub/core/openiothub_constants.dart';
 import 'package:openiothub_grpc_api/proto/manager/common.pb.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
-
-import 'account_security_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:openiothub/common_pages/openiothub_common_pages.dart';
 
 class UserInfoPage extends StatefulWidget {
+  const UserInfoPage({super.key});
+
   @override
-  _UserInfoPageState createState() => _UserInfoPageState();
+  State<UserInfoPage> createState() => UserInfoPageState();
 }
 
-class _UserInfoPageState extends State<UserInfoPage> {
+class UserInfoPageState extends State<UserInfoPage> {
   String username = "";
   String usermobile = "";
   String useremail = "";
@@ -54,11 +56,8 @@ class _UserInfoPageState extends State<UserInfoPage> {
               //第四个功能项
               title: Text(OpenIoTHubLocalizations.of(context).account_and_safety),
               trailing: Icon(Icons.arrow_right),
-              onTap: () async {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) {
-                  return AccountSecurityPage();
-                }));
+              onTap: () {
+                context.push(AppRoutes.accountSecurity);
               }),
           TextButton(
               onPressed: () {
@@ -74,20 +73,25 @@ class _UserInfoPageState extends State<UserInfoPage> {
   }
 
   Future<void> _getUserInfo() async {
-    bool b = await userSignedIn();
-    if (!b) {
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => LoginPage()));
+    var signedIn = await userSignedIn();
+    if (!mounted) return;
+    if (!signedIn) {
+      await context.push<void>(AppRoutes.login);
+      if (!mounted) return;
+      signedIn = await userSignedIn();
+      if (!signedIn) return;
     }
     //从网络同步一遍到本地
     SharedPreferences prefs = await SharedPreferences.getInstance();
     UserInfo userInfo = await UserManager.getUserInfo();
+    if (!mounted) return;
     await prefs.setString(SharedPreferencesKey.userNameKey, userInfo.name);
     await prefs.setString(SharedPreferencesKey.userEmailKey, userInfo.email);
     await prefs.setString(
         SharedPreferencesKey.userMobileKey, userInfo.mobile);
     await prefs.setString(
         SharedPreferencesKey.userAvatarKey, userInfo.avatar);
+    if (!mounted) return;
     if (prefs.containsKey(SharedPreferencesKey.userNameKey)) {
       setState(() {
         username = prefs.getString(SharedPreferencesKey.userNameKey)!;
@@ -120,16 +124,13 @@ class _UserInfoPageState extends State<UserInfoPage> {
   Future<void> _logOut() async {
     // 清除本地存储的用户信息
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.remove(SharedPreferencesKey.userTokenKey);
     await prefs.remove(SharedPreferencesKey.userNameKey);
     await prefs.remove(SharedPreferencesKey.userEmailKey);
     await prefs.remove(SharedPreferencesKey.userMobileKey);
-    
-    // 清除路由栈并跳转到登录页面
-    // 路由拦截器会监听认证状态变化并自动处理
-    Navigator.of(context).pushNamedAndRemoveUntil(
-      '/login',
-      (route) => false, // 清除所有路由
-    );
+
+    if (!mounted) return;
+    await context.read<AuthProvider>().clearToken();
+    if (!mounted) return;
+    context.go(AppRoutes.login);
   }
 }

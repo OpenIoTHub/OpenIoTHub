@@ -12,7 +12,7 @@ import 'package:openiothub/plugin/models/port_service_info.dart';
 import './virtual_keyboard.dart';
 
 class SSHNativePage extends StatefulWidget {
-  SSHNativePage({required Key key, required this.device}) : super(key: key);
+  const SSHNativePage({required Key key, required this.device}) : super(key: key);
   static final String modelName = "com.iotserv.services.ssh.server";
   final PortServiceInfo device;
 
@@ -36,9 +36,11 @@ class SSHNativePageState extends State<SSHNativePage> {
   }
 
   Future<void> initTerminal() async {
-    setState(() => this.title =
+    if (!mounted) return;
+    final l10n = OpenIoTHubLocalizations.of(context);
+    setState(() => title =
         "${widget.device.addr}:${widget.device.port}@${widget.device.runId}");
-    terminal.write('Connecting...\r\n');
+    terminal.write('${l10n.ssh_terminal_connecting}\r\n');
     TextEditingController usernameController =
         TextEditingController.fromValue(TextEditingValue(text: ""));
     TextEditingController passwordController =
@@ -137,7 +139,9 @@ class SSHNativePageState extends State<SSHNativePage> {
       onPasswordRequest: () => password,
     );
 
-    terminal.write('Connected\r\n');
+    if (!mounted) return;
+    terminal.write(
+        '${OpenIoTHubLocalizations.of(context).ssh_terminal_connected}\r\n');
 
     final session = await client.shell(
       pty: SSHPtyConfig(
@@ -149,8 +153,8 @@ class SSHNativePageState extends State<SSHNativePage> {
     terminal.buffer.clear();
     terminal.buffer.setCursor(0, 0);
 
-    terminal.onTitleChange = (title) {
-      setState(() => this.title = title);
+    terminal.onTitleChange = (newTitle) {
+      setState(() => title = newTitle);
     };
 
     terminal.onResize = (width, height, pixelWidth, pixelHeight) {

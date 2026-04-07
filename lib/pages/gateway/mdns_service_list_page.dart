@@ -7,14 +7,13 @@ import 'package:flutter/services.dart';
 import 'package:openiothub/common_pages/utils/toast.dart';
 import 'package:openiothub/network/openiothub_api.dart';
 import 'package:openiothub/common_pages/web/web.dart';
+import 'package:openiothub/plugin/open_with_choice/open_with_choice.dart';
 import 'package:openiothub/core/app_spacing.dart';
-import 'package:openiothub/core/config.dart';
 import 'package:openiothub/core/constants.dart';
 import 'package:openiothub_grpc_api/proto/manager/gatewayManager.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 
 import 'package:openiothub/ads/openiothub_ads.dart';
@@ -27,22 +26,32 @@ class MDNSServiceListPage extends StatefulWidget {
   final SessionConfig sessionConfig;
 
   @override
-  _MDNSServiceListPageState createState() => _MDNSServiceListPageState();
+  State<MDNSServiceListPage> createState() => MDNSServiceListPageState();
 }
 
-class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
+class MDNSServiceListPageState extends State<MDNSServiceListPage> {
   BannerAd? _bannerAd;
   List<PortConfig> _serviceList = [];
 
   @override
   void initState() {
     super.initState();
-    SessionApi.getAllTCP(widget.sessionConfig).then((v) {
+    _refreshTcpList();
+    _loadAd();
+  }
+
+  Future<void> _refreshTcpList() async {
+    try {
+      final v = await SessionApi.getAllTCP(widget.sessionConfig);
+      if (!mounted) return;
       setState(() {
         _serviceList = v.portConfigs;
       });
-    });
-    _loadAd();
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('getAllTCP: $e');
+      }
+    }
   }
 
   @override
@@ -85,14 +94,11 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
         );
         return InkWell(
           onTap: () {
-            var url = "http://${Config.webgRpcIp}:${pair.localProt}";
-            if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
-              _launchUrl(url);
-              return;
-            }
-            Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-              return WebScreen(startUrl: url);
-            }));
+            showOpenWithChoiceDialog(
+              context,
+              portConfig: pair,
+              onDialogClosed: _refreshTcpList,
+            );
           },
           child: listItemContent,
         );
@@ -128,6 +134,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
 //:TODO    这里显示内网的服务，socks5等，右上角详情才展示详细信息
     var socksPort = await SessionApi.getOneSocks5PortByRunId(widget.sessionConfig.runId);
     var httpPort = await SessionApi.getOneHttpProxyPortByRunId(widget.sessionConfig.runId);
+    if (!mounted) return;
     final List result = [];
     result.add(
         "ID(${OpenIoTHubLocalizations.of(context).after_simplification}):${config.runId.substring(24)}");
@@ -138,7 +145,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
     result.add(
         "${OpenIoTHubLocalizations.of(context).connection_code_simplified}:${config.token.substring(0, 10)}");
     result.add(
-        "socks:${socksPort}");
+        "socks:$socksPort");
     result.add(
         "http:$httpPort");
     result.add(
@@ -172,6 +179,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                 var gatewayJwtValue =
                     await GatewayManager.getGatewayJwtByGatewayUuid(
                         config.runId);
+                if (!context.mounted) return;
                 String gatewayJwt = gatewayJwtValue.value;
                 Clipboard.setData(ClipboardData(text: gatewayJwt));
                 showSuccess(
@@ -185,6 +193,7 @@ class _MDNSServiceListPageState extends State<MDNSServiceListPage> {
                 var gatewayJwtValue =
                     await GatewayManager.getGatewayJwtByGatewayUuid(
                         config.runId);
+                if (!context.mounted) return;
                 String gatewayJwt = gatewayJwtValue.value;
                 String data = '''
 gatewayuuid: ${getOneUUID()}
@@ -235,27 +244,23 @@ loginwithtokenmap:
       SessionApi.refreshmDNSServices(sessionConfig);
     } catch (e) {
       if (kDebugMode) {
-        print('Caught error: $e');
-      }
-    }
-  }
-
-  _launchUrl(String url) async {
-    if (await canLaunchUrlString(url)) {
-      await launchUrlString(url);
-    } else {
-      if (kDebugMode) {
-        print('Could not launch $url');
+        debugPrint('Caught error: $e');
       }
     }
   }
 
   _goToProxyBrowser() async {
     var port = await SessionApi.getOneHttpProxyPortByRunId(widget.sessionConfig.runId);
-    print("getOneHttpProxyPortByRunId:$port");
+    debugPrint("getOneHttpProxyPortByRunId:$port");
+    if (!mounted) return;
     Navigator.push(context, MaterialPageRoute(builder: (ctx) {
       // return WebScreen(startUrl: "https://baidu.com");
-      return WebScreen(startUrl: "http://127.0.0.1:34323",httpProxyPort: port, urlEditable:true, title: "LAN Browser",);
+      return WebScreen(
+        startUrl: "http://127.0.0.1:34323",
+        httpProxyPort: port,
+        urlEditable: true,
+        title: OpenIoTHubLocalizations.of(ctx).remote_lan_browser,
+      );
     }));
   }
 
@@ -310,17 +315,18 @@ loginwithtokenmap:
                 ]));
   }
 
-  List<Widget> _buildActions(){
-    List<Widget> actions =[];
+  List<Widget> _buildActions() {
+    final l10n = OpenIoTHubLocalizations.of(context);
+    List<Widget> actions = [];
     // 目前浏览器Proxy配置只支持安卓
-    if (!isCnMainland(OpenIoTHubLocalizations.of(context).localeName)&&Platform.isAndroid){
+    if (!context.isCnMainlandLocale && Platform.isAndroid) {
       // 不是中国大陆才显示按钮
       actions.add(IconButton(
           icon: const Icon(
             TDIcons.logo_chrome,
             color: Colors.green,
           ),
-          tooltip: "Remote LAN Browser",
+          tooltip: l10n.remote_lan_browser,
           onPressed: () {
             _goToProxyBrowser();
           }));
@@ -331,7 +337,7 @@ loginwithtokenmap:
             TDIcons.logo_chrome,
             color: Colors.green,
           ),
-          tooltip: "Remote LAN Browser",
+          tooltip: l10n.remote_lan_browser,
           onPressed: () {
             _goToProxyBrowser();
           }));
@@ -344,7 +350,7 @@ loginwithtokenmap:
             Icons.edit,
             // color: Colors.white,
           ),
-          tooltip: "Edit gateway name",
+          tooltip: l10n.gateway_tooltip_edit_name,
           onPressed: () {
             _renameDialog();
           }),
@@ -353,14 +359,10 @@ loginwithtokenmap:
             Icons.refresh,
             // color: Colors.white,
           ),
-          tooltip: "Refresh mdns service",
+          tooltip: l10n.gateway_tooltip_refresh_mdns,
           onPressed: () {
-            refreshmDNSServices(widget.sessionConfig).then((result) {
-              SessionApi.getAllTCP(widget.sessionConfig).then((v) {
-                setState(() {
-                  _serviceList = v.portConfigs;
-                });
-              });
+            refreshmDNSServices(widget.sessionConfig).then((_) {
+              _refreshTcpList();
             });
           }),
       IconButton(
@@ -368,7 +370,7 @@ loginwithtokenmap:
             Icons.delete,
             color: Colors.red,
           ),
-          tooltip: "Delete this gateway",
+          tooltip: l10n.delete_gateway,
           onPressed: () {
             showDialog(
                 context: context,
@@ -402,7 +404,7 @@ loginwithtokenmap:
             Icons.info,
             // color: Colors.white,
           ),
-          tooltip: "Show gateway info",
+          tooltip: l10n.gateway_tooltip_show_info,
           onPressed: () {
             _pushDetail(widget.sessionConfig);
           }),
@@ -414,7 +416,7 @@ loginwithtokenmap:
     if (!Platform.isAndroid && !Platform.isIOS){
       return Container();
     }
-    return isCnMainland(OpenIoTHubLocalizations.of(context).localeName)?
+    return context.isCnMainlandLocale?
     buildYLHBanner(context):
     _bannerAd==null?Container():SafeArea(
       child: SizedBox(
@@ -434,12 +436,12 @@ loginwithtokenmap:
     // // the app's configured messages.
     // var canRequestAds = await _consentManager.canRequestAds();
     // if (!canRequestAds) {
-    //   print("!canRequestAds");
+    //   debugPrint("!canRequestAds");
     //   return;
     // }
     //
     // if (!mounted) {
-    //   print("!mounted");
+    //   debugPrint("!mounted");
     //   return;
     // }
     // [END_EXCLUDE]
@@ -452,7 +454,7 @@ loginwithtokenmap:
 
     if (size == null) {
       // Unable to get width of anchored banner.
-      print("size == null");
+      debugPrint("size == null");
       return;
     }
 

@@ -6,15 +6,15 @@ import 'package:openiothub/network/openiothub/common_device_api.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 
 class CreateServiceWidget extends StatefulWidget {
+  const CreateServiceWidget({super.key, required this.device});
+
   final Device device;
 
-  CreateServiceWidget({required this.device});
-
   @override
-  _CreateServiceWidgetState createState() => _CreateServiceWidgetState();
+  State<CreateServiceWidget> createState() => CreateServiceWidgetState();
 }
 
-class _CreateServiceWidgetState extends State<CreateServiceWidget> {
+class CreateServiceWidgetState extends State<CreateServiceWidget> {
   final _networkProtocols = ['tcp', 'udp'];
   final _applicationProtocols = ['unknown', 'ftp', 'http'];
   String? _selectedNetworkOption;
@@ -194,7 +194,8 @@ class _CreateServiceWidgetState extends State<CreateServiceWidget> {
               }
               tcpConfig.networkProtocol = _selectedNetworkOption!;
               tcpConfig.applicationProtocol = _selectedApplicationOption!;
-              if (domainController.text != "www.example.com"&&!domainController.text.isEmpty) {
+              if (domainController.text != "www.example.com" &&
+                  domainController.text.isNotEmpty) {
                 tcpConfig.domain = domainController.text;
                 tcpConfig.applicationProtocol = "http";
               } else {
@@ -210,20 +211,17 @@ class _CreateServiceWidgetState extends State<CreateServiceWidget> {
                     await CommonDeviceApi.createOneUDP(tcpConfig);
                     break;
                 }
-                if (mounted) {
-                  Navigator.of(context).pop();
-                }
+                if (!context.mounted) return;
+                Navigator.of(context).pop();
               } on RemotePortDuplicateException {
-                if (mounted) {
-                  showFailed(
-                    l.duplicate_remote_port_same_network_protocol,
-                    context,
-                  );
-                }
+                if (!context.mounted) return;
+                showFailed(
+                  l.duplicate_remote_port_same_network_protocol,
+                  context,
+                );
               } catch (e) {
-                if (mounted) {
-                  showFailed(e.toString(), context);
-                }
+                if (!context.mounted) return;
+                showFailed(e.toString(), context);
               }
             },
           )

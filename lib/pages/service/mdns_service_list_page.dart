@@ -8,21 +8,19 @@ import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/widgets/build_global_actions.dart';
 import 'package:openiothub/network/openiothub_api.dart';
-import 'package:openiothub/common_pages/wifi_config/airkiss.dart';
 import 'package:openiothub/core/openiothub_constants.dart';
 import 'package:openiothub_grpc_api/proto/manager/mqttDeviceManager.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:openiothub/plugin/models/port_service_info.dart';
-import 'package:openiothub/plugin/mdns_service/comm_widgets/info.dart';
 import 'package:openiothub/plugin/mdns_service/mdns_type2_model_map.dart';
-
-//统一导入全部设备类型
-import 'package:openiothub/plugin/mdns_service/models_map.dart';
+import 'package:openiothub/plugin/registry/plugin_navigation.dart';
 import 'package:openiothub/plugin/utils/port_config_to_port_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 // import '../../widgets/ads/banner_gtads.dart';
+import 'package:openiothub/core/cname_refresh_signal.dart';
 import 'package:openiothub/core/globals.dart';
 import 'package:openiothub/router/app_navigator.dart';
 import 'package:openiothub/ads/openiothub_ads.dart';
@@ -35,10 +33,10 @@ class MdnsServiceListPage extends StatefulWidget {
   final String title;
 
   @override
-  _MdnsServiceListPageState createState() => _MdnsServiceListPageState();
+  State<MdnsServiceListPage> createState() => MdnsServiceListPageState();
 }
 
-class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
+class MdnsServiceListPageState extends State<MdnsServiceListPage> {
   BannerAd? _bannerAd;
   bool _showAD = false;
   Utf8Decoder u8decodeer = const Utf8Decoder();
@@ -53,6 +51,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
   @override
   void initState() {
     super.initState();
+    CnameRefreshSignal.instance.addListener(_onCnameSynced);
     getIoTDeviceFromLocal();
     Future.delayed(const Duration(milliseconds: 1000)).then((value) {
       setState(() {
@@ -66,12 +65,11 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       refreshmDNSServicesFromeRemote();
     });
     _loadAd();
-    print("init iot devie List");
+    debugPrint('init iot device list');
   }
 
   @override
   Widget build(BuildContext context) {
-    print("_iotDeviceMap:$_iotDeviceMap");
     final tiles = _iotDeviceMap.values.map((PortServiceInfo pair) {
       var listItemContent = ListTile(
         leading: TDAvatar(
@@ -134,46 +132,69 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
         child:
             tiles.isNotEmpty
                 ? divided
-                : Container(
-                  child: Column(
-                    children: [
-                      ThemeUtils.isDarkMode(context)
-                          ? Center(
-                            child: Image.asset(
-                              'assets/images/empty_list_black.png',
-                            ),
-                          )
-                          : Center(
-                            child: Image.asset('assets/images/empty_list.png'),
+                : Column(
+                  children: [
+                    ThemeUtils.isDarkMode(context)
+                        ? Center(
+                          child: Image.asset(
+                            'assets/images/empty_list_black.png',
                           ),
-                      TextButton(
-                        style: ButtonStyle(
-                          side: WidgetStateProperty.all(
-                            const BorderSide(color: Colors.grey, width: 1),
-                          ),
-                          shape: WidgetStateProperty.all(const StadiumBorder()),
+                        )
+                        : Center(
+                          child: Image.asset('assets/images/empty_list.png'),
                         ),
-                        onPressed: () {
-                          AppNavigator.pushAirkiss(
-                            context,
-                            title: OpenIoTHubLocalizations.of(context).add_device,
-                          );
-                        },
-                        child: Text(
-                          OpenIoTHubLocalizations.of(
-                            context,
-                          ).please_add_device_first,
+                    TextButton(
+                      style: ButtonStyle(
+                        side: WidgetStateProperty.all(
+                          const BorderSide(color: Colors.grey, width: 1),
                         ),
+                        shape: WidgetStateProperty.all(const StadiumBorder()),
                       ),
-                    ],
-                  ),
+                      onPressed: () {
+                        AppNavigator.pushAirkiss(
+                          context,
+                          title: OpenIoTHubLocalizations.of(context).add_device,
+                        );
+                      },
+                      child: Text(
+                        OpenIoTHubLocalizations.of(
+                          context,
+                        ).please_add_device_first,
+                      ),
+                    ),
+                  ],
                 ),
       ),
     );
   }
 
+  void _onCnameSynced() {
+    unawaited(_reapplyLocalCnamesFromPrefs());
+  }
+
+  /// 启动后 [CnameManager.loadAllCnameFromRemote] 完成时同步列表中的展示名（仅读本地 prefs）。
+  Future<void> _reapplyLocalCnamesFromPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (!mounted) return;
+    var changed = false;
+    for (final e in _iotDeviceMap.entries) {
+      final id = e.key;
+      if (!prefs.containsKey(id)) continue;
+      final v = prefs.getString(id);
+      if (v == null || v.isEmpty) continue;
+      final info = e.value.info;
+      if (info == null || !info.containsKey('name')) continue;
+      if (info['name'] != v) {
+        info['name'] = v;
+        changed = true;
+      }
+    }
+    if (changed && mounted) setState(() {});
+  }
+
   @override
   void dispose() {
+    CnameRefreshSignal.instance.removeListener(_onCnameSynced);
     _timerPeriodRemote.cancel();
     _iotDeviceMap.clear();
     stopAllDiscovery();
@@ -182,22 +203,11 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
 
   //显示是设备的UI展示或者操作界面
   void _pushDeviceServiceTypes(PortServiceInfo device) async {
-    // 查看设备的UI，1.native，2.web
-    // 写成独立的组件，支持刷新
-    String? model = device.info!["model"];
-
     needShowSplash = false;
-    if (ModelsMap.modelsMap.containsKey(model)) {
-      await Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) {
-            return ModelsMap.modelsMap[model](device);
-          },
-        ),
-      );
-    } else {
-      await AppNavigator.pushInfo(context, device);
-    }
+    await context.openPortServicePluginPage(
+      device,
+      onReturn: refreshmDNSServicesFromeRemote,
+    );
     needShowSplash = true;
   }
 
@@ -205,19 +215,18 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
   Future<List<SessionConfig>> getAllSession() async {
     try {
       final response = await SessionApi.getAllSession();
-      print('getAllSession received: ${response.sessionConfigs}');
+      debugPrint('getAllSession received: ${response.sessionConfigs}');
       return response.sessionConfigs;
     } catch (e) {
       List<SessionConfig> list = [];
-      print('Caught error: $e');
+      debugPrint('getAllSession error: $e');
       return list;
     }
   }
 
   //获取所有的设备列表（本地网络和远程网络）
 
-  //刷新设备列表
-  //刷新设备列表
+  // 刷新设备列表（远程会话 + MQTT）
   Future refreshmDNSServicesFromeRemote() async {
     if (await userSignedIn()) {
       getIoTDeviceFromMqttServer();
@@ -232,7 +241,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
               getIoTDeviceFromRemote();
             });
       } catch (e) {
-        print('Caught error: $e');
+        debugPrint('refreshmDNSServicesFromeRemote error: $e');
       }
     }
   }
@@ -248,7 +257,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       if (_bonsoirActions.containsKey(service.type)) {
         service.resolve(_bonsoirActions[service.type]!.serviceResolver);
       } else {
-        print("_bonsoirActions 不存在 ${service.type} 服务");
+        debugPrint('_bonsoirActions 无 ${service.type} 处理');
       }
     } else if (event.type ==
         BonsoirDiscoveryEventType.discoveryServiceResolved) {
@@ -281,11 +290,11 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
             .replaceAll(RegExp(r'.local.'), ".local");
         portServiceInfo.port = service.port;
         portServiceInfo.isLocal = true;
-        portServiceInfo.info = Map();
+        portServiceInfo.info = {};
         service.attributes.forEach((String key, value) {
           portServiceInfo.info![key] = value;
         });
-        print("print _portServiceInfo:$portServiceInfo");
+        debugPrint('_portServiceInfo: $portServiceInfo');
         addPortServiceInfo(portServiceInfo);
       }
     } else if (event.type == BonsoirDiscoveryEventType.discoveryServiceLost) {
@@ -295,13 +304,14 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
 
   //添加设备
   Future<void> addPortServiceInfo(PortServiceInfo portServiceInfo) async {
+    final ctx = context;
     if (portServiceInfo.info == null ||
         !portServiceInfo.info!.containsKey("name") ||
         portServiceInfo.info!["name"] == null ||
         portServiceInfo.info!["name"] == "") {
       return;
     }
-    print("addPortServiceInfo:${portServiceInfo.info!}");
+    debugPrint('addPortServiceInfo: ${portServiceInfo.info!}');
     if (!portServiceInfo.info!.containsKey("id")) {
       return;
     }
@@ -315,7 +325,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
         value = await CnameManager.getCname(id);
       }
     } catch (e) {
-      showFailed(e.toString(), context);
+      if (ctx.mounted) showFailed(e.toString(), ctx);
     }
     if (value != "") {
       portServiceInfo.info!["name"] = value;
@@ -324,6 +334,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
         (_iotDeviceMap.containsKey(id) &&
             !_iotDeviceMap[id]!.isLocal &&
             portServiceInfo.isLocal)) {
+      if (!mounted) return;
       setState(() {
         _iotDeviceMap[id] = portServiceInfo;
       });
@@ -342,7 +353,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
       _bonsoirActions[type] = action;
       action.eventStream?.listen(onEventOccurred);
       await action.start();
-      print("===start $type");
+      debugPrint('===start $type');
       Future.delayed(const Duration(milliseconds: 500));
     }
     // _scanning = true;
@@ -468,7 +479,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
     if (!Platform.isAndroid && !Platform.isIOS) {
       return Container();
     }
-    return isCnMainland(OpenIoTHubLocalizations.of(context).localeName)
+    return context.isCnMainlandLocale
         ? buildYLHBanner(context)
         : _bannerAd == null
         ? Container()
@@ -508,7 +519,7 @@ class _MdnsServiceListPageState extends State<MdnsServiceListPage> {
 
     if (size == null) {
       // Unable to get width of anchored banner.
-      print("size == null");
+      debugPrint('banner AdSize is null');
       return;
     }
 

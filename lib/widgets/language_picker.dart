@@ -139,7 +139,7 @@ Widget languageSettingTile(BuildContext context) {
   );
 }
 
-/// 全页语言选择；路由名见 [AppRoutes.languagePicker]，登录页等通过 pushNamed 打开。
+/// 全页语言选择；路径见 [AppRoutes.languagePicker]，登录页等通过 `context.push` 打开。
 class LanguagePickerPage extends StatelessWidget {
   const LanguagePickerPage({super.key});
 

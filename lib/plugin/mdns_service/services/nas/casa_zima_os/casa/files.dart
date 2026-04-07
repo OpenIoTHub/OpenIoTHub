@@ -5,8 +5,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_breadcrumb/flutter_breadcrumb.dart';
 import 'package:openiothub/plugin/generated/assets.dart';
-import 'package:openiothub/plugin/pages/videp_player.dart';
+import 'package:openiothub/plugin/pages/network_video_player_page.dart';
 import 'package:openiothub/common_pages/utils/toast.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/plugin/utils/web.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
@@ -44,15 +45,37 @@ class _FileManagerPageState extends State<FileManagerPage> {
     "amr",
     "m4r"
   ];
-  String _currentPath = "/DATA";
-  List<Map<String, String>> _sidePaths = [
-    {"name": "Root", "path": "/"},
-    {"name": "DATA", "path": "/DATA"},
-    {"name": "Documents", "path": "/DATA/Documents"},
-    {"name": "Downloads", "path": "/DATA/Downloads"},
-    {"name": "Gallery", "path": "/DATA/Gallery"},
-    {"name": "Media", "path": "/DATA/Media"}
+  static const List<String> _sidePathRoutes = [
+    '/',
+    '/DATA',
+    '/DATA/Documents',
+    '/DATA/Downloads',
+    '/DATA/Gallery',
+    '/DATA/Media',
   ];
+
+  String _currentPath = _sidePathRoutes[1];
+
+  static String _casaSideBarLabel(int index, OpenIoTHubLocalizations l10n) {
+    switch (index) {
+      case 0:
+        return l10n.nas_files_sidebar_root;
+      case 1:
+        return l10n.nas_files_sidebar_data;
+      case 2:
+        return l10n.nas_files_sidebar_documents;
+      case 3:
+        return l10n.nas_files_sidebar_downloads;
+      case 4:
+        return l10n.nas_files_sidebar_gallery;
+      case 5:
+        return l10n.nas_files_sidebar_media;
+      default:
+        return index >= 0 && index < _sidePathRoutes.length
+            ? _sidePathRoutes[index]
+            : '';
+    }
+  }
   Widget _filesListWidget = TDLoading(
     size: TDLoadingSize.small,
     icon: TDLoadingIcon.point,
@@ -71,7 +94,7 @@ class _FileManagerPageState extends State<FileManagerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Files"),
+          title: Text(OpenIoTHubLocalizations.of(context).nas_files),
         ),
         body: _buildPaginationSideBar(context));
   }
@@ -79,11 +102,12 @@ class _FileManagerPageState extends State<FileManagerPage> {
   Widget _buildPaginationSideBar(BuildContext context) {
     // 切页用法
     final list = <SideItemProps>[];
+    final l10n = OpenIoTHubLocalizations.of(context);
 
-    for (var i = 0; i < _sidePaths.length; i++) {
+    for (var i = 0; i < _sidePathRoutes.length; i++) {
       list.add(SideItemProps(
         index: i,
-        label: _sidePaths[i]["name"],
+        label: _casaSideBarLabel(i, l10n),
         value: i,
       ));
     }
@@ -120,8 +144,8 @@ class _FileManagerPageState extends State<FileManagerPage> {
             child: SizedBox(
                 height: demoHeight,
                 child: SingleChildScrollView(
-                  child: getPathFileList(),
                   physics: AlwaysScrollableScrollPhysics(),
+                  child: getPathFileList(),
                 )))
       ],
     );
@@ -129,7 +153,7 @@ class _FileManagerPageState extends State<FileManagerPage> {
 
   void setCurrentPathByValue(int value) {
     // 显示文件列表
-    _currentPath = _sidePaths[value]["path"]!;
+    _currentPath = _sidePathRoutes[value];
     displayImageList(_currentPath);
   }
 
@@ -187,28 +211,29 @@ class _FileManagerPageState extends State<FileManagerPage> {
     String reqUri = "/v1/folder";
     try {
       final response = await dio.get(reqUri, queryParameters: {"path": path});
+      if (!mounted) return;
       if (response.data["success"] == 200) {
-        List<Widget> _rowList = [];
+        List<Widget> rowList = [];
         // 一行
-        List<Widget> _itemList = [];
+        List<Widget> itemList = [];
         for (int i = 0; i < response.data["data"]["content"].length; i++) {
           if ((i + 1) % _numOneRow == 0) {
-            _itemList.add(displayImageItem(
+            itemList.add(displayImageItem(
                 response.data["data"]["content"][i]["path"],
                 response.data["data"]["content"][i]["name"],
                 response.data["data"]["content"][i]["is_dir"],
                 response.data["data"]["content"][i]));
             // 将所有行相加
-            _rowList.add(Row(
+            rowList.add(Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: List.generate(
-                    _itemList.length, (index) => _itemList[index])));
-            _itemList.clear();
-            _rowList.add(
+                    itemList.length, (index) => itemList[index])));
+            itemList.clear();
+            rowList.add(
               const SizedBox(height: 18),
             );
           } else {
-            _itemList.add(displayImageItem(
+            itemList.add(displayImageItem(
                 response.data["data"]["content"][i]["path"],
                 response.data["data"]["content"][i]["name"],
                 response.data["data"]["content"][i]["is_dir"],
@@ -222,15 +247,15 @@ class _FileManagerPageState extends State<FileManagerPage> {
                           (response.data["data"]["content"].length %
                               _numOneRow));
                   i++) {
-                _itemList.add(_buildEmptyPlaceholder());
+                itemList.add(_buildEmptyPlaceholder());
               }
               // 将所有行相加
-              _rowList.add(Row(
+              rowList.add(Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: List.generate(
-                      _itemList.length, (index) => _itemList[index])));
-              _itemList.clear();
-              _rowList.add(
+                      itemList.length, (index) => itemList[index])));
+              itemList.clear();
+              rowList.add(
                 const SizedBox(height: 18),
               );
             }
@@ -238,11 +263,12 @@ class _FileManagerPageState extends State<FileManagerPage> {
         }
         setState(() {
           _filesListWidget = Column(
-            children: _rowList,
+            children: rowList,
           );
         });
       }
     } catch (e) {
+      if (!mounted) return;
       showFailed(e.toString(), context);
     }
   }
@@ -253,18 +279,18 @@ class _FileManagerPageState extends State<FileManagerPage> {
     // 获取文件夹、文件图标
     String icoFilePath = "";
     // 获取文件网络路径uri，目前主要是图片
-    String _imageUrl = "";
+    String imageUrl = "";
     // String _imageUrl_thumbnail = "";
     if (isFolder) {
       // 是文件夹
       icoFilePath = Assets.casaFolder;
     } else {
-      if (path.indexOf(RegExp(r'[.]')) != -1 &&
+      if (path.contains(RegExp(r'[.]')) &&
           _pictureExtNames.contains(path.split(RegExp(r'[.]')).last)) {
         // 是图片
         var icoFileUri = "/v1/image";
-        _imageUrl =
-            "${widget.baseUrl}${icoFileUri}?path=${path}&token=${widget.data["data"]["token"]["access_token"]}";
+        imageUrl =
+            "${widget.baseUrl}$icoFileUri?path=$path&token=${widget.data["data"]["token"]["access_token"]}";
       } else {
         // 是普通文件
         icoFilePath = Assets.casaFile;
@@ -284,7 +310,7 @@ class _FileManagerPageState extends State<FileManagerPage> {
                         value: progress.progress,
                       ),
                     ),
-                    imageUrl: "${_imageUrl}&type=thumbnail",
+                    imageUrl: "$imageUrl&type=thumbnail",
                   ),
                 )
               : Image.asset(
@@ -304,13 +330,13 @@ class _FileManagerPageState extends State<FileManagerPage> {
               //TODO 下载或预览文件
               // 预览文件,判断有扩展名
               // 通用的文件访问api，目前视频是使用这个
-              var _fileUrl =
-                  "${widget.baseUrl}/v3/file?path=${path}&token=${widget.data["data"]["token"]["access_token"]}";
-              if (path.indexOf(RegExp(r'[.]')) != -1) {
-                var _extName = path.split(RegExp(r'[.]')).last;
-                if (_pictureExtNames.contains(_extName)) {
+              var fileUrl =
+                  "${widget.baseUrl}/v3/file?path=$path&token=${widget.data["data"]["token"]["access_token"]}";
+              if (path.contains(RegExp(r'[.]'))) {
+                var extName = path.split(RegExp(r'[.]')).last;
+                if (_pictureExtNames.contains(extName)) {
                   // 根据扩展名判断是图片，开始图片预览
-                  var files = [_imageUrl];
+                  var files = [imageUrl];
                   TDImageViewer.showImageViewer(
                       context: context,
                       // 本文件夹所有图片列表，并定位到当前文件
@@ -320,20 +346,20 @@ class _FileManagerPageState extends State<FileManagerPage> {
                       onDelete: (int index) {
                         _deleteFile([files[index]]);
                       });
-                } else if (_videoExtNames.contains(_extName)) {
+                } else if (_videoExtNames.contains(extName)) {
                   // 根据扩展名判断是视频，开始视频预览,如果是移动平台则使用内置平台，如果是pc平台则使用系统浏览器？
                   if (Platform.isWindows || Platform.isLinux) {
-                    launchUrl(_fileUrl);
+                    launchUrl(fileUrl);
                   } else {
                     // 使用内置播放器
                     Navigator.push(context, MaterialPageRoute(builder: (ctx) {
                       return VideoPlayerPage(
                         key: UniqueKey(),
-                        url: _fileUrl,
+                        url: fileUrl,
                       );
                     }));
                   }
-                } else if (_musicExtNames.contains(_extName)) {
+                } else if (_musicExtNames.contains(extName)) {
                   // 播放音乐，原则上说应该将本文件夹所有音乐都加入播放列表
                 } else {
                   // TODO 未知的文件类型默认提示下载或其他方式
@@ -382,11 +408,18 @@ class _FileManagerPageState extends State<FileManagerPage> {
     }));
     String reqUri = "/v1/batch";
     final response = await dio.deleteUri(Uri.parse(reqUri), data: filepaths);
+    if (!mounted) return;
     if (response.statusCode == 200) {
-      showSuccess("Delete Success", context);
+      showSuccess(
+        OpenIoTHubLocalizations.of(context).plugin_delete_success,
+        context,
+      );
       displayImageList(_currentPath);
     } else {
-      showFailed("Delete Failed", context);
+      showFailed(
+        OpenIoTHubLocalizations.of(context).delete_failed,
+        context,
+      );
       displayImageList(_currentPath);
     }
   }

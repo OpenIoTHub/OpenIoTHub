@@ -33,10 +33,6 @@ class FullScreenWebState extends State<FullScreenWeb> {
   );
 
   double _progress = 0;
-  String? _url;
-  // String _url = "http://localhost:8889";
-  // String _url = "http://localhost:15244";
-  // String _url = "https://baidu.com";
   bool _canGoBack = false;
 
   onClickNavigationBar() {
@@ -64,8 +60,8 @@ class FullScreenWebState extends State<FullScreenWeb> {
   Widget build(BuildContext context) {
     return PopScope(
         canPop: !_canGoBack,
-        onPopInvoked: (didPop) async {
-          log("onPopInvoked $didPop");
+        onPopInvokedWithResult: (bool didPop, Object? result) async {
+          log("onPopInvokedWithResult $didPop");
           if (didPop) return;
           _webViewController?.goBack();
         },
@@ -120,7 +116,7 @@ class FullScreenWebState extends State<FullScreenWeb> {
                 },
                 onDownloadStartRequest: (controller, url) async {
                   String urlStr = url.url.toString();
-                  ClipboardData data = new ClipboardData(text:urlStr);
+                  ClipboardData data = ClipboardData(text: urlStr);
                   Clipboard.setData(data);
                   showInfo("Url copied to clipboard", context);
                   launchUrlString(urlStr);
@@ -141,10 +137,6 @@ class FullScreenWebState extends State<FullScreenWeb> {
                   controller.canGoBack().then((value) => setState(() {
                         _canGoBack = value;
                       }));
-                },
-                onUpdateVisitedHistory: (InAppWebViewController controller,
-                    WebUri? url, bool? isReload) {
-                  _url = url.toString();
                 },
               ),
             ),

@@ -2,222 +2,229 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:openiothub/core/openiothub_constants.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
-import 'package:openiothub/plugin/openiothub_plugin.dart';
-import 'package:openiothub/plugin/mdns_service/services/ssh/ssh_page.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 import 'package:openiothub/common_pages/web/web.dart';
+import 'package:openiothub/plugin/mdns_service/services/aria2c.dart' show Aria2Page;
+import 'package:openiothub/plugin/mdns_service/services/nas/casa_zima_os/casaos_login.dart'
+    show CasaLoginPage;
+import 'package:openiothub/plugin/mdns_service/services/nas/casa_zima_os/zima_login.dart'
+    show ZimaLoginPage;
+import 'package:openiothub/plugin/mdns_service/services/nas/unraid/login.dart'
+    show UnraidLoginPage;
+import 'package:openiothub/plugin/mdns_service/services/ssh/ssh_page.dart'
+    show SSHNativePage;
+import 'package:openiothub/plugin/mdns_service/services/vncrfb_web_page.dart'
+    show VNCWebPage;
+import 'package:openiothub/plugin/registry/plugin_navigation.dart';
+import 'package:openiothub/plugin/utils/port_config_to_port_service.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
-import '../utils/port_config_to_port_service.dart';
-import '../mdns_service/services/vncrfb_web_page.dart';
-import '../mdns_service/services/aria2c.dart';
-import '../mdns_service/services/nas/casa_zima_os/casaos_login.dart';
-import '../mdns_service/services/nas/casa_zima_os/zima_login.dart';
-import '../mdns_service/services/nas/unraid/login.dart';
+enum _OpenWithChoiceKind {
+  web,
+  aria2,
+  ssh,
+  vnc,
+  rdp,
+  casaos,
+  zimaos,
+  unraid,
+}
+
+String _choiceLabel(OpenIoTHubLocalizations l10n, _OpenWithChoiceKind k) {
+  switch (k) {
+    case _OpenWithChoiceKind.web:
+      return l10n.web_browser;
+    case _OpenWithChoiceKind.aria2:
+      return l10n.open_with_aria2;
+    case _OpenWithChoiceKind.ssh:
+      return l10n.open_with_ssh;
+    case _OpenWithChoiceKind.vnc:
+      return l10n.open_with_vnc;
+    case _OpenWithChoiceKind.rdp:
+      return l10n.rdp_remote_desktop;
+    case _OpenWithChoiceKind.casaos:
+      return l10n.open_with_casaos;
+    case _OpenWithChoiceKind.zimaos:
+      return l10n.open_with_zimaos;
+    case _OpenWithChoiceKind.unraid:
+      return l10n.open_with_unraid;
+  }
+}
 
 class OpenWithChoice extends StatelessWidget {
-  PortConfig portConfig;
+  const OpenWithChoice({super.key, required this.portConfig});
 
-  static const String tagStart = "startDivider";
-  static const String tagEnd = "endDivider";
-  static const String tagCenter = "centerDivider";
-  static const String tagBlank = "blankDivider";
+  final PortConfig portConfig;
 
-  static const double imageIconWidth = 30.0;
+  static const String _tagStart = 'startDivider';
+  static const String _tagEnd = 'endDivider';
+  static const String _tagCenter = 'centerDivider';
+  static const String _tagBlank = 'blankDivider';
 
-  final List listData = [];
+  static const double _imageIconWidth = 30.0;
+  static const String _rowIcon = 'assets/images/ic_discover_nearby.png';
 
-  OpenWithChoice(this.portConfig) {
-    listData.add(tagBlank);
-    listData.add(tagStart);
-    listData.add(
-        ListItem(title: 'Web', icon: 'assets/images/ic_discover_nearby.png'));
-    listData.add(tagCenter);
-    listData.add(
-        ListItem(title: 'Aria2', icon: 'assets/images/ic_discover_nearby.png'));
-    listData.add(tagCenter);
-    listData.add(
-        ListItem(title: 'SSH', icon: 'assets/images/ic_discover_nearby.png'));
-    listData.add(tagCenter);
-    listData.add(
-        ListItem(title: 'VNC', icon: 'assets/images/ic_discover_nearby.png'));
-    listData.add(tagCenter);
-    listData.add(ListItem(
-        title: 'RDP Remote Desktop', icon: 'assets/images/ic_discover_nearby.png'));
-    listData.add(tagCenter);
-    listData.add(ListItem(
-        title: 'CasaOS', icon: 'assets/images/ic_discover_nearby.png'));
-    listData.add(tagCenter);
-    listData.add(ListItem(
-        title: 'ZimaOS', icon: 'assets/images/ic_discover_nearby.png'));
-    listData.add(tagCenter);
-    listData.add(ListItem(
-        title: 'UnRaid', icon: 'assets/images/ic_discover_nearby.png'));
-    listData.add(tagEnd);
-  }
+  static const List<Object> _rows = <Object>[
+    _tagBlank,
+    _tagStart,
+    _OpenWithChoiceKind.web,
+    _tagCenter,
+    _OpenWithChoiceKind.aria2,
+    _tagCenter,
+    _OpenWithChoiceKind.ssh,
+    _tagCenter,
+    _OpenWithChoiceKind.vnc,
+    _tagCenter,
+    _OpenWithChoiceKind.rdp,
+    _tagCenter,
+    _OpenWithChoiceKind.casaos,
+    _tagCenter,
+    _OpenWithChoiceKind.zimaos,
+    _tagCenter,
+    _OpenWithChoiceKind.unraid,
+    _tagEnd,
+  ];
 
-  Widget getIconImage(path) {
+  Widget _iconImage(String path) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
-      child:
-          Image.asset(path, width: imageIconWidth, height: imageIconWidth),
+      child: Image.asset(path, width: _imageIconWidth, height: _imageIconWidth),
     );
   }
 
-  _renderRow(BuildContext ctx, int i) {
-    var item = listData[i];
-    if (item is String) {
-      Widget w = Divider(
-        height: 1.0,
-      );
-      switch (item) {
-        case tagStart:
-          w = Divider(
-            height: 1.0,
-          );
-          break;
-        case tagEnd:
-          w = Divider(
-            height: 1.0,
-          );
-          break;
-        case tagCenter:
-          w = Padding(
-            padding: const EdgeInsets.fromLTRB(50.0, 0.0, 0.0, 0.0),
-            child: Divider(
-              height: 1.0,
+  Future<void> _pushPluginThenDismiss(
+    BuildContext ctx,
+    String modelId,
+  ) async {
+    final service = portConfig2portService(portConfig);
+    final opened = await ctx.pushPluginPage(modelId, service);
+    if (opened) {
+      if (ctx.mounted) Navigator.of(ctx).pop();
+    } else {
+      debugPrint('OpenWithChoice: no plugin registered for modelId=$modelId');
+    }
+  }
+
+  Future<void> _handleChoice(BuildContext ctx, _OpenWithChoiceKind kind) async {
+    switch (kind) {
+      case _OpenWithChoiceKind.aria2:
+        await _pushPluginThenDismiss(ctx, Aria2Page.modelName);
+      case _OpenWithChoiceKind.ssh:
+        await _pushPluginThenDismiss(ctx, SSHNativePage.modelName);
+      case _OpenWithChoiceKind.vnc:
+        await _pushPluginThenDismiss(ctx, VNCWebPage.modelName);
+      case _OpenWithChoiceKind.web:
+        final webUrl = 'http://${Config.webgRpcIp}:${portConfig.localProt}';
+        if (Platform.isLinux) {
+          await _launchUrl(webUrl);
+          if (ctx.mounted) Navigator.of(ctx).pop();
+        } else {
+          final nav = Navigator.of(ctx);
+          nav.pop();
+          nav.push<void>(
+            MaterialPageRoute<void>(
+              builder: (routeCtx) => WebScreen(startUrl: webUrl),
             ),
           );
-          break;
-        case tagBlank:
-          w = Container(
-            height: 20.0,
+        }
+      case _OpenWithChoiceKind.rdp:
+        final url =
+            'rdp://full%20address=s:${Config.webgRpcIp}:${portConfig.localProt}&audiomode=i:2&disable%20themes=i:1';
+        await _launchUrl(url);
+        if (ctx.mounted) Navigator.of(ctx).pop();
+      case _OpenWithChoiceKind.casaos:
+        await _pushPluginThenDismiss(ctx, CasaLoginPage.modelName);
+      case _OpenWithChoiceKind.zimaos:
+        await _pushPluginThenDismiss(ctx, ZimaLoginPage.modelName);
+      case _OpenWithChoiceKind.unraid:
+        await _pushPluginThenDismiss(ctx, UnraidLoginPage.modelName);
+    }
+  }
+
+  Widget _renderRow(BuildContext ctx, Object item) {
+    if (item is String) {
+      switch (item) {
+        case _tagStart:
+        case _tagEnd:
+          return const Divider(height: 1.0);
+        case _tagCenter:
+          return Padding(
+            padding: const EdgeInsets.fromLTRB(50.0, 0.0, 0.0, 0.0),
+            child: Divider(height: 1.0),
           );
-          break;
+        case _tagBlank:
+          return const SizedBox(height: 20.0);
+        default:
+          return const Divider(height: 1.0);
       }
-      return w;
-    } else if (item is ListItem) {
-      var listItemContent = Padding(
+    }
+    if (item is _OpenWithChoiceKind) {
+      final l10n = OpenIoTHubLocalizations.of(ctx);
+      final title = _choiceLabel(l10n, item);
+      final listItemContent = Padding(
         padding: const EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
         child: Row(
           children: <Widget>[
-            getIconImage(item.icon),
+            _iconImage(_rowIcon),
             Expanded(
-                child: Text(
-              item.title,
-              style: Constants.titleTextStyle,
-            )),
-            Constants.rightArrowIcon
+              child: Text(title, style: Constants.titleTextStyle),
+            ),
+            Constants.rightArrowIcon,
           ],
         ),
       );
       return InkWell(
-        onTap: () {
-          String title = item.title;
-          if (title == 'Aria2') {
-            Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
-              return Aria2Page(
-                device: portConfig2portService(portConfig),
-                key: UniqueKey(),
-              );
-            })).then((_) {
-              Navigator.of(ctx).pop();
-            });
-          } else if (title == 'SSH') {
-            Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
-              return SSHNativePage(
-                device: portConfig2portService(portConfig),
-                key: UniqueKey(),
-              );
-            })).then((_) {
-              Navigator.of(ctx).pop();
-            });
-          } else if (title == 'VNC') {
-            Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
-              return VNCWebPage(
-                device: portConfig2portService(portConfig),
-                key: UniqueKey(),
-              );
-            })).then((_) {
-              Navigator.of(ctx).pop();
-            });
-          } else if (title == 'Web') {
-            var _url = "http://${Config.webgRpcIp}:${portConfig.localProt}";
-            if (Platform.isLinux) {
-              _launchUrl(_url);
-              Navigator.of(ctx).pop();
-            } else {
-              Navigator.of(ctx).pop();
-              Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
-                return WebScreen(startUrl: _url,);
-              }));
-            }
-          } else if (title == 'RDP Remote Desktop') {
-            var url =
-                'rdp://full%20address=s:${Config.webgRpcIp}:${portConfig.localProt}&audiomode=i:2&disable%20themes=i:1';
-            _launchUrl(url).then((_) {
-              Navigator.of(ctx).pop();
-            });
-          } else if (title == 'CasaOS') {
-            Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
-              return CasaLoginPage(
-                // portService: PortService(ip: Config.webgRpcIp,port:portConfig.localProt),
-                device: portConfig2portService(portConfig),
-                key: UniqueKey(),
-              );
-            })).then((_) {
-              Navigator.of(ctx).pop();
-            });
-          } else if (title == 'ZimaOS') {
-            Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
-              return ZimaLoginPage(
-                // portService: PortService(ip: Config.webgRpcIp,port:portConfig.localProt),
-                device: portConfig2portService(portConfig),
-                key: UniqueKey(),
-              );
-            })).then((_) {
-              Navigator.of(ctx).pop();
-            });
-          } else if (title == 'UnRaid') {
-            Navigator.push(ctx, MaterialPageRoute(builder: (ctx) {
-              return UnraidLoginPage(
-                // portService: PortService(ip: Config.webgRpcIp,port:portConfig.localProt),
-                device: portConfig2portService(portConfig),
-                key: UniqueKey(),
-              );
-            })).then((_) {
-              Navigator.of(ctx).pop();
-            });
-          }
-        },
+        onTap: () => _handleChoice(ctx, item),
         child: listItemContent,
       );
     }
+    return const SizedBox.shrink();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
-        itemBuilder: (ctx, i) => _renderRow(ctx, i),
-        itemCount: listData.length,
+        itemBuilder: (ctx, i) => _renderRow(ctx, _rows[i]),
+        itemCount: _rows.length,
       ),
     );
   }
 
-  _launchUrl(String url) async {
+  Future<void> _launchUrl(String url) async {
     if (await canLaunchUrlString(url)) {
       await launchUrlString(url);
     } else {
-      print('Could not launch $url');
+      debugPrint('Could not launch $url');
     }
   }
 }
 
-class ListItem {
-  String icon;
-  String title;
-
-  ListItem({required this.icon, required this.title});
+/// 展示映射端口的「打开方式」对话框。
+///
+/// 关闭后若 [context] 仍 [mounted]，则执行 [onDialogClosed]（例如刷新端口列表）。
+Future<void> showOpenWithChoiceDialog(
+  BuildContext context, {
+  required PortConfig portConfig,
+  Future<void> Function()? onDialogClosed,
+}) async {
+  await showDialog<void>(
+    context: context,
+    builder: (dialogCtx) => AlertDialog(
+      title: Text(OpenIoTHubLocalizations.of(context).opening_method),
+      content: SizedBox.expand(
+        child: OpenWithChoice(portConfig: portConfig),
+      ),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () => Navigator.of(dialogCtx).pop(),
+          child: Text(OpenIoTHubLocalizations.of(context).cancel),
+        ),
+      ],
+    ),
+  );
+  if (onDialogClosed != null && context.mounted) {
+    await onDialogClosed();
+  }
 }

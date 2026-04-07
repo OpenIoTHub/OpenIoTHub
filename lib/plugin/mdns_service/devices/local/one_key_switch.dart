@@ -3,31 +3,29 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:openiothub/plugin/openiothub_plugin.dart';
 import 'package:openiothub/plugin/utils/ip.dart';
 
 import 'package:openiothub/plugin/models/port_service_info.dart';
 
 class OneKeySwitchPage extends StatefulWidget {
-  OneKeySwitchPage({required Key key, required this.device}) : super(key: key);
+  const OneKeySwitchPage({required Key key, required this.device}) : super(key: key);
 
   static final String modelName = "com.iotserv.devices.one-key-switch";
   final PortServiceInfo device;
 
   @override
-  _OneKeySwitchPageState createState() => _OneKeySwitchPageState();
+  State<OneKeySwitchPage> createState() => OneKeySwitchPageState();
 }
 
-class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
+class OneKeySwitchPageState extends State<OneKeySwitchPage> {
   String ledBottonStatus = "off";
 
   @override
   void initState() {
     super.initState();
     _getCurrentStatus();
-    print("init iot devie List");
+    debugPrint("init iot device list");
   }
 
   @override
@@ -83,7 +81,6 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
   }
 
   _getCurrentStatus() async {
-    String url = "http://${widget.device.addr}:${widget.device.port}/status";
     http.Response response;
     try {
       response = await http
@@ -95,9 +92,9 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
               port: widget.device.port,
               path: '/status'))
           .timeout(const Duration(seconds: 2));
-      print(response.body);
+      debugPrint(response.body);
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
       return;
     }
     if (response.statusCode == 200) {
@@ -109,7 +106,7 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
 
   _setting() async {
     // TODO 设备设置
-    TextEditingController _nameController = TextEditingController.fromValue(
+    TextEditingController nameController = TextEditingController.fromValue(
         TextEditingValue(text: widget.device.info!["name"]!));
     return showDialog(
         context: context,
@@ -120,7 +117,7 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
                   child: ListView(
                     children: <Widget>[
                       TextFormField(
-                        controller: _nameController,
+                        controller: nameController,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.all(10.0),
                           labelText:
@@ -143,25 +140,26 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
                         Text(OpenIoTHubLocalizations.of(context).modify),
                     onPressed: () async {
                       try {
-                        String url =
-                            "http://${widget.device.addr}:${widget.device.port}/rename?name=${_nameController.text}";
-                        http
+                        final hostAddr = widget.device.addr.endsWith(".local")
+                            ? await getIpByDomain(widget.device.addr)
+                            : widget.device.addr;
+                        if (!mounted) return;
+                        await http
                             .get(Uri(
-                            scheme: 'http',
-                            host: widget.device.addr.endsWith(".local")
-                                ? await getIpByDomain(widget.device.addr)
-                                : widget.device.addr,
-                            port: widget.device.port,
-                            path: '/rename',
-                            queryParameters: {
-                              "name": _nameController.text
-                            }))
+                              scheme: 'http',
+                              host: hostAddr,
+                              port: widget.device.port,
+                              path: '/rename',
+                              queryParameters: {
+                                "name": nameController.text
+                              },
+                            ))
                             .timeout(const Duration(seconds: 2));
+                        if (!mounted) return;
+                        Navigator.of(context).pop();
                       } catch (e) {
-                        print(e.toString());
-                        return;
+                        debugPrint(e.toString());
                       }
-                      Navigator.of(context).pop();
                     },
                   )
                 ]));
@@ -182,9 +180,6 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
   }
 
   _changeSwitchStatus() async {
-    String url;
-    url =
-        "http://${widget.device.addr}:${widget.device.port}/led?status=${ledBottonStatus == "on" ? "off" : "on"}";
     http.Response response;
     try {
       response = await http
@@ -199,9 +194,9 @@ class _OneKeySwitchPageState extends State<OneKeySwitchPage> {
                 "status": ledBottonStatus == "on" ? "off" : "on"
               }))
           .timeout(const Duration(seconds: 2));
-      print(response.body);
+      debugPrint(response.body);
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
       return;
     }
     _getCurrentStatus();

@@ -5,6 +5,7 @@ import 'package:openiothub_grpc_api/google/protobuf/empty.pb.dart';
 import 'package:openiothub_grpc_api/google/protobuf/wrappers.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/common.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/userManager.pbgrpc.dart';
+import 'package:openiothub/network/network_log.dart';
 
 class UserManager {
 //  注册用户
@@ -15,7 +16,7 @@ class UserManager {
     final stub = UserManagerClient(channel);
     OperationResponse operationResponse =
         await stub.registerUserWithLoginInfo(loginInfo);
-    print('registerUserWithUserInfo: ${operationResponse}');
+    netLog('UserManager', 'registerUserWithUserInfo: $operationResponse');
     channel.shutdown();
     return operationResponse;
   }
@@ -28,7 +29,7 @@ class UserManager {
     final stub = UserManagerClient(channel);
     UserLoginResponse userLoginResponse =
         await stub.loginWithUserLoginInfo(loginInfo);
-    print('GetUserLoginResponse: ${userLoginResponse}');
+    netLog('UserManager', 'loginWithUserLoginInfo: $userLoginResponse');
     channel.shutdown();
     return userLoginResponse;
   }
@@ -42,7 +43,7 @@ class UserManager {
     stringValue.value = code;
     UserLoginResponse userLoginResponse =
         await stub.loginWithWechatCode(stringValue);
-    print('GetUserLoginResponse: ${userLoginResponse}');
+    netLog('UserManager', 'loginWithWechatCode: $userLoginResponse');
     channel.shutdown();
     return userLoginResponse;
   }
@@ -58,7 +59,7 @@ class UserManager {
     stringValue.value = code;
     OperationResponse operationResponse =
         await stub.bindWithWechatCode(stringValue);
-    print('GetUserLoginResponse: ${operationResponse}');
+    netLog('UserManager', 'bindWithWechatCode: $operationResponse');
     channel.shutdown();
     return operationResponse;
   }
@@ -72,7 +73,7 @@ class UserManager {
         options: CallOptions(metadata: {'jwt': jwt}));
     Empty empty = Empty();
     OperationResponse operationResponse = await stub.unbindWechat(empty);
-    print('GetUserLoginResponse: ${operationResponse}');
+    netLog('UserManager', 'unbindWechat: $operationResponse');
     channel.shutdown();
     return operationResponse;
   }
@@ -85,7 +86,7 @@ class UserManager {
         options: CallOptions(metadata: {'jwt': jwt}));
     Empty empty = Empty();
     UserInfo userInfo = await stub.getUserInfo(empty);
-    print('UserInfo: ${userInfo}');
+    netLog('UserManager', 'getUserInfo: $userInfo');
     channel.shutdown();
     return userInfo;
   }
@@ -99,7 +100,7 @@ class UserManager {
     stringValue.value = code;
     WechatUserInfo wechatUserInfo =
         await stub.getUserWechatInfoByCode(stringValue);
-    print('GetUserLoginResponse: ${wechatUserInfo}');
+    netLog('UserManager', 'getUserWechatInfoByCode: $wechatUserInfo');
     channel.shutdown();
     return wechatUserInfo;
   }
@@ -114,7 +115,7 @@ class UserManager {
         options: CallOptions(metadata: {'jwt': jwt}));
     OperationResponse operationResponse =
         await stub.updateUserName(stringValue);
-    print('updateUserName: ${operationResponse}');
+    netLog('UserManager', 'updateUserName: $operationResponse');
     channel.shutdown();
     return operationResponse;
   }
@@ -128,7 +129,7 @@ class UserManager {
         options: CallOptions(metadata: {'jwt': jwt}));
     OperationResponse operationResponse =
         await stub.updateUserEmail(stringValue);
-    print('updateUserEmail: ${operationResponse}');
+    netLog('UserManager', 'updateUserEmail: $operationResponse');
     channel.shutdown();
     return operationResponse;
   }
@@ -142,7 +143,7 @@ class UserManager {
         options: CallOptions(metadata: {'jwt': jwt}));
     OperationResponse operationResponse =
         await stub.updateUserMobile(stringValue);
-    print('updateUserMobile: ${operationResponse}');
+    netLog('UserManager', 'updateUserMobile: $operationResponse');
     channel.shutdown();
     return operationResponse;
   }
@@ -156,7 +157,7 @@ class UserManager {
         options: CallOptions(metadata: {'jwt': jwt}));
     OperationResponse operationResponse =
         await stub.updateUserPassword(stringValue);
-    print('updateUserPassword: ${operationResponse}');
+    netLog('UserManager', 'updateUserPassword: $operationResponse');
     channel.shutdown();
     return operationResponse;
   }
@@ -170,7 +171,7 @@ class UserManager {
         options: CallOptions(metadata: {'jwt': jwt}));
     OperationResponse operationResponse =
         await stub.updateUserAvatar(updateAvatar);
-    print('OperationResponse: ${operationResponse}');
+    netLog('UserManager', 'updateUserAvatar: $operationResponse');
     channel.shutdown();
     return operationResponse;
   }
@@ -183,7 +184,7 @@ class UserManager {
         options: CallOptions(metadata: {'jwt': jwt}));
     Empty empty = Empty();
     StringValue stringValue = await stub.getAllConfig(empty);
-    print('getAllConfig: ${stringValue}');
+    netLog('UserManager', 'getAllConfig: $stringValue');
     channel.shutdown();
     return stringValue;
   }
@@ -195,7 +196,7 @@ class UserManager {
     final stub = UserManagerClient(channel,
         options: CallOptions(metadata: {'jwt': jwt}));
     OperationResponse operationResponse = await stub.deleteMyAccount(loginInfo);
-    print('OperationResponse: ${operationResponse}');
+    netLog('UserManager', 'deleteMyAccount: $operationResponse');
     channel.shutdown();
     return operationResponse;
   }

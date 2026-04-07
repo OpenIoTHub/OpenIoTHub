@@ -4,6 +4,7 @@ import 'package:openiothub_grpc_api/google/protobuf/empty.pb.dart';
 import 'package:openiothub_grpc_api/google/protobuf/wrappers.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/gatewayManager.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
+import 'package:openiothub/network/network_log.dart';
 
 class SessionApi {
 //  TODO 可以选择grpc所执行的主机，可以是安卓本机也可以是pc，也可以是服务器
@@ -11,7 +12,7 @@ class SessionApi {
     final channel = await Channel.getOpenIoTHubChannel();
     final stub = SessionManagerClient(channel);
     final response = await stub.createOneSession(config);
-    print('createOneSession: ${response}');
+    netLog('SessionApi', 'createOneSession: $response');
     channel.shutdown();
     //  从服务器创建配置再同步，所以这里不需要保存到服务器
   }
@@ -31,7 +32,7 @@ class SessionApi {
     final channel = await Channel.getOpenIoTHubChannel();
     final stub = SessionManagerClient(channel);
     final response = await stub.getAllSession(Empty());
-    print('getAllSession received: ${response.sessionConfigs}');
+    netLog('SessionApi', 'getAllSession: ${response.sessionConfigs}');
     channel.shutdown();
     return response;
   }
@@ -77,7 +78,7 @@ class SessionApi {
     final channel = await Channel.getOpenIoTHubChannel();
     final stub = SessionManagerClient(channel);
     final response = await stub.getAllTCP(sessionConfig);
-    print('getAllTCP received: ${response.portConfigs}');
+    netLog('SessionApi', 'getAllTCP: ${response.portConfigs}');
     channel.shutdown();
     return response;
   }
@@ -86,7 +87,7 @@ class SessionApi {
     final channel = await Channel.getOpenIoTHubChannel();
     final stub = SessionManagerClient(channel);
     final response = await stub.refreshmDNSProxyList(sessionConfig);
-    print('refreshmDNSServices received: ${response}');
+    netLog('SessionApi', 'refreshmDNSServices: $response');
     channel.shutdown();
     return response;
   }
@@ -95,7 +96,7 @@ class SessionApi {
     final channel = await Channel.getOpenIoTHubChannel();
     final stub = SessionManagerClient(channel);
     final response = await stub.createTcpProxyList(portList);
-    print('createTcpProxyList received: ${response}');
+    netLog('SessionApi', 'createTcpProxyList: $response');
     channel.shutdown();
     return response;
   }
@@ -108,8 +109,8 @@ class SessionApi {
     final stub = SessionManagerClient(channel);
     OpenIoTHubOperationResponse response =
         await stub.deleteRemoteGatewayConfig(sessionConfig);
-    print('deletRemoteGatewayConfig delete: ${sessionConfig.runId}');
-    print('deletRemoteGatewayConfig received: ${response}');
+    netLog('SessionApi',
+        'deleteRemoteGatewayConfig runId=${sessionConfig.runId} response=$response');
     channel.shutdown();
     return response;
   }

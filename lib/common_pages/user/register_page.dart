@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/network/openiothub_api.dart';
 import 'package:openiothub/common_pages/openiothub_common_pages.dart';
-import 'package:openiothub/common_pages/utils/toast.dart';
 import 'package:openiothub_grpc_api/proto/manager/common.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/userManager.pb.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 
 class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
+
   @override
-  _State createState() => _State();
+  State<RegisterPage> createState() => RegisterPageState();
 }
 
-class _State extends State<RegisterPage> {
+class RegisterPageState extends State<RegisterPage> {
   // 是否已经同意隐私政策
   bool _isChecked = false;
   bool _registerDisabled = false;
@@ -111,6 +111,8 @@ class _State extends State<RegisterPage> {
   }
 
   _register() async {
+    final ctx = context;
+    final l10n = OpenIoTHubLocalizations.of(ctx);
     // TODO 防止重复注册
     setState(() {
       _registerDisabled = true;
@@ -122,15 +124,14 @@ class _State extends State<RegisterPage> {
     });
     if (!_isChecked) {
       showFailed(
-          "${OpenIoTHubLocalizations.of(context).agree_to_the_user_agreement1}☑️${OpenIoTHubLocalizations.of(context).agree_to_the_user_agreement2}",
-          context);
+          "${l10n.agree_to_the_user_agreement1}☑️${l10n.agree_to_the_user_agreement2}",
+          ctx);
       return;
     }
     if (_usermobile.text.isEmpty || _userpassword.text.isEmpty) {
       showFailed(
-          OpenIoTHubLocalizations.of(context)
-              .common_username_and_password_cant_be_empty,
-          context);
+          l10n.common_username_and_password_cant_be_empty,
+          ctx);
       return;
     }
     LoginInfo loginInfo = LoginInfo();
@@ -138,19 +139,20 @@ class _State extends State<RegisterPage> {
     loginInfo.password = _userpassword.text;
     OperationResponse operationResponse =
         await UserManager.registerUserWithUserInfo(loginInfo);
+    if (!mounted) return;
     if (operationResponse.code == 0) {
       setState(() {
         _registerDisabled = false;
       });
       showSuccess(
-          "${OpenIoTHubLocalizations.of(context).register_success}${operationResponse.msg}",
+          "${l10n.register_success}${operationResponse.msg}",
           context);
       if (Navigator.of(context).canPop()) {
         Navigator.of(context).pop();
-      } else {}
+      }
     } else {
       showFailed(
-          "${OpenIoTHubLocalizations.of(context).register_failed}:${operationResponse.msg}",
+          "${l10n.register_failed}:${operationResponse.msg}",
           context);
     }
   }

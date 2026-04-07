@@ -3,40 +3,38 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:openiothub/plugin/openiothub_plugin.dart';
 import 'package:openiothub/plugin/utils/ip.dart';
 
 import 'package:openiothub/plugin/models/port_service_info.dart';
 
 class DHTPage extends StatefulWidget {
-  DHTPage({required Key key, required this.device}) : super(key: key);
+  const DHTPage({required Key key, required this.device}) : super(key: key);
 
   static final String modelName = "com.iotserv.devices.dht";
   final PortServiceInfo device;
 
   @override
-  _DHTPageState createState() => _DHTPageState();
+  State<DHTPage> createState() => DHTPageState();
 }
 
-class _DHTPageState extends State<DHTPage> {
+class DHTPageState extends State<DHTPage> {
   static const String temperature = "temperature";
   static const String humidity = "humidity";
 
-  List<String> _valueKeyList = [
+  final List<String> _valueKeyList = [
     temperature,
     humidity,
   ];
 
-  Map<String, double> _status = Map.from({
+  final Map<String, double> _status = Map.from({
     temperature: null,
     humidity: null,
   });
 
   Map<String, String>? _realName;
 
-  Map<String, String> _units = Map.from({
+  final Map<String, String> _units = Map.from({
     temperature: "℃",
     humidity: "%",
   });
@@ -45,7 +43,7 @@ class _DHTPageState extends State<DHTPage> {
   void initState() {
     super.initState();
     _getCurrentStatus();
-    print("init iot devie List");
+    debugPrint("init iot device list");
   }
 
   @override
@@ -54,9 +52,9 @@ class _DHTPageState extends State<DHTPage> {
       temperature: OpenIoTHubLocalizations.of(context).temperature,
       humidity: OpenIoTHubLocalizations.of(context).humidity,
     });
-    final List _result = [];
-    _result.addAll(_valueKeyList);
-    final tiles = _result.map(
+    final List result = [];
+    result.addAll(_valueKeyList);
+    final tiles = result.map(
       (pair) {
         switch (pair) {
           case temperature:
@@ -72,19 +70,8 @@ class _DHTPageState extends State<DHTPage> {
                 ],
               ),
             );
-            break;
           default:
-            return ListTile(
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(_realName![pair]!),
-                  Text(":"),
-                  Text(_status[pair].toString()),
-                ],
-              ),
-            );
-            break;
+            return const SizedBox.shrink();
         }
       },
     );
@@ -135,7 +122,6 @@ class _DHTPageState extends State<DHTPage> {
   }
 
   _getCurrentStatus() async {
-    String url = "http://${widget.device.addr}:${widget.device.port}/status";
     http.Response response;
     try {
       response = await http
@@ -148,26 +134,26 @@ class _DHTPageState extends State<DHTPage> {
             path: '/status',
           ))
           .timeout(const Duration(seconds: 2));
-      print(response.body);
+      debugPrint(response.body);
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
       return;
     }
 //    同步状态到界面
     if (response.statusCode == 200) {
-      _valueKeyList.forEach((value) {
+      for (var value in _valueKeyList) {
         setState(() {
           _status[value] = jsonDecode(response.body)[value];
         });
-      });
+      }
     } else {
-      print("获取状态失败！");
+      debugPrint("获取状态失败！");
     }
   }
 
   _setting() async {
     // TODO 设备设置
-    TextEditingController _nameController = TextEditingController.fromValue(
+    TextEditingController nameController = TextEditingController.fromValue(
         TextEditingValue(text: widget.device.info!["name"]!));
     return showDialog(
         context: context,
@@ -178,7 +164,7 @@ class _DHTPageState extends State<DHTPage> {
                     child: ListView(
                   children: <Widget>[
                     TextFormField(
-                      controller: _nameController,
+                      controller: nameController,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText:
@@ -201,17 +187,17 @@ class _DHTPageState extends State<DHTPage> {
                     onPressed: () async {
                       try {
                         String url =
-                            "http://${widget.device.addr}:${widget.device.port}/rename?name=${_nameController.text}";
+                            "http://${widget.device.addr}:${widget.device.port}/rename?name=${nameController.text}";
                         http
                             .get(Uri.parse(url))
                             .timeout(const Duration(seconds: 2))
                             .then((_) {
                           setState(() {
-                            widget.device.info!["name"] = _nameController.text;
+                            widget.device.info!["name"] = nameController.text;
                           });
                         });
                       } catch (e) {
-                        print(e.toString());
+                        debugPrint(e.toString());
                         return;
                       }
                       Navigator.of(context).pop();

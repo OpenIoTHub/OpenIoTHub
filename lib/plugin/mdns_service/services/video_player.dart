@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vlc_player/flutter_vlc_player.dart';
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
-
 import 'package:openiothub/plugin/models/port_service_info.dart';
 import '../../mdns_service/comm_widgets/info.dart';
 
 class VideoPlayer extends StatefulWidget {
-  VideoPlayer({required Key key, required this.device}) : super(key: key);
+  const VideoPlayer({required Key key, required this.device}) : super(key: key);
   static final String modelName = "com.iotserv.services.vlc.player";
   final PortServiceInfo device;
 
   @override
-  _VideoPlayerState createState() => _VideoPlayerState();
+  State<VideoPlayer> createState() => VideoPlayerState();
 }
 
-class _VideoPlayerState extends State<VideoPlayer> {
+class VideoPlayerState extends State<VideoPlayer> {
   late String url;
   late VlcPlayerController _videoPlayerController;
 
@@ -26,18 +23,14 @@ class _VideoPlayerState extends State<VideoPlayer> {
     } else if (!widget.device.info!.containsKey("username") ||
         widget.device.info!["username"] == "" ||
         widget.device.info!["username"] == null) {
-      url = "${widget.device.info!["scheme"]}://" +
-          "${widget.device.addr}:${widget.device.port}${widget.device.info!["path"]}";
+      url =
+          "${widget.device.info!["scheme"]}://${widget.device.addr}:${widget.device.port}${widget.device.info!["path"]}";
     } else {
-      url = "${widget.device.info!["scheme"]}://" +
-          widget.device.info!["username"]! +
-          ":" +
-          widget.device.info!["password"]! +
-          "@"
-              "${widget.device.addr}:${widget.device.port}${widget.device.info!["path"]}";
+      url =
+          "${widget.device.info!["scheme"]}://${widget.device.info!["username"]!}:${widget.device.info!["password"]!}@${widget.device.addr}:${widget.device.port}${widget.device.info!["path"]}";
     }
 
-    print("url:$url");
+    debugPrint("url:$url");
     _videoPlayerController = VlcPlayerController.network(
       url,
       hwAcc: HwAcc.auto,

@@ -4,17 +4,18 @@ import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub/plugin/openiothub_plugin.dart';
 
 class MDNSInfoPage extends StatelessWidget {
-  MDNSInfoPage({required Key key, required this.portConfig}) : super(key: key);
-  PortConfig portConfig;
+  const MDNSInfoPage({super.key, required this.portConfig});
+
+  final PortConfig portConfig;
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     //设备信息
-    final List _result = [];
-    _result.add("${OpenIoTHubLocalizations.of(context).mdns_info}:${portConfig.mDNSInfo}");
+    final List result = [];
+    result.add("${OpenIoTHubLocalizations.of(context).mdns_info}:${portConfig.mDNSInfo}");
 
-    final tiles = _result.map(
+    final tiles = result.map(
       (pair) {
         return ListTile(
           title: Text(

@@ -13,7 +13,9 @@ import 'package:openiothub/app.dart';
 void main() {
   testWidgets('App smoke test', (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
-    await tester.pumpAndSettle(const Duration(seconds: 5));
+    // init() / 广告与后台任务会持续产生帧或 Future，pumpAndSettle 会超时
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 100));
     expect(find.byType(MaterialApp), findsOneWidget);
   });
 }

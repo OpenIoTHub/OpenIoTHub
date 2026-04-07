@@ -4,6 +4,8 @@ import 'package:openiothub_grpc_api/google/protobuf/empty.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/adminManager.pbgrpc.dart';
 import 'package:openiothub_grpc_api/proto/manager/common.pb.dart';
 
+import 'package:openiothub/network/network_log.dart';
+
 import 'iot_manager_channel.dart';
 
 class AdminManager {
@@ -16,7 +18,7 @@ class AdminManager {
         options: CallOptions(metadata: {'jwt': jwt}));
     Empty empty = Empty();
     UserInfoList userInfoList = await stub.getAllUser(empty);
-    print('getAllUser: ${userInfoList}');
+    netLog('AdminManager', 'getAllUser: $userInfoList');
     channel.shutdown();
     return userInfoList;
   }
@@ -29,7 +31,7 @@ class AdminManager {
     final stub = AdminManagerClient(channel,
         options: CallOptions(metadata: {'jwt': jwt}));
     OperationResponse operationResponse = await stub.banUser(userInfo);
-    print('getAllUser: ${operationResponse}');
+    netLog('AdminManager', 'banUser: $operationResponse');
     channel.shutdown();
     return operationResponse;
   }

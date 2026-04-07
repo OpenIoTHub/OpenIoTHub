@@ -1,6 +1,8 @@
 import 'dart:io';
 
-final Map<String, String> _domainIpMap = Map();
+import 'package:flutter/foundation.dart';
+
+final Map<String, String> _domainIpMap = {};
 
 Future<String> getIpByDomain(String domain) async {
   if (_domainIpMap.containsKey(domain)) {
@@ -10,14 +12,14 @@ Future<String> getIpByDomain(String domain) async {
   try {
     // 使用 lookup 方法解析域名
     List<InternetAddress> addresses = await InternetAddress.lookup(domain);
-    print('IP addresses for $domain:');
-    addresses.forEach((address) {
+    debugPrint('IP addresses for $domain:');
+    for (final address in addresses) {
       // TODO 缓存并且提高速度
       ipStr = address.address;
       _domainIpMap[domain] = ipStr;
-    });
+    }
   } catch (e) {
-    print('Error looking up $domain: $e');
+    debugPrint('Error looking up $domain: $e');
   }
   return ipStr;
 }

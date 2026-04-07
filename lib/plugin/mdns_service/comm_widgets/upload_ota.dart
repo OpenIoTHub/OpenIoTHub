@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:openiothub/plugin/openiothub_plugin.dart';
 
 class UploadOTAPage extends StatefulWidget {
-  UploadOTAPage({required Key key, this.url = ""}) : super(key: key);
-  String url = "";
+  const UploadOTAPage({super.key, this.url = ''});
+
+  final String url;
 
   @override
-  _UploadOTAPageState createState() => _UploadOTAPageState();
+  State<UploadOTAPage> createState() => UploadOTAPageState();
 }
 
-class _UploadOTAPageState extends State<UploadOTAPage> {
+class UploadOTAPageState extends State<UploadOTAPage> {
   bool uploading = false;
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _urlController = TextEditingController.fromValue(
+    TextEditingController urlController = TextEditingController.fromValue(
         TextEditingValue(text: "http://192.168.0.2/ota.bin"));
     return Scaffold(
       body: Center(
@@ -24,17 +25,15 @@ class _UploadOTAPageState extends State<UploadOTAPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(height: 10),
-                Container(
-                  child: TextField(
-                    controller: _urlController,
-                    decoration: InputDecoration(labelText: OpenIoTHubLocalizations.of(context).firmware_url),
-                  ),
+                TextField(
+                  controller: urlController,
+                  decoration: InputDecoration(labelText: OpenIoTHubLocalizations.of(context).firmware_url),
                 ),
                 Container(height: 10),
                 TextButton(
                   child: Text(OpenIoTHubLocalizations.of(context).start_ota),
                   onPressed: () {
-                    _uploadBinFile(_urlController.text);
+                    _uploadBinFile(urlController.text);
                   },
                 ),
               ],

@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
+import 'package:openiothub/router/app_routes.dart';
 
 class SplashAdPage extends StatefulWidget {
   const SplashAdPage({super.key});
@@ -29,7 +31,7 @@ class SplashAdPageState extends State<SplashAdPage> {
     super.dispose();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: SystemUiOverlay.values);
-    print('启动页面结束');
+    debugPrint('启动页面结束');
     if (_countdownTimer.isActive) {
       _countdownTimer.cancel();
     }
@@ -40,8 +42,8 @@ class SplashAdPageState extends State<SplashAdPage> {
       setState(() {
         if (_countdown <= 1) {
           _countdownTimer.cancel();
-          // 使用路由系统跳转到主页面
-          Navigator.of(context).pushReplacementNamed('/home-main');
+          if (!context.mounted) return;
+          context.go(AppRoutes.homeMain);
         } else {
           setState(() {
             _countdown -= 1;
@@ -58,8 +60,8 @@ class SplashAdPageState extends State<SplashAdPage> {
     //   if (_countdownTimer.isActive){
     //     _countdownTimer.cancel();
     //   }
-    //   print("initList != null");
-    //   print(initList.toString());
+    //   debugPrint("initList != null");
+    //   debugPrint(initList.toString());
     //   return SplashPage();
     // }
     return Scaffold(

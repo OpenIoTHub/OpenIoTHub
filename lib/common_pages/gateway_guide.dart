@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:openiothub/common_pages/openiothub_common_pages.dart';
 
@@ -7,10 +6,10 @@ class GatewayGuidePage extends StatefulWidget {
   const GatewayGuidePage({required Key key}) : super(key: key);
 
   @override
-  _GatewayGuidePageState createState() => _GatewayGuidePageState();
+  State<GatewayGuidePage> createState() => GatewayGuidePageState();
 }
 
-class _GatewayGuidePageState extends State<GatewayGuidePage> {
+class GatewayGuidePageState extends State<GatewayGuidePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +48,7 @@ class _GatewayGuidePageState extends State<GatewayGuidePage> {
     if (await canLaunchUrlString(url)) {
       await launchUrlString(url);
     } else {
-      print('Could not launch $url');
+      debugPrint('Could not launch $url');
     }
   }
 }

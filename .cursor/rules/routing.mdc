@@ -1,27 +1,24 @@
 # 页面路由规范
 
-本项目中所有页面跳转必须通过统一路由管理，禁止在业务代码中手写 `MaterialPageRoute` 或硬编码路径字符串。
+本应用使用 **go_router**；禁止硬编码路径字符串，带参跳转须与 `AppNavigator` / `go_app_router` 约定一致。
 
 ## 跳转方式
 
-- **无参数页面**：`Navigator.of(context).pushNamed(AppRoutes.xxx)`
-- **带参数页面**：优先使用 `AppNavigator.pushXxx(context, ...)`；否则 `Navigator.pushNamed(context, AppRoutes.xxx, arguments: { ... })`，且 arguments 的 key 必须与 `AppNavigator.kArg*` / `AppRoutes.onGenerateRoute` 中一致
+- **无参数**：`context.push(AppRoutes.xxx)` 或 `context.go(AppRoutes.xxx)`（需整栈替换时）
+- **带参数**：优先 `AppNavigator.pushXxx(context, ...)`（内部 `GoRouter.of(context).push` + `extra`）
 
-## 新增页面时的步骤
+## 新增页面
 
-1. **在 `lib/router/app_routes.dart`**
-   - 在 `AppRoutes` 中增加路由常量（如 `static const String xxx = '/xxx';`），放在对应分区注释下
-   - 无参数：在 `buildStaticRoutes` 中增加 `路由名: (context) => YourPage(),`
-   - 有参数：在 `onGenerateRoute` 的 switch 中增加 case，从 `settings.arguments` 取参并构建 `MaterialPageRoute`，参数 key 与 `AppNavigator.kArg*` 一致
+1. **`lib/router/app_routes.dart`**：增加路径常量；仅**无需登录**的页面将路径加入 `publicPaths`，并在 `lib/router/go_routes/` 对应文件中注册 `GoRoute`。
+2. **`lib/router/go_app_router.dart`**：在 `createOpenIoTHubRouter` 的 `routes` 中增加 `GoRoute`，从 `state.extra` 读参（可用文件内 `_routeExtraMap` / `_extraString` 等辅助函数）。
+3. **`lib/router/app_navigator.dart`**（推荐）：增加 `pushXxx`，`extra` 的 key 使用 `AppNavigator.arg*` 常量。
 
-2. **在 `lib/router/app_navigator.dart`**（带参数时推荐）
-   - 如需新参数 key，增加 `static const kArgXxx = 'xxx';`
-   - 增加 `static Future<T?> pushXxx<T>(BuildContext context, ...)`，内部 `pushNamed(AppRoutes.xxx, arguments: { kArgXxx: ... })`
+## 业务代码
 
-3. **业务代码中**
-   - 使用 `Navigator.pushNamed(context, AppRoutes.xxx)` 或 `AppNavigator.pushXxx(context, ...)`
-   - 禁止 `Navigator.push(context, MaterialPageRoute(builder: ...))` 或 `pushNamed(context, '/hardcoded-path')`
+- 使用 `context.push` / `context.go`（需 `import 'package:go_router/go_router.dart';`）或 `AppNavigator`。
+- 避免 `Navigator.pushNamed`（与 `MaterialApp.router` 不配套）。
+- 尽量避免 `Navigator.push(context, MaterialPageRoute(...))`；若必须打开未注册页，保持局部可维护即可。
 
-## 跨包路由（如 openiothub_common_pages）
+## 跨包路径
 
-若子包需要跳转到主应用已注册的路由，使用 `openiothub_constants` 中的 `RoutePaths` 常量（如 `RoutePaths.languagePicker`），与主应用 `AppRoutes` 保持同步；主应用 `AppRoutes` 中对应常量应引用 `RoutePaths.xxx`。
+子包使用 `RoutePaths`（`lib/core/route_paths.dart`），主应用 `AppRoutes` 中对应项应引用 `RoutePaths.xxx`，与 go_router 路径保持一致。

@@ -1,4 +1,4 @@
-import 'dart:async' as DeviceServiceTypesList;
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,23 +11,19 @@ import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import 'package:openiothub/common_pages/utils/toast.dart';
 import 'package:openiothub/router/app_navigator.dart';
-import './ftp_port_list_page.dart';
-import 'udp_port_list_page.dart';
-import 'http_port_list_page.dart';
-import 'tcp_port_list_page.dart';
 
 class CommonDeviceServiceTypesList extends StatefulWidget {
-  CommonDeviceServiceTypesList({required Key key, required this.device})
+  const CommonDeviceServiceTypesList({required Key key, required this.device})
       : super(key: key);
 
   final Device device;
 
   @override
-  _CommonDeviceServiceTypesListState createState() =>
-      _CommonDeviceServiceTypesListState();
+  State<CommonDeviceServiceTypesList> createState() =>
+      CommonDeviceServiceTypesListState();
 }
 
-class _CommonDeviceServiceTypesListState
+class CommonDeviceServiceTypesListState
     extends State<CommonDeviceServiceTypesList> {
   static const String tagStart = "startDivider";
   static const String tagEnd = "endDivider";
@@ -142,9 +138,9 @@ class _CommonDeviceServiceTypesListState
     }
   }
 
-  DeviceServiceTypesList.Future scan() async {
+  Future<void> scan() async {
     try {} on Exception catch (e) {
-      print(e);
+      debugPrint('$e');
     }
   }
 
@@ -213,11 +209,13 @@ class _CommonDeviceServiceTypesListState
                     onPressed: () {
                       CommonDeviceApi.deleteOneDevice(widget.device)
                           .then((result) {
+                        if (!mounted) return;
                         Navigator.of(context).pop();
                       });
                     },
                   )
                 ])).then((v) {
+      if (!mounted) return;
       Navigator.of(context).pop();
     });
   }
@@ -245,6 +243,7 @@ class _CommonDeviceServiceTypesListState
                         .reset_physical_address),
                     onPressed: () {
                       _setMacAddr().then((_) {
+                        if (!mounted) return;
                         Navigator.of(context).pop();
                       });
                     },
@@ -254,6 +253,7 @@ class _CommonDeviceServiceTypesListState
                         OpenIoTHubLocalizations.of(context).wake_up_device),
                     onPressed: () {
                       CommonDeviceApi.wakeOnLAN(widget.device).then((_) {
+                        if (!mounted) return;
                         Navigator.of(context).pop();
                       });
                     },
@@ -297,6 +297,7 @@ class _CommonDeviceServiceTypesListState
                       var device = widget.device;
                       device.mac = macController.text;
                       CommonDeviceApi.setDeviceMac(device).then((_) {
+                        if (!mounted) return;
                         Navigator.of(context).pop();
                       });
                     },

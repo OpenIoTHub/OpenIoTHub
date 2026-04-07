@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:openiothub/plugin/generated/assets.dart';
 import 'package:openiothub/plugin/openiothub_plugin.dart';
 import 'package:openiothub/common_pages/utils/toast.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import 'package:openiothub/plugin/models/port_service_info.dart';
@@ -12,7 +13,7 @@ import './installed_apps.dart';
 //手动注册一些端口到mdns的声明，用于接入一些传统的设备或者服务或者帮助一些不方便注册mdns的设备或服务注册
 //需要选择模型和输入相关配置参数
 class UnraidLoginPage extends StatefulWidget {
-  UnraidLoginPage({required Key key, required this.device}) : super(key: key);
+  const UnraidLoginPage({required Key key, required this.device}) : super(key: key);
 
   static final String modelName = "net.unraid.nas.webpage";
 
@@ -24,10 +25,10 @@ class UnraidLoginPage extends StatefulWidget {
   // final PortConfig? portConfig;
 
   @override
-  _UnraidLoginPageState createState() => _UnraidLoginPageState();
+  State<UnraidLoginPage> createState() => UnraidLoginPageState();
 }
 
-class _UnraidLoginPageState extends State<UnraidLoginPage> {
+class UnraidLoginPageState extends State<UnraidLoginPage> {
   OpenIoTHubLocalizations? localizations;
   List<Widget> _list = <Widget>[];
 
@@ -44,7 +45,7 @@ class _UnraidLoginPageState extends State<UnraidLoginPage> {
     _initList();
     return Scaffold(
         appBar: AppBar(
-          title: Text("UnRaid Login"),
+          title: Text(OpenIoTHubLocalizations.of(context).nas_login_unraid),
         ),
         body: Center(
           child: Container(
@@ -125,6 +126,7 @@ class _UnraidLoginPageState extends State<UnraidLoginPage> {
     try {
       final response = await dio.postUri(Uri.parse(reqUri),
           data: {'username': username, 'password': password});
+      if (!mounted) return;
       if (response.statusCode == 200 || response.statusCode == 302) {
         //  登录成功
         var setCookie = response.headers.map["Set-Cookie"].toString();
@@ -139,12 +141,18 @@ class _UnraidLoginPageState extends State<UnraidLoginPage> {
         return;
       } else {
         //  登录失败
-        showFailed("Login failed", context);
+        if (!mounted) return;
+        showFailed(
+            OpenIoTHubLocalizations.of(context).plugin_login_failed, context);
       }
     } catch (e) {
       //  登录失败
-      showFailed("Login failed:${e.toString()}", context);
-      print(e.toString());
+      if (!mounted) return;
+      showFailed(
+        '${OpenIoTHubLocalizations.of(context).plugin_login_failed} $e',
+        context,
+      );
+      debugPrint(e.toString());
       return;
     }
     // {

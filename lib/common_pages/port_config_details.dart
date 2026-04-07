@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:openiothub/core/constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 
 class PortConfigDetails extends StatefulWidget {
   final PortConfig portConfig;
-  const PortConfigDetails({required this.portConfig});
+  const PortConfigDetails({super.key, required this.portConfig});
 
   @override
   State<PortConfigDetails> createState() => _PortConfigDetailsState();

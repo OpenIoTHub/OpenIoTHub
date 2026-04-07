@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:openiothub/common_pages/openiothub_common_pages.dart';
 import 'package:openiothub/core/openiothub_constants.dart';
 import 'package:openiothub/router/app_routes.dart';
 import 'package:openiothub/router/app_navigator.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
-
-import '../../l10n/generated/openiothub_localizations.dart';
 
 class GuideWidget extends StatefulWidget {
   const GuideWidget({super.key, required this.activeIndex});
@@ -154,7 +153,7 @@ class _GuideWidgetState extends State<GuideWidget> {
               shape: WidgetStateProperty.all(const StadiumBorder()),
             ),
             onPressed: () {
-              Navigator.of(context).pushNamed(AppRoutes.login);
+              context.push(AppRoutes.login);
             },
             child: Text(OpenIoTHubLocalizations.of(context).register_login)),
       ),
@@ -203,7 +202,7 @@ class _GuideWidgetState extends State<GuideWidget> {
                     shape: WidgetStateProperty.all(const StadiumBorder()),
                   ),
                   onPressed: () {
-                    Navigator.of(context).pushNamed(AppRoutes.scanQr);
+                    context.push(AppRoutes.scanQr);
                   },
                   child: Text(OpenIoTHubLocalizations.of(context).scan_QR)),
               TextButton(
@@ -213,7 +212,7 @@ class _GuideWidgetState extends State<GuideWidget> {
                     shape: WidgetStateProperty.all(const StadiumBorder()),
                   ),
                   onPressed: () {
-                    Navigator.of(context).pushNamed(AppRoutes.findGateway);
+                    context.push(AppRoutes.findGateway);
                   },
                   child: Text(
                       OpenIoTHubLocalizations.of(context).find_local_gateway))

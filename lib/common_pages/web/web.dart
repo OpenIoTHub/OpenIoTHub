@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
@@ -6,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:openiothub/ads/openiothub_ads.dart';
-import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -45,12 +43,6 @@ class WebScreenState extends State<WebScreen> {
   );
 
   double _progress = 0;
-  String? _url;
-  String? _currentUrl;
-
-  // String _url = "http://localhost:8889";
-  // String _url = "http://localhost:15244";
-  // String _url = "https://baidu.com";
   bool _canGoBack = false;
 
   bool favorite = false;
@@ -72,6 +64,7 @@ class WebScreenState extends State<WebScreen> {
 
   @override
   void dispose() {
+    _bannerAd?.dispose();
     _webViewController?.dispose();
     super.dispose();
   }
@@ -80,8 +73,8 @@ class WebScreenState extends State<WebScreen> {
   Widget build(BuildContext context) {
     return PopScope(
         canPop: !_canGoBack,
-        onPopInvoked: (didPop) async {
-          log("onPopInvoked $didPop");
+        onPopInvokedWithResult: (bool didPop, Object? result) async {
+          log("onPopInvokedWithResult $didPop");
           if (didPop) return;
           _webViewController?.goBack();
         },
@@ -166,7 +159,7 @@ class WebScreenState extends State<WebScreen> {
                 onDownloadStartRequest: (controller, url) async {
                   // showInfo("onDownloadStartRequest:$url", context);
                   String urlStr = url.url.toString();
-                  ClipboardData data = new ClipboardData(text: urlStr);
+                  ClipboardData data = ClipboardData(text: urlStr);
                   Clipboard.setData(data);
                   showInfo("Url copied to clipboard", context);
                   launchUrlString(urlStr);
@@ -176,9 +169,6 @@ class WebScreenState extends State<WebScreen> {
                     (InAppWebViewController controller, Uri? url) async {
                   setState(() {
                     _progress = 0;
-                  });
-                  _currentUrl = url.toString();
-                  setState(() {
                     _urlInput.text = url.toString();
                   });
                 },
@@ -192,10 +182,6 @@ class WebScreenState extends State<WebScreen> {
                         _canGoBack = value;
                       }));
                 },
-                onUpdateVisitedHistory: (InAppWebViewController controller,
-                    WebUri? url, bool? isReload) {
-                  _url = url.toString();
-                },
               ),
             ),
             _buildBanner(),
@@ -205,6 +191,7 @@ class WebScreenState extends State<WebScreen> {
 
   _goToFullScreen() async {
     var url = await _webViewController?.getUrl();
+    if (!mounted) return;
     Navigator.push(context, MaterialPageRoute(builder: (ctx) {
       return FullScreenWeb(
         key: UniqueKey(),
@@ -215,6 +202,7 @@ class WebScreenState extends State<WebScreen> {
 
   _openInBrowser() async {
     var url = await _webViewController?.getUrl();
+    if (!mounted) return;
     launchUrlString(url!.toString());
   }
 
@@ -256,7 +244,7 @@ class WebScreenState extends State<WebScreen> {
     if (!Platform.isAndroid && !Platform.isIOS){
       return Container();
     }
-    return isCnMainland(OpenIoTHubLocalizations.of(context).localeName)
+    return context.isCnMainlandLocale
         ? buildYLHBanner(context)
         : _bannerAd == null
             ? Container()
@@ -273,7 +261,7 @@ class WebScreenState extends State<WebScreen> {
     // https://github.com/pichillilorenzo/flutter_inappwebview/issues/1761
     var proxyAvailable =
         await WebViewFeature.isFeatureSupported(WebViewFeature.PROXY_OVERRIDE);
-    print("proxyAvailable $proxyAvailable, widget.httpProxyPort:${widget.httpProxyPort}");
+    debugPrint("proxyAvailable $proxyAvailable, widget.httpProxyPort:${widget.httpProxyPort}");
     if (proxyAvailable && widget.httpProxyPort != null) {
       ProxyController proxyController = ProxyController.instance();
       await proxyController.clearProxyOverride();
@@ -283,7 +271,7 @@ class WebScreenState extends State<WebScreen> {
               proxyRules: [ProxyRule(url: urlProxy)],
               bypassRules: [])); // ProxySettings
     }else{
-      print("proxyAvailable $proxyAvailable, widget.httpProxyPort:${widget.httpProxyPort}");
+      debugPrint("proxyAvailable $proxyAvailable, widget.httpProxyPort:${widget.httpProxyPort}");
     }
   }
 
@@ -312,9 +300,11 @@ class WebScreenState extends State<WebScreen> {
     );
     // [END get_ad_size]
 
+    if (!mounted) return;
+
     if (size == null) {
       // Unable to get width of anchored banner.
-      print("size == null");
+      debugPrint("WebScreen banner: size == null");
       return;
     }
 
@@ -326,6 +316,7 @@ class WebScreenState extends State<WebScreen> {
         onAdLoaded: (ad) {
           // Called when an ad is successfully received.
           debugPrint("Ad was loaded.");
+          if (!mounted) return;
           setState(() {
             _bannerAd = ad as BannerAd;
           });

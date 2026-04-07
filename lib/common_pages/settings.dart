@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:openiothub/core/openiothub_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
-import 'package:provider/provider.dart';
 
 import 'package:openiothub/common_pages/openiothub_common_pages.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
@@ -12,21 +11,20 @@ import 'package:openiothub/service/internal_plugin_service.dart';
 import 'package:openiothub/widgets/theme_color_picker.dart';
 import 'package:openiothub/widgets/theme_mode_picker.dart';
 import 'package:openiothub/widgets/language_picker.dart';
-import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 class SettingsPage extends StatefulWidget {
-  SettingsPage({
+  const SettingsPage({
     required Key key,
     required this.title,
   }) : super(key: key);
   final String title;
 
   @override
-  _SettingsPageState createState() => _SettingsPageState();
+  State<SettingsPage> createState() => SettingsPageState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class SettingsPageState extends State<SettingsPage> {
   bool foreground = false;
   bool autoStartGateway = false;
   bool wakeLock = false;
@@ -42,7 +40,6 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = OpenIoTHubLocalizations.of(context);
     List<Widget> listView = <Widget>[
       languageSettingTile(context),
       themeModeSettingTile(context),
@@ -91,18 +88,17 @@ class _SettingsPageState extends State<SettingsPage> {
               foreground = newValue;
             });
             if (newValue) {
-              // _requestPlatformPermissions();
               try{
                 InternalPluginService.instance.init();
                 InternalPluginService.instance.start();
               } catch (e) {
-                print(e);
+                debugPrint('$e');
               }
             }else{
               try{
                 InternalPluginService.instance.stop();
               } catch (e) {
-                print(e);
+                debugPrint('$e');
               }
             }
           },
@@ -177,7 +173,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Future _getForgeServiceStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool? forgeRound = await prefs.getBool(SharedPreferencesKey.forgeRoundTaskEnable);
+    bool? forgeRound = prefs.getBool(SharedPreferencesKey.forgeRoundTaskEnable);
     if (forgeRound != null && forgeRound) {
       setState(() {
         foreground = true;
@@ -197,43 +193,11 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Future _getWakeLockStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool? wakeLockEnabled = await prefs.getBool(SharedPreferencesKey.wakeLockEnabled);
+    bool? wakeLockEnabled = prefs.getBool(SharedPreferencesKey.wakeLockEnabled);
     if (wakeLockEnabled != null && wakeLockEnabled) {
       setState(() {
         wakeLock = true;
       });
-    }
-  }
-
-  Future<void> _requestPlatformPermissions() async {
-    // Android 13+, you need to allow notification permission to display foreground service notification.
-    //
-    // iOS: If you need notification, ask for permission.
-    final NotificationPermission notificationPermission =
-    await FlutterForegroundTask.checkNotificationPermission();
-    if (notificationPermission != NotificationPermission.granted) {
-      await FlutterForegroundTask.requestNotificationPermission();
-    }
-
-    if (Platform.isAndroid) {
-      // Android 12+, there are restrictions on starting a foreground service.
-      //
-      // To restart the service on device reboot or unexpected problem, you need to allow below permission.
-      if (!await FlutterForegroundTask.isIgnoringBatteryOptimizations) {
-        // This function requires `android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS` permission.
-        await FlutterForegroundTask.requestIgnoreBatteryOptimization();
-      }
-
-      // Use this utility only if you provide services that require long-term survival,
-      // such as exact alarm service, healthcare service, or Bluetooth communication.
-      //
-      // This utility requires the "android.permission.SCHEDULE_EXACT_ALARM" permission.
-      // Using this permission may make app distribution difficult due to Google policy.
-      if (!await FlutterForegroundTask.canScheduleExactAlarms) {
-        // When you call this function, will be gone to the settings page.
-        // So you need to explain to the user why set it.
-        await FlutterForegroundTask.openAlarmsAndRemindersSettings();
-      }
     }
   }
 }

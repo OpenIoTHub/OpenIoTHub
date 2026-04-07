@@ -3,25 +3,23 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:openiothub/plugin/openiothub_plugin.dart';
 import 'package:openiothub/plugin/utils/ip.dart';
 
 import 'package:openiothub/plugin/models/port_service_info.dart';
 
 class PhicommDC1PluginPage extends StatefulWidget {
-  PhicommDC1PluginPage({required Key key, required this.device})
+  const PhicommDC1PluginPage({required Key key, required this.device})
       : super(key: key);
 
   static final String modelName = "com.iotserv.devices.phicomm_dc1";
   final PortServiceInfo device;
 
   @override
-  _PhicommDC1PluginPageState createState() => _PhicommDC1PluginPageState();
+  State<PhicommDC1PluginPage> createState() => PhicommDC1PluginPageState();
 }
 
-class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
+class PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
   static const String logLed = "logLed";
   static const String wifiLed = "wifiLed";
 
@@ -40,7 +38,7 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
   static const String powerFactor = "PowerFactor";
   static const String energy = "Energy";
 
-  List<String> _switchKeyList = [
+  final List<String> _switchKeyList = [
     logLed,
     wifiLed,
     plugin7,
@@ -48,7 +46,7 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
     plugin5,
     plugin4
   ];
-  List<String> _valueKeyList = [
+  final List<String> _valueKeyList = [
     voltage,
     current,
     activePower,
@@ -61,7 +59,7 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
 //  bool _logLedStatus = true;
 //  bool _wifiLedStatus = true;
 //  bool _primarySwitchStatus = true;
-  Map<String, dynamic> _status = Map.from({
+  final Map<String, dynamic> _status = Map.from({
     logLed: true,
     wifiLed: true,
     plugin4: true,
@@ -77,7 +75,7 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
     energy: 0.0,
   });
 
-  Map<String, String> _realName = Map.from({
+  final Map<String, String> _realName = Map.from({
     logLed: "Logo灯",
     wifiLed: "WIFI灯",
     plugin7: "总开关",
@@ -97,15 +95,15 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
   void initState() {
     super.initState();
     _getCurrentStatus();
-    print("init iot devie List");
+    debugPrint("init iot device list");
   }
 
   @override
   Widget build(BuildContext context) {
-    final List _result = [];
-    _result.addAll(_switchKeyList);
-    _result.addAll(_valueKeyList);
-    final tiles = _result.map(
+    final List result = [];
+    result.addAll(_switchKeyList);
+    result.addAll(_valueKeyList);
+    final tiles = result.map(
       (pair) {
         switch (pair) {
           case logLed:
@@ -130,7 +128,6 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
                 ],
               ),
             );
-            break;
           default:
             return ListTile(
               title: Row(
@@ -142,7 +139,6 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
                 ],
               ),
             );
-            break;
         }
       },
     );
@@ -193,7 +189,6 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
   }
 
   _getCurrentStatus() async {
-    String url = "http://${widget.device.addr}:${widget.device.port}/status";
     http.Response response;
     try {
       response = await http
@@ -206,32 +201,32 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
             path: '/status',
           ))
           .timeout(const Duration(seconds: 2));
-      print(response.body);
+      debugPrint(response.body);
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
       return;
     }
 //    同步状态到界面
     if (response.statusCode == 200) {
-      _switchKeyList.forEach((switchValue) {
+      for (var switchValue in _switchKeyList) {
         setState(() {
           _status[switchValue] =
               jsonDecode(response.body)[switchValue] == 1 ? true : false;
         });
-      });
-      _valueKeyList.forEach((value) {
+      }
+      for (var value in _valueKeyList) {
         setState(() {
           _status[value] = jsonDecode(response.body)[value];
         });
-      });
+      }
     } else {
-      print("获取状态失败！");
+      debugPrint("获取状态失败！");
     }
   }
 
   _setting() async {
     // TODO 设备设置
-    TextEditingController _nameController = TextEditingController.fromValue(
+    TextEditingController nameController = TextEditingController.fromValue(
         TextEditingValue(text: widget.device.info!["name"]!));
     return showDialog(
         context: context,
@@ -242,7 +237,7 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
                     child: ListView(
                   children: <Widget>[
                     TextFormField(
-                      controller: _nameController,
+                      controller: nameController,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText:
@@ -265,17 +260,17 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
                     onPressed: () async {
                       try {
                         String url =
-                            "http://${widget.device.addr}:${widget.device.port}/rename?name=${_nameController.text}";
+                            "http://${widget.device.addr}:${widget.device.port}/rename?name=${nameController.text}";
                         http
                             .get(Uri.parse(url))
                             .timeout(const Duration(seconds: 2))
                             .then((_) {
                           setState(() {
-                            widget.device.info!["name"] = _nameController.text;
+                            widget.device.info!["name"] = nameController.text;
                           });
                         });
                       } catch (e) {
-                        print(e.toString());
+                        debugPrint(e.toString());
                         return;
                       }
                       Navigator.of(context).pop();
@@ -322,12 +317,6 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
   }
 
   _changeSwitchStatus(String name) async {
-    String url;
-    if (_status[name]) {
-      url = "http://${widget.device.addr}:${widget.device.port}/switch?off=$name";
-    } else {
-      url = "http://${widget.device.addr}:${widget.device.port}/switch?on=$name";
-    }
     http.Response response;
     try {
       response = await http
@@ -340,9 +329,9 @@ class _PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
               path: '/switch',
               queryParameters: _status[name] ? {"off": name} : {"on": name}))
           .timeout(const Duration(seconds: 2));
-      print(response.body);
+      debugPrint(response.body);
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
       return;
     }
     _getCurrentStatus();

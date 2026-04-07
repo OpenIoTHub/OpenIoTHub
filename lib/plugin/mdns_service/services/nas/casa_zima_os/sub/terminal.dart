@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 
 class TerminalPage extends StatefulWidget {
   const TerminalPage({super.key});
@@ -12,7 +13,7 @@ class _TerminalPageState extends State<TerminalPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Terminal"),
+          title: Text(OpenIoTHubLocalizations.of(context).nas_terminal),
         ),
         body: Center(
           child: Container(

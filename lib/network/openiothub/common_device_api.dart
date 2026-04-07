@@ -1,5 +1,3 @@
-import 'dart:developer' as developer;
-
 import 'package:openiothub/network/openiothub/openiothub_channel.dart';
 import 'package:openiothub/network/openiothub_api.dart';
 import 'package:openiothub_grpc_api/google/protobuf/empty.pb.dart';
@@ -68,7 +66,7 @@ class CommonDeviceApi {
     final channel = await Channel.getOpenIoTHubChannel();
     final stub = CommonDeviceManagerClient(channel);
     final response = await stub.setDeviceMac(device);
-    print('Greeter client received: ${response}');
+    netLog('CommonDeviceApi', '$response');
     channel.shutdown();
     //服务器同步
     HostInfo hostInfo = HostInfo();
@@ -82,7 +80,7 @@ class CommonDeviceApi {
     final channel = await Channel.getOpenIoTHubChannel();
     final stub = CommonDeviceManagerClient(channel);
     final response = await stub.wakeOnLAN(device);
-    print('Greeter client received: ${response}');
+    netLog('CommonDeviceApi', '$response');
     channel.shutdown();
   }
 
@@ -92,7 +90,7 @@ class CommonDeviceApi {
     final channel = await Channel.getOpenIoTHubChannel();
     final stub = CommonDeviceManagerClient(channel);
     final response = await stub.addDevice(device);
-    print('Greeter client received: ${response}');
+    netLog('CommonDeviceApi', '$response');
     channel.shutdown();
     //服务器同步
     HostInfo hostInfo = HostInfo();
@@ -110,7 +108,7 @@ class CommonDeviceApi {
     final channel = await Channel.getOpenIoTHubChannel();
     final stub = CommonDeviceManagerClient(channel);
     final response = await stub.delDevice(device);
-    print('Greeter client received: ${response}');
+    netLog('CommonDeviceApi', '$response');
     channel.shutdown();
     //服务器同步
     HostInfo hostInfo = HostInfo();
@@ -123,7 +121,7 @@ class CommonDeviceApi {
     final channel = await Channel.getOpenIoTHubChannel();
     final stub = CommonDeviceManagerClient(channel);
     final response = await stub.getAllDevice(Empty());
-    print('Greeter client received: ${response}');
+    netLog('CommonDeviceApi', '$response');
     channel.shutdown();
     return response;
   }
@@ -142,7 +140,7 @@ class CommonDeviceApi {
     final channel = await Channel.getOpenIoTHubChannel();
     final stub = CommonDeviceManagerClient(channel);
     final response = await stub.createOneTCP(config);
-    print('Greeter client received: ${response}');
+    netLog('CommonDeviceApi', '$response');
     channel.shutdown();
     //服务器同步
     PortInfo portInfo = PortInfo();
@@ -165,14 +163,14 @@ class CommonDeviceApi {
     try {
       final stub = CommonDeviceManagerClient(channel);
       final response = await stub.deleteOneTCP(config);
-      print('Greeter client received: ${response}');
+      netLog('CommonDeviceApi', '$response');
       PortInfo portInfo = PortInfo();
       portInfo.uUID = config.uuid;
       await PortManager.delPort(portInfo);
     } catch (e, st) {
-      developer.log(
+      netLog(
+        'CommonDeviceApi',
         'deleteOneTCP failed uuid=${config.uuid}',
-        name: 'CommonDeviceApi',
         error: e,
         stackTrace: st,
       );
@@ -200,7 +198,7 @@ class CommonDeviceApi {
     final channel = await Channel.getOpenIoTHubChannel();
     final stub = CommonDeviceManagerClient(channel);
     final response = await stub.getOneTCP(config);
-    print('Greeter client received: ${response}');
+    netLog('CommonDeviceApi', '$response');
     channel.shutdown();
     return response;
   }
@@ -210,7 +208,7 @@ class CommonDeviceApi {
     final channel = await Channel.getOpenIoTHubChannel();
     final stub = CommonDeviceManagerClient(channel);
     final response = await stub.getAllTCP(device);
-    print('Greeter client received: ${response}');
+    netLog('CommonDeviceApi', '$response');
     channel.shutdown();
     return response;
   }
@@ -229,7 +227,7 @@ class CommonDeviceApi {
     final channel = await Channel.getOpenIoTHubChannel();
     final stub = CommonDeviceManagerClient(channel);
     final response = await stub.createOneUDP(config);
-    print('Greeter client received: ${response}');
+    netLog('CommonDeviceApi', '$response');
     channel.shutdown();
     //服务器同步
     PortInfo portInfo = PortInfo();
@@ -252,14 +250,14 @@ class CommonDeviceApi {
     try {
       final stub = CommonDeviceManagerClient(channel);
       final response = await stub.deleteOneUDP(config);
-      print('Greeter client received: ${response}');
+      netLog('CommonDeviceApi', '$response');
       PortInfo portInfo = PortInfo();
       portInfo.uUID = config.uuid;
       await PortManager.delPort(portInfo);
     } catch (e, st) {
-      developer.log(
+      netLog(
+        'CommonDeviceApi',
         'deleteOneUDP failed uuid=${config.uuid}',
-        name: 'CommonDeviceApi',
         error: e,
         stackTrace: st,
       );
@@ -274,7 +272,7 @@ class CommonDeviceApi {
     final channel = await Channel.getOpenIoTHubChannel();
     final stub = CommonDeviceManagerClient(channel);
     final response = await stub.getOneUDP(config);
-    print('Greeter client received: ${response}');
+    netLog('CommonDeviceApi', '$response');
     channel.shutdown();
     return response;
   }
@@ -284,7 +282,7 @@ class CommonDeviceApi {
     final channel = await Channel.getOpenIoTHubChannel();
     final stub = CommonDeviceManagerClient(channel);
     final response = await stub.getAllUDP(device);
-    print('Greeter client received: ${response}');
+    netLog('CommonDeviceApi', '$response');
     channel.shutdown();
     return response;
   }
@@ -303,7 +301,7 @@ class CommonDeviceApi {
     final channel = await Channel.getOpenIoTHubChannel();
     final stub = CommonDeviceManagerClient(channel);
     final response = await stub.createOneFTP(config);
-    print('Greeter client received: ${response}');
+    netLog('CommonDeviceApi', '$response');
     channel.shutdown();
     //服务器同步
     PortInfo portInfo = PortInfo();
@@ -326,14 +324,14 @@ class CommonDeviceApi {
     try {
       final stub = CommonDeviceManagerClient(channel);
       final response = await stub.deleteOneFTP(config);
-      print('Greeter client received: ${response}');
+      netLog('CommonDeviceApi', '$response');
       PortInfo portInfo = PortInfo();
       portInfo.uUID = config.uuid;
       await PortManager.delPort(portInfo);
     } catch (e, st) {
-      developer.log(
+      netLog(
+        'CommonDeviceApi',
         'deleteOneFTP failed uuid=${config.uuid}',
-        name: 'CommonDeviceApi',
         error: e,
         stackTrace: st,
       );
@@ -348,7 +346,7 @@ class CommonDeviceApi {
     final channel = await Channel.getOpenIoTHubChannel();
     final stub = CommonDeviceManagerClient(channel);
     final response = await stub.getOneFTP(config);
-    print('Greeter client received: ${response}');
+    netLog('CommonDeviceApi', '$response');
     channel.shutdown();
     return response;
   }
@@ -358,7 +356,7 @@ class CommonDeviceApi {
     final channel = await Channel.getOpenIoTHubChannel();
     final stub = CommonDeviceManagerClient(channel);
     final response = await stub.getAllFTP(device);
-    print('Greeter client received: ${response}');
+    netLog('CommonDeviceApi', '$response');
     channel.shutdown();
     return response;
   }

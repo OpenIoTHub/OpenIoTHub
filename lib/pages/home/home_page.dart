@@ -8,8 +8,6 @@ import 'package:openiothub/pages/service/mdns_service_list_page.dart';
 import 'package:openiothub/pages/profile/profile_page.dart';
 import 'package:openiothub/network/openiothub/utils.dart';
 import 'package:openiothub/network/utils/check.dart';
-import 'package:openiothub/common_pages/feedback.dart';
-import 'package:openiothub/common_pages/gateway/gateway_qr_page.dart';
 import 'package:openiothub/common_pages/utils/go_to_url.dart';
 import 'package:openiothub/core/shared_preferences_keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,6 +15,7 @@ import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import 'package:openiothub/core/globals.dart';
 import 'package:openiothub/init.dart';
+import 'package:go_router/go_router.dart';
 import 'package:openiothub/router/app_routes.dart';
 import 'package:openiothub/ads/openiothub_ads.dart';
 import 'package:openiothub/pages/host/common_device_list_page.dart';
@@ -27,10 +26,10 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
+class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   int _currentIndex = 0;
   SharedPreferences? prefs;
 
@@ -79,12 +78,12 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     Timer.periodic(const Duration(milliseconds: 300), (timer) {
       timer.cancel();
       // 防止跟上面的调用冲突
-      if (isCnMainland(OpenIoTHubLocalizations.of(context).localeName)) {
+      if (context.isCnMainlandLocale) {
         _showSplashAd();
       } else {
-        final _appOpenAdManager = AppOpenAdManager();
-        _appOpenAdManager.loadAd();
-        _appOpenAdManager.showAdIfAvailable();
+        final appOpenAdManager = AppOpenAdManager();
+        appOpenAdManager.loadAd();
+        appOpenAdManager.showAdIfAvailable();
       }
     });
     // _showUserLoginStatus();
@@ -189,7 +188,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         (Platform.isWindows || Platform.isMacOS || Platform.isLinux)) {
       Timer.periodic(const Duration(seconds: 1), (timer) {
         timer.cancel();
-        Navigator.of(context).pushNamed(AppRoutes.gatewayQr);
+        context.push(AppRoutes.gatewayQr);
       });
     }
   }
@@ -240,7 +239,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                             style: TextStyle(color: Colors.green),
                           ),
                           onPressed: () async {
-                            Navigator.of(context).pushNamed(AppRoutes.feedback);
+                            context.push(AppRoutes.feedback);
                           },
                         ),
                       ],
@@ -285,6 +284,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                           initWechat();
                           initQQ();
                         });
+                    if (!mounted) return;
                     Navigator.of(context).pop();
                   },
                 ),
@@ -311,7 +311,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
       lastDateTime = DateTime.now();
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => SplashPage(),
+          builder: (context) => const SplashPage(),
         ),
       );
     }

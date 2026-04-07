@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:openiothub/router/app_routes.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 
@@ -6,10 +7,10 @@ class AddMqttDevicesPage extends StatefulWidget {
   const AddMqttDevicesPage({super.key});
 
   @override
-  _AddMqttDevicesPageState createState() => _AddMqttDevicesPageState();
+  State<AddMqttDevicesPage> createState() => AddMqttDevicesPageState();
 }
 
-class _AddMqttDevicesPageState extends State<AddMqttDevicesPage> {
+class AddMqttDevicesPageState extends State<AddMqttDevicesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +23,7 @@ class _AddMqttDevicesPageState extends State<AddMqttDevicesPage> {
               title: Text(OpenIoTHubLocalizations.of(context).add_zip_devices),
               trailing: const Icon(Icons.arrow_right),
               onTap: () async {
-                Navigator.of(context).pushNamed(AppRoutes.zipDevices);
+                context.push(AppRoutes.zipDevices);
               }),
         ]));
   }

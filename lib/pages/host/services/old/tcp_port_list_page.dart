@@ -18,10 +18,10 @@ class TcpPortListPage extends StatefulWidget {
   final Device device;
 
   @override
-  _TcpPortListPageState createState() => _TcpPortListPageState();
+  State<TcpPortListPage> createState() => TcpPortListPageState();
 }
 
-class _TcpPortListPageState extends State<TcpPortListPage> {
+class TcpPortListPageState extends State<TcpPortListPage> {
   List<PortConfig> _serviceList = [];
 
   @override
@@ -147,32 +147,11 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                       onPressed: () {
                         //                TODO 使用某种方式打开此端口，检查这个软件是否已经安装
 //                    _launchUrl("http://127.0.0.1:${config.localProt}");
-                        showDialog(
-                            context: context,
-                            builder: (_) => AlertDialog(
-                                    title: Text(
-                                        OpenIoTHubLocalizations.of(context)
-                                            .opening_method),
-                                    content: SizedBox.expand(
-                                        child: OpenWithChoice(config)),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        child: Text(
-                                            OpenIoTHubLocalizations.of(context)
-                                                .cancel),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                      TextButton(
-                                        child: Text(
-                                            OpenIoTHubLocalizations.of(context)
-                                                .add),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      )
-                                    ]));
+                        showOpenWithChoiceDialog(
+                          context,
+                          portConfig: config,
+                          onDialogClosed: refreshmTcpList,
+                        );
                       }),
                 ]),
             body: ListView(children: divided),
@@ -182,16 +161,16 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
     );
   }
 
-  Future refreshmTcpList() async {
+  Future<void> refreshmTcpList() async {
     try {
-      CommonDeviceApi.getAllTCP(widget.device).then((v) {
-        setState(() {
-          _serviceList = v.portConfigs;
-        });
+      final v = await CommonDeviceApi.getAllTCP(widget.device);
+      if (!mounted) return;
+      setState(() {
+        _serviceList = v.portConfigs;
       });
     } catch (e) {
       if (kDebugMode) {
-        print('Caught error: $e');
+        debugPrint('Caught error: $e');
       }
     }
   }
@@ -326,13 +305,16 @@ class _TcpPortListPageState extends State<TcpPortListPage> {
                     child: Text(OpenIoTHubLocalizations.of(context).delete),
                     onPressed: () {
                       CommonDeviceApi.deleteOneTCP(config).then((result) {
+                        if (!mounted) return;
                         Navigator.of(context).pop();
                       });
                     },
                   )
                 ])).then((v) {
+      if (!mounted) return;
       Navigator.of(context).pop();
     }).then((v) {
+      if (!mounted) return;
       refreshmTcpList();
     });
   }

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:openiothub/router/app_routes.dart';
 
-/// 统一导航入口：所有页面跳转通过此类或 [AppRoutes] + Navigator.pushNamed，避免各处手写 MaterialPageRoute。
-/// 带参数的页面使用 [pushNamed] 时，参数 key 与本类及 [AppRoutes.onGenerateRoute] 保持一致。
+/// 统一导航入口：通过 [GoRouter.push] 打开应用内命名路径，参数放在 [extra]（与 [go_app_router] 中解析一致）。
 ///
 /// ## 新增带参数页面时
-/// 1. 在 [AppRoutes] 中增加路由常量，并在 onGenerateRoute 中解析 arguments。
+/// 1. 在 [AppRoutes] 中增加路由常量，并在 `createOpenIoTHubRouter`（`go_app_router.dart`）中注册 [GoRoute]。
 /// 2. 在本类中增加静态常量 argXxx（若需新参数 key），再增加 `static Future<T?> pushXxx<T>(BuildContext context, ...)`，
-///    arguments 使用 arg*，与 onGenerateRoute 中读取的 key 一致。
-/// 3. 业务处调用 AppNavigator.pushXxx(context, ...)，不要直接 pushNamed + Map。
+///    `extra` 使用 Map + arg*，与路由 builder 中读取的 key 一致。
+/// 3. 业务处调用 [AppNavigator.pushXxx]，不要直接手写路径与参数。
 class AppNavigator {
   AppNavigator._();
 
@@ -30,121 +30,121 @@ class AppNavigator {
   static const argServerInfo = 'serverInfo';
 
   static Future<T?> pushWeb<T>(BuildContext context, String url, {String? title}) {
-    return Navigator.of(context).pushNamed<T>(
+    return GoRouter.of(context).push<T>(
       AppRoutes.web,
-      arguments: {argUrl: url, if (title != null) argTitle: title},
+      extra: {argUrl: url, if (title != null) argTitle: title},
     );
   }
 
   static Future<T?> pushFullscreenWeb<T>(BuildContext context, String url) {
-    return Navigator.of(context).pushNamed<T>(
+    return GoRouter.of(context).push<T>(
       AppRoutes.fullscreenWeb,
-      arguments: {argUrl: url},
+      extra: {argUrl: url},
     );
   }
 
   static Future<T?> pushSettings<T>(BuildContext context, {String title = '设置'}) {
-    return Navigator.of(context).pushNamed<T>(
+    return GoRouter.of(context).push<T>(
       AppRoutes.settings,
-      arguments: {argTitle: title},
+      extra: {argTitle: title},
     );
   }
 
   static Future<T?> pushGuide<T>(BuildContext context, {int activeIndex = 0}) {
-    return Navigator.of(context).pushNamed<T>(
+    return GoRouter.of(context).push<T>(
       AppRoutes.guide,
-      arguments: {argActiveIndex: activeIndex},
+      extra: {argActiveIndex: activeIndex},
     );
   }
 
   static Future<T?> pushServers<T>(BuildContext context, {String title = '服务器'}) {
-    return Navigator.of(context).pushNamed<T>(
+    return GoRouter.of(context).push<T>(
       AppRoutes.servers,
-      arguments: {argTitle: title},
+      extra: {argTitle: title},
     );
   }
 
   static Future<T?> pushAirkiss<T>(BuildContext context, {String title = 'WiFi配置'}) {
-    return Navigator.of(context).pushNamed<T>(
+    return GoRouter.of(context).push<T>(
       AppRoutes.airkiss,
-      arguments: {argTitle: title},
+      extra: {argTitle: title},
     );
   }
 
   static Future<T?> pushMdnsServiceList<T>(BuildContext context, {String title = 'mDNS服务'}) {
-    return Navigator.of(context).pushNamed<T>(
+    return GoRouter.of(context).push<T>(
       AppRoutes.mdnsServiceList,
-      arguments: {argTitle: title},
+      extra: {argTitle: title},
     );
   }
 
   static Future<T?> pushCommonDeviceList<T>(BuildContext context, {String title = '设备列表'}) {
-    return Navigator.of(context).pushNamed<T>(
+    return GoRouter.of(context).push<T>(
       AppRoutes.commonDeviceList,
-      arguments: {argTitle: title},
+      extra: {argTitle: title},
     );
   }
 
   static Future<T?> pushServicesList<T>(BuildContext context, dynamic device) {
-    return Navigator.of(context).pushNamed<T>(
+    return GoRouter.of(context).push<T>(
       AppRoutes.servicesList,
-      arguments: {argDevice: device},
+      extra: {argDevice: device},
     );
   }
 
   static Future<T?> pushGatewayMdnsServiceList<T>(BuildContext context, dynamic sessionConfig) {
-    return Navigator.of(context).pushNamed<T>(
+    return GoRouter.of(context).push<T>(
       AppRoutes.gatewayMdnsServiceList,
-      arguments: {argSessionConfig: sessionConfig},
+      extra: {argSessionConfig: sessionConfig},
     );
   }
 
   static Future<T?> pushInfo<T>(BuildContext context, dynamic portService) {
-    return Navigator.of(context).pushNamed<T>(
+    return GoRouter.of(context).push<T>(
       AppRoutes.info,
-      arguments: {argPortService: portService},
+      extra: {argPortService: portService},
     );
   }
 
   static Future<T?> pushMdnsInfo<T>(BuildContext context, dynamic portConfig) {
-    return Navigator.of(context).pushNamed<T>(
+    return GoRouter.of(context).push<T>(
       AppRoutes.mdnsInfo,
-      arguments: {argPortConfig: portConfig},
+      extra: {argPortConfig: portConfig},
     );
   }
 
   static Future<T?> pushTcpPortList<T>(BuildContext context, dynamic device) {
-    return Navigator.of(context).pushNamed<T>(
+    return GoRouter.of(context).push<T>(
       AppRoutes.tcpPortList,
-      arguments: {argDevice: device},
+      extra: {argDevice: device},
     );
   }
 
   static Future<T?> pushUdpPortList<T>(BuildContext context, dynamic device) {
-    return Navigator.of(context).pushNamed<T>(
+    return GoRouter.of(context).push<T>(
       AppRoutes.udpPortList,
-      arguments: {argDevice: device},
+      extra: {argDevice: device},
     );
   }
 
   static Future<T?> pushFtpPortList<T>(BuildContext context, dynamic device) {
-    return Navigator.of(context).pushNamed<T>(
+    return GoRouter.of(context).push<T>(
       AppRoutes.ftpPortList,
-      arguments: {argDevice: device},
+      extra: {argDevice: device},
     );
   }
 
   static Future<T?> pushHttpPortList<T>(BuildContext context, dynamic device) {
-    return Navigator.of(context).pushNamed<T>(
+    return GoRouter.of(context).push<T>(
       AppRoutes.httpPortList,
-      arguments: {argDevice: device},
+      extra: {argDevice: device},
     );
   }
 
   static Future<T?> pushServerInfo<T>(BuildContext context, dynamic serverInfo) {
-    return Navigator.of(context).pushNamed<T>(
+    return GoRouter.of(context).push<T>(
       AppRoutes.serverInfo,
-      arguments: {argServerInfo: serverInfo},
+      extra: {argServerInfo: serverInfo},
     );
   }
 }

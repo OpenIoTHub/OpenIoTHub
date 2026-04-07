@@ -27,8 +27,7 @@ class InstalledAppsPage extends StatefulWidget {
 }
 
 class _InstalledAppsPageState extends State<InstalledAppsPage> {
-  late List<ListTile> _listTiles = <ListTile>[];
-  late List<ListTile> _versionListTiles = <ListTile>[];
+  late final List<ListTile> _listTiles = <ListTile>[];
   String? currentVersion;
   bool? needUpdate;
   String? changeLog;
@@ -58,7 +57,7 @@ class _InstalledAppsPageState extends State<InstalledAppsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Apps"),
+          title: Text(OpenIoTHubLocalizations.of(context).nas_apps),
           actions: <Widget>[],
         ),
         body: RefreshIndicator(
@@ -94,7 +93,7 @@ class _InstalledAppsPageState extends State<InstalledAppsPage> {
     Match? match = regExp.firstMatch(response.data);
     if (match != null) {
       csrfToken = match.group(1)!; // group(1) 是捕获组的内容
-      // print(csrfToken); // 输出: E5FDD8E7277F5CC6
+      // debugPrint(csrfToken); // 输出: E5FDD8E7277F5CC6
       // showSuccess("csrfToken:${csrfToken}", context);
     }
   }
@@ -113,12 +112,12 @@ class _InstalledAppsPageState extends State<InstalledAppsPage> {
     // TODO 使用远程网络ID和远程端口临时映射远程端口到本机
     PortList portList = PortList();
     // {"name":name,"id":id,"addr":addr,"port":port}
-    print(dockerContainerList.length);
-    dockerContainerList.forEach((appInfo) {
-      // print("remoteHost: ${widget.portConfig.device.addr},remotePort: ${appInfo["port"]}");
+    debugPrint('${dockerContainerList.length}');
+    for (var appInfo in dockerContainerList) {
+      // debugPrint("remoteHost: ${widget.portConfig.device.addr},remotePort: ${appInfo["port"]}");
       if (appInfo["port"] == 0) {
-        // print("appInfo[\"port\"].isEmpty");
-        return;
+        // debugPrint("appInfo[\"port\"].isEmpty");
+        continue;
       }
       var device = Device.create();
       device.runId = widget.portService.runId!;
@@ -134,27 +133,27 @@ class _InstalledAppsPageState extends State<InstalledAppsPage> {
         // mDNSInfo: PortService(),
       );
       portList.portConfigs.add(portConfig);
-    });
+    }
     // TODO 如果本身在局域网则不创建
     SessionApi.createTcpProxyList(portList);
     // TODO 获取当前服务映射到本机的端口号
     PortList portListRet = await SessionApi.getAllTCP(SessionConfig(
       runId: widget.portService.runId!,
     ));
-    dockerContainerList.forEach((appInfo) {
+    for (var appInfo in dockerContainerList) {
       int localPort = 0;
       int remotePort = 0;
       try {
         remotePort = appInfo["port"];
         // 从remotePort和runid获取映射之后的localPort
-        portListRet.portConfigs.forEach((portConfig) {
+        for (var portConfig in portListRet.portConfigs) {
           if (portConfig.remotePort == remotePort) {
             localPort = portConfig.localProt;
           }
-        });
+        }
       } catch (e) {
-        print("appInfo[\"port\"]:${appInfo["port"]}");
-        print(e);
+        debugPrint("appInfo[\"port\"]:${appInfo["port"]}");
+        debugPrint('$e');
       }
 
       setState(() {
@@ -258,22 +257,14 @@ class _InstalledAppsPageState extends State<InstalledAppsPage> {
           },
         ));
       });
-    });
-  }
-
-  Widget _sizedContainer(Widget child) {
-    return SizedBox(
-      width: 80,
-      height: 80,
-      child: Center(child: child),
-    );
+    }
   }
 
   _launchUrl(String url) async {
     if (await canLaunchUrlString(url)) {
       await launchUrlString(url);
     } else {
-      print('Could not launch $url');
+      debugPrint('Could not launch $url');
     }
   }
 
@@ -293,10 +284,17 @@ class _InstalledAppsPageState extends State<InstalledAppsPage> {
           "name": appName,
           "csrfToken": csrfToken
         }));
+    if (!mounted) return;
     if (response.statusCode == 200) {
-      showSuccess("Remove App Success", context);
+      showSuccess(
+        OpenIoTHubLocalizations.of(context).nas_app_remove_success,
+        context,
+      );
     } else {
-      showFailed("Remove App Failed", context);
+      showFailed(
+        OpenIoTHubLocalizations.of(context).nas_app_remove_failed,
+        context,
+      );
     }
     _initListTiles();
   }
@@ -316,10 +314,17 @@ class _InstalledAppsPageState extends State<InstalledAppsPage> {
           "container": containerId,
           "csrfToken": csrfToken
         }));
+    if (!mounted) return;
     if (response.statusCode == 200) {
-      showSuccess("Change App Status To ${status} Success", context);
+      showSuccess(
+        '${OpenIoTHubLocalizations.of(context).nas_app_change_status_success} ($status)',
+        context,
+      );
     } else {
-      showFailed("Change App Status To ${status} Failed", context);
+      showFailed(
+        '${OpenIoTHubLocalizations.of(context).nas_app_change_status_failed} ($status)',
+        context,
+      );
     }
     _initListTiles();
   }
@@ -398,7 +403,7 @@ class _InstalledAppsPageState extends State<InstalledAppsPage> {
         var addrPort = target.split(RegExp("/")).first;
         addr = addrPort.split(RegExp(":")).first;
         port = int.parse(addrPort.split(RegExp(":")).last);
-        print("addr port: ${addr}:${port}");
+        debugPrint("addr port: $addr:$port");
       }
       // started, stopped, paused
       var status = document.getElementsByClassName("state")[i].text;

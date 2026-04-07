@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 import '../web/web.dart';
 
@@ -12,7 +11,7 @@ launchUrl(String url) async {
     await launchUrlString(url);
   } else {
     if (kDebugMode) {
-      print('Could not launch $url');
+      debugPrint('Could not launch $url');
     }
   }
 }

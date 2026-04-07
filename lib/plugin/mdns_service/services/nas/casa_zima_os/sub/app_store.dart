@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 class AppStorePage extends StatefulWidget {
@@ -16,7 +16,7 @@ class AppStorePage extends StatefulWidget {
 }
 
 class _AppStorePageState extends State<AppStorePage> {
-  late List<ListTile> _listTiles = <ListTile>[];
+  late final List<ListTile> _listTiles = <ListTile>[];
 
   @override
   void initState() {
@@ -34,7 +34,7 @@ class _AppStorePageState extends State<AppStorePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("AppStore"),
+          title: Text(OpenIoTHubLocalizations.of(context).nas_app_store_title),
           // actions: <Widget>[
           // TODO 查看和添加源
           //   // 系统的各种状态
@@ -134,7 +134,7 @@ class _AppStorePageState extends State<AppStorePage> {
         });
       });
     }else if (list is List) {
-      list.forEach((appInfo) {
+      for (var appInfo in list) {
         // TODO 使用远程网络ID和远程端口临时映射远程端口到本机
         // TODO 获取当前服务映射到本机的端口号
         var appName = appInfo["main"];
@@ -181,12 +181,13 @@ class _AppStorePageState extends State<AppStorePage> {
                 // TODO 判断有没有安装，没有就提示确认安装
               }));
         });
-      });
+      }
     }
   }
 
   _installApp(String appName) async {
     _getAppCompose(appName).then(_installAppCompose).then((value) {
+      if (!mounted) return;
       TDMessage.showMessage(
         context: context,
         content: 'The installation task has been submitted, return to the list of installed software and wait for installation to complete',
@@ -195,7 +196,7 @@ class _AppStorePageState extends State<AppStorePage> {
         theme: MessageTheme.success,
         duration: 3000,
         onDurationEnd: () {
-          print('message end');
+          debugPrint('message end');
         },
       );
     });
@@ -222,7 +223,6 @@ class _AppStorePageState extends State<AppStorePage> {
         }));
     String reqUri =
         "/v2/app_management/compose?dry_run=false&check_port_conflict=true";
-    final response = await dio.postUri(Uri.parse(reqUri), data: compose);
-    // showToast(response.data);
+    await dio.postUri(Uri.parse(reqUri), data: compose);
   }
 }

@@ -5,8 +5,6 @@ import 'package:airkiss_dart/airkiss_dart.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:oktoast/oktoast.dart';
-import 'package:openiothub/common_pages/utils/toast.dart';
 import 'package:openiothub/common_pages/wifi_config/permission.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -15,15 +13,15 @@ import 'package:openiothub/common_pages/openiothub_common_pages.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 class Airkiss extends StatefulWidget {
-  Airkiss({required Key key, required this.title}) : super(key: key);
+  const Airkiss({required Key key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _AirkissState createState() => _AirkissState();
+  State<Airkiss> createState() => AirkissState();
 }
 
-class _AirkissState extends State<Airkiss> {
+class AirkissState extends State<Airkiss> {
   OpenIoTHubLocalizations? localizations;
   final NetworkInfo _networkInfo = NetworkInfo();
 
@@ -39,12 +37,6 @@ class _AirkissState extends State<Airkiss> {
   String? _bssid;
   String? _password;
   String? _msg;
-
-  _AirkissState() {
-    _ssidFilter.addListener(_ssidListen);
-    _bssidFilter.addListener(_bssidListen);
-    _passwordFilter.addListener(_passwordListen);
-  }
 
   void _ssidListen() {
     if (_ssidFilter.text.isEmpty) {
@@ -73,10 +65,19 @@ class _AirkissState extends State<Airkiss> {
   @override
   void initState() {
     super.initState();
+    _ssidFilter.addListener(_ssidListen);
+    _bssidFilter.addListener(_bssidListen);
+    _passwordFilter.addListener(_passwordListen);
   }
 
   @override
   void dispose() {
+    _ssidFilter.removeListener(_ssidListen);
+    _bssidFilter.removeListener(_bssidListen);
+    _passwordFilter.removeListener(_passwordListen);
+    _ssidFilter.dispose();
+    _bssidFilter.dispose();
+    _passwordFilter.dispose();
     super.dispose();
   }
 
@@ -94,6 +95,7 @@ class _AirkissState extends State<Airkiss> {
         body: Center(
             child: _isLoading
                 ? Container(
+                    color: Colors.white.withValues(alpha: 0.8),
                     child: Center(
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -107,10 +109,9 @@ class _AirkissState extends State<Airkiss> {
                               height: 60.0,
                             ),
                             Text(
-                                "${localizations!.connecting_to_router}：\n\n${_ssid}(BSSID:${_bssid})\n\n$_msg"),
+                                "${localizations!.connecting_to_router}：\n\n$_ssid(${localizations!.wifi_bssid_label}:$_bssid)\n\n$_msg"),
                           ]),
                     ),
-                    color: Colors.white.withOpacity(0.8),
                   )
                 : Container(
                     padding: EdgeInsets.all(10.0),
@@ -135,8 +136,8 @@ class _AirkissState extends State<Airkiss> {
                                 ),
                                 TextField(
                                   controller: _bssidFilter,
-                                  decoration:
-                                      InputDecoration(labelText: 'BSSID'),
+                                  decoration: InputDecoration(
+                                      labelText: localizations!.wifi_bssid_label),
                                   readOnly: true,
                                   onTap: () async {
                                     // showToast("onTap");
@@ -149,12 +150,10 @@ class _AirkissState extends State<Airkiss> {
                             await _reqWiFiInfo();
                           },
                         ),
-                        Container(
-                          child: TextField(
-                            controller: _passwordFilter,
-                            decoration: InputDecoration(labelText: localizations!.input_wifi_password),
-                            obscureText: true,
-                          ),
+                        TextField(
+                          controller: _passwordFilter,
+                          decoration: InputDecoration(labelText: localizations!.input_wifi_password),
+                          obscureText: true,
                         ),
                         Container(height: 20),
                         ElevatedButton(
@@ -220,6 +219,8 @@ class _AirkissState extends State<Airkiss> {
   }
 
   Future<void> _updateConnectionStatus() async {
+    if (!mounted) return;
+    final l10n = OpenIoTHubLocalizations.of(context);
     String? wifiName, wifiBSSID;
 
     try {
@@ -229,13 +230,13 @@ class _AirkissState extends State<Airkiss> {
         if (await Permission.locationWhenInUse.request().isGranted) {
           wifiName = await _networkInfo.getWifiName();
         } else {
-          wifiName = 'Unauthorized to get Wifi Name';
+          wifiName = l10n.wifi_name_permission_denied;
         }
       } else {
         wifiName = await _networkInfo.getWifiName();
       }
-    } on PlatformException catch (e) {
-      wifiName = 'Failed to get Wifi Name';
+    } on PlatformException {
+      wifiName = l10n.wifi_name_read_failed;
     }
 
     try {
@@ -245,26 +246,26 @@ class _AirkissState extends State<Airkiss> {
         if (await Permission.locationWhenInUse.request().isGranted) {
           wifiBSSID = await _networkInfo.getWifiBSSID();
         } else {
-          wifiBSSID = 'Unauthorized to get Wifi BSSID';
+          wifiBSSID = l10n.wifi_bssid_permission_denied;
         }
       } else {
         wifiBSSID = await _networkInfo.getWifiBSSID();
       }
-    } on PlatformException catch (e) {
-      wifiBSSID = 'Failed to get Wifi BSSID';
+    } on PlatformException {
+      wifiBSSID = l10n.wifi_bssid_read_failed;
     }
 
+    if (!mounted) return;
     setState(() {
       _ssidFilter.text = wifiName!.replaceAll("\"", "");
       _bssidFilter.text = wifiBSSID!;
 
       _msg = localizations!.please_input_2p4g_wifi_password;
     });
-    showSuccess("ssid:${wifiName!},bssid:${wifiBSSID!}", context);
+    showSuccess(localizations!.wifi_info_filled, context);
   }
 
   Future<bool> _configureWiFi() async {
-    String output = "Unknown";
     try {
       AirkissOption option = AirkissOption();
       option.timegap = 1000;
@@ -279,7 +280,10 @@ class _AirkissState extends State<Airkiss> {
         return true;
       }
     } on PlatformException catch (e) {
-      output = "Failed to configure: '${e.message}'.";
+      if (!mounted) return false;
+      final msg = e.message ?? '';
+      final output =
+          OpenIoTHubLocalizations.of(context).airkiss_configure_failed(msg);
       setState(() {
         _isLoading = false;
         _msg = output;

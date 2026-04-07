@@ -2,9 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/network/openiothub_api.dart';
-import 'package:openiothub/common_pages/utils/toast.dart';
 import 'package:openiothub/core/openiothub_constants.dart';
 import 'package:openiothub_grpc_api/proto/manager/publicApi.pb.dart';
 import 'package:qr_flutter/qr_flutter.dart';

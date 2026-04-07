@@ -1,6 +1,4 @@
 import 'package:openiothub/core/openiothub_constants.dart';
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:openiothub/plugin/openiothub_plugin.dart';
 import 'package:openiothub/plugin/mdns_service/services/nas/casa_zima_os/casaos_login.dart';
 import 'package:openiothub/plugin/mdns_service/services/nas/casa_zima_os/zima_login.dart';
@@ -8,7 +6,7 @@ import 'package:openiothub/plugin/mdns_service/services/nas/casa_zima_os/zima_lo
 import 'package:openiothub/plugin/models/port_service_info.dart';
 import './components.dart';
 
-//兼容的mdns类型，最终的落地点都在ModelsMap里
+// 兼容的 mdns 类型；设备页由 [PluginRegistry]（内置注册见 [registerBuiltinPlugins]）解析 model。
 //没有的id和mac置空
 class Mdns2ModelsMap {
   static final Map<String, String> baseInfo = {
@@ -24,11 +22,12 @@ class Mdns2ModelsMap {
   };
 
   static PortServiceInfo get basePortService {
-    PortServiceInfo portServiceInfo = PortServiceInfo("127.0.0.1", 80, true, info: Map());
+    PortServiceInfo portServiceInfo =
+        PortServiceInfo("127.0.0.1", 80, true, info: {});
     portServiceInfo.isLocal = true;
     portServiceInfo.addr = "127.0.0.1";
     portServiceInfo.port = 80;
-    portServiceInfo.info = Map();
+    portServiceInfo.info = {};
     portServiceInfo.info!.addAll(baseInfo);
     return portServiceInfo;
   }

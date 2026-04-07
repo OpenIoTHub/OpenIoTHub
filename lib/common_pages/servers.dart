@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/network/openiothub_api.dart';
 import 'package:openiothub/common_pages/server_info.dart';
-import 'package:openiothub/common_pages/utils/toast.dart';
 import 'package:openiothub/core/constants.dart';
 import 'package:openiothub_grpc_api/proto/manager/serverManager.pb.dart';
 
 import 'package:openiothub/common_pages/openiothub_common_pages.dart';
 
 class ServerPages extends StatefulWidget {
-  ServerPages({required Key key, required this.title}) : super(key: key);
+  const ServerPages({required Key key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -142,8 +140,9 @@ class ServerPagesState extends State<ServerPages> {
         builder: (context) {
           return StatefulBuilder(
             builder: (context, state) {
+              final l10n = OpenIoTHubLocalizations.of(context);
               return AlertDialog(
-                  title: Text(OpenIoTHubLocalizations.of(context).add_self_hosted_server),
+                  title: Text(l10n.add_self_hosted_server),
                   content: SizedBox.expand(
                     child: ListView(
                       children: <Widget>[
@@ -151,93 +150,93 @@ class ServerPagesState extends State<ServerPages> {
                           controller: uuidController,
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(10.0),
-                            labelText: OpenIoTHubLocalizations.of(context).server_uuid,
-                            helperText: OpenIoTHubLocalizations.of(context).as_config_file,
+                            labelText: l10n.server_uuid,
+                            helperText: l10n.as_config_file,
                           ),
                         ),
                         TextFormField(
                           controller: nameController,
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(10.0),
-                            labelText: OpenIoTHubLocalizations.of(context).name,
-                            helperText: OpenIoTHubLocalizations.of(context).define_server_name,
+                            labelText: l10n.name,
+                            helperText: l10n.define_server_name,
                           ),
                         ),
                         TextFormField(
                           controller: serverHostController,
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(10.0),
-                            labelText: OpenIoTHubLocalizations.of(context).define_server_ip_or_domain,
-                            helperText: OpenIoTHubLocalizations.of(context).define_server_addr,
+                            labelText: l10n.define_server_ip_or_domain,
+                            helperText: l10n.define_server_addr,
                           ),
                         ),
                         TextFormField(
                           controller: loginKeyController,
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(10.0),
-                            labelText: 'login_key',
-                            helperText: OpenIoTHubLocalizations.of(context).define_server_key,
+                            labelText: l10n.server_field_login_key,
+                            helperText: l10n.define_server_key,
                           ),
                         ),
                         TextFormField(
                           controller: tcpPortController,
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(10.0),
-                            labelText: 'tcp_port',
-                            helperText: OpenIoTHubLocalizations.of(context).define_server_tcp_port,
+                            labelText: l10n.server_field_tcp_port,
+                            helperText: l10n.define_server_tcp_port,
                           ),
                         ),
                         TextFormField(
                           controller: kcpPortController,
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(10.0),
-                            labelText: 'kcp_port',
-                            helperText: OpenIoTHubLocalizations.of(context).define_server_kcp_port,
+                            labelText: l10n.server_field_kcp_port,
+                            helperText: l10n.define_server_kcp_port,
                           ),
                         ),
                         TextFormField(
                           controller: udpApiPortController,
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(10.0),
-                            labelText: 'udp_api_port',
-                            helperText: OpenIoTHubLocalizations.of(context).port,
+                            labelText: l10n.server_field_udp_api_port,
+                            helperText: l10n.port,
                           ),
                         ),
                         TextFormField(
                           controller: kcpApiPortController,
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(10.0),
-                            labelText: 'kcp_api_port',
-                            helperText: OpenIoTHubLocalizations.of(context).port,
+                            labelText: l10n.server_field_kcp_api_port,
+                            helperText: l10n.port,
                           ),
                         ),
                         TextFormField(
                           controller: tlsPortController,
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(10.0),
-                            labelText: 'tls_port',
-                            helperText: OpenIoTHubLocalizations.of(context).port,
+                            labelText: l10n.server_field_tls_port,
+                            helperText: l10n.port,
                           ),
                         ),
                         TextFormField(
                           controller: grpcPortController,
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(10.0),
-                            labelText: 'grpc_port',
-                            helperText: OpenIoTHubLocalizations.of(context).port,
+                            labelText: l10n.server_field_grpc_port,
+                            helperText: l10n.port,
                           ),
                         ),
                         TextFormField(
                           controller: descriptionController,
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(10.0),
-                            labelText: OpenIoTHubLocalizations.of(context).description,
-                            helperText: OpenIoTHubLocalizations.of(context).define_description,
+                            labelText: l10n.description,
+                            helperText: l10n.define_description,
                           ),
                         ),
                         Row(
                           children: [
-                            Text(OpenIoTHubLocalizations.of(context).for_everyone_to_use),
+                            Text(l10n.for_everyone_to_use),
                             Switch(
                                 value: isPublic,
                                 onChanged: null,
@@ -255,14 +254,17 @@ class ServerPagesState extends State<ServerPages> {
                   ),
                   actions: <Widget>[
                     TextButton(
-                      child: Text(OpenIoTHubLocalizations.of(context).cancel),
+                      child: Text(l10n.cancel),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
                     ),
                     TextButton(
-                      child: Text(OpenIoTHubLocalizations.of(context).add_to_server),
-                      onPressed: () {
+                      child: Text(l10n.add_to_server),
+                      onPressed: () async {
+                        final ctx = context;
+                        final l10n = OpenIoTHubLocalizations.of(ctx);
+                        final addedName = nameController.text;
                         ServerInfo serverInfo = ServerInfo();
                         serverInfo.uuid = uuidController.text;
                         serverInfo.name = nameController.text;
@@ -282,11 +284,11 @@ class ServerPagesState extends State<ServerPages> {
                             int.parse(grpcPortController.text);
                         serverInfo.description = descriptionController.text;
                         serverInfo.isPublic = isPublic;
-                        ServerManager.addServer(serverInfo)
-                            .then((value) =>
-                                showSuccess("${OpenIoTHubLocalizations.of(context).add_server}(${nameController.text})${OpenIoTHubLocalizations.of(context).success}", context))
-                            .then((value) => Navigator.of(context).pop())
-                            .then((value) => _listMyServers());
+                        await ServerManager.addServer(serverInfo);
+                        if (!ctx.mounted) return;
+                        showSuccess("${l10n.add_server}($addedName)${l10n.success}", ctx);
+                        Navigator.of(ctx).pop();
+                        _listMyServers();
                       },
                     )
                   ]);

@@ -31,8 +31,7 @@ class InstalledAppsPage extends StatefulWidget {
 }
 
 class _InstalledAppsPageState extends State<InstalledAppsPage> {
-  late List<ListTile> _listTiles = <ListTile>[];
-  late List<ListTile> _versionListTiles = <ListTile>[];
+  late final List<ListTile> _listTiles = <ListTile>[];
   String? deviceModel;
   String? deviceName;
   String? hash;
@@ -63,7 +62,7 @@ class _InstalledAppsPageState extends State<InstalledAppsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Apps"),
+          title: Text(OpenIoTHubLocalizations.of(context).nas_apps),
           actions: <Widget>[
             // 系统的各种状态
             IconButton(
@@ -164,15 +163,19 @@ class _InstalledAppsPageState extends State<InstalledAppsPage> {
                   // color: Colors.white,
                 ),
                 onPressed: () {
+                  final l10n = OpenIoTHubLocalizations.of(context);
                   showGeneralDialog(
                     context: context,
                     pageBuilder: (BuildContext buildContext,
                         Animation<double> animation,
                         Animation<double> secondaryAnimation) {
                       return TDAlertDialog(
-                        title: "Version Info",
+                        title: l10n.nas_version_info_title,
                         content:
-                            "deviceModel: $deviceModel\ndeviceName: $deviceName\nhash: $hash\nosVersion: $osVersion",
+                            '${l10n.nas_version_device_model}: ${deviceModel ?? '-'}\n'
+                            '${l10n.nas_version_device_name}: ${deviceName ?? '-'}\n'
+                            '${l10n.nas_version_build_hash}: ${hash ?? '-'}\n'
+                            '${l10n.nas_version_os_version}: ${osVersion ?? '-'}',
                       );
                     },
                   );
@@ -260,9 +263,8 @@ class _InstalledAppsPageState extends State<InstalledAppsPage> {
                       value: progress.progress,
                     ),
                   ),
-              imageUrl: appInfo["icon"] != null
-                  ? appInfo["icon"]
-                  : "https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Gateway-go/icon.png",
+              imageUrl: appInfo["icon"] ??
+                  "https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Gateway-go/icon.png",
             ),
           ),
           trailing: TDButton(
@@ -357,9 +359,9 @@ class _InstalledAppsPageState extends State<InstalledAppsPage> {
     // 如果是局域网内则不映射，如果是远程则使用远程网络ID和远程端口临时映射远程端口到本机
     PortList portList = PortList();
     response.data["data"].forEach((appInfo) {
-      // print("remoteHost: ${widget.portConfig.device.addr},remotePort: ${appInfo["port"]}");
+      // debugPrint("remoteHost: ${widget.portConfig.device.addr},remotePort: ${appInfo["port"]}");
       if (appInfo["port"] ==null || appInfo["port"].isEmpty) {
-        // print("appInfo[\"port\"].isEmpty");
+        // debugPrint("appInfo[\"port\"].isEmpty");
         return;
       }
       var device = Device.create();
@@ -389,14 +391,14 @@ class _InstalledAppsPageState extends State<InstalledAppsPage> {
       try {
         remotePort = int.parse(appInfo["port"]);
         // 从remotePort和runid获取映射之后的localPort
-        portListRet.portConfigs.forEach((portConfig) {
+        for (var portConfig in portListRet.portConfigs) {
           if (portConfig.remotePort == remotePort) {
             localPort = portConfig.localProt;
           }
-        });
+        }
       } catch (e) {
-        print("appInfo[\"port\"]:${appInfo["port"]}");
-        print(e);
+        debugPrint("appInfo[\"port\"]:${appInfo["port"]}");
+        debugPrint('$e');
       }
 
       setState(() {
@@ -419,7 +421,8 @@ class _InstalledAppsPageState extends State<InstalledAppsPage> {
                   value: progress.progress,
                 ),
               ),
-              imageUrl: appInfo["icon"]!=null?appInfo["icon"]:"https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Gateway-go/icon.png",
+              imageUrl: appInfo["icon"] ??
+                  "https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Gateway-go/icon.png",
             ),
           ),
           trailing: TDButton(
@@ -514,7 +517,7 @@ class _InstalledAppsPageState extends State<InstalledAppsPage> {
     if (await canLaunchUrlString(url)) {
       await launchUrlString(url);
     } else {
-      print('Could not launch $url');
+      debugPrint('Could not launch $url');
     }
   }
 
@@ -524,10 +527,17 @@ class _InstalledAppsPageState extends State<InstalledAppsPage> {
     }));
     String reqUri = "/v2/app_management/compose/$appName";
     final response = await dio.patchUri(Uri.parse(reqUri));
+    if (!mounted) return;
     if (response.statusCode == 200) {
-      showSuccess("Upgrade App Success", context);
+      showSuccess(
+        OpenIoTHubLocalizations.of(context).nas_app_upgrade_success,
+        context,
+      );
     } else {
-      showFailed("Upgrade App Failed", context);
+      showFailed(
+        OpenIoTHubLocalizations.of(context).nas_app_upgrade_failed,
+        context,
+      );
     }
   }
 
@@ -536,12 +546,19 @@ class _InstalledAppsPageState extends State<InstalledAppsPage> {
       "Authorization": widget.data["data"]["token"]["access_token"]
     }));
     String reqUri =
-        "/v2/app_management/compose/$appName?deleteConfigFolder=${deleteConfigFolder == null ? false : deleteConfigFolder}";
+        "/v2/app_management/compose/$appName?deleteConfigFolder=${deleteConfigFolder ?? false}";
     final response = await dio.deleteUri(Uri.parse(reqUri));
+    if (!mounted) return;
     if (response.statusCode == 200) {
-      showSuccess("Remove App Success", context);
+      showSuccess(
+        OpenIoTHubLocalizations.of(context).nas_app_remove_success,
+        context,
+      );
     } else {
-      showFailed("Remove App Failed", context);
+      showFailed(
+        OpenIoTHubLocalizations.of(context).nas_app_remove_failed,
+        context,
+      );
     }
   }
 
@@ -553,10 +570,17 @@ class _InstalledAppsPageState extends State<InstalledAppsPage> {
     }));
     String reqUri = "/v2/app_management/compose/$appName/status";
     final response = await dio.putUri(Uri.parse(reqUri), data: "\"$status\"");
+    if (!mounted) return;
     if (response.statusCode == 200) {
-      showSuccess("Change App Status To ${status} Success", context);
+      showSuccess(
+        '${OpenIoTHubLocalizations.of(context).nas_app_change_status_success} ($status)',
+        context,
+      );
     } else {
-      showFailed("Change App Status To ${status} Failed", context);
+      showFailed(
+        '${OpenIoTHubLocalizations.of(context).nas_app_change_status_failed} ($status)',
+        context,
+      );
     }
   }
 

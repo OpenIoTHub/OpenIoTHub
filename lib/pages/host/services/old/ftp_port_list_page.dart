@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:openiothub/network/openiothub/common_device_api.dart';
 import 'package:openiothub/core/config.dart';
@@ -16,10 +17,10 @@ class FtpPortListPage extends StatefulWidget {
   final Device device;
 
   @override
-  _FtpPortListPageState createState() => _FtpPortListPageState();
+  State<FtpPortListPage> createState() => FtpPortListPageState();
 }
 
-class _FtpPortListPageState extends State<FtpPortListPage> {
+class FtpPortListPageState extends State<FtpPortListPage> {
   List<PortConfig> _serviceList = [];
 
   @override
@@ -152,15 +153,17 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
     );
   }
 
-  Future refreshmFTPList() async {
+  Future<void> refreshmFTPList() async {
     try {
-      CommonDeviceApi.getAllFTP(widget.device).then((v) {
-        setState(() {
-          _serviceList = v.portConfigs;
-        });
+      final v = await CommonDeviceApi.getAllFTP(widget.device);
+      if (!mounted) return;
+      setState(() {
+        _serviceList = v.portConfigs;
       });
     } catch (e) {
-      print('Caught error: $e');
+      if (kDebugMode) {
+        debugPrint('Caught error: $e');
+      }
     }
   }
 
@@ -276,13 +279,16 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
                     child: Text(OpenIoTHubLocalizations.of(context).delete),
                     onPressed: () {
                       CommonDeviceApi.deleteOneFTP(config).then((result) {
+                        if (!mounted) return;
                         Navigator.of(context).pop();
                       });
                     },
                   )
                 ])).then((v) {
+      if (!mounted) return;
       Navigator.of(context).pop();
     }).then((v) {
+      if (!mounted) return;
       refreshmFTPList();
     });
   }
@@ -291,7 +297,7 @@ class _FtpPortListPageState extends State<FtpPortListPage> {
     if (await canLaunchUrlString(url)) {
       await launchUrlString(url);
     } else {
-      print('Could not launch $url');
+      debugPrint('Could not launch $url');
     }
   }
 }

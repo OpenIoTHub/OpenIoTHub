@@ -5,6 +5,7 @@ import 'package:openiothub_grpc_api/google/protobuf/empty.pb.dart';
 import 'package:openiothub_grpc_api/google/protobuf/wrappers.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/common.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/gatewayManager.pbgrpc.dart';
+import 'package:openiothub/network/network_log.dart';
 
 //  网关操作
 class GatewayManager {
@@ -15,7 +16,7 @@ class GatewayManager {
     final stub = GatewayManagerClient(channel,
         options: CallOptions(metadata: {'jwt': jwt}));
     OperationResponse operationResponse = await stub.addGateway(gatewayInfo);
-    print('registerUserWithUserInfo: ${operationResponse}');
+    netLog('GatewayManager', 'addGateway: $operationResponse');
     channel.shutdown();
     return operationResponse;
   }
@@ -27,7 +28,7 @@ class GatewayManager {
     final stub = GatewayManagerClient(channel,
         options: CallOptions(metadata: {'jwt': jwt}));
     OperationResponse operationResponse = await stub.delGateway(gatewayInfo);
-    print('registerUserWithUserInfo: ${operationResponse}');
+    netLog('GatewayManager', 'delGateway: $operationResponse');
     channel.shutdown();
     return operationResponse;
   }
@@ -40,7 +41,7 @@ class GatewayManager {
     final stub = GatewayManagerClient(channel,
         options: CallOptions(metadata: {'jwt': jwt}));
     OperationResponse operationResponse = await stub.updateGateway(gatewayInfo);
-    print('registerUserWithUserInfo: ${operationResponse}');
+    netLog('GatewayManager', 'updateGateway: $operationResponse');
     channel.shutdown();
     return operationResponse;
   }
@@ -52,7 +53,7 @@ class GatewayManager {
     final stub = GatewayManagerClient(channel,
         options: CallOptions(metadata: {'jwt': jwt}));
     GatewayInfo newGatewayInfo = await stub.queryGateway(gatewayInfo);
-    print('registerUserWithUserInfo: ${newGatewayInfo}');
+    netLog('GatewayManager', 'queryGateway: $newGatewayInfo');
     channel.shutdown();
     return newGatewayInfo;
   }
@@ -65,7 +66,7 @@ class GatewayManager {
         options: CallOptions(metadata: {'jwt': jwt}));
     Empty empty = Empty();
     GatewayInfoList gatewayInfoList = await stub.getAllGateway(empty);
-    print('registerUserWithUserInfo: ${gatewayInfoList}');
+    netLog('GatewayManager', 'getAllGateway: $gatewayInfoList');
     channel.shutdown();
     return gatewayInfoList;
   }
@@ -79,7 +80,7 @@ class GatewayManager {
     Empty empty = Empty();
     GatewayInfo gatewayInfo =
         await stub.generateOneGatewayWithDefaultServer(empty);
-    print('registerUserWithUserInfo: ${gatewayInfo}');
+    netLog('GatewayManager', 'generateOneGatewayWithDefaultServer: $gatewayInfo');
     channel.shutdown();
     return gatewayInfo;
   }
@@ -95,7 +96,7 @@ class GatewayManager {
     stringValue.value = uuid;
     GatewayInfo gatewayInfo =
         await stub.generateOneGatewayWithServerUuid(stringValue);
-    print('registerUserWithUserInfo: ${gatewayInfo}');
+    netLog('GatewayManager', 'generateOneGatewayWithServerUuid: $gatewayInfo');
     channel.shutdown();
     return gatewayInfo;
   }
@@ -109,7 +110,7 @@ class GatewayManager {
     StringValue stringValue = StringValue();
     stringValue.value = value;
     StringValue s = await stub.getGatewayJwtByGatewayUuid(stringValue);
-    print('getGatewayJwtByGatewayUuid: ${s}');
+    netLog('GatewayManager', 'getGatewayJwtByGatewayUuid: $s');
     channel.shutdown();
     return s;
   }
@@ -123,7 +124,7 @@ class GatewayManager {
     StringValue stringValue = StringValue();
     stringValue.value = value;
     StringValue s = await stub.getOpenIoTHubJwtByGatewayUuid(stringValue);
-    print('getOpenIoTHubJwtByGatewayUuid: ${s}');
+    netLog('GatewayManager', 'getOpenIoTHubJwtByGatewayUuid: $s');
     channel.shutdown();
     return s;
   }

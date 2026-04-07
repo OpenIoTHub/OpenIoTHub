@@ -4,8 +4,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:openiothub/core/openiothub_constants.dart';
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:openiothub/plugin/openiothub_plugin.dart';
 import 'package:openiothub/plugin/utils/ip.dart';
 
@@ -14,16 +12,16 @@ import 'package:openiothub/plugin/models/port_service_info.dart';
 //手动注册一些端口到mdns的声明，用于接入一些传统的设备或者服务或者帮助一些不方便注册mdns的设备或服务注册
 //需要选择模型和输入相关配置参数
 class OvifManagerPage extends StatefulWidget {
-  OvifManagerPage({required Key key, required this.device}) : super(key: key);
+  const OvifManagerPage({required Key key, required this.device}) : super(key: key);
 
   static final String modelName = "com.iotserv.services.OnvifCameraManager";
   final PortServiceInfo device;
 
   @override
-  _OvifManagerPageState createState() => _OvifManagerPageState();
+  State<OvifManagerPage> createState() => OvifManagerPageState();
 }
 
-class _OvifManagerPageState extends State<OvifManagerPage> {
+class OvifManagerPageState extends State<OvifManagerPage> {
   OpenIoTHubLocalizations? localizations;
   List<dynamic> _list = [];
 
@@ -117,7 +115,6 @@ class _OvifManagerPageState extends State<OvifManagerPage> {
   }
 
   Future _getList() async {
-    String url = "http://${widget.device.addr}:${widget.device.port}/list";
     http.Response response;
     try {
       response = await http
@@ -130,16 +127,17 @@ class _OvifManagerPageState extends State<OvifManagerPage> {
             path: '/list',
           ))
           .timeout(const Duration(seconds: 2));
-      print(response.body);
+      debugPrint(response.body);
       Map<String, dynamic> rst = jsonDecode(response.body);
       if (rst["Code"] != 0) {
         return;
       }
+      if (!mounted) return;
       setState(() {
         _list = rst["OnvifDevices"];
       });
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
       return;
     }
   }
@@ -161,17 +159,16 @@ class _OvifManagerPageState extends State<OvifManagerPage> {
                   ),
                   TextButton(
                     child: Text(localizations!.delete),
-                    onPressed: () {
-                      _deleteOneDevice(xAddr)
-                          .then((value) => Navigator.of(context).pop());
+                    onPressed: () async {
+                      await _deleteOneDevice(xAddr);
+                      if (!mounted) return;
+                      Navigator.of(context).pop();
                     },
                   )
                 ]));
   }
 
   Future _deleteOneDevice(String xAddr) async {
-    String url =
-        "http://${widget.device.addr}:${widget.device.port}/delete?XAddr=$xAddr";
     http.Response response;
     try {
       response = await http
@@ -186,22 +183,22 @@ class _OvifManagerPageState extends State<OvifManagerPage> {
                 "XAddr": xAddr,
               }))
           .timeout(const Duration(seconds: 2));
-      print(response.body);
+      debugPrint(response.body);
       _getList();
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
       return;
     }
   }
 
   Future _addDeviceDialog() {
-    TextEditingController _nameController = TextEditingController.fromValue(
+    TextEditingController nameController = TextEditingController.fromValue(
         TextEditingValue(text: localizations!.onvif_camera));
-    TextEditingController _xAddrController = TextEditingController.fromValue(
+    TextEditingController xAddrController = TextEditingController.fromValue(
         TextEditingValue(text: "192.168.123.211:8899"));
-    TextEditingController _userNameController =
+    TextEditingController userNameController =
         TextEditingController.fromValue(TextEditingValue(text: "admin"));
-    TextEditingController _passwordController =
+    TextEditingController passwordController =
         TextEditingController.fromValue(TextEditingValue(text: ""));
     return showDialog(
         context: context,
@@ -212,7 +209,7 @@ class _OvifManagerPageState extends State<OvifManagerPage> {
                 content: ListView(
                   children: <Widget>[
                     TextFormField(
-                      controller: _nameController,
+                      controller: nameController,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: localizations!.name,
@@ -220,7 +217,7 @@ class _OvifManagerPageState extends State<OvifManagerPage> {
                       ),
                     ),
                     TextFormField(
-                      controller: _xAddrController,
+                      controller: xAddrController,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: localizations!.x_addr_addr,
@@ -228,14 +225,14 @@ class _OvifManagerPageState extends State<OvifManagerPage> {
                       ),
                     ),
                     TextFormField(
-                        controller: _userNameController,
+                        controller: userNameController,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.all(10.0),
                           labelText: localizations!.username,
                           helperText: localizations!.onvif_username,
                         )),
                     TextFormField(
-                        controller: _passwordController,
+                        controller: passwordController,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.all(10.0),
                           labelText: localizations!.password,
@@ -252,23 +249,21 @@ class _OvifManagerPageState extends State<OvifManagerPage> {
                   ),
                   TextButton(
                     child: Text(localizations!.add),
-                    onPressed: () {
-                      _addOneDevice(
-                              _nameController.text,
-                              _xAddrController.text,
-                              _userNameController.text,
-                              _passwordController.text)
-                          .then((restlt) {
-                        Navigator.of(context).pop();
-                      });
+                    onPressed: () async {
+                      await _addOneDevice(
+                        nameController.text,
+                        xAddrController.text,
+                        userNameController.text,
+                        passwordController.text,
+                      );
+                      if (!mounted) return;
+                      Navigator.of(context).pop();
                     },
                   )
                 ]));
   }
 
   Future _addOneDevice(String name, xAddr, userName, password) async {
-    String url =
-        "http://${widget.device.addr}:${widget.device.port}/add?Name=$name&XAddr=$xAddr&UserName=$userName&Password=$password";
     http.Response response;
     try {
       response = await http
@@ -286,10 +281,10 @@ class _OvifManagerPageState extends State<OvifManagerPage> {
                 "Password": password,
               }))
           .timeout(const Duration(seconds: 2));
-      print(response.body);
+      debugPrint(response.body);
       _getList();
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
       return;
     }
   }

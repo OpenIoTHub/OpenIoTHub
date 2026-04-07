@@ -3,25 +3,23 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
-import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:openiothub/plugin/openiothub_plugin.dart';
 import 'package:openiothub/plugin/utils/ip.dart';
 
 import 'package:openiothub/plugin/models/port_service_info.dart';
 
 class PhicommTC1A1PluginPage extends StatefulWidget {
-  PhicommTC1A1PluginPage({required Key key, required this.device})
+  const PhicommTC1A1PluginPage({required Key key, required this.device})
       : super(key: key);
 
   static final String modelName = "com.iotserv.devices.phicomm_tc1_a1";
   final PortServiceInfo device;
 
   @override
-  _PhicommTC1A1PluginPageState createState() => _PhicommTC1A1PluginPageState();
+  State<PhicommTC1A1PluginPage> createState() => PhicommTC1A1PluginPageState();
 }
 
-class _PhicommTC1A1PluginPageState extends State<PhicommTC1A1PluginPage> {
+class PhicommTC1A1PluginPageState extends State<PhicommTC1A1PluginPage> {
   static const String slot0 = "slot0";
   static const String slot1 = "slot1";
 
@@ -35,7 +33,7 @@ class _PhicommTC1A1PluginPageState extends State<PhicommTC1A1PluginPage> {
 //  bool _logLedStatus = true;
 //  bool _wifiLedStatus = true;
 //  bool _primarySwitchStatus = true;
-  Map<String, dynamic> _status = Map.from({
+  final Map<String, dynamic> _status = Map.from({
     slot0: true,
     slot1: true,
     slot2: true,
@@ -45,33 +43,34 @@ class _PhicommTC1A1PluginPageState extends State<PhicommTC1A1PluginPage> {
     power: 0.0,
   });
 
-  Map<String, String> _realName = Map.from({
-//    TODO 总开关
-    slot0: "Switch 1",
-    slot1: "Switch 2",
-    slot2: "Switch 3",
-    slot3: "Switch 4",
-    slot4: "Switch 5",
-    slot5: "Switch 6",
-    power: "Power",
-  });
-
-  List<String> _switchKeyList = [slot0, slot1, slot2, slot3, slot4, slot5];
-  List<String> _valueKeyList = [power];
+  final List<String> _switchKeyList = [slot0, slot1, slot2, slot3, slot4, slot5];
+  final List<String> _valueKeyList = [power];
 
   @override
   void initState() {
     super.initState();
     _getCurrentStatus();
-    print("init iot devie List");
+    debugPrint("init iot device list");
+  }
+
+  String _labelForOutlet(String key, OpenIoTHubLocalizations l10n) {
+    final i = _switchKeyList.indexOf(key);
+    if (i >= 0) {
+      return l10n.smart_device_switch_n(i + 1);
+    }
+    if (key == power) {
+      return l10n.smart_device_power;
+    }
+    return key;
   }
 
   @override
   Widget build(BuildContext context) {
-    final List _result = [];
-    _result.addAll(_switchKeyList);
-    _result.addAll(_valueKeyList);
-    final tiles = _result.map(
+    final l10n = OpenIoTHubLocalizations.of(context);
+    final List result = [];
+    result.addAll(_switchKeyList);
+    result.addAll(_valueKeyList);
+    final tiles = result.map(
       (pair) {
         switch (pair) {
           case slot0:
@@ -84,7 +83,7 @@ class _PhicommTC1A1PluginPageState extends State<PhicommTC1A1PluginPage> {
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(_realName[pair]!),
+                  Text(_labelForOutlet(pair as String, l10n)),
                   Switch(
                     onChanged: (_) {
                       _status[pair] = !_status[pair];
@@ -97,20 +96,18 @@ class _PhicommTC1A1PluginPageState extends State<PhicommTC1A1PluginPage> {
                 ],
               ),
             );
-            break;
           default:
             return ListTile(
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(_realName[pair]!),
+                  Text(_labelForOutlet(pair as String, l10n)),
                   Text(":"),
                   Text(_status[pair].toString()),
-                  Text("W"),
+                  Text(l10n.unit_watt),
                 ],
               ),
             );
-            break;
         }
       },
     );
@@ -145,7 +142,6 @@ class _PhicommTC1A1PluginPageState extends State<PhicommTC1A1PluginPage> {
   }
 
   _getCurrentStatus() async {
-    String url = "http://${widget.device.addr}:${widget.device.port}/status";
     http.Response response;
     try {
       response = await http
@@ -158,26 +154,26 @@ class _PhicommTC1A1PluginPageState extends State<PhicommTC1A1PluginPage> {
               path: '/status'))
           .timeout(const Duration(seconds: 6));
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
       return;
     }
-    print("response.body:${response.body}");
-    print("response.status:${response.statusCode}");
+    debugPrint("response.body:${response.body}");
+    debugPrint("response.status:${response.statusCode}");
 //    同步状态到界面
     if (response.statusCode == 200) {
-      _switchKeyList.forEach((switchValue) {
+      for (var switchValue in _switchKeyList) {
         setState(() {
           _status[switchValue] =
               jsonDecode(response.body)[switchValue] == 1 ? true : false;
         });
-      });
-      _valueKeyList.forEach((value) {
+      }
+      for (var value in _valueKeyList) {
         setState(() {
           _status[value] = jsonDecode(response.body)[value];
         });
-      });
+      }
     } else {
-      print("获取状态失败！");
+      debugPrint("获取状态失败！");
     }
   }
 
@@ -196,8 +192,6 @@ class _PhicommTC1A1PluginPageState extends State<PhicommTC1A1PluginPage> {
   }
 
   _changeSwitchStatus() async {
-    String url =
-        "http://${widget.device.addr}:${widget.device.port}/switch?$slot0=${_status[slot0] ? 1 : 0}&$slot1=${_status[slot1] ? 1 : 0}&$slot2=${_status[slot2] ? 1 : 0}&$slot3=${_status[slot3] ? 1 : 0}&$slot4=${_status[slot4] ? 1 : 0}&$slot5=${_status[slot5] ? 1 : 0}";
     http.Response response;
     try {
       response = await http
@@ -217,9 +211,9 @@ class _PhicommTC1A1PluginPageState extends State<PhicommTC1A1PluginPage> {
                 slot5: _status[slot5] ? 1 : 0,
               }))
           .timeout(const Duration(seconds: 2));
-      print(response.body);
+      debugPrint(response.body);
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
       return;
     }
     _getCurrentStatus();

@@ -761,10 +761,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: b453934c36e289cef06525734d1e676c1f91da9e22e2017d9dcab6ce0f999175
+      sha256: f02fd7d2a4dc512fec615529824fdd217fecb3a3d3de68360293a551f21634b3
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "15.1.3"
+    version: "14.8.1"
   google_identity_services_web:
     dependency: transitive
     description:

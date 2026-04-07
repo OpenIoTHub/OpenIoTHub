@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/network/openiothub_api.dart';
 import 'package:openiothub/core/constants.dart';
 import 'package:openiothub_grpc_api/proto/gateway/gateway.pb.dart';
@@ -15,7 +14,7 @@ import 'package:openiothub/plugin/models/port_service_info.dart';
 import '../../mdns_service/comm_widgets/info.dart';
 
 class Gateway extends StatefulWidget {
-  Gateway({required Key key, required this.device}) : super(key: key);
+  const Gateway({required Key key, required this.device}) : super(key: key);
 
   static final String modelName = "com.iotserv.services.gateway";
   final PortServiceInfo device;
@@ -105,9 +104,11 @@ class GatewayState extends State<Gateway> {
     config.description = name;
     try {
       await SessionApi.createOneSession(config);
+      if (!mounted) return;
       showSuccess(localizations!.plugin_add_gateway_success, context);
     } catch (exception) {
-      showFailed("${localizations!.plugin_login_failed}：${exception}", context);
+      if (!mounted) return;
+      showFailed("${localizations!.plugin_login_failed}：$exception", context);
     }
   }
 
@@ -121,7 +122,7 @@ class GatewayState extends State<Gateway> {
         builder: (_) => AlertDialog(
                 title: Text(localizations!.confirm_gateway_connect_this_server),
                 content: SizedBox.expand(
-                  child: Text("${serverInfo.serverHost}"),
+                  child: Text(serverInfo.serverHost),
                 ),
                 actions: <Widget>[
                   TextButton(
@@ -152,16 +153,16 @@ class GatewayState extends State<Gateway> {
               gatewayInfo.gatewayJwt, widget.device.addr, widget.device.port);
 //    自动添加到我的列表
       if (loginResponse.loginStatus) {
-        //将网关映射到本机
-        _addToMySessionList(gatewayInfo.openIoTHubJwt, gatewayInfo.name)
-            .then((value) {
-          if (Navigator.of(context).canPop()) {
-            Navigator.of(context).pop();
-          }
-        });
+        await _addToMySessionList(
+            gatewayInfo.openIoTHubJwt, gatewayInfo.name);
+        if (!mounted) return;
+        if (Navigator.of(context).canPop()) {
+          Navigator.of(context).pop();
+        }
       }
     } catch (exception) {
-      showFailed("${localizations!.plugin_add_gateway_failed}：${exception}", context);
+      if (!mounted) return;
+      showFailed("${localizations!.plugin_add_gateway_failed}：$exception", context);
     }
   }
 
@@ -180,6 +181,7 @@ class GatewayState extends State<Gateway> {
               widget.device.addr, widget.device.port);
       _addable = !loginResponse.loginStatus;
     } catch (exception) {
+      if (!mounted) return;
       showFailed("${localizations!.get_gateway_login_status_failed}：$exception", context);
     }
   }

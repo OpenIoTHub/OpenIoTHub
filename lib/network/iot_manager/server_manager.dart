@@ -5,6 +5,8 @@ import 'package:openiothub_grpc_api/google/protobuf/wrappers.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/common.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/serverManager.pbgrpc.dart';
 
+import 'package:openiothub/network/network_log.dart';
+
 import 'iot_manager_channel.dart';
 
 class ServerManager {
@@ -15,7 +17,7 @@ class ServerManager {
     final stub = ServerManagerClient(channel,
         options: CallOptions(metadata: {'jwt': jwt}));
     OperationResponse operationResponse = await stub.addServer(serverInfo);
-    print('addServer: ${operationResponse}');
+    netLog('ServerManager', 'addServer: $operationResponse');
     channel.shutdown();
     return operationResponse;
   }
@@ -27,7 +29,7 @@ class ServerManager {
     final stub = ServerManagerClient(channel,
         options: CallOptions(metadata: {'jwt': jwt}));
     OperationResponse operationResponse = await stub.delServer(serverInfo);
-    print('delServer: ${operationResponse}');
+    netLog('ServerManager', 'delServer: $operationResponse');
     channel.shutdown();
     return operationResponse;
   }
@@ -39,7 +41,7 @@ class ServerManager {
     final stub = ServerManagerClient(channel,
         options: CallOptions(metadata: {'jwt': jwt}));
     OperationResponse operationResponse = await stub.updateServer(serverInfo);
-    print('updateServer: ${operationResponse}');
+    netLog('ServerManager', 'updateServer: $operationResponse');
     channel.shutdown();
     return operationResponse;
   }
@@ -53,7 +55,7 @@ class ServerManager {
     StringValue stringValue = StringValue();
     stringValue.value = value;
     ServerInfoList serverInfoList = await stub.queryServer(stringValue);
-    print('queryServer: ${serverInfoList}');
+    netLog('ServerManager', 'queryServer: $serverInfoList');
     channel.shutdown();
     return serverInfoList;
   }
@@ -66,7 +68,7 @@ class ServerManager {
         options: CallOptions(metadata: {'jwt': jwt}));
     Empty empty = Empty();
     ServerInfoList serverInfoList = await stub.getAllServer(empty);
-    print('getAllServer: ${serverInfoList}');
+    netLog('ServerManager', 'getAllServer: $serverInfoList');
     channel.shutdown();
     return serverInfoList;
   }
@@ -80,7 +82,7 @@ class ServerManager {
         options: CallOptions(metadata: {'jwt': jwt}));
     Empty empty = Empty();
     ServerInfoList serverInfoList = await stub.getAllMyServers(empty);
-    print('getAllServer: ${serverInfoList}');
+    netLog('ServerManager', 'getAllMyServers: $serverInfoList');
     channel.shutdown();
     return serverInfoList;
   }
@@ -94,7 +96,7 @@ class ServerManager {
         options: CallOptions(metadata: {'jwt': jwt}));
     Empty empty = Empty();
     ServerInfoList serverInfoList = await stub.getAllMySharedServers(empty);
-    print('getAllServer: ${serverInfoList}');
+    netLog('ServerManager', 'getAllMySharedServers: $serverInfoList');
     channel.shutdown();
     return serverInfoList;
   }

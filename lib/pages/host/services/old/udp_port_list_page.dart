@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/network/openiothub/common_device_api.dart';
@@ -14,10 +15,10 @@ class UdpPortListPage extends StatefulWidget {
   final Device device;
 
   @override
-  _UdpPortListPageState createState() => _UdpPortListPageState();
+  State<UdpPortListPage> createState() => UdpPortListPageState();
 }
 
-class _UdpPortListPageState extends State<UdpPortListPage> {
+class UdpPortListPageState extends State<UdpPortListPage> {
   List<PortConfig> _serviceList = [];
 
   @override
@@ -149,15 +150,17 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
     );
   }
 
-  Future refreshmUDPList() async {
+  Future<void> refreshmUDPList() async {
     try {
-      CommonDeviceApi.getAllUDP(widget.device).then((v) {
-        setState(() {
-          _serviceList = v.portConfigs;
-        });
+      final v = await CommonDeviceApi.getAllUDP(widget.device);
+      if (!mounted) return;
+      setState(() {
+        _serviceList = v.portConfigs;
       });
     } catch (e) {
-      print('Caught error: $e');
+      if (kDebugMode) {
+        debugPrint('Caught error: $e');
+      }
     }
   }
 
@@ -275,13 +278,16 @@ class _UdpPortListPageState extends State<UdpPortListPage> {
                     child: Text(OpenIoTHubLocalizations.of(context).delete),
                     onPressed: () {
                       CommonDeviceApi.deleteOneUDP(config).then((result) {
+                        if (!mounted) return;
                         Navigator.of(context).pop();
                       });
                     },
                   )
                 ])).then((v) {
+      if (!mounted) return;
       Navigator.of(context).pop();
     }).then((v) {
+      if (!mounted) return;
       refreshmUDPList();
     });
   }

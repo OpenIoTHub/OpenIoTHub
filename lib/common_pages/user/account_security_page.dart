@@ -1,10 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:openiothub/network/openiothub_api.dart';
-import 'package:openiothub/common_pages/user/login_page.dart';
-import 'package:openiothub/common_pages/utils/toast.dart';
 import 'package:openiothub/core/openiothub_constants.dart';
 import 'package:openiothub_grpc_api/google/protobuf/wrappers.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/common.pb.dart';
@@ -15,13 +12,14 @@ import 'package:wechat_kit/wechat_kit.dart';
 import 'package:openiothub/common_pages/openiothub_common_pages.dart';
 
 class AccountSecurityPage extends StatefulWidget {
+  const AccountSecurityPage({super.key});
+
   @override
-  _AccountSecurityPageState createState() => _AccountSecurityPageState();
+  State<AccountSecurityPage> createState() => AccountSecurityPageState();
 }
 
-class _AccountSecurityPageState extends State<AccountSecurityPage> {
+class AccountSecurityPageState extends State<AccountSecurityPage> {
   StreamSubscription<WechatResp>? _auth;
-  List<Widget> _list = <Widget>[];
   String username = "";
   String usermobile = "";
   String useremail = "";
@@ -31,24 +29,25 @@ class _AccountSecurityPageState extends State<AccountSecurityPage> {
   String getWechatLoginInfoFailed = "get wechat login info failed";
 
   Future<void> _listenAuth(WechatResp resp) async {
+    final ctx = context;
     if (resp.errorCode == 0 && resp is WechatAuthResp) {
       OperationResponse operationResponse =
           await UserManager.bindWithWechatCode(resp.code!);
+      if (!ctx.mounted) return;
       if (operationResponse.code == 0) {
-        showSuccess(bindWechatSuccess, context);
+        showSuccess(bindWechatSuccess, ctx);
       } else {
-        showFailed("${bindWechatFailed}:${operationResponse.msg}", context);
+        showFailed("$bindWechatFailed:${operationResponse.msg}", ctx);
       }
     } else {
-      showFailed("${getWechatLoginInfoFailed}:${resp.errorMsg}", context);
+      if (!ctx.mounted) return;
+      showFailed("$getWechatLoginInfoFailed:${resp.errorMsg}", ctx);
     }
   }
 
   @override
   void initState() {
-    if (_auth == null) {
-      _auth = WechatKitPlatform.instance.respStream().listen(_listenAuth);
-    }
+    _auth ??= WechatKitPlatform.instance.respStream().listen(_listenAuth);
     _getUserInfo();
     super.initState();
   }
@@ -96,13 +95,16 @@ class _AccountSecurityPageState extends State<AccountSecurityPage> {
               title: Text(OpenIoTHubLocalizations.of(context).bind_wechat),
               trailing: Icon(Icons.arrow_right),
               onTap: () async {
+                final ctx = context;
+                final l10n = OpenIoTHubLocalizations.of(ctx);
                 if (await WechatKitPlatform.instance.isInstalled()) {
                   WechatKitPlatform.instance.auth(
                     scope: <String>[WechatScope.kSNSApiUserInfo],
                     state: 'auth',
                   );
                 } else {
-                  showFailed(OpenIoTHubLocalizations.of(context).no_wechat_installed, context);
+                  if (!ctx.mounted) return;
+                  showFailed(l10n.no_wechat_installed, ctx);
                 }
               }),
           ListTile(
@@ -110,14 +112,15 @@ class _AccountSecurityPageState extends State<AccountSecurityPage> {
               title: Text(OpenIoTHubLocalizations.of(context).unbind_wechat),
               trailing: Icon(Icons.arrow_right),
               onTap: () async {
-                UserManager.unbindWechat()
-                    .then((OperationResponse operationResponse) {
-                  if (operationResponse.code == 0) {
-                    showSuccess(OpenIoTHubLocalizations.of(context).unbind_wechat_success, context);
-                  } else {
-                    showFailed("${OpenIoTHubLocalizations.of(context).unbind_wechat_failed_reason}${operationResponse.msg}", context);
-                  }
-                });
+                final ctx = context;
+                final l10n = OpenIoTHubLocalizations.of(ctx);
+                final operationResponse = await UserManager.unbindWechat();
+                if (!ctx.mounted) return;
+                if (operationResponse.code == 0) {
+                  showSuccess(l10n.unbind_wechat_success, ctx);
+                } else {
+                  showFailed("${l10n.unbind_wechat_failed_reason}${operationResponse.msg}", ctx);
+                }
               }),
           ListTile(
               //注销账号
@@ -136,14 +139,17 @@ class _AccountSecurityPageState extends State<AccountSecurityPage> {
   }
 
   Future<void> _getUserInfo() async {
+    final ctx = context;
     bool b = await userSignedIn();
     if (!b) {
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => LoginPage()));
+      if (!ctx.mounted) return;
+      Navigator.of(ctx)
+          .push(MaterialPageRoute(builder: (context) => const LoginPage()));
     }
     //从网络同步一遍到本地
     SharedPreferences prefs = await SharedPreferences.getInstance();
     UserInfo userInfo = await UserManager.getUserInfo();
+    if (!ctx.mounted) return;
     await prefs.setString(SharedPreferencesKey.userNameKey, userInfo.name);
     await prefs.setString(SharedPreferencesKey.userEmailKey, userInfo.email);
     await prefs.setString(
@@ -179,12 +185,12 @@ class _AccountSecurityPageState extends State<AccountSecurityPage> {
     }
   }
 
-  Future<void> _modifyInfo(BuildContext context,String type) async {
-    TextEditingController _newValueController =
-        TextEditingController.fromValue(TextEditingValue(text: ""));
+  Future<void> _modifyInfo(BuildContext context, String type) async {
+    final newValueController =
+        TextEditingController.fromValue(const TextEditingValue(text: ''));
     showDialog(
         context: context,
-        builder: (_) => AlertDialog(
+        builder: (dialogContext) => AlertDialog(
                 title: Text("${OpenIoTHubLocalizations.of(context).modify}：$type"),
                 scrollable: true,
                 content: SizedBox(
@@ -192,7 +198,7 @@ class _AccountSecurityPageState extends State<AccountSecurityPage> {
                     child: ListView(
                   children: <Widget>[
                     TextField(
-                      controller: _newValueController,
+                      controller: newValueController,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: '${OpenIoTHubLocalizations.of(context).please_input_new_value}$type',
@@ -206,28 +212,28 @@ class _AccountSecurityPageState extends State<AccountSecurityPage> {
                   TextButton(
                     child: Text(OpenIoTHubLocalizations.of(context).cancel),
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      Navigator.of(dialogContext).pop();
                     },
                   ),
                   TextButton(
                     child: Text(OpenIoTHubLocalizations.of(context).modify),
                     onPressed: () async {
+                      final ctx = context;
+                      final l10n = OpenIoTHubLocalizations.of(ctx);
                       StringValue stringValue = StringValue();
-                      stringValue.value = _newValueController.text;
-                      if (type == OpenIoTHubLocalizations.of(context).username) {
-                        OperationResponse operationResponse =
+                      stringValue.value = newValueController.text;
+                      if (type == l10n.username) {
                         await UserManager.updateUserName(stringValue);
-                      } else if (type == OpenIoTHubLocalizations.of(context).user_mobile) {
-                        OperationResponse operationResponse =
+                      } else if (type == l10n.user_mobile) {
                         await UserManager.updateUserMobile(stringValue);
-                      }else if (type == OpenIoTHubLocalizations.of(context).user_email) {
-                        OperationResponse operationResponse =
+                      } else if (type == l10n.user_email) {
                         await UserManager.updateUserEmail(stringValue);
-                      }else if (type == OpenIoTHubLocalizations.of(context).password){
-                        OperationResponse operationResponse =
+                      } else if (type == l10n.password) {
                         await UserManager.updateUserPassword(stringValue);
                       }
-                      Navigator.of(context).pop();
+                      if (!dialogContext.mounted) return;
+                      Navigator.of(dialogContext).pop();
+                      if (!ctx.mounted) return;
                       _getUserInfo();
                     },
                   )
@@ -235,11 +241,11 @@ class _AccountSecurityPageState extends State<AccountSecurityPage> {
   }
 
   Future<void> _deleteMyAccount(BuildContext context) async {
-    TextEditingController _newValueController =
-        TextEditingController.fromValue(TextEditingValue(text: ""));
+    final passwordController =
+        TextEditingController.fromValue(const TextEditingValue(text: ''));
     showDialog(
         context: context,
-        builder: (_) => AlertDialog(
+        builder: (dialogContext) => AlertDialog(
                 title: Text(OpenIoTHubLocalizations.of(context).cancel_my_account),
                 scrollable: true,
                 content: SizedBox.expand(
@@ -254,7 +260,7 @@ class _AccountSecurityPageState extends State<AccountSecurityPage> {
                       style: TextStyle(color: Colors.red),
                     ),
                     TextField(
-                      controller: _newValueController,
+                      controller: passwordController,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
                         labelText: OpenIoTHubLocalizations.of(context).please_input_your_password,
@@ -272,16 +278,21 @@ class _AccountSecurityPageState extends State<AccountSecurityPage> {
                   TextButton(
                     child: Text(OpenIoTHubLocalizations.of(context).confirm_cancel_account, style: TextStyle(color: Colors.red)),
                     onPressed: () async {
+                      final ctx = context;
+                      final l10n = OpenIoTHubLocalizations.of(ctx);
                       LoginInfo loginInfo = LoginInfo();
-                      loginInfo.password = _newValueController.text;
+                      loginInfo.password = passwordController.text;
                       OperationResponse operationResponse =
                           await UserManager.deleteMyAccount(loginInfo);
+                      if (!ctx.mounted) return;
                       if (operationResponse.code == 0) {
                         //删除账号成功
-                        showSuccess(OpenIoTHubLocalizations.of(context).cancel_account_success, context);
-                        Navigator.of(context).pop();
+                        showSuccess(l10n.cancel_account_success, ctx);
+                        if (dialogContext.mounted) {
+                          Navigator.of(dialogContext).pop();
+                        }
                       } else {
-                        showFailed("${OpenIoTHubLocalizations.of(context).cancel_account_failed}:${operationResponse.msg}", context);
+                        showFailed("${l10n.cancel_account_failed}:${operationResponse.msg}", ctx);
                       }
                     },
                   ),
@@ -291,7 +302,7 @@ class _AccountSecurityPageState extends State<AccountSecurityPage> {
                       style: TextStyle(color: Colors.green),
                     ),
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      Navigator.of(dialogContext).pop();
                     },
                   ),
                 ]));

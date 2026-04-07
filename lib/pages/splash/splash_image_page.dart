@@ -23,7 +23,7 @@ class SplashImageState extends State<SplashImagePage> {
         overlays: []);
     super.initState();
     _startRecordTime();
-    print('初始化启动页面');
+    debugPrint('初始化启动页面');
   }
 
   @override
@@ -33,7 +33,7 @@ class SplashImageState extends State<SplashImagePage> {
     super.dispose();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: SystemUiOverlay.values);
-    print('启动页面结束');
+    debugPrint('启动页面结束');
     if (_countdownTimer.isActive) {
       _countdownTimer.cancel();
     }

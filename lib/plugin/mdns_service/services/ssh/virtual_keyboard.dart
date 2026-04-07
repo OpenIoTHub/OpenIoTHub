@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:xterm/xterm.dart';
 
 class VirtualKeyboardView extends StatelessWidget {
@@ -11,7 +12,6 @@ class VirtualKeyboardView extends StatelessWidget {
     return AnimatedBuilder(
       animation: keyboard,
       builder: (context, child) => ToggleButtons(
-        children: [Text('Ctrl'), Text('Alt'), Text('Shift')],
         isSelected: [keyboard.ctrl, keyboard.alt, keyboard.shift],
         onPressed: (index) {
           switch (index) {
@@ -26,6 +26,11 @@ class VirtualKeyboardView extends StatelessWidget {
               break;
           }
         },
+        children: [
+          Text(OpenIoTHubLocalizations.of(context).ssh_key_ctrl),
+          Text(OpenIoTHubLocalizations.of(context).ssh_key_alt),
+          Text(OpenIoTHubLocalizations.of(context).ssh_key_shift),
+        ],
       ),
     );
   }

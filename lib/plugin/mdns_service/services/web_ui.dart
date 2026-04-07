@@ -5,42 +5,25 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:openiothub/common_pages/web/web.dart';
 
-import 'package:openiothub/plugin/openiothub_plugin.dart';
-
 import 'package:openiothub/plugin/models/port_service_info.dart';
 
 class WebPage extends StatefulWidget {
-  WebPage({required Key key, required this.device}) : super(key: key);
+  const WebPage({required Key key, required this.device}) : super(key: key);
 
   static final String modelName = "com.iotserv.services.web";
   final PortServiceInfo device;
 
   @override
-  _WebPageState createState() => _WebPageState();
+  State<WebPage> createState() => WebPageState();
 }
 
-class _WebPageState extends State<WebPage> {
+class WebPageState extends State<WebPage> {
   @override
   Widget build(BuildContext context) {
-    var _url = 'http://${widget.device.addr}:${widget.device.port}';
+    var url = 'http://${widget.device.addr}:${widget.device.port}';
     // TODO 更换web插件
 //    解决退出没有断连的问题
-    return WebScreen(startUrl: _url,);
-  }
-
-  _info() async {
-    Navigator.of(context).pop();
-    // TODO 设备信息
-    await Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) {
-          return InfoPage(
-            portService: widget.device,
-            key: UniqueKey(),
-          );
-        },
-      ),
-    );
+    return WebScreen(startUrl: url,);
   }
 
   @override
@@ -52,9 +35,9 @@ class _WebPageState extends State<WebPage> {
     // } else {
     //   _launchUrl('http://${widget.device.addr}:${widget.device.port}');
     // }
-    var _url = 'http://${widget.device.addr}:${widget.device.port}';
+    var url = 'http://${widget.device.addr}:${widget.device.port}';
     if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
-      _launchUrl(_url);
+      _launchUrl(url);
       return;
     }
   }
@@ -64,10 +47,11 @@ class _WebPageState extends State<WebPage> {
     if (await canLaunchUrlString(url)) {
       await launchUrlString(url);
     } else {
-      print('Could not launch $url');
+      debugPrint('Could not launch $url');
     }
     if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
       // 直接使用系统浏览器就不进入本页
+      if (!mounted) return;
       Navigator.of(context).pop();
     }
   }
