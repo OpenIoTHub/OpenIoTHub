@@ -5,6 +5,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:openiothub/plugin/openiothub_plugin.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 
 import 'package:openiothub/plugin/models/port_service_info.dart';
 
@@ -49,20 +50,29 @@ class UART2TCPStatus extends State<UART2TCPPage> with TickerProviderStateMixin {
               }),
         ],
       ),
-      body: Column(children: <Widget>[
-        Flexible(
-            child: ListView.builder(
-          itemBuilder: (_, int index) => _messages[index],
-          itemCount: _messages.length,
-          reverse: true,
-          padding: EdgeInsets.all(6.0),
-        )),
-        Divider(height: 1.0),
-        Container(
-          decoration: BoxDecoration(color: Theme.of(ctx).cardColor),
-          child: _buildComposer(),
-        ),
-      ]),
+      body: openIoTHubDesktopConstrainedBody(
+        child: Column(children: <Widget>[
+          Flexible(
+              child: Builder(
+            builder: (context) {
+              final list = ListView.builder(
+                itemBuilder: (_, int index) => _messages[index],
+                itemCount: _messages.length,
+                reverse: true,
+                padding: EdgeInsets.all(6.0),
+              );
+              return openIoTHubUseDesktopHomeLayout
+                  ? Scrollbar(thumbVisibility: true, child: list)
+                  : list;
+            },
+          )),
+          Divider(height: 1.0),
+          Container(
+            decoration: BoxDecoration(color: Theme.of(ctx).cardColor),
+            child: _buildComposer(),
+          ),
+        ]),
+      ),
     );
   }
 

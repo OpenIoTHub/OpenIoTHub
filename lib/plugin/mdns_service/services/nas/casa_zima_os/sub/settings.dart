@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:openiothub/common_pages/utils/toast.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -153,13 +154,14 @@ class CasaZimaOsSettingsPageState extends State<SettingsPage> {
         appBar: AppBar(
           title: Text(OpenIoTHubLocalizations.of(context).profile_settings),
         ),
-        body: Center(
-          child: Container(
-            padding: EdgeInsets.all(10.0),
+        body: openIoTHubDesktopScrollableListBody(
+          scrollable: Padding(
+            padding: const EdgeInsets.all(10.0),
             child: ListView(
               children: listView,
             ),
           ),
-        ));
+        ),
+    );
   }
 }

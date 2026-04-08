@@ -7,6 +7,7 @@ import 'package:flutter_breadcrumb/flutter_breadcrumb.dart';
 import 'package:openiothub/plugin/generated/assets.dart';
 import 'package:openiothub/plugin/pages/network_video_player_page.dart';
 import 'package:openiothub/common_pages/utils/toast.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/plugin/utils/web.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
@@ -96,7 +97,11 @@ class _FileManagerPageState extends State<FileManagerPage> {
         appBar: AppBar(
           title: Text(OpenIoTHubLocalizations.of(context).nas_files),
         ),
-        body: _buildPaginationSideBar(context));
+        body: openIoTHubDesktopConstrainedBody(
+          maxWidth: 1200,
+          child: _buildPaginationSideBar(context),
+        ),
+    );
   }
 
   Widget _buildPaginationSideBar(BuildContext context) {
@@ -143,9 +148,12 @@ class _FileManagerPageState extends State<FileManagerPage> {
         Expanded(
             child: SizedBox(
                 height: demoHeight,
-                child: SingleChildScrollView(
-                  physics: AlwaysScrollableScrollPhysics(),
-                  child: getPathFileList(),
+                child: Scrollbar(
+                  thumbVisibility: openIoTHubUseDesktopHomeLayout,
+                  child: SingleChildScrollView(
+                    physics: AlwaysScrollableScrollPhysics(),
+                    child: getPathFileList(),
+                  ),
                 )))
       ],
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 
 class TerminalPage extends StatefulWidget {
   const TerminalPage({super.key});
@@ -15,13 +16,14 @@ class _TerminalPageState extends State<TerminalPage> {
         appBar: AppBar(
           title: Text(OpenIoTHubLocalizations.of(context).nas_terminal),
         ),
-        body: Center(
-          child: Container(
-            padding: EdgeInsets.all(10.0),
+        body: openIoTHubDesktopScrollableListBody(
+          scrollable: Padding(
+            padding: const EdgeInsets.all(10.0),
             child: ListView(
               children: [],
             ),
           ),
-        ));
+        ),
+    );
   }
 }

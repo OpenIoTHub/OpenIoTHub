@@ -15,6 +15,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 import 'package:openiothub/ads/openiothub_ads.dart';
 import 'package:openiothub/router/app_navigator.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 
 class GatewayListPage extends StatefulWidget {
   const GatewayListPage({required Key key, required this.title})
@@ -37,8 +38,12 @@ class GatewayListPageState extends State<GatewayListPage> {
   void initState() {
     super.initState();
     getAllSession();
-    Future.delayed(Duration(seconds: 1),(){getAllSession();});
-    Future.delayed(Duration(seconds: 2),(){getAllSession();});
+    Future.delayed(Duration(seconds: 1), () {
+      getAllSession();
+    });
+    Future.delayed(Duration(seconds: 2), () {
+      getAllSession();
+    });
     _timerPeriod = Timer.periodic(const Duration(seconds: 7), (Timer timer) {
       getAllSession();
     });
@@ -54,7 +59,8 @@ class GatewayListPageState extends State<GatewayListPage> {
   @override
   Widget build(BuildContext context) {
     final tiles = _sessionList.map((pair) {
-      final bool isOnline = pair.statusToClient ||
+      final bool isOnline =
+          pair.statusToClient ||
           pair.statusP2PAsClient ||
           pair.statusP2PAsServer;
       var listItemContent = ListTile(
@@ -84,15 +90,15 @@ class GatewayListPageState extends State<GatewayListPage> {
             const SizedBox(width: 8),
             isOnline
                 ? TDTag(
-                    OpenIoTHubLocalizations.of(context).online,
-                    theme: TDTagTheme.success,
-                    isLight: true,
-                  )
+                  OpenIoTHubLocalizations.of(context).online,
+                  theme: TDTagTheme.success,
+                  isLight: true,
+                )
                 : TDTag(
-                    OpenIoTHubLocalizations.of(context).offline,
-                    theme: TDTagTheme.danger,
-                    isLight: true,
-                  ),
+                  OpenIoTHubLocalizations.of(context).offline,
+                  theme: TDTagTheme.danger,
+                  isLight: true,
+                ),
           ],
         ),
         subtitle: Text(
@@ -142,62 +148,63 @@ class GatewayListPageState extends State<GatewayListPage> {
         },
         child: const Icon(TDIcons.scan),
       ),
-      body: RefreshIndicator(
-        onRefresh: getAllSession,
-        child:
-            tiles.isNotEmpty
-                ? divided
-                : Column(
-                  children: [
-                    ThemeUtils.isDarkMode(context)
-                        ? Center(
-                          child: Image.asset(
-                            'assets/images/empty_list_black.png',
+      body: openIoTHubDesktopConstrainedBody(
+        child: RefreshIndicator(
+          onRefresh: getAllSession,
+          child:
+              tiles.isNotEmpty
+                  ? (openIoTHubUseDesktopHomeLayout
+                      ? Scrollbar(thumbVisibility: true, child: divided)
+                      : divided)
+                  : Column(
+                    children: [
+                      ThemeUtils.isDarkMode(context)
+                          ? Center(
+                            child: Image.asset(
+                              'assets/images/empty_list_black.png',
+                            ),
+                          )
+                          : Center(
+                            child: Image.asset('assets/images/empty_list.png'),
                           ),
-                        )
-                        : Center(
-                          child: Image.asset('assets/images/empty_list.png'),
+                      TextButton(
+                        style: ButtonStyle(
+                          side: WidgetStateProperty.all(
+                            AppDecorations.dividerBorder,
+                          ),
+                          shape: WidgetStateProperty.all(const StadiumBorder()),
                         ),
-                    TextButton(
-                      style: ButtonStyle(
-                        side: WidgetStateProperty.all(
-                          AppDecorations.dividerBorder,
+                        onPressed: () {
+                          AppNavigator.pushGuide(context, activeIndex: 1);
+                        },
+                        child: Text(
+                          OpenIoTHubLocalizations.of(context).add_a_gateway,
                         ),
-                        shape: WidgetStateProperty.all(const StadiumBorder()),
                       ),
-                      onPressed: () {
-                        AppNavigator.pushGuide(context, activeIndex: 1);
-                      },
-                      child: Text(
-                        OpenIoTHubLocalizations.of(
-                          context,
-                        ).add_a_gateway,
+                      TextButton(
+                        onPressed: () {
+                          launchUrlString(
+                            "https://github.com/OpenIoTHub/gateway-go",
+                          );
+                        },
+                        child: Text(
+                          OpenIoTHubLocalizations.of(context).install_gateway,
+                        ),
                       ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        launchUrlString("https://github.com/OpenIoTHub/gateway-go");
-                      },
-                      child: Text(
-                        OpenIoTHubLocalizations.of(
-                          context,
-                        ).install_gateway,
-                      ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
+        ),
       ),
     );
   }
 
   void _pushmDNSServices(SessionConfig config) async {
-    AppNavigator.pushGatewayMdnsServiceList(context, config)
-        .then((result) {
-          if (!mounted) return;
-          setState(() {
-            getAllSession();
-          });
-        });
+    AppNavigator.pushGatewayMdnsServiceList(context, config).then((result) {
+      if (!mounted) return;
+      setState(() {
+        getAllSession();
+      });
+    });
   }
 
   Future createOneSession(SessionConfig config) async {
@@ -296,34 +303,30 @@ class GatewayListPageState extends State<GatewayListPage> {
   Widget getIconImage(path) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
-      child: Image.asset(
-        path,
-        width: imageIconWidth,
-        height: imageIconWidth,
-      ),
+      child: Image.asset(path, width: imageIconWidth, height: imageIconWidth),
     );
   }
 
   _buildBanner() {
-    if (!Platform.isAndroid && !Platform.isIOS){
+    if (!Platform.isAndroid && !Platform.isIOS) {
       return Container();
     }
     final mainlandCn = context.isCnMainlandLocale;
     return mainlandCn
         ? buildYLHBanner(context)
         : _bannerAd == null
-            ? Container()
-            : SafeArea(
-                child: SizedBox(
-                  width: _bannerAd!.size.width.toDouble(),
-                  height: _bannerAd!.size.height.toDouble(),
-                  child: AdWidget(ad: _bannerAd!),
-                ),
-              );
+        ? Container()
+        : SafeArea(
+          child: SizedBox(
+            width: _bannerAd!.size.width.toDouble(),
+            height: _bannerAd!.size.height.toDouble(),
+            child: AdWidget(ad: _bannerAd!),
+          ),
+        );
   }
 
   void _loadAd() async {
-    if (!Platform.isAndroid && !Platform.isIOS){
+    if (!Platform.isAndroid && !Platform.isIOS) {
       return;
     }
     // // [START_EXCLUDE silent]

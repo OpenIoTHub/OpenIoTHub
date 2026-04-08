@@ -19,11 +19,12 @@ import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import 'package:openiothub/core/globals.dart';
 import 'package:openiothub/init.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 import 'create_service.dart';
 
 class ServicesListPage extends StatefulWidget {
   const ServicesListPage({required Key key, required this.device})
-      : super(key: key);
+    : super(key: key);
 
   final Device device;
 
@@ -114,18 +115,14 @@ class ServicesListPageState extends State<ServicesListPage> {
             },
           ),
           IconButton(
-            icon: const Icon(
-              Icons.power_settings_new,
-            ),
+            icon: const Icon(Icons.power_settings_new),
             tooltip: l10n.tooltip_wake_on_lan,
             onPressed: () {
               _wakeOnLAN();
             },
           ),
           IconButton(
-            icon: const Icon(
-              Icons.add_circle,
-            ),
+            icon: const Icon(Icons.add_circle),
             tooltip: l10n.tooltip_add_tcp_udp_port,
             onPressed: () {
               _addOnePortConfig(widget.device).then((v) {
@@ -134,9 +131,7 @@ class ServicesListPageState extends State<ServicesListPage> {
             },
           ),
           IconButton(
-            icon: const Icon(
-              Icons.info,
-            ),
+            icon: const Icon(Icons.info),
             tooltip: l10n.tooltip_current_host_info,
             onPressed: () {
               _pushDetail();
@@ -144,11 +139,16 @@ class ServicesListPageState extends State<ServicesListPage> {
           ),
         ],
       ),
-      body: RefreshIndicator(
-        onRefresh: () async {
-          await refreshPortConfigList();
-        },
-        child: divided,
+      body: openIoTHubDesktopConstrainedBody(
+        child: RefreshIndicator(
+          onRefresh: () async {
+            await refreshPortConfigList();
+          },
+          child:
+              openIoTHubUseDesktopHomeLayout
+                  ? Scrollbar(thumbVisibility: true, child: divided)
+                  : divided,
+        ),
       ),
     );
   }
@@ -156,33 +156,34 @@ class ServicesListPageState extends State<ServicesListPage> {
   Future<void> _deleteCurrentDevice() async {
     await showDialog<void>(
       context: context,
-      builder: (dialogContext) => AlertDialog(
-        title: Text(OpenIoTHubLocalizations.of(context).delete_device),
-        content: SizedBox.expand(
-          child: Text(
-            OpenIoTHubLocalizations.of(context).confirm_delete_device,
+      builder:
+          (dialogContext) => AlertDialog(
+            title: Text(OpenIoTHubLocalizations.of(context).delete_device),
+            content: SizedBox.expand(
+              child: Text(
+                OpenIoTHubLocalizations.of(context).confirm_delete_device,
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text(OpenIoTHubLocalizations.of(context).cancel),
+                onPressed: () {
+                  Navigator.of(dialogContext).pop();
+                },
+              ),
+              TextButton(
+                child: Text(OpenIoTHubLocalizations.of(context).delete),
+                onPressed: () {
+                  CommonDeviceApi.deleteOneDevice(widget.device).then((_) {
+                    if (!dialogContext.mounted) return;
+                    Navigator.of(dialogContext).pop();
+                    if (!mounted) return;
+                    Navigator.of(context).pop();
+                  });
+                },
+              ),
+            ],
           ),
-        ),
-        actions: <Widget>[
-          TextButton(
-            child: Text(OpenIoTHubLocalizations.of(context).cancel),
-            onPressed: () {
-              Navigator.of(dialogContext).pop();
-            },
-          ),
-          TextButton(
-            child: Text(OpenIoTHubLocalizations.of(context).delete),
-            onPressed: () {
-              CommonDeviceApi.deleteOneDevice(widget.device).then((_) {
-                if (!dialogContext.mounted) return;
-                Navigator.of(dialogContext).pop();
-                if (!mounted) return;
-                Navigator.of(context).pop();
-              });
-            },
-          ),
-        ],
-      ),
     );
   }
 
@@ -319,12 +320,18 @@ class ServicesListPageState extends State<ServicesListPage> {
           });
           final divided =
               ListTile.divideTiles(context: context, tiles: tiles).toList();
+          final detailList = ListView(children: divided);
 
           return Scaffold(
             appBar: AppBar(
               title: Text(OpenIoTHubLocalizations.of(context).device_details),
             ),
-            body: ListView(children: divided),
+            body: openIoTHubDesktopConstrainedBody(
+              child:
+                  openIoTHubUseDesktopHomeLayout
+                      ? Scrollbar(thumbVisibility: true, child: detailList)
+                      : detailList,
+            ),
           );
         },
       ),
@@ -365,6 +372,7 @@ class ServicesListPageState extends State<ServicesListPage> {
           });
           final divided =
               ListTile.divideTiles(context: context, tiles: tiles).toList();
+          final portDetailList = ListView(children: divided);
 
           return Scaffold(
             appBar: AppBar(
@@ -378,7 +386,12 @@ class ServicesListPageState extends State<ServicesListPage> {
                 ),
               ],
             ),
-            body: ListView(children: divided),
+            body: openIoTHubDesktopConstrainedBody(
+              child:
+                  openIoTHubUseDesktopHomeLayout
+                      ? Scrollbar(thumbVisibility: true, child: portDetailList)
+                      : portDetailList,
+            ),
           );
         },
       ),
@@ -513,39 +526,40 @@ class ServicesListPageState extends State<ServicesListPage> {
     }
     final deleted = await showDialog<bool>(
       context: context,
-      builder: (dialogContext) => AlertDialog(
-        title: Text(deleteTitle),
-        content: SizedBox.expand(
-          child: Text(deleteConfirm),
-        ),
-        actions: <Widget>[
-          TextButton(
-            child: Text(l.cancel),
-            onPressed: () {
-              Navigator.of(dialogContext).pop(false);
-            },
+      builder:
+          (dialogContext) => AlertDialog(
+            title: Text(deleteTitle),
+            content: SizedBox.expand(child: Text(deleteConfirm)),
+            actions: <Widget>[
+              TextButton(
+                child: Text(l.cancel),
+                onPressed: () {
+                  Navigator.of(dialogContext).pop(false);
+                },
+              ),
+              TextButton(
+                child: Text(l.delete),
+                onPressed: () {
+                  CommonDeviceApi.deleteOnePortForConfig(config)
+                      .then((_) {
+                        if (dialogContext.mounted) {
+                          Navigator.of(dialogContext).pop(true);
+                        }
+                      })
+                      .catchError((Object e, StackTrace st) {
+                        developer.log(
+                          'ServicesListPage: delete port failed uuid=${config.uuid}',
+                          name: 'ServicesListPage',
+                          error: e,
+                          stackTrace: st,
+                        );
+                        if (!mounted) return;
+                        showFailed(e.toString(), context);
+                      });
+                },
+              ),
+            ],
           ),
-          TextButton(
-            child: Text(l.delete),
-            onPressed: () {
-              CommonDeviceApi.deleteOnePortForConfig(config).then((_) {
-                if (dialogContext.mounted) {
-                  Navigator.of(dialogContext).pop(true);
-                }
-              }).catchError((Object e, StackTrace st) {
-                developer.log(
-                  'ServicesListPage: delete port failed uuid=${config.uuid}',
-                  name: 'ServicesListPage',
-                  error: e,
-                  stackTrace: st,
-                );
-                if (!mounted) return;
-                showFailed(e.toString(), context);
-              });
-            },
-          ),
-        ],
-      ),
     );
     if (!mounted) return;
     if (deleted == true) {
@@ -561,14 +575,14 @@ class ServicesListPageState extends State<ServicesListPage> {
     return context.isCnMainlandLocale
         ? buildYLHBanner(context)
         : _bannerAd == null
-            ? Container()
-            : SafeArea(
-                child: SizedBox(
-                  width: _bannerAd!.size.width.toDouble(),
-                  height: _bannerAd!.size.height.toDouble(),
-                  child: AdWidget(ad: _bannerAd!),
-                ),
-              );
+        ? Container()
+        : SafeArea(
+          child: SizedBox(
+            width: _bannerAd!.size.width.toDouble(),
+            height: _bannerAd!.size.height.toDouble(),
+            child: AdWidget(ad: _bannerAd!),
+          ),
+        );
   }
 
   Future<void> _loadAd() async {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:openiothub/router/app_navigator.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 
 /// 解析 [GoRoute] 的 [GoRouterState.extra]（Map 或直传 [Device]）。
@@ -36,7 +37,15 @@ class OpenIoTHubRouteExtra {
     return d is Device ? d : null;
   }
 
-  static Widget invalidPage() => const Scaffold(
-        body: Center(child: Text('Invalid navigation')),
+  static Widget invalidPage() => Scaffold(
+        body: openIoTHubDesktopConstrainedBody(
+          maxWidth: 480,
+          child: const Center(
+            child: Padding(
+              padding: EdgeInsets.all(24),
+              child: SelectableText('Invalid navigation'),
+            ),
+          ),
+        ),
       );
 }

@@ -5,6 +5,7 @@ import 'package:openiothub/plugin/generated/assets.dart';
 import 'package:openiothub/plugin/openiothub_plugin.dart';
 import 'package:openiothub/common_pages/utils/toast.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import 'package:openiothub/plugin/models/port_service_info.dart';
@@ -48,14 +49,18 @@ class UnraidLoginPageState extends State<UnraidLoginPage> {
           title: Text(OpenIoTHubLocalizations.of(context).nas_login_unraid),
         ),
         body: Center(
-          child: Container(
-            padding: EdgeInsets.all(10.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: _list,
+          child: openIoTHubDesktopConstrainedBody(
+            maxWidth: 440,
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: _list,
+              ),
             ),
           ),
-        ));
+        ),
+    );
   }
 
   Future<void> _initList() async {

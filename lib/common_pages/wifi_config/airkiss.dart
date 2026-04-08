@@ -10,6 +10,7 @@ import 'package:network_info_plus/network_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'package:openiothub/common_pages/openiothub_common_pages.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 class Airkiss extends StatefulWidget {
@@ -25,10 +26,9 @@ class AirkissState extends State<Airkiss> {
   OpenIoTHubLocalizations? localizations;
   final NetworkInfo _networkInfo = NetworkInfo();
 
-//  New
+  //  New
   final TextEditingController _ssidFilter = TextEditingController();
-  final TextEditingController _bssidFilter =
-  TextEditingController();
+  final TextEditingController _bssidFilter = TextEditingController();
   final TextEditingController _passwordFilter = TextEditingController();
 
   bool _isLoading = false;
@@ -89,62 +89,68 @@ class AirkissState extends State<Airkiss> {
     }
     _msg = localizations!.input_wifi_password;
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        body: Center(
-            child: _isLoading
+      appBar: AppBar(title: Text(widget.title)),
+      body: Center(
+        child:
+            _isLoading
                 ? Container(
-                    color: Colors.white.withValues(alpha: 0.8),
-                    child: Center(
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            LinearProgressIndicator(
-                              value: 0.5,
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                  Colors.lightBlue),
-                            ),
-                            Container(
-                              height: 60.0,
-                            ),
-                            Text(
-                                "${localizations!.connecting_to_router}：\n\n$_ssid(${localizations!.wifi_bssid_label}:$_bssid)\n\n$_msg"),
-                          ]),
-                    ),
-                  )
-                : Container(
-                    padding: EdgeInsets.all(10.0),
+                  color: Colors.white.withValues(alpha: 0.8),
+                  child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        LinearProgressIndicator(
+                          value: 0.5,
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Colors.lightBlue,
+                          ),
+                        ),
+                        Container(height: 60.0),
+                        Text(
+                          "${localizations!.connecting_to_router}：\n\n$_ssid(${localizations!.wifi_bssid_label}:$_bssid)\n\n$_msg",
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+                : openIoTHubDesktopConstrainedBody(
+                  maxWidth: 520,
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
                         Container(height: 20),
                         GestureDetector(
                           child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                Text(localizations!.device_wifi_config),
-                                TextField(
-                                  controller: _ssidFilter,
-                                  decoration:
-                                      InputDecoration(labelText: localizations!.wifi_ssid),
-                                  readOnly: true,
-                                  onTap: () async {
-                                    // showToast("onTap");
-                                    await _reqWiFiInfo();
-                                  },
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Text(localizations!.device_wifi_config),
+                              TextField(
+                                controller: _ssidFilter,
+                                decoration: InputDecoration(
+                                  labelText: localizations!.wifi_ssid,
                                 ),
-                                TextField(
-                                  controller: _bssidFilter,
-                                  decoration: InputDecoration(
-                                      labelText: localizations!.wifi_bssid_label),
-                                  readOnly: true,
-                                  onTap: () async {
-                                    // showToast("onTap");
-                                    await _reqWiFiInfo();
-                                  },
+                                readOnly: true,
+                                onTap: () async {
+                                  // showToast("onTap");
+                                  await _reqWiFiInfo();
+                                },
+                              ),
+                              TextField(
+                                controller: _bssidFilter,
+                                decoration: InputDecoration(
+                                  labelText: localizations!.wifi_bssid_label,
                                 ),
-                              ]),
+                                readOnly: true,
+                                onTap: () async {
+                                  // showToast("onTap");
+                                  await _reqWiFiInfo();
+                                },
+                              ),
+                            ],
+                          ),
                           onTap: () async {
                             // showToast("onTap");
                             await _reqWiFiInfo();
@@ -152,20 +158,29 @@ class AirkissState extends State<Airkiss> {
                         ),
                         TextField(
                           controller: _passwordFilter,
-                          decoration: InputDecoration(labelText: localizations!.input_wifi_password),
+                          decoration: InputDecoration(
+                            labelText: localizations!.input_wifi_password,
+                          ),
                           obscureText: true,
                         ),
                         Container(height: 20),
                         ElevatedButton(
-                          child: Text(localizations!.start_adding_surrounding_smart_devices),
+                          child: Text(
+                            localizations!
+                                .start_adding_surrounding_smart_devices,
+                          ),
                           onPressed: () async {
                             if (_ssid == null || _password == null) {
-                              showFailed(localizations!.wifi_info_cant_be_empty, context);
+                              showFailed(
+                                localizations!.wifi_info_cant_be_empty,
+                                context,
+                              );
                               return;
                             }
                             setState(() {
                               _isLoading = true;
-                              _msg = localizations!.discovering_device_please_wait;
+                              _msg =
+                                  localizations!.discovering_device_please_wait;
                             });
                             //由于微信AirKiss配网和汉枫SmartLink都是使用本地的UDP端口10000进行监听所以，先进行AirKiss然后进行SmartLink
                             await _configureWiFi();
@@ -174,17 +189,24 @@ class AirkissState extends State<Airkiss> {
                         Container(height: 10),
                         Text(_msg!),
                       ],
-                    ))));
+                    ),
+                  ),
+                ),
+      ),
+    );
   }
 
   Future<void> _reqWiFiInfo() async {
     showGeneralDialog(
       context: context,
-      pageBuilder: (BuildContext buildContext, Animation<double> animation,
-          Animation<double> secondaryAnimation) {
+      pageBuilder: (
+        BuildContext buildContext,
+        Animation<double> animation,
+        Animation<double> secondaryAnimation,
+      ) {
         return TDAlertDialog(
           title: OpenIoTHubLocalizations.of(context).location_req_name,
-            // Note 说明权限申请的使用目的，包括但不限于申请权限的名称、服务的具体功能、用途
+          // Note 说明权限申请的使用目的，包括但不限于申请权限的名称、服务的具体功能、用途
           content: OpenIoTHubLocalizations.of(context).location_req_desc,
           titleColor: Colors.black,
           contentColor: Colors.redAccent,
@@ -192,26 +214,26 @@ class AirkissState extends State<Airkiss> {
           leftBtn: TDDialogButtonOptions(
             title: OpenIoTHubLocalizations.of(context).cancel,
             // titleColor: AppTheme.color999,
-            style: TDButtonStyle(
-              backgroundColor: Colors.grey,
-            ),
-            action: (){
+            style: TDButtonStyle(backgroundColor: Colors.grey),
+            action: () {
               Navigator.of(context).pop();
             },
           ),
           rightBtn: TDDialogButtonOptions(
             title: OpenIoTHubLocalizations.of(context).ok,
-            style: TDButtonStyle(
-              backgroundColor: Colors.blue,
-            ),
-            action: (){
+            style: TDButtonStyle(backgroundColor: Colors.blue),
+            action: () {
               Navigator.of(context).pop();
-              requestPermission().then((ret){_updateConnectionStatus();});
+              requestPermission().then((ret) {
+                _updateConnectionStatus();
+              });
             },
           ),
-          rightBtnAction: (){
+          rightBtnAction: () {
             Navigator.of(context).pop();
-            requestPermission().then((ret){_updateConnectionStatus();});
+            requestPermission().then((ret) {
+              _updateConnectionStatus();
+            });
           },
         );
       },
@@ -282,8 +304,9 @@ class AirkissState extends State<Airkiss> {
     } on PlatformException catch (e) {
       if (!mounted) return false;
       final msg = e.message ?? '';
-      final output =
-          OpenIoTHubLocalizations.of(context).airkiss_configure_failed(msg);
+      final output = OpenIoTHubLocalizations.of(
+        context,
+      ).airkiss_configure_failed(msg);
       setState(() {
         _isLoading = false;
         _msg = output;

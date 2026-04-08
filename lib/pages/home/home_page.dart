@@ -58,8 +58,8 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
       case AppLifecycleState.paused: // 界面不可见，后台
         // showToast( "程序状态：${state.toString()}");
         break;
-      case AppLifecycleState.detached: // APP结束时调用
-        exit(1);
+      case AppLifecycleState.detached: // 进程收尾由根组件统一处理；勿在此 exit，以免影响前台服务与引擎正常销毁。
+        break;
       default:
         break;
     }

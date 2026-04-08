@@ -15,6 +15,7 @@ import 'package:openiothub/core/openiothub_constants.dart';
 import 'package:openiothub_grpc_api/google/protobuf/wrappers.pb.dart';
 import 'package:openiothub_mobile_service/openiothub_mobile_service.dart'
     as openiothub_mobile_service;
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:wechat_kit/wechat_kit.dart';
@@ -25,7 +26,7 @@ import 'package:wechat_kit/wechat_kit.dart';
 List<Map<String, bool>>? initList;
 
 Future<void> init() async {
-  initBackgroundService();
+  await initBackgroundService();
   initForegroundService();
   initWakeLockService();
   try {
@@ -44,14 +45,45 @@ Future<void> init() async {
   // setWindowSize();
 }
 
-void run(dynamic) {
+/// 同一 Android 进程内若因前台服务等未退出而再次执行 [main]，不得重复 [Isolate.spawn] 调用原生
+/// [openiothub_mobile_service.run]，否则 Go 层易崩溃，表现为再次点开图标闪退。
+@pragma('vm:entry-point')
+void openIoTHubMobileServiceIsolateEntry(Object? message) {
+  RandomAccessFile? raf;
+  if (message is String && message.isNotEmpty) {
+    try {
+      final file = File(message);
+      file.parent.createSync(recursive: true);
+      raf = file.openSync(mode: FileMode.write);
+      raf.lockSync(FileLock.exclusive);
+      debugPrint(
+        '[OpenIoTHub][mobile_isolate] acquired lock, starting native Run()',
+      );
+    } catch (e) {
+      debugPrint(
+        '[OpenIoTHub][mobile_isolate] lock held by existing isolate, skip Run(): $e',
+      );
+      try {
+        raf?.closeSync();
+      } catch (_) {}
+      return;
+    }
+  }
   openiothub_mobile_service.run();
 }
 
 Future<void> initBackgroundService() async {
-  // SharedPreferences prefs = await SharedPreferences.getInstance();
-  // await prefs.setBool("foreground", true);
-  Isolate.spawn(run, null);
+  try {
+    if (Platform.isAndroid) {
+      final Directory dir = await getTemporaryDirectory();
+      final String lockPath = '${dir.path}/openiothub_mobile_service.lock';
+      await Isolate.spawn(openIoTHubMobileServiceIsolateEntry, lockPath);
+    } else {
+      await Isolate.spawn(openIoTHubMobileServiceIsolateEntry, null);
+    }
+  } catch (e, st) {
+    debugPrint('initBackgroundService: $e\n$st');
+  }
 }
 
 Future<void> initHttpAssets() async {
@@ -135,21 +167,84 @@ Future<void> initAD() async {
   initList = await initGTADsAD();
 }
 
+/// 仅做插件初始化与「关闭时」清理：前台服务在应用进入后台时再启动，回到前台或进程结束时停止，
+/// 避免用户退出应用后通知仍残留、需再次打开才消失的问题。
 Future<void> initForegroundService() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  bool? forgeRound = prefs.getBool(SharedPreferencesKey.forgeRoundTaskEnable);
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  final bool? forgeRound = prefs.getBool(SharedPreferencesKey.forgeRoundTaskEnable);
   try {
     if (Platform.isAndroid && forgeRound != null && forgeRound) {
       InternalPluginService.instance.init();
-      InternalPluginService.instance.start();
-      // 唤醒锁
-      WakelockPlus.enable();
     } else {
-      InternalPluginService.instance.stop();
-      WakelockPlus.disable();
+      await InternalPluginService.instance.stop();
     }
+    await _syncWakeLockWithPrefs(prefs);
   } catch (e) {
     debugPrint('initForegroundService: $e');
+  }
+}
+
+Future<void> _syncWakeLockWithPrefs(SharedPreferences prefs) async {
+  final bool? wakeLockEnabled = prefs.getBool(SharedPreferencesKey.wakeLockEnabled);
+  WakelockPlus.toggle(enable: wakeLockEnabled == true);
+}
+
+/// Android：开启「前台保活」时，仅在进入后台时启动前台服务，回到前台时停止；
+/// [AppLifecycleState.detached] 时无论开关如何都尝试停止服务，避免进程结束后通知残留。
+Future<void> handleAndroidForegroundServiceLifecycle(AppLifecycleState state) async {
+  if (!Platform.isAndroid) {
+    return;
+  }
+
+  debugPrint('[OpenIoTHub][lifecycle] $state');
+
+  if (state == AppLifecycleState.detached) {
+    try {
+      final bool running = await InternalPluginService.instance.isRunningService;
+      debugPrint('[OpenIoTHub][lifecycle] detached, isRunningService=$running');
+      if (running) {
+        await InternalPluginService.instance.stop();
+      }
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      await _syncWakeLockWithPrefs(prefs);
+    } catch (e) {
+      debugPrint('handleAndroidForegroundServiceLifecycle detached: $e');
+    }
+    return;
+  }
+
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  final bool forgeRound =
+      prefs.getBool(SharedPreferencesKey.forgeRoundTaskEnable) == true;
+  if (!forgeRound) {
+    debugPrint('[OpenIoTHub][lifecycle] forgeRound off, skip FGS sync');
+    return;
+  }
+
+  try {
+    switch (state) {
+      case AppLifecycleState.paused:
+      case AppLifecycleState.hidden:
+        debugPrint('[OpenIoTHub][lifecycle] background -> start FGS if needed');
+        InternalPluginService.instance.init();
+        if (!await InternalPluginService.instance.isRunningService) {
+          await InternalPluginService.instance.start();
+        }
+        WakelockPlus.enable();
+        break;
+      case AppLifecycleState.resumed:
+        debugPrint('[OpenIoTHub][lifecycle] resumed -> stop FGS if running');
+        if (await InternalPluginService.instance.isRunningService) {
+          await InternalPluginService.instance.stop();
+        }
+        await _syncWakeLockWithPrefs(prefs);
+        break;
+      case AppLifecycleState.detached:
+      case AppLifecycleState.inactive:
+        break;
+    }
+  } catch (e) {
+    debugPrint('handleAndroidForegroundServiceLifecycle: $e');
   }
 }
 

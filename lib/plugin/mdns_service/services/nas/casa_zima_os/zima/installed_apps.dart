@@ -9,6 +9,7 @@ import 'package:openiothub/core/config.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/common_pages/utils/toast.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -182,7 +183,8 @@ class _InstalledAppsPageState extends State<InstalledAppsPage> {
                 }),
           ],
         ),
-        body: RefreshIndicator(
+        body: openIoTHubDesktopScrollableListBody(
+          scrollable: RefreshIndicator(
             onRefresh: () async {
               await _initRemoteListTiles();
               return;
@@ -198,7 +200,10 @@ class _InstalledAppsPageState extends State<InstalledAppsPage> {
                 );
               },
               itemCount: _listTiles.length,
-            )));
+            ),
+          ),
+        ),
+    );
   }
 
   ListTile _buildListTile(int index) {

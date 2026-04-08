@@ -7,6 +7,7 @@ import 'package:openiothub/plugin/openiothub_plugin.dart';
 import 'package:openiothub/plugin/utils/ip.dart';
 
 import 'package:openiothub/plugin/models/port_service_info.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 
 class PhicommDC1PluginPage extends StatefulWidget {
   const PhicommDC1PluginPage({required Key key, required this.device})
@@ -184,7 +185,9 @@ class PhicommDC1PluginPageState extends State<PhicommDC1PluginPage> {
               }),
         ],
       ),
-      body: ListView(children: divided),
+      body: openIoTHubDesktopScrollableListBody(
+        scrollable: ListView(children: divided),
+      ),
     );
   }
 

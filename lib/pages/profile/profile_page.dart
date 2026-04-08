@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:openiothub/providers/custom_theme.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 import 'package:openiothub/ads/openiothub_ads.dart';
 // import '../../widgets/ads/banner_ylh_test.dart';
 
@@ -42,52 +43,55 @@ class ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     _initListTiles();
     _getUserInfo();
+    final listBody = ListView.separated(
+      itemBuilder: (context, index) {
+        if (index == 0) {
+          return _buildHeader();
+        }
+        if (index == _listTiles.length + 1) {
+          return build300150Banner(context);
+        }
+        if (index == _listTiles.length + 2) {
+          return _buildBanner();
+        }
+        index -= 1;
+        return _buildListTile(index);
+      },
+      separatorBuilder: (context, index) {
+        return Container(
+          padding: EdgeInsets.only(left: AppSpacing.settingsListIndent),
+          child: TDDivider(),
+        );
+      },
+      itemCount: _listTiles.length + 3,
+    );
     return Scaffold(
-        extendBody: true, //底部NavigationBar透明
-        extendBodyBehindAppBar: true, //顶部Bar透明
-        appBar: AppBar(
-          // shadowColor: Colors.transparent,
-          toolbarHeight: 0,
-          backgroundColor: Provider.of<CustomTheme>(context).primaryColor,
-          systemOverlayStyle:
-              const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
+      extendBody: true, //底部NavigationBar透明
+      extendBodyBehindAppBar: true, //顶部Bar透明
+      appBar: AppBar(
+        // shadowColor: Colors.transparent,
+        toolbarHeight: 0,
+        backgroundColor: Provider.of<CustomTheme>(context).primaryColor,
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
         ),
-        body: ListView.separated(
-          itemBuilder: (context, index) {
-            if (index == 0) {
-              return _buildHeader();
-            }
-            if (index == _listTiles.length+1) {
-              return build300150Banner(context);
-            }
-            if (index == _listTiles.length+2) {
-              return _buildBanner();
-            }
-            index -= 1;
-            return _buildListTile(index);
-          },
-          separatorBuilder: (context, index) {
-            return Container(
-              padding: EdgeInsets.only(left: AppSpacing.settingsListIndent),
-              child: TDDivider(),
-            );
-          },
-          // 额外添加头像和广告位
-          itemCount: _listTiles.length + 3,
-        ));
+      ),
+      body: openIoTHubDesktopConstrainedBody(
+        child:
+            openIoTHubUseDesktopHomeLayout
+                ? Scrollbar(thumbVisibility: true, child: listBody)
+                : listBody,
+      ),
+    );
   }
 
   _login() async {
     final userSignedIned = await userSignedIn();
     if (!mounted) return;
     if (userSignedIned) {
-      context
-          .push(AppRoutes.userInfo)
-          .then((value) => _getUserInfo());
+      context.push(AppRoutes.userInfo).then((value) => _getUserInfo());
     } else {
-      context
-          .push(AppRoutes.login)
-          .then((value) => _getUserInfo());
+      context.push(AppRoutes.login).then((value) => _getUserInfo());
     }
   }
 
@@ -100,49 +104,46 @@ class ProfilePageState extends State<ProfilePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             GestureDetector(
-              child: userAvatar != ""
-                  ? Container(
-                      width: 60.0,
-                      height: 60.0,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: const Color(0xffffffff),
-                          width: 2.0,
+              child:
+                  userAvatar != ""
+                      ? Container(
+                        width: 60.0,
+                        height: 60.0,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: const Color(0xffffffff),
+                            width: 2.0,
+                          ),
+                          image: DecorationImage(
+                            image: NetworkImage(userAvatar),
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                        image: DecorationImage(
-                          image: NetworkImage(userAvatar),
-                          fit: BoxFit.cover,
+                      )
+                      : Container(
+                        width: 60.0,
+                        height: 60.0,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: const Color(0xffffffff),
+                            width: 2.0,
+                          ),
+                          image: const DecorationImage(
+                            image: ExactAssetImage(
+                              "assets/images/leftmenu/avatars/panda.jpg",
+                            ),
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
-                    )
-                  : Container(
-                      width: 60.0,
-                      height: 60.0,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: const Color(0xffffffff),
-                          width: 2.0,
-                        ),
-                        image: const DecorationImage(
-                          image: ExactAssetImage(
-                              "assets/images/leftmenu/avatars/panda.jpg"),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
               onTap: () async {
                 _login();
               },
             ),
-            const SizedBox(
-              height: 10.0,
-            ),
-            Text(
-              username,
-              style: const TextStyle(color: Color(0xffffffff)),
-            ),
+            const SizedBox(height: 10.0),
+            Text(username, style: const TextStyle(color: Color(0xffffffff))),
           ],
         ),
       ),
@@ -153,69 +154,79 @@ class ProfilePageState extends State<ProfilePage> {
     setState(() {
       _listTiles = <ListTile>[
         ListTile(
-            //第一个功能项
-            title: Text(OpenIoTHubLocalizations.of(context).profile_settings),
-            leading: Icon(TDIcons.setting, color: Colors.red),
-            trailing: const Icon(Icons.arrow_right),
-            onTap: () {
-              AppNavigator.pushSettings(
+          //第一个功能项
+          title: Text(OpenIoTHubLocalizations.of(context).profile_settings),
+          leading: Icon(TDIcons.setting, color: Colors.red),
+          trailing: const Icon(Icons.arrow_right),
+          onTap: () {
+            AppNavigator.pushSettings(
+              context,
+              title: OpenIoTHubLocalizations.of(context).profile_settings,
+            );
+          },
+        ),
+        ListTile(
+          //第一个功能项
+          title: Text(OpenIoTHubLocalizations.of(context).profile_servers),
+          leading: Icon(TDIcons.server, color: Colors.orange),
+          trailing: const Icon(Icons.arrow_right),
+          onTap: () async {
+            final signed = await userSignedIn();
+            if (!mounted) return;
+            if (signed) {
+              AppNavigator.pushServers(
                 context,
-                title: OpenIoTHubLocalizations.of(context).profile_settings,
+                title: OpenIoTHubLocalizations.of(context).profile_servers,
               );
-            }),
+            } else {
+              context.push(AppRoutes.login);
+            }
+          },
+        ),
         ListTile(
-            //第一个功能项
-            title: Text(OpenIoTHubLocalizations.of(context).profile_servers),
-            leading: Icon(TDIcons.server, color: Colors.orange),
-            trailing: const Icon(Icons.arrow_right),
-            onTap: () async {
-              final signed = await userSignedIn();
-              if (!mounted) return;
-              if (signed) {
-                AppNavigator.pushServers(
-                  context,
-                  title: OpenIoTHubLocalizations.of(context).profile_servers,
-                );
-              } else {
-                context.push(AppRoutes.login);
-              }
-            }),
+          //第一个功能项
+          title: Text(OpenIoTHubLocalizations.of(context).profile_tools),
+          leading: Icon(TDIcons.tools, color: Colors.yellow),
+          trailing: const Icon(Icons.arrow_right),
+          onTap: () {
+            context.push(AppRoutes.tools);
+          },
+        ),
         ListTile(
-            //第一个功能项
-            title: Text(OpenIoTHubLocalizations.of(context).profile_tools),
-            leading: Icon(TDIcons.tools, color: Colors.yellow),
-            trailing: const Icon(Icons.arrow_right),
-            onTap: () {
-              context.push(AppRoutes.tools);
-            }),
+          //第二个功能项
+          title: Text(OpenIoTHubLocalizations.of(context).profile_docs),
+          leading: Icon(TDIcons.book_filled, color: Colors.green),
+          trailing: const Icon(Icons.arrow_right),
+          onTap: () {
+            String url = "https://docs.iothub.cloud/";
+            goToUrl(
+              context,
+              url,
+              OpenIoTHubLocalizations.of(context).profile_docs,
+            );
+          },
+        ),
         ListTile(
-            //第二个功能项
-            title: Text(OpenIoTHubLocalizations.of(context).profile_docs),
-            leading: Icon(TDIcons.book_filled, color: Colors.green),
-            trailing: const Icon(Icons.arrow_right),
-            onTap: () {
-              String url = "https://docs.iothub.cloud/";
-              goToUrl(context, url,
-                  OpenIoTHubLocalizations.of(context).profile_docs);
-            }),
+          //第二个功能项
+          title: Text(
+            OpenIoTHubLocalizations.of(context).profile_video_tutorials,
+          ),
+          leading: Icon(TDIcons.video, color: Colors.teal),
+          trailing: const Icon(Icons.arrow_right),
+          onTap: () {
+            String url = "https://space.bilibili.com/1222749704";
+            launchUrl(url);
+          },
+        ),
         ListTile(
-            //第二个功能项
-            title: Text(
-                OpenIoTHubLocalizations.of(context).profile_video_tutorials),
-            leading: Icon(TDIcons.video, color: Colors.teal),
-            trailing: const Icon(Icons.arrow_right),
-            onTap: () {
-              String url = "https://space.bilibili.com/1222749704";
-              launchUrl(url);
-            }),
-        ListTile(
-            //第二个功能项
-            title: Text(OpenIoTHubLocalizations.of(context).app_local_gateway),
-            leading: Icon(TDIcons.wifi, color: Colors.blue),
-            trailing: const Icon(Icons.arrow_right),
-            onTap: () {
-              context.push(AppRoutes.gatewayQr);
-            }),
+          //第二个功能项
+          title: Text(OpenIoTHubLocalizations.of(context).app_local_gateway),
+          leading: Icon(TDIcons.wifi, color: Colors.blue),
+          trailing: const Icon(Icons.arrow_right),
+          onTap: () {
+            context.push(AppRoutes.gatewayQr);
+          },
+        ),
         // ListTile(
         //     //第二个功能项
         //     title: Text(OpenIoTHubLocalizations.of(context).profile_feedback),
@@ -226,14 +237,16 @@ class ProfilePageState extends State<ProfilePage> {
         //       goToUrl(context, url, OpenIoTHubLocalizations.of(context).profile_feedback);
         //     }),
         ListTile(
-            //第二个功能项
-            title: Text(
-                OpenIoTHubLocalizations.of(context).profile_about_this_app),
-            leading: Icon(TDIcons.info_circle, color: Colors.purple),
-            trailing: const Icon(Icons.arrow_right),
-            onTap: () {
-              context.push(AppRoutes.appInfo);
-            }),
+          //第二个功能项
+          title: Text(
+            OpenIoTHubLocalizations.of(context).profile_about_this_app,
+          ),
+          leading: Icon(TDIcons.info_circle, color: Colors.purple),
+          trailing: const Icon(Icons.arrow_right),
+          onTap: () {
+            context.push(AppRoutes.appInfo);
+          },
+        ),
         // ListTile(
         //     //第二个功能项
         //     title: Text("Share QQ"),
@@ -291,22 +304,24 @@ class ProfilePageState extends State<ProfilePage> {
   }
 
   _buildBanner() {
-    if (!Platform.isAndroid && !Platform.isIOS){
+    if (!Platform.isAndroid && !Platform.isIOS) {
       return Container();
     }
-    return context.isCnMainlandLocale?
-    buildYLHBanner(context):
-    _bannerAd==null?Container():SafeArea(
-      child: SizedBox(
-        width: _bannerAd!.size.width.toDouble(),
-        height: _bannerAd!.size.height.toDouble(),
-        child: AdWidget(ad: _bannerAd!),
-      ),
-    );
+    return context.isCnMainlandLocale
+        ? buildYLHBanner(context)
+        : _bannerAd == null
+        ? Container()
+        : SafeArea(
+          child: SizedBox(
+            width: _bannerAd!.size.width.toDouble(),
+            height: _bannerAd!.size.height.toDouble(),
+            child: AdWidget(ad: _bannerAd!),
+          ),
+        );
   }
 
   void _loadAd() async {
-    if (!Platform.isAndroid && !Platform.isIOS){
+    if (!Platform.isAndroid && !Platform.isIOS) {
       return;
     }
     // // [START_EXCLUDE silent]

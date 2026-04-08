@@ -4,6 +4,7 @@ import 'package:openiothub/core/app_spacing.dart';
 import 'package:openiothub/core/constants.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 import 'package:openiothub/router/app_navigator.dart';
 
 class ToolsTypePage extends StatelessWidget {
@@ -47,8 +48,7 @@ class ToolsTypePage extends StatelessWidget {
   Widget getIconImage(path) {
     return Padding(
       padding: const EdgeInsets.only(right: AppSpacing.listItemInnerPadding),
-      child:
-          Image.asset(path, width: imageIconWidth, height: imageIconWidth),
+      child: Image.asset(path, width: imageIconWidth, height: imageIconWidth),
     );
   }
 
@@ -74,12 +74,8 @@ class ToolsTypePage extends StatelessWidget {
         child: Row(
           children: <Widget>[
             getIconImage(item.icon),
-            Expanded(
-                child: Text(
-              item.title,
-              style: Constants.titleTextStyle,
-            )),
-            Constants.rightArrowIcon
+            Expanded(child: Text(item.title, style: Constants.titleTextStyle)),
+            Constants.rightArrowIcon,
           ],
         ),
       );
@@ -117,14 +113,17 @@ class ToolsTypePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text(OpenIoTHubLocalizations.of(context).tools)),
-        body: Padding(
+      appBar: AppBar(title: Text(OpenIoTHubLocalizations.of(context).tools)),
+      body: openIoTHubDesktopScrollableListBody(
+        scrollable: Padding(
           padding: const EdgeInsets.only(top: AppSpacing.listPageTopPadding),
           child: ListView.builder(
             itemCount: listData.length,
             itemBuilder: (context, i) => renderRow(context, i),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
 

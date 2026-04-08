@@ -1,4 +1,9 @@
-platform :osx, '10.15'
+# 11.0+：与新版 Xcode / Swift 下 AuthenticationServices、Pods 默认低版本一致；
+# 避免 flutter_inappwebview_macos 等出现 ASWebAuthenticationSession 相关编译错误。
+platform :osx, '11.0'
+
+# xcodebuild “multiple matching destinations (arm64 vs x86_64)” 多为 Apple Silicon 上同一 “My Mac” 的提示，一般可忽略。
+# 若需消除：在 Xcode 的 Scheme 里为 Run 固定单一 destination，或仅对 Debug 配置 EXCLUDED_ARCHS=x86_64（勿影响需支持 Intel 的 Release 通用二进制）。
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
@@ -39,5 +44,9 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_macos_build_settings(target)
+    target.build_configurations.each do |config|
+      # 统一最低系统版本（部分资源 Pod 默认为 10.11，会拉低 Swift 可用性检查并导致编译失败）
+      config.build_settings['MACOSX_DEPLOYMENT_TARGET'] = '11.0'
+    end
   end
 end

@@ -37,6 +37,8 @@ migrate_working_dir/
 # Melos
 .melos/
 
+# FVM：提交 fvm_config.json；忽略本机链接的 SDK 目录
+
 # Symbolication related
 app.*.symbols
 
@@ -53,3 +55,6 @@ app.*.map.json
 /android/*.apk
 /android/app/.cxx/
 /android/key.jks.base64
+
+# FVM Version Cache
+.fvm/

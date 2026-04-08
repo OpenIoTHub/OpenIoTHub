@@ -1,3 +1,4 @@
 dependency_overrides:
   openiothub_mobile_service:
     path: ./packages/openiothub_mobile_service
+  math_expressions: 3.1.0

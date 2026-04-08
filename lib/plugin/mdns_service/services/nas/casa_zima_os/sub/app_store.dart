@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 
 class AppStorePage extends StatefulWidget {
   const AppStorePage(
@@ -48,18 +49,21 @@ class _AppStorePageState extends State<AppStorePage> {
           //       }),
           // ],
         ),
-        body: ListView.separated(
-          itemBuilder: (context, index) {
-            return _buildListTile(index);
-          },
-          separatorBuilder: (context, index) {
-            return Container(
-              padding: EdgeInsets.only(left: 50), // 添加左侧缩进
-              child: TDDivider(),
-            );
-          },
-          itemCount: _listTiles.length,
-        ));
+        body: openIoTHubDesktopScrollableListBody(
+          scrollable: ListView.separated(
+            itemBuilder: (context, index) {
+              return _buildListTile(index);
+            },
+            separatorBuilder: (context, index) {
+              return Container(
+                padding: EdgeInsets.only(left: 50), // 添加左侧缩进
+                child: TDDivider(),
+              );
+            },
+            itemCount: _listTiles.length,
+          ),
+        ),
+    );
   }
 
   ListTile _buildListTile(int index) {

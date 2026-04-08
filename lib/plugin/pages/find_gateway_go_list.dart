@@ -17,6 +17,7 @@ import 'package:openiothub/plugin/mdns_service/components.dart';
 import 'package:openiothub/plugin/registry/plugin_navigation.dart';
 import 'package:openiothub/plugin/utils/port_config_to_port_service.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 
 const utf8encoder = Utf8Encoder();
 
@@ -295,7 +296,9 @@ class _FindGatewayGoListPageState extends State<FindGatewayGoListPage> {
               }),
         ],
       ),
-      body: ListView(children: divided),
+      body: openIoTHubDesktopScrollableListBody(
+        scrollable: ListView(children: divided),
+      ),
     );
   }
 

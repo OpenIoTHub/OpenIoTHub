@@ -25,6 +25,7 @@ import 'package:openiothub/core/globals.dart';
 import 'package:openiothub/router/app_navigator.dart';
 import 'package:openiothub/ads/openiothub_ads.dart';
 import 'package:openiothub/common_pages/utils/toast.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 
 class MdnsServiceListPage extends StatefulWidget {
   const MdnsServiceListPage({required Key key, required this.title})
@@ -124,46 +125,51 @@ class MdnsServiceListPageState extends State<MdnsServiceListPage> {
         centerTitle: true,
         actions: buildActions(context),
       ),
-      body: RefreshIndicator(
-        onRefresh: () async {
-          await refreshmDNSServicesFromeRemote();
-          return;
-        },
-        child:
-            tiles.isNotEmpty
-                ? divided
-                : Column(
-                  children: [
-                    ThemeUtils.isDarkMode(context)
-                        ? Center(
-                          child: Image.asset(
-                            'assets/images/empty_list_black.png',
+      body: openIoTHubDesktopConstrainedBody(
+        child: RefreshIndicator(
+          onRefresh: () async {
+            await refreshmDNSServicesFromeRemote();
+            return;
+          },
+          child:
+              tiles.isNotEmpty
+                  ? (openIoTHubUseDesktopHomeLayout
+                      ? Scrollbar(thumbVisibility: true, child: divided)
+                      : divided)
+                  : Column(
+                    children: [
+                      ThemeUtils.isDarkMode(context)
+                          ? Center(
+                            child: Image.asset(
+                              'assets/images/empty_list_black.png',
+                            ),
+                          )
+                          : Center(
+                            child: Image.asset('assets/images/empty_list.png'),
                           ),
-                        )
-                        : Center(
-                          child: Image.asset('assets/images/empty_list.png'),
+                      TextButton(
+                        style: ButtonStyle(
+                          side: WidgetStateProperty.all(
+                            const BorderSide(color: Colors.grey, width: 1),
+                          ),
+                          shape: WidgetStateProperty.all(const StadiumBorder()),
                         ),
-                    TextButton(
-                      style: ButtonStyle(
-                        side: WidgetStateProperty.all(
-                          const BorderSide(color: Colors.grey, width: 1),
+                        onPressed: () {
+                          AppNavigator.pushAirkiss(
+                            context,
+                            title:
+                                OpenIoTHubLocalizations.of(context).add_device,
+                          );
+                        },
+                        child: Text(
+                          OpenIoTHubLocalizations.of(
+                            context,
+                          ).please_add_device_first,
                         ),
-                        shape: WidgetStateProperty.all(const StadiumBorder()),
                       ),
-                      onPressed: () {
-                        AppNavigator.pushAirkiss(
-                          context,
-                          title: OpenIoTHubLocalizations.of(context).add_device,
-                        );
-                      },
-                      child: Text(
-                        OpenIoTHubLocalizations.of(
-                          context,
-                        ).please_add_device_first,
-                      ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
+        ),
       ),
     );
   }
@@ -493,7 +499,7 @@ class MdnsServiceListPageState extends State<MdnsServiceListPage> {
   }
 
   void _loadAd() async {
-    if (!Platform.isAndroid && !Platform.isIOS){
+    if (!Platform.isAndroid && !Platform.isIOS) {
       return;
     }
     // // [START_EXCLUDE silent]

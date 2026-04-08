@@ -17,10 +17,11 @@ import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import 'package:openiothub/ads/openiothub_ads.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 
 class CommonDeviceListPage extends StatefulWidget {
   const CommonDeviceListPage({required Key key, required this.title})
-      : super(key: key);
+    : super(key: key);
 
   final String title;
 
@@ -55,58 +56,58 @@ class CommonDeviceListPageState extends State<CommonDeviceListPage> {
 
   @override
   Widget build(BuildContext context) {
-    final tiles = _commonDeviceList.map(
-      (pair) {
-        // 获取所在网络的名称
-        String gatewayName = pair.runId.substring(24);
-        for (var sessionConfig in _sessionList) {
-          if (sessionConfig.runId == pair.runId) {
-            gatewayName = sessionConfig.name;
-          }
+    final tiles = _commonDeviceList.map((pair) {
+      // 获取所在网络的名称
+      String gatewayName = pair.runId.substring(24);
+      for (var sessionConfig in _sessionList) {
+        if (sessionConfig.runId == pair.runId) {
+          gatewayName = sessionConfig.name;
         }
-        var listItemContent = ListTile(
-          leading: TDAvatar(
-            size: TDAvatarSize.medium,
-            type: TDAvatarType.customText,
-            text: pair.name.isEmpty ? pair.description[0] : pair.name[0],
-            shape: TDAvatarShape.square,
-            backgroundColor: Color.fromRGBO(
-              Random().nextInt(156) + 50, // 随机生成0到255之间的整数
-              Random().nextInt(156) + 50, // 随机生成0到255之间的整数
-              Random().nextInt(156) + 50, // 随机生成0到255之间的整数
-              1, // 不透明度，1表示完全不透明
+      }
+      var listItemContent = ListTile(
+        leading: TDAvatar(
+          size: TDAvatarSize.medium,
+          type: TDAvatarType.customText,
+          text: pair.name.isEmpty ? pair.description[0] : pair.name[0],
+          shape: TDAvatarShape.square,
+          backgroundColor: Color.fromRGBO(
+            Random().nextInt(156) + 50, // 随机生成0到255之间的整数
+            Random().nextInt(156) + 50, // 随机生成0到255之间的整数
+            Random().nextInt(156) + 50, // 随机生成0到255之间的整数
+            1, // 不透明度，1表示完全不透明
+          ),
+        ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              pair.name.isEmpty ? pair.description : pair.name,
+              style: Constants.titleTextStyle,
             ),
-          ),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Text(pair.name.isEmpty ? pair.description : pair.name,
-                  style: Constants.titleTextStyle),
-            ],
-          ),
-          subtitle: Text(
-            // TODO 显示所在网络的名称
-            "${pair.addr}@${gatewayName.substring(0, gatewayName.length > 20 ? 20 : gatewayName.length)}",
-            style: Constants.subTitleTextStyle,
-          ),
-          trailing: Constants.rightArrowIcon,
-        );
-        return InkWell(
-          onTap: () {
-            _pushDeviceServiceTypes(pair);
-          },
-          child: listItemContent,
-        );
-      },
-    );
+          ],
+        ),
+        subtitle: Text(
+          // TODO 显示所在网络的名称
+          "${pair.addr}@${gatewayName.substring(0, gatewayName.length > 20 ? 20 : gatewayName.length)}",
+          style: Constants.subTitleTextStyle,
+        ),
+        trailing: Constants.rightArrowIcon,
+      );
+      return InkWell(
+        onTap: () {
+          _pushDeviceServiceTypes(pair);
+        },
+        child: listItemContent,
+      );
+    });
     final divided = ListView.separated(
       padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-      itemCount: tiles.length+1,
+      itemCount: tiles.length + 1,
       itemBuilder: (context, index) {
         if (index == 0) {
           return _buildBanner();
         }
-        return tiles.elementAt(index-1);
+        return tiles.elementAt(index - 1);
       },
       separatorBuilder: (context, index) {
         return Container(
@@ -125,37 +126,51 @@ class CommonDeviceListPageState extends State<CommonDeviceListPage> {
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
         elevation: 2.0,
-        tooltip: OpenIoTHubLocalizations.of(context).tooltip_add_remote_host_lan,
+        tooltip:
+            OpenIoTHubLocalizations.of(context).tooltip_add_remote_host_lan,
         onPressed: () {
           _addRemoteHostFromSession();
         },
         child: const Icon(Icons.add),
       ),
-      body: RefreshIndicator(
-        onRefresh: getAllCommonDevice,
-        child: tiles.isNotEmpty
-            ? divided
-            : Column(children: [
-                ThemeUtils.isDarkMode(context)
-                    ? Center(
-                        child:
-                            Image.asset('assets/images/empty_list_black.png'),
-                      )
-                    : Center(
-                        child: Image.asset('assets/images/empty_list.png'),
+      body: openIoTHubDesktopConstrainedBody(
+        child: RefreshIndicator(
+          onRefresh: getAllCommonDevice,
+          child:
+              tiles.isNotEmpty
+                  ? (openIoTHubUseDesktopHomeLayout
+                      ? Scrollbar(thumbVisibility: true, child: divided)
+                      : divided)
+                  : Column(
+                    children: [
+                      ThemeUtils.isDarkMode(context)
+                          ? Center(
+                            child: Image.asset(
+                              'assets/images/empty_list_black.png',
+                            ),
+                          )
+                          : Center(
+                            child: Image.asset('assets/images/empty_list.png'),
+                          ),
+                      TextButton(
+                        style: ButtonStyle(
+                          side: WidgetStateProperty.all(
+                            AppDecorations.dividerBorder,
+                          ),
+                          shape: WidgetStateProperty.all(const StadiumBorder()),
+                        ),
+                        onPressed: () {
+                          _addRemoteHostFromSession();
+                        },
+                        child: Text(
+                          OpenIoTHubLocalizations.of(
+                            context,
+                          ).please_add_host_first,
+                        ),
                       ),
-                TextButton(
-                    style: ButtonStyle(
-                      side: WidgetStateProperty.all(
-                          AppDecorations.dividerBorder),
-                      shape: WidgetStateProperty.all(const StadiumBorder()),
-                    ),
-                    onPressed: () {
-                      _addRemoteHostFromSession();
-                    },
-                    child: Text(OpenIoTHubLocalizations.of(context)
-                        .please_add_host_first))
-              ]),
+                    ],
+                  ),
+        ),
       ),
     );
   }
@@ -191,8 +206,9 @@ class CommonDeviceListPageState extends State<CommonDeviceListPage> {
     } catch (e) {
       if (!mounted) return;
       showFailed(
-          "${OpenIoTHubLocalizations.of(context).create_device_failed}：$e",
-          context);
+        "${OpenIoTHubLocalizations.of(context).create_device_failed}：$e",
+        context,
+      );
     }
   }
 
@@ -214,33 +230,32 @@ class CommonDeviceListPageState extends State<CommonDeviceListPage> {
 
   void _addRemoteHostFromSession() {
     // 在一个界面里面选择网络
-      showDialog(
-          context: context,
-          builder: (_) => AddHostWidget()).then((v) {
-        getAllCommonDevice().then((v) {
-          setState(() {});
-        });
+    showDialog(context: context, builder: (_) => AddHostWidget()).then((v) {
+      getAllCommonDevice().then((v) {
+        setState(() {});
       });
+    });
   }
 
-
   _buildBanner() {
-    if (!Platform.isAndroid && !Platform.isIOS){
+    if (!Platform.isAndroid && !Platform.isIOS) {
       return Container();
     }
-    return context.isCnMainlandLocale?
-    buildYLHBanner(context):
-    _bannerAd==null?Container():SafeArea(
-      child: SizedBox(
-        width: _bannerAd!.size.width.toDouble(),
-        height: _bannerAd!.size.height.toDouble(),
-        child: AdWidget(ad: _bannerAd!),
-      ),
-    );
+    return context.isCnMainlandLocale
+        ? buildYLHBanner(context)
+        : _bannerAd == null
+        ? Container()
+        : SafeArea(
+          child: SizedBox(
+            width: _bannerAd!.size.width.toDouble(),
+            height: _bannerAd!.size.height.toDouble(),
+            child: AdWidget(ad: _bannerAd!),
+          ),
+        );
   }
 
   void _loadAd() async {
-    if (!Platform.isAndroid && !Platform.isIOS){
+    if (!Platform.isAndroid && !Platform.isIOS) {
       return;
     }
     // // [START_EXCLUDE silent]

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:openiothub/providers/auth_provider.dart';
 import 'package:openiothub/router/app_routes.dart';
 import 'package:openiothub/router/go_router_keys.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 import 'package:openiothub/router/go_routes/auth_root_routes.dart';
 import 'package:openiothub/router/go_routes/common_feature_routes.dart';
 import 'package:openiothub/router/go_routes/device_service_routes.dart';
@@ -53,6 +54,7 @@ GoRouter createOpenIoTHubRouter(AuthProvider auth) {
       }
       final message = state.error?.toString() ??
           '未知路径：${state.matchedLocation}';
+      final desktop = openIoTHubUseDesktopHomeLayout;
       return Scaffold(
         appBar: AppBar(
           title: const Text('无法打开页面'),
@@ -68,9 +70,21 @@ GoRouter createOpenIoTHubRouter(AuthProvider auth) {
           ),
         ),
         body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: SelectableText(message, textAlign: TextAlign.center),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: desktop ? 560 : double.infinity),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: desktop ? 32 : 24,
+                vertical: 24,
+              ),
+              child: SelectableText(
+                message,
+                textAlign: TextAlign.center,
+                style: desktop
+                    ? Theme.of(context).textTheme.bodyLarge
+                    : null,
+              ),
+            ),
           ),
         ),
       );

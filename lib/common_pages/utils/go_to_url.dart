@@ -21,7 +21,12 @@ goToUrl(BuildContext context, String url, title) async {
     launchUrl(url);
     return;
   }
-  Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-    return WebScreen(startUrl: url,title: title,);
-  }));
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (ctx) {
+        return WebScreen(startUrl: url, title: title);
+      },
+    ),
+  );
 }

@@ -102,3 +102,23 @@ flutter {
 }
 
 dependencies {}
+
+// 仅 Kotlin 实现的插件（如 flutter_tencentad）在部分增量构建下，app 的 compile*JavaWithJavac 可能早于
+// 插件的 bundleLibCompileToJar*，导致 GeneratedPluginRegistrant.java 报「找不到符号」。
+gradle.projectsEvaluated {
+    ["Debug", "Release", "Profile"].each { variant ->
+        def javaTask = tasks.findByName("compile${variant}JavaWithJavac")
+        if (javaTask == null) {
+            return
+        }
+        rootProject.subprojects.each { sp ->
+            if (sp == project) {
+                return
+            }
+            def bundle = sp.tasks.findByName("bundleLibCompileToJar${variant}")
+            if (bundle != null) {
+                javaTask.dependsOn(bundle)
+            }
+        }
+    }
+}

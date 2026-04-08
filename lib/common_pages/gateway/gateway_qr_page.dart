@@ -11,6 +11,7 @@ import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:wechat_kit/wechat_kit.dart';
 
 import 'package:openiothub/common_pages/openiothub_common_pages.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 
 class GatewayQrPage extends StatefulWidget {
   const GatewayQrPage({super.key});
@@ -64,71 +65,95 @@ class _GatewayQrPageState extends State<GatewayQrPage> {
     //   size: 320,
     // );
     return Scaffold(
-        appBar: AppBar(
-          title: Text(OpenIoTHubLocalizations.of(context).as_a_gateway),
-          actions: <Widget>[
-            //   TODO 以图片或者小程序方式分享给其他人
-            IconButton(
-                icon: Icon(
-                  Icons.share,
-                  // color: Colors.white,
-                ),
-                onPressed: () {
-                  _shareAction();
-                }),
-          ],
-        ),
-        body: Container(
+      appBar: AppBar(
+        title: Text(OpenIoTHubLocalizations.of(context).as_a_gateway),
+        actions: <Widget>[
+          //   TODO 以图片或者小程序方式分享给其他人
+          IconButton(
+            icon: Icon(
+              Icons.share,
+              // color: Colors.white,
+            ),
+            onPressed: () {
+              _shareAction();
+            },
+          ),
+        ],
+      ),
+      body: openIoTHubDesktopConstrainedBody(
+        maxWidth: 480,
+        child: Container(
           padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-          child: ListView(children: [
-            Center(
-                child: QrImageView(
-                    data: qRCodeForMobileAdd,
-                    version: QrVersions.auto,
-                    size: 320,
-                    backgroundColor: Colors.white,
-                    // backgroundColor: Colors.orangeAccent,
-                    eyeStyle: const QrEyeStyle(
-                      eyeShape: QrEyeShape.square,
-                      color: Colors.deepOrangeAccent,
-                    ),
-                    dataModuleStyle: const QrDataModuleStyle(
-                      dataModuleShape: QrDataModuleShape.square,
-                      color: Colors.black,
-                    ))),
-            Center(
-                child: Padding(
-              padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
-              child: Text(OpenIoTHubLocalizations.of(context).as_a_gateway_description1),
-            )),
-            Center(
-                child: Padding(
-              padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-              child: TextButton(
-                child: Text(OpenIoTHubLocalizations.of(context).change_gateway_id),
-                onPressed: () {
-                  _generateJwtQRCodePair(true);
-                },
+          child: _gatewayQrListView(context),
+        ),
+      ),
+    );
+  }
+
+  Widget _gatewayQrListView(BuildContext context) {
+    final list = ListView(
+      children: [
+        Center(
+          child: QrImageView(
+            data: qRCodeForMobileAdd,
+            version: QrVersions.auto,
+            size: 320,
+            backgroundColor: Colors.white,
+            // backgroundColor: Colors.orangeAccent,
+            eyeStyle: const QrEyeStyle(
+              eyeShape: QrEyeShape.square,
+              color: Colors.deepOrangeAccent,
+            ),
+            dataModuleStyle: const QrDataModuleStyle(
+              dataModuleShape: QrDataModuleShape.square,
+              color: Colors.black,
+            ),
+          ),
+        ),
+        Center(
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
+            child: Text(
+              OpenIoTHubLocalizations.of(context).as_a_gateway_description1,
+            ),
+          ),
+        ),
+        Center(
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+            child: TextButton(
+              child: Text(
+                OpenIoTHubLocalizations.of(context).change_gateway_id,
               ),
-            )),
-            // Center(child: Padding(padding:EdgeInsets.fromLTRB(0, 15, 0, 0) ,child: TextButton(child: Text("返回主界面"), onPressed: (){Navigator.of(context).pop();},),))
-            Center(
-                child: Padding(
-              padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
-              child: TDButton(
-                icon: TDIcons.backward,
-                text: OpenIoTHubLocalizations.of(context).go_to_main_menu,
-                size: TDButtonSize.small,
-                type: TDButtonType.outline,
-                shape: TDButtonShape.rectangle,
-                theme: TDButtonTheme.primary,
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ))
-          ]),
-        ));
+              onPressed: () {
+                _generateJwtQRCodePair(true);
+              },
+            ),
+          ),
+        ),
+        // Center(child: Padding(padding:EdgeInsets.fromLTRB(0, 15, 0, 0) ,child: TextButton(child: Text("返回主界面"), onPressed: (){Navigator.of(context).pop();},),))
+        Center(
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+            child: TDButton(
+              icon: TDIcons.backward,
+              text: OpenIoTHubLocalizations.of(context).go_to_main_menu,
+              size: TDButtonSize.small,
+              type: TDButtonType.outline,
+              shape: TDButtonShape.rectangle,
+              theme: TDButtonTheme.primary,
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ),
+        ),
+      ],
+    );
+    if (openIoTHubUseDesktopHomeLayout) {
+      return Scrollbar(thumbVisibility: true, child: list);
+    }
+    return list;
     // return ListView(children: [
     //   QrImageView(
     //     data: jwtQRCodePair != null
@@ -154,7 +179,10 @@ class _GatewayQrPageState extends State<GatewayQrPage> {
             prefs.getString(SharedPreferencesKey.qrCodeForMobileAddKey)!;
       });
       await GatewayLoginManager.loginServerByToken(
-          gatewayJwt, Config.gatewayGrpcIp, Config.gatewayGrpcPort);
+        gatewayJwt,
+        Config.gatewayGrpcIp,
+        Config.gatewayGrpcPort,
+      );
     } else {
       JwtQRCodePair? jwtQRCodePair = await PublicApi.generateJwtQrCodePair();
       setState(() {
@@ -162,11 +190,18 @@ class _GatewayQrPageState extends State<GatewayQrPage> {
       });
       // TODO 保存网关(网格ID)到本地存储，当前刷新二维码的时候清楚前面的存储保存最新的网关配置
       prefs.setString(
-          SharedPreferencesKey.gatewayJwtKey, jwtQRCodePair.gatewayJwt);
-      prefs.setString(SharedPreferencesKey.qrCodeForMobileAddKey,
-          jwtQRCodePair.qRCodeForMobileAdd);
-      await GatewayLoginManager.loginServerByToken(jwtQRCodePair.gatewayJwt,
-          Config.gatewayGrpcIp, Config.gatewayGrpcPort);
+        SharedPreferencesKey.gatewayJwtKey,
+        jwtQRCodePair.gatewayJwt,
+      );
+      prefs.setString(
+        SharedPreferencesKey.qrCodeForMobileAddKey,
+        jwtQRCodePair.qRCodeForMobileAdd,
+      );
+      await GatewayLoginManager.loginServerByToken(
+        jwtQRCodePair.gatewayJwt,
+        Config.gatewayGrpcIp,
+        Config.gatewayGrpcPort,
+      );
     }
   }
 
@@ -178,43 +213,54 @@ class _GatewayQrPageState extends State<GatewayQrPage> {
     String url =
         "https://api.iot-manager.iothub.cloud/v1/displayGatewayQRCodeById?id=$id";
     showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-                title: Text(OpenIoTHubLocalizations.of(context).share_to_wechat),
-                content: Text(OpenIoTHubLocalizations.of(context).select_where_to_share),
-                actions: <Widget>[
-                  // 分享网关:二维码图片、小程序链接、网页
-                  TDButton(
-                    icon: TDIcons.logo_wechat_stroke,
-                    text: OpenIoTHubLocalizations.of(context).share_to_wechat,
-                    size: TDButtonSize.small,
-                    type: TDButtonType.outline,
-                    shape: TDButtonShape.rectangle,
-                    theme: TDButtonTheme.primary,
-                    onTap: () {
-                      WechatKitPlatform.instance.shareWebpage(
-                        scene: WechatScene.kSession,
-                        title: OpenIoTHubLocalizations.of(context).openiothub_gateway_share,
-                        description: OpenIoTHubLocalizations.of(context).openiothub_gateway_share_description,
-                        // thumbData:,
-                        webpageUrl: url,
-                      );
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                  // TextButton(
-                  //   child: Text("分享到朋友圈"),
-                  //   onPressed: () {
-                  //     WechatKitPlatform.instance.shareWebpage(
-                  //       scene: WechatScene.kTimeline,
-                  //       title: "云亿连网关分享",
-                  //       description: "通过云亿连网关管理您的所有智能设备和私有云",
-                  //       // thumbData:,
-                  //       webpageUrl: qRCodeForMobileAdd,
-                  //     );
-                  //     Navigator.of(context).pop();
-                  //   },
-                  // )
-                ]));
+      context: context,
+      builder:
+          (_) => AlertDialog(
+            title: Text(OpenIoTHubLocalizations.of(context).share_to_wechat),
+            content: Text(
+              OpenIoTHubLocalizations.of(context).select_where_to_share,
+            ),
+            actions: <Widget>[
+              // 分享网关:二维码图片、小程序链接、网页
+              TDButton(
+                icon: TDIcons.logo_wechat_stroke,
+                text: OpenIoTHubLocalizations.of(context).share_to_wechat,
+                size: TDButtonSize.small,
+                type: TDButtonType.outline,
+                shape: TDButtonShape.rectangle,
+                theme: TDButtonTheme.primary,
+                onTap: () {
+                  WechatKitPlatform.instance.shareWebpage(
+                    scene: WechatScene.kSession,
+                    title:
+                        OpenIoTHubLocalizations.of(
+                          context,
+                        ).openiothub_gateway_share,
+                    description:
+                        OpenIoTHubLocalizations.of(
+                          context,
+                        ).openiothub_gateway_share_description,
+                    // thumbData:,
+                    webpageUrl: url,
+                  );
+                  Navigator.of(context).pop();
+                },
+              ),
+              // TextButton(
+              //   child: Text("分享到朋友圈"),
+              //   onPressed: () {
+              //     WechatKitPlatform.instance.shareWebpage(
+              //       scene: WechatScene.kTimeline,
+              //       title: "云亿连网关分享",
+              //       description: "通过云亿连网关管理您的所有智能设备和私有云",
+              //       // thumbData:,
+              //       webpageUrl: qRCodeForMobileAdd,
+              //     );
+              //     Navigator.of(context).pop();
+              //   },
+              // )
+            ],
+          ),
+    );
   }
 }

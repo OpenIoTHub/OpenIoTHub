@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:openiothub/core/openiothub_constants.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 
 /// 主题模式枚举
 enum AppThemeMode {
   /// 自动模式，跟随系统设置
   automatic,
+
   /// 浅色模式
   light,
+
   /// 深色模式
   dark;
 
@@ -59,12 +62,12 @@ class _ThemeKeys {
 }
 
 /// 自定义主题管理器
-/// 
+///
 /// 负责管理应用的主题模式（浅色/深色/自动）和主题颜色
 /// 使用 ChangeNotifier 实现状态管理，支持 Provider 模式
 class CustomTheme with ChangeNotifier {
   AppThemeMode _themeMode = AppThemeMode.automatic;
-  Color _primaryColor = ThemeUtils.defaultColor;
+  Color _primaryColor = ThemeUtils.defaultPrimaryForCurrentPlatform;
   bool _isInitialized = false;
 
   /// 是否已初始化
@@ -81,14 +84,14 @@ class CustomTheme with ChangeNotifier {
   String get themeValue => _themeMode.toValue();
 
   /// 构造函数
-  /// 
+  ///
   /// 注意：初始化是异步的，使用 [initialize] 方法确保数据已加载
   CustomTheme() {
     _initialize();
   }
 
   /// 异步初始化主题数据
-  /// 
+  ///
   /// 从 SharedPreferences 加载保存的主题模式和颜色
   Future<void> initialize() async {
     if (_isInitialized) return;
@@ -109,19 +112,19 @@ class CustomTheme with ChangeNotifier {
   Future<void> _loadThemeData() async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      
+
       // 加载主题模式
       final themeModeString = prefs.getString(_ThemeKeys.themeMode);
       if (themeModeString != null) {
         _themeMode = AppThemeMode.fromString(themeModeString);
       }
-      
+
       // 加载主题颜色
       final colorValue = prefs.getInt(_ThemeKeys.themeColor);
       if (colorValue != null) {
         _primaryColor = Color(colorValue);
       }
-      
+
       _isInitialized = true;
       notifyListeners();
     } catch (e) {
@@ -131,11 +134,11 @@ class CustomTheme with ChangeNotifier {
   }
 
   /// 设置主题模式
-  /// 
+  ///
   /// [mode] 要设置的主题模式
   Future<void> setThemeMode(AppThemeMode mode) async {
     if (_themeMode == mode) return;
-    
+
     try {
       final prefs = await SharedPreferences.getInstance();
       _themeMode = mode;
@@ -148,7 +151,7 @@ class CustomTheme with ChangeNotifier {
   }
 
   /// 设置主题模式（字符串形式，向后兼容）
-  /// 
+  ///
   /// [value] 主题模式字符串：'automatic', 'light', 或 'dark'
   @Deprecated('使用 setThemeMode(AppThemeMode) 代替')
   Future<void> setThemeValue(String value) async {
@@ -156,11 +159,11 @@ class CustomTheme with ChangeNotifier {
   }
 
   /// 设置主题颜色
-  /// 
+  ///
   /// [color] 要设置的主题颜色
   Future<void> setThemeColor(Color color) async {
     if (_primaryColor == color) return;
-    
+
     try {
       final prefs = await SharedPreferences.getInstance();
       _primaryColor = color;
@@ -173,7 +176,7 @@ class CustomTheme with ChangeNotifier {
   }
 
   /// 设置主题颜色（直接设置，不持久化）
-  /// 
+  ///
   /// 注意：此方法不会保存到 SharedPreferences，仅用于临时设置
   /// 使用 [setThemeColor] 来持久化设置
   set primaryColor(Color color) {
@@ -188,7 +191,7 @@ class CustomTheme with ChangeNotifier {
   }
 
   /// 判断当前是否为浅色主题
-  /// 
+  ///
   /// 如果主题模式为自动，则根据系统设置判断
   bool isLightTheme() {
     switch (_themeMode) {
@@ -203,7 +206,7 @@ class CustomTheme with ChangeNotifier {
   }
 
   /// 获取主题值（向后兼容方法）
-  /// 
+  ///
   /// 从 SharedPreferences 读取，如果不存在则返回当前值
   @Deprecated('使用 themeMode 属性代替')
   Future<String> getThemeValue() async {
@@ -219,16 +222,20 @@ class CustomTheme with ChangeNotifier {
 }
 
 /// 主题数据生成器
-/// 
+///
 /// 提供静态方法用于生成浅色和深色主题数据
 class CustomThemes {
   /// 获取浅色主题
-  /// 
+  ///
   /// [primaryColor] 主题的主色调
   static ThemeData getLightTheme(Color primaryColor) {
     return ThemeData(
       useMaterial3: false, // 保持 Material 2 风格
       brightness: Brightness.light,
+      visualDensity:
+          openIoTHubUseDesktopHomeLayout
+              ? VisualDensity.compact
+              : VisualDensity.standard,
       primarySwatch: _createMaterialColor(primaryColor),
       primaryColor: primaryColor,
       colorScheme: ColorScheme.light(
@@ -244,10 +251,14 @@ class CustomThemes {
         selectedItemColor: primaryColor,
         unselectedItemColor: Colors.grey,
         backgroundColor: Colors.white,
+        elevation: 8,
+        selectedLabelStyle: const TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+        ),
+        unselectedLabelStyle: const TextStyle(fontSize: 11),
       ),
-      bottomAppBarTheme: const BottomAppBarTheme(
-        color: Colors.white,
-      ),
+      bottomAppBarTheme: const BottomAppBarTheme(color: Colors.white),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: primaryColor,
         foregroundColor: Colors.white,
@@ -265,23 +276,25 @@ class CustomThemes {
       ),
       cardTheme: CardThemeData(
         elevation: 2,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
     );
   }
 
   /// 获取深色主题
-  /// 
+  ///
   /// [primaryColor] 主题的主色调
   static ThemeData getDarkTheme(Color primaryColor) {
     const Color darkSurfaceColor = Color(0xFF121212);
     const Color darkAccentColor = Color(0xFF1E1E1E);
-    
+
     return ThemeData(
       useMaterial3: false, // 保持 Material 2 风格
       brightness: Brightness.dark,
+      visualDensity:
+          openIoTHubUseDesktopHomeLayout
+              ? VisualDensity.compact
+              : VisualDensity.standard,
       primarySwatch: _createMaterialColor(primaryColor),
       primaryColor: darkAccentColor,
       scaffoldBackgroundColor: darkSurfaceColor,
@@ -299,6 +312,12 @@ class CustomThemes {
         selectedItemColor: primaryColor,
         unselectedItemColor: Colors.grey,
         backgroundColor: darkAccentColor,
+        elevation: 8,
+        selectedLabelStyle: const TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+        ),
+        unselectedLabelStyle: const TextStyle(fontSize: 11),
       ),
       appBarTheme: AppBarTheme(
         backgroundColor: darkAccentColor,
@@ -314,21 +333,19 @@ class CustomThemes {
       cardTheme: CardThemeData(
         elevation: 2,
         color: darkAccentColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
     );
   }
 
   /// 统一文字主题：标题 16 加粗，副标题/正文灰色
   static TextTheme _buildTextTheme(Brightness brightness) {
-    final base = brightness == Brightness.dark
-        ? Typography.material2018().white
-        : Typography.material2018().black;
-    final grey = brightness == Brightness.dark
-        ? const Color(0xFFB0B0B0)
-        : Colors.grey;
+    final base =
+        brightness == Brightness.dark
+            ? Typography.material2018().white
+            : Typography.material2018().black;
+    final grey =
+        brightness == Brightness.dark ? const Color(0xFFB0B0B0) : Colors.grey;
     return TextTheme(
       titleLarge: base.titleLarge?.copyWith(
         fontSize: 18,
@@ -350,7 +367,7 @@ class CustomThemes {
   }
 
   /// 将 Color 转换为 MaterialColor
-  /// 
+  ///
   /// 生成包含不同深浅度的 MaterialColor，用于 Material Design 组件
   /// [color] 基础颜色
   static MaterialColor _createMaterialColor(Color color) {

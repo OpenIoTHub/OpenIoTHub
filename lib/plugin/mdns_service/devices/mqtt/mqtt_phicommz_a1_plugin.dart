@@ -10,6 +10,7 @@ import 'package:openiothub/common_pages/utils/toast.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 
 import 'package:openiothub/plugin/models/port_service_info.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 import '../../../mdns_service/comm_widgets/info.dart';
 
 class MqttPhicommzA1PluginPage extends StatefulWidget {
@@ -129,7 +130,9 @@ class MqttPhicommzA1PluginPageState extends State<MqttPhicommzA1PluginPage> {
               }),
         ],
       ),
-      body: ListView(children: divided),
+      body: openIoTHubDesktopScrollableListBody(
+        scrollable: ListView(children: divided),
+      ),
     );
   }
 

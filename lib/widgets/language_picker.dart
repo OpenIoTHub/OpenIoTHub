@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/providers/locale_provider.dart';
-import 'package:openiothub/router/app_routes.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 import 'package:provider/provider.dart';
 
 /// 各语言的本地化显示名称
@@ -59,11 +59,75 @@ bool _localesEqual(Locale? a, Locale? b) {
       (a.countryCode ?? '') == (b.countryCode ?? '');
 }
 
+List<Widget> _languagePickerListTiles({
+  required BuildContext context,
+  required LocaleProvider localeProvider,
+  required Locale? currentLocale,
+  required VoidCallback onSelectionDone,
+}) {
+  final l10n = OpenIoTHubLocalizations.of(context);
+  return [
+    ListTile(
+      title: Text(l10n.follow_system),
+      trailing: _localesEqual(currentLocale, null)
+          ? const Icon(Icons.check, color: Colors.green)
+          : null,
+      onTap: () async {
+        await localeProvider.setLocale(null);
+        if (context.mounted) onSelectionDone();
+      },
+    ),
+    const Divider(height: 1),
+    ...LocaleProvider.supportedLocales.map((locale) {
+      final key = _localeToKey(locale);
+      final name = _localeDisplayNames[key] ?? key;
+      final isSelected = _localesEqual(currentLocale, locale);
+      return ListTile(
+        title: Text(name),
+        trailing: isSelected
+            ? const Icon(Icons.check, color: Colors.green)
+            : null,
+        onTap: () async {
+          await localeProvider.setLocale(locale);
+          if (context.mounted) onSelectionDone();
+        },
+      );
+    }),
+  ];
+}
+
 /// 语言选择器：弹窗选择语言，支持「跟随系统」及 36 种语言
 void showLanguagePicker(BuildContext context) {
   final localeProvider = context.read<LocaleProvider>();
   final l10n = OpenIoTHubLocalizations.of(context);
   final currentLocale = localeProvider.locale;
+
+  if (openIoTHubUseDesktopHomeLayout) {
+    showDialog<void>(
+      context: context,
+      builder: (ctx) {
+        final tiles = _languagePickerListTiles(
+          context: ctx,
+          localeProvider: localeProvider,
+          currentLocale: currentLocale,
+          onSelectionDone: () => Navigator.of(ctx).pop(),
+        );
+        final dialogL10n = OpenIoTHubLocalizations.of(ctx);
+        return AlertDialog(
+          title: Text(dialogL10n.language),
+          content: SizedBox(
+            width: 420,
+            height: 480,
+            child: Scrollbar(
+              thumbVisibility: true,
+              child: ListView(children: tiles),
+            ),
+          ),
+        );
+      },
+    );
+    return;
+  }
 
   showModalBottomSheet<void>(
     context: context,
@@ -83,35 +147,12 @@ void showLanguagePicker(BuildContext context) {
             Flexible(
               child: ListView(
                 shrinkWrap: true,
-                children: [
-                  // 跟随系统
-                  ListTile(
-                    title: Text(l10n.follow_system),
-                    trailing: _localesEqual(currentLocale, null)
-                        ? const Icon(Icons.check, color: Colors.green)
-                        : null,
-                    onTap: () async {
-                      await localeProvider.setLocale(null);
-                      if (ctx.mounted) Navigator.of(ctx).pop();
-                    },
-                  ),
-                  const Divider(height: 1),
-                  ...LocaleProvider.supportedLocales.map((locale) {
-                    final key = _localeToKey(locale);
-                    final name = _localeDisplayNames[key] ?? key;
-                    final isSelected = _localesEqual(currentLocale, locale);
-                    return ListTile(
-                      title: Text(name),
-                      trailing: isSelected
-                          ? const Icon(Icons.check, color: Colors.green)
-                          : null,
-                      onTap: () async {
-                        await localeProvider.setLocale(locale);
-                        if (ctx.mounted) Navigator.of(ctx).pop();
-                      },
-                    );
-                  }),
-                ],
+                children: _languagePickerListTiles(
+                  context: ctx,
+                  localeProvider: localeProvider,
+                  currentLocale: currentLocale,
+                  onSelectionDone: () => Navigator.of(ctx).pop(),
+                ),
               ),
             ),
           ],
@@ -149,37 +190,23 @@ class LanguagePickerPage extends StatelessWidget {
     final l10n = OpenIoTHubLocalizations.of(context);
     final currentLocale = localeProvider.locale;
 
+    final tiles = _languagePickerListTiles(
+      context: context,
+      localeProvider: localeProvider,
+      currentLocale: currentLocale,
+      onSelectionDone: () => Navigator.of(context).pop(),
+    );
+    final list = ListView(children: tiles);
     return Scaffold(
       appBar: AppBar(title: Text(l10n.language)),
-      body: ListView(
-        children: [
-          ListTile(
-            title: Text(l10n.follow_system),
-            trailing: _localesEqual(currentLocale, null)
-                ? const Icon(Icons.check, color: Colors.green)
-                : null,
-            onTap: () async {
-              await localeProvider.setLocale(null);
-              if (context.mounted) Navigator.of(context).pop();
-            },
-          ),
-          const Divider(height: 1),
-          ...LocaleProvider.supportedLocales.map((locale) {
-            final key = _localeToKey(locale);
-            final name = _localeDisplayNames[key] ?? key;
-            final isSelected = _localesEqual(currentLocale, locale);
-            return ListTile(
-              title: Text(name),
-              trailing: isSelected
-                  ? const Icon(Icons.check, color: Colors.green)
-                  : null,
-              onTap: () async {
-                await localeProvider.setLocale(locale);
-                if (context.mounted) Navigator.of(context).pop();
-              },
-            );
-          }),
-        ],
+      body: openIoTHubDesktopConstrainedBody(
+        maxWidth: 560,
+        child: openIoTHubUseDesktopHomeLayout
+            ? Scrollbar(
+                thumbVisibility: true,
+                child: list,
+              )
+            : list,
       ),
     );
   }

@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:openiothub/plugin/openiothub_plugin.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 import 'package:openiothub/plugin/utils/ip.dart';
 
 import 'package:openiothub/plugin/models/port_service_info.dart';
@@ -52,7 +53,8 @@ class OneKeySwitchPageState extends State<OneKeySwitchPage> {
               }),
         ],
       ),
-      body: Column(
+      body: openIoTHubDesktopConstrainedBody(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Row(
@@ -75,8 +77,10 @@ class OneKeySwitchPageState extends State<OneKeySwitchPage> {
                     ? Text(OpenIoTHubLocalizations.of(context).on)
                     : Text(OpenIoTHubLocalizations.of(context).off),
               ],
-            )
-          ]),
+            ),
+          ],
+        ),
+      ),
     );
   }
 

@@ -1,4 +1,9 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:openiothub/init.dart';
+import 'package:fluent_ui/fluent_ui.dart' show FluentLocalizations;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
@@ -6,6 +11,7 @@ import 'package:openiothub/providers/custom_theme.dart';
 import 'package:openiothub/providers/locale_provider.dart';
 import 'package:openiothub/providers/auth_provider.dart';
 import 'package:openiothub/router/go_app_router.dart';
+import 'package:openiothub/utils/openiothub_scroll_behavior.dart';
 import 'package:openiothub/plugin/registry/builtin_plugins.dart';
 import 'package:openiothub/plugin/registry/plugin_registry.dart';
 import 'package:provider/provider.dart';
@@ -18,9 +24,31 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   late final AuthProvider _auth = AuthProvider()..loadCurrentToken();
   late final GoRouter _router = createOpenIoTHubRouter(_auth);
+
+  @override
+  void initState() {
+    super.initState();
+    if (Platform.isAndroid) {
+      WidgetsBinding.instance.addObserver(this);
+    }
+  }
+
+  @override
+  void dispose() {
+    if (Platform.isAndroid) {
+      WidgetsBinding.instance.removeObserver(this);
+    }
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    debugPrint('[OpenIoTHub][lifecycle] observer: $state');
+    unawaited(handleAndroidForegroundServiceLifecycle(state));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +69,9 @@ class _MyAppState extends State<MyApp> {
         builder: (context, localeProvider, child) {
           final systemLocale =
               WidgetsBinding.instance.platformDispatcher.locale;
-          final effectiveLocale =
-              localeProvider.getEffectiveLocale(systemLocale);
+          final effectiveLocale = localeProvider.getEffectiveLocale(
+            systemLocale,
+          );
 
           return Consumer<CustomTheme>(
             builder: (context, customTheme, child) {
@@ -50,15 +79,16 @@ class _MyAppState extends State<MyApp> {
                 child: MaterialApp.router(
                   title: "云亿连",
                   debugShowCheckedModeBanner: false,
+                  scrollBehavior: const OpenIoTHubScrollBehavior(),
                   locale: effectiveLocale,
                   localizationsDelegates: const [
                     OpenIoTHubLocalizations.delegate,
+                    FluentLocalizations.delegate,
                     GlobalMaterialLocalizations.delegate,
                     GlobalWidgetsLocalizations.delegate,
                     GlobalCupertinoLocalizations.delegate,
                   ],
-                  supportedLocales:
-                      OpenIoTHubLocalizations.supportedLocales,
+                  supportedLocales: OpenIoTHubLocalizations.supportedLocales,
                   localeResolutionCallback: (locale, supportedLocales) {
                     if (locale == null) return null;
 
@@ -77,10 +107,10 @@ class _MyAppState extends State<MyApp> {
 
                     return const Locale('en');
                   },
-                  theme: CustomThemes.getLightTheme(
-                      customTheme.primaryColor),
+                  theme: CustomThemes.getLightTheme(customTheme.primaryColor),
                   darkTheme: CustomThemes.getDarkTheme(
-                      customTheme.primaryColor),
+                    customTheme.primaryColor,
+                  ),
                   themeMode: customTheme.getThemeMode(),
                   routerConfig: _router,
                 ),

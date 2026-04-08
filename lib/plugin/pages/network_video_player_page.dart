@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 import 'package:video_player/video_player.dart';
 
 /// 使用 `video_player` 播放网络 URL 的全屏页（与 `mdns_service/services/video_player.dart` 的 VLC 实现区分）。
@@ -32,12 +33,15 @@ class VideoPlayerPageState extends State<VideoPlayerPage> {
           title: Text(OpenIoTHubLocalizations.of(context).nas_video),
         ),
         body: Center(
-          child: _controller.value.isInitialized
-              ? AspectRatio(
-            aspectRatio: _controller.value.aspectRatio,
-            child: VideoPlayer(_controller),
-          )
-              : Container(),
+          child: openIoTHubDesktopConstrainedBody(
+            maxWidth: 960,
+            child: _controller.value.isInitialized
+                ? AspectRatio(
+                    aspectRatio: _controller.value.aspectRatio,
+                    child: VideoPlayer(_controller),
+                  )
+                : Container(),
+          ),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {

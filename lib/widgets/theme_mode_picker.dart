@@ -2,13 +2,67 @@ import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/providers/custom_theme.dart';
 import 'package:openiothub/router/app_routes.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 import 'package:provider/provider.dart';
+
+List<Widget> _themeModePickerTiles({
+  required BuildContext context,
+  required CustomTheme customTheme,
+  required AppThemeMode currentMode,
+  required OpenIoTHubLocalizations l10n,
+  required VoidCallback onDone,
+}) {
+  return AppThemeMode.values.map((mode) {
+    final isSelected = currentMode == mode;
+    return ListTile(
+      leading: Icon(_getModeIcon(mode)),
+      title: Text(_getModeName(mode, l10n)),
+      trailing: isSelected
+          ? const Icon(Icons.check, color: Colors.green)
+          : null,
+      onTap: () async {
+        await customTheme.setThemeMode(mode);
+        if (context.mounted) onDone();
+      },
+    );
+  }).toList();
+}
 
 /// 主题模式选择器：弹窗选择主题模式
 void showThemeModePicker(BuildContext context) {
   final customTheme = context.read<CustomTheme>();
   final l10n = OpenIoTHubLocalizations.of(context);
   final currentMode = customTheme.themeMode;
+
+  if (openIoTHubUseDesktopHomeLayout) {
+    showDialog<void>(
+      context: context,
+      builder: (ctx) {
+        final dialogL10n = OpenIoTHubLocalizations.of(ctx);
+        final tiles = _themeModePickerTiles(
+          context: ctx,
+          customTheme: customTheme,
+          currentMode: currentMode,
+          l10n: dialogL10n,
+          onDone: () => Navigator.of(ctx).pop(),
+        );
+        return AlertDialog(
+          title: Text(dialogL10n.theme_mode),
+          content: SizedBox(
+            width: 360,
+            child: Scrollbar(
+              thumbVisibility: true,
+              child: ListView(
+                shrinkWrap: true,
+                children: tiles,
+              ),
+            ),
+          ),
+        );
+      },
+    );
+    return;
+  }
 
   showModalBottomSheet<void>(
     context: context,
@@ -25,20 +79,13 @@ void showThemeModePicker(BuildContext context) {
                 style: Theme.of(ctx).textTheme.titleMedium,
               ),
             ),
-            ...AppThemeMode.values.map((mode) {
-              final isSelected = currentMode == mode;
-              return ListTile(
-                leading: Icon(_getModeIcon(mode)),
-                title: Text(_getModeName(mode, l10n)),
-                trailing: isSelected
-                    ? const Icon(Icons.check, color: Colors.green)
-                    : null,
-                onTap: () async {
-                  await customTheme.setThemeMode(mode);
-                  if (ctx.mounted) Navigator.of(ctx).pop();
-                },
-              );
-            }),
+            ..._themeModePickerTiles(
+              context: ctx,
+              customTheme: customTheme,
+              currentMode: currentMode,
+              l10n: l10n,
+              onDone: () => Navigator.of(ctx).pop(),
+            ),
           ],
         ),
       );
@@ -72,25 +119,24 @@ class ThemeModePickerPage extends StatelessWidget {
     final currentMode = customTheme.themeMode;
     final l10n = OpenIoTHubLocalizations.of(context);
 
+    final tiles = _themeModePickerTiles(
+      context: context,
+      customTheme: customTheme,
+      currentMode: currentMode,
+      l10n: l10n,
+      onDone: () => Navigator.of(context).pop(),
+    );
+    final list = ListView(children: tiles);
     return Scaffold(
       appBar: AppBar(title: Text(l10n.theme_mode)),
-      body: ListView(
-        children: [
-          ...AppThemeMode.values.map((mode) {
-            final isSelected = currentMode == mode;
-            return ListTile(
-              leading: Icon(_getModeIcon(mode)),
-              title: Text(_getModeName(mode, l10n)),
-              trailing: isSelected
-                  ? const Icon(Icons.check, color: Colors.green)
-                  : null,
-              onTap: () async {
-                await customTheme.setThemeMode(mode);
-                if (context.mounted) Navigator.of(context).pop();
-              },
-            );
-          }),
-        ],
+      body: openIoTHubDesktopConstrainedBody(
+        maxWidth: 480,
+        child: openIoTHubUseDesktopHomeLayout
+            ? Scrollbar(
+                thumbVisibility: true,
+                child: list,
+              )
+            : list,
       ),
     );
   }

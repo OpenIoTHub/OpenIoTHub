@@ -16,6 +16,7 @@ import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:wechat_kit/wechat_kit.dart';
 
 import 'package:openiothub/common_pages/openiothub_common_pages.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -37,7 +38,7 @@ class LoginPageState extends State<LoginPage> {
 
   String wechatLoginFailed = "wechat login failed";
 
-//  New
+  //  New
   final TextEditingController _usermobile = TextEditingController(text: "");
   final TextEditingController _userpassword = TextEditingController(text: "");
 
@@ -67,28 +68,31 @@ class LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    wechatLoginFailed =
-        OpenIoTHubLocalizations.of(context).wechat_login_failed;
+    wechatLoginFailed = OpenIoTHubLocalizations.of(context).wechat_login_failed;
     return Scaffold(
-        appBar: AppBar(
-          title: Text(OpenIoTHubLocalizations.of(context).login),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.language),
-              tooltip: OpenIoTHubLocalizations.of(context).language,
-              onPressed: () => context.push(AppRoutes.languagePicker),
-            ),
-          ],
-        ),
-        body: Center(
-          child: Container(
-            padding: EdgeInsets.all(10.0),
+      appBar: AppBar(
+        title: Text(OpenIoTHubLocalizations.of(context).login),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.language),
+            tooltip: OpenIoTHubLocalizations.of(context).language,
+            onPressed: () => context.push(AppRoutes.languagePicker),
+          ),
+        ],
+      ),
+      body: Center(
+        child: openIoTHubDesktopConstrainedBody(
+          maxWidth: 440,
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: _list,
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 
   Future<void> _initList() async {
@@ -100,8 +104,7 @@ class LoginPageState extends State<LoginPage> {
             controller: _usermobile,
             backgroundColor: Colors.white,
             leftLabel: OpenIoTHubLocalizations.of(context).user_mobile,
-            hintText:
-                OpenIoTHubLocalizations.of(context).please_input_mobile,
+            hintText: OpenIoTHubLocalizations.of(context).please_input_mobile,
             onChanged: (String v) {},
           ),
         ),
@@ -109,8 +112,7 @@ class LoginPageState extends State<LoginPage> {
           controller: _userpassword,
           backgroundColor: Colors.white,
           leftLabel: OpenIoTHubLocalizations.of(context).password,
-          hintText:
-              OpenIoTHubLocalizations.of(context).please_input_password,
+          hintText: OpenIoTHubLocalizations.of(context).please_input_password,
           obscureText: true,
           onChanged: (String v) {},
         ),
@@ -120,63 +122,69 @@ class LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TDButton(
-                  icon: TDIcons.login,
-                  text: OpenIoTHubLocalizations.of(context).login,
-                  size: TDButtonSize.medium,
-                  type: TDButtonType.outline,
-                  shape: TDButtonShape.rectangle,
-                  theme: TDButtonTheme.primary,
-                  disabled: _loginDisabled,
-                  onTap: () async {
-                    setState(() {
-                      _loginDisabled = true;
-                    });
-                    Future.delayed(Duration(seconds: 5), (){
-                      setState(() {
-                        _loginDisabled = false;
-                      });
-                    });
-                    // 只有同意隐私政策才可以进行下一步
-                    if (!_isChecked) {
-                      showFailed(
-                          "${OpenIoTHubLocalizations.of(context).agree_to_the_user_agreement1}☑️${OpenIoTHubLocalizations.of(context).agree_to_the_user_agreement2}",
-                          context);
-                      return;
-                    }
-                    if (_usermobile.text.isEmpty ||
-                        _userpassword.text.isEmpty) {
-                      showFailed(
-                          OpenIoTHubLocalizations.of(context)
-                              .common_username_and_password_cant_be_empty,
-                          context);
-                      return;
-                    }
-                    LoginInfo loginInfo = LoginInfo();
-                    loginInfo.userMobile = _usermobile.text;
-                    loginInfo.password = _userpassword.text;
-                    UserLoginResponse userLoginResponse =
-                        await UserManager.loginWithUserLoginInfo(loginInfo);
-                    if (!mounted) return;
+                icon: TDIcons.login,
+                text: OpenIoTHubLocalizations.of(context).login,
+                size: TDButtonSize.medium,
+                type: TDButtonType.outline,
+                shape: TDButtonShape.rectangle,
+                theme: TDButtonTheme.primary,
+                disabled: _loginDisabled,
+                onTap: () async {
+                  setState(() {
+                    _loginDisabled = true;
+                  });
+                  Future.delayed(Duration(seconds: 5), () {
                     setState(() {
                       _loginDisabled = false;
                     });
-                    await _handleLoginResp(userLoginResponse);
-                  }),
+                  });
+                  // 只有同意隐私政策才可以进行下一步
+                  if (!_isChecked) {
+                    showFailed(
+                      "${OpenIoTHubLocalizations.of(context).agree_to_the_user_agreement1}☑️${OpenIoTHubLocalizations.of(context).agree_to_the_user_agreement2}",
+                      context,
+                    );
+                    return;
+                  }
+                  if (_usermobile.text.isEmpty || _userpassword.text.isEmpty) {
+                    showFailed(
+                      OpenIoTHubLocalizations.of(
+                        context,
+                      ).common_username_and_password_cant_be_empty,
+                      context,
+                    );
+                    return;
+                  }
+                  LoginInfo loginInfo = LoginInfo();
+                  loginInfo.userMobile = _usermobile.text;
+                  loginInfo.password = _userpassword.text;
+                  UserLoginResponse userLoginResponse =
+                      await UserManager.loginWithUserLoginInfo(loginInfo);
+                  if (!mounted) return;
+                  setState(() {
+                    _loginDisabled = false;
+                  });
+                  await _handleLoginResp(userLoginResponse);
+                },
+              ),
               Padding(
                 padding: const EdgeInsets.only(left: 20.0), // 设置顶部距离
                 child: TDButton(
-                    icon: TDIcons.user,
-                    text: OpenIoTHubLocalizations.of(context)
-                        .user_registration,
-                    size: TDButtonSize.medium,
-                    type: TDButtonType.outline,
-                    shape: TDButtonShape.rectangle,
-                    theme: TDButtonTheme.defaultTheme,
-                    onTap: () async {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const RegisterPage()));
-                    }),
-              )
+                  icon: TDIcons.user,
+                  text: OpenIoTHubLocalizations.of(context).user_registration,
+                  size: TDButtonSize.medium,
+                  type: TDButtonType.outline,
+                  shape: TDButtonShape.rectangle,
+                  theme: TDButtonTheme.defaultTheme,
+                  onTap: () async {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const RegisterPage(),
+                      ),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),
@@ -198,32 +206,35 @@ class LoginPageState extends State<LoginPage> {
               ),
               Text(OpenIoTHubLocalizations.of(context).agree),
               TextButton(
-                  // TODO 勾选才可以下一步
-                  child: Text(
-                    OpenIoTHubLocalizations.of(context).common_privacy_policy,
-                    style: TextStyle(color: Colors.red),
-                  ),
-                  onPressed: () async {
-                    goToUrl(
-                        context,
-                        "https://docs.iothub.cloud/privacyPolicy/index.html",
-                        OpenIoTHubLocalizations.of(context)
-                            .privacy_policy);
-                  }),
+                // TODO 勾选才可以下一步
+                child: Text(
+                  OpenIoTHubLocalizations.of(context).common_privacy_policy,
+                  style: TextStyle(color: Colors.red),
+                ),
+                onPressed: () async {
+                  goToUrl(
+                    context,
+                    "https://docs.iothub.cloud/privacyPolicy/index.html",
+                    OpenIoTHubLocalizations.of(context).privacy_policy,
+                  );
+                },
+              ),
               TextButton(
-                  child: Text(
-                    OpenIoTHubLocalizations.of(context).common_feedback_channels,
-                    style: TextStyle(color: Colors.green),
-                  ),
-                  onPressed: () async {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => FeedbackPage(
-                              key: UniqueKey(),
-                            )));
-                  }),
+                child: Text(
+                  OpenIoTHubLocalizations.of(context).common_feedback_channels,
+                  style: TextStyle(color: Colors.green),
+                ),
+                onPressed: () async {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => FeedbackPage(key: UniqueKey()),
+                    ),
+                  );
+                },
+              ),
             ],
           ),
-        )
+        ),
       ];
     });
   }
@@ -235,18 +246,17 @@ class LoginPageState extends State<LoginPage> {
     }
     setState(() {
       // TODO 在pc上使用二维码扫码登录，可以使用网页一套Api
-      _list.add(IconButton(
-          icon: Icon(
-            TDIcons.logo_wechat_stroke,
-            color: Colors.green,
-            size: 45,
-          ),
+      _list.add(
+        IconButton(
+          icon: Icon(TDIcons.logo_wechat_stroke, color: Colors.green, size: 45),
           style: ButtonStyle(
             fixedSize: const WidgetStatePropertyAll<Size>(Size(70, 70)),
           ),
           onPressed: () async {
             _wechatLogin();
-          }));
+          },
+        ),
+      );
     });
   }
 
@@ -254,15 +264,25 @@ class LoginPageState extends State<LoginPage> {
     if (userLoginResponse.code == 0) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString(
-          SharedPreferencesKey.userTokenKey, userLoginResponse.token);
+        SharedPreferencesKey.userTokenKey,
+        userLoginResponse.token,
+      );
       await prefs.setString(
-          SharedPreferencesKey.userNameKey, userLoginResponse.userInfo.name);
-      await prefs.setString(SharedPreferencesKey.userEmailKey,
-          userLoginResponse.userInfo.email);
-      await prefs.setString(SharedPreferencesKey.userMobileKey,
-          userLoginResponse.userInfo.mobile);
-      await prefs.setString(SharedPreferencesKey.userAvatarKey,
-          userLoginResponse.userInfo.avatar);
+        SharedPreferencesKey.userNameKey,
+        userLoginResponse.userInfo.name,
+      );
+      await prefs.setString(
+        SharedPreferencesKey.userEmailKey,
+        userLoginResponse.userInfo.email,
+      );
+      await prefs.setString(
+        SharedPreferencesKey.userMobileKey,
+        userLoginResponse.userInfo.mobile,
+      );
+      await prefs.setString(
+        SharedPreferencesKey.userAvatarKey,
+        userLoginResponse.userInfo.avatar,
+      );
 
       Future.delayed(Duration(milliseconds: 500), () {
         UtilApi.syncConfigWithToken();
@@ -275,8 +295,9 @@ class LoginPageState extends State<LoginPage> {
     } else {
       final l10n = OpenIoTHubLocalizations.of(context);
       showFailed(
-          "${l10n.common_login_failed}:code:${userLoginResponse.code},message:${userLoginResponse.msg}",
-          context);
+        "${l10n.common_login_failed}:code:${userLoginResponse.code},message:${userLoginResponse.msg}",
+        context,
+      );
     }
   }
 
@@ -292,21 +313,32 @@ class LoginPageState extends State<LoginPage> {
         if (!ctx.mounted) return;
         final l10n = OpenIoTHubLocalizations.of(ctx);
         if (response.data["code"] == 0 &&
-            (response.data["data"] as Map<String, dynamic>)
-                .containsKey("token") &&
+            (response.data["data"] as Map<String, dynamic>).containsKey(
+              "token",
+            ) &&
             response.data["data"]["token"] != null &&
             response.data["data"]["token"] != "") {
           SharedPreferences prefs = await SharedPreferences.getInstance();
-          await prefs.setString(SharedPreferencesKey.userTokenKey,
-              response.data["data"]["token"]);
-          await prefs.setString(SharedPreferencesKey.userNameKey,
-              response.data["data"]["user"]["nickName"]);
-          await prefs.setString(SharedPreferencesKey.userEmailKey,
-              response.data["data"]["user"]["email"]);
-          await prefs.setString(SharedPreferencesKey.userMobileKey,
-              response.data["data"]["user"]["phone"]);
-          await prefs.setString(SharedPreferencesKey.userAvatarKey,
-              response.data["data"]["user"]["headerImg"]);
+          await prefs.setString(
+            SharedPreferencesKey.userTokenKey,
+            response.data["data"]["token"],
+          );
+          await prefs.setString(
+            SharedPreferencesKey.userNameKey,
+            response.data["data"]["user"]["nickName"],
+          );
+          await prefs.setString(
+            SharedPreferencesKey.userEmailKey,
+            response.data["data"]["user"]["email"],
+          );
+          await prefs.setString(
+            SharedPreferencesKey.userMobileKey,
+            response.data["data"]["user"]["phone"],
+          );
+          await prefs.setString(
+            SharedPreferencesKey.userAvatarKey,
+            response.data["data"]["user"]["headerImg"],
+          );
 
           if (!ctx.mounted) return;
           Future.delayed(Duration(milliseconds: 500), () {
@@ -317,18 +349,21 @@ class LoginPageState extends State<LoginPage> {
           await ctx.read<AuthProvider>().loadCurrentToken();
           if (!ctx.mounted) return;
           ctx.go(AppRoutes.home);
-        } else if ((response.data["data"] as Map<String, dynamic>)
-                .containsKey("scan") &&
+        } else if ((response.data["data"] as Map<String, dynamic>).containsKey(
+              "scan",
+            ) &&
             (response.data["data"] as Map<String, dynamic>)["scan"] == true) {
           showSuccess(l10n.login_after_wechat_bind, ctx);
-        } else if ((response.data["data"] as Map<String, dynamic>)
-                .containsKey("scan") &&
+        } else if ((response.data["data"] as Map<String, dynamic>).containsKey(
+              "scan",
+            ) &&
             (response.data["data"] as Map<String, dynamic>)["scan"] == false) {
           // showToast("请扫码！");
         } else {
           showFailed(
-              "${l10n.wechat_fast_login_failed}：${response.data["msg"]}",
-              ctx);
+            "${l10n.wechat_fast_login_failed}：${response.data["msg"]}",
+            ctx,
+          );
         }
       }
     });
@@ -338,8 +373,9 @@ class LoginPageState extends State<LoginPage> {
     // 只有同意隐私政策才可以进行下一步
     if (!_isChecked) {
       showFailed(
-          "${OpenIoTHubLocalizations.of(context).agree_to_the_user_agreement1}☑️${OpenIoTHubLocalizations.of(context).agree_to_the_user_agreement2}",
-          context);
+        "${OpenIoTHubLocalizations.of(context).agree_to_the_user_agreement1}☑️${OpenIoTHubLocalizations.of(context).agree_to_the_user_agreement2}",
+        context,
+      );
       return;
     }
     final ctx = context;
@@ -370,24 +406,27 @@ class LoginPageState extends State<LoginPage> {
       }
       // 循环获取登录结果
       showDialog(
-          context: ctx,
-          builder: (_) => AlertDialog(
-                  title: Text(l10n.wechat_scan_qr_code_to_login),
-                  content: SizedBox.expand(child: Image.network(qrUrl)),
-                  actions: <Widget>[
-                    // 分享网关:二维码图片、小程序链接、网页
-                    TDButton(
-                      icon: TDIcons.fullscreen_exit,
-                      text: l10n.exit,
-                      size: TDButtonSize.small,
-                      type: TDButtonType.outline,
-                      shape: TDButtonShape.rectangle,
-                      theme: TDButtonTheme.primary,
-                      onTap: () {
-                        Navigator.of(ctx).pop();
-                      },
-                    ),
-                  ])).then((_) => {loginFlag = null});
+        context: ctx,
+        builder:
+            (_) => AlertDialog(
+              title: Text(l10n.wechat_scan_qr_code_to_login),
+              content: SizedBox.expand(child: Image.network(qrUrl)),
+              actions: <Widget>[
+                // 分享网关:二维码图片、小程序链接、网页
+                TDButton(
+                  icon: TDIcons.fullscreen_exit,
+                  text: l10n.exit,
+                  size: TDButtonSize.small,
+                  type: TDButtonType.outline,
+                  shape: TDButtonShape.rectangle,
+                  theme: TDButtonTheme.primary,
+                  onTap: () {
+                    Navigator.of(ctx).pop();
+                  },
+                ),
+              ],
+            ),
+      ).then((_) => {loginFlag = null});
     }
   }
 }

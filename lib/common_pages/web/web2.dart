@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:openiothub/ads/ylh/banner_ylh.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -25,22 +26,23 @@ class WebScreenState extends State<WebScreen> {
   @override
   void initState() {
     super.initState();
-    controller = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setBackgroundColor(const Color(0x00000000))
-      ..setNavigationDelegate(
-        NavigationDelegate(
-          onProgress: (int progress) {
-            // Update loading bar.
-          },
-          onPageStarted: (String url) {},
-          onPageFinished: (String url) {},
-          onNavigationRequest: (NavigationRequest request) {
-            return NavigationDecision.navigate;
-          },
-        ),
-      )
-      ..loadRequest(Uri.parse(widget.startUrl));
+    controller =
+        WebViewController()
+          ..setJavaScriptMode(JavaScriptMode.unrestricted)
+          ..setBackgroundColor(const Color(0x00000000))
+          ..setNavigationDelegate(
+            NavigationDelegate(
+              onProgress: (int progress) {
+                // Update loading bar.
+              },
+              onPageStarted: (String url) {},
+              onPageFinished: (String url) {},
+              onNavigationRequest: (NavigationRequest request) {
+                return NavigationDecision.navigate;
+              },
+            ),
+          )
+          ..loadRequest(Uri.parse(widget.startUrl));
   }
 
   @override
@@ -56,20 +58,27 @@ class WebScreenState extends State<WebScreen> {
         title: Text(widget.title == null ? "Web" : widget.title!),
         actions: _getActions(),
       ),
-      body:Column(children: <Widget>[
-        WebViewWidget(controller: controller!),
-        buildYLHBanner(context),
-        ])
+      body: openIoTHubDesktopConstrainedBody(
+        maxWidth: 1280,
+        child: Column(
+          children: <Widget>[
+            Expanded(child: WebViewWidget(controller: controller!)),
+            buildYLHBanner(context),
+          ],
+        ),
+      ),
     );
   }
 
   _goToFullScreen() async {
-    Navigator.push(context, MaterialPageRoute(builder: (ctx) {
-      return FullScreenWeb(
-        key: UniqueKey(),
-        startUrl: widget.startUrl,
-      );
-    }));
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (ctx) {
+          return FullScreenWeb(key: UniqueKey(), startUrl: widget.startUrl);
+        },
+      ),
+    );
   }
 
   _openInBrowser() async {
@@ -79,15 +88,17 @@ class WebScreenState extends State<WebScreen> {
   List<Widget>? _getActions() {
     List<Widget>? actions = [
       IconButton(
-          onPressed: () {
-            _goToFullScreen();
-          },
-          icon: Icon(Icons.fullscreen)),
+        onPressed: () {
+          _goToFullScreen();
+        },
+        icon: Icon(Icons.fullscreen),
+      ),
       IconButton(
-          onPressed: () {
-            _openInBrowser();
-          },
-          icon: Icon(Icons.open_in_browser))
+        onPressed: () {
+          _openInBrowser();
+        },
+        icon: Icon(Icons.open_in_browser),
+      ),
     ];
     return actions;
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vlc_player/flutter_vlc_player.dart';
 import 'package:openiothub/plugin/models/port_service_info.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 import '../../mdns_service/comm_widgets/info.dart';
 
 class VideoPlayer extends StatefulWidget {
@@ -63,10 +64,13 @@ class VideoPlayerState extends State<VideoPlayer> {
         ],
       ),
       body: Center(
-        child: VlcPlayer(
-          controller: _videoPlayerController,
-          aspectRatio: 16 / 9,
-          placeholder: Center(child: CircularProgressIndicator()),
+        child: openIoTHubDesktopConstrainedBody(
+          maxWidth: 960,
+          child: VlcPlayer(
+            controller: _videoPlayerController,
+            aspectRatio: 16 / 9,
+            placeholder: Center(child: CircularProgressIndicator()),
+          ),
         ),
       ),
     );

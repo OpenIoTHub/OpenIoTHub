@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:openiothub/common_pages/utils/toast.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
@@ -269,14 +270,15 @@ class _SystemInfoPageState extends State<SystemInfoPage> {
                 size: TDLoadingSize.small,
                 icon: TDLoadingIcon.activity,
               )
-            : Center(
-                child: Container(
-                  padding: EdgeInsets.all(10.0),
+            : openIoTHubDesktopScrollableListBody(
+                scrollable: Padding(
+                  padding: const EdgeInsets.all(10.0),
                   child: ListView(
                     children: listView,
                   ),
                 ),
-              ));
+              ),
+    );
   }
 
   Future<void> getUtilization() async {

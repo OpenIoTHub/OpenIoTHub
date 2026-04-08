@@ -7,6 +7,7 @@ import 'package:openiothub/plugin/openiothub_plugin.dart';
 import 'package:openiothub/plugin/utils/ip.dart';
 
 import 'package:openiothub/plugin/models/port_service_info.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 
 class DHTPage extends StatefulWidget {
   const DHTPage({required Key key, required this.device}) : super(key: key);
@@ -117,7 +118,9 @@ class DHTPageState extends State<DHTPage> {
               }),
         ],
       ),
-      body: ListView(children: divided),
+      body: openIoTHubDesktopScrollableListBody(
+        scrollable: ListView(children: divided),
+      ),
     );
   }
 

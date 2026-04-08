@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:openiothub/core/openiothub_constants.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import 'package:openiothub/plugin/models/port_service_info.dart';
@@ -45,9 +46,17 @@ class VNCWebPageState extends State<VNCWebPage> {
 
   @override
   Widget build(BuildContext context) {
+    final h = MediaQuery.sizeOf(context).height;
     return Scaffold(
       key: _scaffoldKey,
-      body: WebViewWidget(controller: _controller),
+      body: openIoTHubDesktopConstrainedBody(
+        maxWidth: 1440,
+        child: SizedBox(
+          width: double.infinity,
+          height: h,
+          child: WebViewWidget(controller: _controller),
+        ),
+      ),
     );
   }
 }

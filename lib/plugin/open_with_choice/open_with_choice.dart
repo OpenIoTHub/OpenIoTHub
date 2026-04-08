@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:openiothub/core/openiothub_constants.dart';
@@ -19,6 +20,7 @@ import 'package:openiothub/plugin/mdns_service/services/vncrfb_web_page.dart'
 import 'package:openiothub/plugin/registry/plugin_navigation.dart';
 import 'package:openiothub/plugin/utils/port_config_to_port_service.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 
 enum _OpenWithChoiceKind {
   web,
@@ -184,11 +186,10 @@ class OpenWithChoice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView.builder(
-        itemBuilder: (ctx, i) => _renderRow(ctx, _rows[i]),
-        itemCount: _rows.length,
-      ),
+    return ListView.builder(
+      padding: EdgeInsets.zero,
+      itemCount: _rows.length,
+      itemBuilder: (ctx, i) => _renderRow(ctx, _rows[i]),
     );
   }
 
@@ -211,18 +212,31 @@ Future<void> showOpenWithChoiceDialog(
 }) async {
   await showDialog<void>(
     context: context,
-    builder: (dialogCtx) => AlertDialog(
-      title: Text(OpenIoTHubLocalizations.of(context).opening_method),
-      content: SizedBox.expand(
-        child: OpenWithChoice(portConfig: portConfig),
-      ),
-      actions: <Widget>[
-        TextButton(
-          onPressed: () => Navigator.of(dialogCtx).pop(),
-          child: Text(OpenIoTHubLocalizations.of(context).cancel),
-        ),
-      ],
-    ),
+    builder: (dialogCtx) {
+      final mq = MediaQuery.sizeOf(dialogCtx);
+      final desktop = openIoTHubUseDesktopHomeLayout;
+      return AlertDialog(
+        title: Text(OpenIoTHubLocalizations.of(context).opening_method),
+        content: desktop
+            ? SizedBox(
+                width: 420,
+                height: math.min(520, mq.height * 0.72),
+                child: Scrollbar(
+                  thumbVisibility: true,
+                  child: OpenWithChoice(portConfig: portConfig),
+                ),
+              )
+            : SizedBox.expand(
+                child: OpenWithChoice(portConfig: portConfig),
+              ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.of(dialogCtx).pop(),
+            child: Text(OpenIoTHubLocalizations.of(context).cancel),
+          ),
+        ],
+      );
+    },
   );
   if (onDialogClosed != null && context.mounted) {
     await onDialogClosed();
