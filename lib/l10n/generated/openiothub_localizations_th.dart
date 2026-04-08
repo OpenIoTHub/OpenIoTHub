@@ -377,6 +377,24 @@ class OpenIoTHubLocalizationsTh extends OpenIoTHubLocalizations {
   String get p2p_connection_status => 'สถานะการเชื่อมต่อ P2P';
 
   @override
+  String get home_gateway_relay_on => 'รีเลย์ ✓';
+
+  @override
+  String get home_gateway_relay_off => 'รีเลย์ —';
+
+  @override
+  String get home_gateway_p2p_on => 'P2P ✓';
+
+  @override
+  String get home_gateway_p2p_off => 'P2P —';
+
+  @override
+  String get home_smart_device_scope_lan => 'LAN';
+
+  @override
+  String get home_smart_device_scope_remote => 'ระยะไกล';
+
+  @override
   String get modify => 'แก้ไข';
 
   @override

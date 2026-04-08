@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:math';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
@@ -54,68 +52,47 @@ class CommonDeviceListPageState extends State<CommonDeviceListPage> {
     _timerPeriod.cancel();
   }
 
+  String _gatewayNameForDevice(Device pair) {
+    var gatewayName = pair.runId.length > 24 ? pair.runId.substring(24) : pair.runId;
+    for (final sessionConfig in _sessionList) {
+      if (sessionConfig.runId == pair.runId) {
+        gatewayName = sessionConfig.name;
+      }
+    }
+    return gatewayName;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final tiles = _commonDeviceList.map((pair) {
-      // 获取所在网络的名称
-      String gatewayName = pair.runId.substring(24);
-      for (var sessionConfig in _sessionList) {
-        if (sessionConfig.runId == pair.runId) {
-          gatewayName = sessionConfig.name;
-        }
-      }
-      var listItemContent = ListTile(
-        leading: TDAvatar(
-          size: TDAvatarSize.medium,
-          type: TDAvatarType.customText,
-          text: pair.name.isEmpty ? pair.description[0] : pair.name[0],
-          shape: TDAvatarShape.square,
-          backgroundColor: Color.fromRGBO(
-            Random().nextInt(156) + 50, // 随机生成0到255之间的整数
-            Random().nextInt(156) + 50, // 随机生成0到255之间的整数
-            Random().nextInt(156) + 50, // 随机生成0到255之间的整数
-            1, // 不透明度，1表示完全不透明
+    const spacing = 12.0;
+    const pad = 12.0;
+    final gridBody = CustomScrollView(
+      physics: const AlwaysScrollableScrollPhysics(),
+      slivers: [
+        SliverToBoxAdapter(child: _buildBanner()),
+        SliverToBoxAdapter(
+          child: LayoutBuilder(
+            builder: (context, c) {
+              return openIoTHubHomeCardWrap(
+                maxWidth: c.maxWidth,
+                spacing: spacing,
+                horizontalPadding: pad,
+                topPadding: pad,
+                bottomPadding: 24,
+                cards: [
+                  for (final pair in _commonDeviceList)
+                    _buildHostCard(context, pair),
+                ],
+              );
+            },
           ),
         ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              pair.name.isEmpty ? pair.description : pair.name,
-              style: Constants.titleTextStyle,
-            ),
-          ],
-        ),
-        subtitle: Text(
-          // TODO 显示所在网络的名称
-          "${pair.addr}@${gatewayName.substring(0, gatewayName.length > 20 ? 20 : gatewayName.length)}",
-          style: Constants.subTitleTextStyle,
-        ),
-        trailing: Constants.rightArrowIcon,
-      );
-      return InkWell(
-        onTap: () {
-          _pushDeviceServiceTypes(pair);
-        },
-        child: listItemContent,
-      );
-    });
-    final divided = ListView.separated(
-      padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-      itemCount: tiles.length + 1,
-      itemBuilder: (context, index) {
-        if (index == 0) {
-          return _buildBanner();
-        }
-        return tiles.elementAt(index - 1);
-      },
-      separatorBuilder: (context, index) {
-        return Container(
-          padding: EdgeInsets.only(left: AppSpacing.listDividerIndent),
-          child: TDDivider(),
-        );
-      },
+      ],
     );
+    final scrollable =
+        openIoTHubUseDesktopHomeLayout
+            ? Scrollbar(thumbVisibility: true, child: gridBody)
+            : gridBody;
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -137,10 +114,8 @@ class CommonDeviceListPageState extends State<CommonDeviceListPage> {
         child: RefreshIndicator(
           onRefresh: getAllCommonDevice,
           child:
-              tiles.isNotEmpty
-                  ? (openIoTHubUseDesktopHomeLayout
-                      ? Scrollbar(thumbVisibility: true, child: divided)
-                      : divided)
+              _commonDeviceList.isNotEmpty
+                  ? scrollable
                   : Column(
                     children: [
                       ThemeUtils.isDarkMode(context)
@@ -170,6 +145,115 @@ class CommonDeviceListPageState extends State<CommonDeviceListPage> {
                       ),
                     ],
                   ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHostCard(BuildContext context, Device pair) {
+    final theme = Theme.of(context);
+    final displayName =
+        pair.name.isNotEmpty
+            ? pair.name
+            : (pair.description.isNotEmpty ? pair.description : '—');
+    final initial =
+        displayName.isNotEmpty ? displayName.substring(0, 1) : '?';
+    final tintKey =
+        pair.uuid.isNotEmpty
+            ? pair.uuid
+            : '${pair.addr}:${pair.runId}:${pair.name}';
+    final tint = openIoTHubStableAccentFromKey(tintKey);
+    final gatewayName = _gatewayNameForDevice(pair);
+    final captionStyle = theme.textTheme.labelSmall?.copyWith(
+      color: theme.colorScheme.onSurfaceVariant,
+    );
+
+    return Card(
+      margin: EdgeInsets.zero,
+      clipBehavior: Clip.antiAlias,
+      elevation: theme.brightness == Brightness.dark ? 0 : 1,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side:
+            theme.brightness == Brightness.dark
+                ? BorderSide(color: theme.dividerColor.withValues(alpha: 0.35))
+                : BorderSide.none,
+      ),
+      child: InkWell(
+        onTap: () => _pushDeviceServiceTypes(pair),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TDAvatar(
+                    size: TDAvatarSize.medium,
+                    type: TDAvatarType.customText,
+                    text: initial,
+                    shape: TDAvatarShape.square,
+                    backgroundColor: tint,
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      displayName,
+                      style: Constants.titleTextStyle,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  Icon(Icons.chevron_right, color: theme.colorScheme.outline),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Text(
+                pair.addr.isNotEmpty ? pair.addr : '—',
+                style: Constants.subTitleTextStyle,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              const SizedBox(height: 4),
+              Text(
+                openIoTHubMiddleEllipsis(gatewayName, maxChars: 28),
+                style: captionStyle,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              if (pair.mac.isNotEmpty) ...[
+                const SizedBox(height: 4),
+                Text(
+                  openIoTHubMiddleEllipsis(pair.mac, maxChars: 26),
+                  style: captionStyle,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+              if (pair.name.isNotEmpty &&
+                  pair.description.isNotEmpty &&
+                  pair.description != pair.name) ...[
+                const SizedBox(height: 6),
+                Text(
+                  pair.description,
+                  style: Constants.subTitleTextStyle,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+              if (pair.uuid.isNotEmpty) ...[
+                const SizedBox(height: 6),
+                Text(
+                  openIoTHubMiddleEllipsis(pair.uuid, maxChars: 22),
+                  style: captionStyle?.copyWith(fontFamily: 'monospace'),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ],
+          ),
         ),
       ),
     );

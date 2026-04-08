@@ -382,6 +382,24 @@ class OpenIoTHubLocalizationsUk extends OpenIoTHubLocalizations {
   String get p2p_connection_status => 'Стан з\'єднання P2P';
 
   @override
+  String get home_gateway_relay_on => 'Ретрансляція ✓';
+
+  @override
+  String get home_gateway_relay_off => 'Ретрансляція —';
+
+  @override
+  String get home_gateway_p2p_on => 'P2P ✓';
+
+  @override
+  String get home_gateway_p2p_off => 'P2P —';
+
+  @override
+  String get home_smart_device_scope_lan => 'LAN';
+
+  @override
+  String get home_smart_device_scope_remote => 'Віддалено';
+
+  @override
   String get modify => 'Змінити';
 
   @override

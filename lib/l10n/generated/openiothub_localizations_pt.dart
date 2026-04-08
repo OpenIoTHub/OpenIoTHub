@@ -380,6 +380,24 @@ class OpenIoTHubLocalizationsPt extends OpenIoTHubLocalizations {
   String get p2p_connection_status => 'Status da conexão P2P';
 
   @override
+  String get home_gateway_relay_on => 'Retransmissão ✓';
+
+  @override
+  String get home_gateway_relay_off => 'Retransmissão —';
+
+  @override
+  String get home_gateway_p2p_on => 'P2P ✓';
+
+  @override
+  String get home_gateway_p2p_off => 'P2P —';
+
+  @override
+  String get home_smart_device_scope_lan => 'LAN';
+
+  @override
+  String get home_smart_device_scope_remote => 'Remoto';
+
+  @override
   String get modify => 'Modificar';
 
   @override

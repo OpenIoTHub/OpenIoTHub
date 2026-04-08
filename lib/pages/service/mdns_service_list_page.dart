@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
-
 import 'package:bonsoir/bonsoir.dart';
 import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
@@ -71,51 +69,35 @@ class MdnsServiceListPageState extends State<MdnsServiceListPage> {
 
   @override
   Widget build(BuildContext context) {
-    final tiles = _iotDeviceMap.values.map((PortServiceInfo pair) {
-      var listItemContent = ListTile(
-        leading: TDAvatar(
-          size: TDAvatarSize.medium,
-          type: TDAvatarType.customText,
-          text: pair.info!["name"]![0],
-          shape: TDAvatarShape.square,
-          backgroundColor: Color.fromRGBO(
-            Random().nextInt(156) + 50, // 随机生成0到255之间的整数
-            Random().nextInt(156) + 50, // 随机生成0到255之间的整数
-            Random().nextInt(156) + 50, // 随机生成0到255之间的整数
-            1, // 不透明度，1表示完全不透明
+    final deviceList = _iotDeviceMap.values.toList();
+    const spacing = 12.0;
+    const pad = 12.0;
+    final gridBody = CustomScrollView(
+      physics: const AlwaysScrollableScrollPhysics(),
+      slivers: [
+        if (_showAD) SliverToBoxAdapter(child: _buildBanner()),
+        SliverToBoxAdapter(
+          child: LayoutBuilder(
+            builder: (context, c) {
+              return openIoTHubHomeCardWrap(
+                maxWidth: c.maxWidth,
+                spacing: spacing,
+                horizontalPadding: pad,
+                topPadding: pad,
+                bottomPadding: 24,
+                cards: [
+                  for (final d in deviceList) _buildSmartDeviceCard(context, d),
+                ],
+              );
+            },
           ),
         ),
-        title: Text(pair.info!["name"]!, style: Constants.titleTextStyle),
-        subtitle: Text(
-          "${pair.info!["model"]!}@${pair.isLocal ? "local" : "remote"}",
-          style: Constants.subTitleTextStyle,
-        ),
-        trailing: Constants.rightArrowIcon,
-        contentPadding: const EdgeInsets.fromLTRB(16, 0.0, 16, 0.0),
-      );
-      return InkWell(
-        onTap: () {
-          _pushDeviceServiceTypes(pair);
-        },
-        child: listItemContent,
-      );
-    });
-    final divided = ListView.separated(
-      padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-      itemCount: _showAD ? tiles.length + 1 : tiles.length,
-      itemBuilder: (context, index) {
-        if (_showAD && index == 0) {
-          return _buildBanner();
-        }
-        return tiles.elementAt(_showAD ? index - 1 : index);
-      },
-      separatorBuilder: (context, index) {
-        return Container(
-          padding: EdgeInsets.only(left: AppSpacing.listDividerIndent),
-          child: TDDivider(),
-        );
-      },
+      ],
     );
+    final scrollable =
+        openIoTHubUseDesktopHomeLayout
+            ? Scrollbar(thumbVisibility: true, child: gridBody)
+            : gridBody;
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -132,10 +114,8 @@ class MdnsServiceListPageState extends State<MdnsServiceListPage> {
             return;
           },
           child:
-              tiles.isNotEmpty
-                  ? (openIoTHubUseDesktopHomeLayout
-                      ? Scrollbar(thumbVisibility: true, child: divided)
-                      : divided)
+              deviceList.isNotEmpty
+                  ? scrollable
                   : Column(
                     children: [
                       ThemeUtils.isDarkMode(context)
@@ -169,6 +149,166 @@ class MdnsServiceListPageState extends State<MdnsServiceListPage> {
                       ),
                     ],
                   ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSmartDeviceCard(BuildContext context, PortServiceInfo pair) {
+    final l10n = OpenIoTHubLocalizations.of(context);
+    final theme = Theme.of(context);
+    final info = pair.info!;
+    final name = info['name'] ?? '';
+    final initial = name.isNotEmpty ? name.substring(0, 1) : '?';
+    final id = info['id'] ?? '';
+    final tint = openIoTHubStableAccentFromKey(
+      id.isNotEmpty ? id : '$name@${pair.addr}:${pair.port}',
+    );
+    final model = info['model'] ?? '';
+    final service = info['service'] ?? '';
+    final hostname = info['hostname'] ?? '';
+    final captionStyle = theme.textTheme.labelSmall?.copyWith(
+      color: theme.colorScheme.onSurfaceVariant,
+    );
+    final modelForTag =
+        model.isNotEmpty
+            ? openIoTHubMiddleEllipsis(model, maxChars: 18)
+            : '';
+    String? serviceHostLine;
+    if (service.isNotEmpty && hostname.isNotEmpty) {
+      serviceHostLine = openIoTHubMiddleEllipsis(
+        '$service · $hostname',
+        maxChars: 30,
+      );
+    } else if (service.isNotEmpty) {
+      serviceHostLine = openIoTHubMiddleEllipsis(service, maxChars: 30);
+    } else if (hostname.isNotEmpty) {
+      serviceHostLine = openIoTHubMiddleEllipsis(hostname, maxChars: 30);
+    }
+
+    return Card(
+      margin: EdgeInsets.zero,
+      clipBehavior: Clip.antiAlias,
+      elevation: theme.brightness == Brightness.dark ? 0 : 1,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side:
+            theme.brightness == Brightness.dark
+                ? BorderSide(color: theme.dividerColor.withValues(alpha: 0.35))
+                : BorderSide.none,
+      ),
+      child: InkWell(
+        onTap: () => _pushDeviceServiceTypes(pair),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TDAvatar(
+                    size: TDAvatarSize.medium,
+                    type: TDAvatarType.customText,
+                    text: initial,
+                    shape: TDAvatarShape.square,
+                    backgroundColor: tint,
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      name,
+                      style: Constants.titleTextStyle,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  Icon(Icons.chevron_right, color: theme.colorScheme.outline),
+                ],
+              ),
+              const SizedBox(height: 6),
+              Wrap(
+                spacing: 4,
+                runSpacing: 4,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  if (modelForTag.isNotEmpty)
+                    TDTag(
+                      modelForTag,
+                      theme: TDTagTheme.primary,
+                      isLight: true,
+                    ),
+                  pair.isLocal
+                      ? TDTag(
+                        l10n.home_smart_device_scope_lan,
+                        theme: TDTagTheme.success,
+                        isLight: true,
+                      )
+                      : TDTag(
+                        l10n.home_smart_device_scope_remote,
+                        theme: TDTagTheme.primary,
+                        isLight: true,
+                        backgroundColor:
+                            theme.brightness == Brightness.dark
+                                ? const Color(0xFF1E3A5F)
+                                : const Color(0xFFE3F2FD),
+                        textColor:
+                            theme.brightness == Brightness.dark
+                                ? const Color(0xFF90CAF9)
+                                : const Color(0xFF1565C0),
+                      ),
+                ],
+              ),
+              const SizedBox(height: 6),
+              Text(
+                openIoTHubMiddleEllipsis(
+                  '${pair.addr}:${pair.port}',
+                  maxChars: 28,
+                ),
+                style: Constants.subTitleTextStyle,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              if (serviceHostLine != null) ...[
+                const SizedBox(height: 4),
+                Text(
+                  serviceHostLine,
+                  style: captionStyle,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+              if (pair.realAddr != null &&
+                  pair.realAddr!.isNotEmpty &&
+                  !pair.isLocal) ...[
+                const SizedBox(height: 4),
+                Text(
+                  openIoTHubMiddleEllipsis(pair.realAddr!, maxChars: 26),
+                  style: captionStyle,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+              if (pair.runId != null && pair.runId!.isNotEmpty) ...[
+                const SizedBox(height: 4),
+                Text(
+                  openIoTHubMiddleEllipsis(pair.runId!, maxChars: 22),
+                  style: captionStyle,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ] else if (id.isNotEmpty) ...[
+                const SizedBox(height: 4),
+                Text(
+                  openIoTHubMiddleEllipsis(id, maxChars: 22),
+                  style: captionStyle?.copyWith(fontFamily: 'monospace'),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ],
+          ),
         ),
       ),
     );

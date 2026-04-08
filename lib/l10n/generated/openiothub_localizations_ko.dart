@@ -370,6 +370,24 @@ class OpenIoTHubLocalizationsKo extends OpenIoTHubLocalizations {
   String get p2p_connection_status => 'P2P 연결 상태';
 
   @override
+  String get home_gateway_relay_on => '중계 ✓';
+
+  @override
+  String get home_gateway_relay_off => '중계 —';
+
+  @override
+  String get home_gateway_p2p_on => 'P2P ✓';
+
+  @override
+  String get home_gateway_p2p_off => 'P2P —';
+
+  @override
+  String get home_smart_device_scope_lan => 'LAN';
+
+  @override
+  String get home_smart_device_scope_remote => '원격';
+
+  @override
   String get modify => '수정';
 
   @override

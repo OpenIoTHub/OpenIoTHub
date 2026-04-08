@@ -879,6 +879,42 @@ abstract class OpenIoTHubLocalizations {
   /// **'P2P连接状态'**
   String get p2p_connection_status;
 
+  /// No description provided for @home_gateway_relay_on.
+  ///
+  /// In zh, this message translates to:
+  /// **'中继 ✓'**
+  String get home_gateway_relay_on;
+
+  /// No description provided for @home_gateway_relay_off.
+  ///
+  /// In zh, this message translates to:
+  /// **'中继 —'**
+  String get home_gateway_relay_off;
+
+  /// No description provided for @home_gateway_p2p_on.
+  ///
+  /// In zh, this message translates to:
+  /// **'P2P ✓'**
+  String get home_gateway_p2p_on;
+
+  /// No description provided for @home_gateway_p2p_off.
+  ///
+  /// In zh, this message translates to:
+  /// **'P2P —'**
+  String get home_gateway_p2p_off;
+
+  /// No description provided for @home_smart_device_scope_lan.
+  ///
+  /// In zh, this message translates to:
+  /// **'局域网'**
+  String get home_smart_device_scope_lan;
+
+  /// No description provided for @home_smart_device_scope_remote.
+  ///
+  /// In zh, this message translates to:
+  /// **'远程'**
+  String get home_smart_device_scope_remote;
+
   /// No description provided for @modify.
   ///
   /// In zh, this message translates to:

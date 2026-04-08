@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/core/openiothub_constants.dart';
@@ -58,80 +56,35 @@ class GatewayListPageState extends State<GatewayListPage> {
 
   @override
   Widget build(BuildContext context) {
-    final tiles = _sessionList.map((pair) {
-      final bool isOnline =
-          pair.statusToClient ||
-          pair.statusP2PAsClient ||
-          pair.statusP2PAsServer;
-      var listItemContent = ListTile(
-        leading: TDAvatar(
-          size: TDAvatarSize.medium,
-          type: TDAvatarType.customText,
-          text: pair.name[0],
-          shape: TDAvatarShape.square,
-          backgroundColor: Color.fromRGBO(
-            Random().nextInt(156) + 50,
-            Random().nextInt(156) + 50,
-            Random().nextInt(156) + 50,
-            1,
+    const spacing = 12.0;
+    const pad = 12.0;
+    final gridBody = CustomScrollView(
+      physics: const AlwaysScrollableScrollPhysics(),
+      slivers: [
+        SliverToBoxAdapter(child: _buildBanner()),
+        SliverToBoxAdapter(
+          child: LayoutBuilder(
+            builder: (context, c) {
+              return openIoTHubHomeCardWrap(
+                maxWidth: c.maxWidth,
+                spacing: spacing,
+                horizontalPadding: pad,
+                topPadding: pad,
+                bottomPadding: 24,
+                cards: [
+                  for (final pair in _sessionList)
+                    _buildGatewayCard(context, pair),
+                ],
+              );
+            },
           ),
         ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Expanded(
-              child: Text(
-                pair.name,
-                style: Constants.titleTextStyle,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-              ),
-            ),
-            const SizedBox(width: 8),
-            isOnline
-                ? TDTag(
-                  OpenIoTHubLocalizations.of(context).online,
-                  theme: TDTagTheme.success,
-                  isLight: true,
-                )
-                : TDTag(
-                  OpenIoTHubLocalizations.of(context).offline,
-                  theme: TDTagTheme.danger,
-                  isLight: true,
-                ),
-          ],
-        ),
-        subtitle: Text(
-          pair.description,
-          style: Constants.subTitleTextStyle,
-          overflow: TextOverflow.ellipsis,
-          maxLines: 1,
-        ),
-        trailing: Constants.rightArrowIcon,
-      );
-      return InkWell(
-        onTap: () {
-          _pushmDNSServices(pair);
-        },
-        child: listItemContent,
-      );
-    });
-    final divided = ListView.separated(
-      // padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-      itemCount: tiles.length + 1,
-      itemBuilder: (context, index) {
-        if (index == 0) {
-          return _buildBanner();
-        }
-        return tiles.elementAt(index - 1);
-      },
-      separatorBuilder: (context, index) {
-        return Container(
-          padding: EdgeInsets.only(left: AppSpacing.listDividerIndent),
-          child: TDDivider(),
-        );
-      },
+      ],
     );
+    final scrollable =
+        openIoTHubUseDesktopHomeLayout
+            ? Scrollbar(thumbVisibility: true, child: gridBody)
+            : gridBody;
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -152,10 +105,8 @@ class GatewayListPageState extends State<GatewayListPage> {
         child: RefreshIndicator(
           onRefresh: getAllSession,
           child:
-              tiles.isNotEmpty
-                  ? (openIoTHubUseDesktopHomeLayout
-                      ? Scrollbar(thumbVisibility: true, child: divided)
-                      : divided)
+              _sessionList.isNotEmpty
+                  ? scrollable
                   : Column(
                     children: [
                       ThemeUtils.isDarkMode(context)
@@ -193,6 +144,142 @@ class GatewayListPageState extends State<GatewayListPage> {
                       ),
                     ],
                   ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildGatewayCard(BuildContext context, SessionConfig pair) {
+    final l10n = OpenIoTHubLocalizations.of(context);
+    final bool isOnline =
+        pair.statusToClient ||
+        pair.statusP2PAsClient ||
+        pair.statusP2PAsServer;
+    final theme = Theme.of(context);
+    final name = pair.name.isNotEmpty ? pair.name : '—';
+    final initial =
+        pair.name.isNotEmpty ? pair.name.substring(0, 1) : '?';
+    final tint = openIoTHubStableAccentFromKey(
+      pair.runId.isNotEmpty ? pair.runId : pair.name,
+    );
+    final p2pOn = pair.statusP2PAsClient || pair.statusP2PAsServer;
+    final captionStyle = theme.textTheme.labelSmall?.copyWith(
+      color: theme.colorScheme.onSurfaceVariant,
+    );
+
+    return Card(
+      margin: EdgeInsets.zero,
+      clipBehavior: Clip.antiAlias,
+      elevation: theme.brightness == Brightness.dark ? 0 : 1,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side:
+            theme.brightness == Brightness.dark
+                ? BorderSide(color: theme.dividerColor.withValues(alpha: 0.35))
+                : BorderSide.none,
+      ),
+      child: InkWell(
+        onTap: () => _pushmDNSServices(pair),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TDAvatar(
+                    size: TDAvatarSize.medium,
+                    type: TDAvatarType.customText,
+                    text: initial,
+                    shape: TDAvatarShape.square,
+                    backgroundColor: tint,
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                name,
+                                style: Constants.titleTextStyle,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            const SizedBox(width: 6),
+                            isOnline
+                                ? TDTag(
+                                  l10n.online,
+                                  theme: TDTagTheme.success,
+                                  isLight: true,
+                                )
+                                : TDTag(
+                                  l10n.offline,
+                                  theme: TDTagTheme.danger,
+                                  isLight: true,
+                                ),
+                          ],
+                        ),
+                        const SizedBox(height: 6),
+                        Wrap(
+                          spacing: 4,
+                          runSpacing: 4,
+                          children: [
+                            TDTag(
+                              pair.statusToClient
+                                  ? l10n.home_gateway_relay_on
+                                  : l10n.home_gateway_relay_off,
+                              theme:
+                                  pair.statusToClient
+                                      ? TDTagTheme.success
+                                      : TDTagTheme.defaultTheme,
+                              isLight: true,
+                            ),
+                            TDTag(
+                              p2pOn
+                                  ? l10n.home_gateway_p2p_on
+                                  : l10n.home_gateway_p2p_off,
+                              theme:
+                                  p2pOn
+                                      ? TDTagTheme.primary
+                                      : TDTagTheme.defaultTheme,
+                              isLight: true,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  Icon(Icons.chevron_right, color: theme.colorScheme.outline),
+                ],
+              ),
+              if (pair.description.isNotEmpty) ...[
+                const SizedBox(height: 8),
+                Text(
+                  pair.description,
+                  style: Constants.subTitleTextStyle,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+              if (pair.runId.isNotEmpty) ...[
+                SizedBox(height: pair.description.isNotEmpty ? 6 : 8),
+                Text(
+                  openIoTHubMiddleEllipsis(pair.runId, maxChars: 22),
+                  style: captionStyle,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ],
+          ),
         ),
       ),
     );

@@ -384,6 +384,24 @@ class OpenIoTHubLocalizationsNb extends OpenIoTHubLocalizations {
   String get p2p_connection_status => 'P2P-tilkoblingsstatus';
 
   @override
+  String get home_gateway_relay_on => 'Relé ✓';
+
+  @override
+  String get home_gateway_relay_off => 'Relé —';
+
+  @override
+  String get home_gateway_p2p_on => 'P2P ✓';
+
+  @override
+  String get home_gateway_p2p_off => 'P2P —';
+
+  @override
+  String get home_smart_device_scope_lan => 'LAN';
+
+  @override
+  String get home_smart_device_scope_remote => 'Ekstern';
+
+  @override
   String get modify => 'Endre';
 
   @override

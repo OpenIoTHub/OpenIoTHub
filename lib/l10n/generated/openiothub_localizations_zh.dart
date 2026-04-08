@@ -369,6 +369,24 @@ class OpenIoTHubLocalizationsZh extends OpenIoTHubLocalizations {
   String get p2p_connection_status => 'P2P连接状态';
 
   @override
+  String get home_gateway_relay_on => '中继 ✓';
+
+  @override
+  String get home_gateway_relay_off => '中继 —';
+
+  @override
+  String get home_gateway_p2p_on => 'P2P ✓';
+
+  @override
+  String get home_gateway_p2p_off => 'P2P —';
+
+  @override
+  String get home_smart_device_scope_lan => '局域网';
+
+  @override
+  String get home_smart_device_scope_remote => '远程';
+
+  @override
   String get modify => '修改';
 
   @override
@@ -1889,6 +1907,24 @@ class OpenIoTHubLocalizationsZhCn extends OpenIoTHubLocalizationsZh {
   String get p2p_connection_status => 'P2P连接状态';
 
   @override
+  String get home_gateway_relay_on => '中继 ✓';
+
+  @override
+  String get home_gateway_relay_off => '中继 —';
+
+  @override
+  String get home_gateway_p2p_on => 'P2P ✓';
+
+  @override
+  String get home_gateway_p2p_off => 'P2P —';
+
+  @override
+  String get home_smart_device_scope_lan => '局域网';
+
+  @override
+  String get home_smart_device_scope_remote => '远程';
+
+  @override
   String get modify => '修改';
 
   @override
@@ -3052,6 +3088,24 @@ class OpenIoTHubLocalizationsZhHans extends OpenIoTHubLocalizationsZh {
 
   @override
   String get p2p_connection_status => 'P2P连接状态';
+
+  @override
+  String get home_gateway_relay_on => '中继 ✓';
+
+  @override
+  String get home_gateway_relay_off => '中继 —';
+
+  @override
+  String get home_gateway_p2p_on => 'P2P ✓';
+
+  @override
+  String get home_gateway_p2p_off => 'P2P —';
+
+  @override
+  String get home_smart_device_scope_lan => '局域网';
+
+  @override
+  String get home_smart_device_scope_remote => '远程';
 
   @override
   String get modify => '修改';
@@ -4219,6 +4273,24 @@ class OpenIoTHubLocalizationsZhHant extends OpenIoTHubLocalizationsZh {
   String get p2p_connection_status => 'P2P連接狀態';
 
   @override
+  String get home_gateway_relay_on => '中繼 ✓';
+
+  @override
+  String get home_gateway_relay_off => '中繼 —';
+
+  @override
+  String get home_gateway_p2p_on => 'P2P ✓';
+
+  @override
+  String get home_gateway_p2p_off => 'P2P —';
+
+  @override
+  String get home_smart_device_scope_lan => '區域網路';
+
+  @override
+  String get home_smart_device_scope_remote => '遠端';
+
+  @override
   String get modify => '修改';
 
   @override
@@ -5382,6 +5454,24 @@ class OpenIoTHubLocalizationsZhTw extends OpenIoTHubLocalizationsZh {
 
   @override
   String get p2p_connection_status => 'P2P連接狀態';
+
+  @override
+  String get home_gateway_relay_on => '中繼 ✓';
+
+  @override
+  String get home_gateway_relay_off => '中繼 —';
+
+  @override
+  String get home_gateway_p2p_on => 'P2P ✓';
+
+  @override
+  String get home_gateway_p2p_off => 'P2P —';
+
+  @override
+  String get home_smart_device_scope_lan => '區域網路';
+
+  @override
+  String get home_smart_device_scope_remote => '遠端';
 
   @override
   String get modify => '修改';
