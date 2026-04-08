@@ -109,6 +109,7 @@ dependencies:
   uuid: ^4.4.2
   fluent_ui: ">=4.11.5 <4.12.0"
   macos_ui: ^2.2.0
+  system_theme: ^3.2.0
 
 dev_dependencies:
   flutter_test:

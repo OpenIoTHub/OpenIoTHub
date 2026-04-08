@@ -9,6 +9,7 @@ import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/providers/custom_theme.dart';
 import 'package:openiothub/utils/openiothub_desktop_layout.dart';
 import 'package:provider/provider.dart';
+import 'package:system_theme/system_theme.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 fluent.AccentColor _openIoTHubFluentAccent(Color primary) {
@@ -21,6 +22,22 @@ fluent.AccentColor _openIoTHubFluentAccent(Color primary) {
     'lighter': Color.alphaBlend(Colors.white.withValues(alpha: 0.25), primary),
     'lightest': Color.alphaBlend(Colors.white.withValues(alpha: 0.35), primary),
   });
+}
+
+fluent.AccentColor _openIoTHubFluentAccentForTheme(CustomTheme customTheme) {
+  if (customTheme.useSystemAccent) {
+    final s = SystemTheme.accentColor;
+    return fluent.AccentColor.swatch({
+      'darkest': s.darkest,
+      'darker': s.darker,
+      'dark': s.dark,
+      'normal': s.accent,
+      'light': s.light,
+      'lighter': s.lighter,
+      'lightest': s.lightest,
+    });
+  }
+  return _openIoTHubFluentAccent(customTheme.customPrimaryColor);
 }
 
 Widget? _fluentKeyCaption(BuildContext context, int indexOneBased) {
@@ -137,7 +154,7 @@ class _OpenIoTHubFluentHomeShell extends StatelessWidget {
         return fluent.FluentTheme(
           data: fluent.FluentThemeData(
             brightness: brightness,
-            accentColor: _openIoTHubFluentAccent(customTheme.primaryColor),
+            accentColor: _openIoTHubFluentAccentForTheme(customTheme),
           ),
           child: LayoutBuilder(
             builder: (context, constraints) {

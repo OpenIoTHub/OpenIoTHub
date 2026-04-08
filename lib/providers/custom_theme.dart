@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:openiothub/core/openiothub_constants.dart';
 import 'package:openiothub/utils/openiothub_desktop_layout.dart';
+import 'package:system_theme/system_theme.dart';
 
 /// 主题模式枚举
 enum AppThemeMode {
@@ -59,6 +62,7 @@ class _ThemeKeys {
   // 使用旧的键名以保持向后兼容性
   static const String themeMode = 'theme'; // 保持与旧代码兼容
   static const String themeColor = 'theme_color';
+  static const String useSystemAccent = 'theme_use_system_accent';
 }
 
 /// 自定义主题管理器
@@ -67,8 +71,10 @@ class _ThemeKeys {
 /// 使用 ChangeNotifier 实现状态管理，支持 Provider 模式
 class CustomTheme with ChangeNotifier {
   AppThemeMode _themeMode = AppThemeMode.automatic;
-  Color _primaryColor = ThemeUtils.defaultPrimaryForCurrentPlatform;
+  bool _useSystemAccent = true;
+  Color _customPrimaryColor = ThemeUtils.defaultPrimaryForCurrentPlatform;
   bool _isInitialized = false;
+  StreamSubscription<SystemAccentColor>? _systemAccentSubscription;
 
   /// 是否已初始化
   bool get isInitialized => _isInitialized;
@@ -76,8 +82,15 @@ class CustomTheme with ChangeNotifier {
   /// 当前主题模式
   AppThemeMode get themeMode => _themeMode;
 
-  /// 当前主题颜色
-  Color get primaryColor => _primaryColor;
+  /// 是否使用系统强调色（[system_theme]）
+  bool get useSystemAccent => _useSystemAccent;
+
+  /// 用户上次选择的固定主题色（非「跟随系统」时的色值；跟随系统时仍保留供切换回来）
+  Color get customPrimaryColor => _customPrimaryColor;
+
+  /// 当前生效的主色：跟随系统时为 [SystemTheme.accentColor.accent]
+  Color get primaryColor =>
+      _useSystemAccent ? SystemTheme.accentColor.accent : _customPrimaryColor;
 
   /// 当前主题模式对应的字符串值（向后兼容）
   @Deprecated('使用 themeMode 代替')
@@ -88,6 +101,21 @@ class CustomTheme with ChangeNotifier {
   /// 注意：初始化是异步的，使用 [initialize] 方法确保数据已加载
   CustomTheme() {
     _initialize();
+  }
+
+  @override
+  void dispose() {
+    _systemAccentSubscription?.cancel();
+    super.dispose();
+  }
+
+  void _attachSystemAccentListener() {
+    _systemAccentSubscription?.cancel();
+    _systemAccentSubscription = null;
+    if (!_useSystemAccent) return;
+    _systemAccentSubscription = SystemTheme.onChange.listen((_) {
+      notifyListeners();
+    });
   }
 
   /// 异步初始化主题数据
@@ -113,23 +141,47 @@ class CustomTheme with ChangeNotifier {
     try {
       final prefs = await SharedPreferences.getInstance();
 
-      // 加载主题模式
+      // 加载主题模式；无记录时视为全新安装，默认「跟随系统」亮暗并写入 prefs
       final themeModeString = prefs.getString(_ThemeKeys.themeMode);
       if (themeModeString != null) {
         _themeMode = AppThemeMode.fromString(themeModeString);
+      } else {
+        _themeMode = AppThemeMode.automatic;
+        await prefs.setString(
+          _ThemeKeys.themeMode,
+          AppThemeMode.automatic.toValue(),
+        );
       }
 
-      // 加载主题颜色
+      final useSystemPref = prefs.getBool(_ThemeKeys.useSystemAccent);
       final colorValue = prefs.getInt(_ThemeKeys.themeColor);
-      if (colorValue != null) {
-        _primaryColor = Color(colorValue);
+      if (useSystemPref != null) {
+        _useSystemAccent = useSystemPref;
+        if (colorValue != null) {
+          _customPrimaryColor = Color(colorValue);
+        }
+      } else {
+        // 旧版仅保存了 theme_color：视为用户显式选色
+        if (colorValue != null) {
+          _useSystemAccent = false;
+          _customPrimaryColor = Color(colorValue);
+          await prefs.setBool(_ThemeKeys.useSystemAccent, false);
+        } else {
+          // 全新安装：默认使用 system_theme 提供的系统强调色
+          _useSystemAccent = true;
+          _customPrimaryColor = ThemeUtils.defaultPrimaryForCurrentPlatform;
+          await prefs.setBool(_ThemeKeys.useSystemAccent, true);
+          await SystemTheme.accentColor.load();
+        }
       }
 
       _isInitialized = true;
+      _attachSystemAccentListener();
       notifyListeners();
     } catch (e) {
       debugPrint('Error loading theme data: $e');
       _isInitialized = true; // 即使失败也标记为已初始化，使用默认值
+      _attachSystemAccentListener();
     }
   }
 
@@ -162,15 +214,34 @@ class CustomTheme with ChangeNotifier {
   ///
   /// [color] 要设置的主题颜色
   Future<void> setThemeColor(Color color) async {
-    if (_primaryColor == color) return;
+    if (!_useSystemAccent && _customPrimaryColor == color) return;
 
     try {
       final prefs = await SharedPreferences.getInstance();
-      _primaryColor = color;
+      _useSystemAccent = false;
+      _customPrimaryColor = color;
+      await prefs.setBool(_ThemeKeys.useSystemAccent, false);
       await prefs.setInt(_ThemeKeys.themeColor, color.toARGB32());
+      _attachSystemAccentListener();
       notifyListeners();
     } catch (e) {
       debugPrint('Error setting theme color: $e');
+      rethrow;
+    }
+  }
+
+  /// 使用系统强调色（与系统设置一致，桌面端可由 [SystemTheme.onChange] 更新）
+  Future<void> setUseSystemAccent() async {
+    if (_useSystemAccent) return;
+
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      _useSystemAccent = true;
+      await prefs.setBool(_ThemeKeys.useSystemAccent, true);
+      _attachSystemAccentListener();
+      notifyListeners();
+    } catch (e) {
+      debugPrint('Error setting system accent: $e');
       rethrow;
     }
   }
@@ -180,8 +251,10 @@ class CustomTheme with ChangeNotifier {
   /// 注意：此方法不会保存到 SharedPreferences，仅用于临时设置
   /// 使用 [setThemeColor] 来持久化设置
   set primaryColor(Color color) {
-    if (_primaryColor == color) return;
-    _primaryColor = color;
+    if (!_useSystemAccent && _customPrimaryColor == color) return;
+    _useSystemAccent = false;
+    _customPrimaryColor = color;
+    _attachSystemAccentListener();
     notifyListeners();
   }
 

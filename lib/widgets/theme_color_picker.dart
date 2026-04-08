@@ -9,14 +9,40 @@ import 'package:provider/provider.dart';
 List<Widget> _themeColorPickerTiles({
   required BuildContext context,
   required CustomTheme customTheme,
-  required Color currentColor,
   required OpenIoTHubLocalizations l10n,
   required VoidCallback onDone,
   required double leadingSize,
   required double selectedBorderWidth,
 }) {
-  return ThemeUtils.supportColors.map((color) {
-    final isSelected = currentColor.toARGB32() == color.toARGB32();
+  final systemAccent = customTheme.primaryColor;
+  final systemSelected = customTheme.useSystemAccent;
+
+  final systemTile = ListTile(
+    leading: Container(
+      width: leadingSize,
+      height: leadingSize,
+      decoration: BoxDecoration(
+        color: systemAccent,
+        shape: BoxShape.circle,
+        border: Border.all(
+          color: systemSelected ? Colors.white : Colors.grey,
+          width: systemSelected ? selectedBorderWidth : 1,
+        ),
+      ),
+    ),
+    title: Text(l10n.theme_mode_follow_system),
+    trailing:
+        systemSelected ? const Icon(Icons.check, color: Colors.green) : null,
+    onTap: () async {
+      await customTheme.setUseSystemAccent();
+      if (context.mounted) onDone();
+    },
+  );
+
+  final presetTiles = ThemeUtils.supportColors.map((color) {
+    final isSelected =
+        !customTheme.useSystemAccent &&
+        customTheme.customPrimaryColor.toARGB32() == color.toARGB32();
     return ListTile(
       leading: Container(
         width: leadingSize,
@@ -38,14 +64,15 @@ List<Widget> _themeColorPickerTiles({
         if (context.mounted) onDone();
       },
     );
-  }).toList();
+  });
+
+  return [systemTile, ...presetTiles];
 }
 
 /// 主题色选择器：弹窗选择主题色
 void showThemeColorPicker(BuildContext context) {
   final customTheme = context.read<CustomTheme>();
   final l10n = OpenIoTHubLocalizations.of(context);
-  final currentColor = customTheme.primaryColor;
 
   if (openIoTHubUseDesktopHomeLayout) {
     showDialog<void>(
@@ -55,7 +82,6 @@ void showThemeColorPicker(BuildContext context) {
         final tiles = _themeColorPickerTiles(
           context: ctx,
           customTheme: customTheme,
-          currentColor: currentColor,
           l10n: dialogL10n,
           onDone: () => Navigator.of(ctx).pop(),
           leadingSize: 24,
@@ -98,7 +124,6 @@ void showThemeColorPicker(BuildContext context) {
                 children: _themeColorPickerTiles(
                   context: ctx,
                   customTheme: customTheme,
-                  currentColor: currentColor,
                   l10n: l10n,
                   onDone: () => Navigator.of(ctx).pop(),
                   leadingSize: 24,
@@ -118,7 +143,10 @@ Widget themeColorSettingTile(BuildContext context) {
   final customTheme = context.watch<CustomTheme>();
   final currentColor = customTheme.primaryColor;
   final l10n = OpenIoTHubLocalizations.of(context);
-  final colorName = _getColorName(currentColor, l10n);
+  final colorName =
+      customTheme.useSystemAccent
+          ? l10n.theme_mode_follow_system
+          : _getColorName(customTheme.customPrimaryColor, l10n);
 
   return ListTile(
     leading: const Icon(Icons.palette),
@@ -150,13 +178,11 @@ class ThemeColorPickerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final customTheme = context.watch<CustomTheme>();
-    final currentColor = customTheme.primaryColor;
     final l10n = OpenIoTHubLocalizations.of(context);
 
     final tiles = _themeColorPickerTiles(
       context: context,
       customTheme: customTheme,
-      currentColor: currentColor,
       l10n: l10n,
       onDone: () => Navigator.of(context).pop(),
       leadingSize: 32,
