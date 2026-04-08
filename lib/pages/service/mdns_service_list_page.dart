@@ -215,17 +215,16 @@ class MdnsServiceListPageState extends State<MdnsServiceListPage> {
                     shape: TDAvatarShape.square,
                     backgroundColor: tint,
                   ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      name,
-                      style: Constants.titleTextStyle,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
+                  const Spacer(),
                   Icon(Icons.chevron_right, color: theme.colorScheme.outline),
                 ],
+              ),
+              const SizedBox(height: 8),
+              Text(
+                name,
+                style: Constants.titleTextStyle,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(height: 6),
               Wrap(

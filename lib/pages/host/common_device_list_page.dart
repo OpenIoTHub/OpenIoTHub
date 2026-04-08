@@ -197,17 +197,16 @@ class CommonDeviceListPageState extends State<CommonDeviceListPage> {
                     shape: TDAvatarShape.square,
                     backgroundColor: tint,
                   ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      displayName,
-                      style: Constants.titleTextStyle,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
+                  const Spacer(),
                   Icon(Icons.chevron_right, color: theme.colorScheme.outline),
                 ],
+              ),
+              const SizedBox(height: 8),
+              Text(
+                displayName,
+                style: Constants.titleTextStyle,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(height: 8),
               Text(

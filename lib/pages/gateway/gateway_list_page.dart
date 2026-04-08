@@ -197,67 +197,53 @@ class GatewayListPageState extends State<GatewayListPage> {
                     backgroundColor: tint,
                   ),
                   const SizedBox(width: 8),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                name,
-                                style: Constants.titleTextStyle,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            const SizedBox(width: 6),
-                            isOnline
-                                ? TDTag(
-                                  l10n.online,
-                                  theme: TDTagTheme.success,
-                                  isLight: true,
-                                )
-                                : TDTag(
-                                  l10n.offline,
-                                  theme: TDTagTheme.danger,
-                                  isLight: true,
-                                ),
-                          ],
-                        ),
-                        const SizedBox(height: 6),
-                        Wrap(
-                          spacing: 4,
-                          runSpacing: 4,
-                          children: [
-                            TDTag(
-                              pair.statusToClient
-                                  ? l10n.home_gateway_relay_on
-                                  : l10n.home_gateway_relay_off,
-                              theme:
-                                  pair.statusToClient
-                                      ? TDTagTheme.success
-                                      : TDTagTheme.defaultTheme,
-                              isLight: true,
-                            ),
-                            TDTag(
-                              p2pOn
-                                  ? l10n.home_gateway_p2p_on
-                                  : l10n.home_gateway_p2p_off,
-                              theme:
-                                  p2pOn
-                                      ? TDTagTheme.primary
-                                      : TDTagTheme.defaultTheme,
-                              isLight: true,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
+                  isOnline
+                      ? TDTag(
+                        l10n.online,
+                        theme: TDTagTheme.success,
+                        isLight: true,
+                      )
+                      : TDTag(
+                        l10n.offline,
+                        theme: TDTagTheme.danger,
+                        isLight: true,
+                      ),
+                  const Spacer(),
                   Icon(Icons.chevron_right, color: theme.colorScheme.outline),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Text(
+                name,
+                style: Constants.titleTextStyle,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+              ),
+              const SizedBox(height: 6),
+              Wrap(
+                spacing: 4,
+                runSpacing: 4,
+                children: [
+                  TDTag(
+                    pair.statusToClient
+                        ? l10n.home_gateway_relay_on
+                        : l10n.home_gateway_relay_off,
+                    theme:
+                        pair.statusToClient
+                            ? TDTagTheme.success
+                            : TDTagTheme.defaultTheme,
+                    isLight: true,
+                  ),
+                  TDTag(
+                    p2pOn
+                        ? l10n.home_gateway_p2p_on
+                        : l10n.home_gateway_p2p_off,
+                    theme:
+                        p2pOn
+                            ? TDTagTheme.primary
+                            : TDTagTheme.defaultTheme,
+                    isLight: true,
+                  ),
                 ],
               ),
               if (pair.description.isNotEmpty) ...[
