@@ -12,8 +12,9 @@ import 'package:openiothub/app/providers/locale_provider.dart';
 import 'package:openiothub/app/providers/auth_provider.dart';
 import 'package:openiothub/router/core/go_app_router.dart';
 import 'package:openiothub/utils/app/openiothub_scroll_behavior.dart';
-import 'package:openiothub/plugin/registry/builtin_plugins.dart';
-import 'package:openiothub/plugin/registry/plugin_registry.dart';
+import 'package:openiothub/plugins/registry/builtin_plugins.dart'
+    show registerOpenIoTHubPlugins;
+import 'package:openiothub/plugins/registry/plugin_registry.dart';
 import 'package:provider/provider.dart';
 import 'package:oktoast/oktoast.dart';
 
@@ -60,7 +61,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         ChangeNotifierProvider(
           create: (_) {
             final registry = PluginRegistry();
-            registerBuiltinPlugins(registry);
+            registerOpenIoTHubPlugins(registry);
             return registry;
           },
         ),

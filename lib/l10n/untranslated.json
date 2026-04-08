@@ -125,7 +125,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "bg": [
@@ -254,7 +256,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "bn": [
@@ -383,7 +387,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "ca": [
@@ -512,7 +518,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "cs": [
@@ -641,7 +649,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "da": [
@@ -770,7 +780,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "de": [
@@ -899,7 +911,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "el": [
@@ -1028,7 +1042,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "es": [
@@ -1157,7 +1173,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "fi": [
@@ -1286,7 +1304,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "fil": [
@@ -1415,7 +1435,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "fr": [
@@ -1544,7 +1566,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "he": [
@@ -1673,7 +1697,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "hi": [
@@ -1802,7 +1828,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "hr": [
@@ -1931,7 +1959,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "hu": [
@@ -2060,7 +2090,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "id": [
@@ -2189,7 +2221,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "it": [
@@ -2318,7 +2352,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "ja": [
@@ -2447,7 +2483,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "ko": [
@@ -2576,7 +2614,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "ms": [
@@ -2705,7 +2745,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "nb": [
@@ -2834,7 +2876,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "nl": [
@@ -2963,7 +3007,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "pl": [
@@ -3092,7 +3138,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "pt": [
@@ -3221,7 +3269,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "ro": [
@@ -3350,7 +3400,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "ru": [
@@ -3479,7 +3531,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "sk": [
@@ -3608,7 +3662,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "sv": [
@@ -3737,7 +3793,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "th": [
@@ -3866,7 +3924,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "tr": [
@@ -3995,7 +4055,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "uk": [
@@ -4124,7 +4186,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "vi": [
@@ -4253,7 +4317,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "zh_CN": [
@@ -4382,7 +4448,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "zh_Hans": [
@@ -4511,7 +4579,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "zh_Hant": [
@@ -4640,7 +4710,9 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ],
 
   "zh_TW": [
@@ -4769,6 +4841,8 @@
     "ssh_terminal_connected",
     "ssh_key_ctrl",
     "ssh_key_alt",
-    "ssh_key_shift"
+    "ssh_key_shift",
+    "plugin_registry_page_build_failed_title",
+    "plugin_registry_page_build_failed_details"
   ]
 }

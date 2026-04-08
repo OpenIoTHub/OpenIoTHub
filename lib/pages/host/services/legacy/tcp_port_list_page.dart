@@ -7,7 +7,7 @@ import 'package:openiothub/core/theme/app_spacing.dart';
 import 'package:openiothub/core/theme/constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
-import 'package:openiothub/plugin/open_with_choice/open_with_choice.dart';
+import 'package:openiothub/plugins/open_with_choice/open_with_choice.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import 'package:openiothub/utils/common/toast.dart';

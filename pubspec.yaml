@@ -26,7 +26,6 @@ dependencies:
 
   # 网络与通信
   http: ^1.1.0
-  webview_flutter: ^4.2.1
   flutter_inappwebview: ^6.1.5
   url_launcher: ^6.1.11
   multicast_dns: ^0.3.2+3
@@ -129,8 +128,8 @@ dependency_overrides:
 flutter_gen:
   assets:
     - lib/l10n/*.arb
-    - lib/common_pages/l10n/*.arb
-    - lib/plugin/l10n/*.arb
+    - lib/pages/common/l10n/*.arb
+    - lib/plugins/l10n/*.arb
 
 flutter:
   # The following line ensures that the Material Icons font is

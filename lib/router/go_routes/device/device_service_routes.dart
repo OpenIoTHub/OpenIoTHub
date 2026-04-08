@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:openiothub/common_pages/openiothub_common_pages.dart';
-import 'package:openiothub/common_pages/server/server_info.dart';
+import 'package:openiothub/pages/common/openiothub_common_pages.dart';
+import 'package:openiothub/pages/common/server/server_info.dart';
 import 'package:openiothub/pages/gateway/mdns_service_list_page.dart';
 import 'package:openiothub/pages/host/common_device_list_page.dart';
 import 'package:openiothub/pages/host/services/services.dart';
@@ -12,7 +12,7 @@ import 'package:openiothub/pages/host/services/legacy/udp_port_list_page.dart';
 import 'package:openiothub/pages/service/mdns_service_list_page.dart';
 import 'package:openiothub/models/port_service_info.dart';
 import 'package:openiothub/widgets/mdns/mdns_info.dart';
-import 'package:openiothub/plugin/openiothub_plugin.dart';
+import 'package:openiothub/plugins/openiothub_plugin.dart';
 import 'package:openiothub/router/core/app_navigator.dart';
 import 'package:openiothub/router/core/app_routes.dart';
 import 'package:openiothub/router/core/go_router_keys.dart';

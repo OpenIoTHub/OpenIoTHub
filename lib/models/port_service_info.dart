@@ -47,6 +47,7 @@ class PortServiceInfo {
 /// 与 [PluginRegistry] 配合使用的常用元数据访问（避免魔法字符串散落）。
 extension PortServiceInfoPluginX on PortServiceInfo {
   /// mDNS / 远程列表中的设备 model，对应注册表 key。
+  /// 与 `package:openiothub/plugins/registry/plugin_invoke_request.dart` 中的 `pluginInvokeFromModel` 扩展配套使用。
   String? get pluginModelId => info?['model'];
 
   /// 展示名称（若存在）。

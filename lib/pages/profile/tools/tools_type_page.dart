@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:openiothub/common_pages/openiothub_common_pages.dart';
+import 'package:openiothub/pages/common/openiothub_common_pages.dart';
 import 'package:openiothub/core/theme/app_spacing.dart';
 import 'package:openiothub/core/theme/constants.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';

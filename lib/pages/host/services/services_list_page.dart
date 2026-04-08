@@ -11,7 +11,7 @@ import 'package:openiothub/utils/common/toast.dart';
 import 'package:openiothub/ads/openiothub_ads.dart';
 import 'package:openiothub/network/openiothub/common_device_api.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
-import 'package:openiothub/plugin/open_with_choice/open_with_choice.dart';
+import 'package:openiothub/plugins/open_with_choice/open_with_choice.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 

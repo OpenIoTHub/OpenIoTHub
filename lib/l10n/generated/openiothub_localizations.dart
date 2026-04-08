@@ -3249,6 +3249,21 @@ abstract class OpenIoTHubLocalizations {
   /// In zh, this message translates to:
   /// **'Shift'**
   String get ssh_key_shift;
+
+  /// No description provided for @plugin_registry_page_build_failed_title.
+  ///
+  /// In zh, this message translates to:
+  /// **'插件页面加载失败'**
+  String get plugin_registry_page_build_failed_title;
+
+  /// No description provided for @plugin_registry_page_build_failed_details.
+  ///
+  /// In zh, this message translates to:
+  /// **'{pluginId}\n{error}'**
+  String plugin_registry_page_build_failed_details(
+    String pluginId,
+    String error,
+  );
 }
 
 class _OpenIoTHubLocalizationsDelegate

@@ -526,5 +526,17 @@
   "ssh_terminal_connected": "已连接",
   "ssh_key_ctrl": "Ctrl",
   "ssh_key_alt": "Alt",
-  "ssh_key_shift": "Shift"
+  "ssh_key_shift": "Shift",
+  "plugin_registry_page_build_failed_title": "插件页面加载失败",
+  "plugin_registry_page_build_failed_details": "{pluginId}\n{error}",
+  "@plugin_registry_page_build_failed_details": {
+    "placeholders": {
+      "pluginId": {
+        "type": "String"
+      },
+      "error": {
+        "type": "String"
+      }
+    }
+  }
 }

@@ -1625,4 +1625,15 @@ class OpenIoTHubLocalizationsMs extends OpenIoTHubLocalizations {
 
   @override
   String get ssh_key_shift => 'Shift';
+
+  @override
+  String get plugin_registry_page_build_failed_title => '插件页面加载失败';
+
+  @override
+  String plugin_registry_page_build_failed_details(
+    String pluginId,
+    String error,
+  ) {
+    return '$pluginId\n$error';
+  }
 }

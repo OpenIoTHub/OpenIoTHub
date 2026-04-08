@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:openiothub/common_pages/openiothub_common_pages.dart';
+import 'package:openiothub/pages/common/openiothub_common_pages.dart';
 import 'package:openiothub/pages/guide/guide_page.dart';
 import 'package:openiothub/pages/profile/tools/tools_type_page.dart';
 import 'package:openiothub/pages/scanner/scan_qr.dart';
 import 'package:openiothub/pages/service/add_mqtt_devices_page.dart';
 import 'package:openiothub/pages/service/third_device/zip_devices_page.dart';
-import 'package:openiothub/plugin/openiothub_plugin.dart';
+import 'package:openiothub/plugins/openiothub_plugin.dart';
 import 'package:openiothub/router/core/app_navigator.dart';
 import 'package:openiothub/router/core/app_routes.dart';
 import 'package:openiothub/router/core/go_router_keys.dart';

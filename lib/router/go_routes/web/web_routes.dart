@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:openiothub/common_pages/web/full_screen_web.dart';
-import 'package:openiothub/common_pages/web/web2.dart';
+import 'package:openiothub/pages/common/web/full_screen_web.dart';
+import 'package:openiothub/pages/common/web/web2.dart';
 import 'package:openiothub/router/core/app_navigator.dart';
 import 'package:openiothub/router/core/app_routes.dart';
 import 'package:openiothub/router/core/go_router_keys.dart';
