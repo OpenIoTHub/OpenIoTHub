@@ -1,10 +1,10 @@
 import 'package:grpc/grpc.dart';
 import 'package:openiothub/network/iot_manager/iot_manager_channel.dart';
-import 'package:openiothub/network/utils/jwt.dart';
+import 'package:openiothub/utils/network/jwt.dart';
 import 'package:openiothub_grpc_api/google/protobuf/empty.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/common.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/mqttDeviceManager.pbgrpc.dart';
-import 'package:openiothub/network/network_log.dart';
+import 'package:openiothub/network/logging/network_log.dart';
 
 class MqttDeviceManager {
   // rpc AddMqttDevice (MqttDeviceInfo) returns (OperationResponse) {}

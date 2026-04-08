@@ -5,9 +5,9 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:openiothub/plugin/openiothub_plugin.dart';
-import 'package:openiothub/utils/openiothub_desktop_layout.dart';
+import 'package:openiothub/utils/app/openiothub_desktop_layout.dart';
 
-import 'package:openiothub/plugin/models/port_service_info.dart';
+import 'package:openiothub/models/port_service_info.dart';
 
 class UART2TCPPage extends StatefulWidget {
   const UART2TCPPage({required Key key, required this.device}) : super(key: key);

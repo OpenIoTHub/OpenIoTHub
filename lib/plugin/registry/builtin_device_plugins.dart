@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:openiothub/plugin/mdns_service/components.dart';
+import 'package:openiothub/plugin/mdns_service/shared/components.dart';
 import 'package:openiothub/plugin/registry/plugin_registry.dart';
 
 /// 内置「设备类」插件（传感器、斐讯、MQTT 设备等）。

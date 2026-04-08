@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:openiothub/ads/utils/locale_name.dart';
+import 'package:openiothub/utils/ads/locale_name.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 
 void main() {

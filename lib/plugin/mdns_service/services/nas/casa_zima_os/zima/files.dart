@@ -5,11 +5,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_breadcrumb/flutter_breadcrumb.dart';
 import 'package:openiothub/plugin/generated/assets.dart';
-import 'package:openiothub/plugin/pages/network_video_player_page.dart';
-import 'package:openiothub/common_pages/utils/toast.dart';
-import 'package:openiothub/utils/openiothub_desktop_layout.dart';
+import 'package:openiothub/plugin/pages/media/network_video_player_page.dart';
+import 'package:openiothub/utils/common/toast.dart';
+import 'package:openiothub/utils/app/openiothub_desktop_layout.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub/plugin/utils/web.dart';
+import 'package:openiothub/utils/plugin/web.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 class FileManagerPage extends StatefulWidget {

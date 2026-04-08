@@ -4,4 +4,4 @@ export 'gtads/init.dart';
 export 'gtads/banner_gtads.dart';
 export 'gtads/splash_page_gtads.dart';
 export 'google/google_ad.dart';
-export 'utils/locale_name.dart';
+export 'package:openiothub/utils/ads/locale_name.dart';

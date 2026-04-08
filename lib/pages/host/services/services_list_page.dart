@@ -7,19 +7,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gtads/gtads.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub/common_pages/utils/toast.dart';
+import 'package:openiothub/utils/common/toast.dart';
 import 'package:openiothub/ads/openiothub_ads.dart';
 import 'package:openiothub/network/openiothub/common_device_api.dart';
-import 'package:openiothub/core/app_spacing.dart';
-import 'package:openiothub/core/constants.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub/plugin/open_with_choice/open_with_choice.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
-import 'package:openiothub/core/globals.dart';
-import 'package:openiothub/init.dart';
-import 'package:openiothub/utils/openiothub_desktop_layout.dart';
+import 'package:openiothub/core/openiothub_constants.dart';
+import 'package:openiothub/app/init.dart';
+import 'package:openiothub/utils/app/openiothub_desktop_layout.dart';
 import 'create_service.dart';
 
 class ServicesListPage extends StatefulWidget {

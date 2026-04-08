@@ -1,12 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:openiothub/pages/scanner/scanned_barcode_label.dart';
-import 'package:openiothub/pages/scanner/scanner_error_widget.dart';
+import 'package:openiothub/widgets/scanner/scanned_barcode_label.dart';
+import 'package:openiothub/widgets/scanner/scanner_error_widget.dart';
 import 'package:openiothub/network/iot_manager/gateway_manager.dart';
 import 'package:openiothub/network/openiothub/common_device_api.dart';
 import 'package:openiothub/network/openiothub/session_api.dart';
-import 'package:openiothub/network/utils/uuid.dart';
+import 'package:openiothub/utils/network/uuid.dart';
 import 'package:openiothub_grpc_api/google/protobuf/wrappers.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/common.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/gatewayManager.pb.dart';
@@ -16,9 +16,9 @@ import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import 'package:go_router/go_router.dart';
-import 'package:openiothub/router/app_routes.dart';
-import 'package:openiothub/utils/check_auth.dart';
-import 'package:openiothub/common_pages/utils/toast.dart';
+import 'package:openiothub/router/core/app_routes.dart';
+import 'package:openiothub/utils/app/check_auth.dart';
+import 'package:openiothub/utils/common/toast.dart';
 
 class ScanQRPage extends StatefulWidget {
   const ScanQRPage({super.key});

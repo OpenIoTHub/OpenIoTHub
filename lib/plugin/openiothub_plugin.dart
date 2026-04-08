@@ -9,8 +9,8 @@ export 'package:openiothub/plugin/registry/plugin_registry.dart';
 
 export 'package:openiothub/plugin/mdns_service/services/ssh/ssh_page.dart';
 
-export 'package:openiothub/plugin/mdns_service/comm_widgets/upload_ota.dart';
+export 'package:openiothub/widgets/mdns/upload_ota.dart';
 
-export "package:openiothub/plugin/mdns_service/comm_widgets/info.dart";
+export 'package:openiothub/widgets/mdns/info.dart';
 
 export 'package:openiothub/plugin/pages/plugin_pages.dart';

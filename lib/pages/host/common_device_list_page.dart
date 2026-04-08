@@ -3,19 +3,19 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub/router/app_navigator.dart';
-import 'package:openiothub/pages/host/widgets/add_host.dart';
+import 'package:openiothub/router/core/app_navigator.dart';
+import 'package:openiothub/widgets/host/add_host.dart';
 // import 'package:openiothub/pages/commonDevice/services/old/commonDeviceServiceTypesList.dart';
 import 'package:openiothub/core/openiothub_constants.dart';
-import 'package:openiothub/widgets/build_global_actions.dart';
-import 'package:openiothub/common_pages/utils/toast.dart';
+import 'package:openiothub/widgets/common/build_global_actions.dart';
+import 'package:openiothub/utils/common/toast.dart';
 import 'package:openiothub/network/openiothub_api.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import 'package:openiothub/ads/openiothub_ads.dart';
-import 'package:openiothub/utils/openiothub_desktop_layout.dart';
+import 'package:openiothub/utils/app/openiothub_desktop_layout.dart';
 
 class CommonDeviceListPage extends StatefulWidget {
   const CommonDeviceListPage({required Key key, required this.title})

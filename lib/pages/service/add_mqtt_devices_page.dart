@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:openiothub/router/app_routes.dart';
-import 'package:openiothub/utils/openiothub_desktop_layout.dart';
+import 'package:openiothub/router/core/app_routes.dart';
+import 'package:openiothub/utils/app/openiothub_desktop_layout.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 
 class AddMqttDevicesPage extends StatefulWidget {

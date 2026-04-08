@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vlc_player/flutter_vlc_player.dart';
-import 'package:openiothub/plugin/models/port_service_info.dart';
-import 'package:openiothub/utils/openiothub_desktop_layout.dart';
-import '../../mdns_service/comm_widgets/info.dart';
+import 'package:openiothub/models/port_service_info.dart';
+import 'package:openiothub/utils/app/openiothub_desktop_layout.dart';
+import 'package:openiothub/widgets/mdns/info.dart';
 
 class VideoPlayer extends StatefulWidget {
   const VideoPlayer({required Key key, required this.device}) : super(key: key);

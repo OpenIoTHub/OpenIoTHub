@@ -18,9 +18,9 @@ import 'package:openiothub/plugin/mdns_service/services/ssh/ssh_page.dart'
 import 'package:openiothub/plugin/mdns_service/services/vncrfb_web_page.dart'
     show VNCWebPage;
 import 'package:openiothub/plugin/registry/plugin_navigation.dart';
-import 'package:openiothub/plugin/utils/port_config_to_port_service.dart';
+import 'package:openiothub/utils/plugin/port_config_to_port_service.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import 'package:openiothub/utils/openiothub_desktop_layout.dart';
+import 'package:openiothub/utils/app/openiothub_desktop_layout.dart';
 
 enum _OpenWithChoiceKind {
   web,

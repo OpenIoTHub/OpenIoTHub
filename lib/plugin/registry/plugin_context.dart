@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:openiothub/plugin/models/port_service_info.dart';
+import 'package:openiothub/models/port_service_info.dart';
 
 /// 打开插件页时的统一入参，便于后续扩展（网关、会话、附加路由参数等）
 /// 而不改动各插件页面的构造函数。

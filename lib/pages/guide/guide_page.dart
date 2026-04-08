@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:openiothub/pages/guide/guide_widget.dart';
-import 'package:openiothub/utils/openiothub_desktop_layout.dart';
+import 'package:openiothub/widgets/guide/guide_widget.dart';
+import 'package:openiothub/utils/app/openiothub_desktop_layout.dart';
 
 import '../../l10n/generated/openiothub_localizations.dart';
 

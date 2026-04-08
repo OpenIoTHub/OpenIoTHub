@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:openiothub/common_pages/web/web.dart';
 
-import 'package:openiothub/plugin/models/port_service_info.dart';
+import 'package:openiothub/models/port_service_info.dart';
 
 class WebPage extends StatefulWidget {
   const WebPage({required Key key, required this.device}) : super(key: key);

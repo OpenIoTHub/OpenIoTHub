@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:openiothub/plugin/models/port_service_info.dart';
+import 'package:openiothub/models/port_service_info.dart';
 import 'package:openiothub/plugin/registry/plugin_registry.dart';
-import 'package:openiothub/router/app_navigator.dart';
+import 'package:openiothub/router/core/app_navigator.dart';
 import 'package:provider/provider.dart';
 
 /// 与 [PluginRegistry] 配合的导航，避免各处重复 `supports` / `buildPage` 逻辑。

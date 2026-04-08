@@ -1,7 +1,7 @@
 import 'package:openiothub/network/gateway/gateway_channel.dart';
 import 'package:openiothub_grpc_api/google/protobuf/empty.pb.dart';
 import 'package:openiothub_grpc_api/proto/gateway/gateway.pbgrpc.dart';
-import 'package:openiothub/network/network_log.dart';
+import 'package:openiothub/network/logging/network_log.dart';
 
 class GatewayLoginManager {
   static Future<LoginResponse> checkGatewayLoginStatus(

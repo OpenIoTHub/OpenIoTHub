@@ -3,7 +3,7 @@ import 'package:openiothub/network/openiothub/session_api.dart';
 import 'package:openiothub/network/openiothub/utils.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 
-import '../utils/ip.dart';
+import 'package:openiothub/utils/network/ip.dart';
 
 class Channel {
   static Future<ClientChannel> getServerChannel(String runId) async {

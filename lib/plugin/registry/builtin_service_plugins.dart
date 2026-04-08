@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:openiothub/plugin/mdns_service/components.dart';
+import 'package:openiothub/plugin/mdns_service/shared/components.dart';
 import 'package:openiothub/plugin/mdns_service/services/nas/casa_zima_os/casaos_login.dart';
 import 'package:openiothub/plugin/mdns_service/services/nas/casa_zima_os/zima_login.dart';
 import 'package:openiothub/plugin/mdns_service/services/nas/unraid/login.dart';

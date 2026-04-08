@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:openiothub/core/config.dart';
-import 'package:openiothub/plugin/utils/port_config_to_port_service.dart';
+import 'package:openiothub/core/config/config.dart';
+import 'package:openiothub/utils/plugin/port_config_to_port_service.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 
 void main() {

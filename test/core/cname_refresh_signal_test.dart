@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:openiothub/core/cname_refresh_signal.dart';
+import 'package:openiothub/core/signal/cname_refresh_signal.dart';
 
 void main() {
   test('notifyCnamesSynced invokes listeners', () {

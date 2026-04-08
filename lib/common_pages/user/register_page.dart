@@ -3,7 +3,7 @@ import 'package:openiothub/network/openiothub_api.dart';
 import 'package:openiothub/common_pages/openiothub_common_pages.dart';
 import 'package:openiothub_grpc_api/proto/manager/common.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/userManager.pb.dart';
-import 'package:openiothub/utils/openiothub_desktop_layout.dart';
+import 'package:openiothub/utils/app/openiothub_desktop_layout.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 class RegisterPage extends StatefulWidget {

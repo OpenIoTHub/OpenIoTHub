@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:openiothub/network/openiothub_api.dart';
-import 'package:openiothub/core/constants.dart';
+import 'package:openiothub/core/theme/constants.dart';
 import 'package:openiothub_grpc_api/proto/gateway/gateway.pb.dart';
 import 'package:openiothub_grpc_api/proto/gateway/gateway.pbgrpc.dart';
 import 'package:openiothub_grpc_api/proto/manager/gatewayManager.pb.dart';
@@ -8,11 +8,11 @@ import 'package:openiothub_grpc_api/proto/manager/serverManager.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub/common_pages/utils/toast.dart';
+import 'package:openiothub/utils/common/toast.dart';
 
-import 'package:openiothub/plugin/models/port_service_info.dart';
-import 'package:openiothub/utils/openiothub_desktop_layout.dart';
-import '../../mdns_service/comm_widgets/info.dart';
+import 'package:openiothub/models/port_service_info.dart';
+import 'package:openiothub/utils/app/openiothub_desktop_layout.dart';
+import 'package:openiothub/widgets/mdns/info.dart';
 
 class Gateway extends StatefulWidget {
   const Gateway({required Key key, required this.device}) : super(key: key);

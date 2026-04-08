@@ -5,7 +5,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:gtads/gtads.dart';
 // import 'package:gtads_csj/gtads_csj.dart';
 import 'package:gtads_ylh/gtads_ylh.dart';
-import 'package:openiothub/core/shared_preferences_keys.dart';
+import 'package:openiothub/core/storage/shared_preferences_keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../configs/configs.dart';

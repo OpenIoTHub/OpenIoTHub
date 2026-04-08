@@ -3,12 +3,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:openiothub/plugin/generated/assets.dart';
 import 'package:openiothub/plugin/openiothub_plugin.dart';
-import 'package:openiothub/common_pages/utils/toast.dart';
+import 'package:openiothub/utils/common/toast.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub/utils/openiothub_desktop_layout.dart';
+import 'package:openiothub/utils/app/openiothub_desktop_layout.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
-import 'package:openiothub/plugin/models/port_service_info.dart';
+import 'package:openiothub/models/port_service_info.dart';
 import './installed_apps.dart';
 
 //手动注册一些端口到mdns的声明，用于接入一些传统的设备或者服务或者帮助一些不方便注册mdns的设备或服务注册

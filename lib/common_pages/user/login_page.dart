@@ -6,8 +6,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:openiothub/network/openiothub_api.dart';
-import 'package:openiothub/providers/auth_provider.dart';
-import 'package:openiothub/router/app_routes.dart';
+import 'package:openiothub/app/providers/auth_provider.dart';
+import 'package:openiothub/router/core/app_routes.dart';
 import 'package:openiothub/core/openiothub_constants.dart';
 import 'package:openiothub_grpc_api/proto/manager/userManager.pb.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +16,7 @@ import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:wechat_kit/wechat_kit.dart';
 
 import 'package:openiothub/common_pages/openiothub_common_pages.dart';
-import 'package:openiothub/utils/openiothub_desktop_layout.dart';
+import 'package:openiothub/utils/app/openiothub_desktop_layout.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

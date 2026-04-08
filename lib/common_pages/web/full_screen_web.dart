@@ -5,9 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import 'package:openiothub/utils/openiothub_desktop_layout.dart';
+import 'package:openiothub/utils/app/openiothub_desktop_layout.dart';
 
-import '../utils/toast.dart';
+import 'package:openiothub/utils/common/toast.dart';
 
 GlobalKey<FullScreenWebState> webGlobalKey = GlobalKey();
 

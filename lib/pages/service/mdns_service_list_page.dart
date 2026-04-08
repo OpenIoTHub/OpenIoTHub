@@ -4,26 +4,25 @@ import 'dart:io';
 import 'package:bonsoir/bonsoir.dart';
 import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub/widgets/build_global_actions.dart';
+import 'package:openiothub/widgets/common/build_global_actions.dart';
 import 'package:openiothub/network/openiothub_api.dart';
 import 'package:openiothub/core/openiothub_constants.dart';
 import 'package:openiothub_grpc_api/proto/manager/mqttDeviceManager.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
-import 'package:openiothub/plugin/models/port_service_info.dart';
-import 'package:openiothub/plugin/mdns_service/mdns_type2_model_map.dart';
+import 'package:openiothub/models/port_service_info.dart';
+import 'package:openiothub/plugin/mdns_service/shared/mdns_type2_model_map.dart';
 import 'package:openiothub/plugin/registry/plugin_navigation.dart';
-import 'package:openiothub/plugin/utils/port_config_to_port_service.dart';
+import 'package:openiothub/utils/plugin/port_config_to_port_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 // import '../../widgets/ads/banner_gtads.dart';
-import 'package:openiothub/core/cname_refresh_signal.dart';
-import 'package:openiothub/core/globals.dart';
-import 'package:openiothub/router/app_navigator.dart';
+import 'package:openiothub/core/signal/cname_refresh_signal.dart';
+import 'package:openiothub/router/core/app_navigator.dart';
 import 'package:openiothub/ads/openiothub_ads.dart';
-import 'package:openiothub/common_pages/utils/toast.dart';
-import 'package:openiothub/utils/openiothub_desktop_layout.dart';
+import 'package:openiothub/utils/common/toast.dart';
+import 'package:openiothub/utils/app/openiothub_desktop_layout.dart';
 
 class MdnsServiceListPage extends StatefulWidget {
   const MdnsServiceListPage({required Key key, required this.title})

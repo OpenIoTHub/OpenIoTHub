@@ -5,12 +5,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:mqtt5_client/mqtt5_client.dart';
 import 'package:mqtt5_client/mqtt5_server_client.dart';
-import 'package:openiothub/common_pages/utils/toast.dart';
+import 'package:openiothub/utils/common/toast.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 
-import 'package:openiothub/plugin/models/port_service_info.dart';
-import 'package:openiothub/utils/openiothub_desktop_layout.dart';
-import '../../comm_widgets/info.dart';
+import 'package:openiothub/models/port_service_info.dart';
+import 'package:openiothub/utils/app/openiothub_desktop_layout.dart';
+import 'package:openiothub/widgets/mdns/info.dart';
 
 class MqttPhicommzTc1A1PluginPage extends StatefulWidget {
   const MqttPhicommzTc1A1PluginPage({required Key key, required this.device})

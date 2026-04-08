@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:openiothub/plugin/models/port_service_info.dart';
+import 'package:openiothub/models/port_service_info.dart';
 import 'package:openiothub/plugin/registry/plugin_context.dart';
 import 'package:openiothub/plugin/registry/plugin_registry.dart';
 

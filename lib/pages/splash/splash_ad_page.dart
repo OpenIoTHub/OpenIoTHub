@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub/router/app_routes.dart';
+import 'package:openiothub/router/core/app_routes.dart';
 
 class SplashAdPage extends StatefulWidget {
   const SplashAdPage({super.key});

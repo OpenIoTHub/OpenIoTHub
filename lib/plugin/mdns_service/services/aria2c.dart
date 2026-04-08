@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:openiothub/core/openiothub_constants.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-import 'package:openiothub/plugin/models/port_service_info.dart';
+import 'package:openiothub/models/port_service_info.dart';
 
 class Aria2Page extends StatefulWidget {
   const Aria2Page({required Key key, required this.device}) : super(key: key);

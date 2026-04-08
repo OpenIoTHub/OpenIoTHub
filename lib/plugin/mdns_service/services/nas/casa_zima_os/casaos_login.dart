@@ -3,11 +3,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:openiothub/plugin/openiothub_plugin.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import 'package:openiothub/plugin/models/port_service_info.dart';
+import 'package:openiothub/models/port_service_info.dart';
 import 'casa/installed_apps.dart';
-import 'package:openiothub/common_pages/utils/toast.dart';
+import 'package:openiothub/utils/common/toast.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub/utils/openiothub_desktop_layout.dart';
+import 'package:openiothub/utils/app/openiothub_desktop_layout.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import 'package:openiothub/plugin/generated/assets.dart';

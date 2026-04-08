@@ -11,7 +11,7 @@ import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:wechat_kit/wechat_kit.dart';
 
 import 'package:openiothub/common_pages/openiothub_common_pages.dart';
-import 'package:openiothub/utils/openiothub_desktop_layout.dart';
+import 'package:openiothub/utils/app/openiothub_desktop_layout.dart';
 
 class GatewayQrPage extends StatefulWidget {
   const GatewayQrPage({super.key});

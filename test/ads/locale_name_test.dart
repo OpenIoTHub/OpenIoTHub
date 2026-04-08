@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:openiothub/ads/utils/locale_name.dart';
+import 'package:openiothub/utils/ads/locale_name.dart';
 
 void main() {
   group('isCnMainland', () {

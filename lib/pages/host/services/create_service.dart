@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub/core/app_spacing.dart';
-import 'package:openiothub/common_pages/utils/toast.dart';
+import 'package:openiothub/core/theme/app_spacing.dart';
+import 'package:openiothub/utils/common/toast.dart';
 import 'package:openiothub/network/openiothub/common_device_api.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
 

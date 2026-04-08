@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
 import 'package:openiothub/core/openiothub_constants.dart';
-import 'package:openiothub/widgets/build_global_actions.dart';
+import 'package:openiothub/widgets/common/build_global_actions.dart';
 import 'package:openiothub/network/openiothub/session_api.dart';
 import 'package:openiothub/network/openiothub_api.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pb.dart';
@@ -12,8 +12,8 @@ import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import 'package:openiothub/ads/openiothub_ads.dart';
-import 'package:openiothub/router/app_navigator.dart';
-import 'package:openiothub/utils/openiothub_desktop_layout.dart';
+import 'package:openiothub/router/core/app_navigator.dart';
+import 'package:openiothub/utils/app/openiothub_desktop_layout.dart';
 
 class GatewayListPage extends StatefulWidget {
   const GatewayListPage({required Key key, required this.title})

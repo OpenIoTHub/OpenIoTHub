@@ -4,10 +4,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:openiothub/plugin/openiothub_plugin.dart';
-import 'package:openiothub/plugin/utils/ip.dart';
+import 'package:openiothub/utils/network/dns_lookup.dart';
 
-import 'package:openiothub/plugin/models/port_service_info.dart';
-import 'package:openiothub/utils/openiothub_desktop_layout.dart';
+import 'package:openiothub/models/port_service_info.dart';
+import 'package:openiothub/utils/app/openiothub_desktop_layout.dart';
 
 class PhicommTC1A1PluginPage extends StatefulWidget {
   const PhicommTC1A1PluginPage({required Key key, required this.device})

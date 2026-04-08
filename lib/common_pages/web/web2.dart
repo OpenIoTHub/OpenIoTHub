@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:openiothub/ads/ylh/banner_ylh.dart';
-import 'package:openiothub/utils/openiothub_desktop_layout.dart';
+import 'package:openiothub/utils/app/openiothub_desktop_layout.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 

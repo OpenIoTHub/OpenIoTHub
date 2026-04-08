@@ -4,7 +4,7 @@ import 'package:openiothub_grpc_api/google/protobuf/empty.pb.dart';
 import 'package:openiothub_grpc_api/google/protobuf/wrappers.pb.dart';
 import 'package:openiothub_grpc_api/proto/manager/gatewayManager.pb.dart';
 import 'package:openiothub_grpc_api/proto/mobile/mobile.pbgrpc.dart';
-import 'package:openiothub/network/network_log.dart';
+import 'package:openiothub/network/logging/network_log.dart';
 
 class SessionApi {
 //  TODO 可以选择grpc所执行的主机，可以是安卓本机也可以是pc，也可以是服务器

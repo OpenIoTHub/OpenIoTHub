@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:openiothub/common_pages/openiothub_common_pages.dart';
-import 'package:openiothub/core/app_spacing.dart';
-import 'package:openiothub/core/constants.dart';
+import 'package:openiothub/core/theme/app_spacing.dart';
+import 'package:openiothub/core/theme/constants.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub/utils/openiothub_desktop_layout.dart';
-import 'package:openiothub/router/app_navigator.dart';
+import 'package:openiothub/utils/app/openiothub_desktop_layout.dart';
+import 'package:openiothub/router/core/app_navigator.dart';
 
 class ToolsTypePage extends StatelessWidget {
   static const String tagStart = "startDivider";

@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:openiothub/core/openiothub_constants.dart';
 import 'package:openiothub/plugin/openiothub_plugin.dart';
-import 'package:openiothub/plugin/utils/ip.dart';
+import 'package:openiothub/utils/network/dns_lookup.dart';
 
-import 'package:openiothub/plugin/models/port_service_info.dart';
-import 'package:openiothub/utils/openiothub_desktop_layout.dart';
+import 'package:openiothub/models/port_service_info.dart';
+import 'package:openiothub/utils/app/openiothub_desktop_layout.dart';
 
 //手动注册一些端口到mdns的声明，用于接入一些传统的设备或者服务或者帮助一些不方便注册mdns的设备或服务注册
 //需要选择模型和输入相关配置参数

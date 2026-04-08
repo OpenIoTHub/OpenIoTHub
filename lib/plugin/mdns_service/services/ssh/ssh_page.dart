@@ -8,7 +8,7 @@ import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:xterm/xterm.dart';
 
 import 'package:openiothub/l10n/generated/openiothub_localizations.dart';
-import 'package:openiothub/plugin/models/port_service_info.dart';
+import 'package:openiothub/models/port_service_info.dart';
 import './virtual_keyboard.dart';
 
 class SSHNativePage extends StatefulWidget {
