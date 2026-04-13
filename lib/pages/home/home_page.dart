@@ -281,7 +281,6 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                         )
                         .then((_) {
                           initWechat();
-                          initQQ();
                         });
                     if (!mounted) return;
                     Navigator.of(context).pop();

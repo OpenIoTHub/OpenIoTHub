@@ -66,57 +66,55 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           },
         ),
       ],
-      child: Consumer<LocaleProvider>(
-        builder: (context, localeProvider, child) {
+      child: Builder(
+        builder: (context) {
+          final localeProvider = context.watch<LocaleProvider>();
+          final customTheme = context.watch<CustomTheme>();
           final systemLocale =
               WidgetsBinding.instance.platformDispatcher.locale;
           final effectiveLocale = localeProvider.getEffectiveLocale(
             systemLocale,
           );
 
-          return Consumer<CustomTheme>(
-            builder: (context, customTheme, child) {
-              return OKToast(
-                child: MaterialApp.router(
-                  title: "云亿连",
-                  debugShowCheckedModeBanner: false,
-                  scrollBehavior: const OpenIoTHubScrollBehavior(),
-                  locale: effectiveLocale,
-                  localizationsDelegates: const [
-                    OpenIoTHubLocalizations.delegate,
-                    FluentLocalizations.delegate,
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                    GlobalCupertinoLocalizations.delegate,
-                  ],
-                  supportedLocales: OpenIoTHubLocalizations.supportedLocales,
-                  localeResolutionCallback: (locale, supportedLocales) {
-                    if (locale == null) return null;
+          return OKToast(
+            child: MaterialApp.router(
+              title: '云亿连',
+              debugShowCheckedModeBanner: false,
+              scrollBehavior: const OpenIoTHubScrollBehavior(),
+              locale: effectiveLocale,
+              localizationsDelegates: const [
+                OpenIoTHubLocalizations.delegate,
+                FluentLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: OpenIoTHubLocalizations.supportedLocales,
+              localeResolutionCallback: (locale, supportedLocales) {
+                if (locale == null) return null;
 
-                    for (final supported in supportedLocales) {
-                      if (supported.languageCode == locale.languageCode &&
-                          supported.countryCode == locale.countryCode) {
-                        return supported;
-                      }
-                    }
+                for (final supported in supportedLocales) {
+                  if (supported.languageCode == locale.languageCode &&
+                      supported.countryCode == locale.countryCode) {
+                    return supported;
+                  }
+                }
 
-                    for (final supported in supportedLocales) {
-                      if (supported.languageCode == locale.languageCode) {
-                        return supported;
-                      }
-                    }
+                for (final supported in supportedLocales) {
+                  if (supported.languageCode == locale.languageCode) {
+                    return supported;
+                  }
+                }
 
-                    return const Locale('en');
-                  },
-                  theme: CustomThemes.getLightTheme(customTheme.primaryColor),
-                  darkTheme: CustomThemes.getDarkTheme(
-                    customTheme.primaryColor,
-                  ),
-                  themeMode: customTheme.getThemeMode(),
-                  routerConfig: _router,
-                ),
-              );
-            },
+                return const Locale('en');
+              },
+              theme: CustomThemes.getLightTheme(customTheme.primaryColor),
+              darkTheme: CustomThemes.getDarkTheme(
+                customTheme.primaryColor,
+              ),
+              themeMode: customTheme.getThemeMode(),
+              routerConfig: _router,
+            ),
           );
         },
       ),

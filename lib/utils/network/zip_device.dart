@@ -93,20 +93,3 @@ Future<List<ZipLocalDevice>> findZipDevicesFromLocal(int timeOut) async {
   });
   return zipLocalDeviceList;
 }
-
-// main() async {
-//   List<ZipLocalDevice> zipLocalDeviceList = await findZipDevicesFromLocal(3);
-//   print(zipLocalDeviceList.length);
-//   if (zipLocalDeviceList != null) {
-//     await zipLocalDeviceList.forEach((ZipLocalDevice zipLocalDevice) {
-//       print("main:$zipLocalDevice");
-//       // zipLocalDevice.send('{"mac":"${zipLocalDevice.mac}","setting":{"name":"${zipLocalDevice.mac}"}}');
-//       // zipLocalDevice.send('{"mac":"${zipLocalDevice.mac}","setting":{"mqtt_uri":null}}');
-//       MqttInfo mqttInfo = MqttInfo();
-//       mqttInfo.mqttServerHost="192.168.123.118";
-//       mqttInfo.mqttServerPort=1883;
-//       zipLocalDevice.configMqttServer(mqttInfo);
-//     });
-//   }
-//   await Future.delayed(Duration(seconds: 1));
-// }

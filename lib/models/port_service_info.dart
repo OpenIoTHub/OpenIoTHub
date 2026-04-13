@@ -42,6 +42,10 @@ class PortServiceInfo {
       info: merged,
     );
   }
+
+  @override
+  String toString() =>
+      'PortServiceInfo($addr:$port, isLocal=$isLocal, runId=$runId, realAddr=$realAddr)';
 }
 
 /// 与 [PluginRegistry] 配合使用的常用元数据访问（避免魔法字符串散落）。

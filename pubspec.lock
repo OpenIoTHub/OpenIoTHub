@@ -377,14 +377,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.7.12"
-  desktop_window:
-    dependency: "direct main"
-    description:
-      name: desktop_window
-      sha256: d0590e75a0a8f91245b439fb7f2bf0ebb62d9cd9fdc7aa0622a5d50615c46845
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.4.2"
   dio:
     dependency: "direct main"
     description:
@@ -418,7 +410,7 @@ packages:
     source: hosted
     version: "2.0.8"
   event_bus:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: event_bus
       sha256: "1a55e97923769c286d295240048fc180e7b0768902c3c2e869fe059aafa15304"

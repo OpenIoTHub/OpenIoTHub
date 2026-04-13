@@ -2,9 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:isolate';
 
-import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:jaguar/jaguar.dart';
 import 'package:jaguar_flutter_asset/jaguar_flutter_asset.dart';
 import 'package:openiothub/app/service/internal_plugin_service.dart';
@@ -19,9 +17,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:wechat_kit/wechat_kit.dart';
-// import 'package:workmanager/workmanager.dart';
-
-// import 'configs/consts.dart';
 
 List<Map<String, bool>>? initList;
 
@@ -36,13 +31,10 @@ Future<void> init() async {
   }
   initHttpAssets();
   initWechat();
-  initQQ();
-  // initSystemUi();
   unawaited(Future.delayed(const Duration(milliseconds: 10), () {
     loadConfig();
     initGatewayService();
   }));
-  // setWindowSize();
 }
 
 /// 同一 Android 进程内若因前台服务等未退出而再次执行 [main]，不得重复 [Isolate.spawn] 调用原生
@@ -111,29 +103,6 @@ Future<void> initWechat() async {
   }
 }
 
-Future<void> initQQ() async {
-  // bool agreed = await agreedPrivacyPolicy();
-  // // 如果同意了隐私政策或者不是安卓平台则初始化wechat_kit
-  // if (agreed || Platform.isIOS) {
-  //   await TencentKitPlatform.instance.setIsPermissionGranted(granted: true);
-  //   await TencentKitPlatform.instance.registerApp(
-  //         appId: QQConfig.qqAppId, universalLink: QQConfig.qqUniversalLink);
-  // }
-}
-
-Future<void> initSystemUi() async {
-  // SystemChrome.setEnabledSystemUIMode([SystemUiOverlay.top] as SystemUiMode);
-  //安卓透明状态栏
-  // if (Platform.isAndroid) {
-  SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-    // 导航栏下面的控制栏的颜色
-    systemNavigationBarColor: Colors.transparent,
-  );
-  SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
-  // }
-}
-
 Future<void> loadConfig() async {
   if (!(await check.userSignedIn())) {
     return;
@@ -152,12 +121,6 @@ Future<void> _loadConfigChain() async {
     debugPrint('loadConfig: $e');
     debugPrint('$stackTrace');
   }
-}
-
-Future<void> setWindowSize() async {
-  Size size = await DesktopWindow.getWindowSize();
-  debugPrint("windows size:$size");
-  await DesktopWindow.setWindowSize(Size(500, 500));
 }
 
 Future<void> initAD() async {
