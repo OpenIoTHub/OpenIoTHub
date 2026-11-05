@@ -59,9 +59,17 @@ class MyApp extends StatelessWidget {
               GlobalWidgetsLocalizations.delegate
             ],
             supportedLocales: OpenIoTHubLocalizations.supportedLocales,
-            localeListResolutionCallback: (locales, supportedLocales) {
-              print("locales:$locales");
-              return;
+            localeListResolutionCallback: (locales, supported) {
+              if (locales != null) {
+                for (final locale in locales) {
+                  for (final candidate in supported) {
+                    if (candidate.languageCode == locale.languageCode) {
+                      return candidate;
+                    }
+                  }
+                }
+              }
+              return const Locale('en');
             },
             home: (Platform.isAndroid || Platform.isIOS)
                 ? SplashAdPage()
