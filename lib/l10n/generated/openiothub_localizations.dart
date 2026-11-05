@@ -97,8 +97,8 @@ abstract class OpenIoTHubLocalizations {
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
-    Locale('zh'),
     Locale('en'),
+    Locale('zh'),
     Locale('zh', 'CN'),
     Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'),
     Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
